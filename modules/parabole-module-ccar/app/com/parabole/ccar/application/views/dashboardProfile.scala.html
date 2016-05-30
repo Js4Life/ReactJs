@@ -1,0 +1,39 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <span class="glyphicon glyphicon-chevron-left pull-left" style="margin-right:10px;" ng-click="goPreviousScreen()"></span>
+        {{heading.title}}
+    </div>
+    <div class="panel-body" style="height: 56vh;">    
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel-3d">
+                    <vis-timeline data="data" options="options" events="events"></vis-timeline>
+                </div>
+            </div>
+        </div>            
+    </div>
+    <div class="panel-footer" style="height: 26vh;">
+        <ul class="text-success">
+          <li>Data element identification 70 % (7/10)</li>
+          <li>System Of Record Identification 50 % (5/10)</li>
+          <li>Gap closure 50 % (1/2)</li>
+        </ul>
+    </div>
+</div>
+
+<div class="modal fade" id="expandedViewModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">{{selMilestone.name}}</h4>
+      </div>
+      <div class="modal-body" style="min-height:20vh;overflow:auto;">
+        {{selMilestone.text}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

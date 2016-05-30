@@ -1,0 +1,78 @@
+<!-- <div id="toCapture" class="panel panel-default">
+    <div class="panel-heading">
+        <span class="glyphicon glyphicon-chevron-left pull-left" style="margin-right:10px;" ng-click="goPreviousScreen()"></span>
+        {{heading.title}} – Completion Coverage
+        <span class="glyphicon glyphicon-eye-open pull-right" ng-click="showDetail()"></span>
+        <span class="glyphicon glyphicon-camera pull-right margin-right-10" ng-click="capturePage()"></span>
+    </div>
+    <div class="panel-body" style="height: 82vh; overflow-y: auto;padding:10px;">    
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" ng-class="{'active':$index==0}" ng-click="onTabClick($index)" ng-repeat="data in scheduleData"><a class="pointer" data-target="#tab{{$index}}" aria-controls="tab{{$index}}" role="tab" data-toggle="tab">{{data.name}}</a></li>
+        </ul>
+        <div class="tab-content">
+            <div role="tabpanel" ng-repeat="data in scheduleData" ng-class="{'active':$index==0, 'in':$index==0}" class="tab-pane fade" id="tab{{$index}}">
+                <div class="col-xs-6 zero-padding" style="height:73vh;border:1px solid #ddd;border-top:0;overflow:auto;">
+                    <table class="table table-striped table-bordered table-condenced">
+                        <thead>
+                            <tr>
+                                <th ng-repeat="col in tableData.columns">{{col}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in tableData.rows">
+                                <td ng-repeat="def in row">{{def.name}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-xs-6" style="height:73vh;border:1px solid #ddd;border-top:0;border-left:0;">
+                    <div id="graphContainer{{$index}}" class="panel-body"></div>
+                </div>                 
+            </div>
+        </div>
+    </div>
+</div>
+
+ -->
+ 
+ 
+ 
+ <div id="toCapture" class="panel panel-default">
+    <div class="panel-heading">
+        <span class="glyphicon glyphicon-chevron-left pull-left" style="margin-right:10px;" ng-click="goPreviousScreen()"></span>
+        {{heading.title}}
+        <span class="glyphicon glyphicon-camera pull-right" ng-click="capturePage()"></span>
+    </div>
+    <div class="panel-body" style="height: 82vh; overflow-y: auto;padding:10px;">        
+        <div class="col-md-4" ng-class="animation" ng-repeat="report in reports">
+            <div class="card">
+                <div class="card-body pointer" ng-click="viewReport(report)">
+                    <div high-chart options="report.options" data="report.data" class="card-image container-fluid">
+                        
+                    </div>
+                    <div class="card-content margin-top-5">
+                        <p>{{report.description}}</p>
+                    </div>
+                </div>
+                <div class="card-action">
+                    <label>{{report.name}}</label>
+                    <span style="color:white;" class="glyphicon glyphicon-fullscreen pull-right icon-sm" ng-click="expandView(report)"></span>
+                    <span style="color:white;" class="glyphicon glyphicon-eye-open pull-right icon-sm margin-right-10" ng-click="drillDown(report)"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="expandedViewModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg width-90">
+    <div class="modal-content">
+      <div class="modal-body" style="height:76vh;overflow:auto;">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

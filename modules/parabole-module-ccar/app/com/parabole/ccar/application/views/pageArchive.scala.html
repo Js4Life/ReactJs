@@ -1,0 +1,111 @@
+<div class="col-md-3 padding-15 archive-card" ng-class="animation" ng-repeat="page in pages track by $index">
+	<div class="right-icons">	
+		<i class="fa fa-check pull-right" ng-class="{'text-green':page.isChecked}" ng-click="selectPage(page)"></i>
+		<i class="fa fa-eye pull-right" ng-click="viewPage(page)"></i>
+	</div>
+	<div ng-if="page.isChecked" class="paper-clip"></div>
+	<img ng-src="{{page.data}}" class="img-responsive img-thumbnail shadow-10">
+</div>
+
+<div tooltip='"title":"Download Report","placement":"top"' class="bubble-icon" ng-click="setReportConf()"><i class="fa fa-download"></i></div>
+
+<div id="pageViewModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg width-90">
+    <div class="modal-content">
+      <div class="modal-body">
+        <img ng-src="{{page.data}}" class="img-responsive">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="pageDetailModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Page Details</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="heading">Heading Text</label>
+            <input type="text" class="form-control" id="heading" placeholder="Heading" ng-model="page.heading">
+          </div>
+          <div class="form-group">
+            <label for="comments">Comments</label>
+            <textarea rows="2" class="form-control" id="comments" placeholder="Comments" ng-model="page.comments"></textarea>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" ng-model="showPage"> Show Page
+            </label>
+          </div>
+        </form>
+        <div ng-if="showPage" class="img-thumbnail page-detail-thumb">
+          <img ng-src="{{page.data}}" class="max-width">
+          <div class="icon-holder">
+            <i class="fa fa-search-minus" ng-click="resizeImg('-')"></i>
+            <i class="fa fa-search-plus" ng-click="resizeImg('+')"></i>            
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="reportDownloadModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Page Details</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+           <div class="form-group">
+              <label for="filename">File Name</label>
+              <input type="text" class="form-control" id="filename" placeholder="File Name" ng-model="report.name">
+           </div>
+           <fieldset>
+              <legend> Cover Page </legend>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" ng-model="report.hasCover"> Insert Cover Page
+                </label>
+              </div> 
+              <div ng-if="report.hasCover" class="form-group">
+                <label for="title">Title</label>
+                <input type="text" class="form-control" id="title" placeholder="Title" ng-model="report.title">
+              </div>
+              <div ng-if="report.hasCover" class="form-group">
+                <label for="title">Sub Title</label>
+                <input type="text" class="form-control" id="subtitle" placeholder="Sub Title" ng-model="report.subtitle">
+              </div>
+           </fieldset>
+           <fieldset>
+              <legend> Page Settings </legend>
+              <div class="form-group">
+                <label for="header">Header Text</label>
+                <input type="text" class="form-control" id="header" placeholder="Header" ng-model="report.header">
+              </div>
+              <div class="form-group">
+                <label for="footer">Footer Text</label>
+                <input type="text" class="form-control" id="footer" placeholder="Footer" ng-model="report.footer">
+              </div>
+           </fieldset>
+        </form>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" ng-click="downloadPdf()">Download</button>
+      </div>
+    </div>
+  </div>
+</div>
+

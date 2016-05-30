@@ -1,0 +1,44 @@
+PREFIX mpb-root-main: <http://www.mindparabole.com/ontology/finance/MPBRoot_Main#> 
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX cit:<http://www.mindparabole.com/ontology/finance/CIT_Main#>
+PREFIX CDE:<http://parabole.com/Coarys/CriticalDataElements#>
+PREFIX mt:<http://www.mindparabole.com/meeting#>
+PREFIX pb:<http://www.mindparabole.com/ontology/finance/Parabole-Model#>
+PREFIX mpb-fin-main-ccar-14q:<http://www.mindparabole.com/ontology/finance/FRY-14Q_Main#>
+PREFIX mpb-root-main-crm:<http://www.mindparabole.com/ontology/finance/CreditRiskManagement_Main#>
+PREFIX mpb-fin-main-ccar:<http://www.mindparabole.com/ontology/finance/CCAR_Main#>
+PREFIX Y14DB_Main:<http://www.nextangles.com/ontology/finance/Y14DB_Main#>
+PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
+SELECT ?month (COUNT(?CDE) AS ?Number_of_Elements) (COUNT(?Rules) AS ?Number_Of_Rules) (COUNT(?DS) AS ?Number_of_Stewards)
+WHERE{
+{SELECT *
+WHERE{
+VALUES ?month{1 2 3 4 5 6 7 8 9 10 11 12}
+?CDE CDE:CDE_added_on_Date ?Begin.
+?CDE  CDE:CDE_Removed_Date ?End
+FILTER(month(?Begin) <= ?month && ?month<=month(?End))
+}}
+UNION
+{SELECT  * 
+WHERE {
+
+  VALUES ?month { 1 2 3 4 5 6 7 8 9 10 11 12 }
+
+  ?Rules CDE:Data_Quality_Rule_added_on ?Begin.    
+   ?Rules CDE:Data_Quality_Removed_On ?End.
+
+  FILTER ( month(?Begin) <= ?month && ?month <= month(?End) )
+}}
+UNION
+{SELECT *
+WHERE{
+VALUES ?month { 1 2 3 4 5 6 7 8 9 10 11 12 }
+
+?DS CDE:hasData_Steward_Allocation_Date ?Begin.
+?DS CDE:hasData_Steward_Removal_Date ?End.
+
+FILTER ( month(?Begin) <= ?month && ?month <= month(?End) )
+}}}
+GROUP BY ?month
+

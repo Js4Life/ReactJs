@@ -1,0 +1,10 @@
+[
+  {
+    "name":"Finance & Regulatory Dashboard",
+    "type":"regulatory"
+  },
+  {
+    "name":"Enterprise Data Management Dashboard",
+    "type":"edm"
+  }
+]

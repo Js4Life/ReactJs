@@ -1,0 +1,212 @@
+/*---------------------------------------------begin: annimation--------------------------------------------*/
+/*Outer-View Animation*/
+/* basic styling for entering and leaving */
+/* left and right added to ensure full width */
+.outer-ui.ng-enter,
+.outer-ui.ng-leave      {
+    position:absolute;
+    left:0;
+    right:0;
+    height: 100%;
+    transition:1s all ease;
+    -moz-transition:1s all ease;
+    -webkit-transition:1s all ease;
+}
+
+/* enter animation */
+.outer-ui.ng-enter            {
+    -webkit-animation:slideInRight 1s both ease;
+    -moz-animation:slideInRight 1s both ease;
+    animation:slideInRight 1s both ease;
+}
+
+/* leave animation */
+.outer-ui.ng-leave            {
+    -webkit-animation:slideOutLeft 1s both ease;
+    -moz-animation:slideOutLeft 1s both ease;
+    animation:slideOutLeft 1s both ease;
+}
+
+
+/* slide out to the left */
+@keyframes slideOutLeft {
+    to 		{ transform:translateX(-5%);opacity: 0; }
+}
+@-moz-keyframes slideOutLeft {
+    to 		{ transform:translateX(-5%);opacity: 0; }
+}
+@-webkit-keyframes slideOutLeft {
+    to 		{ transform:translateX(-5%);opacity: 0; }
+}
+
+/* slide in from the right */
+@keyframes slideInRight {
+    from 	{ transform:translateX(2%); }
+    to 		{ transform: translateX(0); }
+}
+@-moz-keyframes slideInRight {
+    from 	{ -moz-transform:translateX(2%); }
+    to 		{ -moz-transform: translateX(0); }
+}
+@-webkit-keyframes slideInRight {
+    from 	{ -webkit-transform:translateX(2%); }
+    to 		{ -webkit-transform: translateX(0); }
+}
+
+
+.inner-ui.ng-enter,
+.inner-ui.ng-leave      {
+    position:absolute;
+    height: 100%;
+    left:80px;
+    right:20px;
+    transition:1s all ease;
+    -moz-transition:1s all ease;
+    -webkit-transition:1s all ease;
+}
+
+/* enter animation */
+.inner-ui.ng-enter            {
+    -webkit-animation:slideInBottom 1s both ease;
+    -moz-animation:slideInBottom 1s both ease;
+    animation:slideInBottom 1s both ease;
+}
+
+/* leave animation */
+.inner-ui.ng-leave            {
+    -webkit-animation:slideOutTop 1s both ease;
+    -moz-animation:slideOutTop 1s both ease;
+    animation:slideOutTop 1s both ease;
+}
+
+
+/* slide out to the top */
+@keyframes slideOutTop {
+    to 		{ transform:translateY(-5%);opacity: 0; }
+}
+@-moz-keyframes slideOutTop {
+    to 		{ transform:translateY(-5%);opacity: 0; }
+}
+@-webkit-keyframes slideOutTop {
+    to 		{ transform:translateY(-5%);opacity: 0; }
+}
+
+/* slide in from the bottom */
+@keyframes slideInBottom {
+    from 	{ transform:translateY(15%); }
+    to 		{ transform: translateY(0); }
+}
+@-moz-keyframes slideInBottom {
+    from 	{ -moz-transform:translateY(15%); }
+    to 		{ -moz-transform: translateY(0); }
+}
+@-webkit-keyframes slideInBottom {
+    from 	{ -webkit-transform:translateY(15%); }
+    to 		{ -webkit-transform: translateY(0); }
+}
+/*----------------------------------------------end: annimation---------------------------------------------*/
+
+/*----------------------------------------begin: ng-repeat animation----------------------------------------*/
+/*one-by-one*/
+.one-by-one {
+    line-height:40px;
+    list-style:none;
+    border-bottom: 1px solid white;
+    -webkit-transition: 0.2s linear all;
+    transition: 0.2s linear all;
+}
+.one-by-one.ng-move,
+.one-by-one.ng-enter,
+.one-by-one.ng-leave {
+    -webkit-transition:all linear 0.2s;
+    transition:all linear 0.2s;
+}
+.one-by-one.ng-leave.ng-leave-active,
+.one-by-one.ng-move,
+.one-by-one.ng-enter {
+    opacity:0;
+    max-height:0;
+}
+.one-by-one.ng-leave,
+.one-by-one.ng-move.ng-move-active,
+.one-by-one.ng-enter.ng-enter-active {
+    opacity:1;
+    max-height:40px;
+}
+.one-by-one.ng-leave-stagger {
+    -webkit-transition-delay: 0.1s;
+    transition-delay: 0.2s;
+    -webkit-transition-duration: 0s;
+    transition-duration: 0s;
+}
+.one-by-one.ng-enter-stagger {
+    -webkit-transition-delay: 0.1s;
+    transition-delay: 0.2s;
+    -webkit-transition-duration: 0s;
+    transition-duration: 0s;
+}
+
+
+/*rotate*/
+.rotate.ng-enter,
+.rotate.ng-leave
+{
+    -webkit-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -moz-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -ms-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -o-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    position: relative;
+    display: block;
+}
+
+.rotate.ng-leave.animate.ng-leave-active,
+.rotate.ng-enter {
+    -webkit-transform: rotateX(90deg) rotateZ(90deg);
+    -moz-transform: rotateX(90deg) rotateZ(90deg);
+    -ms-transform: rotateX(90deg) rotateZ(90deg);
+    -o-transform: rotateX(90deg) rotateZ(90deg);
+    transform: rotateX(90deg) rotateZ(90deg);
+    opacity: 0;
+    height: 0px;
+}
+
+.rotate.ng-enter.ng-enter-active,
+.rotate.ng-leave {
+    -webkit-transform: rotateX(0deg) rotateZ(0deg);
+    -moz-transform: rotateX(0deg) rotateZ(0deg);
+    -ms-transform: rotateX(0deg) rotateZ(0deg);
+    -o-transform: rotateX(0deg) rotateZ(0deg);
+    transform: rotateX(0deg) rotateZ(0deg);
+    opacity: 1;
+    height: 30px;
+}
+
+/*move*/
+.move.ng-enter,
+.move.ng-leave
+{
+    -webkit-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -moz-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -ms-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -o-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    position: relative;
+    display: block;
+}
+
+.move.ng-leave.animate.ng-leave-active,
+.move.ng-enter {
+    opacity: 0;
+    right: -50px;
+    height: 0px;
+}
+
+.move.ng-enter.ng-enter-active,
+.move.ng-leave {
+    opacity: 1;
+    top: 0;
+    height: 30px;
+}
+
+/*----------------------------------------end: ng-repeat animation----------------------------------------*/

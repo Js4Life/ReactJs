@@ -1,0 +1,131 @@
+PREFIX mpb-root-main: <http://www.mindparabole.com/ontology/finance/MPBRoot_Main#> 
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX cit:<http://www.mindparabole.com/ontology/finance/CIT_Main#>
+PREFIX CDE:<http://parabole.com/Coarys/CriticalDataElements#>
+PREFIX mt:<http://www.mindparabole.com/meeting#>
+PREFIX pb:<http://www.mindparabole.com/ontology/finance/Parabole-Model#>
+PREFIX mpb-fin-main-ccar-14q:<http://www.mindparabole.com/ontology/finance/FRY-14Q_Main#>
+PREFIX mpb-root-main-crm:<http://www.mindparabole.com/ontology/finance/CreditRiskManagement_Main#>
+PREFIX mpb-fin-main-ccar:<http://www.mindparabole.com/ontology/finance/CCAR_Main#>
+PREFIX Y14DB_Main:<http://www.nextangles.com/ontology/finance/Y14DB_Main#>
+PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
+SELECT ?Elements
+(SUM(?Col) AS ?Collateral)(SUM(?AA) AS ?Agreement_Attribute)
+(SUM(?Cust) AS ?Customer)(SUM(?AB) AS ?Agreement_Balance) 
+(SUM(?Gua)AS ?Guarantor)(SUM(?NA) AS ?Not_Available_in_CDE)
+
+
+WHERE {
+
+
+{SELECT*
+WHERE {
+{SELECT ?group (SUM(?CDE) AS ?num1)
+WHERE {
+?item rdf:type ?C.
+?item CDE:hasLogicalGrouping ?group .
+OPTIONAL{?item CDE:hasDataOwner ?owner .}
+OPTIONAL{?item CDE:hasAuthoritativeSource ?AS}
+OPTIONAL{?item CDE:hasDataStandard ?DS}
+BIND (IF(?C = CDE:Critical_Data_Elements, 1,0) AS ?CDE)}
+GROUP BY ?group}
+BIND (IF (?group = CDE:Agreement_Attribute, ?num1, 0) AS ?AA)
+BIND (IF (?group = CDE:Collateralateral, ?num1, 0) AS ?Col)
+BIND (IF (?group = CDE:Customeromer, ?num1, 0) AS ?Cust)
+BIND (IF (?group =  CDE:Agreement_Balance, ?num1, 0) AS ?AB)
+BIND (IF (?group = CDE:Guarantor, ?num1, 0) AS ?Gua)
+BIND (IF (?group = CDE:Not_Available_in_CDE, ?num1, 0) AS ?NA)
+BIND (IF(!BOUND(?num1) = false, 1,0) AS ?n1)
+BIND (IF(?n1 =1, "Number of CDEs", 0) AS ?Elements)}}
+UNION
+
+{SELECT*
+WHERE {
+{SELECT ?group (SUM(?CDE2) AS ?num2)
+WHERE {
+?item rdf:type ?C.
+?item CDE:hasLogicalGrouping ?group .
+OPTIONAL{?item CDE:hasDataOwner ?owner .}
+OPTIONAL{?item CDE:hasAuthoritativeSource ?AS}
+OPTIONAL{?item CDE:hasDataStandard ?DS}
+BIND (IF(!BOUND(?owner) = false, 1,0) AS ?CDE2)}
+GROUP BY ?group}
+BIND (IF (?group = CDE:Agreement_Attribute, ?num2, 0) AS ?AA)
+BIND (IF (?group = CDE:Collateralateral, ?num2, 0) AS ?Col)
+BIND (IF (?group = CDE:Customeromer, ?num2, 0) AS ?Cust)
+BIND (IF (?group =  CDE:Agreement_Balance, ?num2, 0) AS ?AB)
+BIND (IF (?group = CDE:Guarantor, ?num2, 0) AS ?Gua)
+BIND (IF (?group = CDE:Not_Available_in_CDE, ?num2, 0) AS ?NA)
+BIND (IF(!BOUND(?num2) = false, 1,0) AS ?n2)
+BIND (IF(?n2 =1, "Number of CDEs with Owner", 0) AS ?Elements)
+}}
+UNION
+{SELECT*
+WHERE {
+{SELECT ?group (SUM(?CDE3) AS ?num3)
+WHERE {
+?item rdf:type ?C.
+?item CDE:hasLogicalGrouping ?group .
+OPTIONAL{?item CDE:hasDataOwner ?owner .}
+OPTIONAL{?item CDE:hasAuthoritativeSource ?AS}
+OPTIONAL{?item CDE:hasDataStandard ?DS}
+BIND (IF(!BOUND(?AS) = false, 1,0) AS ?CDE3)}
+GROUP BY ?group}
+BIND (IF (?group = CDE:Agreement_Attribute, ?num3, 0) AS ?AA)
+BIND (IF (?group = CDE:Collateralateral, ?num3, 0) AS ?Col)
+BIND (IF (?group = CDE:Customeromer, ?num3, 0) AS ?Cust)
+BIND (IF (?group =  CDE:Agreement_Balance, ?num3, 0) AS ?AB)
+BIND (IF (?group = CDE:Guarantor, ?num3, 0) AS ?Gua)
+BIND (IF (?group = CDE:Not_Available_in_CDE, ?num3, 0) AS ?NA)
+BIND(IF(!BOUND(?num3)=false,1,0) AS ?n3)
+BIND (IF(?n3 =1, "Number of CDEs with Auth Source", 0) AS ?Elements)
+}}
+UNION
+{SELECT*
+WHERE {
+{SELECT ?group (SUM(?CDE4) AS ?num4)
+WHERE {
+?item rdf:type ?C.
+?item CDE:hasLogicalGrouping ?group .
+OPTIONAL{?item CDE:hasDataOwner ?owner .}
+OPTIONAL{?item CDE:hasAuthoritativeSource ?AS}
+OPTIONAL{?item CDE:hasDataStandard ?DS}
+BIND (IF(!BOUND(?DS) = false, 1,0) AS ?CDE4)}
+GROUP BY ?group}
+BIND (IF (?group = CDE:Agreement_Attribute, ?num4, 0) AS ?AA)
+BIND (IF (?group = CDE:Collateralateral, ?num4, 0) AS ?Col)
+BIND (IF (?group = CDE:Customeromer, ?num4, 0) AS ?Cust)
+BIND (IF (?group =  CDE:Agreement_Balance, ?num4, 0) AS ?AB)
+BIND (IF (?group = CDE:Guarantor, ?num4, 0) AS ?Gua)
+BIND (IF (?group = CDE:Not_Available_in_CDE, ?num4, 0) AS ?NA)
+BIND(IF(!BOUND(?num4)=false,1,0) AS ?n4)
+BIND (IF(?n4 =1, "Number of CDEs with Data Standards", 0) AS ?Elements)
+}}
+UNION
+{SELECT*
+WHERE {
+{SELECT ?group (SUM(?CDE5) AS ?num5)
+WHERE {
+?item rdf:type ?C.
+?item CDE:hasLogicalGrouping ?group .
+OPTIONAL{?item CDE:hasDataOwner ?owner .}
+OPTIONAL{?item CDE:hasAuthoritativeSource ?AS}
+OPTIONAL{?item CDE:hasDataStandard ?DS}
+OPTIONAL{?Release_Version cit:Initiative_has_Logical_Group ?group.}
+OPTIONAL{ ?project cit:initiative_has_release_version ?Release_Version.}
+BIND (IF(!BOUND(?Release_Version) = false, 1,0) AS ?CDE5)}
+GROUP BY ?group}
+BIND (IF (?group = CDE:Agreement_Attribute, ?num5, 0) AS ?AA)
+BIND (IF (?group = CDE:Collateralateral, ?num5, 0) AS ?Col)
+BIND (IF (?group = CDE:Customeromer, ?num5, 0) AS ?Cust)
+BIND (IF (?group =  CDE:Agreement_Balance, ?num5, 0) AS ?AB)
+BIND (IF (?group = CDE:Guarantor, ?num5, 0) AS ?Gua)
+BIND (IF (?group = CDE:Not_Available_in_CDE, ?num5, 0) AS ?NA)
+BIND(IF(!BOUND(?num5)=false,1,0) AS ?n5)
+BIND (IF(?n5 =1, "Number of CDEs with Initiatives", 0) AS ?Elements)
+}}
+
+
+}
+GROUP BY ?Elements

@@ -1,0 +1,9 @@
+<div class="preview-report">
+	<span class="back" ng-click="goPreviousScreen()"></span>	
+	<span class="download" ng-click="downloadReport()"></span>	
+	<div ng-repeat="page in pages" class="preview-report-page">
+		<div  grid-layout='page.layout.name' class="drop-layout">
+
+		</div>
+	</div>
+</div>

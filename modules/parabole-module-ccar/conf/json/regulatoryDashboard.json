@@ -1,0 +1,6 @@
+[
+    {"id": 1, "content": "", "start": "", "category":"RegulatoryStatus"},
+    {"id": 2, "content": "Initial Submission", "start": "12.25.2015", "category":"InitialSubmission"},
+    {"id": 3, "content": "Dry Run", "start": "1.18.2016", "category":"DryRun"},
+    {"id": 4, "content": "Final Submission", "start": "4.31.2016", "category":"FinalSubmission"}
+]

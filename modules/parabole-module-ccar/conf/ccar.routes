@@ -1,0 +1,88 @@
+# =================================================================================
+# Play Framework's Controller Routing Configuration File
+# =================================================================================
+GET /                                      com.parabole.ccar.application.controllers.BaseController.login()
+POST /doLogin                              com.parabole.ccar.application.controllers.BaseController.dologin()
+GET  /logout                               com.parabole.ccar.application.controllers.BaseController.logout()
+GET  /getHardCodedResponse/:jsonFileName   com.parabole.ccar.application.controllers.BaseController.getHardCodedResponse(jsonFileName: String)
+
+# ---------------------------------------------------------------------------------
+# Authorised
+# ---------------------------------------------------------------------------------
+GET /getLandingDataBasedOnAuthorization           com.parabole.ccar.application.controllers.AuthorizationController.getLandingDataBasedOnAuthorization()
+
+
+# ---------------------------------------------------------------------------------
+# Landing
+# ---------------------------------------------------------------------------------
+GET /landing                    com.parabole.ccar.application.controllers.DispatcherController.landing()
+GET /home                       com.parabole.ccar.application.controllers.DispatcherController.home()
+
+# ---------------------------------------------------------------------------------
+# DashBoard
+# ---------------------------------------------------------------------------------
+POST /getAlldashboardTableData  com.parabole.ccar.application.controllers.JenaTdbController.getAlldashboardTableData()
+POST /getAllSeriesData			com.parabole.ccar.application.controllers.JenaTdbController.getAllSeriesData()
+POST /getSingleSeriesData		com.parabole.ccar.application.controllers.JenaTdbController.getSingleSeriesData()
+POST /getAllHeatMapTableData	com.parabole.ccar.application.controllers.JenaTdbController.getAllHeatMapTableData()
+
+GET /dashboardProfile           com.parabole.ccar.application.controllers.DispatcherController.dashboardProfile()
+GET /status                     com.parabole.ccar.application.controllers.DispatcherController.status()
+GET /schedule                   com.parabole.ccar.application.controllers.DispatcherController.schedule()
+GET /gapdetails                 com.parabole.ccar.application.controllers.DispatcherController.gapdetails()
+GET /statusProfile              com.parabole.ccar.application.controllers.DispatcherController.statusProfile()
+GET /statusReport              	com.parabole.ccar.application.controllers.DispatcherController.statusReport()
+GET /userBuilder                com.parabole.ccar.application.controllers.DispatcherController.userBuilder()
+GET /userDetail                 com.parabole.ccar.application.controllers.DispatcherController.userDetail()
+GET /userGroupDetail            com.parabole.ccar.application.controllers.DispatcherController.userGroupDetail()
+GET /datasourceBuilder          com.parabole.ccar.application.controllers.DispatcherController.datasourceBuilder()
+GET /dashboardSelector          com.parabole.ccar.application.controllers.DispatcherController.dashboardSelector()
+GET /pageArchive		        com.parabole.ccar.application.controllers.DispatcherController.pageArchive()
+GET /ewgReport			        com.parabole.ccar.application.controllers.DispatcherController.ewgReport()
+GET /ewgIssue			        com.parabole.ccar.application.controllers.DispatcherController.ewgIssue()
+GET /heatMap			        com.parabole.ccar.application.controllers.DispatcherController.heatMap()
+
+
+# ---------------------------------------------------------------------------------
+# Jena TDB operation {TEST}
+# ---------------------------------------------------------------------------------
+GET /jenaTdbFetching/:fileIdentification   com.parabole.ccar.application.controllers.JenaTdbController.jenaTdbFetching(fileIdentification: String)
+GET /jenaTDBUpdate/:fileIdentification     com.parabole.ccar.application.controllers.JenaTdbController.jenaTDBUpdate(fileIdentification: String)
+GET /jenaTDBBatch/:fileIdentification     com.parabole.ccar.application.controllers.JenaTdbController.jenaTDBBatch(fileIdentification: String)
+GET /jenaTDBInsert/:fileIdentification     com.parabole.ccar.application.controllers.JenaTdbController.jenaTDBInsert(fileIdentification: String)
+GET /loadAllFromBatch                       com.parabole.ccar.application.controllers.JenaTdbController.loadAllFromBatch()
+
+# ---------------------------------------------------------------------------------
+# Lineage
+# ---------------------------------------------------------------------------------
+
+GET  /getJsonForvisualizationReasonerGraph                        	    	com.parabole.ccar.application.controllers.LineageController.getFullLineageGraph()
+POST /getJsonForvisualizationReasonerGraphById                        	    com.parabole.ccar.application.controllers.LineageController.getLineageGraphHavingSpecifiedRules()
+GET /glossary          			com.parabole.ccar.application.controllers.DispatcherController.glossary()
+POST /getLineageGraphByGlossaryId                     				   	    com.parabole.ccar.application.controllers.LineageController.getLineageGraphByGlossaryId()
+POST /getLineageGraphByConceptId                        	    			com.parabole.ccar.application.controllers.LineageController.getLineageGraphByConceptId()
+
+# ---------------------------------------------------------------------------------
+# Orient Db Operations
+# ---------------------------------------------------------------------------------
+
+GET  /getConfigurationNames/:ConfigarationType                              com.parabole.ccar.application.controllers.DocumentDBController.getConfigurationNames(ConfigarationType: String)
+POST /saveDataSource                                                        com.parabole.ccar.application.controllers.DocumentDBController.saveDataSource()
+GET  /getConfiguration/:ConfigarationId                                     com.parabole.ccar.application.controllers.DocumentDBController.getConfiguration(ConfigarationId: Integer)
+GET  /getConfigurationDetailsByName/:ConfigarationName                      com.parabole.ccar.application.controllers.DocumentDBController.getConfigurationDetailsByName(ConfigarationName: String)
+POST /deleteConfig                                                          com.parabole.ccar.application.controllers.DocumentDBController.deleteConfiguration()
+POST /connectionChecker                                                     com.parabole.ccar.application.controllers.DocumentDBController.connectionChecker()
+
+# ---------------------------------------------------------------------------------
+# Authorizations Test Cases
+# ---------------------------------------------------------------------------------
+
+GET  /testAuthorization1   com.parabole.ccar.application.controllers.TestController.testAction1()
+GET  /testAuthorization2   com.parabole.ccar.application.controllers.TestController.testAction2()
+GET  /testAuthorization3   com.parabole.ccar.application.controllers.TestController.testAction3()
+GET  /testAuthorization4   com.parabole.ccar.application.controllers.TestController.testAction4()
+
+# ---------------------------------------------------------------------------------
+# Static Resources
+# ---------------------------------------------------------------------------------
+GET /ccarassets/*file           controllers.Assets.at(path="/public/lib/ccar", file)

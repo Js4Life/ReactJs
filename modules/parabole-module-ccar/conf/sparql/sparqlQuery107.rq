@@ -1,0 +1,26 @@
+PREFIX mpb-root-main: <http://www.mindparabole.com/ontology/finance/MPBRoot_Main#> 
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX cit:<http://www.mindparabole.com/ontology/finance/CIT_Main#>
+PREFIX CDE:<http://parabole.com/Coarys/CriticalDataElements#>
+PREFIX mt:<http://www.mindparabole.com/meeting#>
+PREFIX pb:<http://www.mindparabole.com/ontology/finance/Parabole-Model#>
+PREFIX mpb-fin-main-ccar-14q:<http://www.mindparabole.com/ontology/finance/FRY-14Q_Main#>
+PREFIX mpb-root-main-crm:<http://www.mindparabole.com/ontology/finance/CreditRiskManagement_Main#>
+PREFIX mpb-fin-main-ccar:<http://www.mindparabole.com/ontology/finance/CCAR_Main#>
+PREFIX Y14DB_Main:<http://www.nextangles.com/ontology/finance/Y14DB_Main#>
+PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
+SELECT  ?Report_Name
+(COUNT(?Report_Field) AS ?Num_of_Fields) 
+
+WHERE{
+?Report_Field rdf:type mpb-root-main:ReportField.
+?Sub_Schedule  mpb-root-main:hasReportField ?Report_Field.
+?Sub_Schedule rdfs:label ?Sub_Schedule_Name.
+?Schedule mpb-root-main:hasReportSub_Schedule ?Sub_Schedule.
+?Schedule rdfs:label ?Schedule_Name.
+?Report mpb-root-main:hasReportSchedule ?Schedule.
+?Report rdfs:label ?Report_Name.
+?Reg mpb-root-main:requiresReport ?Report.
+}
+GROUP BY  ?Report_Name

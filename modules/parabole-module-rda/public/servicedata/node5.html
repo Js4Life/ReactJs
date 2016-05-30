@@ -1,0 +1,43 @@
+{
+    "vertices" : [
+        {
+            "id" : 9,
+            "label" : "Line Of Business"
+        },
+        {
+            "id" : 10,
+            "label" : "Country Of Asset"
+        },
+        {
+            "id" : 11,
+            "label" : "Credit Risk Gross Exposure"
+        }
+    ],
+    "connecions" : [
+        {
+            "to" : 1,
+            "weight" : "Is-A",
+            "from" : 5
+        },
+        {
+            "to" : 5,
+            "weight" : "Related To",
+            "from" : 2
+        },
+        {
+            "to" : 5,
+            "weight" : "Related To",
+            "from" : 9
+        },
+        {
+            "to" : 5,
+            "weight" : "Related To",
+            "from" : 10
+        },
+        {
+            "to" : 11,
+            "weight" : "Measured By",
+            "from" : 5
+        }
+    ]
+}

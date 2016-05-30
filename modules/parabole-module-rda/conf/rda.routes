@@ -1,0 +1,148 @@
+# =================================================================================
+# Play Framework's Controller Routing Configuration File
+# =================================================================================
+# ---------------------------------------------------------------------------------
+# Unauthenticated Calls
+# ---------------------------------------------------------------------------------
+GET         /                                                                          com.parabole.rda.application.controllers.BaseAction.login()
+POST        /doLogin                                                                   com.parabole.rda.application.controllers.BaseAction.dologin()
+GET         /logout                                                                    com.parabole.rda.application.controllers.BaseAction.logout()
+GET         /getHardCodedResponse/:jsonFileName                                        com.parabole.rda.application.controllers.BaseAction.getHardCodedResponse(jsonFileName: String)
+GET         /getLogicalViewJson/:viewName                                              com.parabole.rda.application.controllers.BaseAction.getLogicalViewJson(viewName: String)
+
+# ---------------------------------------------------------------------------------
+# View DispatcherActions (All Authenticated)
+# ---------------------------------------------------------------------------------
+GET         /landing                                                                   com.parabole.rda.application.controllers.DispatcherAction.landing()
+GET         /home                                                                      com.parabole.rda.application.controllers.DispatcherAction.home()
+GET         /riskAggregation                                                           com.parabole.rda.application.controllers.DispatcherAction.riskAggregation()
+GET         /dashboardProfile                                                          com.parabole.rda.application.controllers.DispatcherAction.dashboardProfile()
+GET         /status                                                                    com.parabole.rda.application.controllers.DispatcherAction.status()
+GET         /schedule                                                                  com.parabole.rda.application.controllers.DispatcherAction.schedule()
+GET         /gapdetails                                                                com.parabole.rda.application.controllers.DispatcherAction.gapdetails()
+GET         /aggregator                                                                com.parabole.rda.application.controllers.DispatcherAction.aggregator()
+GET         /view                                                                      com.parabole.rda.application.controllers.DispatcherAction.view()
+GET         /graph                                                                     com.parabole.rda.application.controllers.DispatcherAction.graph()
+GET         /chart                                                                     com.parabole.rda.application.controllers.DispatcherAction.chart()
+GET         /riskaggregate                                                             com.parabole.rda.application.controllers.DispatcherAction.riskAggregate()
+GET         /aggregateGroup                                                            com.parabole.rda.application.controllers.DispatcherAction.aggregateGroup()
+GET         /reportBuilder                                                             com.parabole.rda.application.controllers.DispatcherAction.reportBuilder()
+GET         /pageBuilder                                                               com.parabole.rda.application.controllers.DispatcherAction.pageBuilder()
+GET         /layoutBuilder                                                             com.parabole.rda.application.controllers.DispatcherAction.layoutBuilder()
+GET         /mapDatasource                                                             com.parabole.rda.application.controllers.DispatcherAction.mapDatasource()
+GET         /mapDatasourceRelation                                                     com.parabole.rda.application.controllers.DispatcherAction.mapDatasourceRelation()
+GET         /mapDatasourceView                                                         com.parabole.rda.application.controllers.DispatcherAction.mapDatasourceView()
+GET         /userBuilder                                                               com.parabole.rda.application.controllers.DispatcherAction.userBuilder()
+GET         /userDetail                                                                com.parabole.rda.application.controllers.DispatcherAction.userDetail()
+GET         /userGroupDetail                                                           com.parabole.rda.application.controllers.DispatcherAction.userGroupDetail()
+GET         /datasourceBuilder                                                         com.parabole.rda.application.controllers.DispatcherAction.datasourceBuilder()
+GET         /reportPreview                                                             com.parabole.rda.application.controllers.DispatcherAction.reportPreview()
+GET         /aggregateDbView                                                           com.parabole.rda.application.controllers.DispatcherAction.aggregateDbView()
+GET         /logicalView                                                               com.parabole.rda.application.controllers.DispatcherAction.logicalView()
+GET         /combinedView                                                              com.parabole.rda.application.controllers.DispatcherAction.combinedView()
+GET         /simulator                                                                 com.parabole.rda.application.controllers.DispatcherAction.simulatorView()
+GET         /simulatorGraph                                                            com.parabole.rda.application.controllers.DispatcherAction.simulatorGraphView()
+GET         /newsimulator                                                              com.parabole.rda.application.controllers.DispatcherAction.newsimulatorView()
+GET         /newsimulatorGraph                                                         com.parabole.rda.application.controllers.DispatcherAction.newsimulatorGraphView()
+GET         /glossary                                                                  com.parabole.rda.application.controllers.DispatcherAction.glossary()
+GET         /model                                                                     com.parabole.rda.application.controllers.DispatcherAction.model()
+
+# ---------------------------------------------------------------------------------
+# Server Side Calls (All Authenticated)
+# ---------------------------------------------------------------------------------
+GET         /downloadLogfile                                                           com.parabole.rda.application.controllers.SystemAdminAction.downloadLogfile()
+POST        /createUser                                                                com.parabole.rda.application.controllers.SystemAdminAction.createUser()
+GET         /deleteUser/:userId                                                        com.parabole.rda.application.controllers.SystemAdminAction.deleteUser(userId: String)
+GET         /getAllUsers                                                               com.parabole.rda.application.controllers.SystemAdminAction.getAllUsers()
+POST        /saveBaseNodeConfiguration                                                 com.parabole.rda.application.controllers.CoralAction.saveBaseNodeConfiguration()
+GET         /getBaseNodes                                                              com.parabole.rda.application.controllers.OctopusAction.getBaseNodes()
+GET         /getBaseNodesMapping                                                       com.parabole.rda.application.controllers.CoralAction.getBaseNodesMapping()
+GET         /getRelatedNodes/:nodeId                                                   com.parabole.rda.application.controllers.OctopusAction.getRelatedNodes(nodeId: Integer)
+POST        /getImpactedNodes                                                          com.parabole.rda.application.controllers.OctopusAction.getImpactedNodes()
+POST        /getImpactedVerticesEndToEndLevel                                          com.parabole.rda.application.controllers.OctopusAction.getImpactedVerticesEndToEndLevel()
+POST        /mergedConnectedGraphAndWeightedGraph                                      com.parabole.rda.application.controllers.OctopusAction.mergedConnectedGraphAndWeightedGraph()
+GET         /getConfiguration/:ConfigarationId                                         com.parabole.rda.application.controllers.CoralAction.getConfiguration(ConfigarationId: Integer)
+GET         /getReport/:ReportId                                                       com.parabole.rda.application.controllers.CoralAction.getConfiguration(ReportId: Integer)
+GET         /getConfigurationNames/:ConfigarationType                                  com.parabole.rda.application.controllers.CoralAction.getConfigurationNames(ConfigarationType: String)
+GET         /getAllConfigurationDetailsByType/:ConfigarationType                       com.parabole.rda.application.controllers.CoralAction.getAllConfigurationDetailsByType(ConfigarationType: String)
+GET         /getConfigurationDetailsByName/:ConfigarationName                          com.parabole.rda.application.controllers.CoralAction.getConfigurationDetailsByName(ConfigarationName: String)
+GET         /deleteConfigurationDetailsByName/:configarationName                       com.parabole.rda.application.controllers.CoralAction.deleteConfigurationDetailsByName(configarationName: String)
+POST        /deleteAggregate                                                           com.parabole.rda.application.controllers.CoralAction.deleteAggregate()
+GET         /getAggregateConfigurationDetailsByName/:AggregateConfigarationName        com.parabole.rda.application.controllers.CoralAction.getAggregateConfigurationDetailsByName(AggregateConfigarationName: String)
+POST        /getDBViewsOfANode                                                         com.parabole.rda.application.controllers.CoralAction.getDBViewsOfANode()
+POST        /getConfigurationDetailsByPartialNames                                     com.parabole.rda.application.controllers.CoralAction.getConfigurationDetailsByPartialNames()
+GET         /getAdminData/:ConfigarationType                                           com.parabole.rda.application.controllers.CoralAction.getAdminData(ConfigarationType: String)
+POST        /saveReport                                                                com.parabole.rda.application.controllers.CoralAction.saveReport()
+POST        /saveDbViewConfiguration                                                   com.parabole.rda.application.controllers.CoralAction.saveDbViewConfiguration()
+POST        /saveLogicalViewOne                                                        com.parabole.rda.application.controllers.CoralAction.saveLogicalViewOne()
+POST        /saveAggregateMapping                                                      com.parabole.rda.application.controllers.CoralAction.saveAggregateMapping()
+POST        /saveAggregation                                                           com.parabole.rda.application.controllers.CoralAction.saveAggregation()
+POST        /saveNodeMap                                                               com.parabole.rda.application.controllers.CoralAction.saveNodeMap()
+POST        /saveDataSource                                                            com.parabole.rda.application.controllers.CoralAction.saveDataSource()
+POST        /saveAdminData                                                             com.parabole.rda.application.controllers.CoralAction.saveAdminData()
+POST        /saveCombinedView                                                          com.parabole.rda.application.controllers.CoralAction.saveCombinedView()
+POST        /dataSourceLookUp                                                          com.parabole.rda.application.controllers.CoralAction.dataSourceLookUp()
+POST        /connectionChecker                                                         com.parabole.rda.application.controllers.CoralAction.connectionChecker()
+POST        /deleteConfig                                                              com.parabole.rda.application.controllers.CoralAction.deleteConfiguration()
+POST        /deleteConfig                                                              com.parabole.rda.application.controllers.CoralAction.deleteConfiguration()
+POST        /deleteMultipleConfig                                                      com.parabole.rda.application.controllers.CoralAction.deleteMultipleConfig()
+POST        /fetchViewRdb                                                              com.parabole.rda.application.controllers.CoralAction.fetchView()
+POST        /reportGenerator                                                           com.parabole.rda.application.controllers.ReportAction.reportGenerator()
+GET         /reportDownload/:reportId                                                  com.parabole.rda.application.controllers.ReportAction.reportDownload(reportId: String)
+POST        /fetchEdgeViewData                                                         com.parabole.rda.application.controllers.CoralAction.fetchNoSQLViewData()
+POST        /getDataFromLogicalView                                                    com.parabole.rda.application.controllers.CoralAction.getDataFromLogicalView()
+POST        /getLogicalViewsByNodeId                                                   com.parabole.rda.application.controllers.CoralAction.getLogicalViewsByNodeId()
+POST        /getCombinedLogicalView                                                    com.parabole.rda.application.controllers.CoralAction.getCombinedLogicalView()
+POST        /getAllLogicalViewsByNodeId                                                com.parabole.rda.application.controllers.CoralAction.getAllLogicalViewsByNodeId()
+POST        /getAggregateRootName                                                      com.parabole.rda.application.controllers.CoralAction.getAggregateRootName()
+GET         /getCombinedViews                                                          com.parabole.rda.application.controllers.CoralAction.getCombinedViews()
+POST        /saveDataNodeConfiguration                                                 com.parabole.rda.application.controllers.CoralAction.saveDataNodeConfiguration()
+POST        /saveImageData                                                             com.parabole.rda.application.controllers.CoralAction.saveImageData()
+POST        /saveConceptTags                                                           com.parabole.rda.application.controllers.CoralAction.saveConceptTags()
+POST        /getPathBetweenTwoNodesFromImpactedVertices                                com.parabole.rda.application.controllers.OctopusAction.getPathBetweenTwoNodesFromImpactedVertices()
+POST        /getImpactLevelForGivenNodes                                               com.parabole.rda.application.controllers.OctopusAction.getImpactLevelForGivenNodes()
+GET         /getFullKnowledgeGraph                                                     com.parabole.rda.application.controllers.KnowledgeAction.getFullKnowledgeGraph()
+GET         /getFullUnaryKnowledgeGraph                                                com.parabole.rda.application.controllers.KnowledgeAction.getFullUnaryKnowledgeGraph()
+GET         /getFullBinaryKnowledgeGraph                                               com.parabole.rda.application.controllers.KnowledgeAction.getFullBinaryKnowledgeGraph()
+GET         /getFullBinaryKnowledgeGraphHavingSpecifiedEdges                           com.parabole.rda.application.controllers.KnowledgeAction.getFullBinaryKnowledgeGraphHavingSpecifiedEdges()
+GET         /getFullReasonerGraph                                                      com.parabole.rda.application.controllers.ReasonerAction.getFullReasonerGraph()
+GET         /getFullUnaryReasonerGraph                                                 com.parabole.rda.application.controllers.ReasonerAction.getFullUnaryReasonerGraph()
+GET         /getFullBinaryReasonerGraph                                                com.parabole.rda.application.controllers.ReasonerAction.getFullBinaryReasonerGraph()
+GET         /getFullBinaryReasonerGraphHavingSpecifiedEdges                            com.parabole.rda.application.controllers.ReasonerAction.getFullBinaryReasonerGraphHavingSpecifiedEdges()
+GET         /getJsonForvisualizationReasonerGraph                                      com.parabole.rda.application.controllers.LineageAction.getFullLineageGraph()
+POST        /getJsonForvisualizationReasonerGraphById                                  com.parabole.rda.application.controllers.LineageAction.getLineageGraphHavingSpecifiedRules()
+POST        /getLineageGraphByGlossaryId                                               com.parabole.rda.application.controllers.LineageAction.getLineageGraphByGlossaryId()
+POST        /getLineageGraphByConceptId                                                com.parabole.rda.application.controllers.LineageAction.getLineageGraphByConceptId()
+POST        /getLineageGraphByDB                                                       com.parabole.rda.application.controllers.LineageAction.getLineageGraphByDB()
+POST        /getLineageDbData                                                          com.parabole.rda.application.controllers.LineageAction.getLineageDbData()
+
+# ---------------------------------------------------------------------------------
+# Aggregare composing Operations
+# ---------------------------------------------------------------------------------
+POST        /assimilatorComposing                                                      com.parabole.rda.application.controllers.AssimilationAction.assimilatorComposing()
+POST        /aggregateComposingUsingAggregateNames                                     com.parabole.rda.application.controllers.AssimilationAction.aggregateComposingUsingAggregateNames()
+POST        /saveComposedAggregators                                                   com.parabole.rda.application.controllers.AssimilationAction.saveComposedAggregators()
+POST        /getAggregateConfigurationDetailsByNameAndType                             com.parabole.rda.application.controllers.AssimilationAction.getAggregateConfigurationDetailsByNameAndType()
+GET         /getClusteredConfigurationNames                                            com.parabole.rda.application.controllers.AssimilationAction.getClusteredConfigurationNames()
+POST        /findlogicalViewForNode                                                    com.parabole.rda.application.controllers.AssimilationAction.findlogicalViewForNode()
+POST        /deleteAggregateFromSavedComposedAggregators                               com.parabole.rda.application.controllers.AssimilationAction.deleteAggregateFromSavedComposedAggregators()
+
+# ---------------------------------------------------------------------------------
+# Glossary Operation
+# ---------------------------------------------------------------------------------
+POST        /getLineageGraphHavingSpecifiedRules                                       com.parabole.rda.application.controllers.LineageAction.getLineageGraphHavingSpecifiedRules()
+GET         /getFullLineageGraph                                                       com.parabole.rda.application.controllers.LineageAction.getFullLineageGraph()
+POST        /getJsonForAllLinegewithAdaptiveLearning                                   com.parabole.rda.application.controllers.LineageAction.getJsonForAllLinegewithAdaptiveLearning()
+POST        /getJsonForAllLinegeAgainstNodeIdwithAdaptiveLearning                      com.parabole.rda.application.controllers.LineageAction.getJsonForAllLinegeAgainstNodeIdwithAdaptiveLearning()
+
+# ---------------------------------------------------------------------------------
+# Model Operation
+# ---------------------------------------------------------------------------------
+POST        /getJsonForAllLinege                                                       com.parabole.rda.application.controllers.LineageAction.getJsonForAllLinege()
+POST        /getJsonForAllLinegeAgainstNodeId                                          com.parabole.rda.application.controllers.LineageAction.getJsonForAllLinegeAgainstNodeId()
+
+# ---------------------------------------------------------------------------------
+# Static Resources
+# ---------------------------------------------------------------------------------
+# GET         /assets/*file                                                         controllers.Assets.rda.at(path="/public/lib/rda", file)
+GET         /rdaassets/*file                                                         controllers.Assets.at(path="/public/lib/rda", file)

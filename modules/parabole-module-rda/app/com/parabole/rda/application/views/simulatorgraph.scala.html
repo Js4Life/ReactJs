@@ -1,0 +1,291 @@
+<div class="bread" breadcrum-scroll>
+    <div class="arrow pull-left">
+        <button id="right-button" class="btn btn-default glyphicon glyphicon-arrow-left" ng-click="right()" ng-disabled = "!scrollActivate"></button>
+    </div>
+    <div id="outer" disable-scroll ng-model="breadCrumbs" >
+        <div id="inner" >
+            <div style="padding:5px 15px 0 15px; height:28px; position:relative; display:inline-block;" ng-repeat="b in breadCrumbs">{{b.state}} ></div>
+        </div>
+    </div>
+    <div class="arrow pull-right">
+        <button id="left-button" class="btn btn-default glyphicon glyphicon-arrow-right pull-right" ng-click="left()" ng-disabled = "!scrollActivate"></button>
+    </div>
+</div>
+<br />
+<br />
+
+<div class="panel panel-default">
+  <div class="panel-heading"><span class="glyphicon glyphicon-chevron-left pull-left" style="margin-right:10px;margin-top:5px;" ng-click="goPreviousScreen()"></span><b>{{viewTitle}}</b>
+      <div class="right-inner-addon" style="display:inline-block;width:25%;margin-left:20px;">
+          <i class="glyphicon glyphicon-search"></i>
+          <input type="search" class="form-control" placeholder="Search" ng-model="searchText" ng-enter="searchNode()" />
+      </div>
+      
+      <span style="display:inline-block;" id="impactBtn" class="fa fa-dot-circle-o fa-2x pull-right" tooltip='"title":"Down a node"' ng-click="changeRingCursor()"></span>
+      <span style="display:inline-block;" id="dbViewer" class="fa fa-server fa-2x pull-right" tooltip='"title":"View DB Connectivity"' ng-click="getDataSourceDetailsOfEdge()"></span>
+      <span style="display:inline-block;" id="definition" class="fa fa-pencil fa-2x pull-right" tooltip='"title":"Definition"' ng-click="getNodeDescription()"></span>
+      <span style="display:inline-block;" class="fa fa-toggle-on fa-2x pull-right" ng-class="{'fa-flip-horizontal text-red': !isEdgeLabelVisible, 'text-success': isEdgeLabelVisible}" tooltip='"title":"Toggle edge label"' ng-click="toggleSimulatorEdgeLabel()"></span>      
+  </div>
+  <div class="panel-body" id="graphHolder">
+      <div id="graphDiv" ng-model='graphData' style="height:68vh;padding:0;">
+          
+      </div>
+      <div style="height:3vh;">
+        <div class="legend">
+          <div class="arrow orange-arrow"></div>
+          <div class="bubble-title">Structure</div>
+          <div class="arrow green-arrow"></div>
+          <div class="bubble-title">Behaviour</div>
+          <div class="arrow report"></div>
+          <div class="bubble-title">Report</div>
+          <div class="arrow policy"></div>
+          <div class="bubble-title">Policy</div>
+          <div class="arrow person"></div>
+          <div class="bubble-title">Person</div>
+          <div class="arrow model"></div>
+          <div class="bubble-title">Model</div>
+          <div class="arrow committee"></div>
+          <div class="bubble-title">Committee</div>          
+          <div class="arrow information"></div>
+          <div class="bubble-title">Information</div>
+          <div class="arrow system"></div>
+          <div class="bubble-title">System</div>
+          <div class="arrow data"></div>
+          <div class="bubble-title">Data</div>
+        </div>
+      </div>
+  </div>
+</div>
+
+<div class="modal fade bs-example-modal-sm" id="levelModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Enter level</h4>
+      </div>
+      <div class="modal-body zero-padding-bottom">
+        <form role="form">
+          <div class="form-group">
+            <input type="number" class="form-control" ng-model="impactRequest.level" placeholder="Enter level" min="1" max="9">
+          </div>
+        </form>
+        <center ng-if="impactNote" ng-class="{'text-success': impactRequest.impactDirection==1, 'text-danger': impactRequest.impactDirection==-1}">{{impactNote}}</center> 
+        <center>
+          <span class="glyphicon glyphicon-circle-arrow-up" ng-class="{'text-muted': impactRequest.impactDirection==1}" ng-click="dropUp()"></span>
+          <span class="glyphicon glyphicon-circle-arrow-down" ng-class="{'text-muted': impactRequest.impactDirection==-1}" ng-click="dropIn()"></span>          
+        </center>    
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" ng-click="getImpactedNodes()">Next</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="impactModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" style="width:92%;">
+    <div class="modal-content">
+      <div class="modal-body" style="padding-bottom: 0;">
+        <div class="bs-docs-example">
+            <span class="impact-level-counter" ng-click="getAllImpactImages()">Level- {{impactRequest.level}}</span>
+            <span class="glyphicon glyphicon-minus-sign impact-minus" ng-click="levelDown()" tooltip='"title":"Level Down"'></span>
+            <span class="glyphicon glyphicon-plus-sign impact-plus" ng-click="levelUp()" tooltip='"title":"Level Up"'></span>
+            <span class="fa-stack impact-expand" ng-show="currentImpactNode" ng-click="showPathBetweenNodes()" tooltip='"title":"Show path between nodes"'>
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-arrows-h fa-stack-1x fa-inverse"></i>
+            </span>
+            <span class="fa-stack impact-capture" ng-click="captureGraph()" tooltip='"title":"Capture Graph"'>
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-camera fa-stack-1x fa-inverse"></i>
+            </span>
+            <span class="fa-stack impact-xml-viewer" ng-show="selectedEdge" ng-click="getXMLfileAsResponce()">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-file-excel-o fa-stack-1x fa-inverse"></i>
+            </span>
+            <span class="fa fa-toggle-on fa-2x impact-switch" ng-class="{'fa-flip-horizontal text-red': !isEdgeLabelVisible, 'text-success': isEdgeLabelVisible}" ng-click="toggleImpactEdgeLabel()"></span>
+            <div class="right-inner-addon impact-search">
+                <i class="glyphicon glyphicon-search"></i>
+                <input type="search" class="form-control" placeholder="Search" ng-model="searchText" ng-enter="searchImpactNode()" />
+            </div>
+            <ul id="myTab" class="nav nav-tabs">
+              <!-- <li><a href="#impactWeight" data-toggle="tab">{{constants.TAB_LABEL.WEIGHTED_IMPACT}}</a></li> -->
+              <li class="active"><a href="#impact" data-toggle="tab">{{constants.TAB_LABEL.SIMULATE_IMPACT}}</a></li>
+              <li><a href="#report" data-toggle="tab">{{constants.TAB_LABEL.CHART_HEAD}}</a></li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+              <!-- <div id="impactWeight" class="tab-pane fade in active" style="height:62vh;padding:0;"></div> -->
+              <div id="impact" class="tab-pane fade in active" style="height:62vh;padding:0;"></div>
+              <div class="tab-pane fade in" id="report">
+                <div class="col-xs-12"><div id="chartDiv"></div></div>
+              </div>
+            </div>
+        </div>     
+      </div>
+      <div class="modal-footer legend-container" style="margin-top: 0;padding: 0 0 0 15px;">
+        <div class="legend pull-left" style="border:0;">
+          <div class="legend-section" ng-repeat="i in getLegendCount()">
+            <div ng-if="i==0" class="arrow c{{i}}"></div>
+            <div ng-if="i==0" class="bubble-title">Impact</div>
+
+            <div ng-if="i!=0" class="arrow c{{i}}"></div>
+            <div ng-if="i!=0" class="bubble-title">Level-{{i}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="legend-container" style="height:3vh;margin:0 0 8px 15px;">
+        <div class="legend pull-left" style="border:none">
+          <div class="arrow report"></div>
+          <div class="bubble-title">Report</div>
+          <div class="arrow policy"></div>
+          <div class="bubble-title">Policy</div>
+          <div class="arrow person"></div>
+          <div class="bubble-title">Person</div>
+          <div class="arrow model"></div>
+          <div class="bubble-title">Model</div>
+          <div class="arrow committee"></div>
+          <div class="bubble-title">Committee</div>
+          <div class="arrow information"></div>
+          <div class="bubble-title">Information</div>
+          <div class="arrow system"></div>
+          <div class="bubble-title">System</div>
+          <div class="arrow data"></div>
+          <div class="bubble-title">Data</div>
+        </div>
+      </div>
+      <div class="modal-footer" style="margin-top: 0;">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="!currentImpactNode" style="padding:3px 10px;" ng-click="getAllViewsBySelNode()"><span class="glyphicon glyphicon-eye-open"></span></button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade bs-example-modal-sm" id="levelNodesModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Level {{level}}</h4>
+      </div>
+      <div class="modal-body">
+        <ul class="list-group">
+          <li class="list-group-item" ng-repeat="nd in levelNodes">{{nd.name}}</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="back()">Back</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="logicalViewModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">{{currentImpactNode.name}}</h4>
+      </div>
+      <div class="modal-body"  style="height:68vh;padding:0;overflow:auto;">
+        <div ng-repeat="view in logicalViewCfg.views" collapsible='"actObj":"view", "type":"list", "viewable":true'></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="backToImpact()">Back</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="viewTableModal" class="modal fade bs-example-modal-lg">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">{{viewName}}</h4>
+      </div>
+      <div class="modal-body" style="height:49vh;overflow:auto;">  
+        <div class="table-responsive" id='lvGrid' style='height:45vh'>
+         
+        </div>   
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click='backToLogical()'>Back</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="confirmModal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+        <div class="modal-header" style="border-bottom:none;">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <h4 class="modal-title" id="myModalLabel">{{confirmMsg}}</h4>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" ng-click="onRejection()">Cancel</button>
+          <button type="button" class="btn btn-primary" ng-click="onConfirmation()">Ok</button>
+        </div>      
+    </div>
+  </div>
+</div>
+
+<div class="modal fade bs-example-modal-sm" id="nameModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Enter a name</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form">
+          <div class="form-group">
+            <input type="text" class="form-control" ng-model="impactPathName" placeholder="Enter a name">
+          </div>
+        </form>        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" ng-click="saveImpactPath()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="xmlViewer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">System Metadata Viewer</h4>
+      </div>
+      <div class="modal-body">
+        <textarea ng-disabled="true" ng-model="xmlContent" rows="25" cols="40" style="border:none;width:100%;">
+
+        </textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click='back()'>Back</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="dsViewer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">{{dsViewerHead}}</h4>
+      </div>
+      <div class="modal-body">
+        <textarea ng-disabled="true" ng-model="allColumnStr" rows="10" cols="40" style="border:none;width:100%;">
+
+        </textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="closeDsViewer()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

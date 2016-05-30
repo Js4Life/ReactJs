@@ -1,0 +1,28 @@
+<div class="panel panel-default">
+      <div class="panel-heading"><b>{{viewTitle}}</b></div>
+      <div class="panel-body" style="height:82vh">
+          <div class="col-xs-2"  style="height:100%;">
+              <div toolbox='"tools":"currentTools"'></div>
+          </div>
+          <div id="graphDiv" droppable='"accept" : ".user, .user-grp", "dropHandler" : "onUserDrop"' class="col-xs-10" style="border:1px solid #ccc;cursor:hand; height:100%;padding:2px">
+                                   
+          </div>
+      </div>
+</div>
+
+
+
+<div id="confirmModal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" ng-click='recycleIsVisible = false'><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <h4 class="modal-title" id="myModalLabel">Are you sure?</h4>
+        </div>
+        <div class="modal-footer" style="margin-top: 0;">
+          <button type="button" class="btn btn-default" data-dismiss="modal" ng-click='recycleIsVisible = false'>No</button>
+          <button type="button" class="btn btn-primary" ng-click="removeItem()">Yes</button>
+        </div>      
+    </div>
+  </div>
+</div>

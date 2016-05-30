@@ -1,0 +1,39 @@
+<div class="panel panel-default">
+      <div class="panel-heading"><span class="glyphicon glyphicon-chevron-left pull-left" style="margin-right:10px;" ng-click="goPreviousScreen()"></span>Report Designer<span class="glyphicon glyphicon-floppy-open pull-right" ng-click="getReportName()"></span>
+      </div>
+      <div class="panel-body" style="height:82vh">
+          <div class="col-xs-2"  style="height:100%;">
+              <div toolbox='"tools":"currentTools"'></div>
+          </div>
+          <div droppable='"accept" : ".page", "dropHandler" : "onPageDrop"' class="col-xs-10 drop-entity" ng-model='aggrgraphData' style="border:1px solid #ccc;cursor:hand; height:100%;padding:2px">    
+          
+              <ui-view></ui-view>
+                                   
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="modal fade bs-example-modal-sm" id="reportName" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Enter a name</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form">
+          <div class="form-group">
+            <input type="text" class="form-control" ng-model="reportName" placeholder="Enter a name">
+          </div>
+        </form>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" ng-click="saveReport()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+

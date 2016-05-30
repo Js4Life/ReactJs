@@ -1,0 +1,27 @@
+{
+ "rootNodes" : [
+  {"id" :1586, "name" : "CCAR"},
+  {"id" :24, "name" : "FRY-14A"},
+  {"id" :112, "name" : "FRY-9C"},
+  {"id" :338, "name" : "Enterprise_Risk_Management"},
+  {"id" :206, "name" : "Corporate_Finace_Planning_And_Analytics"},
+  {"id" :790, "name" : "FRY-14Q"},
+  {"id" :19, "name" : "Financial_Statement_Forecast"},
+  {"id" :151, "name" : "RCA"},
+  {"id" :52, "name" : "QRM"}
+ ],
+ "destinationNodes" : [
+  {"id" : 22, "name" : "Chief Risk Officer"},
+  {"id" : 336, "name" : "Chief Finance Officer"},
+  {"id" :24, "name" : "FRY-14A"},
+  {"id" :790, "name" : "FRY-14Q"},
+  {"id" :112, "name" : "FRY-9C"},
+  {"id" :338, "name" : "Enterprise_Risk_Management"},
+  {"id" :206, "name" : "Corporate_Finace_Planning_And_Analytics"},
+  {"id" :1656, "name" : "Board Of Directors"},
+  {"id" :52, "name" : "QRM"},
+  {"id" :19, "name" : "Financial_Statement_Forecast"},
+  {"id" :23, "name" : "Capital Stress Test"},
+  {"id" :83, "name" : "Credit Stress Test"}
+ ]
+}
