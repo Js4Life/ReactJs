@@ -85,4 +85,4 @@ GET  /testAuthorization4   com.parabole.ccar.application.controllers.TestControl
 # ---------------------------------------------------------------------------------
 # Static Resources
 # ---------------------------------------------------------------------------------
-GET /ccarassets/*file           controllers.Assets.at(path="/public/lib/ccar", file)
+GET /ccarassets/*file           controllers.Assets.at(path="/public/lib/parabole-module-ccar", file)
