@@ -64,8 +64,8 @@ public class BaseAction extends Controller {
 
     public Result dologin() throws AppException {
         final DynamicForm requestData = Form.form().bindFromRequest();
-        final String userId = requestData.get("root");
-        final String password = requestData.get("admin");
+        final String userId = requestData.get("userid");
+        final String password = requestData.get("password");
         if (authenticationManager.authenticate(userId, password)) {
             session().put(RdaAppConstants.USER_ID, userId);
             session().put(RdaAppConstants.USER_NAME, coralUserService.getSpecificDocumentUsingIdAndColumnName(userId, RdaAppConstants.ATTR_DATABASE_USER_NAME_COLUMN_NAME));

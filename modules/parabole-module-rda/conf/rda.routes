@@ -4,7 +4,7 @@
 # ---------------------------------------------------------------------------------
 # Unauthenticated Calls
 # ---------------------------------------------------------------------------------
-GET         /                                                                          com.parabole.rda.application.controllers.BaseAction.dologin()
+GET         /                                                                          com.parabole.rda.application.controllers.BaseAction.login()
 POST        /doLogin                                                                   com.parabole.rda.application.controllers.BaseAction.dologin()
 GET         /logout                                                                    com.parabole.rda.application.controllers.BaseAction.logout()
 GET         /getHardCodedResponse/:jsonFileName                                        com.parabole.rda.application.controllers.BaseAction.getHardCodedResponse(jsonFileName: String)
