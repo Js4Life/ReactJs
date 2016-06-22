@@ -34,7 +34,7 @@ public class ActionAuthenticator extends Security.Authenticator {
     @Override
     public Result onUnauthorized(final Context ctx) {
         ctx.session().clear();
-        return redirect(com.parabole.rda.application.controllers.routes.BaseAction.login());
+        return redirect(com.parabole.rda.application.controllers.routes.BaseAction.dologin());
     }
     
 }
