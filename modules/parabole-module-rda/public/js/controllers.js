@@ -4218,9 +4218,9 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 	function addAggregates(id, title, isComposed){
 		if(isComposed)
-			$scope.savedPathList.push( {id: id, title: title, class:"aggr", img:"assets/images/aggregatorOnCircle.png", isComposed: isComposed});
+			$scope.savedPathList.push( {id: id, title: title, class:"aggr", img:"rdaassets/images/aggregatorOnCircle.png", isComposed: isComposed});
 		else
-			$scope.savedPathList.push( {id: id, title: title, class:"aggr", img:"assets/images/associator.png", isComposed: isComposed});
+			$scope.savedPathList.push( {id: id, title: title, class:"aggr", img:"rdaassets/images/associator.png", isComposed: isComposed});
 	}
 
 	$scope.onAggregateDrop = function( ui , cellIdx , element){

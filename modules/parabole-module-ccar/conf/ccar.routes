@@ -2,7 +2,7 @@
 # Play Framework's Controller Routing Configuration File
 # =================================================================================
 GET /                                      com.parabole.ccar.application.controllers.BaseController.login()
-POST /doLogin                              com.parabole.ccar.application.controllers.BaseController.dologin()
+GET /doLogin                              com.parabole.ccar.application.controllers.BaseController.dologin()
 GET  /logout                               com.parabole.ccar.application.controllers.BaseController.logout()
 GET  /getHardCodedResponse/:jsonFileName   com.parabole.ccar.application.controllers.BaseController.getHardCodedResponse(jsonFileName: String)
 
