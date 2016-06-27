@@ -9,6 +9,7 @@
 ->   /          ui.Routes
 ->   /ccar      ccar.Routes
 ->   /rda       rda.Routes
+->   /auth       auth.Routes
 
 # ---------------------------------------------------------------------------------
 # Static Resources

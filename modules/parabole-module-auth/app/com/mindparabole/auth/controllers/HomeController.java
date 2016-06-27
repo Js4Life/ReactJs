@@ -17,7 +17,7 @@ public class HomeController extends Controller {
      */
 
      public Result login() {
-     //   return ok(com.mindparabole.auth.application.views.html.login.render());
+        return ok(com.mindparabole.auth.views.html.login.render());
     }
 
 }
