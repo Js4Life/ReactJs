@@ -1,24 +1,18 @@
 PREFIX mpb-root-main: <http://www.mindparabole.com/ontology/finance/MPBRoot_Main#> 
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX cit:<http://www.mindparabole.com/ontology/finance/CIT_Main#>
+PREFIX cit:<http://www.mindparabole.com/ontology/finance/Bank_Main#>
 PREFIX mpb-fin-main-ccar-14q:<http://www.mindparabole.com/ontology/finance/FRY-14Q_Main#>
 PREFIX mpb-root-main-crm:<http://www.mindparabole.com/ontology/finance/CreditRiskManagement_Main#>
 PREFIX mpb-fin-main-ccar:<http://www.mindparabole.com/ontology/finance/CCAR_Main#>
 PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
 PREFIX pb:<http://www.mindparabole.com/ontology/finance/Parabole-Model#>
-PREFIX CDE:<http://parabole.com/Coarys/CriticalDataElements#>
-SELECT  ?Month_Name ?Month2 (COUNT(?CDE) AS ?Business_Definition_Drafted)
+PREFIX CDE:<http://www.mindparabole.com/ontology/finance/CDE/CriticalDataElements#>
+SELECT  ?Month (COUNT(?CDE) AS ?Business_Definition_Drafted)
 (COUNT(?CDE2) AS ?CDEs_Idenfied) (COUNT(?CDE3) AS ?Authoritative_Source_Drafted)
 (COUNT(?CDE4) AS ?Quality_Monitoring_Implemented)(COUNT(?CDE5) AS ?Data_Standard_Drafted)
 
 WHERE{
-
-{SELECT *
-
-WHERE{
-
-
 {SELECT  *
 WHERE {
  ?CDE rdf:type CDE:Critical_Data_Elements.
@@ -73,39 +67,7 @@ WHERE {
    BIND(xsd:date(?Date2) AS ?Date3)
    BIND(month(?Date3) AS ?Month)
 }}
-BIND (
-      IF(?Month = 1, 01, 
-       IF(?Month = 2, 02,
-        IF(?Month = 3, 03,
-         IF(?Month = 4, 04,
-          IF(?Month = 5, 05,
-           IF(?Month = 6, 06,
-            IF(?Month = 7, 07, 
-            IF(?Month = 8,08,
-            IF(?Month = 9,09,
-            IF(?Month = 10,10,
-            IF(?Month = 11,11,
-            IF(?Month = 12, 12,"Unknown")
-      ))))))))))) AS ?Month2
-    )}}
-BIND (
-      IF(?Month2 = 01, "January", 
-       IF(?Month2 = 02, "February",
-        IF(?Month2 = 03, "March",
-         IF(?Month2 = 04, "April",
-          IF(?Month2 = 05, "May",
-           IF(?Month2 = 06, "June",
-            IF(?Month2 = 07, "July", 
-            IF(?Month2 = 08,"August",
-            IF(?Month2 =09,"September",
-            IF(?Month2 = 10,"October",
-            IF(?Month2 = 11,"November",
-            IF(?Month2 = 12, "December","Unknown")
-      ))))))))))) AS ?Month_Name
-
-)
-
 }
-GROUP BY ?Month_Name ?Month2
-ORDER BY ?Month2
+GROUP BY ?Month
+ORDER BY ?Month
 

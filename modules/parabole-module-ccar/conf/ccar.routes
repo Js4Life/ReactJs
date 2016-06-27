@@ -25,7 +25,6 @@ POST /getAlldashboardTableData  com.parabole.ccar.application.controllers.JenaTd
 POST /getAllSeriesData			com.parabole.ccar.application.controllers.JenaTdbController.getAllSeriesData()
 POST /getSingleSeriesData		com.parabole.ccar.application.controllers.JenaTdbController.getSingleSeriesData()
 POST /getAllHeatMapTableData	com.parabole.ccar.application.controllers.JenaTdbController.getAllHeatMapTableData()
-
 GET /dashboardProfile           com.parabole.ccar.application.controllers.DispatcherController.dashboardProfile()
 GET /status                     com.parabole.ccar.application.controllers.DispatcherController.status()
 GET /schedule                   com.parabole.ccar.application.controllers.DispatcherController.schedule()

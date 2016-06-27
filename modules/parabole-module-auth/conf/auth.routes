@@ -1,0 +1,5 @@
+
+
+
+
+#GET     /auth                           com.mindparabole.auth.application.controllers.HomeController.auth

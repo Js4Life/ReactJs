@@ -1,0 +1,136 @@
+PREFIX mpb-root-main: <http://www.mindparabole.com/ontology/finance/MPBRoot_Main#> 
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX cit:<http://www.mindparabole.com/ontology/finance/Bank_Main#>
+PREFIX mpb-fin-main-ccar-14q:<http://www.mindparabole.com/ontology/finance/FRY-14Q_Main#>
+PREFIX mpb-root-main-crm:<http://www.mindparabole.com/ontology/finance/CreditRiskManagement_Main#>
+PREFIX mpb-fin-main-ccar:<http://www.mindparabole.com/ontology/finance/CCAR_Main#>
+PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
+PREFIX pb:<http://www.mindparabole.com/ontology/finance/Parabole-Model#>
+PREFIX CDE:<http://www.mindparabole.com/ontology/finance/CDE/CriticalDataElements#>
+PREFIX obfin:<http://www.mindparabole.com/ontology/finance/ObligorFin>
+PREFIX obinf:<http://www.mindparabole.com/ontology/finance/ObligorInf>
+PREFIX ppnr:<http://www.mindparabole.com/ontology/finance/PPNRProject>
+PREFIX ps:<http://www.mindparabole.com/ontology/finance/ProductSegment>
+PREFIX pitem:<http://www.mindparabole.com/ontology/finance/PPNRLineItemID>
+PREFIX dpfin:<http://www.mindparabole.com/ontology/finance/DepositorFin>
+PREFIX spif:<http://spinrdf.org/spif>
+select ?gnumber ?ppnritem ?Total where {
+
+ 
+
+{select ?gnumber  (sum(?noni) as ?Total)
+
+where {
+
+optional{?a ppnr:hasProduct ?product .}
+
+optional{?a ppnr:hasSubProduct ?subproduct .}
+
+optional{?a ppnr:hasSegment ?segment .}
+
+optional{?a ppnr:hasNONI ?basicnoni2.}
+BIND(xsd:float(?basicnoni2) AS ?basicnoni)
+
+
+optional{?a obfin:customerAnnualRevenue ?rev2.}
+BIND(xsd:float(?rev2) AS ?rev)
+
+optional{?a obfin:totalCommittedFacility ?facility . }
+
+optional {?a obfin:commitmentFeePerQuarter ?feepq2 .}
+BIND(xsd:float(?feepq2) AS ?feepq)
+
+bind (xsd:float(?facility * ?feepq) as ?commfee)
+
+
+ 
+
+bind(xsd:float(
+
+if(bound(?commfee),?commfee, 0 )+
+
+if(bound(?basicnoni),?basicnoni, 0 ))as ?noni)
+
+ 
+
+bind (xsd:string
+
+( if ((?rev <10000000)&&(?rev >0),"Small Medium", 
+
+( if ((?rev >10000000)&&(?rev<2000000000), "Commercial",
+
+( if ((?rev >2000000000), "Corporate",
+
+( if ((?rev =0), "Small Medium",false
+
+)))))))) as ?fedsegment1)
+
+ 
+
+bind (xsd:string
+
+(if (!bound(?rev),"Small Medium",?fedsegment1
+
+))as ?fedsegment )
+
+ 
+
+bind (xsd:string
+
+( if (?fedsegment = "Small Medium",
+
+                                ( if ((?product = ps:Credit_Card), "14C",
+
+                                ( if ((?product = ps:Mortgage), "14J",
+
+                                ( if ((?product = ps:Checking)||(?product = ps:Savings),"14Q",
+
+                                ( if ((?product = ps:Term), "14R","14S")))))))),
+
+( if (?fedsegment = "Commercial", "15" ,
+
+( if (?fedsegment = "Corporate" ,
+
+                                ( if ((?product = ps:Growth_Capital)||(?product = ps:Leveraged_Buyout),"16",
+
+                                ( if ((?product =ps:Mezzanine_Financing)||(?product = ps:Venture_Capital),"17",
+
+                                ( if ((?product = ps:CDO)||(?product=ps:CMO),"18L",
+
+                                ( if ((?product = ps:Trade_Credit)||(?product = ps:Letter_of_Credit)||(?product = ps:Acceptance)||(?product = ps:Letter_of_Guarantee),"18I",
+
+                                ( if ((?product = ps:Cash_advance), "20B",
+
+                                ( if ((?product = ps:Term_Finance),"18F",
+
+                                ( if ((?product = ps:Building_Lease)||(?product = ps:Machinery_Lease),"20C","24"))))))))))))))
+
+, false )))))) as ?g1)
+
+ 
+
+?gitem rdfs:label ?glabel .
+
+?gitem rdf:type pitem:PPNRLineItemID .
+
+?gitem rdfs:comment ?ppnritem.
+
+?gitem pitem:gNumber ?gnumber.
+
+?gitem pitem:gOrder ?gorder .
+
+filter (?glabel = ?g1)}
+
+group by ?gnumber }
+
+ 
+?gitem rdf:type pitem:PPNRLineItemID .
+?gitem rdfs:comment ?ppnritem.
+
+?gitem rdfs:label ?glabel .
+
+filter (?glabel = ?gnumber)
+
+}
+ORDER BY ?gnumber

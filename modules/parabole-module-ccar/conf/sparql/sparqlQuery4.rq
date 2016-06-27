@@ -1,7 +1,7 @@
 PREFIX mpb-root-main: <http://www.mindparabole.com/ontology/finance/MPBRoot_Main#> 
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX cit:<http://www.mindparabole.com/ontology/finance/CIT_Main#>
+PREFIX cit:<http://www.mindparabole.com/ontology/finance/Bank_Main#>
 PREFIX mpb-fin-main-ccar-14q:<http://www.mindparabole.com/ontology/finance/FRY-14Q_Main#>
 SELECT  DISTINCT ?s ?label
 	WHERE {

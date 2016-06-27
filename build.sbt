@@ -5,12 +5,13 @@ import sbt.RootProject
 name := "parabole-platform"
 
 lazy val root = (project in file(".")).enablePlugins(PlayJava)
-                .aggregate(ccar, rda, ui)
-                .dependsOn(ccar, rda, ui)
+                .aggregate(ccar, rda, ui, auth)
+                .dependsOn(ccar, rda, ui, auth)
 
 lazy val ccar = (project in file("modules/parabole-module-ccar")).enablePlugins(PlayScala)
 lazy val rda = (project in file("modules/parabole-module-rda")).enablePlugins(PlayScala)
 lazy val ui = (project in file("modules/parabole-module-ui")).enablePlugins(PlayScala)
+lazy val auth = (project in file("modules/parabole-module-auth")).enablePlugins(PlayScala)
 
 routesGenerator := InjectedRoutesGenerator
 

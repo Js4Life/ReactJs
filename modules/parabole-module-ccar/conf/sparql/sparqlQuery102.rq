@@ -1,14 +1,14 @@
 PREFIX mpb-root-main: <http://www.mindparabole.com/ontology/finance/MPBRoot_Main#> 
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX cit:<http://www.mindparabole.com/ontology/finance/CIT_Main#>
+PREFIX cit:<http://www.mindparabole.com/ontology/finance/Bank_Main#>
 PREFIX mpb-fin-main-ccar-14q:<http://www.mindparabole.com/ontology/finance/FRY-14Q_Main#>
 PREFIX mpb-root-main-crm:<http://www.mindparabole.com/ontology/finance/CreditRiskManagement_Main#>
 PREFIX mpb-fin-main-ccar:<http://www.mindparabole.com/ontology/finance/CCAR_Main#>
 PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
 PREFIX pb:<http://www.mindparabole.com/ontology/finance/Parabole-Model#>
-PREFIX CDE:<http://parabole.com/Coarys/CriticalDataElements#>
-SELECT ?month ?Month_Name ?Project_Name (COUNT(?cde) AS ?Number)
+PREFIX CDE:<http://www.mindparabole.com/ontology/finance/CDE/CriticalDataElements#>
+SELECT ?month ?Project_Name (COUNT(?cde) AS ?Number)
 WHERE {
 VALUES ?month{1 2 3 4 5 6 7 8 9 10 11 12}
 
@@ -21,23 +21,7 @@ VALUES ?month{1 2 3 4 5 6 7 8 9 10 11 12}
   ?cde CDE:CDE_Removed_Date ?Remdate.
   BIND(replace(?Remdate,"_","-") AS ?Date3)
    BIND(xsd:date(?Date3) AS ?Removedon_Date)
-FILTER(month(?Addedon_Date)<=?month && ?month <= month(?Removedon_Date) )
-  
- BIND (
-      IF(?month = 1, "January", 
-       IF(?month = 2, "February",
-        IF(?month = 3, "March",
-         IF(?month = 4, "April",
-          IF(?month = 5, "May",
-           IF(?month = 6, "June",
-            IF(?month = 7, "July", 
-            IF(?month = 8,"August",
-            IF(?month =9,"September",
-            IF(?month = 10,"October",
-            IF(?month = 11,"November",
-            IF(?month = 12, "December","Unknown")
-      ))))))))))) AS ?Month_Name
-
+FILTER(month(?Addedon_Date)<=?month && ?month <= month(?Removedon_Date) 
 )}
-  GROUP BY ?Month_Name ?month ?Project_Name
+  GROUP BY ?month ?Project_Name
   ORDER BY ?month
