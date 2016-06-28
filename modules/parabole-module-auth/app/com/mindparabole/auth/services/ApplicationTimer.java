@@ -1,4 +1,4 @@
-package services;
+package com.mindparabole.auth.services;
 
 import java.time.Clock;
 import java.time.Instant;

@@ -1,4 +1,4 @@
-package services;
+package com.mindparabole.auth.services;
 
 /**
  * This interface demonstrates how to create a component that is injected

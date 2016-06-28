@@ -1,9 +1,11 @@
-import com.google.inject.AbstractModule;
-import java.time.Clock;
+package com.mindparabole.auth;
 
-import services.ApplicationTimer;
-import services.AtomicCounter;
-import services.Counter;
+import com.google.inject.AbstractModule;
+import com.mindparabole.auth.services.ApplicationTimer;
+import com.mindparabole.auth.services.AtomicCounter;
+import com.mindparabole.auth.services.Counter;
+
+import java.time.Clock;
 
 /**
  * This class is a Guice module that tells Guice how to bind several

@@ -1,4 +1,4 @@
-import filters.ExampleFilter;
+import com.mindparabole.auth.filters.ExampleFilter;
 import play.Environment;
 import play.Mode;
 import play.http.HttpFilters;

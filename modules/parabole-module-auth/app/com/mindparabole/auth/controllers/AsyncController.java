@@ -1,4 +1,4 @@
-package controllers;
+package com.mindparabole.auth.controllers;
 
 import akka.actor.ActorSystem;
 import javax.inject.*;

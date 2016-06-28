@@ -1,4 +1,4 @@
-package services;
+package com.mindparabole.auth.services;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.inject.*;
