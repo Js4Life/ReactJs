@@ -43,16 +43,893 @@
 				"label" : "link"
 			}]
 		},
-		"ReportCompletion" : {
+		"fry14q" : {
+			"label" : "FRY-14Q Update",
+			"outputFormat":"timeline",
+			"groupByField":"labelReport",
+			"fileName":"sparqlQuery121.rq",
+			"columns" :  [{
+				"name" : "report",
+				"label" : "category"
+			},{
+				"name" : "labelReport",
+				"label" : "content"
+			},{
+				"name" : "start",
+				"label" : "start"
+			},{
+				"name" : "reportDescription",
+				"label" : "text"
+			},{
+				"name" : "link",
+				"label" : "link"
+			}]
+		},
+
+/*---------------------------------Start: Model Dashboard--------------------------------------*/
+		"modelDashboard" : {
+			"label" : "Model Dashboard",
+			"outputFormat":"timeline",
+			"groupByField":"labelReport",
+			"fileName":"sparqlQuery121.rq",
+			"columns" :  [{
+				"name" : "report",
+				"label" : "category"
+			},{
+				"name" : "labelReport",
+				"label" : "content"
+			},{
+				"name" : "start",
+				"label" : "start"
+			},{
+				"name" : "reportDescription",
+				"label" : "text"
+			},{
+				"name" : "link",
+				"label" : "link"
+			}]
+		},
+/*Start: Model Timeline by name*/
+		"CRE PD Model" : {
+			"label" : "CRE PD Model",
+			"outputFormat":"timeline",
+			"groupByField":"labelReport",
+			"fileName":"sparqlQuery127.rq",
+			"columns" :  [{
+				"name" : "report",
+				"label" : "category"
+			},{
+				"name" : "labelReport",
+				"label" : "content"
+			},{
+				"name" : "start",
+				"label" : "start"
+			},{
+                "name" : "reportDescription",
+                "label" : "reportDescription"
+            }]
+		},
+		"CRE EAD Model" : {
+			"label" : "CRE EAD Model",
+			"outputFormat":"timeline",
+			"groupByField":"labelReport",
+			"fileName":"sparqlQuery134.rq",
+			"columns" :  [{
+				"name" : "report",
+				"label" : "category"
+			},{
+				"name" : "labelReport",
+				"label" : "content"
+			},{
+				"name" : "start",
+				"label" : "start"
+			},{
+                "name" : "reportDescription",
+                "label" : "reportDescription"
+            }]
+		},
+		"Auto LGD Model" : {
+            "label" : "Auto LGD Model",
+            "outputFormat":"timeline",
+            "groupByField":"labelReport",
+            "fileName":"sparqlQuery135.rq",
+            "columns" :  [{
+                "name" : "report",
+                "label" : "category"
+            },{
+                "name" : "labelReport",
+                "label" : "content"
+            },{
+                "name" : "start",
+                "label" : "start"
+            },{
+                "name" : "reportDescription",
+                "label" : "reportDescription"
+            }]
+        },
+        "SME PD Model" : {
+            "label" : "SME PD Model",
+            "outputFormat":"timeline",
+            "groupByField":"labelReport",
+            "fileName":"sparqlQuery136.rq",
+            "columns" :  [{
+                "name" : "report",
+                "label" : "category"
+            },{
+                "name" : "labelReport",
+                "label" : "content"
+            },{
+                "name" : "start",
+                "label" : "start"
+            },{
+                "name" : "reportDescription",
+                "label" : "reportDescription"
+            }]
+        },
+        "Corporate Finance PPNR Model" : {
+            "label" : "Corporate Finance PPNR Model",
+            "outputFormat":"timeline",
+            "groupByField":"labelReport",
+            "fileName":"sparqlQuery137.rq",
+            "columns" :  [{
+                "name" : "report",
+                "label" : "category"
+            },{
+                "name" : "labelReport",
+                "label" : "content"
+            },{
+                "name" : "start",
+                "label" : "start"
+            },{
+                "name" : "reportDescription",
+                "label" : "reportDescription"
+            }]
+        },
+        "International Finance PPNR Model" : {
+            "label" : "International Finance PPNR Model",
+            "outputFormat":"timeline",
+            "groupByField":"labelReport",
+            "fileName":"sparqlQuery138.rq",
+            "columns" :  [{
+                "name" : "report",
+                "label" : "category"
+            },{
+                "name" : "labelReport",
+                "label" : "content"
+            },{
+                "name" : "start",
+                "label" : "start"
+            },{
+                "name" : "reportDescription",
+                "label" : "reportDescription"
+            }]
+        },
+        "Credit RWA Calculation" : {
+            "label" : "Credit RWA Calculation Model",
+            "outputFormat":"timeline",
+            "groupByField":"labelReport",
+            "fileName":"sparqlQuery139.rq",
+            "columns" :  [{
+                "name" : "report",
+                "label" : "category"
+            },{
+                "name" : "labelReport",
+                "label" : "content"
+            },{
+                "name" : "start",
+                "label" : "start"
+            },{
+                "name" : "reportDescription",
+                "label" : "reportDescription"
+            }]
+        },
+        "Auto PPNR Model" : {
+            "label" : "Auto PPNR Model",
+            "outputFormat":"timeline",
+            "groupByField":"labelReport",
+            "fileName":"sparqlQuery140.rq",
+            "columns" :  [{
+                "name" : "report",
+                "label" : "category"
+            },{
+                "name" : "labelReport",
+                "label" : "content"
+            },{
+                "name" : "start",
+                "label" : "start"
+            },{
+                "name" : "reportDescription",
+                "label" : "reportDescription"
+            }]
+        },
+        "CRE PPNR Model" : {
+            "label" : "CRE PPNR Model",
+            "outputFormat":"timeline",
+            "groupByField":"labelReport",
+            "fileName":"sparqlQuery141.rq",
+            "columns" :  [{
+                "name" : "report",
+                "label" : "category"
+            },{
+                "name" : "labelReport",
+                "label" : "content"
+            },{
+                "name" : "start",
+                "label" : "start"
+            },{
+                "name" : "reportDescription",
+                "label" : "reportDescription"
+            }]
+        },
+        "Corporate Finance Loss Estimation Model" : {
+            "label" : "Corporate Finance Loss Estimation Model",
+            "outputFormat":"timeline",
+            "groupByField":"labelReport",
+            "fileName":"sparqlQuery142.rq",
+            "columns" :  [{
+                "name" : "report",
+                "label" : "category"
+            },{
+                "name" : "labelReport",
+                "label" : "content"
+            },{
+                "name" : "start",
+                "label" : "start"
+            },{
+                "name" : "reportDescription",
+                "label" : "reportDescription"
+            }]
+        },
+        
+/*End: Model Timeline by name*/
+/*Start: CRE PD Model Lifecycle widgets*/
+		"CRE PD Model-Model Initiation and Tiering" : {
+			"groupByField":"labelReport",
+			"name" : "labelReport",
+			"fileName":"sparqlQuery129.rq"
+		},
+		"CRE PD Model-Model Development" : {
+			"groupByField":"labelReport",
+			"name" : "labelReport",
+			"fileName":"sparqlQuery129.rq"
+		},
+		"CRE PD Model-Model Implementation" : {
+			"groupByField":"labelReport",
+			"name" : "labelReport",
+			"fileName":"sparqlQuery129.rq"
+		},
+		"CRE PD Model-Model Use" : {
+			"groupByField":"labelReport",
+			"name" : "labelReport",
+			"fileName":"sparqlQuery129.rq"
+		},
+		"CRE PD Model-Model Monitoring" : {
+			"groupByField":"labelReport",
+			"name" : "labelReport",
+			"fileName":"sparqlQuery129.rq"
+		},
+		"CRE PD Model-Model Change" : {
+			"groupByField":"labelReport",
+			"name" : "labelReport",
+			"fileName":"sparqlQuery129.rq"
+		},
+		"CRE PD Model-Model Decommission" : {
+			"groupByField":"labelReport",
+			"name" : "labelReport",
+			"fileName":"sparqlQuery129.rq"
+		},
+		"CRE EAD Model-Model Initiation and Tiering" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery146.rq"
+        },
+        "CRE EAD Model-Model Development" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery146.rq"
+        },
+        "CRE EAD Model-Model Implementation" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery146.rq"
+        },
+        "CRE EAD Model-Model Use" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery146.rq"
+        },
+        "CRE EAD Model-Model Monitoring" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery146.rq"
+        },
+        "CRE EAD Model-Model Change" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery146.rq"
+        },
+        "CRE EAD Model-Model Decommission" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery146.rq"
+        },
+        "SME PD Model-Model Initiation and Tiering" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery147.rq"
+        },
+        "SME PD Model-Model Development" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery147.rq"
+        },
+        "Auto LGD Model-Model Initiation and Tiering" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery151.rq"
+        },
+        "Auto LGD Model-Model Development" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery151.rq"
+        },
+        "Auto LGD Model-Model Implementation" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery151.rq"
+        },
+        "Corporate Finance PPNR Model-Model Initiation and Tiering" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery155.rq"
+        },
+        "Corporate Finance PPNR Model-Model Development" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery155.rq"
+        },
+        "Corporate Finance PPNR Model-Model Implementation" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery155.rq"
+        },
+        "Corporate Finance PPNR Model-Model Use" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery155.rq"
+        },
+        "Corporate Finance PPNR Model-Model Monitoring" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery155.rq"
+        },
+        "Corporate Finance PPNR Model-Model Change" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery155.rq"
+        },
+        "Corporate Finance PPNR Model-Model Decommission" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery155.rq"
+        },
+        "International Finance PPNR Model-Model Initiation and Tiering" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery159.rq"
+        },
+        "International Finance PPNR Model-Model Development" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery159.rq"
+        },
+        "International Finance PPNR Model-Model Implementation" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery159.rq"
+        },
+        "International Finance PPNR Model-Model Use" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery159.rq"
+        },
+        "International Finance PPNR Model-Model Monitoring" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery159.rq"
+        },
+        "International Finance PPNR Model-Model Change" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery159.rq"
+        },
+        "International Finance PPNR Model-Model Decommission" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery159.rq"
+        },
+        "Credit RWA Calculation-Model Initiation and Tiering" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery163.rq"
+        },
+        "Credit RWA Calculation-Model Development" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery163.rq"
+        },
+        "Credit RWA Calculation-Model Implementation" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery163.rq"
+        },
+        "Credit RWA Calculation-Model Use" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery163.rq"
+        },
+        "Credit RWA Calculation-Model Monitoring" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery163.rq"
+        },
+        "Credit RWA Calculation-Model Change" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery163.rq"
+        },
+        "Credit RWA Calculation-Model Decommission" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery63.rq"
+        },
+        "Auto PPNR Model-Model Initiation and Tiering" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery167.rq"
+        },
+        "Auto PPNR Model-Model Development" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery167.rq"
+        },
+        "Auto PPNR Model-Model Implementation" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery167.rq"
+        },
+        "Auto PPNR Model-Model Use" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery167.rq"
+        },
+        "Auto PPNR Model-Model Monitoring" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery167.rq"
+        },
+        "Auto PPNR Model-Model Change" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery167.rq"
+        },
+        "Auto PPNR Model-Model Decommission" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery167.rq"
+        },
+         "CRE PPNR Model-Model Initiation and Tiering" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery171.rq"
+        },
+        "CRE PPNR Model-Model Development" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery171.rq"
+        },
+        "CRE PPNR Model-Model Implementation" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery171.rq"
+        },
+        "CRE PPNR Model-Model Use" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery171.rq"
+        },
+        "CRE PPNR Model-Model Monitoring" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery171.rq"
+        },
+        "CRE PPNR Model-Model Change" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery171.rq"
+        },
+        "CRE PPNR Model-Model Decommission" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery171.rq"
+        },
+        "Corporate Finance Loss Estimation Model-Model Initiation and Tiering" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery175.rq"
+        },
+        "Corporate Finance Loss Estimation Model-Model Development" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery175.rq"
+        },
+        "Corporate Finance Loss Estimation Model-Model Implementation" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery175.rq"
+        },
+        "Corporate Finance Loss Estimation Model-Model Use" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery175.rq"
+        },
+        "Corporate Finance Loss Estimation Model-Model Monitoring" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery175.rq"
+        },
+        "Corporate Finance Loss Estimation Model-Model Change" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery175.rq"
+        },
+        "Corporate Finance Loss Estimation Model-Model Decommission" : {
+            "groupByField":"labelReport",
+            "name" : "labelReport",
+            "fileName":"sparqlQuery175.rq"
+        },
+        
+/*End: CRE PD Model Lifecycle widgets*/
+		"dataRequestTimeline" : {
+			"label" : "Data Request Dashboard",
+			"outputFormat":"timeline",
+			"groupByField":"labelReport",
+			"fileName":"sparqlQuery128.rq",
+			"columns" :  [{
+				"name" : "report",
+				"label" : "category"
+			},{
+				"name" : "labelReport",
+				"label" : "content"
+			},{
+				"name" : "start",
+				"label" : "start"
+			},{
+                "name" : "reportDescription",
+                "label" : "reportDescription"
+            }]
+		},
+/*Start: Data Request Lifecycle widgets*/
+		"Data Request Submitted" : {
+			"outputFormat":"table",
+            "groupByField":"id",
+            "colorRange":[{
+				"lowerLimit":"-20",
+				"upperLimit":"0",
+				"value":"red"
+			},{
+				"lowerLimit":"0",
+				"upperLimit":"5",
+				"value":"yellow"
+			},{
+                "lowerLimit":"5",
+                "upperLimit":"10",
+                "value":"green"
+            }],
+            "columns" :  [{
+                "name" : "priority",
+                "label" : "Priority",
+                "fileName":"sparqlQuery180.rq"
+                
+                
+            },{
+                "name" : "env",
+                "label" : "Environment",
+                "fileName":"sparqlQuery180.rq"
+            },{
+                "name" : "func",
+                "label" : "Functionality",
+                "fileName":"sparqlQuery180.rq",
+                "hasColor":true
+            },{
+                "name" : "id",
+                "label" : "Request ID",
+                "fileName":"sparqlQuery180.rq"
+            },{
+                "name" : "drsummary",
+                "label" : "Data Request Summary",
+                "fileName":"sparqlQuery180.rq"
+            },{
+                "name" : "status",
+                "label" : "Status",
+                "fileName":"sparqlQuery180.rq"
+            },{
+                "name" : "Submit",
+                "label" : "Submitted On",
+                "fileName":"sparqlQuery180.rq",
+                "hasColor":true
+            },{
+                "name" : "Comp",
+                "label" : "Completed On",
+                "fileName":"sparqlQuery180.rq"
+            },{
+                "name" : "Rev",
+                "label" : "Reviewed On",
+                "fileName":"sparqlQuery180.rq"
+            },{
+                "name" : "Tar",
+                "label" : "Target Date",
+                "fileName":"sparqlQuery180.rq"
+            },{
+                "name" : "App",
+                "label" : "Approved On",
+                "fileName":"sparqlQuery180.rq"
+            },{
+                "name" : "num",
+                "label" : "Number of Days from Target Date",
+                "fileName":"sparqlQuery180.rq",
+                "hasColor":true
+                
+                
+            }]
+		},
+		"Data Request Pending" : {
+			"outputFormat":"table",
+            "groupByField":"Customer",
+            "columns" :  [{
+                "name" : "modelname",
+                "label" : "Model Name",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "port",
+                "label" : "Portfolio",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "Customer",
+                "label" : "Customer No:",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "date2",
+                "label" : "Date",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "OB",
+                "label" : "Outstanding Balance",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "Rating",
+                "label" : "Rating",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "score",
+                "label" : "Score",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "OBD",
+                "label" : "Outstanding Balance Default",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "DNY",
+                "label" : "Default Next Year",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "ebidta",
+                "label" : "Ebidta",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "Occu",
+                "label" : "Occupancy Rate",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "Debt",
+                "label" : "Debt Coverage",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "sales2",
+                "label" : "Sales Turnover",
+                "fileName":"sparqlQuery179.rq"
+            }]
+		},
+		"Data Request Reviewed" : {
+			"outputFormat":"table",
+            "groupByField":"Customer",
+            "columns" : [{
+                "name" : "modelname",
+                "label" : "Model Name",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "port",
+                "label" : "Portfolio",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "Customer",
+                "label" : "Customer No:",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "date2",
+                "label" : "Date",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "OB",
+                "label" : "Outstanding Balance",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "Rating",
+                "label" : "Rating",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "score",
+                "label" : "Score",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "OBD",
+                "label" : "Outstanding Balance Default",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "DNY",
+                "label" : "Default Next Year",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "ebidta",
+                "label" : "Ebidta",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "Occu",
+                "label" : "Occupancy Rate",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "Debt",
+                "label" : "Debt Coverage",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "sales2",
+                "label" : "Sales Turnover",
+                "fileName":"sparqlQuery179.rq"
+            }]
+		},
+		"Data Request Approved" : {
+			"outputFormat":"table",
+            "groupByField":"Customer",
+            "columns" :  [{
+                "name" : "modelname",
+                "label" : "Model Name",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "port",
+                "label" : "Portfolio",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "Customer",
+                "label" : "Customer No:",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "date2",
+                "label" : "Date",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "OB",
+                "label" : "Outstanding Balance",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "Rating",
+                "label" : "Rating",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "score",
+                "label" : "Score",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "OBD",
+                "label" : "Outstanding Balance Default",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "DNY",
+                "label" : "Default Next Year",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "ebidta",
+                "label" : "Ebidta",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "Occu",
+                "label" : "Occupancy Rate",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "Debt",
+                "label" : "Debt Coverage",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "sales2",
+                "label" : "Sales Turnover",
+                "fileName":"sparqlQuery179.rq"
+            }]
+		},
+		"Data Request Completed" : {
+			"outputFormat":"table",
+            "groupByField":"Customer",
+            "columns" :  [{
+                "name" : "modelname",
+                "label" : "Model Name",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "port",
+                "label" : "Portfolio",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "Customer",
+                "label" : "Customer No:",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "date2",
+                "label" : "Date",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "OB",
+                "label" : "Outstanding Balance",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "Rating",
+                "label" : "Rating",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "score",
+                "label" : "Score",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "OBD",
+                "label" : "Outstanding Balance Default",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "DNY",
+                "label" : "Default Next Year",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "ebidta",
+                "label" : "Ebidta",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "Occu",
+                "label" : "Occupancy Rate",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "Debt",
+                "label" : "Debt Coverage",
+                "fileName":"sparqlQuery179.rq"
+            },{
+                "name" : "sales2",
+                "label" : "Sales Turnover",
+                "fileName":"sparqlQuery179.rq"
+            }]
+		},
+/*Start: Data Request Lifecycle widgets*/
+/*---------------------------------End: Model Dashboard--------------------------------------*/
+
+
+		"RegulatoryWidgets" : {
 			"groupByField":"labelReport",
 			"name" : "labelReport",
 			"fileName":"sparqlQuery41.rq"
 		},
-		"EwgReport" : {
+		"EdmWidgets" : {
 			"groupByField":"labelReport",
 			"name" : "labelReport",
 			"fileName":"sparqlQuery60.rq"
 		},
+		"Fry14QWidgets" : {
+			"groupByField":"labelReport",
+			"name" : "labelReport",
+			"fileName":"sparqlQuery41.rq"
+		},		
 		"FRY-14A" : {
 			"label" : "FRY-14A update",
 			"outputFormat":"column",
@@ -93,12 +970,13 @@
 				"label" : "Number of Elements"
 			}]
 		},
-		"Meetings Summary" : {
-            "label" : "Meetings Summary",
+		"Meetings Effectiveness" : {
+            "label" : "Meetings Effectiveness",
             "outputFormat":"line",
-             "xAxisLabel" : "Month_Name",
+             "xAxisLabel" : "Month Name",
            "yAxisLabel" : "Numbers",
             "groupByField":"Month",
+
             "fileName":"sparqlQuery96.rq",
             "description":{
                 "name" : "pr_name",
@@ -106,14 +984,19 @@
                 "fileName":"sparqlQuery97.rq"
             },
            "columns" :  [{
+                "name" : "Number_of_Meetings",
+                "label" : "Number of Meetings"
+                
+            },{
                 "name" : "Number_of_Action_Items_Closed",
                 "label" : "Number of Action Items Closed"
+                
             },{
                 "name" : "Number_of_Attendees",
                 "label" : "Number of Attendees"
             },{
-                "name" : "Number_of_Meetings",
-                "label" : "Number of Meetings"
+                "name" : "Number_of_Regrets",
+                "label" : "Number of Regrets"
             }]
             
         },
@@ -145,7 +1028,7 @@
 				"label" : "Number Of Fields Assumption"
 			}]
 		},
-		"H1 Report-Issue" : {
+		"H1 Report-Table" : {
 			"outputFormat":"table",
 			"groupByField":"reportField",
 			"columns" :  [{
@@ -186,7 +1069,7 @@
 				"label" : "Number Of Fields Assumption"
 			}]
 		},
-		"H2 Report-Issue" : {
+		"H2 Report-Table" : {
 			"outputFormat":"table",
 			"groupByField":"reportField",
 			"columns" :  [{
@@ -208,7 +1091,7 @@
             "outputFormat":"line",
             "xAxisLabel" : "Month",
            "yAxisLabel" : "Number of CDEs",
-            "groupByField":"Month_Name",
+            "groupByField":"Month",
             "fileName":"sparqlQuery94.rq",
             "description":{
                 "name" : "pr_name",
@@ -232,7 +1115,7 @@
                 "label" : "Data Standard Drafted"
             }]
         },
-        "CDE Progress Metric-Issue" : {
+        "CDE Progress Metric-Table" : {
             "outputFormat":"table",
             "groupByField":"reportField",
             "columns" :  [{
@@ -248,7 +1131,7 @@
         "CDE Project Usage Per Month" : {
             "label" : "CDE Project Usage Per Month",
             "outputFormat":"line",
-            "groupByField":"Month_Name",
+            "groupByField":"month",
             "optionalGroupByField":"Project_Name",
             "xAxisLabel" : "Month",
 			"yAxisLabel" : "Number CDE",
@@ -261,6 +1144,24 @@
            "columns" :  [{
                 "name" : "Number",
                 "label" : "CDE Number"
+            }]
+        },
+         "CDE Project Usage Per Month-Table" : {
+            "outputFormat":"table",
+            "groupByField":"g1",
+            "optionalGroupByField":"ppnritem",
+            "columns" :  [{
+                "name" : "g1",
+                "label" : "g1",
+                "fileName":"sparqlQuery117.rq"
+            },{
+                "name" : "ppnritem",
+                "label" : "ppnritem",
+                "fileName":"sparqlQuery117.rq"
+            },{
+                "name" : "total",
+                "label" : "total",
+                "fileName":"sparqlQuery117.rq"
             }]
         },
         "CDE Corporate Function Usage Per Month" : {
@@ -281,11 +1182,34 @@
                 "label" : "CDE Number"
             }]
         },
-        
+        "CDE Corporate Function Usage Per Month-Table" : {
+            "outputFormat":"table",
+            "groupByField":"order",
+            "optionalGroupByField":"",
+            "columns" :  [{
+                "name" : "order",
+                "label" : "order",
+                "fileName":"sparqlQuery116.rq"
+            },{
+                "name" : "gnumber",
+                "label" : "gnumber",
+                "fileName":"sparqlQuery116.rq"
+            },{
+                "name" : "g1",
+                "label" : "g1",
+                "fileName":"sparqlQuery116.rq"
+            },{
+                "name" : "TotalNII",
+                "label" : "TotalNII",
+                "fileName":"sparqlQuery116.rq"
+            }
+           
+            ]
+        },
         "Meetings Summary" : {
             "label" : "Meetings Summary",
             "outputFormat":"line",
-            "groupByField":"Month",
+            "groupByField":"Month2",
             "fileName":"sparqlQuery96.rq",
             "description":{
                 "name" : "pr_name",
@@ -500,7 +1424,7 @@
 				"fileName":"sparqlQuery35.rq"
 			}]
 		},
-		"Escalations-Issue" : {
+		"Escalations-Table" : {
 			"outputFormat":"table",
 			"groupByField":"reportField",
 			"columns" :  [{
@@ -521,7 +1445,7 @@
 				"fileName":"sparqlQuery35.rq"
 			}]
 		},
-		"Data Quality-Issue" : {
+		"Data Quality-Table" : {
 			"outputFormat":"table",
 			"groupByField":"reportField",
 			"columns" :  [{
@@ -539,19 +1463,6 @@
 			},{
 				"name" : "strategic",
 				"label" : "Strategic Status",
-				"fileName":"sparqlQuery35.rq"
-			}]
-		},
-		"Data Rationalization-Issue" : {
-			"outputFormat":"table",
-			"groupByField":"reportField",
-			"columns" :  [{
-				"name" : "labelreportField",
-				"label" : "FRB Field#",
-				"fileName":"sparqlQuery35.rq"
-			},{
-				"name" : "sub_schedule",
-				"label" : "sub_schedule",
 				"fileName":"sparqlQuery35.rq"
 			}]
 		},
@@ -908,35 +1819,6 @@
 				"label" : "Number of Elements"
 			}]
 		},
-		"Critical Data Element Usage" : {
-			"label" : "Critical Data Element Usage",
-			"outputFormat":"pie",
-			"groupByField":"Project_Label",
-			"fileName":"sparqlQuery55.rq",
-			"description":{
-				"name" : "labelReportSchedule",
-				"label" : "description",
-				"fileName":"sparqlQuery23.rq"
-			},
-			"columns" :  [{
-				"name" : "Number_of_Elements",
-				"label" : "Number of Elements"
-			}]
-		},
-		
-		"Critical Data Element Usage-Issue" : {
-            "outputFormat":"table",
-            "groupByField":"reportField",
-            "columns" :  [{
-                "name" : "reportField_Name",
-                "label" : "Report Field Name",
-                "fileName":"sparqlQuery72.rq"
-            },{
-                "name" : "issue_description",
-                "label" : "Issue Description",
-                "fileName":"sparqlQuery72.rq"
-            }]
-        },
 		"NewReport" : {
 			"label" : "New Report Usage",
 			"outputFormat":"column",
@@ -973,45 +1855,6 @@
 				"label" : "Number of Stewards"
 			}]
 		},
-		"Data Rationalization" : {
-			"label" : "Data Rationalization",
-			"outputFormat":"combine",
-			"groupByField":"Sub_Schedule_Name",
-			"description":{
-				"name" : "labelReport",
-				"label" : "description",
-				"fileName":"sparqlQuery66.rq"
-			},
-			"columns" :  [{
-				"outputFormat":"column",				
-				"fileName":"sparqlQuery69.rq",
-				"columns" :  [{
-					"name" : "Num_of_Fields_Completed",
-					"label" : "Num_of_Fields_Completed"
-				}]
-			},{
-				"outputFormat":"column",				
-				"fileName":"sparqlQuery69.rq",
-				"columns" :  [{
-					"name" : "Num_of_Field_with_Issue",
-					"label" : "Num_of_Field_with_Issue"
-				}]
-			},{
-				"outputFormat":"line",
-				"fileName":"sparqlQuery69.rq",
-				"columns" :  [{
-					"name" : "Num_of_Pass_Validation_Rule",
-					"label" : "Num_of_Pass_Validation_Rule"
-				}]
-			},{
-				"outputFormat":"line",				
-				"fileName":"sparqlQuery69.rq",
-				"columns" :  [{
-					"name" : "Num_Of_Fields_Mandatory",
-					"label" : "Num_Of_Fields_Mandatory"
-				}]
-			}]
-		},
 		"CDE Project Usage" : {
             "label" : "CDE by Initiatives",
             "outputFormat":"combine",
@@ -1026,7 +1869,7 @@
                 "fileName":"sparqlQuery98.rq",
                 "columns" :  [{
                     "name" : "CDEs_definded_by_Projects",
-                    "label" : "CDEs definded by Specific Projects"
+                    "label" : "CDEs defined by Specific Projects"
                 }]
             },{
                 "outputFormat":"line",
@@ -1154,7 +1997,7 @@
 				"label" : "Number Of Fields Assumption"
 			}]
 		},
-		"H1 Corporate Loan-Issue" : {
+		"H1 Corporate Loan-Table" : {
 			"outputFormat":"table",
 			"groupByField":"reportField",
 			"columns" :  [{
@@ -1167,7 +2010,7 @@
 				"fileName":"sparqlQuery72.rq"
 			}]
 		},
-		"H2 Commercial Real Estate-Issue" : {
+		"H2 Commercial Real Estate-Table" : {
 			"outputFormat":"table",
 			"groupByField":"reportField",
 			"columns" :  [{
@@ -1244,6 +2087,652 @@
                 "name" : "14Q_H2",
                 "label" : "14Q_H2",
                 "fileName":"sparqlQuery88.rq"
+            }]
+        },
+        "G1 PPNR Submission Worksheet" : {
+        	"outputFormat":"table",
+            "groupByField":"g2",
+            "columns" :  [{
+                "name" : "g2",
+                "label" : "SL Number",
+                "fileName":"sparqlQuery116.rq"
+            },{
+                "name" : "ppnritem",
+                "label" : "PPNR Items",
+                "fileName":"sparqlQuery116.rq"
+            },{
+                "name" : "actual",
+                "label" : "Total",
+                "fileName":"sparqlQuery116.rq"
+            }]
+        },
+        "G1 PPNR Submission Worksheet-1": {
+        	"outputFormat":"table",
+            "groupByField":"g1",
+            "columns" :  [{
+                "name" : "g1",
+                "label" : "SL Number",
+                "fileName":"sparqlQuery117.rq"
+            },{
+                "name" : "ppnritem",
+                "label" : "PPNR Items",
+                "fileName":"sparqlQuery117.rq"
+            },{
+                "name" : "actual",
+                "label" : "Total",
+                "fileName":"sparqlQuery117.rq"
+            }]
+        },
+        "G1 PPNR Submission Worksheet-5": {
+            "outputFormat":"table",
+            "groupByField":"g1",
+            "columns" :  [{
+                "name" : "g1",
+                "label" : "SL Number",
+                "fileName":"sparqlQuery119.rq"
+            },{
+                "name" : "ppnritem",
+                "label" : "PPNR Items",
+                "fileName":"sparqlQuery119.rq"
+            },{
+                "name" : "actual",
+                "label" : "Total",
+                "fileName":"sparqlQuery119.rq"
+            }]
+        },
+        "G2 PPNR Net Interest Income Worksheet" : {
+        	"outputFormat":"table",
+            "groupByField":"gnumber",
+            "columns" :  [{
+                "name" : "gnumber",
+                "label" : "SL No",
+                "fileName":"sparqlQuery120.rq"
+            },{
+                "name" : "ppnritem",
+                "label" : "PPNR Item",
+                "fileName":"sparqlQuery120.rq"
+            },{
+                "name" : "Total",
+                "label" : "Total",
+                "fileName":"sparqlQuery120.rq"
+            }]
+        },
+        "G3 PPNR Metrics" : {
+        	"outputFormat":"table",
+            "groupByField":"Functional_Area",
+            "columns" :  [{
+                "name" : "Tax",
+                "label" : "Tax",
+                "fileName":"sparqlQuery88.rq"
+            },{
+                "name" : "Liquidity",
+                "label" : "Liquidity",
+                "fileName":"sparqlQuery88.rq"
+            },{
+                "name" : "Reg_Reporting",
+                "label" : "Reg_Reporting",
+                "fileName":"sparqlQuery88.rq"
+            },{
+                "name" : "FRY_9C",
+                "label" : "FRY_9C",
+                "fileName":"sparqlQuery88.rq"
+            },{
+                "name" : "14Q_H1",
+                "label" : "14Q_H1",
+                "fileName":"sparqlQuery88.rq"
+            },{
+                "name" : "14Q_H2",
+                "label" : "14Q_H2",
+                "fileName":"sparqlQuery88.rq"
+            }]
+        },
+        "Number of Data Requests per Lifecycle" : {
+            "label" : "Number of Data Requests per Lifecycle",
+            "outputFormat":"column",
+            "xAxisLabel" : "Data Request LifeCycle",
+           "yAxisLabel" : "Number of Data Requests",
+            "groupByField":"labelReport",
+            "fileName":"sparqlQuery125.rq",
+            "description":{
+                "name" : "labelReport",
+                "label" : "description",
+                "fileName":"sparqlQuery130.rq"
+            },
+            "columns" :  [{
+                "name" : "num",
+                "label" : "Number of Data Requests"
+            }]
+        },
+        "Number of Data Requests per Lifecycle-Table" : {
+			"outputFormat":"table",
+			"groupByField":"reportField",
+			"columns" :  [{
+				"name" : "reportField_Name",
+				"label" : "Report Field Name",
+				"fileName":"sparqlQuery72.rq"
+			},{
+				"name" : "issue_description",
+				"label" : "Issue Description",
+				"fileName":"sparqlQuery72.rq"
+			}]
+		},
+         "Number of Data Requests with priority" : {
+            "label" : "Number of Data Requests with priority",
+            "outputFormat":"column",
+            "xAxisLabel" : "Data Request Priority",
+           "yAxisLabel" : "Number of Data Requests",
+            "groupByField":"pr",
+            "fileName":"sparqlQuery126.rq",
+            "description":{
+                "name" : "labelReport",
+                "label" : "description",
+                "fileName":"sparqlQuery131.rq"
+            },
+            "columns" :  [{
+                "name" : "num",
+                "label" : "Number of Data Requests"
+            }]
+        },
+        "Number of Data Requests with priority-Table" : {
+			"outputFormat":"table",
+			"groupByField":"reportField",
+			"columns" :  [{
+				"name" : "reportField_Name",
+				"label" : "Report Field Name",
+				"fileName":"sparqlQuery72.rq"
+			},{
+				"name" : "issue_description",
+				"label" : "Issue Description",
+				"fileName":"sparqlQuery72.rq"
+			}]
+		},
+        "Data Request Completion" : {
+            "label" : "Data Request Completion",
+            "outputFormat":"line",
+            "xAxisLabel" : "Data Requests",
+           "yAxisLabel" : "Percentage",
+            "groupByField":"dr_name",
+            "fileName":"sparqlQuery132.rq",
+            "description":{
+                "name" : "labelReport",
+                "label" : "description",
+                "fileName":"sparqlQuery133.rq"
+            },
+            "columns" :  [{
+                "name" : "Per",
+                "label" : "Percentage Completion"
+            }]
+        },
+        "Data Request Completion-Table" : {
+			"outputFormat":"table",
+			"groupByField":"reportField",
+			"columns" :  [{
+				"name" : "reportField_Name",
+				"label" : "Report Field Name",
+				"fileName":"sparqlQuery72.rq"
+			},{
+				"name" : "issue_description",
+				"label" : "Issue Description",
+				"fileName":"sparqlQuery72.rq"
+			}]
+		},
+		"CRE EAD DRvsLifecycle" : {
+            "label" : "Number of Data Requests per Lifecycle",
+            "outputFormat":"column",
+            "xAxisLabel" : "Data Request LifeCycle",
+           "yAxisLabel" : "Number of Data Requests",
+            "groupByField":"labelReport",
+            "fileName":"sparqlQuery144.rq",
+            "description":{
+                "name" : "labelReport",
+                "label" : "description",
+                "fileName":"sparqlQuery130.rq"
+            },
+            "columns" :  [{
+                "name" : "num",
+                "label" : "Number of Data Requests"
+            }]
+        },
+         "CRE EAD DRvsPriority" : {
+            "label" : "Number of Data Requests with priority",
+            "outputFormat":"column",
+            "xAxisLabel" : "Data Request Priority",
+           "yAxisLabel" : "Number of Data Requests",
+            "groupByField":"pr",
+            "fileName":"sparqlQuery143.rq",
+            "description":{
+                "name" : "labelReport",
+                "label" : "description",
+                "fileName":"sparqlQuery131.rq"
+            },
+            "columns" :  [{
+                "name" : "num",
+                "label" : "Number of Data Requests"
+            }]
+        },
+        "CRE EAD DR Completion" : {
+            "label" : "Data Request Completion",
+            "outputFormat":"line",
+            "xAxisLabel" : "Data Requests",
+           "yAxisLabel" : "Percentage",
+            "groupByField":"dr_name",
+            "fileName":"sparqlQuery145.rq",
+            "description":{
+                "name" : "labelReport",
+                "label" : "description",
+                "fileName":"sparqlQuery133.rq"
+            },
+            "columns" :  [{
+                "name" : "Per",
+                "label" : "Percentage Completion"
+            }]
+        },
+        "SME PD Model DRvsLifecycle" : {
+            "label" : "Number of Data Requests per Lifecycle",
+            "outputFormat":"column",
+            "xAxisLabel" : "Data Request LifeCycle",
+           "yAxisLabel" : "Number of Data Requests",
+            "groupByField":"labelReport",
+            "fileName":"sparqlQuery148.rq",
+            "description":{
+                "name" : "labelReport",
+                "label" : "description",
+                "fileName":"sparqlQuery130.rq"
+            },
+            "columns" :  [{
+                "name" : "num",
+                "label" : "Number of Data Requests"
+            }]
+        },
+         "SME PD Model DRvsPriority" : {
+            "label" : "Number of Data Requests with priority",
+            "outputFormat":"column",
+            "xAxisLabel" : "Data Request Priority",
+           "yAxisLabel" : "Number of Data Requests",
+            "groupByField":"pr",
+            "fileName":"sparqlQuery149.rq",
+            "description":{
+                "name" : "labelReport",
+                "label" : "description",
+                "fileName":"sparqlQuery131.rq"
+            },
+            "columns" :  [{
+                "name" : "num",
+                "label" : "Number of Data Requests"
+            }]
+        },
+        "SME PD Model DR Completion" : {
+            "label" : "Data Request Completion",
+            "outputFormat":"line",
+            "xAxisLabel" : "Data Requests",
+           "yAxisLabel" : "Percentage",
+            "groupByField":"dr_name",
+            "fileName":"sparqlQuery150.rq",
+            "description":{
+                "name" : "labelReport",
+                "label" : "description",
+                "fileName":"sparqlQuery133.rq"
+            },
+            "columns" :  [{
+                "name" : "Per",
+                "label" : "Percentage Completion"
+            }]
+        },
+        "Auto LGD Model DRvsLifecycle" : {
+            "label" : "Number of Data Requests per Lifecycle",
+            "outputFormat":"column",
+            "xAxisLabel" : "Data Request LifeCycle",
+           "yAxisLabel" : "Number of Data Requests",
+            "groupByField":"labelReport",
+            "fileName":"sparqlQuery152.rq",
+            "description":{
+                "name" : "labelReport",
+                "label" : "description",
+                "fileName":"sparqlQuery130.rq"
+            },
+            "columns" :  [{
+                "name" : "num",
+                "label" : "Number of Data Requests"
+            }]
+        },
+         "Auto LGD Model DRvsPriority" : {
+            "label" : "Number of Data Requests with priority",
+            "outputFormat":"column",
+            "xAxisLabel" : "Data Request Priority",
+           "yAxisLabel" : "Number of Data Requests",
+            "groupByField":"pr",
+            "fileName":"sparqlQuery153.rq",
+            "description":{
+                "name" : "labelReport",
+                "label" : "description",
+                "fileName":"sparqlQuery131.rq"
+            },
+            "columns" :  [{
+                "name" : "num",
+                "label" : "Number of Data Requests"
+            }]
+        },
+        "Auto LGD Model DR Completion" : {
+            "label" : "Data Request Completion",
+            "outputFormat":"line",
+            "xAxisLabel" : "Data Requests",
+           "yAxisLabel" : "Percentage",
+            "groupByField":"dr_name",
+            "fileName":"sparqlQuery154.rq",
+            "description":{
+                "name" : "labelReport",
+                "label" : "description",
+                "fileName":"sparqlQuery133.rq"
+            },
+            "columns" :  [{
+                "name" : "Per",
+                "label" : "Percentage Completion"
+            }]
+        },
+        "Corporate Finance PPNR DRvsLifecycle" : {
+            "label" : "Number of Data Requests per Lifecycle",
+            "outputFormat":"column",
+            "xAxisLabel" : "Data Request LifeCycle",
+           "yAxisLabel" : "Number of Data Requests",
+            "groupByField":"labelReport",
+            "fileName":"sparqlQuery156.rq",
+            "description":{
+                "name" : "labelReport",
+                "label" : "description",
+                "fileName":"sparqlQuery130.rq"
+            },
+            "columns" :  [{
+                "name" : "num",
+                "label" : "Number of Data Requests"
+            }]
+        },
+         "Corporate Finance PPNR DRvsPriority" : {
+            "label" : "Number of Data Requests with priority",
+            "outputFormat":"column",
+            "xAxisLabel" : "Data Request Priority",
+           "yAxisLabel" : "Number of Data Requests",
+            "groupByField":"pr",
+            "fileName":"sparqlQuery157.rq",
+            "description":{
+                "name" : "labelReport",
+                "label" : "description",
+                "fileName":"sparqlQuery131.rq"
+            },
+            "columns" :  [{
+                "name" : "num",
+                "label" : "Number of Data Requests"
+            }]
+        },
+        "Corporate Finance PPNR DR Completion" : {
+            "label" : "Data Request Completion",
+            "outputFormat":"line",
+            "xAxisLabel" : "Data Requests",
+           "yAxisLabel" : "Percentage",
+            "groupByField":"dr_name",
+            "fileName":"sparqlQuery158.rq",
+            "description":{
+                "name" : "labelReport",
+                "label" : "description",
+                "fileName":"sparqlQuery133.rq"
+            },
+            "columns" :  [{
+                "name" : "Per",
+                "label" : "Percentage Completion"
+            }]
+        },
+        "International Finance PPNR DRvsLifecycle" : {
+            "label" : "Number of Data Requests per Lifecycle",
+            "outputFormat":"column",
+            "xAxisLabel" : "Data Request LifeCycle",
+           "yAxisLabel" : "Number of Data Requests",
+            "groupByField":"labelReport",
+            "fileName":"sparqlQuery160.rq",
+            "description":{
+                "name" : "labelReport",
+                "label" : "description",
+                "fileName":"sparqlQuery130.rq"
+            },
+            "columns" :  [{
+                "name" : "num",
+                "label" : "Number of Data Requests"
+            }]
+        },
+         "International Finance PPNR DRvsPriority" : {
+            "label" : "Number of Data Requests with priority",
+            "outputFormat":"column",
+            "xAxisLabel" : "Data Request Priority",
+           "yAxisLabel" : "Number of Data Requests",
+            "groupByField":"pr",
+            "fileName":"sparqlQuery161.rq",
+            "description":{
+                "name" : "labelReport",
+                "label" : "description",
+                "fileName":"sparqlQuery131.rq"
+            },
+            "columns" :  [{
+                "name" : "num",
+                "label" : "Number of Data Requests"
+            }]
+        },
+        "International Finance PPNR DR Completion" : {
+            "label" : "Data Request Completion",
+            "outputFormat":"line",
+            "xAxisLabel" : "Data Requests",
+           "yAxisLabel" : "Percentage",
+            "groupByField":"dr_name",
+            "fileName":"sparqlQuery162.rq",
+            "description":{
+                "name" : "labelReport",
+                "label" : "description",
+                "fileName":"sparqlQuery133.rq"
+            },
+            "columns" :  [{
+                "name" : "Per",
+                "label" : "Percentage Completion"
+            }]
+        },
+        "Credit RWA DRvsLifecycle" : {
+            "label" : "Number of Data Requests per Lifecycle",
+            "outputFormat":"column",
+            "xAxisLabel" : "Data Request LifeCycle",
+           "yAxisLabel" : "Number of Data Requests",
+            "groupByField":"labelReport",
+            "fileName":"sparqlQuery164.rq",
+            "description":{
+                "name" : "labelReport",
+                "label" : "description",
+                "fileName":"sparqlQuery130.rq"
+            },
+            "columns" :  [{
+                "name" : "num",
+                "label" : "Number of Data Requests"
+            }]
+        },
+         "Credit RWA DRvsPriority" : {
+            "label" : "Number of Data Requests with priority",
+            "outputFormat":"column",
+            "xAxisLabel" : "Data Request Priority",
+           "yAxisLabel" : "Number of Data Requests",
+            "groupByField":"pr",
+            "fileName":"sparqlQuery165.rq",
+            "description":{
+                "name" : "labelReport",
+                "label" : "description",
+                "fileName":"sparqlQuery131.rq"
+            },
+            "columns" :  [{
+                "name" : "num",
+                "label" : "Number of Data Requests"
+            }]
+        },
+        "Credit RWA DR Completion" : {
+            "label" : "Data Request Completion",
+            "outputFormat":"line",
+            "xAxisLabel" : "Data Requests",
+           "yAxisLabel" : "Percentage",
+            "groupByField":"dr_name",
+            "fileName":"sparqlQuery166.rq",
+            "description":{
+                "name" : "labelReport",
+                "label" : "description",
+                "fileName":"sparqlQuery133.rq"
+            },
+            "columns" :  [{
+                "name" : "Per",
+                "label" : "Percentage Completion"
+            }]
+        },
+        "Auto PPNR Model DRvsLifecyle" : {
+            "label" : "Number of Data Requests per Lifecycle",
+            "outputFormat":"column",
+            "xAxisLabel" : "Data Request LifeCycle",
+           "yAxisLabel" : "Number of Data Requests",
+            "groupByField":"labelReport",
+            "fileName":"sparqlQuery168.rq",
+            "description":{
+                "name" : "labelReport",
+                "label" : "description",
+                "fileName":"sparqlQuery130.rq"
+            },
+            "columns" :  [{
+                "name" : "num",
+                "label" : "Number of Data Requests"
+            }]
+        },
+         "Auto PPNR Model DRvsPriority" : {
+            "label" : "Number of Data Requests with priority",
+            "outputFormat":"column",
+            "xAxisLabel" : "Data Request Priority",
+           "yAxisLabel" : "Number of Data Requests",
+            "groupByField":"pr",
+            "fileName":"sparqlQuery169.rq",
+            "description":{
+                "name" : "labelReport",
+                "label" : "description",
+                "fileName":"sparqlQuery131.rq"
+            },
+            "columns" :  [{
+                "name" : "num",
+                "label" : "Number of Data Requests"
+            }]
+        },
+        "Auto PPNR Model DR Completion" : {
+            "label" : "Data Request Completion",
+            "outputFormat":"line",
+            "xAxisLabel" : "Data Requests",
+           "yAxisLabel" : "Percentage",
+            "groupByField":"dr_name",
+            "fileName":"sparqlQuery170.rq",
+            "description":{
+                "name" : "labelReport",
+                "label" : "description",
+                "fileName":"sparqlQuery133.rq"
+            },
+            "columns" :  [{
+                "name" : "Per",
+                "label" : "Percentage Completion"
+            }]
+        },
+        "CRE PPNR Model DRvsLifecycle" : {
+            "label" : "Number of Data Requests per Lifecycle",
+            "outputFormat":"column",
+            "xAxisLabel" : "Data Request LifeCycle",
+           "yAxisLabel" : "Number of Data Requests",
+            "groupByField":"labelReport",
+            "fileName":"sparqlQuery172.rq",
+            "description":{
+                "name" : "labelReport",
+                "label" : "description",
+                "fileName":"sparqlQuery130.rq"
+            },
+            "columns" :  [{
+                "name" : "num",
+                "label" : "Number of Data Requests"
+            }]
+        },
+         "CRE PPNR Model DRvsPriority" : {
+            "label" : "Number of Data Requests with priority",
+            "outputFormat":"column",
+            "xAxisLabel" : "Data Request Priority",
+           "yAxisLabel" : "Number of Data Requests",
+            "groupByField":"pr",
+            "fileName":"sparqlQuery173.rq",
+            "description":{
+                "name" : "labelReport",
+                "label" : "description",
+                "fileName":"sparqlQuery131.rq"
+            },
+            "columns" :  [{
+                "name" : "num",
+                "label" : "Number of Data Requests"
+            }]
+        },
+        "CRE PPNR Model DR Completion" : {
+            "label" : "Data Request Completion",
+            "outputFormat":"line",
+            "xAxisLabel" : "Data Requests",
+           "yAxisLabel" : "Percentage",
+            "groupByField":"dr_name",
+            "fileName":"sparqlQuery174.rq",
+            "description":{
+                "name" : "labelReport",
+                "label" : "description",
+                "fileName":"sparqlQuery133.rq"
+            },
+            "columns" :  [{
+                "name" : "Per",
+                "label" : "Percentage Completion"
+            }]
+        },
+        "Corporate Finance Loss Estimation DRvsLifecycle" : {
+            "label" : "Number of Data Requests per Lifecycle",
+            "outputFormat":"column",
+            "xAxisLabel" : "Data Request LifeCycle",
+           "yAxisLabel" : "Number of Data Requests",
+            "groupByField":"labelReport",
+            "fileName":"sparqlQuery176.rq",
+            "description":{
+                "name" : "labelReport",
+                "label" : "description",
+                "fileName":"sparqlQuery130.rq"
+            },
+            "columns" :  [{
+                "name" : "num",
+                "label" : "Number of Data Requests"
+            }]
+        },
+         "Corporate Finance Loss Estimation DRvsPriority" : {
+            "label" : "Number of Data Requests with priority",
+            "outputFormat":"column",
+            "xAxisLabel" : "Data Request Priority",
+           "yAxisLabel" : "Number of Data Requests",
+            "groupByField":"pr",
+            "fileName":"sparqlQuery177.rq",
+            "description":{
+                "name" : "labelReport",
+                "label" : "description",
+                "fileName":"sparqlQuery131.rq"
+            },
+            "columns" :  [{
+                "name" : "num",
+                "label" : "Number of Data Requests"
+            }]
+        },
+        "Corporate Finance Loss Estimation DR Completion" : {
+            "label" : "Data Request Completion",
+            "outputFormat":"line",
+            "xAxisLabel" : "Data Requests",
+           "yAxisLabel" : "Percentage",
+            "groupByField":"dr_name",
+            "fileName":"sparqlQuery178.rq",
+            "description":{
+                "name" : "labelReport",
+                "label" : "description",
+                "fileName":"sparqlQuery133.rq"
+            },
+            "columns" :  [{
+                "name" : "Per",
+                "label" : "Percentage Completion"
             }]
         }
 }

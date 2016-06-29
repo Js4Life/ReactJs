@@ -233,13 +233,13 @@ public class OctopusLineageService {
 		ruleJsonObj.put("id", pVDef.GetRuleID(0));
 		ruleJsonObj.put("name", pVDef.GetRuleName(0));
 		ruleJsonObj.put("des", pVDef.GetRuleDef(0));
-		JSONObject newjson = new JSONObject(octopusSemanticService.getVertexPropertyKeyById(pVDef.GetRuleID(0)));
+		//JSONObject newjson = new JSONObject(octopusSemanticService.getVertexPropertyKeyById(pVDef.GetRuleID(0)));
 		JSONObject merged = new JSONObject(ruleJsonObj, JSONObject.getNames(ruleJsonObj));
-		for(String key : JSONObject.getNames(newjson))
+		/*for(String key : JSONObject.getNames(newjson))
 		{
 		  merged.put(key, newjson.get(key));
 		}
-
+*/
 		ruleArray.put(merged);
 		outputJson.put("rules", ruleArray);
 		
@@ -251,21 +251,13 @@ public class OctopusLineageService {
         	conceptJsonObj.put("id", pVDef.GetConceptID(i));
         	conceptJsonObj.put("type", "concept");
 			conceptJsonObj.put("level", 0);
-
-			if( octopusSemanticService.getVertexNameById(pVDef.GetConceptID(i)) != null ){
+			conceptJsonObj.put("name", pVDef.GetConceptName(i));
+		
+			/*if( octopusSemanticService.getVertexNameById(pVDef.GetConceptID(i)) != null ){
 				conceptJsonObj.put("name", octopusSemanticService.getVertexNameById(pVDef.GetConceptID(i)));
 			}else{
-				JenaTdbService jenaTdbService = new JenaTdbService();
-				String nodeData= null;
-				try {
-					nodeData = jenaTdbService.jenaTdbFetchingByClassName(pVDef.GetConceptName(i));
-				} catch (com.parabole.ccar.application.exceptions.AppException e) {
-					e.printStackTrace();
-				}
-			//	conceptJsonObj.put("name", pVDef.GetConceptName(i));
 				conceptJsonObj.put("name", pVDef.GetConceptName(i));
-
-			}
+			}*/
 			
 			conceptJsonObj.put("color", "green");
 			conceptJsonArray.put(conceptJsonObj);
@@ -352,12 +344,12 @@ public class OctopusLineageService {
         	ruleJsonObj.put("id", pVDef.GetRuleID(i));
 			ruleJsonObj.put("name", pVDef.GetRuleName(i));
 			ruleJsonObj.put("des", pVDef.GetRuleDef(i));
-			JSONObject newjson = new JSONObject(octopusSemanticService.getVertexPropertyKeyById(pVDef.GetRuleID(i)));
+			//JSONObject newjson = new JSONObject(octopusSemanticService.getVertexPropertyKeyById(pVDef.GetRuleID(i)));
 			JSONObject merged = new JSONObject(ruleJsonObj, JSONObject.getNames(ruleJsonObj));
-			for(String key : JSONObject.getNames(newjson))
+			/*for(String key : JSONObject.getNames(newjson))
 			{
 			  merged.put(key, newjson.get(key));
-			}
+			}*/
 			ruleJsonArray.put(merged);
 		}		
 		
@@ -370,24 +362,15 @@ public class OctopusLineageService {
 			conceptJsonObj.put("level", 0);
 			conceptJsonObj.put("type", "concept");
 			//finding nodeName against Node ID
-			// conceptJsonObj.put("name", pVDef.GetConceptName(i));
+			conceptJsonObj.put("name", pVDef.GetConceptName(i));
 			
-			if( octopusSemanticService.getVertexNameById(pVDef.GetConceptID(i)) != null ){
-				//conceptJsonObj.put("name", octopusSemanticService.getVertexNameById(pVDef.GetConceptID(i)));
-                conceptJsonObj.put("name", pVDef.GetConceptName(i));
-                JenaTdbService jenaTdbService1 = new JenaTdbService();
-                String nodeData= null;
-                try {
-                    nodeData = jenaTdbService1.jenaTdbFetchingByClassName(pVDef.GetConceptName(i));
-                    //nodeData = jenaTdbService1.jenaTdbFetchingByClassName("mpb-fin-main-ccar-14q:Sub_Sch_H1_CUSIP");
-                } catch (com.parabole.ccar.application.exceptions.AppException e) {
-                    e.printStackTrace();
-                }
-                //	conceptJsonObj.put("name", pVDef.GetConceptName(i));
-                conceptJsonObj.put("name", nodeData);
+			/*if( octopusSemanticService.getVertexNameById(pVDef.GetConceptID(i)) != null ){
+				conceptJsonObj.put("name", octopusSemanticService.getVertexNameById(pVDef.GetConceptID(i)));
 			}else{
 				conceptJsonObj.put("name", pVDef.GetConceptName(i));
-			}
+			}*/
+		
+					
 			conceptJsonObj.put("color", "green");
  			conceptJsonArray.put(conceptJsonObj);
 		}		

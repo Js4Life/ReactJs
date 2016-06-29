@@ -209,8 +209,32 @@ angular.module('RDAApp.directives', [])
      }
 })
 
+.directive('visGraph', function ($parse, $compile, SharedService) {
+    return {
+        restrict: 'EA',
+        scope: {
+            data: '=',
+            options: '='
+        },
+        link: function (scope, element, attrs) {
+            var config = scope.options || {
+                labelField:'name', isRandom : true,  edgeLabelField : 'relType', selectedEdgeColor : Constant.COLOR.AQUA,
+                handlerData: { click : scope.clickNode, scope : scope },
+                nodeShape: 'image',
+                nodeImageMap: SharedService.nodeImageMap,
+                nodeImageField: "type",
+                hier: false
+            };
+            scope.$parent.viz = new GRAPH.Viz ( $(element)[0], config );
+            scope.$watch('data', function (newVal) {
+                if(!newVal) return;
+                scope.$parent.viz.initialize( newVal );
+            });
+        }
+    }
+})
+
 .directive('visTimeline', function () {
-        'use strict';
         return {
             restrict: 'EA',
             transclude: false,
@@ -219,7 +243,7 @@ angular.module('RDAApp.directives', [])
                 options: '=',
                 events: '='
             },
-            link: function (scope, element, attr) {
+            link: function (scope, element, attrs) {
                 var timelineEvents = [
                     'rangechange',
                     'rangechanged',
@@ -672,7 +696,7 @@ angular.module('RDAApp.directives', [])
 })
 
 .directive('loader', function () {
-      return {
+    return {
         restrict: 'E',
         replace:true,
         template: '<div class="loading"></div>',
@@ -684,7 +708,7 @@ angular.module('RDAApp.directives', [])
                       $(element).hide();
               });
         }
-      }
+    }
 })
 
 .directive('ngEnter', function () {
@@ -723,24 +747,45 @@ angular.module('RDAApp.directives', [])
 })
 
 .directive('highChart', function () {
-        'use strict';
-        return {
-            restrict: 'EA',
-            transclude: false,
-            scope: {
-                data: '=',
-                options: '='
-            },
-            link: function (scope, element, attr) {
-                var chart = null;
+    'use strict';
+    return {
+        restrict: 'EA',
+        transclude: false,
+        scope: {
+            data: '=',
+            options: '='
+        },
+        link: function (scope, element, attr) {
+            var chart = null;
 
-                scope.$watch('data', function () {
-                    if (scope.data == null) {
-                        return;
-                    }
-                    chart = new GRAPH.PlotWrapper(element[0], scope.options);
-                    chart.draw(scope.data);
-                });
-            }
-        };
-    });
+            scope.$watch('data', function () {
+                if (scope.data == null) {
+                    return;
+                }
+                chart = new GRAPH.PlotWrapper(element[0], scope.options);
+                chart.draw(scope.data);
+            });
+        }
+    };
+})
+
+.directive('highMap', function () {
+    return {
+        restrict: 'EA',
+        scope: {
+            options: '=',
+            data: '='
+        },
+        link: function (scope, element, attrs) {
+            var config = scope.options || {
+                title: "",
+                handlerData: { click : scope.clickMap, scope : scope }
+            };
+            scope.$parent.map = new MAP.PlotMap( element[0], config );
+            scope.$watch('data', function (newVal) {
+                if(!newVal) return;
+                scope.$parent.map.drawMap( newVal );
+            });
+        }
+    }
+});

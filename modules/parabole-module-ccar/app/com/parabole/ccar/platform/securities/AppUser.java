@@ -17,7 +17,6 @@ import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-
 import com.parabole.ccar.platform.BaseDTO;
 
 /**

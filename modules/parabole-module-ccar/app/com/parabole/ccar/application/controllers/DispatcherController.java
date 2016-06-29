@@ -31,6 +31,10 @@ public class DispatcherController extends BaseController {
         return ok(com.parabole.ccar.application.views.html.dashboardProfile.render());
     }
 
+    public Result dashboardGraphProfile() {
+        return ok(com.parabole.ccar.application.views.html.dashboardGraphProfile.render());
+    }
+
     public Result status() {
         return ok(com.parabole.ccar.application.views.html.status.render());
     }
@@ -89,5 +93,9 @@ public class DispatcherController extends BaseController {
 
     public Result heatMap() {
         return ok(com.parabole.ccar.application.views.html.heatMap.render());
+    }
+
+    public Result scheduleTable() {
+        return ok(com.parabole.ccar.application.views.html.scheduleTable.render());
     }
 }

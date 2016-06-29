@@ -7,7 +7,7 @@ $( document ).on( "pageinit", "#demo-page", function() {
             short = target.attr( "id" ),
             closebtn = '<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-btn-right">Close</a>',
             header = '<div data-role="header"><h2>' + brand + ' ' + model + '</h2></div>',
-            img = '<img src="../../_assets/img/' + short + '.jpg" alt="' + brand + '" class="photo">',
+            img = '<img src="../../_/ccar/ccarassets/img/' + short + '.jpg" alt="' + brand + '" class="photo">',
             popup = '<div data-role="popup" id="popup-' + short + '" data-short="' + short +'" data-theme="none" data-overlay-theme="a" data-corners="false" data-tolerance="15">' + closebtn + header + img + '</div>';
         // Create the popup. Trigger "pagecreate" instead of "create" because currently the framework doesn't bind the enhancement of toolbars to the "create" event (js/widgets/page.sections.js).
         $.mobile.activePage.append( popup ).trigger( "pagecreate" );

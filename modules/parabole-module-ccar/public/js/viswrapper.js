@@ -1,5 +1,28 @@
 var GRAPH = (function( wrapObj ){
 
+	var defaultVizOptions = {
+	           stabilize: true,
+	           physics: {barnesHut: {gravitationalConstant: 1, centralGravity: 0, springConstant: 0}},
+	           smoothCurves: {dynamic:false, type: "continuous", roundness:0}
+	    };
+
+	    var hierVizOptions = {physics: {hierarchicalRepulsion: {nodeDistance: 168}},hierarchicalLayout: {nodeSpacing: 132}};
+
+	    defaultVizOptions = {physics: {barnesHut: {enabled: false}, repulsion: {springLength: 250, springConstant: 0.056, nodeDistance: 175, damping: 0.5}},
+	                        smoothCurves: {dynamic:false, type: "continuous",roundness:0}}
+      var groupVizOptions = {
+        physics: {
+          stabilization: true,
+          /*barnesHut: {
+            enabled: true,
+            springConstant: 0.05,
+            springLength: 100,
+            avoidOverlap: 1
+          }*/
+        },
+        smoothCurves: {dynamic:false, type: "continuous", roundness:0}
+      }                  
+                          
     function Graph( container , cfg){
            this.container = container;
            this.config = cfg ;
@@ -16,29 +39,22 @@ var GRAPH = (function( wrapObj ){
            this.connectedNodes ={};
            this.connectedEdges ={};
            this.vistedMap = {};
+           if( cfg.hier)
+        	   this.vizOptions = hierVizOptions;
+           else
+        	   this.vizOptions = defaultVizOptions;
+           if(cfg.springLength)
+             this.vizOptions.physics.repulsion.springLength = cfg.springLength;
+           if(cfg.group)
+              this.vizOptions = groupVizOptions;
     };
 
-    var defaultVizOptions = {
-           stabilize: true,
-           physics: {barnesHut: {gravitationalConstant: 1, centralGravity: 0, springConstant: 0}},
-           smoothCurves: {dynamic:false, type: "continuous", roundness:0}
-    };
-
-    defaultVizOptions = {physics: {hierarchicalRepulsion: {nodeDistance: 168}},hierarchicalLayout: {nodeSpacing: 132}};
-
-    defaultVizOptions = {physics: {barnesHut: {enabled: false}, repulsion: {springLength: 230, springConstant: 0.056}},
-                        smoothCurves: {dynamic:false, type: "continuous", roundness:0.5}, hideEdgeLabel: false};
-
-    defaultVizOptions = {physics: {barnesHut: {enabled: false}, repulsion: {springLength: 230, springConstant: 0}},
-                        smoothCurves: {dynamic:false, type: "continuous", roundness:0.5}, hideEdgeLabel: false};
-
+    
     function createAVisNode( scope , obj){
 
            var config = scope.config;
-           var id = obj[config.idField];
 
-           if(scope.findNodeById(id))
-              return null;
+           var id = obj[config.idField];
            var nodeObj = { id : id };
            scope.vistedMap[id] = false;
            //copy all properties
@@ -46,21 +62,17 @@ var GRAPH = (function( wrapObj ){
              nodeObj[name] = obj[name];
 
            nodeObj.label = obj[config.labelField];
-           nodeObj.shape = scope.config.nodeShape;
+           nodeObj.shape = obj.shape || scope.config.nodeShape || 'image';
+           nodeObj.color = obj.color || scope.defaultNodeColor;
            config.nodeColorMap = config.nodeColorMap || [];
-           config.nodeImageSetter = config.nodeImageSetter || [];
            var callBackScope = config.handlerData.scope || window;
 
-           if(angular.isFunction( config.nodeImageSetter )){
-             nodeObj.image = config.nodeImageSetter.call(callBackScope,obj);
-           }
            if( angular.isFunction( config.nodeColorMap ))
              nodeObj.color = config.nodeColorMap.call(callBackScope,obj);
-           else
-             nodeObj.color = config.nodeColorMap[config.nodeColorField] || obj.color || scope.defaultNodeColor;
-
+           else if( config.nodeColorMap )
+             nodeObj.color = obj.color || config.nodeColorMap[obj[config.nodeColorField]] || scope.defaultNodeColor;
            if( config.nodeShape == 'image')
-              nodeObj.image = config.nodeImageMap[obj[config.nodeImageField]] || obj[config.nodeImageField];
+              nodeObj.image = config.nodeImageMap[obj[config.nodeImageField]];
            if( config.isRandom ){
              nodeObj.x = obj.x;//Math.floor((Math.random() * 500) + 1);
              nodeObj.y = obj.y;//Math.floor((Math.random() * 500) + 1);
@@ -69,10 +81,6 @@ var GRAPH = (function( wrapObj ){
            }
            if( config.extraInfo )
              scope.nodeExtraInfo[nodeObj.id] = obj[config.extraInfo];
-
-           if( config.fontColor  )
-              nodeObj.fontColor = config.fontColor; 
-
            return nodeObj;
     }
 
@@ -87,6 +95,12 @@ var GRAPH = (function( wrapObj ){
            if( config.extraInfo ){
              nodeObj[config.extraInfo] = scope.nodeExtraInfo[visNode.id];
              nodeObj[config.nodeImageField] = scope.nodeExtraInfo[visNode.id].type;
+           }
+           if(config.group){
+              nodeObj.group = visNode.group;
+           }
+           if(visNode.shape){
+              nodeObj.shape = visNode.shape;
            }
 
            nodeObj.allowedToMoveX = visNode.allowedToMoveX;
@@ -106,15 +120,23 @@ var GRAPH = (function( wrapObj ){
 
            config.edgeColorMap = config.edgeColorMap || [];
            var callBackScope = config.handlerData.scope || window;
-
-           if( angular.isFunction( config.edgeColorMap ))
-             con.color = config.edgeColorMap
-                          .call(callBackScope, scope.findNodeById(obj.from),scope.findNodeById(obj.to),obj.relType, obj);
-           else
-             con.color = obj.color || config.edgeColor || scope.defaultEdgeColor;
-           con.label = obj[config.edgeLabelField];
-           con.style = obj.style || config.connectorStyle;
-           if( scope.findNodeById( con.to ) == undefined || scope.findNodeById( con.from ) == undefined ){
+           con.style = config.connectorStyle;
+           if(!config.group){
+              if( angular.isFunction( config.edgeColorMap ))
+                con.color = obj.color || config.edgeColorMap.call(callBackScope, scope.findNodeById(obj.from),scope.findNodeById(obj.to),obj.relType);
+              else
+                con.color = obj.color || config.edgeColor || scope.defaultEdgeColor;
+           } else {
+              if(obj.color)
+                con.color = obj.color;
+           }
+           if(obj.width)
+              con.width = obj.width;
+           
+            con.label = obj[config.edgeLabelField];
+           
+           if( scope.findNodeById( con.to ) == undefined
+              || scope.findNodeById( con.from ) == undefined ){
                 scope.unusedConnections.push( con );
                 return null;
            }
@@ -125,9 +147,7 @@ var GRAPH = (function( wrapObj ){
 
            scope.graphData = {nodes:new vis.DataSet(),edges:new vis.DataSet()};
            angular.forEach( data.nodes , function( obj , key ) {
-              var aNode = createAVisNode(scope ,obj);
-              if( aNode != null)
-                scope.graphData.nodes.add( aNode );
+              scope.graphData.nodes.add( createAVisNode(scope ,obj));
            });
            angular.forEach( data.edges , function( obj , key ) {
               addConnectionWrapper (scope , obj );
@@ -175,18 +195,18 @@ var GRAPH = (function( wrapObj ){
     Graph.prototype = {
 
            initialize : function(data){
-                this.options = this.config.options || defaultVizOptions;
+                var options = this.config.options || this.vizOptions;
 
                 this.config.idField = this.config.idField || 'id';
                 this.config.toField = this.config.toField || 'to';
                 this.config.fromField = this.config.fromField || 'from';
                 this.config.labelField = this.config.labelField || 'label';
                 this.config.connectorStyle = this.config.connectorStyle || 'arrow';
-                //this.config.edgeLabelField = this.config.edgeLabelField || 'label';
+                this.config.edgeLabelField = this.config.edgeLabelField || 'label';
 
                 createInitialData( data, this );
-                this.options.allowedToMoveX = this.options.allowedToMoveY = true;
-                this.network = new vis.Network( $(this.container)[0] , this.graphData , this.options);
+                options.allowedToMoveX = options.allowedToMoveY = true;
+                this.network = new vis.Network( $(this.container)[0] , this.graphData , options);
                 var handlerObj = this.config.handlerData;
                 var scope = this;
                 //Click Event
@@ -282,11 +302,10 @@ var GRAPH = (function( wrapObj ){
                      newNode =  scope.findNodeById(id);
                      if( newNode == undefined || newNode == null){
                         newNode = createAVisNode(scope , obj);
-                        if( newNode != null)
-                          scope.graphData.nodes.add(newNode);
+                        scope.graphData.nodes.add(newNode);
                      }
                      if( parNodeId )
-                        updateNodeNetwork( scope, parNodeId , newNode.id);//addConnectionWrapper (scope , { from : parNodeId , to : newNode.id} );
+                      updateNodeNetwork( scope, parNodeId , newNode.id);//addConnectionWrapper (scope , { from : parNodeId , to : newNode.id} );
                      if( relType ){
                         var obj = {};
                         obj[scope.config.toField] = id;
@@ -394,6 +413,10 @@ var GRAPH = (function( wrapObj ){
               angular.forEach(targetNodes, function(aNode){
                 _this.selectNode(aNode.id);
               });              
+           },
+
+           redraw : function(){
+              this.network._redraw();
            }
     };
 

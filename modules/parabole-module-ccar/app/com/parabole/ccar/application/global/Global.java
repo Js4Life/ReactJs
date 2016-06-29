@@ -1,8 +1,7 @@
 package com.parabole.ccar.application.global;
 
-import java.util.Properties;
-import java.util.Set;
-
+import com.parabole.ccar.platform.exceptions.AppException;
+import com.parabole.ccar.platform.utils.AppUtils;
 import play.Application;
 import play.GlobalSettings;
 import play.Logger;
@@ -10,7 +9,9 @@ import play.libs.F.Promise;
 import play.mvc.Http.RequestHeader;
 import play.mvc.Result;
 import play.mvc.Results;
-import com.parabole.ccar.platform.utils.AppUtils;
+
+import java.util.Properties;
+import java.util.Set;
 
 /**
  * Play Framework Global Settings coordinator runs at OctopusAction start-up.
@@ -51,7 +52,7 @@ public class Global extends GlobalSettings {
     }
     
 
-    private void jdbcProperties() throws com.parabole.ccar.application.exceptions.AppException, com.parabole.ccar.platform.exceptions.AppException {
+    private void jdbcProperties() throws com.parabole.ccar.application.exceptions.AppException, AppException {
         try {
             final Properties properties = AppUtils.loadProperties("drivers.properties");
             final Set<String> databases = properties.stringPropertyNames();

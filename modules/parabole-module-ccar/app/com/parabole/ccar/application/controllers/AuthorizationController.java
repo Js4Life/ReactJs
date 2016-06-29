@@ -11,7 +11,6 @@ import play.mvc.Results;
  */
 public class AuthorizationController extends BaseController{
 
-    // @Restrict({  @Group(CCAppConstants.ADMIN_AUTH), @Group(CCAppConstants.REGULATORY), @Group(CCAppConstants.ENTERPRISE_WORKING_GROUP), @Group(CCAppConstants.DATA_ADVISORY_COMMITTEE), @Group(CCAppConstants.ENTERPRISE_WORKING_GROUP), @Group(CCAppConstants.BUSINESS_SEGMENT_ALIGNED_WORKING_GROUP)})
     public Result getLandingDataBasedOnAuthorization() throws AppException {
         String user_role = session().get(CCAppConstants.ROLE);
         String jsonFileContent = null;

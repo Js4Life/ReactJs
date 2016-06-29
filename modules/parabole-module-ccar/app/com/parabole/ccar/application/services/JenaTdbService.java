@@ -1,6 +1,10 @@
 package com.parabole.ccar.application.services;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSetMetaData;
@@ -17,12 +21,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-
-import com.parabole.ccar.application.exceptions.AppErrorCode;
-import com.parabole.ccar.application.exceptions.AppException;
-import com.parabole.ccar.application.global.CCAppConstants;
-import com.parabole.ccar.application.utils.AppUtils;
-import com.parabole.ccar.platform.reasoner.BaseBindObj;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.jena.query.Dataset;
 import org.apache.jena.query.Query;
@@ -50,6 +48,11 @@ import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.reflect.TypeToken;
 import com.google.inject.Inject;
+import com.parabole.ccar.application.exceptions.AppErrorCode;
+import com.parabole.ccar.application.exceptions.AppException;
+import com.parabole.ccar.application.global.CCAppConstants;
+import com.parabole.ccar.application.utils.AppUtils;
+import com.parabole.ccar.platform.reasoner.BaseBindObj;
 import play.Configuration;
 import play.Logger;
 import play.db.DB;
@@ -213,7 +216,7 @@ public class JenaTdbService {
                                 String value = columnValue.toString();
                                 value = value.
 replace("—", "_").
-                                        replace(".", "").
+                                        replace(".", ".").
                                         replace(" - ", "_").
                                         replace(" / ", "_").
                                         replace("-", "_").
@@ -720,7 +723,7 @@ replace("—", "_").
         }
     }
 
-    public JsonArray loadSeriesWidgetData(final String compName) throws AppException {
+    public JsonArray loadSeriesWidgetData(final String compName, final String reportType) throws AppException {
         JsonArray jsArr = new JsonArray();
         Dataset dataset = null;
         final String cfgInfo = AppUtils.getFileContent("json/" + CCAppConstants.JENA_WIDGETDEF_FILE);
@@ -730,10 +733,20 @@ replace("—", "_").
             final String directory = CCAppConstants.JENA_TDB_STOREROOM;
             dataset = TDBFactory.createDataset(directory);
             dataset.begin(ReadWrite.READ);
-            if (compName.compareTo(CCAppConstants.REPORT_COMPLETION) == 0 || compName.compareTo(CCAppConstants.REPORT_EWG) == 0 || compName.compareTo("FRY-14Q-Schedule") == 0) {
-                jsArr = fetchEwgReportData(widgetDefJson, dataset);
-            } else {
-                jsArr = fetchScheduleData(widgetDefJson, dataset);
+            switch (compName) {
+                case CCAppConstants.REGULATORY_WIDGETS:
+                case CCAppConstants.EDM_WIDGETS:
+                case "FRY-14Q-Schedule":
+                case CCAppConstants.FRY14Q_WIDGETS:
+                    jsArr = fetchEwgReportData(widgetDefJson, dataset);
+                    break;
+                default:
+                    if (reportType.equals(CCAppConstants.GRAPH_WIDGETS)) {
+                        jsArr = fetchEwgReportData(widgetDefJson, dataset);
+                    } else {
+                        jsArr = fetchScheduleData(widgetDefJson, dataset);
+                    }
+                    break;
             }
         } catch (final Exception e) {
             e.printStackTrace();
@@ -1026,19 +1039,19 @@ replace("—", "_").
         data.put("categories", categories);
         data.put("series", series);
 
-        final HashMap<String, HashMap<String, String>> temp = new HashMap<String, HashMap<String, String>>();
+        final LinkedHashMap<String, LinkedHashMap<String, String>> temp = new LinkedHashMap<String, LinkedHashMap<String, String>>();
         Iterator<String> it = valueMap.keySet().iterator();
         while (it.hasNext()) {
             final String key = it.next();
             categories.put(key);
             final HashMap<String, String> val = valueMap.get(key);
             final Iterator<String> it2 = val.keySet().iterator();
-            HashMap<String, String> map = null;
+            LinkedHashMap<String, String> map = null;
             while (it2.hasNext()) {
                 final String key2 = it2.next();
                 map = temp.get(key2);
                 if (map == null) {
-                    map = new HashMap<String, String>();
+                    map = new LinkedHashMap<String, String>();
                     temp.put(key2, map);
                 }
                 map.put(key, val.get(key2));
@@ -1279,5 +1292,11 @@ replace("—", "_").
         bindSet = new Gson().fromJson(bindings, new TypeToken<ArrayList<HashMap<String, BaseBindObj>>>() {
         }.getType());
         return bindSet;
+    }
+
+    public byte[] downloadFileByName(final String fileName) throws IOException {
+        final Path srcFilePath = Paths.get(CCAppConstants.CONF_FILE_PATH, fileName);
+        final byte[] data = Files.readAllBytes(srcFilePath);
+        return data;
     }
 }

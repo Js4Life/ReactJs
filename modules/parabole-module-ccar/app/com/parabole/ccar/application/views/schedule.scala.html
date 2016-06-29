@@ -37,13 +37,13 @@
  
  
  
- <div id="toCapture" class="panel panel-default">
+ <div class="panel panel-default">
     <div class="panel-heading">
         <span class="glyphicon glyphicon-chevron-left pull-left" style="margin-right:10px;" ng-click="goPreviousScreen()"></span>
-        {{heading.title}}
+        {{heading}}
         <span class="glyphicon glyphicon-camera pull-right" ng-click="capturePage()"></span>
     </div>
-    <div class="panel-body" style="height: 82vh; overflow-y: auto;padding:10px;">        
+    <div id="toCapture" class="panel-body" style="height: 82vh; overflow-y: auto;padding:10px;">        
         <div class="col-md-4" ng-class="animation" ng-repeat="report in reports">
             <div class="card">
                 <div class="card-body pointer" ng-click="viewReport(report)">

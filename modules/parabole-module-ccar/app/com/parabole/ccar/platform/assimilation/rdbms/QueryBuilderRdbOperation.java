@@ -14,11 +14,11 @@
 package com.parabole.ccar.platform.assimilation.rdbms;
 
 import com.google.inject.Singleton;
-import com.parabole.ccar.platform.assimilation.QueryResultTable;
 import com.parabole.ccar.platform.AppConstants;
 import com.parabole.ccar.platform.assimilation.ColumnReference;
 import com.parabole.ccar.platform.assimilation.QueryBuilderIDataSourceOperation;
 import com.parabole.ccar.platform.assimilation.QueryRequest;
+import com.parabole.ccar.platform.assimilation.QueryResultTable;
 import com.parabole.ccar.platform.exceptions.AppErrorCode;
 import com.parabole.ccar.platform.exceptions.AppException;
 import org.apache.commons.dbutils.DbUtils;

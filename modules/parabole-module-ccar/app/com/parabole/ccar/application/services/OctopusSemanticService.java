@@ -154,6 +154,7 @@ public class OctopusSemanticService {
 
     public String getVertexNameById(final Integer vertexId) {
         Validate.notNull(vertexId, "'vertexId' cannot be null!");
+        System.out.println("Here --- >");
         final OrientGraphNoTx graphDbNoTx = octopus.getGraphConnectionNoTx();
         try {
             final Vertex vertex = octopus.getVertex(graphDbNoTx, vertexId);

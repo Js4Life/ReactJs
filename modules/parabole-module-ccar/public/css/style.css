@@ -216,9 +216,11 @@
   color: #1A1A1A;
   border-color: #97B0F8;
   border-width: 1px;
-  background-color: #D5DDF6;
+  /*background-color: #D5DDF6;*/
+  background-color: #FFFFFF;
   display: inline-block;
   padding: 5px;
+  box-shadow: 3px 3px 8px #ccc;
 }
 
 .vis.timeline .item.selected {
@@ -1565,10 +1567,6 @@ div.network-tooltip {
   background-image: none !important;
 }
 
-.text-red{
-  color:red;
-}
-
 .menu-back{
   padding:0;
   height:72vh;
@@ -1863,6 +1861,24 @@ li.list-group-item.puff{
   margin-right: 3px;
 }
 
+.tiny-legend-icon {
+  font-size: 8px;
+  margin-left:11px;
+}
+
+.tiny-legend-img {
+  width: 15px;
+  height: 15px;
+  margin-top: -7px;
+}
+
+.tiny-legend-text {
+  font-size:12px;
+  margin-left:11px;
+  color:black;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
 /*Loader*/
 .loading {
     position:absolute;   
@@ -1877,8 +1893,8 @@ li.list-group-item.puff{
     background-position: center;
 } 
 
-.ring-cursor{
-  cursor:url("../images/ring.png") 24 24, default;
+.download-cursor{
+  cursor:url("../images/ring.png") 12 12, default;
 }
 
 .impact-minus{
@@ -2320,15 +2336,15 @@ li.list-group-item.puff{
       background: #efefef;
   }
 
-  .regulatory{
+  .regulatory, .edm, .fry14q, .modelDashboard {
     background: url("../images/dashboard-selector.png");
     background-size: 100% 100%;
     width: 100%;
     height: 200px;
   }
 
-  .edm{
-    background: url("../images/dashboard-selector.png");
+  .liquidityDashboard {
+    background: url("../images/dashboard-map.png");
     background-size: 100% 100%;
     width: 100%;
     height: 200px;
@@ -2377,8 +2393,17 @@ li.list-group-item.puff{
       border-radius: 5px;
   }
 
+  .text-red{
+    color: #f45b5b;
+  }
+  .text-amber{
+    color: #f7a35c;
+  }
   .text-green{
-      color: #4DD44D;
+    color: #50B432;
+  }
+  .text-pink{
+    color: #f15c80;
   }
 
   .bubble-icon{

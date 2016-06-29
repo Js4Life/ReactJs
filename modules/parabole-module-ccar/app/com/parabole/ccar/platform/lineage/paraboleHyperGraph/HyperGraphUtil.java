@@ -5,9 +5,10 @@ import com.parabole.ccar.platform.knowledge.KGraph;
 import com.parabole.ccar.platform.lineage.GlossarytoDBMapper.glossarytodb;
 import com.parabole.ccar.platform.lineage.GlossarytoDBMapper.glossarytodb_map;
 import com.parabole.ccar.platform.lineage.bankInfoReader.BankInfoReader;
+import com.parabole.ccar.platform.lineage.businessRuleReader.RuleDef;
 import com.parabole.ccar.platform.lineage.businessRuleReader.RuleReader;
 import com.parabole.ccar.platform.lineage.dataSchematoGraph.DataSchemaParser;
-import com.parabole.ccar.platform.lineage.businessRuleReader.RuleDef;
+import com.parabole.ccar.platform.lineage.paraboleHyperGraph.HyperGraph.Lineage;
 import net.sf.jsqlparser.JSQLParserException;
 
 import java.util.List;
@@ -131,7 +132,7 @@ public class HyperGraphUtil {
 	
 	public List<RuleDef>	ReadRulefromXLS(final String FILE_PATH){
 		//Read Rule info and print it 
-		RuleReader pRuleReader = new RuleReader();
+		RuleReader	pRuleReader = new RuleReader();
 		pRuleList = pRuleReader.GenerateRule(pRuleReader.getRuleListFromExcel(FILE_PATH));
 	
 		return pRuleList;
@@ -153,7 +154,7 @@ public class HyperGraphUtil {
 				//System.out.println("I am called");
 				RuleDef pRuleElem = pRule.get(i);
 				
-				HyperGraph.Lineage pLineage = pHGraph.GenerateLineage(pRuleElem);
+				Lineage pLineage = pHGraph.GenerateLineage(pRuleElem);
 				//System.out.println("printing");
 				
 				//populate visualdef from Lineage structure
@@ -190,7 +191,7 @@ public class HyperGraphUtil {
 				System.out.println("I am called");
 				RuleDef pRuleElem = pRule.get(i);
 				
-				HyperGraph.Lineage pLineage = pHGraph.GenerateLineageByDB(pRuleElem);
+				Lineage pLineage = pHGraph.GenerateLineageByDB(pRuleElem);
 				if(pLineage == null){continue;}
 				System.out.println("printing");
 				
@@ -226,7 +227,7 @@ public class HyperGraphUtil {
 				//System.out.println("I am called");
 				RuleDef pRuleElem = pRule.get(i);
 				
-				HyperGraph.Lineage pLineage = pHGraph.GenerateLineageByConcept(pRuleElem, ConceptID);
+				Lineage pLineage = pHGraph.GenerateLineageByConcept(pRuleElem, ConceptID);
 				if(pLineage == null){continue;}
 							
 				//populate visualdef from Lineage structure
@@ -261,7 +262,7 @@ public class HyperGraphUtil {
 				//System.out.println("I am called");
 				RuleDef pRuleElem = pRule.get(i);
 				
-				HyperGraph.Lineage pLineage = pHGraph.GenerateLineageByGlossary(pRuleElem, GlossaryID, LayerID);
+				Lineage pLineage = pHGraph.GenerateLineageByGlossary(pRuleElem, GlossaryID, LayerID);
 				if(pLineage == null){continue;}
 							
 				//populate visualdef from Lineage structure

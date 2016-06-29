@@ -25,7 +25,10 @@ POST /getAlldashboardTableData  com.parabole.ccar.application.controllers.JenaTd
 POST /getAllSeriesData			com.parabole.ccar.application.controllers.JenaTdbController.getAllSeriesData()
 POST /getSingleSeriesData		com.parabole.ccar.application.controllers.JenaTdbController.getSingleSeriesData()
 POST /getAllHeatMapTableData	com.parabole.ccar.application.controllers.JenaTdbController.getAllHeatMapTableData()
+GET /downloadFileByName/:name/:type         com.parabole.ccar.application.controllers.JenaTdbController.downloadFileByName(name: String, type: String)
+
 GET /dashboardProfile           com.parabole.ccar.application.controllers.DispatcherController.dashboardProfile()
+GET /dashboardGraphProfile      com.parabole.ccar.application.controllers.DispatcherController.dashboardGraphProfile()
 GET /status                     com.parabole.ccar.application.controllers.DispatcherController.status()
 GET /schedule                   com.parabole.ccar.application.controllers.DispatcherController.schedule()
 GET /gapdetails                 com.parabole.ccar.application.controllers.DispatcherController.gapdetails()
@@ -40,6 +43,7 @@ GET /pageArchive		        com.parabole.ccar.application.controllers.DispatcherCo
 GET /ewgReport			        com.parabole.ccar.application.controllers.DispatcherController.ewgReport()
 GET /ewgIssue			        com.parabole.ccar.application.controllers.DispatcherController.ewgIssue()
 GET /heatMap			        com.parabole.ccar.application.controllers.DispatcherController.heatMap()
+GET /scheduleTable			    com.parabole.ccar.application.controllers.DispatcherController.scheduleTable()
 
 
 # ---------------------------------------------------------------------------------
@@ -47,9 +51,9 @@ GET /heatMap			        com.parabole.ccar.application.controllers.DispatcherContr
 # ---------------------------------------------------------------------------------
 GET /jenaTdbFetching/:fileIdentification   com.parabole.ccar.application.controllers.JenaTdbController.jenaTdbFetching(fileIdentification: String)
 GET /jenaTDBUpdate/:fileIdentification     com.parabole.ccar.application.controllers.JenaTdbController.jenaTDBUpdate(fileIdentification: String)
-GET /jenaTDBBatch/:fileIdentification     com.parabole.ccar.application.controllers.JenaTdbController.jenaTDBBatch(fileIdentification: String)
+GET /jenaTDBBatch/:fileIdentification      com.parabole.ccar.application.controllers.JenaTdbController.jenaTDBBatch(fileIdentification: String)
 GET /jenaTDBInsert/:fileIdentification     com.parabole.ccar.application.controllers.JenaTdbController.jenaTDBInsert(fileIdentification: String)
-GET /loadAllFromBatch                       com.parabole.ccar.application.controllers.JenaTdbController.loadAllFromBatch()
+GET /loadAllFromBatch                      com.parabole.ccar.application.controllers.JenaTdbController.loadAllFromBatch()
 
 # ---------------------------------------------------------------------------------
 # Lineage
@@ -84,4 +88,6 @@ GET  /testAuthorization4   com.parabole.ccar.application.controllers.TestControl
 # ---------------------------------------------------------------------------------
 # Static Resources
 # ---------------------------------------------------------------------------------
+#GET /ccarassets/*file controllers.Assets.at(path="/public", file)
+
 GET /ccarassets/*file           controllers.Assets.at(path="/public/lib/parabole-module-ccar", file)

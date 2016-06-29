@@ -5,11 +5,11 @@
   "results": {
     "bindings": [
       {
-        "s": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/CIT_Main#QRM" } ,
+        "s": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Bank_Main#QRM" } ,
         "label": { "type": "literal" , "value": "QRM" }
       } ,
       {
-        "s": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/CIT_Main#EUR" } ,
+        "s": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Bank_Main#EUR" } ,
         "label": { "type": "literal" , "value": "EUR" }
       } ,
       {

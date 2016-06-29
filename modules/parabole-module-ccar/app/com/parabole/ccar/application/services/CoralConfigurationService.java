@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.parabole.ccar.application.global.CCAppConstants;
-import com.parabole.ccar.platform.exceptions.AppException;
-import com.parabole.ccar.platform.graphdb.Coral;
 import org.apache.commons.lang3.Validate;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.parabole.ccar.application.global.CCAppConstants;
+import com.parabole.ccar.application.global.CCAppConstants.ConfigurationType;
+import com.parabole.ccar.platform.exceptions.AppException;
+import com.parabole.ccar.platform.graphdb.Coral;
 
 @Singleton
 public class CoralConfigurationService {
@@ -62,7 +62,7 @@ public class CoralConfigurationService {
         coral.deleteConfiguration(configurationId);
     }
 
-    public Integer saveConfigurationByNameAndDetails(final String userId, final JSONObject jsonObject, final CCAppConstants.ConfigurationType configurationType) throws AppException {
+    public Integer saveConfigurationByNameAndDetails(final String userId, final JSONObject jsonObject, final ConfigurationType configurationType) throws AppException {
         Validate.notNull(jsonObject, "'json' cannot be null!");
         final String configurationName = jsonObject.getString("name");
         final String configurationDetails = jsonObject.getString("details");
@@ -72,7 +72,7 @@ public class CoralConfigurationService {
         return coral.saveConfiguration(userId, configurationType.toString(), configurationName, configurationDetails);
     }
     
-    public Integer saveConfiguration(final String userId, final JsonNode json, final CCAppConstants.ConfigurationType configurationType) throws AppException {
+    public Integer saveConfiguration(final String userId, final JsonNode json, final ConfigurationType configurationType) throws AppException {
 	        Validate.notNull(json, "'json' cannot be null!");
 	        final String configurationName = json.findPath("name").textValue();
 	        final String configurationDetails = json.findPath("details").textValue();
@@ -82,7 +82,7 @@ public class CoralConfigurationService {
 	        return coral.saveConfiguration(userId, configurationType.toString(), configurationName, configurationDetails);
     }
 
-    public Integer saveConfiguration(final String userId, final String configurationName, final String configurationDetails, final CCAppConstants.ConfigurationType configurationType, final byte[] fileBytes) throws AppException {
+    public Integer saveConfiguration(final String userId, final String configurationName, final String configurationDetails, final ConfigurationType configurationType, final byte[] fileBytes) throws AppException {
         Validate.notBlank(userId, "'userId' cannot be empty!");
         Validate.notBlank(configurationName, "'configurationName' cannot be empty!");
         Validate.notBlank(configurationDetails, "'configurationDetails' cannot be empty!");
@@ -104,7 +104,7 @@ public class CoralConfigurationService {
         return coral.saveConfiguration(userId, configurationType, configurationName, configurationDetails);
     }
 
-    public Integer saveAggregateMapping(final String userId, final JsonNode json, final CCAppConstants.ConfigurationType configurationType) throws AppException {
+    public Integer saveAggregateMapping(final String userId, final JsonNode json, final ConfigurationType configurationType) throws AppException {
         final String configurationNameRaw = json.findPath("name").textValue();
         final String configurationDetails = json.findPath("details").textValue();
         Validate.notBlank(configurationNameRaw, "'configurationName' cannot be empty!");
@@ -115,7 +115,7 @@ public class CoralConfigurationService {
         return coral.saveConfiguration(userId, configurationType.toString(), configurationName.toString(), configurationDetails);
     }
 
-    public Integer saveRootNodeMapping(final String userId, final JsonNode json, final CCAppConstants.ConfigurationType configurationType) throws AppException {
+    public Integer saveRootNodeMapping(final String userId, final JsonNode json, final ConfigurationType configurationType) throws AppException {
         final String configurationNameRaw = json.findPath("name").textValue();
         final String configurationDetails = json.findPath("details").textValue();
         Validate.notBlank(configurationNameRaw, "'configurationName' cannot be empty!");
@@ -126,7 +126,7 @@ public class CoralConfigurationService {
         return coral.saveConfiguration(userId, configurationType.toString(), configurationName.toString(), configurationDetails);
     }
 
-    public Integer saveDataNodeMapping(final String userId, final JsonNode json, final CCAppConstants.ConfigurationType configurationType) throws AppException {
+    public Integer saveDataNodeMapping(final String userId, final JsonNode json, final ConfigurationType configurationType) throws AppException {
         final String configurationNameRaw = json.findPath("name").textValue();
         final String configurationDetails = json.findPath("details").textValue();
         Validate.notBlank(configurationNameRaw, "'configurationName' cannot be empty!");
@@ -139,7 +139,7 @@ public class CoralConfigurationService {
 
     public JSONObject getAllRootNodesMapping(final String userId) throws AppException {
         final JSONObject retJson = new JSONObject();
-        final List<Map<String, String>> cfgList = coral.getConfigurationByUserId(userId, CCAppConstants.ConfigurationType.BASENODE_CFG.toString());
+        final List<Map<String, String>> cfgList = coral.getConfigurationByUserId(userId, ConfigurationType.BASENODE_CFG.toString());
         for (final Map<String, String> cfg : cfgList) {
             String name = cfg.get(CCAppConstants.ATTR_DATASOURCE_MAPPING_NAME);
             final int idx = name.indexOf(CCAppConstants.BASENODEMAPPING_SUFFIX);

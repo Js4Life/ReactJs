@@ -41,7 +41,7 @@ var Constant = {
 		BROWN : '#660000',
 	},
 	LEVEL_PREFIX : 'Level-',
-	IMPACT_IMG_PATH : 'assets/images/impact/',
+	IMPACT_IMG_PATH : '/ccar/ccarassets/images/impact/',
 	IMPACT: {
 		REPORT : 'report',
 		PERSON : 'person',
@@ -67,29 +67,97 @@ var Constant = {
 		LEVEL_DOWN_CONF : "If you level down, current graph state will be lost!"
 	},
 	WIDGET_NAMES : {
+		TABLE : 'Table',
+		GRAPH : 'Graph',
 		SCHEDULE_TABLE : 'ScheduleTable',
 		PROFILE_TABLE : 'ProfileTable',
 		DE_COMPLETION_OUTSTANDING : 'DeCompletionOutstanding',
 		DE_COMPLETION_OBLIGOR : 'DeCompletionObligor',
 		GAP_DETAILS : 'GapDetails',
 		DE_COMPLETION_OUTSTANDING_CHART : 'DeCompletionOutstandingChart',
-		REPORT_COMPLETION : 'ReportCompletion',
-		REPORT_EWG : 'EwgReport',
+		REGULATORY : 'RegulatoryWidgets',
+		ENTERPRISE : 'EdmWidgets',
+		FRY14 : 'Fry14QWidgets',
 		SCHEDULE : 'Schedules'
 	},
 	DASHBOARD : {
 		REGULATORY : 'regulatory',
-		ENTERPRISE : 'edm'
+		ENTERPRISE : 'edm',
+		FRY14 : 'fry14q',
+		MODEL : 'modelDashboard',
+		MODEL_REQUEST : 'modelDetailTimeline',
+		DATA_REQUEST : 'dataRequestTimeline',
+		LIQUIDITY : 'liquidityDashboard'
 	},
 	MILESTONE_TYPE : {
 		REGULATORY : 'RegulatoryStatus',
 		ENTERPRISE : 'EnterpriseStatus',
+		FRY14 : 'Fry14QStatus',
+		MODEL : 'ModelStatus',
+		MODEL_DETAIL : 'ModelDetailStatus',
 		MEETING : 'Meeting',
 		REPORT : 'Report',
 		EVENT : 'Event',
 		INITIAL_SUBMISSION : 'InitialSubmission',
 		FINAL_SUBMISSION : 'FinalSubmission',
 		DRY_RUN : 'DryRun',
-		HEAT_MAP : 'CurrentHeatMap'
+		HEAT_MAP : 'CurrentHeatMap',
+		CLARIFICATION_INFO : 'Clarification_Information',
+		TO_DO : 'To_Do',
+		ESCALATION : 'Escalation',
+		SCHEDULE : 'Sch',
+		SUB_SCHEDULE : 'SubSch',
+		MODEL_REQUEST : 'Model',
+		DATA_REQUEST : 'Data_Request',
+		MODEL_LIFECYCLE : {
+			INITIATION : 'Model Initiation and Tiering',
+			DEVELOPMENT : 'Model Development',
+			IMPLEMENTATION : 'Model Implementation',
+			USE : 'Model Use',
+			MONITORING : 'Model Monitoring',
+			CHANGE : 'Model Change',
+			DECOMMISSION : 'Model Decommission'
+		},
+		DATA_REQUEST_LIFECYCLE : {
+			SUBMITTED : 'Data Request Submitted',
+			PENDING : 'Data Request Pending',
+			APPROVED : 'Data Request Approved',
+			REVIEWED : 'Data Request Reviewed',
+			COMPLETED : 'Data Request Completed'
+		}
+	},
+	MILESTONE_FLAG : {
+		CURRENT_STATUS : '<i class="fa fa-flag-checkered fa-2x"></i>',
+		MEETING : '<i class="fa fa-users fa-2x"></i>',
+		REPORT : '<i class="fa fa-file-text fa-2x"></i>',
+		EVENT : '<i class="fa fa-calendar-check-o fa-2x"></i>',
+		DRY_RUN : '<i class="fa fa-cogs fa-2x"></i>',
+		HEAT_MAP : '<i class="fa fa-th fa-2x"></i>',
+		CLARIFICATION_INFO : '<i class="fa fa-info-circle fa-2x"></i>',
+		TO_DO : '<i class="fa fa-check-square-o fa-2x"></i>',
+		ESCALATION : '<i class="fa fa-line-chart fa-2x"></i>',
+		SCHEDULE : '<i class="fa fa-clock-o fa-2x"></i>',
+		MODEL_REQUEST : '<i class="fa fa-cube fa-2x"></i>',
+		DATA_REQUEST : '<i class="fa fa-exchange fa-rotate-90 fa-2x"></i>',
+		DEFAULT : '<i class="fa fa-flag-o fa-2x"></i>',
+		MAIN_ENTITY : '<img src="/ccar/ccarassets/images/bank.png" class="tiny-legend-img">',		
+		SUBSIDIARY : '<img src="/ccar/ccarassets/images/bank-subsidiary.png" class="tiny-legend-img">',		
+		BRANCH : '<img src="/ccar/ccarassets/images/bank-branch.png" class="tiny-legend-img">',		
+		MODEL_LIFECYCLE : {
+			INITIATION : '<i class="fa fa-caret-square-o-right fa-2x text-primary" ></i>',
+			DEVELOPMENT : '<i class="fa fa-wrench fa-2x text-warning"></i>',
+			IMPLEMENTATION : '<i class="fa fa-anchor fa-2x text-green"></i>',
+			USE : '<i class="fa fa-plug fa-2x text-success"></i>',
+			MONITORING : '<i class="fa fa-television fa-2x text-amber"></i>',
+			CHANGE : '<i class="fa fa-pencil-square-o fa-2x text-danger"></i>',
+			DECOMMISSION : '<i class="fa fa-ban fa-2x text-red"></i>'
+		},
+		DATA_REQUEST_LIFECYCLE : {
+			SUBMITTED : '<i class="fa fa-share-square-o fa-2x text-warning"></i>',
+			PENDING : '<i class="fa fa-spinner fa-2x text-amber"></i>',
+			APPROVED : '<i class="fa fa-thumbs-o-up fa-2x text-success"></i>',
+			REVIEWED : '<i class="fa fa-check-circle-o fa-2x text-primary"></i>',
+			COMPLETED : '<i class="fa fa-stop-circle-o fa-2x text-green"></i>'
+		}
 	}
 }

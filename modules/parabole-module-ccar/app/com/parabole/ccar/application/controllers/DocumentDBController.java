@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.google.inject.Inject;
 import com.parabole.ccar.application.global.CCAppConstants;
 import com.parabole.ccar.application.services.CoralConfigurationService;
+import com.parabole.ccar.platform.assimilation.OperationResult;
 import com.parabole.ccar.platform.exceptions.AppException;
 import play.libs.Json;
 import play.mvc.BodyParser;

@@ -13,12 +13,12 @@
 // =============================================================================
 package com.parabole.ccar.platform.securities;
 
-import com.parabole.ccar.application.services.CoralUserService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import play.Logger;
 import com.google.inject.Inject;
 import com.parabole.ccar.application.global.CCAppConstants;
+import com.parabole.ccar.application.services.CoralUserService;
 import com.parabole.ccar.platform.exceptions.AppException;
 
 /**

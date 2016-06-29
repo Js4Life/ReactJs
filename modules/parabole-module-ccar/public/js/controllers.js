@@ -205,50 +205,78 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.iniitialize();
 })
 
+.controller('dashboardSelectorCtrl', function($scope, $state, $compile, SharedService, MockService, NgAnimateService){
+	$scope.initialize = function(){
+		SharedService.localHeading = null;
+		$scope.animation = NgAnimateService.animations[2];
+		$scope.dashboardTemplates = [];		
+		SharedService.getDashboards().then(function(data){
+			NgAnimateService.lazyLoadItems($scope.dashboardTemplates, data);
+		});
+	}
+
+	$scope.goTo = function(temp){
+		SharedService.currentDashboard = temp;
+		if(temp.type === $scope.constants.DASHBOARD.LIQUIDITY){
+			$state.go("landing.dashboardGraphProfile");
+			return;
+		}
+		$state.go("landing.dashboardProfile");
+	}
+
+	$scope.initialize();
+})
+
 .controller('dashboardProfileCtrl', function($scope, $state, $stateParams, $timeout, SharedService, MockService) {
 
-	$scope.initialize = function( ){			
+	$scope.initialize = function(){			
 		$scope.currentDate = SharedService.getCurrentDate();
-		$scope.currentDashboard = SharedService.currentDashboard;	
-	}
-	$scope.initialize();
+		$scope.currentDashboard = SharedService.currentDashboard;
+		$scope.hasDownloadSelected = false;
 
-	var container = document.getElementById('visualization');
+	  	$scope.logs = {};
 
-  	$scope.logs = {};
+	    $scope.defaults = {
+	        orientation: ['top'],
+	        autoResize: [true, false],
+	        showCurrentTime: [false],
+	        showCustomTime: [false],
+	        showMajorLabels: [true, false],
+	        showMinorLabels: [false],
+	        align: ['left', 'center', 'right'],
+	        stack: [true, false],
 
-    $scope.defaults = {
-        orientation: ['top'],
-        autoResize: [true, false],
-        showCurrentTime: [false],
-        showCustomTime: [false],
-        showMajorLabels: [true, false],
-        showMinorLabels: [false],
-        align: ['left', 'center', 'right'],
-        stack: [true, false],
+	        moveable: [false],
+	        zoomable: [true],
+	        selectable: [true],
+	        editable: [false]
+	    };
 
-        moveable: [false],
-        zoomable: [true],
-        selectable: [true],
-        editable: [false]
-    };
+	    $scope.options = {
+	        align: 'center', // left | right (String)
+	        autoResize: true, // false (Boolean)
+	        editable: false,
+	        selectable: true,
+	        height: '70vh',
+	        margin: {
+	           axis: 100,
+	           item: 15
+	        },
+	        orientation: 'bottom',
+	        showCurrentTime: true,
+	        showCustomTime: false,
+	        showMajorLabels: true,
+	        showMinorLabels: true
+	    };
 
-    $scope.options = {
-        align: 'center', // left | right (String)
-        autoResize: true, // false (Boolean)
-        editable: false,
-        selectable: true,
-        height: '50vh',
-        margin: {
-           axis: 100,
-           item: 15
-        },
-        orientation: 'bottom',
-        showCurrentTime: true,
-        showCustomTime: false,
-        showMajorLabels: true,
-        showMinorLabels: true
-    };
+		SharedService.getSingleSeriesData( $scope.currentDashboard.type ).then(function(data){
+			$scope.heading = {title: data.name};
+			items = data.data.data;
+	    	setCurrentStatus(items);
+	    	setContent(items);
+	    	$scope.data = { items: items };
+		});	
+	}	
 
     var DAY = 24 * 60 * 60 * 1000;
     var items = null;
@@ -256,74 +284,137 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
     function setCurrentStatus(items){
     	var currentDate = $scope.currentDate.month + "." + $scope.currentDate.day + "." + $scope.currentDate.year;
     	var currentStatus = _.find(items, function(i){ return (i.category === Constant.MILESTONE_TYPE.REGULATORY) || (i.category === Constant.MILESTONE_TYPE.ENTERPRISE); });
-    	currentStatus.content = 'Current Status(' + currentDate + ')';
-    	currentStatus.start = currentDate;
+    	if(currentStatus){
+    		currentStatus.content = 'Current Status(' + currentDate + ')';
+    		currentStatus.start = currentDate;
+    	}
     } 
 
-    function setEnterpriseContent(items){
+    function setContent(items){
     	angular.forEach(items, function(item){
     		var text = item.content;
     		item.name = text;
+    		var icon = Constant.MILESTONE_FLAG.DEFAULT;
     		switch(item.category){
+    			case Constant.MILESTONE_TYPE.REGULATORY: 
+    			case Constant.MILESTONE_TYPE.ENTERPRISE:    				
+    			case Constant.MILESTONE_TYPE.FRY14:    
+    			case Constant.MILESTONE_TYPE.MODEL:   		    				
+    				icon = Constant.MILESTONE_FLAG.CURRENT_STATUS;
+    				break;
     			case Constant.MILESTONE_TYPE.MEETING:     				
-    				item.content = '<i class="fa fa-users fa-2x"></i><br/>' + text;
+    				icon = Constant.MILESTONE_FLAG.MEETING;
     				break;
     			case Constant.MILESTONE_TYPE.EVENT: 
-    				item.content = '<i class="fa fa-calendar-check-o fa-2x"></i><br/>' + text;
+    				icon = Constant.MILESTONE_FLAG.EVENT;
     				break;
     			case Constant.MILESTONE_TYPE.REPORT: 
-    				item.content = '<i class="fa fa-file-text fa-2x"></i><br/>' + text;
+    				icon = Constant.MILESTONE_FLAG.REPORT;
     				break;
-    			default: 
-    				item.content = '<i class="fa fa-flag-checkered fa-2x"></i><br/>' + text;
+    			case Constant.MILESTONE_TYPE.DRY_RUN: 
+    				icon = Constant.MILESTONE_FLAG.DRY_RUN;
+    				break;
+    			case Constant.MILESTONE_TYPE.HEAT_MAP: 
+    				icon = Constant.MILESTONE_FLAG.HEAT_MAP;
+    				break;
+    			case Constant.MILESTONE_TYPE.CLARIFICATION_INFO: 
+    				icon = Constant.MILESTONE_FLAG.CLARIFICATION_INFO;
+    				break;
+    			case Constant.MILESTONE_TYPE.TO_DO: 
+    				icon = Constant.MILESTONE_FLAG.TO_DO;
+    				break;
+    			case Constant.MILESTONE_TYPE.ESCALATION: 
+    				icon = Constant.MILESTONE_FLAG.ESCALATION;
+    				break;
+    			case Constant.MILESTONE_TYPE.SCHEDULE: 
+    			case Constant.MILESTONE_TYPE.SUB_SCHEDULE: 
+    				icon = Constant.MILESTONE_FLAG.SCHEDULE;
+    				break;
+    			case Constant.MILESTONE_TYPE.MODEL_REQUEST: 
+    				icon = Constant.MILESTONE_FLAG.MODEL_REQUEST;
+    				break;
+    			case Constant.MILESTONE_TYPE.DATA_REQUEST: 
+    				icon = Constant.MILESTONE_FLAG.DATA_REQUEST;
+    				break;
+    			case Constant.MILESTONE_TYPE.MODEL_LIFECYCLE.INITIATION: 
+    				icon = Constant.MILESTONE_FLAG.MODEL_LIFECYCLE.INITIATION;
+    				break;
+    			case Constant.MILESTONE_TYPE.MODEL_LIFECYCLE.DEVELOPMENT: 
+    				icon = Constant.MILESTONE_FLAG.MODEL_LIFECYCLE.DEVELOPMENT;
+    				break;
+    			case Constant.MILESTONE_TYPE.MODEL_LIFECYCLE.IMPLEMENTATION: 
+    				icon = Constant.MILESTONE_FLAG.MODEL_LIFECYCLE.IMPLEMENTATION;
+    				break;
+    			case Constant.MILESTONE_TYPE.MODEL_LIFECYCLE.USE: 
+    				icon = Constant.MILESTONE_FLAG.MODEL_LIFECYCLE.USE;
+    				break;
+    			case Constant.MILESTONE_TYPE.MODEL_LIFECYCLE.MONITORING: 
+    				icon = Constant.MILESTONE_FLAG.MODEL_LIFECYCLE.MONITORING;
+    				break;
+    			case Constant.MILESTONE_TYPE.MODEL_LIFECYCLE.CHANGE: 
+    				icon = Constant.MILESTONE_FLAG.MODEL_LIFECYCLE.CHANGE;
+    				break;
+    			case Constant.MILESTONE_TYPE.MODEL_LIFECYCLE.DECOMMISSION: 
+    				icon = Constant.MILESTONE_FLAG.MODEL_LIFECYCLE.DECOMMISSION;
+    				break;
+    			case Constant.MILESTONE_TYPE.DATA_REQUEST_LIFECYCLE.SUBMITTED: 
+    				icon = Constant.MILESTONE_FLAG.DATA_REQUEST_LIFECYCLE.SUBMITTED;
+    				break;
+    			case Constant.MILESTONE_TYPE.DATA_REQUEST_LIFECYCLE.PENDING: 
+    				icon = Constant.MILESTONE_FLAG.DATA_REQUEST_LIFECYCLE.PENDING;
+    				break;
+    			case Constant.MILESTONE_TYPE.DATA_REQUEST_LIFECYCLE.APPROVED: 
+    				icon = Constant.MILESTONE_FLAG.DATA_REQUEST_LIFECYCLE.APPROVED;
+    				break;
+    			case Constant.MILESTONE_TYPE.DATA_REQUEST_LIFECYCLE.REVIEWED: 
+    				icon = Constant.MILESTONE_FLAG.DATA_REQUEST_LIFECYCLE.REVIEWED;
+    				break;
+    			case Constant.MILESTONE_TYPE.DATA_REQUEST_LIFECYCLE.COMPLETED: 
+    				icon = Constant.MILESTONE_FLAG.DATA_REQUEST_LIFECYCLE.COMPLETED;
+    				break;
+    			default:
+    				icon = Constant.MILESTONE_FLAG.DEFAULT;
     				break;
     		}
+    		item.content = icon + "<br/>" + text;
     	});
-    }   
-
-    /*if($scope.currentDashboard.type === Constant.DASHBOARD.REGULATORY){
-    	SharedService.getSingleSeriesData( $scope.currentDashboard.type ).then(function(data){
-    		$scope.heading = {title: data.name};
-    		items = data.data.data;
-	    	setCurrentStatus(items);
-	    	setEnterpriseContent(items);
-	    	$scope.data = { items: items};
-		});
-    	
-    }
-    else if($scope.currentDashboard.type === Constant.DASHBOARD.ENTERPRISE){
-    	SharedService.getSingleSeriesData( $scope.currentDashboard.type ).then(function(data){
-    		$scope.heading = {title: data.name};
-    		items = data.data.data;
-	    	setCurrentStatus(items);
-	    	setEnterpriseContent(items);
-	    	$scope.data = { items: items };
-		});
-    }*/
-
-    SharedService.getSingleSeriesData( $scope.currentDashboard.type ).then(function(data){
-		$scope.heading = {title: data.name};
-		items = data.data.data;
-    	setCurrentStatus(items);
-    	setEnterpriseContent(items);
-    	$scope.data = { items: items };
-	});
+    }      
     
     $scope.onSelect = function (obj) {
         var selObj = _.findWhere(items, {id: obj.items[0]});
+        if($scope.hasDownloadSelected){
+        	$scope.changeRingCursor();
+        	$scope.viewFile();
+        	return;
+        }
         switch(selObj.category){
-        	case Constant.MILESTONE_TYPE.REGULATORY:        		
+        	case Constant.MILESTONE_TYPE.MODEL_REQUEST:
+        		SharedService.currentDashboard = {type:selObj.name, family:Constant.DASHBOARD.MODEL_REQUEST};
+        		SharedService.localHeading = selObj.name;
+				$scope.initialize();
+				break;
+			case Constant.MILESTONE_TYPE.DATA_REQUEST:
+        		SharedService.currentDashboard = {type:Constant.DASHBOARD.DATA_REQUEST, family:Constant.DASHBOARD.DATA_REQUEST};
+        		SharedService.localHeading = selObj.name;
+				$scope.initialize();
+				break;
+        	case Constant.MILESTONE_TYPE.REGULATORY:  
+        	case Constant.MILESTONE_TYPE.ENTERPRISE:
+        	case Constant.MILESTONE_TYPE.FRY14:            		
         	case Constant.MILESTONE_TYPE.INITIAL_SUBMISSION:
+        	case Constant.MILESTONE_TYPE.MODEL_LIFECYCLE.INITIATION:
+        	case Constant.MILESTONE_TYPE.MODEL_LIFECYCLE.DEVELOPMENT:
+        	case Constant.MILESTONE_TYPE.MODEL_LIFECYCLE.IMPLEMENTATION:
+        	case Constant.MILESTONE_TYPE.MODEL_LIFECYCLE.USE:
+        	case Constant.MILESTONE_TYPE.MODEL_LIFECYCLE.MONITORING:
+        	case Constant.MILESTONE_TYPE.MODEL_LIFECYCLE.CHANGE:
+        	case Constant.MILESTONE_TYPE.MODEL_LIFECYCLE.DECOMMISSION:
         		SharedService.STATUS_VIEW = { title:selObj.name || selObj.content, statusID:selObj.id, dashboardType:$scope.currentDashboard.type };
         		$state.go("landing.statusReport");
         		break;
         	case Constant.MILESTONE_TYPE.DRY_RUN: 
         		SharedService.STATUS_VIEW = { title:selObj.name || selObj.content, statusID:selObj.id, dashboardType:$scope.currentDashboard.type };
         		$state.go("landing.status");
-        		break;
-        	case Constant.MILESTONE_TYPE.ENTERPRISE: 
-        		SharedService.STATUS_VIEW = { title:selObj.name || selObj.content, statusID:selObj.id, dashboardType:$scope.currentDashboard.type };
-        		$state.go("landing.statusReport");
         		break;
         	case Constant.MILESTONE_TYPE.REPORT:
         	case Constant.MILESTONE_TYPE.MEETING:
@@ -335,7 +426,17 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
         		break;
         	case Constant.MILESTONE_TYPE.HEAT_MAP:
         		$scope.selMilestone = selObj;
-        		$state.go("landing.heatMap");       		
+        		$state.go("landing.heatMap");
+        		break;  
+        	case Constant.MILESTONE_TYPE.SUB_SCHEDULE:
+        	case Constant.MILESTONE_TYPE.DATA_REQUEST_LIFECYCLE.SUBMITTED:
+        	case Constant.MILESTONE_TYPE.DATA_REQUEST_LIFECYCLE.PENDING:
+        	case Constant.MILESTONE_TYPE.DATA_REQUEST_LIFECYCLE.APPROVED:
+        	case Constant.MILESTONE_TYPE.DATA_REQUEST_LIFECYCLE.REVIEWED:
+        	case Constant.MILESTONE_TYPE.DATA_REQUEST_LIFECYCLE.COMPLETED:
+        		$scope.selMilestone = selObj;
+        		SharedService.STATUS_VIEW = { title:selObj.name || selObj.content, statusID:selObj.id, dashboardType:$scope.currentDashboard.type, returnState: $state.current.name };
+        		$state.go("landing.scheduleTable");     		
         		break;
         }       
     };
@@ -364,8 +465,86 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
     };
 
     $scope.goPreviousScreen = function(){
+    	if(SharedService.localHeading){
+    		SharedService.currentDashboard = {type:Constant.DASHBOARD.MODEL};
+        	SharedService.localHeading = null;
+			$scope.initialize();
+			return;
+    	}
 		$state.go('landing.dashboardSelector');
 	}
+
+	$scope.changeRingCursor = function(){
+		var classes = $('#graphDiv').attr('class');
+		if(classes.indexOf('download-cursor')!=-1){
+			$scope.hasDownloadSelected = false;
+			$('#graphDiv').removeClass('download-cursor');
+			$('.item.box').removeClass('download-cursor');
+			$('.fa').removeClass('download-cursor');
+			$('#impactBtn').removeClass('text-green');
+		}
+		else{
+			$scope.hasDownloadSelected = true;
+			$('#graphDiv').addClass('download-cursor');
+			$('.item.box').addClass('download-cursor');
+			$('.fa').addClass('download-cursor');
+			$('#impactBtn').addClass('text-green');
+		}
+	}
+
+	$scope.viewFile = function(){
+		var name = "Data Module";
+		var type = "xlsx";
+      	window.open("downloadFileByName/" + name + "/" + type);
+    }
+
+	$scope.initialize();
+})
+
+.controller('dashboardGraphProfileCtrl', function($scope, $rootScope, $state, $stateParams, $timeout, SharedService, MockService) {
+	$scope.initialize = function () {
+		$scope.currentDashboard = SharedService.currentDashboard;
+		$scope.heading = {title: $scope.currentDashboard.name};
+		$scope.isMapProfile = true;
+		$scope.options = {
+			handlerData: { click : "clickMap", scope : $scope }
+		}
+		if(!$scope.mapData){
+			$rootScope.loader = true;
+			$.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=world-population-density.json&callback=?', function (data) {
+				$scope.mapData = data;
+				$rootScope.loader = false;
+			});
+		}
+	}
+
+	$scope.clickNode = function (nodeId) {
+		if(nodeId)
+			alert(nodeId);  
+	}
+
+	$scope.clickMap = function (obj) {
+		//alert(obj.name);
+		$scope.isMapProfile = false;
+		$scope.options = {
+			labelField:'name',
+			nodeShape: 'image',
+			handlerData: { click : $scope.clickNode, scope : $scope },
+			nodeImageMap: SharedService.nodeImageMap,
+			nodeImageField: "type",
+			hier: true
+	    };
+	    $scope.graphData = MockService.liquidityProfile;
+	}
+
+	$scope.goPreviousScreen = function(){
+		if($scope.isMapProfile)
+			$state.go('landing.dashboardSelector');
+		else
+			$scope.initialize();
+	}
+
+	$scope.initialize();
 })
 
 .controller('statusCtrl', function($scope, $state, $compile, $timeout, $stateParams, SharedService, MockService) {
@@ -432,8 +611,9 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.initialize();
 })
 
-.controller('scheduleCtrl', function($scope, $state, $stateParams, $timeout, SharedService, MockService) {
-	/*$scope.initialize = function(){
+.controller('scheduleCtrl', function($scope, $state, $rootScope, $stateParams, $timeout, SharedService, MockService) {
+	/*
+	$scope.initialize = function(){
 		$scope.heading = SharedService.SCHEDULE_VIEW;
 		//$scope.tableData = MockService.ScheduleData.series[SharedService.SCHEDULE_VIEW.scheduleID].outstanding.tableData;
 		$scope.scheduleData = MockService.ScheduleData;
@@ -511,28 +691,30 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		});		
 	}
 
-	$scope.initialize();*/
-	
+	$scope.initialize();
+	*/
 	
 	
 	
 	
 	
 	$scope.initialize = function(){
-		$scope.heading = SharedService.STATUS_VIEW;
+		$scope.heading = SharedService.STATUS_VIEW.title;
 		$scope.reports = [];
 		$scope.doc = new DOC.Document($('#toCapture'));
-		SharedService.getAllSeriesData( "FRY-14Q-Schedule" ).then(function(data){
+		SharedService.getAllSeriesData( SharedService.STATUS_VIEW.widget ).then(function(data){
 			$scope.reports = data;
 		});
 	}
 
 	$scope.capturePage = function(){
+		$rootScope.loader = true;
 		$scope.doc.capture().then(function(canvas){
 			if(!MockService.archivePages)
 				MockService.archivePages = [];
 			var img = {id: MockService.pageIdx++, data: canvas.toDataURL("image/jpg")};
 			MockService.archivePages.push(img);
+			$rootScope.loader = false;
 		});		
 	}
 
@@ -552,8 +734,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}
 
 	$scope.drillDown = function(report){
-		SharedService.currentReport = report;
-		
+		SharedService.currentReport = report;		
 		$state.go('landing.ewgIssue');
 	}
 
@@ -4039,9 +4220,9 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 	function addAggregates(id, title, isComposed){
 		if(isComposed)
-			$scope.savedPathList.push( {id: id, title: title, class:"aggr", img:"assets/images/aggregatorOnCircle.png", isComposed: isComposed});
+			$scope.savedPathList.push( {id: id, title: title, class:"aggr", img:"/ccar/ccarassets/images/aggregatorOnCircle.png", isComposed: isComposed});
 		else
-			$scope.savedPathList.push( {id: id, title: title, class:"aggr", img:"assets/images/associator.png", isComposed: isComposed});
+			$scope.savedPathList.push( {id: id, title: title, class:"aggr", img:"/ccar/ccarassets/images/associator.png", isComposed: isComposed});
 	}
 
 	$scope.onAggregateDrop = function( ui , cellIdx , element){
@@ -4176,29 +4357,46 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.initialize();
 })
 
-.controller('statusReportCtrl', function($scope, $state, $compile, SharedService, MockService, NgAnimateService){
+.controller('statusReportCtrl', function($scope, $rootScope, $state, $compile, SharedService, MockService, NgAnimateService){
 	$scope.initialize = function(){
 		$scope.heading = SharedService.STATUS_VIEW;
 		$scope.reports = [];
 		$scope.doc = new DOC.Document($('#toCapture'));
+		var compName = "";
 		var reportType = "";
 		$scope.dashboardType = $scope.heading.dashboardType;
-		if($scope.dashboardType === Constant.DASHBOARD.REGULATORY){
-			reportType = Constant.WIDGET_NAMES.REPORT_COMPLETION;
-		} else if ($scope.dashboardType === Constant.DASHBOARD.ENTERPRISE){
-			reportType = Constant.WIDGET_NAMES.REPORT_EWG;
+		switch($scope.dashboardType){
+			case Constant.DASHBOARD.REGULATORY:
+				compName = Constant.WIDGET_NAMES.REGULATORY;
+				break;
+			case Constant.DASHBOARD.ENTERPRISE:
+				compName = Constant.WIDGET_NAMES.ENTERPRISE;
+				break;
+			case Constant.DASHBOARD.FRY14:
+				compName = Constant.WIDGET_NAMES.FRY14;
+				break;
+			case Constant.DASHBOARD.MODEL_REQUEST:
+				compName = $scope.heading.title;
+				reportType = Constant.WIDGET_NAMES.GRAPH;
+				break;
+			default:
+				compName = $scope.dashboardType + "-" + $scope.heading.title;
+				reportType = Constant.WIDGET_NAMES.GRAPH;
+				break;
 		}
-		SharedService.getAllSeriesData( reportType ).then(function(data){
+		SharedService.getAllSeriesData( compName, reportType ).then(function(data){
 			$scope.reports = data;
 		});
 	}
 
 	$scope.capturePage = function(){
+		$rootScope.loader = true;
 		$scope.doc.capture().then(function(canvas){
 			if(!MockService.archivePages)
 				MockService.archivePages = [];
 			var img = {id: MockService.pageIdx++, data: canvas.toDataURL("image/jpg")};
 			MockService.archivePages.push(img);
+			$rootScope.loader = false;
 		});		
 	}
 
@@ -4218,13 +4416,23 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}
 
 	$scope.drillDown = function(report){
-		SharedService.currentReport = report;
+		SharedService.currentReport = report;		
 		if(report.key === "FRY-14Q"){
-			$state.go('landing.schedule');
-		} else if($scope.dashboardType === Constant.DASHBOARD.REGULATORY){
-			$state.go('landing.gapdetails');
-		} else if ($scope.dashboardType === Constant.DASHBOARD.ENTERPRISE){
-			$state.go('landing.ewgIssue');
+			SharedService.STATUS_VIEW.widget = "FRY-14Q-Schedule";
+			$state.go('landing.schedule');    //to be replaced by statusReport
+			return;
+		}
+
+		switch($scope.dashboardType){
+			case Constant.DASHBOARD.REGULATORY:
+				$state.go('landing.gapdetails');
+				break;
+			case Constant.DASHBOARD.ENTERPRISE:
+			case Constant.DASHBOARD.FRY14:
+			case Constant.DASHBOARD.MODEL:
+			default:
+				$state.go('landing.ewgIssue');
+				break;
 		}		
 	}
 
@@ -4264,23 +4472,6 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		container.html(template);
 		$compile(container.contents())($scope);
 		$('#expandedViewModal').modal('show');
-	}
-
-	$scope.initialize();
-})
-
-.controller('dashboardSelectorCtrl', function($scope, $state, $compile, SharedService, MockService, NgAnimateService){
-	$scope.initialize = function(){
-		$scope.animation = NgAnimateService.animations[2];
-		$scope.dashboardTemplates = [];		
-		SharedService.getDashboards().then(function(data){
-			NgAnimateService.lazyLoadItems($scope.dashboardTemplates, data);
-		});
-	}
-
-	$scope.goTo = function(temp){
-		SharedService.currentDashboard = temp;
-		$state.go("landing.dashboardProfile");
 	}
 
 	$scope.initialize();
@@ -4340,22 +4531,24 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.initialize();
 })
 
-.controller('ewgReportCtrl', function($scope, $state, $compile, $timeout, SharedService, MockService, NgAnimateService){
+.controller('ewgReportCtrl', function($scope, $state, $rootScope, $compile, $timeout, SharedService, MockService, NgAnimateService){
 	$scope.initialize = function(){
 		$scope.heading = SharedService.STATUS_VIEW;
 		$scope.reports = [];
 		$scope.doc = new DOC.Document($('#toCapture'));
-		SharedService.getAllSeriesData( Constant.WIDGET_NAMES.REPORT_EWG ).then(function(data){
+		SharedService.getAllSeriesData( Constant.WIDGET_NAMES.REPORT_EDM ).then(function(data){
 			$scope.reports = data;
 		});
 	}
 
 	$scope.capturePage = function(){
+		$rootScope.loader = true;
 		$scope.doc.capture().then(function(canvas){
 			if(!MockService.archivePages)
 				MockService.archivePages = [];
 			var img = {id: MockService.pageIdx++, data: canvas.toDataURL("image/jpg")};
 			MockService.archivePages.push(img);
+			$rootScope.loader = false;
 		});		
 	}
 
@@ -4387,14 +4580,26 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.initialize();
 })
 
-.controller('ewgIssueCtrl', function($scope, $state, $compile, $timeout, SharedService, MockService, NgAnimateService){
+.controller('ewgIssueCtrl', function($scope, $state, $rootScope, $compile, $timeout, SharedService, MockService, NgAnimateService){
 	$scope.initialize = function(){
 		var report = SharedService.currentReport;
 		$scope.heading = report.name;
-		var issueType = report.key + "-Issue";
+		var issueType = report.key + "-Table";
+		$scope.doc = new DOC.Document($('#toCapture'));
 		SharedService.getAlldashboardTableData( issueType ).then(function(tableData){
 			$scope.tableData = tableData
 		});
+	}
+
+	$scope.capturePage = function(){
+		$rootScope.loader = true;
+		$scope.doc.capture().then(function(canvas){
+			if(!MockService.archivePages)
+				MockService.archivePages = [];
+			var img = {id: MockService.pageIdx++, data: canvas.toDataURL("image/jpg")};
+			MockService.archivePages.push(img);
+			$rootScope.loader = false;
+		});		
 	}
 
 	$scope.goPreviousScreen = function(){
@@ -4424,6 +4629,75 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 	$scope.goPreviousScreen = function(){
 		$state.go('landing.dashboardProfile');
+	}
+
+	$scope.initialize();
+})
+
+.controller('scheduleTableCtrl', function($scope, $state, $rootScope, $compile, $timeout, SharedService, MockService, NgAnimateService){
+	$scope.initialize = function(){
+		$scope.statusView = SharedService.STATUS_VIEW;
+		//$scope.tableData = MockService.dashboardTable;
+		$scope.statusView = $scope.statusView || {"title":"Data Request Completed"};
+		$scope.doc = new DOC.Document($('#toCapture'));
+		SharedService.getAlldashboardTableData( $scope.statusView.title ).then(function(tableData){
+			$scope.tableData = tableData
+		});
+	}
+
+	$scope.capturePage = function(){
+		$rootScope.loader = true;
+		$scope.doc.capture().then(function(canvas){
+			if(!MockService.archivePages)
+				MockService.archivePages = [];
+			var img = {id: MockService.pageIdx++, data: canvas.toDataURL("image/jpg")};
+			MockService.archivePages.push(img);
+			$rootScope.loader = false;
+		});		
+	}
+
+	$scope.getDetails = function(rowIndex){
+		var row = $scope.tableData.rows[rowIndex];
+		var col1 = row[0];
+		if(!col1.expanded){
+			SharedService.getAlldashboardTableData($scope.statusView.title + "-" + col1.name).then(function(data){
+				if(_.isEmpty(data)){
+					alert("No data found!!!");
+					return;
+				}
+				var rows = data.rows;
+				insertRowsByIndex(rows, rowIndex+1);
+				col1.expanded = true;
+			});
+		} else {
+			collapseRows(rowIndex + 1);
+			col1.expanded = false;
+		}
+	}
+
+	function insertRowsByIndex(rows, index){
+		angular.forEach(rows, function(row, idx){
+			angular.forEach(row, function(col){
+				col.alignRight = true;
+			});
+			$scope.tableData.rows.splice(index+idx, 0, row);
+		});
+	}
+
+	function collapseRows(index){
+		var flag = true;
+		$scope.tableData.rows = _.reject($scope.tableData.rows, function(r, idx){			
+			if(idx >= index){
+				if(!r[0].alignRight) 
+					flag = false;
+				if(flag)
+					return r[0].alignRight;
+			}
+		});
+	}
+
+	$scope.goPreviousScreen = function(){
+		$state.go($scope.statusView.returnState);
 	}
 
 	$scope.initialize();

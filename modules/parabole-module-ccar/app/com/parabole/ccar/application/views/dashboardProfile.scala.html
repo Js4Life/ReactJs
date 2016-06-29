@@ -2,8 +2,9 @@
     <div class="panel-heading">
         <span class="glyphicon glyphicon-chevron-left pull-left" style="margin-right:10px;" ng-click="goPreviousScreen()"></span>
         {{heading.title}}
+        <span ng-if="currentDashboard.family == constants.DASHBOARD.MODEL_REQUEST" style="display:inline-block;font-size:1.5em;" id="impactBtn" class="fa fa-arrow-circle-o-down pull-right" tooltip='"title":"Download Report"' ng-click="changeRingCursor()"></span>
     </div>
-    <div class="panel-body" style="height: 56vh;">    
+    <div id="graphDiv" class="panel-body" style="height: 76vh;">    
         <div class="row">
             <div class="col-sm-12">
                 <div class="panel-3d">
@@ -12,12 +13,54 @@
             </div>
         </div>            
     </div>
-    <div class="panel-footer" style="height: 26vh;">
-        <ul class="text-success">
+    <div class="panel-footer">
+        <!-- <ul class="text-success">
           <li>Data element identification 70 % (7/10)</li>
           <li>System Of Record Identification 50 % (5/10)</li>
           <li>Gap closure 50 % (1/2)</li>
-        </ul>
+        </ul> -->
+        <div ng-if="currentDashboard.type == constants.DASHBOARD.ENTERPRISE">
+          <span class="tiny-legend-icon" ng-bind-html="constants.MILESTONE_FLAG.CURRENT_STATUS"></span><span class="tiny-legend-text">Current Status</span>
+          <span class="tiny-legend-icon" ng-bind-html="constants.MILESTONE_FLAG.DRY_RUN"></span><span class="tiny-legend-text">Dry Run</span>
+          <span class="tiny-legend-icon" ng-bind-html="constants.MILESTONE_FLAG.HEAT_MAP"></span><span class="tiny-legend-text">Heatmap</span>
+          <span class="tiny-legend-icon" ng-bind-html="constants.MILESTONE_FLAG.MEETING"></span><span class="tiny-legend-text">Meeting</span>
+          <span class="tiny-legend-icon" ng-bind-html="constants.MILESTONE_FLAG.CLARIFICATION_INFO"></span><span class="tiny-legend-text">Information</span>
+          <span class="tiny-legend-icon" ng-bind-html="constants.MILESTONE_FLAG.TO_DO"></span><span class="tiny-legend-text">Todo</span>
+          <span class="tiny-legend-icon" ng-bind-html="constants.MILESTONE_FLAG.ESCALATION"></span><span class="tiny-legend-text">Escalation</span>
+          <span class="tiny-legend-icon" ng-bind-html="constants.MILESTONE_FLAG.SCHEDULE"></span><span class="tiny-legend-text">Schedule</span>
+          <span class="tiny-legend-icon" ng-bind-html="constants.MILESTONE_FLAG.DEFAULT"></span><span class="tiny-legend-text">Others</span>
+        </div> 
+        <div ng-if="currentDashboard.type == constants.DASHBOARD.REGULATORY">
+          <span class="tiny-legend-icon" ng-bind-html="constants.MILESTONE_FLAG.CURRENT_STATUS"></span><span class="tiny-legend-text">Current Status</span>
+          <span class="tiny-legend-icon" ng-bind-html="constants.MILESTONE_FLAG.DEFAULT"></span><span class="tiny-legend-text">Initial Submission</span>
+          <span class="tiny-legend-icon" ng-bind-html="constants.MILESTONE_FLAG.DRY_RUN"></span><span class="tiny-legend-text">Dry Run</span>
+          <span class="tiny-legend-icon" ng-bind-html="constants.MILESTONE_FLAG.HEAT_MAP"></span><span class="tiny-legend-text">Heatmap</span>
+          <span class="tiny-legend-icon" ng-bind-html="constants.MILESTONE_FLAG.REPORT"></span><span class="tiny-legend-text">Report</span>
+        </div> 
+        <div ng-if="currentDashboard.type == constants.DASHBOARD.FRY14">
+          <span class="tiny-legend-icon" ng-bind-html="constants.MILESTONE_FLAG.MODEL_REQUEST"></span><span class="tiny-legend-text">Model</span>
+          <span class="tiny-legend-icon" ng-bind-html="constants.MILESTONE_FLAG.DATA_REQUEST"></span><span class="tiny-legend-text">Data Request</span>
+        </div>  
+        <div ng-if="currentDashboard.type == constants.DASHBOARD.MODEL">
+          <span class="tiny-legend-icon" ng-bind-html="constants.MILESTONE_FLAG.MODEL_REQUEST"></span><span class="tiny-legend-text">Model</span>
+          <span class="tiny-legend-icon" ng-bind-html="constants.MILESTONE_FLAG.DATA_REQUEST"></span><span class="tiny-legend-text">Data Request</span>
+        </div>  
+        <div ng-if="currentDashboard.family == constants.DASHBOARD.MODEL_REQUEST">
+          <span class="tiny-legend-icon" ng-bind-html="constants.MILESTONE_FLAG.MODEL_LIFECYCLE.INITIATION"></span><span class="tiny-legend-text">Initiation</span>
+          <span class="tiny-legend-icon" ng-bind-html="constants.MILESTONE_FLAG.MODEL_LIFECYCLE.DEVELOPMENT"></span><span class="tiny-legend-text">Development</span>
+          <span class="tiny-legend-icon" ng-bind-html="constants.MILESTONE_FLAG.MODEL_LIFECYCLE.IMPLEMENTATION"></span><span class="tiny-legend-text">Implementation</span>
+          <span class="tiny-legend-icon" ng-bind-html="constants.MILESTONE_FLAG.MODEL_LIFECYCLE.USE"></span><span class="tiny-legend-text">Used</span>
+          <span class="tiny-legend-icon" ng-bind-html="constants.MILESTONE_FLAG.MODEL_LIFECYCLE.MONITORING"></span><span class="tiny-legend-text">Monitoring</span>
+          <span class="tiny-legend-icon" ng-bind-html="constants.MILESTONE_FLAG.MODEL_LIFECYCLE.CHANGE"></span><span class="tiny-legend-text">Changed</span>
+          <span class="tiny-legend-icon" ng-bind-html="constants.MILESTONE_FLAG.MODEL_LIFECYCLE.DECOMMISSION"></span><span class="tiny-legend-text">Decommission</span>
+        </div>      
+        <div ng-if="currentDashboard.family == constants.DASHBOARD.DATA_REQUEST">
+          <span class="tiny-legend-icon" ng-bind-html="constants.MILESTONE_FLAG.DATA_REQUEST_LIFECYCLE.SUBMITTED"></span><span class="tiny-legend-text">Submitted</span>
+          <span class="tiny-legend-icon" ng-bind-html="constants.MILESTONE_FLAG.DATA_REQUEST_LIFECYCLE.PENDING"></span><span class="tiny-legend-text">Pending</span>
+          <span class="tiny-legend-icon" ng-bind-html="constants.MILESTONE_FLAG.DATA_REQUEST_LIFECYCLE.APPROVED"></span><span class="tiny-legend-text">Approved</span>
+          <span class="tiny-legend-icon" ng-bind-html="constants.MILESTONE_FLAG.DATA_REQUEST_LIFECYCLE.REVIEWED"></span><span class="tiny-legend-text">Reviewed</span>
+          <span class="tiny-legend-icon" ng-bind-html="constants.MILESTONE_FLAG.DATA_REQUEST_LIFECYCLE.COMPLETED"></span><span class="tiny-legend-text">Completed</span>
+        </div>      
     </div>
 </div>
 

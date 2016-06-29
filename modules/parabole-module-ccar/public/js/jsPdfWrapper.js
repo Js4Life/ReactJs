@@ -14,7 +14,8 @@ var DOC = (function(wrapObj){
 		JPEG : 'JPEG',
 		PAGE : 'Pg. ',
 		ITALIC : 'italic',
-		NORMAL : 'normal'
+		NORMAL : 'normal',
+		A4 : [841.89, 595.28]
 	};
 
 	function defaultConfig(cfg){
@@ -22,7 +23,7 @@ var DOC = (function(wrapObj){
 		return {
 			orientation : cfg.orientation || 'l',
 			unit : cfg.unit || 'px',
-			format : cfg.format || [841.89, 595.28], //for a4
+			format : cfg.format || constants.A4, //for a4
 			name : cfg.name ? cfg.name + '.pdf' : 'report.pdf',
 			hasCover : cfg.hasCover || false,
 			title : cfg.title || "",
@@ -30,12 +31,6 @@ var DOC = (function(wrapObj){
 			header : cfg.header || "",
 			footer : cfg.footer || ""
 		};
-	}
-
-	function addPage(doc, page){
-		doc.addPage();
-		doc.addImage(page.data, 'JPEG', 10, 10, cfg.format[0], cfg.format[1]);
-		doc.page = idx+1;
 	}
 
 	function addHeader(doc, cfg){
@@ -85,9 +80,36 @@ var DOC = (function(wrapObj){
 		doc.text(left, contentY, splitTitle);
 	}
 
-	function calculateAspectRatio(srcWidth, srcHeight, maxWidth, maxHeight) {
-	    var ratio = Math.min(maxWidth / srcWidth, maxHeight / srcHeight);
-	    return { width: srcWidth*ratio, height: srcHeight*ratio };
+	function resetImgAspectRatio(imgData, pageWidth, pageHeight) {	
+		var img = new Image();
+		img.src = imgData;
+		var canvas = document.createElement('canvas'),
+        ctx = canvas.getContext('2d');
+        var srcWidth = img.width;
+		var srcHeight = img.height;
+		var ratio = pageWidth / srcWidth;
+		canvas.width = srcWidth*ratio;
+	    canvas.height = srcHeight*ratio;
+	    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);	    
+		return canvas;
+	}
+
+	function splitImageByPageSize(img, cfg){
+		var docWidth = img.width;
+		var docHeight = img.height;
+		var heightOfOnePiece = cfg.format[1];
+		imgList = [];
+
+		for(var x = 0; x <= docHeight; x = x + heightOfOnePiece) {	        
+            var canvas = document.createElement('canvas');
+            canvas.width = docWidth;
+            canvas.height = heightOfOnePiece;
+            var context = canvas.getContext('2d');
+            context.drawImage(img, 0, x, docWidth, heightOfOnePiece, 0, 0, canvas.width, canvas.height);
+            var currentPiece = canvas.toDataURL();
+			imgList.push(currentPiece);
+	    }	
+		return imgList;
 	}
 
 	Doc.prototype = {
@@ -96,7 +118,7 @@ var DOC = (function(wrapObj){
 			var doc = null;
 			this.capture(element, width, height).then(function(canvas){
 				doc = new jsPDF(cfg.orientation, cfg.unit, cfg.format);
-				doc.addImage(canvas, 'JPEG', 0, 0, cfg.format[0], cfg.format[1]);
+				doc.addImage(canvas, constants.JPEG, 0, 0, cfg.format[0], cfg.format[1]);
 	        	doc.save(cfg.name);
 			});
 		},
@@ -107,26 +129,33 @@ var DOC = (function(wrapObj){
 			var contentX = cfg.format[0]-2*constants.MARGIN;
 			var contentY = cfg.format[1]-4*constants.MARGIN;
 			var doc = new jsPDF(cfg.orientation, cfg.unit, cfg.format);
+			var pageCounter = 1;
 			if(cfg.hasCover){
 				this.createCoverPage(doc);
 			}
 			angular.forEach(pages, function(page, idx){
 				if(idx != 0)
-					doc.addPage();
-				/*var imgDim = calculateAspectRatio(page.data.width, page.data.height, contentX, contentY);
-				doc.addImage(page.data, constants.JPEG, left, top, imgDim.width, imgDim.height);*/
-				if(page.comments){
-					addComments(doc, cfg, page.comments);
-					doc.addImage(page.data, constants.JPEG, left, top, contentX, contentY-top);
-				} else{
-					doc.addImage(page.data, constants.JPEG, left, top, contentX, contentY);
+					doc.addPage();				
+				var img = resetImgAspectRatio(page.data, contentX, contentY);
+				imgPieces = splitImageByPageSize(img, cfg);
+				if(imgPieces.length > 0){
+					angular.forEach(imgPieces, function(aPiece, pIdx){
+						if(pIdx != 0)
+							doc.addPage();
+						if(page.comments && imgPieces.length == pIdx+1){
+							addComments(doc, cfg, page.comments);
+							doc.addImage(aPiece, constants.JPEG, left, top, contentX, contentY-top);
+						} else{
+							doc.addImage(aPiece, constants.JPEG, left, top, contentX, contentY);
+						}
+						doc.page = pageCounter++;
+						if(page.heading && pIdx == 0){
+							addPageHeading(doc, cfg, page.heading);
+						}
+						addHeader(doc, cfg);
+						addFooter(doc, cfg);
+					});
 				}
-				doc.page = idx+1;
-				if(page.heading){
-					addPageHeading(doc, cfg, page.heading);
-				}
-				addHeader(doc, cfg);
-				addFooter(doc, cfg);
 			});
 			doc.save(cfg.name);
 		},
@@ -139,36 +168,6 @@ var DOC = (function(wrapObj){
 		    	width: width,
 		    	height: height
 		    });
-		},
-		splitImageByPageSize : function(element, width, height){
-			element = element || this.container;
-			var imgWidth = element.width;
-			var imgHeight = element.height;
-			var imgList = [];
-
-			if(imgHeight > height){
-				for(var i = height ; i < imgHeight ; i = i + height){
-					var canvas = $('<canvas/>').attr({'width': width, 'height': height});
-					var ctx = canvas.getContext("2d");
-					ctx.drawImage(element, 0, i, width, height, 0, 0, width, height);
-					var img = canvas.toDataURL("image/jpg");
-					imgList.push(img);
-				}				
-			} else{
-				imgList.push(element);
-			}
-			return imgList;
-		},
-		addPages : function(pages){
-			var _this = this;
-			angular.forEach(pages, function(page, idx){
-				var procPages = _this.splitImageByPageSize(page);
-				if(procPages.length > 1)
-					_this.addPages(procPages);
-
-				doc.addImage(page.data, 'JPEG', 10, 10, cfg.format[0], cfg.format[1]);
-				doc.addPage();
-			});
 		},
 		createCoverPage : function(doc){
 			var cfg = this.config;

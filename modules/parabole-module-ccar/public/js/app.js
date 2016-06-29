@@ -29,6 +29,12 @@ angular
             controller : 'dashboardProfileCtrl'
           })
 
+          .state('landing.dashboardGraphProfile', {
+            url : '/dashboard-graph-profile',
+            templateUrl : 'dashboardGraphProfile',
+            controller : 'dashboardGraphProfileCtrl'
+          })
+
           .state('landing.status', {
             url : '/status',
             templateUrl : 'status',
@@ -245,6 +251,12 @@ angular
             url : '/heat-map',
             templateUrl : 'heatMap',
             controller : 'heatMapCtrl'
+          })
+
+          .state('landing.scheduleTable', {
+            url : '/schedule-table',
+            templateUrl : 'scheduleTable',
+            controller : 'scheduleTableCtrl'
           });
 
     $urlRouterProvider.otherwise('/landing/dashboard-selector');

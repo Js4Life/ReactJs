@@ -2,12 +2,12 @@ package com.parabole.ccar.application.controllers;
 
 import java.util.Iterator;
 import javax.inject.Inject;
-
-import com.parabole.ccar.application.exceptions.AppException;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.parabole.ccar.application.exceptions.AppException;
+import com.parabole.ccar.application.global.CCAppConstants;
 import com.parabole.ccar.application.services.JenaTdbService;
 import com.parabole.ccar.platform.utils.AppUtils;
 import play.Logger;
@@ -80,7 +80,8 @@ public class JenaTdbController extends BaseController {
     public Result getAllSeriesData() throws AppException {
         final JsonNode json = request().body().asJson();
         final String compName = json.findPath("compName").textValue();
-        return Results.ok(jenaTdbService.loadSeriesWidgetData(compName).toString());
+        final String reportType = json.findPath("reportType").textValue();
+        return Results.ok(jenaTdbService.loadSeriesWidgetData(compName, reportType).toString());
     }
 
     @BodyParser.Of(BodyParser.Json.class)
@@ -96,5 +97,27 @@ public class JenaTdbController extends BaseController {
         final String param1 = json.findPath("param1").textValue();
         final String param2 = json.findPath("param2").textValue();
         return Results.ok(jenaTdbService.loadWidgetDataByParams(param1, param2).toString());
+    }
+
+    public Result downloadFileByName(final String name, final String type) throws AppException, JSONException {
+        // final JsonNode json = request().body().asJson();
+        // final String name = json.findPath("name").textValue();
+        // final String type = json.findPath("type").textValue();
+        final String fileName = name + "." + type;
+        String fileContentType = null;
+        try {
+            final byte[] fileData = jenaTdbService.downloadFileByName(fileName);
+            response().setHeader("Content-Disposition", "attachment; filename=" + fileName);
+
+            if (type.equalsIgnoreCase(CCAppConstants.FileFormat.XLSX.toString())) {
+                fileContentType = "text/csv";
+            }
+            response().setContentType(fileContentType);
+            return ok(fileData).as(fileContentType);
+
+        } catch (final Exception e) {
+            e.printStackTrace();
+            return ok("Failed To Fetch Document").as("text/html");
+        }
     }
 }

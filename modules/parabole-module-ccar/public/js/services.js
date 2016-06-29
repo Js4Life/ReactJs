@@ -73,7 +73,8 @@ angular.module('RDAApp.services', [])
         'GetAllSeriesData' : 'getAllSeriesData',
         'GetSingleSeriesData' : 'getSingleSeriesData',
         'GetDashboards' : 'getLandingDataBasedOnAuthorization',
-        'GetAllHeatMapTableData' : 'getAllHeatMapTableData'
+        'GetAllHeatMapTableData' : 'getAllHeatMapTableData',
+        'DownloadFileByName' : 'downloadFileByName'
     };
     SharedService.chartDataMap = {
         '0' : 'getHardCodedResponse/chartData1',
@@ -82,26 +83,29 @@ angular.module('RDAApp.services', [])
         '3' : 'getHardCodedResponse/chartData4'
     };
     SharedService.nodeImageMap = {
-        "user" : "ccarassets/images/user48.png",
-        "usergroup" : "ccarassets/images/users48.png",
-        "datasource" : "ccarassets/images/datasource24.png",
-        "database" : "ccarassets/images/database60.png",
-        "column" : "ccarassets/images/column24.png",
-        "table" : "ccarassets/images/table24.png",
-        "concept" : "ccarassets/images/concept.png"
+        "user" : "/ccar/ccarassets/images/user48.png",
+        "usergroup" : "/ccar/ccarassets/images/users48.png",
+        "datasource" : "/ccar/ccarassets/images/datasource24.png",
+        "database" : "/ccar/ccarassets/images/database60.png",
+        "column" : "/ccar/ccarassets/images/column24.png",
+        "table" : "/ccar/ccarassets/images/table24.png",
+        "concept" : "/ccar/ccarassets/images/concept.png",
+        "main-entity" : "/ccar/ccarassets/images/bank.png",
+        "subsidiary" : "/ccar/ccarassets/images/bank-subsidiary.png",
+        "branch" : "/ccar/ccarassets/images/bank-branch.png",
     };
     SharedService.graphImageMap = {
-        "report" : "ccarassets/images/graph_report.png",
-        "selected" : "ccarassets/images/sky_dot.png",
-        "data" : "ccarassets/images/graph_data.png",
-        "policy" : "ccarassets/images/graph_policy.png",
-        "model" : "ccarassets/images/graph_model.png",
-        "committee" : "ccarassets/images/graph_committee.png",
-        "information" : "ccarassets/images/graph_info.png",
-        "information_disable" : "ccarassets/images/graph_info_disable.png",
-        "person" : "ccarassets/images/user48.png",
-        "system" : "ccarassets/images/graph_system.png",
-        "default" : "ccarassets/images/blue_dot.png"
+        "report" : "/ccar/ccarassets/images/graph_report.png",
+        "selected" : "/ccar/ccarassets/images/sky_dot.png",
+        "data" : "/ccar/ccarassets/images/graph_data.png",
+        "policy" : "/ccar/ccarassets/images/graph_policy.png",
+        "model" : "/ccar/ccarassets/images/graph_model.png",
+        "committee" : "/ccar/ccarassets/images/graph_committee.png",
+        "information" : "/ccar/ccarassets/images/graph_info.png",
+        "information_disable" : "/ccar/ccarassets/images/graph_info_disable.png",
+        "person" : "/ccar/ccarassets/images/user48.png",
+        "system" : "/ccar/ccarassets/images/graph_system.png",
+        "default" : "/ccar/ccarassets/images/blue_dot.png"
     };
 
     SharedService.mappableEdges = [];
@@ -139,38 +143,38 @@ angular.module('RDAApp.services', [])
         DOWN: 'red'
     };
     SharedService.primaryNav = [
-        /*{"id": "1" , "label":"ccarassets/images/alert-64.png", "title" : Constant.ALERT_TAB},
-        {"id": "1" , "label":"ccarassets/images/risk-64.png", "title" : Constant.ASSIMILATOR_TAB},*/
-        {"id": "11" , "label":"ccarassets/images/dashboard.png", "title" : Constant.DASHBOARD_TAB},
-        /*{"id": "2" , "label":"ccarassets/images/list.png", "title" : Constant.ASSOCIATOR_TAB},
-        {"id": "10" , "label":"ccarassets/images/aggregator.png", "title" : Constant.MERGE_AGGREGATOR_TAB},
-        {"id": "3" , "label":"ccarassets/images/simulator.png", "title" : Constant.SIMULATOR_TAB},
-        {"id": "8" , "label":"ccarassets/images/newsimulator.png", "title" : Constant.NEW_SIMULATOR_TAB},
-        {"id": "9" , "label":"ccarassets/images/glossary.png", "title" : Constant.GLOSSARY},
-        {"id": "4" , "label":"ccarassets/images/mono-report.png", "title" : Constant.REPORT_TAB},*/
-        {"id": "5" , "label":"ccarassets/images/database.png", "title" : Constant.DATASOURCE_TAB},
-        {"id": "6" , "label":"ccarassets/images/user48.png", "title" : Constant.TEAM_TAB},
-        /*{"id": "7" , "label":"ccarassets/images/comb_view.png", "title" : Constant.SERVICE_TAB}*/
-        {"id": "9" , "label":"ccarassets/images/glossary.png", "title" : Constant.GLOSSARY},
-        {"id": "12" , "label":"ccarassets/images/archive.png", "title" : Constant.ARCHIVE_TAB}
+        /*{"id": "1" , "label":"/ccar/ccarassets/images/alert-64.png", "title" : Constant.ALERT_TAB},
+        {"id": "1" , "label":"/ccar/ccarassets/images/risk-64.png", "title" : Constant.ASSIMILATOR_TAB},*/
+        {"id": "11" , "label":"/ccar/ccarassets/images/dashboard.png", "title" : Constant.DASHBOARD_TAB},
+        /*{"id": "2" , "label":"/ccar/ccarassets/images/list.png", "title" : Constant.ASSOCIATOR_TAB},
+        {"id": "10" , "label":"/ccar/ccarassets/images/aggregator.png", "title" : Constant.MERGE_AGGREGATOR_TAB},
+        {"id": "3" , "label":"/ccar/ccarassets/images/simulator.png", "title" : Constant.SIMULATOR_TAB},
+        {"id": "8" , "label":"/ccar/ccarassets/images/newsimulator.png", "title" : Constant.NEW_SIMULATOR_TAB},
+        {"id": "9" , "label":"/ccar/ccarassets/images/glossary.png", "title" : Constant.GLOSSARY},
+        {"id": "4" , "label":"/ccar/ccarassets/images/mono-report.png", "title" : Constant.REPORT_TAB},*/
+        {"id": "5" , "label":"/ccar/ccarassets/images/database.png", "title" : Constant.DATASOURCE_TAB},
+        {"id": "6" , "label":"/ccar/ccarassets/images/user48.png", "title" : Constant.TEAM_TAB},
+        /*{"id": "7" , "label":"/ccar/ccarassets/images/comb_view.png", "title" : Constant.SERVICE_TAB}*/
+        {"id": "9" , "label":"/ccar/ccarassets/images/glossary.png", "title" : Constant.GLOSSARY},
+        {"id": "12" , "label":"/ccar/ccarassets/images/archive.png", "title" : Constant.ARCHIVE_TAB}
    ];
     SharedService.layoutGraphData = [
                                         ["Jan-13", 11],["Feb-13", 9], ["March-13", 15], ["July-13", 12]
                                     ];
     SharedService.pageBuilderTools = [
-        {title:"Page", type:"1", class:"page", img:"ccarassets/images/page.png"}
+        {title:"Page", type:"1", class:"page", img:"/ccar/ccarassets/images/page.png"}
     ];
     SharedService.layoutBuilderTools = [
-        {title:"2 By 2", type:"1", class:"2by2", img:"ccarassets/images/2by2.png"},
-        {title:"1 by 2 ", class:"1by2", type:"1", img:"ccarassets/images/1by2.png"},
-        {title:"2 By 1", class:"2by1", type:"1", img:"ccarassets/images/2by1.png"},
-        {title:"1 By 1", class:"1by1", type:"1", img:"ccarassets/images/1by1.png"},
-        {title:"Aggregate", class:"aggr", type:"1", img:"ccarassets/images/aggregate.png"},
-        {title:"Impact Path", class:"img", type:"1", img:"ccarassets/images/image.png"}
+        {title:"2 By 2", type:"1", class:"2by2", img:"/ccar/ccarassets/images/2by2.png"},
+        {title:"1 by 2 ", class:"1by2", type:"1", img:"/ccar/ccarassets/images/1by2.png"},
+        {title:"2 By 1", class:"2by1", type:"1", img:"/ccar/ccarassets/images/2by1.png"},
+        {title:"1 By 1", class:"1by1", type:"1", img:"/ccar/ccarassets/images/1by1.png"},
+        {title:"Aggregate", class:"aggr", type:"1", img:"/ccar/ccarassets/images/aggregate.png"},
+        {title:"Impact Path", class:"img", type:"1", img:"/ccar/ccarassets/images/image.png"}
     ];
     SharedService.userBuilderTools = [
-        {title:"User", type:"1", class:"user", img:"ccarassets/images/user48.png"},
-        {title:"User Group ", class:"user-grp", type:"1", img:"ccarassets/images/users48.png"}
+        {title:"User", type:"1", class:"user", img:"/ccar/ccarassets/images/user48.png"},
+        {title:"User Group ", class:"user-grp", type:"1", img:"/ccar/ccarassets/images/users48.png"}
     ];
     SharedService.cardinals = [
         {id:0, name : '1-to-1'},
@@ -550,8 +554,8 @@ angular.module('RDAApp.services', [])
         return SharedService.invokeService('GetAlldashboardTableData', sendObj, 'post');
     }
 
-    SharedService.getAllSeriesData = function(compName){
-        var sendObj = {"compName": compName};
+    SharedService.getAllSeriesData = function(compName, reportType){
+        var sendObj = {"compName": compName, "reportType": reportType};
         return SharedService.invokeService('GetAllSeriesData', sendObj, 'post');
     }
 
@@ -567,6 +571,11 @@ angular.module('RDAApp.services', [])
     SharedService.getAllHeatMapTableData = function(param1, param2){
         var sendObj = {"param1": param1, "param2": param2};
         return SharedService.invokeService('GetAllHeatMapTableData', sendObj, 'post');
+    }
+
+    SharedService.downloadFileByName = function(name, type){
+        var sendObj = {"name": name, "type": type};
+        return SharedService.invokeService('DownloadFileByName', sendObj, 'post');
     }
 
     return SharedService;
@@ -1141,6 +1150,28 @@ angular.module('RDAApp.services', [])
             "type":Constant.DASHBOARD.ENTERPRISE
         }
     ];
+
+    MockService.liquidityProfile = {
+        nodes: [
+            {id: 1, name: "Bank", type: "main-entity", level: 1},
+            {id: 2, name: "Subsidiary-1", type: "subsidiary", level: 2},
+            {id: 3, name: "Subsidiary-2", type: "subsidiary", level: 2},
+            {id: 4, name: "Branch-1", type: "branch", level: 3},
+            {id: 5, name: "Branch-2", type: "branch", level: 3},
+            {id: 6, name: "Branch-3", type: "branch", level: 3},
+            {id: 7, name: "Branch-4", type: "branch", level: 3},
+            {id: 8, name: "Branch-5", type: "branch", level: 3}
+        ],
+        edges: [
+            {from: 1, to: 2},
+            {from: 1, to: 3},
+            {from: 2, to: 4},
+            {from: 2, to: 5},
+            {from: 3, to: 6},
+            {from: 3, to: 7},
+            {from: 3, to: 8}
+        ]
+    }
 
     return MockService;
 })

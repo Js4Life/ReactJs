@@ -56,15 +56,19 @@ public class CCAppConstants extends AppConstants {
     public static final String JENA_TDB_STOREROOM = "tdb";
     public static final String JENA_WIDGETDEF_FILE = "uiMetadata.json";
     public static final String JENA_BATCHINSRT_FILE = "batchInsert.json";
-    public static final String REPORT_COMPLETION = "ReportCompletion";
-    public static final String REPORT_EWG = "EwgReport";
+    public static final String REGULATORY_WIDGETS = "RegulatoryWidgets";
+    public static final String EDM_WIDGETS = "EdmWidgets";
+    public static final String FRY14Q_WIDGETS = "Fry14QWidgets";
     public static final String SCHEDULE_COMPLETION = "ScheduleCompletion";
+    public static final String TABLE_WIDGETS = "Table";
+    public static final String GRAPH_WIDGETS = "Graph";
 
     public static final String ADMIN_AUTH = "ADMIN";
     public static final String REGULATORY = "REGULATORY";
     public static final String BUSINESS_SEGMENT_ALIGNED_WORKING_GROUP = "BSAWG";
     public static final String ENTERPRISE_WORKING_GROUP = "EWG";
     public static final String DATA_ADVISORY_COMMITTEE = "DAC";
+    public static final String CONF_FILE_PATH = "conf/files/";
 
 
     public static enum ExcelFormat {
@@ -73,5 +77,9 @@ public class CCAppConstants extends AppConstants {
 
     public static enum ConfigurationType {
         NODEMAP, REPORT, AGGREGATION, ADMINDATA, DATASOURCE, EXCEL_METADATA, AGGREGATEMAPPING, DBVIEW, LOGICAL_VIEW_ONE, BASENODE_CFG, DATANODE_CFG, COMBINED_VIEW, IMPACT_GRAPH_IMAGE, COMPOSITEAGGREGATION
+    }
+
+    public static enum FileFormat {
+        XLS, XLSX, CSV, DOC, DOCX, TXT
     }
 }

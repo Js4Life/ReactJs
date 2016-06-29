@@ -2,8 +2,8 @@ package com.parabole.ccar.platform.authorizations.modules;
 
 import be.objectify.deadbolt.java.TemplateFailureListener;
 import be.objectify.deadbolt.java.cache.HandlerCache;
-import com.parabole.ccar.platform.authorizations.security.MyHandlerCache;
 import com.parabole.ccar.platform.authorizations.security.MyCustomTemplateFailureListener;
+import com.parabole.ccar.platform.authorizations.security.MyHandlerCache;
 import play.api.Configuration;
 import play.api.Environment;
 import play.api.inject.Binding;
