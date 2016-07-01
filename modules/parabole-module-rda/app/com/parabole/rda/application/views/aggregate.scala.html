@@ -10,7 +10,7 @@
         <button class="btn btn-default" ng-click="leftSlideToggle()" style="padding:3px;" tooltip='"title":"Slide left"'><span class="glyphicon glyphicon-indent-right"></span></button>
         <button class="btn btn-default" ng-click="rightSlideToggle()" style="padding:3px;" tooltip='"title":"Slide right"'><span class="glyphicon glyphicon-indent-left"></span></button>
         <button class="btn btn-default" ng-click="getDataSourceDetailsOfEdge()" style="padding:3px;" ng-disabled="!selectedEdge" tooltip='"title":"View DB Connectivity"'><span class="glyphicon glyphicon-tasks"></span></button>
-        <button class="btn btn-default" ng-click="getNodeDescription()" style="padding:3px;" ng-disabled="!currentSelNode.definition" tooltip='"title":"Definition"'><span class="glyphicon glyphicon-pencil"></span></button>
+        <button class="btn btn-default" ng-click="getNodeDescription()" style="padding:3px;" ng-disabled="!currentSelNode.extraInfo.definition" tooltip='"title":"Definition"'><span class="glyphicon glyphicon-pencil"></span></button>
         <button class="btn btn-default" ng-click="saveGraphPosition()" style="padding:3px;" ng-disabled="!currentAggregate" tooltip='"title":"Save Graph Position"'><span class="glyphicon glyphicon-save"></span></button>
         <button class="btn btn-default" ng-click="getAllViewsBySelNode()" style="padding:3px;" ng-disabled="!currentAggregate" tooltip='"title":"Detailed logical views of selected node"'><span class="glyphicon glyphicon-eye-open"></span></button>
         <button class="btn btn-default" ng-click="getAllViewsByAggregate()" style="padding:3px;" ng-disabled="!currentAggregate" tooltip='"title":"Map db views of selected node"'><span class="glyphicon glyphicon-resize-horizontal"></span></button>
@@ -141,7 +141,7 @@
 
         </textarea>
         <br />
-        <a class="pointer" ng-if="currentSelNode.definitionLink" ng-click="viewDefinitionLink()">Read More...</a>
+        <a class="pointer" ng-if="currentSelNode.extraInfo.definitionLink" ng-click="viewDefinitionLink()">Read More...</a>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" ng-click="closeDsViewer()">Cancel</button>

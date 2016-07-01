@@ -13,21 +13,6 @@
 // =============================================================================
 package com.parabole.rda.platform.graphdb;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import com.parabole.rda.platform.exceptions.AppErrorCode;
-import com.parabole.rda.platform.utils.AppUtils;
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang3.Validate;
-import org.json.JSONObject;
-
-import play.Logger;
 import com.google.inject.Singleton;
 import com.orientechnologies.orient.core.db.document.ODatabaseDocumentTx;
 import com.orientechnologies.orient.core.record.impl.ODocument;
@@ -35,8 +20,18 @@ import com.orientechnologies.orient.core.record.impl.ORecordBytes;
 import com.orientechnologies.orient.core.sql.OCommandSQL;
 import com.orientechnologies.orient.core.sql.query.OSQLSynchQuery;
 import com.parabole.rda.application.global.RdaAppConstants;
+import com.parabole.rda.platform.exceptions.AppErrorCode;
 import com.parabole.rda.platform.exceptions.AppException;
+import com.parabole.rda.platform.utils.AppUtils;
 import com.tinkerpop.blueprints.impls.orient.OrientGraphFactory;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.Validate;
+import org.json.JSONObject;
+import play.Logger;
+
+import java.util.*;
+import java.util.Map.Entry;
 
 /**
  * Coral is Application Configuration Graph-Database.
@@ -213,6 +208,7 @@ public class Coral extends GraphDb {
                 final String configurationDetails = result.field("CFG_INFO");
                 outputMap.put("name", configurationNameCollected);
                 outputMap.put("details", configurationDetails);
+                outputMap.put("extraInfo", configurationDetails);
                 outputList.add(outputMap);
             });
             return Collections.unmodifiableList(outputList);

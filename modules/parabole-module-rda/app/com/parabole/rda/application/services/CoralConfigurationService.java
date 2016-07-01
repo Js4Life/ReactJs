@@ -135,6 +135,34 @@ public class CoralConfigurationService {
 	        return coral.saveConfiguration(userId, configurationType.toString(), configurationName, configurationDetails);
     }
 
+    public Integer saveConfigurationWithAssignment(final String userId, final JsonNode json, final JSONObject assignment, final RdaAppConstants.ConfigurationType configurationType) throws AppException {
+        Validate.notNull(json, "'json' cannot be null!");
+	        final String configurationName = json.findPath("name").textValue();
+	        final String oks = json.findPath("details").textValue();
+        JSONObject configurationDetails = new JSONObject(oks);
+        JSONArray jsa = configurationDetails.getJSONArray("vertices");
+        final JSONArray verticesData = findAndAssignTheAssignment(jsa, assignment);
+        configurationDetails.put("vertices", verticesData);
+
+	        Validate.notBlank(configurationName, "'configurationName' cannot be empty!");
+	        Validate.notNull(configurationDetails, "'configurationDetails' cannot be empty!");
+	        Validate.notNull(configurationType, "'configurationType' cannot be null!");
+	        return coral.saveConfiguration(userId, configurationType.toString(), configurationName, configurationDetails.toString());
+    }
+
+    private JSONArray findAndAssignTheAssignment (JSONArray whereToAssign, JSONObject assignment){
+
+        for (int i = 0; i < whereToAssign.length(); i++) {
+            JSONObject individual = whereToAssign.getJSONObject(i);
+            String individualURI = individual.getString("uri");
+            if (assignment.has(individualURI)){
+                individual.put("extraInfo", assignment.getJSONObject(individualURI));
+            }
+        }
+        System.out.println("whereToAssign.toString() = " + whereToAssign.toString());
+        return whereToAssign;
+    }
+
     public Integer saveConfiguration(final String userId, final String configurationName, final String configurationDetails, final RdaAppConstants.ConfigurationType configurationType, final byte[] fileBytes) throws AppException {
         Validate.notBlank(userId, "'userId' cannot be empty!");
         Validate.notBlank(configurationName, "'configurationName' cannot be empty!");

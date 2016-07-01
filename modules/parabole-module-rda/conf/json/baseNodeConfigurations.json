@@ -1,0 +1,82 @@
+{
+  "vertices": [
+    {
+      "baseNode": true,
+      "concept": true,
+      "name": "Committee",
+      "id": 18
+    },
+    {
+      "baseNode": true,
+      "concept": true,
+      "name": "System",
+      "id": 31
+    },
+    {
+      "baseNode": true,
+      "concept": true,
+      "name": "Person",
+      "id": 35
+    },
+    {
+      "baseNode": true,
+      "concept": true,
+      "name": "Report",
+      "id": 41
+    },
+    {
+      "baseNode": true,
+      "concept": true,
+      "name": "Regulation",
+      "id": 405
+    },
+    {
+      "baseNode": true,
+      "concept": true,
+      "name": "BusinessSegment",
+      "id": 411
+    },
+    {
+      "baseNode": true,
+      "concept": true,
+      "name": "ReportSchedule",
+      "id": 416
+    },
+    {
+      "baseNode": true,
+      "concept": true,
+      "name": "Products",
+      "id": 416
+    },
+    {
+      "baseNode": true,
+      "concept": true,
+      "name": "ReportForm",
+      "id": 422
+    },
+    {
+      "baseNode": true,
+      "concept": true,
+      "name": "ReportSubSchedule",
+      "id": 427
+    },
+    {
+      "baseNode": true,
+      "concept": true,
+      "name": "Model",
+      "id": 7
+    },
+    {
+      "baseNode": true,
+      "concept": true,
+      "name": "Metric",
+      "id": 606
+    },
+    {
+      "baseNode": true,
+      "concept": true,
+      "name": "Policy",
+      "id": 614
+    }
+  ]
+}

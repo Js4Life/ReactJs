@@ -1,8 +1,8 @@
 {
-    "http://www.mindparabole.com/ontology/finance/Parabole-Model#Report" :
+	"http://www.mindparabole.com/ontology/finance/Parabole-Model#Report" :
         {
             "definition": "report definition",
-            "definitionLink": "http://mindparabole.com/"
+            "definitionLink": "http://google.com/"
         },
     "RegulatoryReport" : 
         {

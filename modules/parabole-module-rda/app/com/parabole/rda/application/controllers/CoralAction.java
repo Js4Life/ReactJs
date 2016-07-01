@@ -13,34 +13,31 @@
 // =============================================================================
 package com.parabole.rda.application.controllers;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.inject.Inject;
 import com.parabole.rda.application.global.RdaAppConstants;
 import com.parabole.rda.platform.assimilation.DataSourceUtilsFactory;
+import com.parabole.rda.platform.assimilation.OperationResult;
 import com.parabole.rda.platform.assimilation.QueryResultTable;
+import com.parabole.rda.platform.assimilation.ViewQueryRequest;
+import com.parabole.rda.platform.assimilation.rdbms.DbModelUtils;
 import com.parabole.rda.platform.exceptions.AppErrorCode;
 import com.parabole.rda.platform.exceptions.AppException;
 import com.parabole.rda.platform.utils.AppUtils;
 import com.parabole.rda.platform.utils.EasyTreeUtils;
 import com.parabole.rda.platform.utils.W2UIUtils;
-import com.parabole.rda.platform.assimilation.OperationResult;
-import com.parabole.rda.platform.assimilation.ViewQueryRequest;
-import com.parabole.rda.platform.assimilation.rdbms.DbModelUtils;
 import org.json.JSONObject;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.inject.Inject;
 import play.Logger;
 import play.libs.Json;
 import play.mvc.BodyParser;
 import play.mvc.Result;
 import play.mvc.Results;
 import play.mvc.Security;
+
+import java.io.IOException;
+import java.util.*;
 
 /**
  * Play Framework Action Controller dedicated for User Configuration and
@@ -89,6 +86,7 @@ public class CoralAction extends BaseAction {
     public Result getConfigurationDetailWithnodeinfo(final Integer ConfigarationId) throws AppException {
 
         final String jsonFileContent = AppUtils.getFileContent("json/assignment.json");
+
         response().setContentType("application/json");
         final JSONObject assignment = new JSONObject(jsonFileContent);
         final String ConfigurationData = coralConfigurationService.getConfigurationDetailWithnodeinfo(ConfigarationId, assignment);
@@ -250,8 +248,11 @@ public class CoralAction extends BaseAction {
     @BodyParser.Of(BodyParser.Json.class)
     public Result saveAggregation() throws AppException {
         final JsonNode json = request().body().asJson();
+        final String jsonFileContent = AppUtils.getFileContent("json/assignment.json");
+        JSONObject assignment = new JSONObject(jsonFileContent);
+        System.out.println("jsonFileContent = " + assignment.toString());
         final String userId = session().get(RdaAppConstants.USER_ID);
-        final Integer configurationId = coralConfigurationService.saveConfiguration(userId, json, RdaAppConstants.ConfigurationType.AGGREGATION);
+        final Integer configurationId = coralConfigurationService.saveConfigurationWithAssignment(userId, json, assignment, RdaAppConstants.ConfigurationType.AGGREGATION);
         response().setContentType(RdaAppConstants.MIME_JSON);
         return Results.ok(Json.toJson(configurationId));
     }

@@ -908,15 +908,15 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}
 
 	$scope.getNodeDescription = function(){
-		if($scope.currentSelNode && $scope.currentSelNode && $scope.currentSelNode.definition){
+		if($scope.currentSelNode && $scope.currentSelNode && $scope.currentSelNode.extraInfo.definition){
 			$scope.dsViewerHead = $scope.currentSelNode.name + " : Definition";
-			$scope.allColumnStr = $scope.currentSelNode.definition;
+			$scope.allColumnStr = $scope.currentSelNode.extraInfo.definition;
 			$('#dsViewer').modal('show');
 		}
 	}
 
 	$scope.viewDefinitionLink = function(){
-		window.open($scope.currentSelNode.definitionLink);
+		window.open($scope.currentSelNode.extraInfo.definitionLink);
 	}
 
 	$scope.closeDsViewer = function(){
