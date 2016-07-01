@@ -62,10 +62,6 @@ CALL tdbloader --loc=tdb   %ONTOLOGY_LOC%/a_main.rdf
 ECHO =====================================================
 CALL tdbloader --loc=tdb   %ONTOLOGY_LOC%/assetclassification.rdf
 ECHO =====================================================
-CALL tdbloader --loc=tdb   %ONTOLOGY_LOC%/ccar/ccar/ccarassets.rdf
-ECHO =====================================================
-CALL tdbloader --loc=tdb   %ONTOLOGY_LOC%/ccar/ccar/ccarassets_liability.rdf
-ECHO =====================================================
 CALL tdbloader --loc=tdb   %ONTOLOGY_LOC%/bank.rdf
 ECHO =====================================================
 CALL tdbloader --loc=tdb   %ONTOLOGY_LOC%/capitalmanagement_main.rdf
@@ -137,4 +133,6 @@ ECHO =====================================================
 CALL tdbloader --loc=tdb   %ONTOLOGY_LOC%/cecl_structure.rdf
 ECHO =====================================================
 CALL tdbloader --loc=tdb   %ONTOLOGY_LOC%/cecl_2016.rdf
+ECHO =====================================================
+CALL tdbloader --loc=tdb   %ONTOLOGY_LOC%/concepts.rdf
 ECHO =====================================================
