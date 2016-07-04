@@ -152,14 +152,33 @@ public class CoralConfigurationService {
 
     private JSONArray findAndAssignTheAssignment (JSONArray whereToAssign, JSONObject assignment){
 
+        JSONArray bindings = assignment.getJSONObject("results").getJSONArray("bindings");
+
         for (int i = 0; i < whereToAssign.length(); i++) {
             JSONObject individual = whereToAssign.getJSONObject(i);
             String individualURI = individual.getString("uri");
+
+            for(int itr = 0; itr < bindings.length(); itr++)
+            {
+                JSONObject objects = bindings.getJSONObject(itr);
+
+                if(objects.getJSONObject("para").getString("value").matches(individualURI)){
+
+                    System.out.println("I am Inside = " );
+
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("definition", objects.getJSONObject("definition").getString("value"));
+                    jsonObject.put("definitionLink", objects.getJSONObject("definitionlink").getString("value"));
+
+                    individual.put("extraInfo", jsonObject);
+                }
+
+            }
+/*
             if (assignment.has(individualURI)){
                 individual.put("extraInfo", assignment.getJSONObject(individualURI));
-            }
+            }*/
         }
-        System.out.println("whereToAssign.toString() = " + whereToAssign.toString());
         return whereToAssign;
     }
 

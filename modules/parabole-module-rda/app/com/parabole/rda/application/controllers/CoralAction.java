@@ -250,7 +250,6 @@ public class CoralAction extends BaseAction {
         final JsonNode json = request().body().asJson();
         final String jsonFileContent = AppUtils.getFileContent("json/assignment.json");
         JSONObject assignment = new JSONObject(jsonFileContent);
-        System.out.println("jsonFileContent = " + assignment.toString());
         final String userId = session().get(RdaAppConstants.USER_ID);
         final Integer configurationId = coralConfigurationService.saveConfigurationWithAssignment(userId, json, assignment, RdaAppConstants.ConfigurationType.AGGREGATION);
         response().setContentType(RdaAppConstants.MIME_JSON);
