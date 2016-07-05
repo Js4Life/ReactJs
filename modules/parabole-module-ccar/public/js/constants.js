@@ -41,7 +41,7 @@ var Constant = {
 		BROWN : '#660000',
 	},
 	LEVEL_PREFIX : 'Level-',
-	IMPACT_IMG_PATH : '/ccar/ccarassets/images/impact/',
+	IMPACT_IMG_PATH : 'assets/images/impact/',
 	IMPACT: {
 		REPORT : 'report',
 		PERSON : 'person',
@@ -140,9 +140,9 @@ var Constant = {
 		MODEL_REQUEST : '<i class="fa fa-cube fa-2x"></i>',
 		DATA_REQUEST : '<i class="fa fa-exchange fa-rotate-90 fa-2x"></i>',
 		DEFAULT : '<i class="fa fa-flag-o fa-2x"></i>',
-		MAIN_ENTITY : '<img src="/ccar/ccarassets/images/bank.png" class="tiny-legend-img">',		
-		SUBSIDIARY : '<img src="/ccar/ccarassets/images/bank-subsidiary.png" class="tiny-legend-img">',		
-		BRANCH : '<img src="/ccar/ccarassets/images/bank-branch.png" class="tiny-legend-img">',		
+		MAIN_ENTITY : '<img src="assets/images/bank.png" class="tiny-legend-img">',		
+		SUBSIDIARY : '<img src="assets/images/bank-subsidiary.png" class="tiny-legend-img">',		
+		BRANCH : '<img src="assets/images/bank-branch.png" class="tiny-legend-img">',		
 		MODEL_LIFECYCLE : {
 			INITIATION : '<i class="fa fa-caret-square-o-right fa-2x text-primary" ></i>',
 			DEVELOPMENT : '<i class="fa fa-wrench fa-2x text-warning"></i>',

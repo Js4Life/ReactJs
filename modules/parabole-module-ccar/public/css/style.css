@@ -2471,4 +2471,22 @@ li.list-group-item.puff{
     opacity: 0.8;
     color: blue;
   }
+
+.ui-grid-render-container-left .ui-grid-canvas{
+  height: 100% !important;
+  background: #F0F0EE !important;
+  border-right: 1px solid #AEAEAE !important;
+}
+
+.map-search {
+  position: absolute;
+  top: 90px;
+  left: 45px;
+  z-index: 1;
+}
+
+.map-search .angucomplete-holder input{
+  height: 24px;
+  font-size: smaller;
+}
   /*Dashboard specific styles*/

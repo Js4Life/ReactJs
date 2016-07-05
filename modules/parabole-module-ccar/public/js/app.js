@@ -1,5 +1,5 @@
 angular
-    .module('RDAApp', [ 'ui.router', 'ngAnimate', 'RDAApp.controllers' ])
+    .module('RDAApp', [ 'ui.router', 'ngAnimate', 'ui.grid', 'ui.grid.selection', 'ui.grid.grouping', 'ui.grid.exporter', 'ui.grid.resizeColumns', 'ui.grid.pagination', 'angucomplete-alt', 'RDAApp.controllers' ])
 
     .config(function($stateProvider, $urlRouterProvider, $compileProvider) {
           $compileProvider

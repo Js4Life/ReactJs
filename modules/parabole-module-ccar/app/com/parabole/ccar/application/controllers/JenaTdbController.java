@@ -1,19 +1,21 @@
 package com.parabole.ccar.application.controllers;
 
-import java.util.Iterator;
-import javax.inject.Inject;
-import org.apache.commons.lang3.StringUtils;
-import org.json.JSONException;
-import org.json.JSONObject;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.parabole.ccar.application.exceptions.AppException;
 import com.parabole.ccar.application.global.CCAppConstants;
 import com.parabole.ccar.application.services.JenaTdbService;
 import com.parabole.ccar.platform.utils.AppUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import play.Logger;
 import play.mvc.BodyParser;
 import play.mvc.Result;
 import play.mvc.Results;
+
+import javax.inject.Inject;
+import java.util.Iterator;
 
 
 /**
@@ -98,6 +100,22 @@ public class JenaTdbController extends BaseController {
         final String param2 = json.findPath("param2").textValue();
         return Results.ok(jenaTdbService.loadWidgetDataByParams(param1, param2).toString());
     }
+
+
+    @BodyParser.Of(BodyParser.Json.class)
+        public Result getLiquidityFilters() throws AppException {
+                final JsonNode json = request().body().asJson();
+                final String countryCode = json.findPath("countryCode").textValue();
+                return Results.ok(jenaTdbService.getLiquidityFilters(countryCode).toString());
+            }
+
+        @BodyParser.Of(BodyParser.Json.class)
+        public Result getLiquidityDataByFilters() throws AppException, JSONException {
+                final JsonNode json = request().body().asJson();
+                final String filters = json.findPath("filters").toString();
+                final JSONArray filterArr = new JSONArray(filters);
+                return Results.ok(jenaTdbService.getLiquidityDataByFilters(filterArr).toString());
+           }
 
     public Result downloadFileByName(final String name, final String type) throws AppException, JSONException {
         // final JsonNode json = request().body().asJson();

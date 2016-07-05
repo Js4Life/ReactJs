@@ -516,6 +516,17 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				$rootScope.loader = false;
 			});
 		}
+		$scope.gridOptions = {
+	        enableSorting: true,
+	        enableFiltering: true,
+	        enableRowSelection: true,
+	        multiSelect: false,
+	        enableRowHeaderSelection: false,
+	        selectionRowHeaderWidth: 0,
+	        onRegisterApi: function( gridApi ) {
+	            $scope.gridApi = gridApi;
+	         }
+        };
 	}
 
 	$scope.clickNode = function (nodeId) {
@@ -523,9 +534,27 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			alert(nodeId);  
 	}
 
+	$scope.selectedCountry = function(selected) {
+	    if (selected) {
+	    	if($scope.isMapProfile){
+	        	$scope.map.zoomTo(selected.originalObject.code);
+	    	}
+	        else{
+	        	SharedService.getLiquidityFilters(selected.originalObject.code).then(function (data) {
+					$scope.filters = data;
+				});
+	        }
+	        return selected;
+	    }
+    };
+
 	$scope.clickMap = function (obj) {
-		//alert(obj.name);
-		$scope.isMapProfile = false;
+		SharedService.getLiquidityFilters(obj.code).then(function (data) {
+			$scope.filters = data;
+			$('#filterModal').modal('show');
+		});
+
+		/*$scope.isMapProfile = false;
 		$scope.options = {
 			labelField:'name',
 			nodeShape: 'image',
@@ -534,7 +563,18 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			nodeImageField: "type",
 			hier: true
 	    };
-	    $scope.graphData = MockService.liquidityProfile;
+	    $scope.graphData = MockService.liquidityProfile;*/
+	}
+
+	$scope.searchByFilters = function () {		
+		var filters = _.map($scope.filters, function (filter,  key) { return {filterVariable: filter.filterVariable, type: filter.type, value: filter.value, prefix: filter.prefix} });
+		SharedService.getLiquidityDataByFilters(filters).then(function (data) {
+			$scope.isMapProfile = false;
+			if(data.outputFormat === "table")
+				$scope.gridOptions.data = data.data;
+			console.log(data);
+			$('#filterModal').modal('hide');
+		});
 	}
 
 	$scope.goPreviousScreen = function(){
@@ -4220,9 +4260,9 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 	function addAggregates(id, title, isComposed){
 		if(isComposed)
-			$scope.savedPathList.push( {id: id, title: title, class:"aggr", img:"/ccar/ccarassets/images/aggregatorOnCircle.png", isComposed: isComposed});
+			$scope.savedPathList.push( {id: id, title: title, class:"aggr", img:"assets/images/aggregatorOnCircle.png", isComposed: isComposed});
 		else
-			$scope.savedPathList.push( {id: id, title: title, class:"aggr", img:"/ccar/ccarassets/images/associator.png", isComposed: isComposed});
+			$scope.savedPathList.push( {id: id, title: title, class:"aggr", img:"assets/images/associator.png", isComposed: isComposed});
 	}
 
 	$scope.onAggregateDrop = function( ui , cellIdx , element){

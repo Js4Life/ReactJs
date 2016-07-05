@@ -1,8 +1,9 @@
 package com.parabole.ccar.application.global;
 
-import java.util.Set;
 import com.parabole.ccar.platform.AppConstants;
 import com.parabole.ccar.platform.utils.AppUtils;
+
+import java.util.Set;
 
 public class CCAppConstants extends AppConstants {
 
@@ -18,6 +19,8 @@ public class CCAppConstants extends AppConstants {
     public static final String RDA_GLOSSARY_TABLE = "GLOSSARY_TABLE";
     public static final String RDA_CFG_TYPE_REPORT = "REPORTS";
     public static final String ATTR_VIEWCREATION_DETAILS = "details";
+    public static final String HIERARCHY_GRAPH = "hierarchy";
+    public static final String JENA_FILTERDEF_FILE = "filterMetadata.json";
     public static final String ATTR_VIEWCREATION_DATA = "data";
     public static final String ATTR_VIEWCREATION_COLS = "columns";
     public static final String ATTR_VIEWCREATION_REFS = "references";

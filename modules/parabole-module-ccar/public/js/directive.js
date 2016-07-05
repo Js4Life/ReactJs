@@ -781,10 +781,10 @@ angular.module('RDAApp.directives', [])
                 title: "",
                 handlerData: { click : scope.clickMap, scope : scope }
             };
-            scope.$parent.map = new MAP.PlotMap( element[0], config );
+            scope.$parent.$parent.map = new MAP.PlotMap( element[0], config );
             scope.$watch('data', function (newVal) {
                 if(!newVal) return;
-                scope.$parent.map.drawMap( newVal );
+                scope.$parent.$parent.map.drawMap( newVal );
             });
         }
     }

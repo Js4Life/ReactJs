@@ -1,35 +1,16 @@
 package com.parabole.ccar.application.services;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
+import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
+import com.google.inject.Inject;
+import com.parabole.ccar.application.exceptions.AppErrorCode;
+import com.parabole.ccar.application.exceptions.AppException;
+import com.parabole.ccar.application.global.CCAppConstants;
+import com.parabole.ccar.application.utils.AppUtils;
+import com.parabole.ccar.platform.reasoner.BaseBindObj;
 import org.apache.commons.lang3.math.NumberUtils;
-import org.apache.jena.query.Dataset;
-import org.apache.jena.query.Query;
-import org.apache.jena.query.QueryExecution;
-import org.apache.jena.query.QueryExecutionFactory;
-import org.apache.jena.query.QueryFactory;
-import org.apache.jena.query.ReadWrite;
+import org.apache.jena.query.*;
 import org.apache.jena.query.ResultSet;
-import org.apache.jena.query.ResultSetFormatter;
 import org.apache.jena.sparql.core.DatasetGraph;
 import org.apache.jena.sparql.core.DatasetGraphFactory;
 import org.apache.jena.tdb.TDBFactory;
@@ -40,23 +21,20 @@ import org.apache.jena.update.UpdateRequest;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.reflect.TypeToken;
-import com.google.inject.Inject;
-import com.parabole.ccar.application.exceptions.AppErrorCode;
-import com.parabole.ccar.application.exceptions.AppException;
-import com.parabole.ccar.application.global.CCAppConstants;
-import com.parabole.ccar.application.utils.AppUtils;
-import com.parabole.ccar.platform.reasoner.BaseBindObj;
 import play.Configuration;
 import play.Logger;
 import play.db.DB;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.sql.*;
+import java.text.DecimalFormat;
+import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class JenaTdbService {
 
@@ -138,7 +116,7 @@ public class JenaTdbService {
             data = coralConfigurationService.getConfigurationByName("root", nameOfTheSource);
             receivedData = new JSONArray(data);
             Logger.info("|JenaTdbService|126|  datasource ----> "+receivedData +" nameOfTheSource -->"+ nameOfTheSource + " data --> "+ data);
-        } catch (final com.parabole.ccar.platform.exceptions.AppException e) {
+        } catch (com.parabole.ccar.platform.exceptions.AppException e) {
             e.printStackTrace();
         }
         final String details = receivedData.getJSONObject(0).getString("details").toString();
@@ -215,7 +193,7 @@ public class JenaTdbService {
                                 final Object columnValue = result.getObject(colName);
                                 String value = columnValue.toString();
                                 value = value.
-replace("—", "_").
+                                        replace("—", "_").
                                         replace(".", ".").
                                         replace(" - ", "_").
                                         replace(" / ", "_").
@@ -1188,8 +1166,14 @@ replace("—", "_").
 
 
     private HashMap<String, HashMap<String, String>> getValueFromQueryByAttrs(final String fileName, final Set<String> attrs, final String groupByField, final Dataset dataset) throws AppException {
-        final LinkedHashMap<String, HashMap<String, String>> retList = new LinkedHashMap<String, HashMap<String, String>>();
+        LinkedHashMap<String, HashMap<String, String>> retList = new LinkedHashMap<String, HashMap<String, String>>();
         final String sparqlQueryString = AppUtils.getFileContent("sparql/" + fileName);
+        retList = getValueFromQueryStringByAttrs(sparqlQueryString, attrs, groupByField, dataset);
+        return retList;
+    }
+
+    private LinkedHashMap<String, HashMap<String, String>> getValueFromQueryStringByAttrs(final String sparqlQueryString, final Set<String> attrs, final String groupByField, final Dataset dataset) throws AppException {
+        final LinkedHashMap<String, HashMap<String, String>> retList = new LinkedHashMap<String, HashMap<String, String>>();
         final Query query = QueryFactory.create(sparqlQueryString);
         final QueryExecution qexec = QueryExecutionFactory.create(query, dataset);
         final ResultSet resultsData = qexec.execSelect();
@@ -1224,27 +1208,6 @@ replace("—", "_").
                 }
             }
         }
-
-        /*
-         * for (final JsonElement jsonElement : bindings) { final JsonObject
-         * bindObj = jsonElement.getAsJsonObject(); for (final String attrName :
-         * attrs) { final JsonObject targetObject =
-         * bindObj.getAsJsonObject(attrName); if (targetObject != null) { if
-         * ((groupByField != null) && (groupByField.trim().length() > 0)) {
-         * final String groupByFieldVal =
-         * bindObj.getAsJsonObject(groupByField).get("value").getAsString();
-         * HashMap<String, String> valueList = null; if
-         * (!retList.containsKey(groupByFieldVal)) { valueList = new
-         * HashMap<String, String>(); retList.put(groupByFieldVal, valueList); }
-         * else { valueList = retList.get(groupByFieldVal); }
-         * valueList.put(attrName, targetObject.get("value").getAsString()); }
-         * else { HashMap<String, String> valueList = null; if
-         * (!retList.containsKey(attrName)) { valueList = new HashMap<String,
-         * String>(); retList.put(attrName, valueList); } else { valueList =
-         * retList.get(attrName); } valueList.put(attrName,
-         * targetObject.get("value").getAsString()); } } } }
-         */
-
         return retList;
     }
 
@@ -1299,4 +1262,154 @@ replace("—", "_").
         final byte[] data = Files.readAllBytes(srcFilePath);
         return data;
     }
+
+    public JSONObject getLiquidityFilters(final String countryCode) {
+        JSONObject filterDefJson = null;
+        final String filterName = "filterDef";
+        try {
+            final Dataset dataset = getDataset();
+            dataset.begin(ReadWrite.READ);
+            final String cfgInfo = AppUtils.getFileContent("json/" + CCAppConstants.JENA_FILTERDEF_FILE);
+            final JSONObject jsonCfg = new JSONObject(cfgInfo);
+            filterDefJson = jsonCfg.getJSONObject(filterName);
+            final Iterator<?> keys = filterDefJson.keys();
+            while (keys.hasNext()) {
+                final String key = keys.next().toString();
+                final JSONObject obj = filterDefJson.getJSONObject(key);
+                final String sourceType = obj.getString("sourceType");
+                if (sourceType.equalsIgnoreCase("sparql")) {
+                    final String fileIdentification = obj.getString("source");
+                    final String groupByField = obj.getString("groupByField");
+                    final JSONArray attrArr = obj.getJSONArray("columns");
+                    final HashMap<String, String> attrLabels = new HashMap<String, String>();
+                    for (int i = 0; i < attrArr.length(); i++) {
+                        final JSONObject colObj = attrArr.getJSONObject(i);
+                        final String attr = colObj.getString("name");
+                        final String colLabel = colObj.getString("label");
+                        attrLabels.put(attr, colLabel);
+                    }
+
+                    String sparqlQueryString = AppUtils.getFileContent("sparql/sparqlQuery" + fileIdentification + ".rq");
+                    sparqlQueryString = sparqlQueryString.replace("$$COUNTRY_CODE$$", countryCode);
+                    final HashMap<String, HashMap<String, String>> branches = getValueFromQueryStringByAttrs(sparqlQueryString, attrLabels.keySet(), groupByField, dataset);
+                    final Iterator<?> branchKeys = branches.keySet().iterator();
+                    final JSONArray jsArr = new JSONArray();
+                    while (branchKeys.hasNext()) {
+                        final String branchKey = branchKeys.next().toString();
+                        final JSONObject jsObj = new JSONObject();
+                        final HashMap<String, String> aBranch = branches.get(branchKey);
+                        final Iterator<?> attrKeys = attrLabels.keySet().iterator();
+                        while (attrKeys.hasNext()) {
+                            final String attrKey = attrKeys.next().toString();
+                            jsObj.put(attrLabels.get(attrKey), aBranch.get(attrKey));
+                        }
+                        jsArr.put(jsObj);
+                    }
+                    obj.put("source", jsArr);
+                }
+            }
+            dataset.close();
+        } catch (final Exception e) {
+            e.printStackTrace();
+        }
+        return filterDefJson;
+    }
+
+    public JSONObject getLiquidityDataByFilters(final JSONArray filters) {
+        StringBuilder sb = new StringBuilder();
+        final JSONObject finalJson = new JSONObject();
+        JSONObject filterDefJson = null;
+        final String filterName = "liquidityBranch";
+        try {
+            final Dataset dataset = getDataset();
+            dataset.begin(ReadWrite.READ);
+            final String cfgInfo = AppUtils.getFileContent("json/" + CCAppConstants.JENA_FILTERDEF_FILE);
+            final JSONObject jsonCfg = new JSONObject(cfgInfo);
+            filterDefJson = jsonCfg.getJSONObject(filterName);
+            final String outputFormat = filterDefJson.getString("outputFormat");
+            finalJson.put("outputFormat", outputFormat);
+            final String fileIdentification = filterDefJson.getString("source");
+            final String groupByField = filterDefJson.getString("groupByField");
+            final JSONArray attrArr = filterDefJson.getJSONArray("columns");
+            final HashMap<String, String> attrLabels = new HashMap<String, String>();
+            for (int i = 0; i < attrArr.length(); i++) {
+                final JSONObject colObj = attrArr.getJSONObject(i);
+                final String attr = colObj.getString("name");
+                final String colLabel = colObj.getString("label");
+                attrLabels.put(attr, colLabel);
+            }
+
+            for (int i = 0; i < filters.length(); i++) {
+                final JSONObject aFilter = filters.getJSONObject(i);
+                final String filterVariable = aFilter.getString("filterVariable");
+                final String type = aFilter.getString("type");
+                if (!aFilter.has("value")) {
+                    continue;
+                }
+                switch (type) {
+                    case "text": {
+                        final String value = aFilter.getString("value");
+                        sb.append("filter (?").append(filterVariable).append(">").append(value).append(") ");
+                    }
+                    break;
+                    case "dropdown": {
+                        final String value = aFilter.getString("value");
+                        sb.append("filter (?").append(filterVariable).append("=").append("\"").append(value).append("\"").append(") ");
+                    }
+                    break;
+                    case "multiselect": {
+                        final JSONArray value = aFilter.getJSONArray("value");
+                        String prefix = null;
+                        if (aFilter.has("prefix")) {
+                            prefix = aFilter.getString("prefix");
+                        }
+                        sb.append("filter (");
+                        for (int j = 0; j < value.length(); j++) {
+                            final String val = value.getString(j);
+                            if (prefix != null) {
+                                sb.append("?").append(filterVariable).append("=").append(prefix).append(val).append(" || ");
+                            } else {
+                                sb.append("?").append(filterVariable).append("=").append("\"").append(val).append("\"").append(" || ");
+                            }
+                        }
+                        String tmp = sb.toString();
+                        if (sb.lastIndexOf(" || ") != -1) {
+                            tmp = sb.substring(0, sb.lastIndexOf(" || "));
+                        }
+                        sb = new StringBuilder(tmp);
+                        sb.append(") ");
+                    }
+                    break;
+                }
+            }
+            String sparqlQueryString = AppUtils.getFileContent("sparql/sparqlQuery" + fileIdentification + ".rq");
+            sparqlQueryString = sparqlQueryString.replace("$$FILTERS$$", sb.toString());
+            final HashMap<String, HashMap<String, String>> branches = getValueFromQueryStringByAttrs(sparqlQueryString, attrLabels.keySet(), groupByField, dataset);
+            final Iterator<?> branchKeys = branches.keySet().iterator();
+            final JSONArray jsArr = new JSONArray();
+            finalJson.put("data", jsArr);
+            while (branchKeys.hasNext()) {
+                final String branchKey = branchKeys.next().toString();
+                final JSONObject jsObj = new JSONObject();
+                final HashMap<String, String> aBranch = branches.get(branchKey);
+                final Iterator<?> attrKeys = attrLabels.keySet().iterator();
+                while (attrKeys.hasNext()) {
+                    final String attrKey = attrKeys.next().toString();
+                    jsObj.put(attrLabels.get(attrKey), aBranch.get(attrKey));
+                }
+                jsArr.put(jsObj);
+            }
+        } catch (final Exception e) {
+            e.printStackTrace();
+        }
+
+        return finalJson;
+    }
+
+    public void getLiquidityHierarchyData() {
+        final JSONObject filterDefJson = null;
+        final String filterName = "liquidityHierarchyBranch";
+
+    }
+
 }

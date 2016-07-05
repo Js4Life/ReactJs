@@ -44,7 +44,8 @@ var MAP = (function(wrapObj){
               }
             },
             series : [{
-                data : null,
+                data : null,                
+                allowPointSelect: true,
                 mapData: Highcharts.maps['custom/world'],
                 joinBy: ['iso-a2', 'code'],
                 cursor: 'pointer',
@@ -63,13 +64,19 @@ var MAP = (function(wrapObj){
 
 	Map.prototype = {
 		drawMap : function (data) {
+            $.each(data, function () {
+                this.id = this.code;
+            });
 			var config = this.config;
 			if(!config.series) return;
 			var mapConfig = config.series[0];
 			mapConfig.data = data;
 			var map = $(this.container).highcharts( 'Map', config );
 			return map;
-		}
+		},
+        zoomTo : function (code) {
+            $(this.container).highcharts().get(code).zoomTo();
+        }
 	}
 
 	wrapObj.PlotMap = Map;

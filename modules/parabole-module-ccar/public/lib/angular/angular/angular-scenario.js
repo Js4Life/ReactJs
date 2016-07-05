@@ -24317,7 +24317,7 @@ function adjustMatchers(matchers) {
  *
  * - your app is hosted at url `http://myapp.example.com/`
  * - but some of your templates are hosted on other domains you control such as
- *   `http://srv01./ccar/ccarassets.example.com/`,  `http://srv02./ccar/ccarassets.example.com/`, etc.
+ *   `http://srv01.assets.example.com/`,  `http://srv02.assets.example.com/`, etc.
  * - and you have an open redirect at `http://myapp.example.com/clickThru?...`.
  *
  * Here is what a secure configuration for this scenario might look like:
@@ -24327,8 +24327,8 @@ function adjustMatchers(matchers) {
  *    $sceDelegateProvider.resourceUrlWhitelist([
  *      // Allow same origin resource loads.
  *      'self',
- *      // Allow loading from our /ccar/ccarassets domain.  Notice the difference between * and **.
- *      'http://srv*./ccar/ccarassets.example.com/**'
+ *      // Allow loading from our assets domain.  Notice the difference between * and **.
+ *      'http://srv*.assets.example.com/**'
  *    ]);
  *
  *    // The blacklist overrides the whitelist so the open redirect here is blocked.
