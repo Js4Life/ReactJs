@@ -1724,8 +1724,8 @@ angular.mock.$RootElementProvider = function() {
  *
  * # ngMock
  *
- * The `ngMock` module providers support to inject and mock Angular services into unit tests.
- * In addition, ngMock also extends various core ng services such that they can be
+ * The `ngMock` module providers support to inject and mock Angular com.parabole.auth.services into unit tests.
+ * In addition, ngMock also extends various core ng com.parabole.auth.services such that they can be
  * inspected and controlled in a synchronous manner within test code.
  *
  *

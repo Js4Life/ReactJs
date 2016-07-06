@@ -1,4 +1,4 @@
-angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 'textAngular'])
+angular.module('RDAApp.controllers', ['RDAApp.com.parabole.auth.services', 'RDAApp.directives', 'textAngular'])
 
 .controller('mainCtrl', function($scope, $state, $http, $stateParams, SharedService , RiskAggregateService , AlertDashboardService) {
 	$scope.constants = Constant;

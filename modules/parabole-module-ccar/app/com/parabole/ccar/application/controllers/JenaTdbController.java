@@ -112,7 +112,7 @@ public class JenaTdbController extends BaseController {
         @BodyParser.Of(BodyParser.Json.class)
         public Result getLiquidityDataByFilters() throws AppException, JSONException {
                 final JsonNode json = request().body().asJson();
-                final String filters = json.findPath("filters").toString();
+                final String filters = json.findPath("com.parabole.auth.filters").toString();
                 final JSONArray filterArr = new JSONArray(filters);
                 return Results.ok(jenaTdbService.getLiquidityDataByFilters(filterArr).toString());
            }

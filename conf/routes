@@ -3,15 +3,18 @@
 # ---------------------------------------------------------------------------------
 
 # ---------------------------------------------------------------------------------
-# Module Navigation
+# com.parabole.auth.com.parabole.ui.Module Navigation
 # ---------------------------------------------------------------------------------
 
 ->   /          ui.Routes
 ->   /ccar      ccar.Routes
 ->   /rda       rda.Routes
+->   /auth      auth.Routes
+->   /cecl      cecl.Routes
+
 # ---------------------------------------------------------------------------------
 # Static Resources
 # ---------------------------------------------------------------------------------
-#GET /assets/*file controllers.Assets.at(path="/public", file)
 
+#GET /assets/*file controllers.Assets.at(path="/public", file)
 #GET /ccarassets/*file           controllers.Assets.at(path="/public/lib/ccar", file)

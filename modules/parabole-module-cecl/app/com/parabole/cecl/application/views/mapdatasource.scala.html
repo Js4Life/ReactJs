@@ -1,0 +1,20 @@
+<div class="panel panel-default">
+    <div class="panel-heading"><span class="glyphicon glyphicon-chevron-left pull-left" style="margin-right:10px;" ng-click="goPreviousScreen()"></span>Datasource Mapping<span class="glyphicon glyphicon-play pull-right" ng-click="goNext()" ng-hide="!currentEdge"></span></div>
+    <div class="panel-body">    
+        <div class="col-xs-3 menu-back">
+          <ul class="list-group">
+            <li class="list-group-item pointer puff" ng-repeat="edge in selEdges | orderBy:'name'" ng-init="getEdgeShortName(edge)" tooltip='"title":"{{edge.name}}", "placement":"right"'>{{edge.shortName}}                    
+             <span class="glyphicon glyphicon-chevron-right pull-right" ng-click="exploreEdge(edge, $event)"></span>&nbsp;&nbsp;
+             <span class="glyphicon  glyphicon-remove pull-right" ng-click="deleteEdge(edge, $event)"></span>
+            </li>
+          </ul>
+        </div>
+        <div class="col-xs-3 map-area">
+            <!-- <div id="easytree"></div> -->
+            <div id="jstree"></div>
+        </div>
+        <div class="col-xs-6 map-area" style="background:#ddd">
+            <div ng-repeat="tab in currentEdge.selTables" draggable collapsible='"actObj":"tab", "type":"list", "hasCheck":false, "closable":true, "closeType":"SERVER_SIDE"'></div>
+        </div>
+    </div>
+</div>

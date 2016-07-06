@@ -1,0 +1,25 @@
+<div class="panel panel-primary">
+    <div class="panel-heading"><b>{{heading.title}}</b></div>
+        <div class="panel-body">    
+            <div panel panel-primary>
+                <div class="panel-body">
+                    <!--div class="col-sm-12"-->
+                        <div class="row">
+                            <div class="col-sm-12 ">
+                                <ul class="imgBtn" >
+                                    <li class="col-sm-4" ng-repeat="dm in dashboardAlertMenu" style="cursor:pointer;">
+                                        <div ng-click="onMenuPress(dm)">
+                                            <div class="well" ng-class="ColorMap[dm.status]">
+                                                <span style="font-size:1.2vw;">{{dm.label}}11</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>       
+                            </div>
+                        </div>
+                    <!--/div-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
