@@ -547,6 +547,19 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	        return selected;
 	    }
     };
+	
+	/*$scope.$watch('selectedCountry.originalObject', function (newVal) {
+		if(newVal){
+			if($scope.isMapProfile){
+				$scope.map.zoomTo(newVal.code);
+			}
+			else{
+				SharedService.getLiquidityFilters(newVal.code).then(function (data) {
+					$scope.filters = data;
+				});
+			}
+		}
+	})*/
 
 	$scope.clickMap = function (obj) {
 		SharedService.getLiquidityFilters(obj.code).then(function (data) {
