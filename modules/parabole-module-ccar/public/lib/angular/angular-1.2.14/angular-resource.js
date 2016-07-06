@@ -55,7 +55,7 @@ function shallowClearAndCopy(src, dst) {
  *
  * # ngResource
  *
- * The `ngResource` module provides interaction support with RESTful com.parabole.auth.services
+ * The `ngResource` module provides interaction support with RESTful services
  * via the $resource service.
  *
  *

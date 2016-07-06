@@ -1,4 +1,4 @@
-angular.module('RDAApp.directives', [])
+angular.module('CCARApp.directives', [])
 
 .directive('dashboardNav', function ($parse,  $compile) {
     return function (scope, element, attrs) {
