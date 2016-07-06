@@ -50,8 +50,6 @@ CALL tdbloader --loc=tdb   %ONTOLOGY_LOC%/ccar_main.rdf
 ECHO =====================================================
 CALL tdbloader --loc=tdb   %ONTOLOGY_LOC%/mpbroot_Main.rdf
 ECHO =====================================================
-CALL tdbloader --loc=tdb   %ONTOLOGY_LOC%/portfoliomanagement_Main.rdf
-ECHO =====================================================
 CALL tdbloader --loc=tdb   %ONTOLOGY_LOC%/regulation.rdf
 ECHO =====================================================
 CALL tdbloader --loc=tdb   %ONTOLOGY_LOC%/DSL_Main.rdf
@@ -68,7 +66,7 @@ CALL tdbloader --loc=tdb   %ONTOLOGY_LOC%/depositor.rdf
 ECHO =====================================================
 CALL tdbloader --loc=tdb   %ONTOLOGY_LOC%/entity.rdf
 ECHO =====================================================
-CALL tdbloader --loc=tdb   %ONTOLOGY_LOC%/location2.rdf
+CALL tdbloader --loc=tdb   %ONTOLOGY_LOC%/location.rdf
 ECHO =====================================================
 CALL tdbloader --loc=tdb   %ONTOLOGY_LOC%/naics.rdf
 ECHO =====================================================
@@ -81,5 +79,7 @@ ECHO =====================================================
 CALL tdbloader --loc=tdb   %ONTOLOGY_LOC%/cecl_2016.rdf
 ECHO =====================================================
 CALL tdbloader --loc=tdb   %ONTOLOGY_LOC%/pnc_cecl.rdf
+ECHO =====================================================
+CALL tdbloader --loc=tdb   %ONTOLOGY_LOC%/fasb_concepts.rdf
 ECHO =====================================================
  
