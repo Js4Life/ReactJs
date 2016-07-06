@@ -1,0 +1,27 @@
+<div class="panel panel-default">
+    	<div class="panel-heading"><b>{{viewTitle}}</b>
+            <select class="form-control simulate-dropdown" ng-model="simulateOption" ng-options="o.id as o.name for o in simulateOptions" ng-init="simulateOption=1"></select>
+            <span class="glyphicon glyphicon-play pull-right" ng-click="goRiskGraph()"></span>
+        </div>
+  		<div class="panel-body" style="height:82vh;overflow:auto;">
+          	<div class="row">
+                <div class="col-sm-12 ">
+                    <ul class="imgBtn" style="font-size:1vw;">
+                        <li class="col-sm-6" ng-repeat="dm in dashboardRiskMenu.vertices">
+                            <div class="well" style="margin:1vmin;">
+                                <table >
+                                    <tr>
+                                        <td  style='padding-right:15px;'>
+                                            <input name="baseNode" type='radio' ng-model='baseNode.node' ng-value="dm" />
+                                        </td>
+                                        <td class="hover-text" ng-click="getNodeInfo( dm )">{{dm.name}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </li>
+                    </ul>       
+                </div>
+            </div>
+  		</div>
+	</div>
+</div>

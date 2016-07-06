@@ -1,0 +1,151 @@
+<div class="panel panel-default">
+    <div class="panel-heading" style="padding-bottom:9px" >
+      <b>{{viewTitle}}</b>
+      <div class="right-inner-addon" style="display:inline-block;width:25%;margin-left:20px;">
+          <i class="glyphicon glyphicon-search"></i>
+          <input type="search" class="form-control" placeholder="Search" ng-model="searchText" ng-enter="searchNode()" />
+      </div>
+      <div class="btn-group pull-right">
+        <button class="btn btn-default" popover='"content":"Select mappable edges", "placement":"left"' tooltip='"title":"Click to select/deselect edge or node"'>Begin mapping</button>
+        <button class="btn btn-default" ng-click="leftSlideToggle()" style="padding:3px;" tooltip='"title":"Slide left"'><span class="glyphicon glyphicon-indent-right"></span></button>
+        <button class="btn btn-default" ng-click="rightSlideToggle()" style="padding:3px;" tooltip='"title":"Slide right"'><span class="glyphicon glyphicon-indent-left"></span></button>
+        <button class="btn btn-default" ng-click="getDataSourceDetailsOfEdge()" style="padding:3px;" ng-disabled="!selectedEdge" tooltip='"title":"View DB Connectivity"'><span class="glyphicon glyphicon-tasks"></span></button>
+        <button class="btn btn-default" ng-click="getNodeDescription()" style="padding:3px;" ng-disabled="!currentSelNode.extraInfo.definition" tooltip='"title":"Definition"'><span class="glyphicon glyphicon-pencil"></span></button>
+        <button class="btn btn-default" ng-click="saveGraphPosition()" style="padding:3px;" ng-disabled="!currentAggregate" tooltip='"title":"Save Graph Position"'><span class="glyphicon glyphicon-save"></span></button>
+        <button class="btn btn-default" ng-click="getAllViewsBySelNode()" style="padding:3px;" ng-disabled="!currentAggregate" tooltip='"title":"Detailed logical views of selected node"'><span class="glyphicon glyphicon-eye-open"></span></button>
+        <button class="btn btn-default" ng-click="getAllViewsByAggregate()" style="padding:3px;" ng-disabled="!currentAggregate" tooltip='"title":"Map db views of selected node"'><span class="glyphicon glyphicon-resize-horizontal"></span></button>
+        <button class="btn btn-default" ng-click="saveSelectedEdges()" style="padding:3px;" ng-disabled="setDisableMapBtn()" tooltip='"title":"Next to select datasource"'><span class="glyphicon glyphicon-play"></span></button>
+      </div>
+    </div>
+    <div class="panel-body" style="padding:0;">    
+        <div panel panel-default>
+            <div class="panel-body" style="padding:0;">
+                <div ng-class="collapseClasses.left" style="overflow-y:auto;height:80vh;">
+                  <ul class="list-group">
+                    <li class="list-group-item pointer puff" ng-repeat="path in savedPathList">{{value}}                    
+                     <span class="glyphicon glyphicon-chevron-right pull-right" ng-click="showSavedGraph(path , $event)" tooltip='"title":"View {{path.name}}", "placement":"right"'></span>&nbsp;&nbsp;
+                     <span class="glyphicon  glyphicon-remove pull-right" ng-click = "deleteSavedGraph( path , $event)" tooltip='"title":"Delete {{path.name}}", "placement":"right"'></span>
+                      {{path.name}}
+                    </li>
+                  </ul>
+                </div>
+                <div ng-class="collapseClasses.center" style="cursor:hand;height:80vh;border:1px solid #ddd;">
+                  <div id = "savedGraph" style="height:75vh;"></div>
+                  <div style="height:5vh;">
+                    <div class="legend">
+                      <div class="arrow orange-arrow"></div>
+                      <div class="bubble-title">Structure</div>
+                      <div class="arrow green-arrow"></div>
+                      <div class="bubble-title">Behaviour</div>
+                      <div class="arrow aqua-arrow"></div>
+                      <div class="bubble-title">Selected</div>
+                      <div class="arrow report"></div>
+                      <div class="bubble-title">Report</div>
+                      <div class="arrow policy"></div>
+                      <div class="bubble-title">Policy</div>
+                      <div class="arrow person"></div>
+                      <div class="bubble-title">Person</div>
+                      <div class="arrow model"></div>
+                      <div class="bubble-title">Model</div>
+                      <div class="arrow committee"></div>
+                      <div class="bubble-title">Committee</div>
+                      <div class="arrow information"></div>
+                      <div class="bubble-title">Information</div>
+                      <div class="arrow system"></div>
+                      <div class="bubble-title">System</div>
+                      <div class="arrow data"></div>
+                      <div class="bubble-title">Concept</div>
+                    </div>
+                  </div>
+                </div>
+                <div ng-class="collapseClasses.right" style="overflow-y:auto;height:80vh;">
+                  <div style="background: #EBEBEB;height: 24px;">
+                    <span class="pull-left">&nbsp;&nbsp;<b>Logical Views of the Node
+                    </span>
+                    <span ng-click="loadTree()" class="glyphicon glyphicon-list-alt pull-right" tooltip='"title":"Click here", "placement":"left"'>
+                    </span>
+                  </div>
+                  <div id="jstree"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="confirmModal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <h4 class="modal-title" id="myModalLabel">Are you sure?</h4>
+        </div>
+        <div class="modal-body">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" ng-model="deleteViews"> Delete edge views
+            </label>
+          </div>
+        </div>
+        <div class="modal-footer" style="margin-top:0;">
+          <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+          <button type="button" class="btn btn-primary" ng-click="removeGraphFromDB()">Yes</button>
+        </div>      
+    </div>
+  </div>
+</div>
+
+<div id="filterModal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <h4 class="modal-title" id="myModalLabel">Enter Filter Values</h4>
+        </div>
+         <div class="modal-body">          
+            <div class="form-group">
+              <label>Columns</label>
+              <select type="text" class="form-control" ng-options="d.name for d in columns" ng-model="nodeInfo.column"></select>
+            </div>
+            <form role="form" class="well" ng-show="nodeInfo.column">
+              <div class="form-group">
+                <label>Condition</label>
+                <select type="text" class="form-control" ng-options="d.name for d in filters" ng-model="nodeInfo.condition"></select>
+              </div>
+              <div class="form-group">
+                <label>Values</label>
+                <input type="text" class="form-control" placeholder="Enter Value" ng-model="dataNodeValue">
+              </div>
+              <span style="left:45%;" class="glyphicon glyphicon-plus" ng-click="addNodeValue()" ng-hide="!nodeInfo.condition || (nodeInfo.condition.type=='SINGLEVALUE' && nodeInfo.values.length>0)"></span>
+            </form>
+            <ul class="list-group" style="margin-bottom: 0;max-height: 25vh;overflow: auto;">
+                <li class="list-group-item" ng-repeat="val in nodeInfo.values track by $index" ng-hide="nodeInfo.condition.type=='SINGLEVALUE' && $index!=0">{{val}}<span class="glyphicon glyphicon-remove pull-right" ng-click="removeValue($index)"></span></li>
+            </ul>
+         </div>
+        <div class="modal-footer" style="margin-top:0;">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" ng-click='saveDataNodeCfg()'>Save</button>
+        </div>      
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="dsViewer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">{{dsViewerHead}}</h4>
+      </div>
+      <div class="modal-body">
+        <textarea ng-disabled="true" ng-model="allColumnStr" rows="10" cols="40" style="border:none;width:100%;">
+
+        </textarea>
+        <br />
+        <a class="pointer" ng-if="currentSelNode.extraInfo.definitionLink" ng-click="viewDefinitionLink()">Read More...</a>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="closeDsViewer()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

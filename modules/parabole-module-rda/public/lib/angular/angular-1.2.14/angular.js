@@ -1520,7 +1520,7 @@ function setupModuleLoader(window) {
      *
      * # Module
      *
-     * A module is a collection of services, directives, filters, and configuration information.
+     * A module is a collection of com.parabole.auth.services, directives, filters, and configuration information.
      * `angular.module` is used to configure the {@link auto.$injector $injector}.
      *
      * ```js
@@ -1530,7 +1530,7 @@ function setupModuleLoader(window) {
      * // register a new service
      * myModule.value('appName', 'MyCoolApp');
      *
-     * // configure existing services inside initialization blocks.
+     * // configure existing com.parabole.auth.services inside initialization blocks.
      * myModule.config(function($locationProvider) {
      *   // Configure existing providers
      *   $locationProvider.hashPrefix('!');
@@ -3198,7 +3198,7 @@ function annotate(fn) {
  *
  * @description
  * Returns an array of service names which the function is requesting for injection. This API is
- * used by the injector to determine which services need to be injected into the function when the
+ * used by the injector to determine which com.parabole.auth.services need to be injected into the function when the
  * function is invoked. There are three ways in which the function can be annotated with the needed
  * dependencies.
  *
@@ -3223,7 +3223,7 @@ function annotate(fn) {
  * # The `$inject` property
  *
  * If a function has an `$inject` property and its value is an array of strings, then the strings
- * represent names of services to be injected into the function.
+ * represent names of com.parabole.auth.services to be injected into the function.
  * ```js
  *   // Given
  *   var MyController = function(obfuscatedScope, obfuscatedRoute) {
@@ -3269,7 +3269,7 @@ function annotate(fn) {
  * @param {Function|Array.<string|Function>} fn Function for which dependent service names need to
  * be retrieved as described above.
  *
- * @returns {Array.<string>} The names of the services which the function requires.
+ * @returns {Array.<string>} The names of the com.parabole.auth.services which the function requires.
  */
 
 
@@ -3294,17 +3294,17 @@ function annotate(fn) {
  * correct **service provider**, instantiating it and then calling its `$get` **service factory**
  * function to get the instance of the **service**.
  *
- * Often services have no configuration options and there is no need to add methods to the service
+ * Often com.parabole.auth.services have no configuration options and there is no need to add methods to the service
  * provider.  The provider will be no more than a constructor function with a `$get` property. For
  * these cases the {@link auto.$provide $provide} service has additional helper methods to register
- * services without specifying a provider.
+ * com.parabole.auth.services without specifying a provider.
  *
  * * {@link auto.$provide#provider provider(provider)} - registers a **service provider** with the
  *     {@link auto.$injector $injector}
  * * {@link auto.$provide#constant constant(obj)} - registers a value/object that can be accessed by
- *     providers and services.
+ *     providers and com.parabole.auth.services.
  * * {@link auto.$provide#value value(obj)} - registers a value/object that can only be accessed by
- *     services, not providers.
+ *     com.parabole.auth.services, not providers.
  * * {@link auto.$provide#factory factory(fn)} - registers a service **factory function**, `fn`,
  *     that will be wrapped in a **service provider** object, whose `$get` property will contain the
  *     given factory function.
@@ -3496,7 +3496,7 @@ function annotate(fn) {
  * provider's `$get` property is a factory function that takes no arguments and returns the **value
  * service**.
  *
- * Value services are similar to constant services, except that they cannot be injected into a
+ * Value com.parabole.auth.services are similar to constant com.parabole.auth.services, except that they cannot be injected into a
  * module configuration function (see {@link angular.Module#config}) but they can be overridden by
  * an Angular
  * {@link auto.$provide#decorator decorator}.
@@ -3506,7 +3506,7 @@ function annotate(fn) {
  * @returns {Object} registered provider instance
  *
  * @example
- * Here are some examples of creating value services.
+ * Here are some examples of creating value com.parabole.auth.services.
  * ```js
  *   $provide.value('ADMIN_USER', 'admin');
  *
@@ -11452,8 +11452,8 @@ function $RootScopeProvider(){
      *
      * @param {Object.<string, function()>=} providers Map of service factory which need to be
      *                                       provided for the current scope. Defaults to {@link ng}.
-     * @param {Object.<string, *>=} instanceCache Provides pre-instantiated services which should
-     *                              append/override services provided by `providers`. This is handy
+     * @param {Object.<string, *>=} instanceCache Provides pre-instantiated com.parabole.auth.services which should
+     *                              append/override com.parabole.auth.services provided by `providers`. This is handy
      *                              when unit-testing and having the need to override a default
      *                              service.
      * @returns {Object} Newly created scope.
@@ -13870,7 +13870,7 @@ function $WindowProvider(){
  * @name $filterProvider
  * @description
  *
- * Filters are just functions which transform input to an output. However filters need to be
+ * Filters are just functions which transform input to an output. However com.parabole.auth.filters need to be
  * Dependency Injected. To achieve this a filter definition consists of a factory function which is
  * annotated with dependencies and is responsible for creating a filter function.
  *
@@ -13888,7 +13888,7 @@ function $WindowProvider(){
  *       // return the filter function which uses the greet service
  *       // to generate salutation
  *       return function(text) {
- *         // filters need to be forgiving so check input validity
+ *         // com.parabole.auth.filters need to be forgiving so check input validity
  *         return text && greet(text) || text;
  *       };
  *     });
@@ -13911,7 +13911,7 @@ function $WindowProvider(){
  * ```
  *
  *
- * For more information about how angular filters work, and how to create your own filters, see
+ * For more information about how angular com.parabole.auth.filters work, and how to create your own com.parabole.auth.filters, see
  * {@link guide/filter Filters} in the Angular Developer Guide.
  */
 /**
@@ -13946,9 +13946,9 @@ function $FilterProvider($provide) {
   /**
    * @ngdoc method
    * @name $controllerProvider#register
-   * @param {string|Object} name Name of the filter function, or an object map of filters where
+   * @param {string|Object} name Name of the filter function, or an object map of com.parabole.auth.filters where
    *    the keys are the filter names and the values are the filter factories.
-   * @returns {Object} Registered filter instance, or if a map of filters was provided then a map
+   * @returns {Object} Registered filter instance, or if a map of com.parabole.auth.filters was provided then a map
    *    of the registered filter instances.
    */
   function register(name, factory) {

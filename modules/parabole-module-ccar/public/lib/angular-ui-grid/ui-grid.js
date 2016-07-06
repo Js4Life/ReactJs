@@ -9083,15 +9083,15 @@ module.service('rowSearcher', ['gridUtil', 'uiGridConstants', function (gridUtil
    * @ngdoc function
    * @name setupFilters
    * @methodOf ui.grid.service:rowSearcher
-   * @description For a given columns filters (either col.filters, or [col.filter] can be passed in),
-   * do all the parsing and pre-processing and store that data into a new filters object.  The object
+   * @description For a given columns com.parabole.auth.filters (either col.com.parabole.auth.filters, or [col.filter] can be passed in),
+   * do all the parsing and pre-processing and store that data into a new com.parabole.auth.filters object.  The object
    * has the condition, the flags, the stripped term, and a parsed reg exp if there was one.
    * 
    * We could use a forEach in here, since it's much less performance sensitive, but since we're using 
    * for loops everywhere else in this module...
    * 
-   * @param {array} filters the filters from the column (col.filters or [col.filter])
-   * @returns {array} An array of parsed/preprocessed filters
+   * @param {array} filters the com.parabole.auth.filters from the column (col.com.parabole.auth.filters or [col.filter])
+   * @returns {array} An array of parsed/preprocessed com.parabole.auth.filters
    */
   rowSearcher.setupFilters = function setupFilters( filters ){
     var newFilters = [];
@@ -9249,12 +9249,12 @@ module.service('rowSearcher', ['gridUtil', 'uiGridConstants', function (gridUtil
    * @ngdoc function
    * @name searchColumn
    * @methodOf ui.grid.service:rowSearcher
-   * @description Process provided filters on provided column against a given row. If the row meets 
-   * the conditions on all the filters, return true.
+   * @description Process provided com.parabole.auth.filters on provided column against a given row. If the row meets 
+   * the conditions on all the com.parabole.auth.filters, return true.
    * @param {Grid} grid Grid to search in
    * @param {GridRow} row Row to search on
-   * @param {GridCol} column Column with the filters to use
-   * @param {array} filters array of pre-parsed/preprocessed filters to apply
+   * @param {GridCol} column Column with the com.parabole.auth.filters to use
+   * @param {array} filters array of pre-parsed/preprocessed com.parabole.auth.filters to apply
    * @returns {boolean} Whether the column matches or not.
    */
   rowSearcher.searchColumn = function searchColumn(grid, row, column, filters) {
@@ -9281,10 +9281,10 @@ module.service('rowSearcher', ['gridUtil', 'uiGridConstants', function (gridUtil
    * @name search
    * @methodOf ui.grid.service:rowSearcher
    * @description Run a search across the given rows and columns, marking any rows that don't 
-   * match the stored col.filters or col.filter as invisible.
+   * match the stored col.com.parabole.auth.filters or col.filter as invisible.
    * @param {Grid} grid Grid instance to search inside
    * @param {Array[GridRow]} rows GridRows to filter
-   * @param {Array[GridColumn]} columns GridColumns with filters to process
+   * @param {Array[GridColumn]} columns GridColumns with com.parabole.auth.filters to process
    */
   rowSearcher.search = function search(grid, rows, columns) {
     /*
@@ -22095,11 +22095,11 @@ module.filter('px', function() {
          * @ngdoc function
          * @name saveColumns
          * @methodOf  ui.grid.saveState.service:uiGridSaveStateService
-         * @description Saves the column setup, including sort, filters, ordering,
+         * @description Saves the column setup, including sort, com.parabole.auth.filters, ordering,
          * pinning and column widths.
          *
          * Works through the current columns, storing them in order.  Stores the
-         * column name, then the visible flag, width, sort and filters for each column.
+         * column name, then the visible flag, width, sort and com.parabole.auth.filters for each column.
          *
          * @param {Grid} grid the grid whose state we'd like to save
          * @returns {array} the columns state ready to be saved
