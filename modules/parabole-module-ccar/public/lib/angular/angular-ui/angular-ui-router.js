@@ -385,7 +385,7 @@ function $Resolve(  $q,    $injector) {
    * `resolve` property of `$routeProvider` routes.
    *
    * @function
-   * @param {Object.<string, Function|string>} invocables  functions to invoke or `$injector` com.parabole.auth.services to fetch.
+   * @param {Object.<string, Function|string>} invocables  functions to invoke or `$injector` services to fetch.
    * @param {Object.<string, *>} [locals]  values to make available to the injectables
    * @param {Promise.<Object>} [parent]  a promise returned by another call to `$resolve`.
    * @param {Object} [self]  the `this` for the invoked methods

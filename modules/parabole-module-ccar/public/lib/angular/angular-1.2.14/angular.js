@@ -175,7 +175,7 @@ function minErr(module) {
  * # ng (core module)
  * The ng module is loaded by default when an AngularJS application is started. The module itself
  * contains the essential components for an AngularJS application to function. The table below
- * lists a high level breakdown of each of the com.parabole.auth.services/factories, filters, directives and testing
+ * lists a high level breakdown of each of the services/factories, filters, directives and testing
  * components available within this core module.
  *
  * <div doc-module-components="ng"></div>
@@ -2998,7 +2998,7 @@ HashMap.prototype = {
  * @function
  *
  * @description
- * Creates an injector function that can be used for retrieving com.parabole.auth.services as well as for
+ * Creates an injector function that can be used for retrieving services as well as for
  * dependency injection (see {@link guide/di dependency injection}).
  *
 
@@ -12557,7 +12557,7 @@ function adjustMatchers(matchers) {
  * @description
  *
  * `$sceDelegate` is a service that is used by the `$sce` service to provide {@link ng.$sce Strict
- * Contextual Escaping (SCE)} com.parabole.auth.services to AngularJS.
+ * Contextual Escaping (SCE)} services to AngularJS.
  *
  * Typically, you would configure or override the {@link ng.$sceDelegate $sceDelegate} instead of
  * the `$sce` service to customize the way Strict Contextual Escaping works in AngularJS.  This is

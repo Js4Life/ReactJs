@@ -486,7 +486,7 @@ function $Resolve(  $q,    $injector) {
    * routes.
    *
    * @param {object} invocables functions to invoke or 
-   * `$injector` com.parabole.auth.services to fetch.
+   * `$injector` services to fetch.
    * @param {object} locals  values to make available to the injectables
    * @param {object} parent  a promise returned by another call to `$resolve`.
    * @param {object} self  the `this` for the invoked methods
@@ -976,7 +976,7 @@ function $UrlRouterProvider(  $urlMatcherFactory) {
    * </pre>
    *
    * @param {object} rule Handler function that takes `$injector` and `$location`
-   * com.parabole.auth.services as arguments. You can use them to return a valid path as a string.
+   * services as arguments. You can use them to return a valid path as a string.
    *
    * @return {object} $urlRouterProvider - $urlRouterProvider instance
    */
@@ -1014,7 +1014,7 @@ function $UrlRouterProvider(  $urlMatcherFactory) {
    *
    * @param {string|object} rule The url path you want to redirect to or a function 
    * rule that returns the url path. The function version is passed two params: 
-   * `$injector` and `$location` com.parabole.auth.services.
+   * `$injector` and `$location` services.
    *
    * @return {object} $urlRouterProvider - $urlRouterProvider instance
    */
@@ -2127,7 +2127,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
          * @eventType broadcast on root scope
          * @description
          * Fired when an **error occurs** during transition. It's important to note that if you
-         * have any errors in your resolve functions (javascript errors, non-existent com.parabole.auth.services, etc)
+         * have any errors in your resolve functions (javascript errors, non-existent services, etc)
          * they will not throw traditionally. You must listen for this $stateChangeError event to
          * catch **ALL** errors.
          *

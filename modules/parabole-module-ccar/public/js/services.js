@@ -1,4 +1,4 @@
-angular.module('RDAApp.services', [])
+angular.module('CCARApp.services', [])
 
 .factory('SharedService', function($rootScope , $http, $q) {
     var SharedService = {};

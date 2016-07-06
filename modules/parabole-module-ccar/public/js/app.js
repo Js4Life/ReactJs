@@ -1,5 +1,5 @@
 angular
-    .module('RDAApp', [ 'ui.router', 'ngAnimate', 'ui.grid', 'ui.grid.selection', 'ui.grid.grouping', 'ui.grid.exporter', 'ui.grid.resizeColumns', 'ui.grid.pagination', 'angucomplete-alt', 'RDAApp.controllers' ])
+    .module('CCARApp', [ 'ui.router', 'ngAnimate', 'ui.grid', 'ui.grid.selection', 'ui.grid.grouping', 'ui.grid.exporter', 'ui.grid.resizeColumns', 'ui.grid.pagination', 'angucomplete-alt', 'CCARApp.controllers' ])
 
     .config(function($stateProvider, $urlRouterProvider, $compileProvider) {
           $compileProvider
