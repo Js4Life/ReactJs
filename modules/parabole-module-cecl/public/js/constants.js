@@ -21,6 +21,7 @@ var Constant = {
 	TEAM_TAB : 'Team',
 	SERVICE_TAB : 'Service Cockpit',
 	MODEL_TAB : 'Model Explorer',
+	HOME_TAB : 'Home',
 	COMPOSITEAGGREGATION : 'COMPOSITEAGGREGATION',
 	AGGREGATION : 'AGGREGATION',
 	COLOR : {

@@ -146,19 +146,7 @@ angular.module('RDAApp.services', [])
         DOWN: 'red'
     };
     SharedService.primaryNav = [
-        /*{"id": "1" , "label":"rdaassets/images/alert-64.png", "title" : Constant.ALERT_TAB},*/
-        {"id": "1" , "label":"rdaassets/images/risk-64.png", "title" : Constant.ASSIMILATOR_TAB},
-        {"id": "11" , "label":"rdaassets/images/dashboard.png", "title" : Constant.DASHBOARD_TAB},
-        {"id": "2" , "label":"rdaassets/images/list.png", "title" : Constant.ASSOCIATOR_TAB},
-        {"id": "10" , "label":"rdaassets/images/aggregator.png", "title" : Constant.MERGE_AGGREGATOR_TAB},
-        /*{"id": "3" , "label":"rdaassets/images/simulator.png", "title" : Constant.SIMULATOR_TAB},*/
-        {"id": "12" , "label":"rdaassets/images/model.png", "title" : Constant.MODEL_TAB},
-        {"id": "8" , "label":"rdaassets/images/simulator.png", "title" : Constant.NEW_SIMULATOR_TAB},
-        {"id": "9" , "label":"rdaassets/images/glossary.png", "title" : Constant.GLOSSARY},
-        {"id": "4" , "label":"rdaassets/images/mono-report.png", "title" : Constant.REPORT_TAB},
-        {"id": "5" , "label":"rdaassets/images/database.png", "title" : Constant.DATASOURCE_TAB},
-        {"id": "6" , "label":"rdaassets/images/user48.png", "title" : Constant.TEAM_TAB},
-        {"id": "7" , "label":"rdaassets/images/comb_view.png", "title" : Constant.SERVICE_TAB}
+        {"id": "1" , "label":"ceclassets/images/home.png", "title" : Constant.HOME_TAB}
    ];
     SharedService.layoutGraphData = [
                                         ["Jan-13", 11],["Feb-13", 9], ["March-13", 15], ["July-13", 12]
@@ -639,6 +627,14 @@ angular.module('RDAApp.services', [])
             graphData = data;
             var visData = graphService.transfromToVisFmt( graphData );
             defer.resolve({visData : visData , gridData : graphData.statistics });
+        });
+        return defer.promise;
+    }
+
+    graphService.getRelatedNodes = function( idx ){
+        var defer = $q.defer();
+        SharedService.invokeService( 'LoadChildNodes' , idx).then( function( data ){
+            defer.resolve(data);
         });
         return defer.promise;
     }
