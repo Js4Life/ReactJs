@@ -1,0 +1,63 @@
+<!DOCType html>
+<html>
+<head>
+</head>
+<body>
+
+<script src="../publish/skylink.complete.js"></script>
+<script>
+  var apiKey = 'c3395168-5237-40fb-aabd-b4a0968fa671';
+  var path = '//api.temasys.com.sg/api/' + apiKey + '/' + apiKey;
+
+  var request = function (url) {
+    var xhr = null;
+    var hasXDomainRequest = typeof window.XDomainRequest === 'function' ||
+      typeof window.XDomainRequest === 'object';
+
+    if (hasXDomainRequest) {
+      xhr = new XDomainRequest();
+      xhr.setContentType = function (contentType) {
+        xhr.contentType = contentType;
+      };
+    } else {
+      xhr = new XMLHttpRequest();
+      xhr.setContentType = function (contentType) {
+        xhr.setRequestHeader('Content-type', contentType);
+      };
+    }
+
+    xhr.onload = function () {
+      var response = xhr.responseText || xhr.response;
+      var status = xhr.status || 200;
+      var data = JSON.parse(response);
+      console.info('XHR - Received response', data);
+      self.apiData = data;
+    };
+
+    xhr.onerror = function (error) {
+      console.error('XHR - Failed', error);
+    };
+
+    xhr.onprogress = function () {
+      console.log('XHR - In progress');
+    };
+
+    xhr.open('GET', url, true);
+    /*if (params) {
+      xhr.setContentType('application/json;charset=UTF-8');
+      xhr.send(JSON.stringify(params));
+    } else {*/
+    xhr.send();
+    //}
+  };
+
+  var ref = new testRef();
+
+  var peer = new Peer(ref, {
+
+  });
+
+
+</script>
+</body>
+</html>

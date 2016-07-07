@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://cdn.temasys.com.sg/skylink/skylinkjs/0.6.2/skylink.complete.js"></script>
+<script src="plum-room.js"></script>
+<script>
+App.Room.Viewer = (function() {
+  function Viewer(room) {
+    this.room = room;
+    this.skylink = new Skylink();
+  }
+
+  Viewer.prototype.init = function() {
+    var username;
+    this.initSkylink();
+    username = prompt("Please enter your name:");
+    this.skylink.setUserData({
+      name: username
+    });
+    this.joinRoom();
+    this.listenToIncomingMessage();
+    return this.listenToIncomingStream();
+  };
+
+  Viewer.prototype.initSkylink = function() {
+    return this.skylink.init(App.Room.skylinkAppKey);
+  };
+
+  Viewer.prototype.joinRoom = function() {
+    return this.skylink.joinRoom(this.room, {
+      audio: true,
+      video: true
+    });
+  };
+
+  Viewer.prototype.sendMessage = function() {
+    return App.Room.sendMessage(this.skylink);
+  };
+
+  Viewer.prototype.listenToIncomingMessage = function() {
+    return this.skylink.on('incomingMessage', function(message, peerId, peerInfo, isSelf) {
+      var className, user;
+      user = 'You';
+      className = 'you';
+      if (!isSelf) {
+        user = peerInfo.userData.name || peerId;
+        className = 'message';
+      }
+      return App.Room.addMessage(user + ': ' + message.content, className);
+    });
+  };
+
+  Viewer.prototype.listenToIncomingStream = function() {
+    return this.skylink.on('incomingStream', function(peerId, stream, isSelf, peerInfo) {
+      console.info('incomingStream', peerId, stream, isSelf, peerInfo);
+      if (peerInfo) {
+        // EDIT: To address the echo issue, it's recommended to mute for self videos
+        return App.Room.addVideo(peerId, stream, isSelf);
+      }
+    });
+  };
+
+  Viewer.prototype.deleteExistingVideos = function() {
+    var videos;
+    videos = document.getElementsByTagName("video");
+    if (videos.length > 0) {
+      return videos[0].remove();
+    }
+  };
+
+  return Viewer;
+
+})();
+</script>
+</head>
+<body onload="new App.Room.Viewer().init()">
+  <div id="video"></div>
+  <div id="chatbox"></div>
+</body>
+</html>
