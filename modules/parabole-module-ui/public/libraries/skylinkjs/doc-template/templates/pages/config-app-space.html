@@ -1,0 +1,52 @@
+<section class="banner-content columns">
+  <ul class="breadcrumbs">
+    <li><a href="?page=main">Home</a></li>
+    <li><a href="?page=doc">Documentation</a></li>
+    <li class="unavailable"><a href="#">Application Key Features</a></li>
+    <li class="current"><a href="#">Integrate Realm Key Space Feature for Client SDK</a></li>
+  </ul>
+  <h2>Integrate Realm Key Space Feature for Client SDK</h2>
+  <div class="banner-row scroll-row">
+    <div class="large-3 columns">
+      <ul class="side-nav top-links">
+        <li><a href="#what-is-realm">What is a Realm Key Space</a></li>
+        <li><a href="#how-to-enable-realm">How to Enable This Feature</a></li>
+        <li><a href="#realm-use-cases">What Can This Feature Be Used For</a></li>
+      </ul>
+    </div>
+    <div class="large-9 columns">
+      <div id="/what-is-realm" class="banner-row" data-equalizer-mq="large-up" data-options="equalize_on_stack: true">
+        <h4 class="heading-title">What is a Realm Key Space</h4>
+        <div class="columns">
+          <div class="medium-5 columns" data-equalizer-watch>
+            <img src="img/realmsandrooms.png">
+          </div>
+          <div class="medium-7 columns" data-equalizer-watch>
+            <p>When you use SkylinkJS in your website or app, you can invite users (we call them peers) to join a shared space in which they can exchange data privately with each other. We call this space a room. Every peer that wants to join a room needs to know its unique identifier, like a secure, generated token or a simple name. We leave it up to you on how you come up with these room IDs and how you inform peers about them. One of our primary goals in SkylinkJS was to not interfere with your application logic or UX. We recommend generating UUIDs as a best-practice here for making the identifiers difficult to guess, reasonably unique and providing an additional layer of privacy of your users during room sessions.</p>
+            <p>You identify yourself to the Skylink Infrastructure with your unique App key that you can create in our Developer Console or via our REST API. Every App key creates a new realm in which your rooms can exist. Every App key will only work on your specified CORS domain name. If you want to have a different website or app access the same realm and therefor the same rooms, you are also able to create alias keys that extend the scope of the realm to other domains or simply isolate your apps various flavors for logging and reporting purposes.</p>
+          </div>
+        </div>
+      </div>
+      <div id="/how-to-enable-realm" class="banner-row" data-equalizer-mq="large-up" data-options="equalize_on_stack: true">
+        <h4 class="heading-title">How to enable this feature</h4>
+        <div class="medium-6 columns" data-equalizer-watch>
+          <img src="img/realmsandrooms-howto.png">
+        </div>
+        <div class="medium-6 columns" data-equalizer-watch>
+          <p>In the developer console, select "<i>Configure</i>" on your Alias Key, and then simply select set "<i>Share Realm with Parent Key</i>" option to <u><i>Yes (default)</i></u>. If you do not want this feature you can set it as <u><i>No</i></u>.</p>
+        </div>
+      </div>
+      <div id="/realm-use-cases" class="banner-row">
+        <h4 class="heading-title">What can this feature be used for</h4>
+        <div class="columns">
+          <p>In some instances where you do not want to expose the main (parent) Application Key, using alias key would be useful for accessing and setting for certain domains access and controlling restrictings to certain keys.<br>Some of the useful use-cases and scenarios include:</p>
+          <ul>
+            <li>Based off the parent key, create a new Alias Key</li>
+            <li>You can configure the Alias Key to certain domain</li>
+            <li>To restrict access, you can delete the alias key with the REST API without affecting the main parent key.<br><a href="https://temasys.atlassian.net/wiki/display/TPD/SkylinkAPI+-+Application+Resources">See the REST API documentation for Application Keys</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

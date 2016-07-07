@@ -1,0 +1,170 @@
+body {
+  overflow-x: hidden;
+  font-family: 'Source Sans Pro';
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 200;
+  font-family: inherit;
+}
+
+pre {
+  overflow-y: auto;
+  border-radius: 5px;
+}
+
+footer {
+  background: #444;
+  color: #fff;
+  font-size: .75em;
+  text-align: center;
+  padding: 2em 1em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+footer p {
+  font-size: .75em;
+  padding: 0;
+  margin: 0;
+}
+.fa {
+  margin: 0 .5em;
+}
+
+.title-area img {
+  height: 1.75em;
+  margin-top: -.15em;
+}
+
+.banner-wrapper {
+  background-image: url(../img/banner-bg.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+}
+.banner {
+  background-color: rgba(0, 131, 143, .75);
+  padding: 2em 0 0;
+  text-align: center;
+}
+
+.banner .row h1,
+.banner .row p {
+  color: #fff;
+  padding: .015em .75em .45em;
+}
+
+.row-wrapper {
+  border-bottom: solid 1px #ccc;
+}
+
+.row-wrapper:last-child {
+  border: 0;
+}
+
+.row-wrapper .row {
+  padding: 2em 1em;
+}
+
+.row-wrapper .row h2 {
+  margin-bottom: 25px;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+.row-wrapper .row h2 span {
+  color: #00BCD4;
+  font-weight: 600;
+  margin-right: 15px;
+}
+
+.row-wrapper .row h6 {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: .75em;
+}
+
+.row-wrapper .row .inline-list li:first-child {
+  margin-left: 0;
+}
+
+.row-wrapper .row .inline-list li a {
+  font-size: .85em;
+  font-weight: 600;
+}
+
+.row-wrapper .row .inline-list li:hover a {
+  background-color: #eee;
+}
+
+
+
+/* Foundation overries */
+.magellan-container {
+  background: none;
+  padding: 0;
+  max-width: 100%;
+  overflow-x: auto;
+}
+.magellan-container .sub-nav dd {
+  float: none;
+  display: inline-block;
+}
+.magellan-container .sub-nav dd {
+  padding: 10px 0;
+  -webkit-transition: background .075s ease-in;
+  transition: background .075s ease-in;
+  cursor: pointer;
+  margin: 0;
+}
+.magellan-container .sub-nav dd a {
+  color: #fff;
+}
+.magellan-container .sub-nav dd.auto-select,
+.magellan-container .sub-nav dd:hover {
+  background: rgba(255, 255, 255, .35);
+}
+.magellan-container.fixed {
+  top: 2.8em!important;
+  background: #f8f8f8;
+  border-bottom: solid 1px #dadada;
+}
+.magellan-container.fixed .sub-nav {
+  text-align: center;
+}
+.magellan-container.fixed .sub-nav dd a {
+  color: #aaa;
+}
+.magellan-container.fixed .sub-nav dd a:hover {
+  color: #444;
+}
+.magellan-container.fixed .sub-nav dd.active a {
+  background: #00BCD4;
+  color: #fff;
+}
+
+@media (max-width: 500px) {
+  .inline-list li {
+    display: block;
+    width: 100%;
+    margin: 0;
+  }
+  .inline-list li a {
+    width: auto;
+    display: inline;
+  }
+}
+
+@media (max-width: 378px) {
+  #gs .magellan-responsive {
+    width: 378px;
+    border-top: solid 1px rgba(255, 255, 255, .5);
+  }
+  #gs.fixed .magellan-responsive{
+    width: 400px;
+  }
+}
+

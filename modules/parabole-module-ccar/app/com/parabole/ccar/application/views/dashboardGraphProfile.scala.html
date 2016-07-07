@@ -40,7 +40,7 @@
                                     match-class="text-green">
                                     </div>
                                 </div>
-                                <div class="form-group" ng-repeat="(key, filter) in com.parabole.ui.filters">
+                                <div class="form-group" ng-repeat="(key, filter) in filters">
                                     <label>{{filter.name}}</label>
                                     <input ng-if="filter.type === 'text'" type="text" class="form-control" placeholder="{{filter.name}}" ng-model="filter.value">
                                     <select ng-if="filter.type === 'dropdown'" class="form-control" ng-options="o.id as o.name for o in filter.source" ng-model="filter.value"></select>
@@ -82,7 +82,7 @@
             </div>
             <div class="modal-body" style="max-height:70vh;overflow:auto;">
                 <form>
-                    <div class="form-group" ng-repeat="(key, filter) in com.parabole.ui.filters">
+                    <div class="form-group" ng-repeat="(key, filter) in filters">
                         <label>{{filter.name}}</label>
                         <input ng-if="filter.type === 'text'" type="text" class="form-control" placeholder="{{filter.name}}" ng-model="filter.value">
                         <select ng-if="filter.type === 'dropdown'" class="form-control" ng-options="o.id as o.name for o in filter.source" ng-model="filter.value"></select>
