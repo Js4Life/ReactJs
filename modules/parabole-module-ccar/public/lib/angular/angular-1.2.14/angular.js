@@ -13870,7 +13870,7 @@ function $WindowProvider(){
  * @name $filterProvider
  * @description
  *
- * Filters are just functions which transform input to an output. However com.parabole.auth.filters need to be
+ * Filters are just functions which transform input to an output. However filters need to be
  * Dependency Injected. To achieve this a filter definition consists of a factory function which is
  * annotated with dependencies and is responsible for creating a filter function.
  *
@@ -13888,7 +13888,7 @@ function $WindowProvider(){
  *       // return the filter function which uses the greet service
  *       // to generate salutation
  *       return function(text) {
- *         // com.parabole.auth.filters need to be forgiving so check input validity
+ *         // filters need to be forgiving so check input validity
  *         return text && greet(text) || text;
  *       };
  *     });
@@ -13911,7 +13911,7 @@ function $WindowProvider(){
  * ```
  *
  *
- * For more information about how angular com.parabole.auth.filters work, and how to create your own com.parabole.auth.filters, see
+ * For more information about how angular filters work, and how to create your own filters, see
  * {@link guide/filter Filters} in the Angular Developer Guide.
  */
 /**
@@ -13946,9 +13946,9 @@ function $FilterProvider($provide) {
   /**
    * @ngdoc method
    * @name $controllerProvider#register
-   * @param {string|Object} name Name of the filter function, or an object map of com.parabole.auth.filters where
+   * @param {string|Object} name Name of the filter function, or an object map of filters where
    *    the keys are the filter names and the values are the filter factories.
-   * @returns {Object} Registered filter instance, or if a map of com.parabole.auth.filters was provided then a map
+   * @returns {Object} Registered filter instance, or if a map of filters was provided then a map
    *    of the registered filter instances.
    */
   function register(name, factory) {
