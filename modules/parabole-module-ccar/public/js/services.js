@@ -85,29 +85,29 @@ angular.module('CCARApp.services', [])
         '3' : 'getHardCodedResponse/chartData4'
     };
     SharedService.nodeImageMap = {
-        "user" : "assets/images/user48.png",
-        "usergroup" : "assets/images/users48.png",
-        "datasource" : "assets/images/datasource24.png",
-        "database" : "assets/images/database60.png",
-        "column" : "assets/images/column24.png",
-        "table" : "assets/images/table24.png",
-        "concept" : "assets/images/concept.png",
-        "main-entity" : "assets/images/bank.png",
-        "subsidiary" : "assets/images/bank-subsidiary.png",
-        "branch" : "assets/images/bank-branch.png",
+        "user" : "ccarassets/images/user48.png",
+        "usergroup" : "ccarassets/images/users48.png",
+        "datasource" : "ccarassets/images/datasource24.png",
+        "database" : "ccarassets/images/database60.png",
+        "column" : "ccarassets/images/column24.png",
+        "table" : "ccarassets/images/table24.png",
+        "concept" : "ccarassets/images/concept.png",
+        "main-entity" : "ccarassets/images/bank.png",
+        "subsidiary" : "ccarassets/images/bank-subsidiary.png",
+        "branch" : "ccarassets/images/bank-branch.png",
     };
     SharedService.graphImageMap = {
-        "report" : "assets/images/graph_report.png",
-        "selected" : "assets/images/sky_dot.png",
-        "data" : "assets/images/graph_data.png",
-        "policy" : "assets/images/graph_policy.png",
-        "model" : "assets/images/graph_model.png",
-        "committee" : "assets/images/graph_committee.png",
-        "information" : "assets/images/graph_info.png",
-        "information_disable" : "assets/images/graph_info_disable.png",
-        "person" : "assets/images/user48.png",
-        "system" : "assets/images/graph_system.png",
-        "default" : "assets/images/blue_dot.png"
+        "report" : "ccarassets/images/graph_report.png",
+        "selected" : "ccarassets/images/sky_dot.png",
+        "data" : "ccarassets/images/graph_data.png",
+        "policy" : "ccarassets/images/graph_policy.png",
+        "model" : "ccarassets/images/graph_model.png",
+        "committee" : "ccarassets/images/graph_committee.png",
+        "information" : "ccarassets/images/graph_info.png",
+        "information_disable" : "ccarassets/images/graph_info_disable.png",
+        "person" : "ccarassets/images/user48.png",
+        "system" : "ccarassets/images/graph_system.png",
+        "default" : "ccarassets/images/blue_dot.png"
     };
 
     SharedService.mappableEdges = [];
@@ -145,38 +145,38 @@ angular.module('CCARApp.services', [])
         DOWN: 'red'
     };
     SharedService.primaryNav = [
-        /*{"id": "1" , "label":"assets/images/alert-64.png", "title" : Constant.ALERT_TAB},
-        {"id": "1" , "label":"assets/images/risk-64.png", "title" : Constant.ASSIMILATOR_TAB},*/
-        {"id": "11" , "label":"assets/images/dashboard.png", "title" : Constant.DASHBOARD_TAB},
-        /*{"id": "2" , "label":"assets/images/list.png", "title" : Constant.ASSOCIATOR_TAB},
-        {"id": "10" , "label":"assets/images/aggregator.png", "title" : Constant.MERGE_AGGREGATOR_TAB},
-        {"id": "3" , "label":"assets/images/simulator.png", "title" : Constant.SIMULATOR_TAB},
-        {"id": "8" , "label":"assets/images/newsimulator.png", "title" : Constant.NEW_SIMULATOR_TAB},
-        {"id": "9" , "label":"assets/images/glossary.png", "title" : Constant.GLOSSARY},
-        {"id": "4" , "label":"assets/images/mono-report.png", "title" : Constant.REPORT_TAB},*/
-        {"id": "5" , "label":"assets/images/database.png", "title" : Constant.DATASOURCE_TAB},
-        {"id": "6" , "label":"assets/images/user48.png", "title" : Constant.TEAM_TAB},
-        /*{"id": "7" , "label":"assets/images/comb_view.png", "title" : Constant.SERVICE_TAB}*/
-        {"id": "9" , "label":"assets/images/glossary.png", "title" : Constant.GLOSSARY},
-        {"id": "12" , "label":"assets/images/archive.png", "title" : Constant.ARCHIVE_TAB}
+        /*{"id": "1" , "label":"ccarassets/images/alert-64.png", "title" : Constant.ALERT_TAB},
+        {"id": "1" , "label":"ccarassets/images/risk-64.png", "title" : Constant.ASSIMILATOR_TAB},*/
+        {"id": "11" , "label":"ccarassets/images/dashboard.png", "title" : Constant.DASHBOARD_TAB},
+        /*{"id": "2" , "label":"ccarassets/images/list.png", "title" : Constant.ASSOCIATOR_TAB},
+        {"id": "10" , "label":"ccarassets/images/aggregator.png", "title" : Constant.MERGE_AGGREGATOR_TAB},
+        {"id": "3" , "label":"ccarassets/images/simulator.png", "title" : Constant.SIMULATOR_TAB},
+        {"id": "8" , "label":"ccarassets/images/newsimulator.png", "title" : Constant.NEW_SIMULATOR_TAB},
+        {"id": "9" , "label":"ccarassets/images/glossary.png", "title" : Constant.GLOSSARY},
+        {"id": "4" , "label":"ccarassets/images/mono-report.png", "title" : Constant.REPORT_TAB},*/
+        {"id": "5" , "label":"ccarassets/images/database.png", "title" : Constant.DATASOURCE_TAB},
+        {"id": "6" , "label":"ccarassets/images/user48.png", "title" : Constant.TEAM_TAB},
+        /*{"id": "7" , "label":"ccarassets/images/comb_view.png", "title" : Constant.SERVICE_TAB}*/
+        {"id": "9" , "label":"ccarassets/images/glossary.png", "title" : Constant.GLOSSARY},
+        {"id": "12" , "label":"ccarassets/images/archive.png", "title" : Constant.ARCHIVE_TAB}
    ];
     SharedService.layoutGraphData = [
                                         ["Jan-13", 11],["Feb-13", 9], ["March-13", 15], ["July-13", 12]
                                     ];
     SharedService.pageBuilderTools = [
-        {title:"Page", type:"1", class:"page", img:"assets/images/page.png"}
+        {title:"Page", type:"1", class:"page", img:"ccarassets/images/page.png"}
     ];
     SharedService.layoutBuilderTools = [
-        {title:"2 By 2", type:"1", class:"2by2", img:"assets/images/2by2.png"},
-        {title:"1 by 2 ", class:"1by2", type:"1", img:"assets/images/1by2.png"},
-        {title:"2 By 1", class:"2by1", type:"1", img:"assets/images/2by1.png"},
-        {title:"1 By 1", class:"1by1", type:"1", img:"assets/images/1by1.png"},
-        {title:"Aggregate", class:"aggr", type:"1", img:"assets/images/aggregate.png"},
-        {title:"Impact Path", class:"img", type:"1", img:"assets/images/image.png"}
+        {title:"2 By 2", type:"1", class:"2by2", img:"ccarassets/images/2by2.png"},
+        {title:"1 by 2 ", class:"1by2", type:"1", img:"ccarassets/images/1by2.png"},
+        {title:"2 By 1", class:"2by1", type:"1", img:"ccarassets/images/2by1.png"},
+        {title:"1 By 1", class:"1by1", type:"1", img:"ccarassets/images/1by1.png"},
+        {title:"Aggregate", class:"aggr", type:"1", img:"ccarassets/images/aggregate.png"},
+        {title:"Impact Path", class:"img", type:"1", img:"ccarassets/images/image.png"}
     ];
     SharedService.userBuilderTools = [
-        {title:"User", type:"1", class:"user", img:"assets/images/user48.png"},
-        {title:"User Group ", class:"user-grp", type:"1", img:"assets/images/users48.png"}
+        {title:"User", type:"1", class:"user", img:"ccarassets/images/user48.png"},
+        {title:"User Group ", class:"user-grp", type:"1", img:"ccarassets/images/users48.png"}
     ];
     SharedService.cardinals = [
         {id:0, name : '1-to-1'},
