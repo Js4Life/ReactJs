@@ -315,7 +315,7 @@
         <span class="octicon octicon-x js-menu-close" role="button" aria-label="Close"></span>
       </div>
 
-      <div class="select-menu-com.parabole.ui.filters">
+      <div class="select-menu-filters">
         <div class="select-menu-text-filter">
           <input type="text" aria-label="Filter branches/tags" id="context-commitish-filter-field" class="js-filterable-field js-navigation-enable" placeholder="Filter branches/tags">
         </div>

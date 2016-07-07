@@ -1,0 +1,140 @@
+App.Room =
+  skylinkAppKey: '<%= ENV["SKYLINK_APP_KEY"] %>'
+
+  sendMessage: (skylink) ->
+    input = document.getElementById('message')
+    skylink.sendP2PMessage(input.value) if input.value
+    input.value = ''
+
+  addMessage: (message, className) ->
+    chatbox = document.getElementById('chatbox')
+    div = document.createElement('div')
+    div.className = className
+    div.textContent = message
+    chatbox.appendChild(div)
+
+    chatbox.scrollTop = chatbox.scrollHeight
+
+  addVideo: (peerId, stream, muted) ->
+    peerVideo = document.createElement('video')
+    peerVideo.id = peerId
+    peerVideo.autoplay = true
+    if muted
+      peerVideo.muted = true
+    document.getElementById('video').appendChild peerVideo
+    attachMediaStream peerVideo, stream
+
+class App.Room.Host
+  constructor: (@room) ->
+    @skylink = new Skylink()
+
+  init: ->
+    @skylink.init
+      apiKey: App.Room.skylinkAppKey
+    @joinRoom()
+
+    username = prompt("Please enter your name:")
+
+    @skylink.setUserData
+      name: username
+      host: true
+
+    @listenToPeerJoined()
+    @listenToPeerLeft()
+    @listenToIncomingMessage()
+    @listenToIncomingStream()
+    @listenToDisconnect()
+
+  initSkylink: ->
+    @skylink.init App.Room.skylinkAppKey
+
+  joinRoom: ->
+    @skylink.joinRoom(@room,
+      audio: true
+      video: true
+    )
+
+  sendMessage: ->
+    App.Room.sendMessage @skylink
+
+  listenToDisconnect: ->
+    @skylink.on 'channelClose', ->
+      console.log 'channel closed'
+
+    @skylink.on 'channelError', (err) ->
+      console.log 'channel error' + err
+
+  listenToPeerJoined: ->
+    @skylink.on 'peerJoined', (peerId, peerInfo, isSelf) ->
+      user = 'You'
+      if !isSelf
+        user = peerInfo.userData.name or peerId
+      App.Room.addMessage user + ' joined the conference', 'text-muted'
+
+  listenToPeerLeft: ->
+    @skylink.on 'peerLeft', (peerId, peerInfo, isSelf) ->
+      user = 'You'
+      if !isSelf
+        user = peerInfo.userData.name or peerId
+      App.Room.addMessage user + ' left the conference', 'text-muted'
+
+  listenToIncomingMessage: ->
+    @skylink.on 'incomingMessage', (message, peerId, peerInfo, isSelf) ->
+      user = 'You'
+      className = 'you'
+      if !isSelf
+        user = peerInfo.userData.name or peerId
+        className = 'message'
+      App.Room.addMessage user + ': ' + message.content, className
+
+  listenToIncomingStream: ->
+    @skylink.on 'incomingStream', (peerId, stream, isSelf, peerInfo) ->
+      if isSelf
+        App.Room.addVideo(peerId, stream, true)
+
+class App.Room.Viewer
+  constructor: (@room) ->
+    @skylink = new Skylink()
+
+  init: ->
+    @initSkylink()
+
+    username = prompt("Please enter your name:")
+
+    @skylink.setUserData
+      name: username
+
+    @joinRoom()
+    @listenToIncomingMessage()
+    @listenToIncomingStream()
+
+  initSkylink: ->
+    @skylink.init App.Room.skylinkAppKey
+
+  joinRoom: ->
+    @skylink.joinRoom(@room,
+      audio: true
+      video: true
+    )
+
+  sendMessage: ->
+    App.Room.sendMessage @skylink
+
+  listenToIncomingMessage: ->
+    @skylink.on 'incomingMessage', (message, peerId, peerInfo, isSelf) ->
+      user = 'You'
+      className = 'you'
+      if !isSelf
+        user = peerInfo.userData.name or peerId
+        className = 'message'
+      App.Room.addMessage user + ': ' + message.content, className
+
+  listenToIncomingStream: ->
+    @skylink.on 'incomingStream', (peerId, stream, isSelf, peerInfo) ->
+      if peerInfo
+        App.Room.addVideo(peerId, stream, peerInfo, isSelf)
+
+  deleteExistingVideos: ->
+    videos = document.getElementsByTagName("video")
+    if videos.length > 0
+      videos[0].remove()

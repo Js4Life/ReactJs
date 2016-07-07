@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<script src="http://cdn.temasys.com.sg/skylink/skylinkjs/0.6.2/skylink.complete.js"></script>
+<script src="plum-room.js"></script>
+<script>
+App.Room.Host = (function() {
+  function Host(room) {
+    this.room = room;
+    this.skylink = new Skylink();
+  }
+
+  Host.prototype.init = function() {
+    var username;
+    this.skylink.init({
+      apiKey: App.Room.skylinkAppKey
+      // EDIT: I suggest to allow the browser to select the codec currently.
+      //audioCodec: this.skylink.AUDIO_CODEC.OPUS,
+      //videoCodec: this.skylink.VIDEO_CODEC.VP8
+    });
+    this.joinRoom();
+    username = prompt("Please enter your name:");
+    this.skylink.setUserData({
+      name: username,
+      host: true
+    });
+    this.listenToPeerJoined();
+    this.listenToPeerLeft();
+    this.listenToIncomingMessage();
+    this.listenToIncomingStream();
+    return this.listenToDisconnect();
+  };
+
+  Host.prototype.initSkylink = function() {
+    return this.skylink.init(App.Room.skylinkAppKey);
+  };
+
+  Host.prototype.joinRoom = function() {
+    return this.skylink.joinRoom(this.room, {
+      audio: true,
+      video: true
+    });
+  };
+
+  Host.prototype.sendMessage = function() {
+    return App.Room.sendMessage(this.skylink);
+  };
+
+  Host.prototype.listenToDisconnect = function() {
+    this.skylink.on('channelClose', function() {
+      return console.log('channel closed');
+    });
+    return this.skylink.on('channelError', function(err) {
+      return console.log('channel error' + err);
+    });
+  };
+
+  Host.prototype.listenToPeerJoined = function() {
+    return this.skylink.on('peerJoined', function(peerId, peerInfo, isSelf) {
+      var user;
+      user = 'You';
+      if (!isSelf) {
+        user = peerInfo.userData.name || peerId;
+      }
+      return App.Room.addMessage(user + ' joined the conference', 'text-muted');
+    });
+  };
+
+  Host.prototype.listenToPeerLeft = function() {
+    return this.skylink.on('peerLeft', function(peerId, peerInfo, isSelf) {
+      var user;
+      user = 'You';
+      if (!isSelf) {
+        user = peerInfo.userData.name || peerId;
+      }
+      return App.Room.addMessage(user + ' left the conference', 'text-muted');
+    });
+  };
+
+  Host.prototype.listenToIncomingMessage = function() {
+    return this.skylink.on('incomingMessage', function(message, peerId, peerInfo, isSelf) {
+      var className, user;
+      user = 'You';
+      className = 'you';
+      if (!isSelf) {
+        user = peerInfo.userData.name || peerId;
+        className = 'message';
+      }
+      return App.Room.addMessage(user + ': ' + message.content, className);
+    });
+  };
+
+  Host.prototype.listenToIncomingStream = function() {
+    // EDIT: The "incomingStream" payload is (peerId, stream, isSelf, peerInfo)
+    // http://cdn.temasys.com.sg/skylink/skylinkjs/0.6.2/doc/classes/Skylink.html#event_incomingStream
+    return this.skylink.on('incomingStream', function(peerId, stream, isSelf, peerInfo) {
+      console.info('incomingStream', peerId, stream, isSelf, peerInfo);
+      if (isSelf) {
+        // EDIT: To address the echo issue, it's recommended to mute for self videos
+        return App.Room.addVideo(peerId, stream, isSelf);
+      }
+    });
+  };
+
+  return Host;
+})();
+</script>
+</head>
+
+<body onload="new App.Room.Host().init()">
+  <div id="video"></div>
+  <div id="chatbox"></div>
+</body>
+</html>

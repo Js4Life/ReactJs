@@ -1,0 +1,16 @@
+<section class="banner-bg">
+  <h1>Integrate WebRTC into your Web Application with Skylink</h1>
+</section>
+<section class="banner-content">
+  <div class="row" data-equalizer data-options="equalize_on_stack: true">
+    <div ng-repeat="item in menu" class="medium-3" data-equalizer-watch>
+      <a href="?page={{item.page}}">
+        <span class="icon"><i class="fa {{item.icon}}"></i></span>
+        <p>{{item.desc}}</p>
+      </a>
+    </div>
+  </div>
+</section>
+<script>
+  $(document).foundation('equalizer','reflow');
+</script>

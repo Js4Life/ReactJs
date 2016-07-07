@@ -4273,9 +4273,9 @@ angular.module('CCARApp.controllers', ['CCARApp.services', 'CCARApp.directives',
 
 	function addAggregates(id, title, isComposed){
 		if(isComposed)
-			$scope.savedPathList.push( {id: id, title: title, class:"aggr", img:"assets/images/aggregatorOnCircle.png", isComposed: isComposed});
+			$scope.savedPathList.push( {id: id, title: title, class:"aggr", img:"ccarassets/images/aggregatorOnCircle.png", isComposed: isComposed});
 		else
-			$scope.savedPathList.push( {id: id, title: title, class:"aggr", img:"assets/images/associator.png", isComposed: isComposed});
+			$scope.savedPathList.push( {id: id, title: title, class:"aggr", img:"ccarassets/images/associator.png", isComposed: isComposed});
 	}
 
 	$scope.onAggregateDrop = function( ui , cellIdx , element){

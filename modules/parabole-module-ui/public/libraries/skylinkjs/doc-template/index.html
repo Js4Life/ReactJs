@@ -1,0 +1,200 @@
+<!DOCType html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Skylink | Full WebRTC SDK</title>
+  <meta name="version" content="1.0.0" />
+  <meta name="date" content="" />
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <!-- Place favicon.ico in the root directory -->
+  <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,600,700" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:200,300,400,600,700" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.min.css">
+  <link rel="stylesheet" href="css/libs/prettify/tomorrow-night.css">
+  <link rel="stylesheet" href="css/main.css">
+  <!-- 2.1.4 not supportive of IE 9 < -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular.min.js"></script>
+  <!--<script src="js/app.js"></script>-->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/foundation.min.js"></script>
+</head>
+
+<body>
+  <!--[if lt IE 8]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+  <!-- start of navigation -->
+  <div class="sticky contain-to-grid">
+    <nav class="top-bar" data-topbar="" role="navigation" data-options="">
+      <ul class="title-area">
+        <!-- Title Area -->
+        <li class="name">
+          <h1><a href="#"> <img src="img/skylink.svg"> Web Doc </a></h1>
+        </li>
+        <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+        <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+      </ul>
+      <section class="top-bar-section">
+        <!-- Right Nav Section -->
+        <ul class="right">
+          <li class="divider hide-for-small"></li>
+          <li class="has-dropdown"><a> Classes </a>
+            <ul class="dropdown">
+              <li class="title back js-generated">
+                <h5><a href="javascript:void(0)">Back</a></h5>
+              </li>
+              <li><a href="#"> Modules </a></li>
+              <li><a href="#"> Config </a></li>
+            </ul>
+          </li>
+          <li class="divider hide-for-small"></li>
+          <li class="has-dropdown"><a> Getting Started </a>
+            <ul class="dropdown">
+              <li class="title back js-generated">
+                <h5><a href="javascript:void(0)">Back</a></h5>
+              </li>
+              <li><a href="#"> Documentation </a></li>
+              <li><a href="#"> Configuration </a></li>
+              <li><a href="#"> Extensions </a></li>
+            </ul>
+          </li>
+          <li class="divider hide-for-small"></li>
+        </ul>
+      </section>
+    </nav>
+  </div>
+  <!-- end of navigation -->
+  <!-- start of section:getting started -->
+  <section class="content">
+    <div class="banner-wrapper">
+      <div class="banner">
+        <div class="row">
+          <h1>Getting Started with Skylink Web Client SDK</h1>
+          <div id="gs" class="magellan-container" data-magellan-expedition="fixed" style="">
+            <div class="magellan-responsive">
+              <dl class="sub-nav">
+                <dd data-magellan-arrival="gs-reference" class="auto-select"><a href="#gs-reference">1. Referencing</a></dd>
+                <dd data-magellan-arrival="gs-config" class=""><a href="#gs-config">2. Configuration</a></dd>
+                <dd data-magellan-arrival="gs-integration" class=""><a href="#gs-integration">3. Integration</a></dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row-wrapper" data-magellan-destination="gs-reference">
+      <div class="row">
+        <h2 id="gs-reference"><span>1.</span> Reference our Libraries from our hosted CDN</h2>
+        <p>
+          To begin, you may start by including this script from our hosted cdn libraries. The compressed versions are production ready codes which improves page speed and load. It's recommended to use the compressed versions for simply using it and the uncompressed versions for debugging the library.
+          <br>
+          <br> The complete version consists of the Socket.io client library and Temasys version of AdapterJS and the Skylink library. The standalone version consists of only the Skylink library which require reference the libraries by your own.
+          <br>
+          <br>
+          You may replace the word <code>latest</code> with the version of Skylink you wish to use.
+
+          <h6>Dependencies</h6>
+          <ul class="inline-list">
+            <li><a href="http://socket.io/download/" class="btn btn-primary">Socket.io (Client)</a></li>
+            <li><a href="https://github.com/Temasys/AdapterJS" class="btn btn-warning">AdapterJS</a></li>
+            <li><a href="#" class="btn btn-info">Download SkylinkJS</a></li>
+          </ul>
+        </p>
+        <pre class="prettyprint">
+        &#60;!-- Completed version uncompressed --&#62;
+        &#60;script src="//cdn.temasys.com.sg/skylink/skylinkjs/latest/skylink.complete.js"&#62;&#60;/script&#62;
+        &#60;!-- Standalone version uncompressed --&#62;
+        &#60;script src="//cdn.temasys.com.sg/skylink/skylinkjs/latest/skylink.debug.js"&#62;&#60;/script&#62;
+        &#60;!-- Completed version compressed --&#62;
+        &#60;script src="//cdn.temasys.com.sg/skylink/skylinkjs/latest/skylink.complete.min.js"&#62;&#60;/script&#62;
+        &#60;!-- Standalone version compressed --&#62;
+        &#60;script src="//cdn.temasys.com.sg/skylink/skylinkjs/latest/skylink.debug.min.js"&#62;&#60;/script&#62;
+      </pre>
+      </div>
+    </div>
+    <div class="row-wrapper" data-magellan-destination="gs-config">
+      <div class="row">
+        <h2 id="gs-config"><span>2.</span> Configuring the Application Key in Skylink</h2>
+        <p>
+          To use our application, you will require to have an application key, which is created with your Developer account. If you had not signed up for one yet, do so at Temasys Developer Portal.
+          <br>
+          <br>
+          <a href="http://developer.temasys.com.sg/register" class="btn btn-primary">Click here to Register for a Temasys Developer Account</a>
+        </p>
+        <pre class="prettyprint">
+        // Example outlook of an apikey
+        var appKey = "x3r33579-c237-4856-a77d-b2203385jalm1";
+        Skylink.config({
+          appKey: appKey
+        });
+      </pre>
+      </div>
+    </div>
+    <div class="row-wrapper" data-magellan-destination="gs-integration">
+      <div class="row">
+        <h2 id="gs-integration"><span>3.</span> Integrating Skylink into your Web Application</h2>
+        <p>
+          Here's how you can integrate Skylink into your Web Application with simple basic video conferencing functionalities.
+        </p>
+        <pre class="prettyprint">
+        &#60;!doctype html&#62;
+        &#60;html&#62;
+          &#60;head&#62;
+            &#60;title&#62;Simple Skylink Application&#60;/title&#62;
+            &#60;script src="//cdn.temasys.com.sg/skylink/skylinkjs/latest/skylink.complete.js"&#62;&#60;/script&#62;
+          &#60;/head&#62;
+          &#60;body&#62;
+            &#60;video id="me" autoplay muted&#62;&#60;/video&#62;
+            &#60;video id="other" autoplay&#62;&#60;/video&#62;
+            &#60;script&#62;
+              window.onload = function () {
+                var meElement = document.getElementById('me');
+                var otherElement = document.getElementById('other');
+
+                Skylink.on('incomingStream', function (stream, peerId, peerInfo, isSelf) {
+                  if (isSelf) {
+                    stream.attach(meElement);
+                  } else {
+                    stream.attach(otherElement);
+                  }
+                });
+
+                // Optional for debugging
+                // Skylink.setLogLevel(Skylink.LOG_LEVEL.DEBUG);
+
+                Skylink.init(apiKey, function () {
+                  Skylink.joinRoom({
+                    audio: true,
+                    video: true
+                  });
+                });
+              };
+            &#60;/script&#62;
+          &#60;/body&#62;
+        &#60;/html&#62;
+      </pre>
+      </div>
+    </div>
+  </section>
+  <!-- end of section:getting started -->
+  <footer>
+    <div class="row">
+      &#169; 2015 Temasys Communications Pte. Ltd.<br>
+      <p>Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0 (the "License")</a>.</p>
+    </div>
+  </footer>
+  <!-- scripts -->
+  <script>
+  window.jQuery || document.write('<script src="js/vendor/jquery-2.1.4.min.js"><\/script>')
+  </script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>
