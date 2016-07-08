@@ -1,0 +1,77 @@
+PREFIX mpb-root-main: <http://www.mindparabole.com/ontology/finance/MPBRoot_Main#> 
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX cit:<http://www.mindparabole.com/ontology/finance/Bank_Main#>
+PREFIX mpb-fin-main-ccar-14q:<http://www.mindparabole.com/ontology/finance/FRY-14Q_Main#>
+PREFIX mpb-root-main-crm:<http://www.mindparabole.com/ontology/finance/CreditRiskManagement_Main#>
+PREFIX mpb-fin-main-ccar:<http://www.mindparabole.com/ontology/finance/CCAR_Main#>
+PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
+PREFIX pb:<http://www.mindparabole.com/ontology/finance/Parabole-Model#>
+PREFIX CDE:<http://www.mindparabole.com/ontology/finance/CDE/CriticalDataElements#>
+SELECT ?taxonomy (COUNT(?CDE) AS ?Business_Definition_Drafted)
+(COUNT(?CDE2) AS ?CDEs_Idenfied) (COUNT(?CDE3) AS ?Authoritative_Source_Drafted)
+(COUNT(?CDE4) AS ?Quality_Monitoring_Implemented)(COUNT(?CDE5) AS ?Data_Standard_Drafted)
+
+WHERE{
+
+
+{SELECT  *
+WHERE {
+ ?CDE rdf:type CDE:Critical_Data_Elements.
+ ?CDE CDE:CDE_Business_Definition_Drafted ?BD.
+ ?CDE CDE:hasGranularity ?taxonomy.
+ FILTER(?BD = "Y"^^xsd:string)
+ ?CDE CDE:CDE_Business_Definition_Drafted_On ?Date.
+ BIND(replace(?Date,"_","-") AS ?Date2)
+   BIND(xsd:date(?Date2) AS ?Date3)
+   BIND(month(?Date3) AS ?Month)
+}}
+UNION
+{SELECT  *
+WHERE {
+ ?CDE2 rdf:type CDE:Critical_Data_Elements.
+ ?CDE2 CDE:CDE_Identified ?CI.
+ ?CDE2 CDE:hasGranularity ?taxonomy.
+ FILTER(?CI = "Y"^^xsd:string)
+ ?CDE2  CDE:CDE_Identified_On ?Date.
+ BIND(replace(?Date,"_","-") AS ?Date2)
+   BIND(xsd:date(?Date2) AS ?Date3)
+   BIND(month(?Date3) AS ?Month)
+}}
+UNION
+{SELECT  *
+WHERE {
+ ?CDE3 rdf:type CDE:Critical_Data_Elements.
+ ?CDE3 CDE:CDE_has_Authoritative_Source_Drafted ?AS.
+ ?CDE3 CDE:hasGranularity ?taxonomy.
+ FILTER(?AS = "Y"^^xsd:string)
+ ?CDE3 CDE:CDE_Auth_Source_Drafted_On ?Date.
+ BIND(replace(?Date,"_","-") AS ?Date2)
+   BIND(xsd:date(?Date2) AS ?Date3)
+   BIND(month(?Date3) AS ?Month)
+}}
+UNION
+{SELECT  *
+WHERE {
+ ?CDE4 rdf:type CDE:Critical_Data_Elements.
+ ?CDE4 CDE:QM_implemented  ?QM.
+ ?CDE4 CDE:hasGranularity ?taxonomy.
+ FILTER(?QM != "N/A"^^xsd:string)
+ ?CDE4 CDE:QM_implemented_on ?Date.
+ BIND(replace(?Date,"_","-") AS ?Date2)
+   BIND(xsd:date(?Date2) AS ?Date3)
+   BIND(month(?Date3) AS ?Month)
+}}
+UNION
+{SELECT  *
+WHERE {
+ ?CDE5 rdf:type CDE:Critical_Data_Elements.
+ ?CDE5 CDE:hasData_Standard_Drafted ?DS.
+ ?CDE5 CDE:hasGranularity ?taxonomy.
+ FILTER(?DS = "Y"^^xsd:string)
+ ?CDE5 CDE:CDE_Data_Standard_Drafted_On ?Date.
+ BIND(replace(?Date,"_","-") AS ?Date2)
+   BIND(xsd:date(?Date2) AS ?Date3)
+   BIND(month(?Date3) AS ?Month)
+}}}
+GROUP BY  ?taxonomy

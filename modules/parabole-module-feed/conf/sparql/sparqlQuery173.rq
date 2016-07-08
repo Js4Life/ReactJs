@@ -1,0 +1,28 @@
+PREFIX mpb-root-main: <http://www.mindparabole.com/ontology/finance/MPBRoot_Main#> 
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX cit:<http://www.mindparabole.com/ontology/finance/Bank_Main#>
+PREFIX CDE:<http://www.mindparabole.com/ontology/finance/CDE/CriticalDataElements#>
+PREFIX mt:<http://www.mindparabole.com/meeting#>
+PREFIX pb:<http://www.mindparabole.com/ontology/finance/Parabole-Model#>
+PREFIX mpb-fin-main-ccar-14q:<http://www.mindparabole.com/ontology/finance/FRY-14Q_Main#>
+PREFIX mpb-root-main-crm:<http://www.mindparabole.com/ontology/finance/CreditRiskManagement_Main#>
+PREFIX mpb-fin-main-ccar:<http://www.mindparabole.com/ontology/finance/CCAR_Main#>
+PREFIX Y14DB_Main:<http://www.mindparabole.com/ontology/finance/Y14DB_Main#>
+PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
+SELECT (COUNT(DISTINCT ?dr)AS ?num)?pr
+ WHERE{
+ ?model rdf:type pb:Model.
+ FILTER(?model = pb:CRE_PPNR_Model)
+ ?model pb:Model_has_DR ?dr.
+    ?dr rdf:type pb:Data_Request .
+    ?dr pb:Data_Req_has_Lifecycle ?lf.
+    ?lf rdfs:label ?labelReport.
+    ?lf pb:Datareq_Lifecycle_Date ?Date.
+    BIND(replace(?Date,"_","-") AS ?Date2)
+    BIND(xsd:date(?Date2) AS ?start) 
+    BIND(xsd:date(now() )AS ?now)
+    ?dr pb:DataReqpriority ?pr.
+    BIND("Data_Request" AS ?report)
+}
+GROUP BY ?pr

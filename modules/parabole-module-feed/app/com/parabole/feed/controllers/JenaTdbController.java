@@ -1,3 +1,4 @@
+/*
 package com.parabole.ccar.application.controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -18,12 +19,14 @@ import javax.inject.Inject;
 import java.util.Iterator;
 
 
+*/
 /**
  * Jena TDB Actions
  *
  * @author Sagiruddin Mondal
  * @since v1.0
- */
+ *//*
+
 public class JenaTdbController extends BaseController {
 
     @Inject
@@ -139,3 +142,4 @@ public class JenaTdbController extends BaseController {
         }
     }
 }
+*/

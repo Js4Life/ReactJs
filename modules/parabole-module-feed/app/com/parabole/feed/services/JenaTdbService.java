@@ -1,3 +1,4 @@
+/*
 package com.parabole.feed.application.services;
 
 import com.google.gson.*;
@@ -134,13 +135,15 @@ public class JenaTdbService {
         final String userId = dataSource.getString("userid");
         final String password = dataSource.getString("password");
 
-        /*
+        */
+/*
          * final String driver =
          * Configuration.root().getString("denodo.driver"); final String url =
          * Configuration.root().getString("denodo.url"); final String userId =
          * Configuration.root().getString("denodo.username"); final String
          * password = Configuration.root().getString("denodo.password");
-         */
+         *//*
+
 
         try {
             cfgInfo = AppUtils.getFileContent("json/" + CCAppConstants.JENA_BATCHINSRT_FILE);
@@ -359,11 +362,13 @@ public class JenaTdbService {
             }
             final String selectClause = queryStr.append(" WHERE ").toString();
             queryStr = new StringBuilder(body);
-            /*
+            */
+/*
              * queryStr.append(" ").append("FILTER (?label = \""
              * ).append(param1).append("\") ").append("FILTER (?label = \""
              * ).append(param2).append("\") ");
-             */
+             *//*
+
 
             String sparqlQueryString = AppUtils.getFileContent("sparql/" + sparqlFile);
             sparqlQueryString = sparqlQueryString.replace("$$STATEMENT$$", selectClause);
@@ -968,11 +973,13 @@ public class JenaTdbService {
         data.put("categories", categories);
         data.put("series", series);
 
-        /*
+        */
+/*
          * final Set<String> baseKeys = valueMap.keySet(); final List<String>
          * sortedList = new ArrayList<String>(baseKeys);
          * Collections.sort(sortedList);
-         */
+         *//*
+
         final Iterator<String> it = valueMap.keySet().iterator();
         while (it.hasNext()) {
             final String key = it.next();
@@ -1412,4 +1419,4 @@ public class JenaTdbService {
 
     }
 
-}
+}*/
