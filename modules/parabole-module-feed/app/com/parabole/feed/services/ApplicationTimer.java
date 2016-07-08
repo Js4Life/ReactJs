@@ -28,6 +28,10 @@ public class ApplicationTimer {
     private final ApplicationLifecycle appLifecycle;
     private final Instant start;
 
+    public String testCall(){
+        return "ok tested";
+    }
+
     @Inject
     public ApplicationTimer(Clock clock, ApplicationLifecycle appLifecycle) {
         this.clock = clock;

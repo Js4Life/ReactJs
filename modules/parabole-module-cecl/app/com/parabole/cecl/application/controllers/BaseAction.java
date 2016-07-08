@@ -24,6 +24,8 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
 
+//import com.parabole.feed.services.ApplicationTimer;
+
 import java.util.List;
 import java.util.Map;
 
@@ -55,6 +57,7 @@ public class BaseAction extends Controller {
 
     @Inject
     protected AuthenticationManager authenticationManager;
+
 
     public Result login() {
         return ok(com.parabole.cecl.application.views.html.login.render());
