@@ -138,3 +138,7 @@ CALL tdbloader --loc=tdb   %ONTOLOGY_LOC%/cecl_structure.rdf
 ECHO =====================================================
 CALL tdbloader --loc=tdb   %ONTOLOGY_LOC%/cecl_2016.rdf
 ECHO =====================================================
+CALL tdbloader --loc=tdb   %ONTOLOGY_LOC%/pnc_cecl.rdf
+ECHO =====================================================
+CALL tdbloader --loc=tdb   %ONTOLOGY_LOC%/fasb_concepts.rdf
+ECHO =====================================================
