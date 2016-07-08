@@ -1,0 +1,242 @@
+{
+	"FIELDPRIORITYSTATUS" :{
+		"dbName" : "cit_test",
+		"tableName" : "gapstatus",
+		"where" : "",
+		"selectColumns" : ["gapname","schedule","priority"],
+		"sparqlTpl" : "mpb-fin-main-ccar-14q:Sub_Sch_$$schedule$$_$$gapname$$ mpb-root-main:reportFieldPriority \"$$priority$$\".",
+		"sparqlFile" : "sparqlQuery30.rq"
+	},
+	"FRY9CUSAGE" :{
+		"dbName" : "cit_test",
+		"tableName" : "usage",
+		"where" : "fry9c = 'Yes'",
+		"selectColumns" : ["cdename"],
+		"sparqlTpl" : "CDE:$$cdename$$ CDE:is_Used_In cit:FRY9C.",
+		"sparqlFile" : "sparqlQuery30.rq"
+	},
+	"LIQUIDITY2052AUSAGE" :{
+		"dbName" : "cit_test",
+		"tableName" : "usage",
+		"where" : "liquidity2052a = 'Yes'",
+		"selectColumns" : ["cdename"],
+		"sparqlTpl" : "CDE:$$cdename$$ CDE:is_Used_In cit:Liquidity2052A.",
+		"sparqlFile" : "sparqlQuery30.rq"
+	},
+	"ONEDATASETUSAGE" :{
+		"dbName" : "cit_test",
+		"tableName" : "usage",
+		"where" : "onedataset = 'Yes'",
+		"selectColumns" : ["cdename"],
+		"sparqlTpl" : "CDE:$$cdename$$ CDE:is_Used_In cit:One_Data_Set.",
+		"sparqlFile" : "sparqlQuery30.rq"
+	},
+	"CCARUSAGE" :{
+		"dbName" : "cit_test",
+		"tableName" : "usage",
+		"where" : "ccar = 'Yes'",
+		"selectColumns" : ["cdename"],
+		"sparqlTpl" : "CDE:$$cdename$$ CDE:is_Used_In cit:CCAR.",
+		"sparqlFile" : "sparqlQuery30.rq"
+	},
+	"CCAR1A" :{
+		"dbName" : "cit_test",
+		"tableName" : "ccar",
+		"where" : "",
+		"selectColumns" : ["report"],
+		"sparqlTpl" : ["mpb-fin-main-ccar:$$report$$ rdf:type pb:Report .","mpb-fin-main-ccar:$$report$$ rdfs:label ##report##."],
+		"sparqlFile" : "sparqlQuery30.rq"
+	},
+	"CCAR1" :{
+		"dbName" : "cit_test",
+		"tableName" : "ccar",
+		"where" : "",
+		"selectColumns" : ["regulation","report"],
+		"sparqlTpl" : "mpb-fin-main-ccar:$$regulation$$ mpb-root-main:requiresReport mpb-fin-main-ccar:$$report$$.",
+		"sparqlFile" : "sparqlQuery30.rq"
+	},
+	"CCAR2" :{
+		"dbName" : "cit_test",
+		"tableName" : "report_schedule",
+		"where" : "",
+		"selectColumns" : ["report","schedule"],
+		"sparqlTpl" : "mpb-fin-main-ccar:$$report$$ mpb-root-main:hasReportSchedule mpb-fin-main-ccar:$$schedule$$.",
+		"sparqlFile" : "sparqlQuery30.rq"
+	},
+	"CCAR3" :{
+		"dbName" : "cit_test",
+		"tableName" : "schedule_subschedule",
+		"where" : "",
+		"selectColumns" : ["schedule","subschedule"],
+		"sparqlTpl" : "mpb-fin-main-ccar:$$schedule$$ mpb-root-main:hasReportSub_Schedule mpb-fin-main-ccar:$$subschedule$$.",
+		"sparqlFile" : "sparqlQuery30.rq"
+	},
+	"CCAR4" :{
+		"dbName" : "cit_test",
+		"tableName" : "subschedule_field",
+		"where" : "",
+		"selectColumns" : ["subschedule","field"],
+		"sparqlTpl" : "mpb-fin-main-ccar:$$subschedule$$ mpb-root-main:hasReportField mpb-fin-main-ccar:$$field$$.",
+		"sparqlFile" : "sparqlQuery30.rq"
+	},
+	"CITCCAR1" :{
+		"dbName" : "cit_test",
+		"tableName" : "reportfield_citfield",
+		"where" : "",
+		"selectColumns" : ["cit_field"],
+		"sparqlTpl" : "mpb-fin-main-ccar:$$cit_field$$ rdf:type mpb-root-main:DataField.",
+		"sparqlFile" : "sparqlQuery30.rq"
+	},
+	"CITCCAR2" :{
+		"dbName" : "cit_test",
+		"tableName" : "reportfield_citfield",
+		"where" : "",
+		"selectColumns" : ["field","cit_field"],
+		"sparqlTpl" : "mpb-fin-main-ccar:$$field$$ mpb-root-main:main:hasSourceDataField cit:$$cit_field$$.",
+		"sparqlFile" : "sparqlQuery30.rq"
+	},
+	"CITDAC1" :{
+		"dbName" : "cit_test",
+		"tableName" : "dac",
+		"where" : "",
+		"selectColumns" : ["name"],
+		"sparqlTpl" : "cit:$$name$$ rdf:type pb:Person.",
+		"sparqlFile" : "sparqlQuery30.rq"
+	},
+	"CITDAC2" :{
+		"dbName" : "cit_test",
+		"tableName" : "dac",
+		"where" : "",
+		"selectColumns" : ["organization"],
+		"sparqlTpl" : "cit:$$organization$$ rdf:type pb:Organization.",
+		"sparqlFile" : "sparqlQuery30.rq"
+	},
+	"CITDAC3" :{
+		"dbName" : "cit_test",
+		"tableName" : "dac",
+		"where" : "",
+		"selectColumns" : ["functionalarea"],
+		"sparqlTpl" : "cit:$$functionalarea$$ rdf:type pb:Functional_Area.",
+		"sparqlFile" : "sparqlQuery30.rq"
+	},
+	"CITDAC4" :{
+		"dbName" : "cit_test",
+		"tableName" : "dac",
+		"where" : "",
+		"selectColumns" : ["name", "functionalarea"],
+		"sparqlTpl" : "cit:$$name$$ pb:has_Functional_Area pb:$$functionalarea$$.",
+		"sparqlFile" : "sparqlQuery30.rq"
+	},
+	"CITDAC5" :{
+		"dbName" : "cit_test",
+		"tableName" : "dac",
+		"where" : "",
+		"selectColumns" : ["name", "organization"],
+		"sparqlTpl" : "cit:$$name$$ pb:has_Organization pb:$$organization$$.",
+		"sparqlFile" : "sparqlQuery30.rq"
+	},
+	"CITEWG1" :{
+		"dbName" : "cit_test",
+		"tableName" : "ewg",
+		"where" : "",
+		"selectColumns" : ["name"],
+		"sparqlTpl" : "cit:$$name$$ rdf:type pb:Person.",
+		"sparqlFile" : "sparqlQuery30.rq"
+	},
+	"CITEWG2" :{
+		"dbName" : "cit_test",
+		"tableName" : "ewg",
+		"where" : "",
+		"selectColumns" : ["organization"],
+		"sparqlTpl" : "cit:$$organization$$ rdf:type pb:Organization.",
+		"sparqlFile" : "sparqlQuery30.rq"
+	},
+	"CITEWG3" :{
+		"dbName" : "cit_test",
+		"tableName" : "ewg",
+		"where" : "",
+		"selectColumns" : ["functionalarea"],
+		"sparqlTpl" : "cit:$$functionalarea$$ rdf:type pb:Functional_Area.",
+		"sparqlFile" : "sparqlQuery30.rq"
+	},
+	"CITEWG4" :{
+		"dbName" : "cit_test",
+		"tableName" : "ewg",
+		"where" : "",
+		"selectColumns" : ["name", "functionalarea"],
+		"sparqlTpl" : "cit:$$name$$ pb:has_Functional_Area pb:$$functionalarea$$.",
+		"sparqlFile" : "sparqlQuery30.rq"
+	},
+	"CITEWG5" :{
+		"dbName" : "cit_test",
+		"tableName" : "ewg",
+		"where" : "",
+		"selectColumns" : ["name", "organization"],
+		"sparqlTpl" : "cit:$$name$$ pb:has_Organization pb:$$organization$$.",
+		"sparqlFile" : "sparqlQuery30.rq"
+	},
+	"CITWG1" :{
+		"dbName" : "cit_test",
+		"tableName" : "wg",
+		"where" : "",
+		"selectColumns" : ["person"],
+		"sparqlTpl" : "cit:$$person$$ rdf:type pb:Person.",
+		"sparqlFile" : "sparqlQuery30.rq"
+	},
+	"CITWG2" :{
+		"dbName" : "cit_test",
+		"tableName" : "wg",
+		"where" : "",
+		"selectColumns" : ["organization"],
+		"sparqlTpl" : "cit:$$organization$$ rdf:type pb:Organization.",
+		"sparqlFile" : "sparqlQuery30.rq"
+	},
+	"CITWG3" :{
+		"dbName" : "cit_test",
+		"tableName" : "wg",
+		"where" : "",
+		"selectColumns" : ["functionalarea"],
+		"sparqlTpl" : "cit:$$functionalarea$$ rdf:type pb:Functional_Area.",
+		"sparqlFile" : "sparqlQuery30.rq"
+	},
+	"CITWG4" :{
+		"dbName" : "cit_test",
+		"tableName" : "wg",
+		"where" : "",
+		"selectColumns" : ["focus"],
+		"sparqlTpl" : "cit:$$focus$$ rdf:type pb:Focus_Area.",
+		"sparqlFile" : "sparqlQuery30.rq"
+	},
+	"CITWG5" :{
+		"dbName" : "cit_test",
+		"tableName" : "wg",
+		"where" : "",
+		"selectColumns" : ["person", "functionalarea"],
+		"sparqlTpl" : "cit:$$person$$ pb:has_Functional_Area pb:$$functionalarea$$.",
+		"sparqlFile" : "sparqlQuery30.rq"
+	},
+	"CITWG6" :{
+		"dbName" : "cit_test",
+		"tableName" : "wg",
+		"where" : "",
+		"selectColumns" : ["person", "organization"],
+		"sparqlTpl" : "cit:$$person$$ pb:has_Organization pb:$$organization$$.",
+		"sparqlFile" : "sparqlQuery30.rq"
+	},
+	"CITWG7" :{
+		"dbName" : "cit_test",
+		"tableName" : "wg",
+		"where" : "",
+		"selectColumns" : ["person", "focus"],
+		"sparqlTpl" : "cit:$$person$$ pb:has_Focus_Area pb:$$focus$$.",
+		"sparqlFile" : "sparqlQuery30.rq"
+	},
+	"CITWG8" :{
+		"dbName" : "cit_test",
+		"tableName" : "wg",
+		"where" : "",
+		"selectColumns" : ["person"],
+		"sparqlTpl" : "cit:$$person$$ pb:hasRole \"DataSteward\".",
+		"sparqlFile" : "sparqlQuery30.rq"
+	}
+}

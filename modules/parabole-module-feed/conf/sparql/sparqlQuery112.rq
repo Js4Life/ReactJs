@@ -1,0 +1,37 @@
+PREFIX mpb-root-main: <http://www.mindparabole.com/ontology/finance/MPBRoot_Main#> 
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX cit:<http://www.mindparabole.com/ontology/finance/Bank_Main#>
+PREFIX mpb-fin-main-ccar-14q:<http://www.mindparabole.com/ontology/finance/FRY-14Q_Main#>
+PREFIX mpb-root-main-crm:<http://www.mindparabole.com/ontology/finance/CreditRiskManagement_Main#>
+PREFIX mpb-fin-main-ccar:<http://www.mindparabole.com/ontology/finance/CCAR_Main#>
+PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
+PREFIX pb:<http://www.mindparabole.com/ontology/finance/Parabole-Model#>
+PREFIX CDE:<http://www.mindparabole.com/ontology/finance/CDE/CriticalDataElements#>
+SELECT ?SubSchedule_Name ?Status ?Rem (COUNT(?IC)AS ?num) ?CRE ?CIT_Business_Capital ?Transportation_Finance ?Commercial_Finance
+WHERE{
+{SELECT *
+WHERE{
+?schedule rdf:type mpb-root-main:ReportSchedule.
+?Sub_Schedule mpb-root-main:isPartOfReportSchedule ?schedule.
+?Sub_Schedule rdfs:label ?SubSchedule_Name.
+FILTER(?SubSchedule_Name ="H1 Corporate Loan Data")
+?schedule mpb-root-main:schedulehasinternalBS ?BS.
+?BS rdfs:label ?BS_Name.
+OPTIONAL{?Sub_Schedule  mpb-root-main:hasReportField ?Report_Field.}
+?Report_Field mpb-root-main:hasReportFieldStatus ?Status.
+?Report_Field mpb-root-main:hasRemediation ?Rem.
+?Report_Field mpb-root-main:RemediationDate ?Date.
+FILTER(?Date != "NA")
+FILTER(?Status != "No_Issues")
+OPTIONAL{?Report_Field mpb-root-main:hasIssuecount ?IC.}
+?schedule rdfs:label ?Schedule.
+}}
+BIND(IF(?BS_Name= "Commercial Real Estate",?Date,"NA") AS ?CRE)
+BIND(IF(?BS_Name= "CIT Business Capital",?Date,"NA") AS ?CIT_Business_Capital)
+BIND(IF(?BS_Name = "Transportation Finance",?Date,"NA") AS ?Transportation_Finance)
+BIND(IF(?BS_Name = "Commercial Finance",?Date,"NA") AS ?Commercial_Finance)
+}
+GROUP BY ?SubSchedule_Name ?Status ?Rem ?CRE ?CIT_Business_Capital 
+?Transportation_Finance ?Commercial_Finance 
+

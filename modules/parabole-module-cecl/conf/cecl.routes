@@ -6,6 +6,7 @@
 # ---------------------------------------------------------------------------------
 GET         /                                                                          com.parabole.cecl.application.controllers.BaseAction.dologin()
 GET         /doLogin                                                                   com.parabole.cecl.application.controllers.BaseAction.dologin()
+GET         /testFeed                                                                   com.parabole.cecl.application.controllers.BaseAction.testFeed()
 GET         /logout                                                                    com.parabole.cecl.application.controllers.BaseAction.logout()
 GET         /getHardCodedResponse/:jsonFileName                                        com.parabole.cecl.application.controllers.BaseAction.getHardCodedResponse(jsonFileName: String)
 GET         /getLogicalViewJson/:viewName                                              com.parabole.cecl.application.controllers.BaseAction.getLogicalViewJson(viewName: String)
