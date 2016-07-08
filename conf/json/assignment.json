@@ -5,6 +5,31 @@
   "results": {
     "bindings": [
       {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Accretion" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Accretion is asset and earnings growth due to business expansion, and it can occur through a company's internal growth or by way of mergers and acquisitions. Accretion is also used to account for a capital gain when an investor buys a bond at a discount and holds the bond until maturity" },
+        "definitionlink": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "http://mindparabole.com" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#AmortizedCostBasis" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The amortized cost basis is the amount at which a financing receivable or investment is originated or acquired, adjusted for applicable accrued interest, accretion, or amortization of premium, discount, and net deferred fees or costs, collection of cash,  writeoffs, foreign exchange, and fair value hedge accounting adjustments" },
+        "definitionlink": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "http://mindparabole.com" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#EffectiveInterestRate" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The rate of return implicit in the financial asset, that is, the contractual interest rate adjusted for any net deferred fees or costs, premium, or discount existing at the origination or acquisition of the financial asset" },
+        "definitionlink": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "http://mindparabole.com" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#HoldingGainorLoss" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The net change in fair value of a security. The holding gain or loss does not include dividend or interest income recognized but not yet received, writeoffs, or the allowance for credit losses" },
+        "definitionlink": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "http://mindparabole.com" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#RemeasurementEvent" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A remeasurement (new basis) event is an event identified in other authoritative accounting literature, other than the measurement of an impairment under Topic 321 or credit loss under Topic 326 that requires a financial instrument to be remeasured to its fair value at the time of the event but does not require that financial instrument to be reported at fair value continually with the change in fair value recognized in earnings. Examples of remeasurement events are business combinations and significant modifications of debt as discussed in paragraph 470-50-40-6" },
+        "definitionlink": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "http://mindparabole.com" }
+      } ,
+      {
         "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#Report" } ,
         "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "In accordance with paragraph 460-10-30-2, a liability shall be recognized at the inception of the guarantee even if the guarantor does not receive a separately identified premium when it issues the guarantee. For example, in conjunction with the cash sale of equipment to a customer, a manufacturer may issue to its customer\u2019s bank a guarantee of the customer\u2019s loan for which the proceeds are used to pay for the equipment. There is no separately identified premium for the guarantee, although the sales arrangement may impound an implicit premium. The manufacturer may simply view the guarantee as an accommodation to its customer. The seller-guarantor has incurred an obligation identical to the obligation it would incur if it required its customer to pay an explicit premium for the guarantee. Thus, the seller-guarantor shall immediately recognize a liability for its obligations under a newly issued guarantee, even if a separately identified premium was not received. If an entity guaranteed a customer\u2019s bank loan purely as an accommodation to an important longstanding customer, unrelated to a specific transaction, the liability for the entity\u2019s obligations under the guarantee should be recognized." },
         "definitionlink": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "http://mindparabole.com" }
