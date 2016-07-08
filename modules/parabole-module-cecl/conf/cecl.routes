@@ -115,6 +115,7 @@ POST        /getJsonForAllLinegeAgainstNodeId                                   
 # Static Resources
 # ---------------------------------------------------------------------------------
 # GET         /assets/*file                                                         controllers.Assets.rda.at(path="/public/lib/rda", file)
+
 GET         /ceclassets/*file                                                         controllers.Assets.at(path="/public/lib/parabole-module-cecl", file)
 
 
@@ -139,3 +140,4 @@ GET /jenaTDBUpdate/:fileIdentification     com.parabole.cecl.application.control
 GET /jenaTDBBatch/:fileIdentification      com.parabole.cecl.application.controllers.JenaTdbController.jenaTDBBatch(fileIdentification: String)
 GET /jenaTDBInsert/:fileIdentification     com.parabole.cecl.application.controllers.JenaTdbController.jenaTDBInsert(fileIdentification: String)
 GET /loadAllFromBatch                      com.parabole.cecl.application.controllers.JenaTdbController.loadAllFromBatch()
+
