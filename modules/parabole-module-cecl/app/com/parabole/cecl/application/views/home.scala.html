@@ -20,9 +20,9 @@
           </ul>
         </div>
         <div ng-class="collapseClasses.center" style="cursor:hand;height:80vh;border:1px solid #ddd;overflow: auto;padding:15px;">
-            <div class="col-md-2" ng-repeat="child in childNodes | filter: searchText">
+            <div class="col-md-2" ng-repeat="child in childNodes | orderBy : 'name' | filter: searchText">
               <div class="panel panel-default pointer" ng-click="getNodeDetails(child)">
-                <div class="panel-body text-center zero-padding" style="background:#cccccc;font-size: 5em;">
+                <div class="panel-body text-center zero-padding" style="background:#cccccc;font-size: 2.5em;">
                     <div style="font-weight: bold;">{{child.name.charAt(0)}}</div>
                 </div>
                 <div class="panel-footer ellipsis-text" tooltip='"title":"{{child.name}}"'>{{child.name}}</div>
@@ -34,19 +34,34 @@
   </div>
 </div>
 
-<div class="modal fade" id="dsViewer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+<div class="modal fade bs-example-modal-lg" id="dsViewer" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" style="width:92%;">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">{{currentNode.name}}</h4>
+        <h4 class="modal-title" id="myModalLabel">{{currentNode.name}}&nbsp({{currentNode.type}})</h4>
       </div>
-      <div class="modal-body">
-        <textarea ng-disabled="true" ng-model="allColumnStr" rows="10" cols="40" style="border:none;width:100%;">
+      <div class="modal-body" style="max-height: 66vh; overflow: auto;padding-bottom: 0;">
+        <div class="row zero-padding">
+          <div class="col-md-10 col-md-offset-1">
+            <textarea ng-if="currentNode.definition" ng-disabled="true" ng-model="currentNode.definition" rows="4" cols="40" style="border:none;width:100%;padding:10px;">
 
-        </textarea>
+            </textarea>
+          </div>
+        </div>
         <br />
-        <a class="pointer" ng-if="currentSelNode.extraInfo.definitionLink" ng-click="viewDefinitionLink()">Read More...</a>
+        <div class="row zero-padding">
+          <div class="col-md-1"></div>
+          <div class="col-md-2" ng-repeat="(k, v) in nodeDetails">
+            <div class="panel panel-default">
+              <div class="panel-heading">{{k}}</div>
+              <ul class="list-group" style="max-height: 40vh; overflow: auto;">
+                <li class="list-group-item" ng-repeat="o in v">{{o.name}}</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-1"></div>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -159,20 +159,24 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.iniitialize();
 })
 
-.controller('homeCtrl', function($scope, $state, $stateParams, SharedService, RiskAggregateService, graphService) {
+.controller('homeCtrl', function($scope, $state, $stateParams, SharedService, RiskAggregateService, graphService, MockService) {
 	$scope.iniitialize = function( ){
 		$scope.heading = SharedService.primaryNav[0];
 		$scope.collapseSlide = {left: false};
 		$scope.collapseClasses = {left: "col-xs-2 menu-back slide-container", center: "col-xs-10"};
-		RiskAggregateService.loadInitialState().then( function( data ) {
+		/*RiskAggregateService.loadInitialState().then( function( data ) {
 			$scope.nodes = data.vertices;
-		});
+		});*/
+		$scope.nodes = MockService.CeclBaseNodes;
 	}
 	
 	$scope.exploreNode = function (node, e) {
 		$scope.searchText = "";
-		graphService.getRelatedNodes(node.id).then( function( nodeDef ){
+		/*graphService.getRelatedNodes(node.id).then( function( nodeDef ){
 			$scope.childNodes = nodeDef.vertices;
+		});*/
+		SharedService.getFilteredDataByCompName("ceclBaseNodeDetails", node.id).then(function (data) {
+			$scope.childNodes = data.data;
 		});
 		$(e.currentTarget).parent().children().removeClass('active');
 		$(e.currentTarget).addClass('active');
@@ -185,7 +189,12 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 	$scope.getNodeDetails = function (childNode) {
 		$scope.currentNode = childNode;
-		$('#dsViewer').modal('show');
+		$scope.currentNode.definition = MockService.CeclChildNodeDetails[$scope.currentNode.name] || null;
+		SharedService.getFilteredDataByCompName("ceclChildNodeDetails", "").then(function (data) {
+			var nodes = data.data;
+			$scope.nodeDetails = _.groupBy(nodes, "type");
+			$('#dsViewer').modal('show');
+		});
 	}
 
 	function scaleSlides(){

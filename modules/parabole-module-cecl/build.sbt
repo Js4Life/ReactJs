@@ -8,12 +8,7 @@ libraryDependencies ++= Common.commonDependencies ++: Seq(
   "com.itextpdf" % "itext-pdfa" % "5.5.6-1",
   "com.itextpdf.tool" % "xmlworker" % "5.5.6",
   "org.apache.xmlgraphics" % "batik-transcoder" % "1.8",
-  "org.apache.xmlgraphics" % "batik-codec" % "1.8"
+  "org.apache.xmlgraphics" % "batik-codec" % "1.8",
+  "org.apache.jena" % "apache-jena-libs" % "3.0.1"
 )
 
-lazy val cecl = (project in file(".")).enablePlugins(PlayJava)
-  .aggregate(feed)
-  .dependsOn(feed)
-
-
-lazy val feed = (project in file("modules/parabole-module-feed")).enablePlugins(PlayScala)

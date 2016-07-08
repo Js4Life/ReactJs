@@ -67,7 +67,8 @@ angular.module('RDAApp.services', [])
         'GetAllLogicalViewsForAggregatorNode' : 'findlogicalViewForNode',
         'GetJsonForAllLinegeAgainstNodeIdwithAdaptiveLearning' : 'getJsonForAllLinegeAgainstNodeIdwithAdaptiveLearning',
         'GetJsonForAllLinegewithAdaptiveLearning' : 'getJsonForAllLinegewithAdaptiveLearning',
-        'GetLineageDbData' : 'getLineageDbData'
+        'GetLineageDbData' : 'getLineageDbData',
+        'GetFilteredDataByCompName' : 'getFilteredDataByCompName'
     };
     SharedService.chartDataMap = {
         '0' : 'getHardCodedResponse/chartData1',
@@ -549,9 +550,15 @@ angular.module('RDAApp.services', [])
         var sendObj = {"data": inData};
         return SharedService.invokeService('GetJsonForAllLinegewithAdaptiveLearning', sendObj, 'post');
     }
+    
     SharedService.getJsonForAllLinegeAgainstNodeIdwithAdaptiveLearning = function(inData){
         var sendObj = {"data": inData};
         return SharedService.invokeService('GetJsonForAllLinegeAgainstNodeIdwithAdaptiveLearning', sendObj, 'post');
+    }
+
+    SharedService.getFilteredDataByCompName = function(compName, filterStr){
+        var sendObj = {"compName": compName, "filterStr": filterStr};
+        return SharedService.invokeService('GetFilteredDataByCompName', sendObj, 'post');
     }
 
     return SharedService;
@@ -1422,7 +1429,17 @@ angular.module('RDAApp.services', [])
                             ]
                         };
 
-    
+    MockService.CeclBaseNodes = [
+        {"name": "Topic", "id": "Topic"},{"name": "Sub-Topic", "id": "Sub-Topic"},{"name": "Section", "id": "Section"},{"name": "Paragraph", "id": "Paragraph"},{"name": "Concept", "id": "FASB Concept"}
+    ];
+
+    MockService.CeclChildNodeDetails = {
+        "Amortized Cost Basis" : "The amortized cost basis is the amount at which a financing receivable or investment is originated or acquired, adjusted for applicable accrued interest, accretion, or amortization of premium, discount, and net deferred fees or costs, collection of cash,  writeoffs, foreign exchange, and fair value hedge accounting adjustments",
+        "Effective Interest Rate" : "The rate of return implicit in the financial asset, that is, the contractual interest rate adjusted for any net deferred fees or costs, premium, or discount existing at the origination or acquisition of the financial asset",
+        "Holding Gain or Loss" : "The net change in fair value of a security. The holding gain or loss does not include dividend or interest income recognized but not yet received, writeoffs, or the allowance for credit losses",
+        "Remeasurement Event" : "A remeasurement (new basis) event is an event identified in other authoritative accounting literature, other than the measurement of an impairment under Topic 321 or credit loss under Topic 326 that requires a financial instrument to be remeasured to its fair value at the time of the event but does not require that financial instrument to be reported at fair value continually with the change in fair value recognized in earnings. Examples of remeasurement events are business combinations and significant modifications of debt as discussed in paragraph 470-50-40-6",
+        "Accretion" : "Accretion is asset and earnings growth due to business expansion, and it can occur through a company's internal growth or by way of mergers and acquisitions. Accretion is also used to account for a capital gain when an investor buys a bond at a discount and holds the bond until maturity"
+    }
 
     return MockService;
 })

@@ -1,0 +1,338 @@
+PREFIX mpb-root-main: <http://www.mindparabole.com/ontology/finance/MPBRoot_Main#> 
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX cit:<http://www.mindparabole.com/ontology/finance/Bank_Main#>
+PREFIX CDE:<http://www.mindparabole.com/ontology/finance/CDE/CriticalDataElements#>
+PREFIX mt:<http://www.mindparabole.com/meeting#>
+PREFIX pb:<http://www.mindparabole.com/ontology/finance/Parabole-Model#>
+PREFIX mpb-fin-main-ccar-14q:<http://www.mindparabole.com/ontology/finance/FRY-14Q_Main#>
+PREFIX mpb-root-main-crm:<http://www.mindparabole.com/ontology/finance/CreditRiskManagement_Main#>
+PREFIX mpb-fin-main-ccar:<http://www.mindparabole.com/ontology/finance/CCAR_Main#>
+PREFIX Y14DB_Main:<http://www.mindparabole.com/ontology/finance/Y14DB_Main#>
+PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
+PREFIX smf: <http://topbraid.org/sparqlmotionfunctions#> 
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
+PREFIX bank:<http://mindparabole.com/finance/bank#> 
+PREFIX com:<http://mindparabole.com/finance/common#> 
+PREFIX cor:<http://mindparabole.com/finance/currency#> 
+PREFIX loc:<http://mindparabole.com/finance/location#> 
+PREFIX dep:<http://mindparabole.com/liquidity/depositor#> 
+PREFIX ent:<http://mindparabole.com/liquidity/entity#> 
+PREFIX na:<http://mindparabole.com/liquidity/naics#> 
+PREFIX obl:<http://mindparabole.com/liquidity/obligor#> 
+PREFIX prs:<http://mindparabole.com/liquidity/product-segment#>
+PREFIX liq:<http://mindparabole.com/liquidity/liqdata#>
+PREFIX cur:<http://mindparabole.com/finance/currency#>
+
+
+
+
+select ?Ratio ?net
+where {
+bind (xsd:string("LCR") as ?Ratio)
+{select (?hqlat / ?nco as ?LCR)
+where {
+
+{select ?hqlat
+where {
+
+{select (sum (?L1) as ?1)(sum (?L2A) as ?A)(sum (?L2B) as ?B)
+where {
+
+{select ?hqla (sum(?mult) as ?total)
+where {{
+
+?a rdf:type com:CashAndDueFromBanks .
+		bind (xsd:string ("L1") as ?hqla)		}union{
+
+
+?a rdf:type com:InvestmentSecurities .
+		?a com:issuedBy ?issuer .
+		optional{?a com:marketable ?mkt .}
+		?issuer com:RWAFactor ?rwa .
+		optional {?a com:guaranteedBy ?gr .}
+		?issuer com:USGovSponsoredEntity ?USG .
+		?issuer rdf:type ?comclass .
+		bind(if(!bound(?gr),false,?gr) as ?guaranteed)
+		bind(if(!bound(?mkt),false,?mkt) as ?marketable)
+
+	bind(xsd:string(if(?guaranteed = liq:FederalReserveSystem ||
+			?guaranteed= liq:USGovernment ||
+		 	?guaranteed = liq:CaliforniaState ||
+			?rwa = 0 ,"L1",
+
+		(if(?guaranteed != liq:FederalReserveSystem &&
+			?guaranteed != liq:USGovernment &&
+		 	?guaranteed != liq:CaliforniaState &&
+			?USG = true ||
+			?rwa = 20 ,"L2A",
+
+		(if(?guaranteed != liq:FederalReserveSystem &&
+			?guaranteed != liq:USGovernment &&
+		 	?guaranteed != liq:CaliforniaState &&
+			?USG != true &&
+			?rwa !=0 &&
+			?rwa != 20 &&
+			?marketable = true ||
+			?comclass = ent:NonFinancialWholesale ,"L2B",				false))))))as ?hqla)  }union{
+
+?a rdf:type com:Lendings .
+		bind (xsd:string ("L1") as ?hqla)		}union{
+
+
+?a rdf:type com:Loans .
+		?a com:customer ?customer .
+		optional {?a com:guaranteedBy ?gr .}
+		bind(if(!bound(?gr),false,?gr) as ?guaranteed)
+		?customer com:USGovSponsoredEntity ?USG .
+		?customer com:RWAFactor ?rwa .
+		?customer rdf:type ?comclass .
+
+bind(xsd:string(if(?guaranteed = liq:FederalReserveSystem ||
+			?guaranteed= liq:USGovernment ||
+		 	?guaranteed = liq:CaliforniaState ||
+			?rwa = 0 ,"L1",
+
+		(if(?guaranteed != liq:FederalReserveSystem &&
+			?guaranteed != liq:USGovernment &&
+		 	?guaranteed != liq:CaliforniaState &&
+			?USG = true ||
+			?rwa = 20 ,"L2A",
+
+		(if(?guaranteed != liq:FederalReserveSystem &&
+			?guaranteed != liq:USGovernment &&
+		 	?guaranteed != liq:CaliforniaState &&
+			?USG != true &&
+			?rwa !=0 &&
+			?rwa != 20 &&
+			?comclass = ent:NonFinancialWholesale ,"L2B",				false))))))as ?hqla)  }union{
+
+?a rdf:type com:OtherAssets .
+		bind (xsd:string(false) as ?hqla)					}union{
+
+
+?a rdf:type com:TradingAccountAssets .
+	?a com:issuedBy ?issuer .
+		optional{?a com:marketable ?mkt .}
+		?issuer com:RWAFactor ?rwa .
+		optional {?a com:guaranteedBy ?gr .}
+		?issuer com:USGovSponsoredEntity ?USG .
+		?issuer rdf:type ?comclass .
+		bind(if(!bound(?gr),false,?gr) as ?guaranteed)
+		bind(if(!bound(?mkt),false,?mkt) as ?marketable)
+
+	bind(xsd:string(if(?guaranteed = liq:FederalReserveSystem ||
+			?guaranteed= liq:USGovernment ||
+		 	?guaranteed = liq:CaliforniaState ||
+			?rwa = 0 ,"L1",
+
+		(if(?guaranteed != liq:FederalReserveSystem &&
+			?guaranteed != liq:USGovernment &&
+		 	?guaranteed != liq:CaliforniaState &&
+			?USG = true ||
+			?rwa = 20 ,"L2A",
+
+		(if(?guaranteed != liq:FederalReserveSystem &&
+			?guaranteed != liq:USGovernment &&
+		 	?guaranteed != liq:CaliforniaState &&
+			?USG != true &&
+			?rwa !=0 &&
+			?rwa != 20 &&
+			?marketable = true ||
+			?comclass = ent:NonFinancialWholesale ,"L2B",				false))))))as ?hqla)  }
+
+?a rdfs:label ?label .
+?a rdf:type ?class .
+?a com:notionalValue ?value.
+?a cur:currency ?cur .
+?cur cur:forexRate ?fx .
+optional {?a com:pledged ?pl}
+bind(if(!bound(?pl),0,?pl) as ?pledged)
+bind (xsd:float(?fx * ?value )as ?amount)
+bind (xsd:float
+	(if (?hqla = "L1",100,
+	(if(?hqla = "L2A",85,
+	(if(?hqla = "L2B",50,
+		0)))))) as ?factor)
+bind (xsd:float (?factor * (?amount - ?pledged)/100) as ?mult)
+}group by ?hqla}
+
+bind (if(?hqla = "L1", ?total, 0) as ?L1)
+bind (if(?hqla = "L2A", ?total, 0) as ?L2A)
+bind (if(?hqla = "L2B", ?total, 0) as ?L2B)
+}}
+bind (if (?1 >(?A +?B)*1.5 && ?B < (?1+?A +?B)*0.15 , ?1+?A +?B,?1/0.6) as ?hqlat)
+}}
+
+{select ?nco
+where {
+
+{Select (sum(?amount) as ?coft)
+Where {
+
+{select *
+where {{
+
+?a rdf:type com:Borrowings .
+		?a com:customer ?cus .
+		?cus rdf:type ?ctype .
+		optional {?a com:brokeredDeposit ?brok}
+		optional {?a com:operationalDeposit ?oper}
+		?a com:secured ?sec .
+		?a dep:insuredDeposit ?insu .
+		?a com:heldInEscrow ?escr .
+	bind (xsd:float
+		(if (?oper = false &&
+			?ctype != ent:FI &&
+			?escr = false &&
+			?brok = false &&
+			?insu = "Fully Insured By FDIC", 20,
+		(if (	(?oper = false &&
+				?escr = false &&
+				?ctype != ent:FI &&
+				?brok = true )||
+				(?oper = false &&
+				?escr = false &&
+				?ctype != ent:FI &&
+				?insu = "Partly Insured By FDIC"), 40,
+		(if (?oper = false &&
+				?escr = true &&
+				?insu = "Fully Insured By FDIC", 5,
+		(if (?oper = false &&
+				?escr = true &&
+				?insu = "Partly Insured By FDIC", 25, 100)))))))) as ?cof)
+
+			}union{
+
+?a rdf:type com:Deposits .
+		?a dep:stableDeposit ?stable .
+		?a dep:directDeposit ?direct .
+		?a dep:insuredDeposit ?insured .
+
+	bind(xsd:float
+		(if	(?stable = true, "3",
+		(if	(?stable = false &&
+			?insured = "Partly Insured By FDIC" ||
+			?insured = "Fully Insured By FDIC", 10,
+		(if(?stable = false &&
+			?insured != "Partly Insured By FDIC" &&
+			?insured != "Fully Insured By FDIC" &&
+			?insured = "Partly Insured By Other Than FDIC",20,40)))))) as ?cof)
+
+		}union{
+
+?a rdf:type com:LbBonds .
+bind (xsd:float(100 )as ?cof)
+
+		}union{
+
+?a rdf:type com:OtherLiabilities .
+bind (xsd:float(100 )as ?cof)
+
+		}union{
+
+?a rdf:type com:ShareholdersEquity .
+bind (xsd:float(0 )as ?cof)}
+
+?a com:notionalValue ?value.
+?a cur:currency ?cur .
+?cur cur:forexRate ?fx .
+bind (xsd:float(?fx * ?value * ?cof /100 )as ?amount)
+
+}}union
+
+{select *
+where {
+?a rdf:type ?class .
+filter(	?class = com:Commitments ||
+			?class = com:ContingentLiabilities)
+			?a com:issueDate ?idate .
+			?a com:maturityDate ?mdate
+			bind (xsd:float(smf:duration("d",afn:now(), ?mdate)) as ?days)
+			?a prs:product ?prod .
+			?a com:customer ?cus .
+			?cus rdf:type ?ctype .
+			?a obl:facilityAmount ?faci .
+			?a obl:utilizedFacility ?util .
+		bind (xsd:float (?faci - ?util) as ?unuti)
+		bind (xsd:float
+			(if (?prod = liq:MortgageCommitment,10,
+			(if (?prod != liq:MortgageCommitment &&
+				?ctype = ent:Individual, 5,
+			(if (?prod = liq:CreditCommitment &&
+				?ctype != ent:Individual &&
+				?ctype = ent:NonFinancialWholesale, 10,
+			(if (?prod = liq:LiquidityCommitment &&
+				?ctype != ent:Individual &&
+				?ctype = ent:NonFinancialWholesale, 30,
+			(if (?prod != liq:MortgageCommitment &&
+				?ctype != ent:Individual &&
+				?ctype = ent:FI, 50, 100)))))))))) as ?cof)
+?a com:notionalValue ?value.
+?a cur:currency ?cur .
+?cur cur:forexRate ?fx .
+bind (xsd:float(?fx * ?unuti * ?cof /100)as ?amount)}}}
+}
+{select (sum(?amount) as ?cift)
+where {{
+
+?a rdf:type com:CashAndDueFromBanks .
+			bind (xsd:float (100) as ?cif)
+
+			}union{
+
+?a rdf:type ?class .
+			filter (	?class = com:InvestmentSecurities ||
+						?class = com:TradingAccountAssets)
+			optional {?a com:customer ?cus }
+			?a com:issuedBy ?issu .
+			?issu rdf:type ?itype .
+		bind(xsd:float
+			(if(?itype = ent:FI ||
+					?itype = ent:SovereignEntity ||
+					?itype = ent:Government,100,
+			(if(?itype = ent:NonFinancialWholesale,50,
+			(if(?itype = ent:Individual,50,100)))))) as ?cif)
+
+			}union{
+
+?a rdf:type com:Lendings .
+			?a com:customer ?cus .
+			?cus rdf:type ?ctype .
+		bind(xsd:float
+			(if(?ctype = ent:SovereignEntity ||
+				?ctype = ent:FI ||
+				?ctype = ent:Government , 100,
+			(if(?ctype = ent:NonFinancialWholesale,50,
+			(if(?ctype = ent:Individual,50,100)))))) as ?cif)
+
+			}union{
+
+?a rdf:type com:Loans .
+			?a com:customer ?cus .
+		?cus rdf:type ?ctype .
+		bind(xsd:float
+			(if(?ctype = ent:SovereignEntity ||
+				?ctype = ent:FI ||
+				?ctype = ent:Government , 100,
+			(if(?ctype = ent:NonFinancialWholesale,50,
+			(if(?ctype = ent:Individual,50,100)))))) as ?cif)
+
+			}union{
+
+?a rdf:type com:OtherAssets .
+			bind(xsd:float (0) as ?cif)}
+
+?a com:notionalValue ?value.
+?a cur:currency ?cur .
+?cur cur:forexRate ?fx .
+bind (xsd:float(?fx * ?value * ?cif /100 )as ?amount)}}
+
+bind (xsd:float (if (?cift > 0.75*?coft,0.25*?coft,?coft - ?cift)) as ?nco)
+}}}}
+
+bind (xsd:string(concat(xsd:string(round(?LCR *100)),"%")) as ?net)
+
+}
