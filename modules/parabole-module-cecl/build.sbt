@@ -10,3 +10,10 @@ libraryDependencies ++= Common.commonDependencies ++: Seq(
   "org.apache.xmlgraphics" % "batik-transcoder" % "1.8",
   "org.apache.xmlgraphics" % "batik-codec" % "1.8"
 )
+
+lazy val cecl = (project in file(".")).enablePlugins(PlayJava)
+  .aggregate(feed)
+  .dependsOn(feed)
+
+
+lazy val feed = (project in file("modules/parabole-module-feed")).enablePlugins(PlayScala)
