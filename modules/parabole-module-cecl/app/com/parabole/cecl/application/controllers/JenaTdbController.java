@@ -1,9 +1,9 @@
 package com.parabole.cecl.application.controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.parabole.cecl.application.exceptions.AppException;
+import com.parabole.feed.application.exceptions.AppException;
 import com.parabole.cecl.application.global.CCAppConstants;
-import com.parabole.cecl.application.services.JenaTdbService;
+import com.parabole.feed.application.services.JenaTdbService;
 import com.parabole.cecl.platform.utils.AppUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
