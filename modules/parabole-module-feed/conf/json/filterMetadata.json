@@ -68,4 +68,31 @@
             "label" : "ownershiptype"
         }]
 	},
+	"ceclBaseNodeDetails" : {
+		"outputFormat":"table",
+		"source":"193",
+		"groupByField" : "itemname",
+		"columns" :  [{
+			"name" : "itemname",
+			"label" : "name"
+		},{
+			"name" : "name",
+			"label" : "type"
+		}]
+	},
+	"ceclChildNodeDetails" : {
+		"outputFormat":"table",
+		"source":"195",
+		"groupByField" : "connections",
+		"columns" :  [{
+			"name" : "connections",
+			"label" : "name"
+		},{
+			"name" : "Area",
+			"label" : "type"
+		},{
+			"name" : "concept",
+			"label" : "link"
+		}]
+	}
 }
