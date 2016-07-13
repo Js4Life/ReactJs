@@ -22,6 +22,7 @@ var Constant = {
 	SERVICE_TAB : 'Service Cockpit',
 	MODEL_TAB : 'Model Explorer',
 	HOME_TAB : 'Home',
+	DOCUMENT_BROWSER_TAB : 'Document Browser',
 	COMPOSITEAGGREGATION : 'COMPOSITEAGGREGATION',
 	AGGREGATION : 'AGGREGATION',
 	COLOR : {

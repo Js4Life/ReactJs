@@ -82,16 +82,16 @@
 	},
 	"ceclChildNodeDetails" : {
 		"outputFormat":"table",
-		"source":"194",
-		"groupByField" : "a",
+		"source":"195",
+		"groupByField" : "connections",
 		"columns" :  [{
-			"name" : "concept",
+			"name" : "connections",
 			"label" : "name"
 		},{
 			"name" : "Area",
 			"label" : "type"
 		},{
-			"name" : "a",
+			"name" : "concept",
 			"label" : "link"
 		}]
 	}

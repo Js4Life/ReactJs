@@ -147,7 +147,7 @@ angular.module('RDAApp.services', [])
         DOWN: 'red'
     };
     SharedService.primaryNav = [
-        {"id": "1" , "label":"ceclassets/images/home.png", "title" : Constant.HOME_TAB}
+        {"id": "1" , "label":"ceclassets/images/document-browser.png", "title" : Constant.DOCUMENT_BROWSER_TAB}
    ];
     SharedService.layoutGraphData = [
                                         ["Jan-13", 11],["Feb-13", 9], ["March-13", 15], ["July-13", 12]
@@ -1438,7 +1438,9 @@ angular.module('RDAApp.services', [])
         "Effective Interest Rate" : "The rate of return implicit in the financial asset, that is, the contractual interest rate adjusted for any net deferred fees or costs, premium, or discount existing at the origination or acquisition of the financial asset",
         "Holding Gain or Loss" : "The net change in fair value of a security. The holding gain or loss does not include dividend or interest income recognized but not yet received, writeoffs, or the allowance for credit losses",
         "Remeasurement Event" : "A remeasurement (new basis) event is an event identified in other authoritative accounting literature, other than the measurement of an impairment under Topic 321 or credit loss under Topic 326 that requires a financial instrument to be remeasured to its fair value at the time of the event but does not require that financial instrument to be reported at fair value continually with the change in fair value recognized in earnings. Examples of remeasurement events are business combinations and significant modifications of debt as discussed in paragraph 470-50-40-6",
-        "Accretion" : "Accretion is asset and earnings growth due to business expansion, and it can occur through a company's internal growth or by way of mergers and acquisitions. Accretion is also used to account for a capital gain when an investor buys a bond at a discount and holds the bond until maturity"
+        "Accretion" : "Accretion is asset and earnings growth due to business expansion, and it can occur through a company's internal growth or by way of mergers and acquisitions. Accretion is also used to account for a capital gain when an investor buys a bond at a discount and holds the bond until maturity",
+        "Collectibility Of Receivables" : "The Company maintains allowances for doubtful accounts for estimated losses resulting from the inability of its customers to make required payments. The Company reviews a customer’s credit history before extending credit as deemed necessary, after considering the client and the size and duration of the assignment. The Company establishes an allowance for doubtful accounts based upon factors surrounding the credit risk of specified customers, historical trends, past due balances and other information. The Company considers an account past due based on the contractual payment terms. The Company has demonstrated the ability to make reasonable and reliable estimates; however, if the financial condition of the Company’s customers was to deteriorate, resulting in an impairment of their ability to make payments, additional allowances may be required."
+
     }
 
     return MockService;

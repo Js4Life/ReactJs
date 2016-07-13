@@ -46,7 +46,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$('.sidebar-nav').eq(idx).addClass('active-nav');
 		switch(obj)
 		{
-			case Constant.HOME_TAB : $scope.viewTitle=Constant.HOME_TAB;
+			case Constant.DOCUMENT_BROWSER_TAB : $scope.viewTitle=Constant.DOCUMENT_BROWSER_TAB;
 				$state.go('landing.home');
 				break;
 		}
@@ -190,7 +190,15 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.getNodeDetails = function (childNode) {
 		$scope.currentNode = childNode;
 		$scope.currentNode.definition = MockService.CeclChildNodeDetails[$scope.currentNode.name] || null;
-		SharedService.getFilteredDataByCompName("ceclChildNodeDetails", "").then(function (data) {
+		$scope.getFilteredDataByCompName(childNode.name, childNode);
+	}
+
+	$scope.getFilteredDataByCompName = function (nodeName, currentNode) {
+		if(!currentNode){
+			$scope.currentNode = _.findWhere($scope.childNodes, {"name": nodeName});
+			$scope.currentNode.definition = MockService.CeclChildNodeDetails[$scope.currentNode.name] || null;
+		}
+		SharedService.getFilteredDataByCompName("ceclChildNodeDetails", nodeName).then(function (data) {
 			var nodes = data.data;
 			$scope.nodeDetails = _.groupBy(nodes, "type");
 			$('#dsViewer').modal('show');
