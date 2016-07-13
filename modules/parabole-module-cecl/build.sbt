@@ -12,3 +12,10 @@ libraryDependencies ++= Common.commonDependencies ++: Seq(
   "org.apache.jena" % "apache-jena-libs" % "3.0.1"
 )
 
+val feed = RootProject(file("./modules/parabole-module-feed"))
+
+
+lazy val cecl = (project in file(".")).enablePlugins(PlayJava)
+  .aggregate(feed)
+  .dependsOn(feed)
+

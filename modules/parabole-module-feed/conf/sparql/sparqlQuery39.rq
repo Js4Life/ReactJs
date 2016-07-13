@@ -1,0 +1,21 @@
+PREFIX mpb-root-main: <http://www.mindparabole.com/ontology/finance/MPBRoot_Main#> 
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX cit:<http://www.mindparabole.com/ontology/finance/Bank_Main#>
+PREFIX mpb-fin-main-ccar-14q:<http://www.mindparabole.com/ontology/finance/FRY-14Q_Main#>
+PREFIX mpb-root-main-crm:<http://www.mindparabole.com/ontology/finance/CreditRiskManagement_Main#>
+PREFIX mpb-fin-main-ccar:<http://www.mindparabole.com/ontology/finance/CCAR_Main#>
+PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
+SELECT DISTINCT ?labelReportSchedule (COUNT ( ?reportField) AS ?total) ((?total/152) AS ?totalPercentage)
+	{
+		?schedule mpb-root-main:isPartOfReport mpb-fin-main-ccar:FRY-14Q .
+		?schedule rdfs:label ?labelReportSchedule .
+ 		OPTIONAL {?schedule mpb-root-main:hasReportSub_Schedule ?sub_schedule .}
+ 		?sub_schedule rdfs:label ?labelSub_Schedule .
+		?sub_schedule mpb-root-main:hasReportField ?reportField .
+ 		OPTIONAL {?reportField mpb-root-main:hasReportFieldStatus ?status .}
+FILTER (?status IN (mpb-root-main:ReportField_Status_DataGapIdentified, mpb-root-main:ReportField_Status_Approved,mpb-root-main:ReportFied_Status_TaskAssigned,mpb-root-main:ReportField_Status_SourceMapped,mpb-root-main:ReportField_Status_SourceSystemIdentified)).
+FILTER (?schedule IN (mpb-fin-main-ccar-14q:Sch_H_WholesaleRisk)).
+
+}
+GROUP BY ?labelReportSchedule

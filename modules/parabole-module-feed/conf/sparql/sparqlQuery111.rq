@@ -1,0 +1,34 @@
+PREFIX mpb-root-main: <http://www.mindparabole.com/ontology/finance/MPBRoot_Main#> 
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX cit:<http://www.mindparabole.com/ontology/finance/Bank_Main#>
+PREFIX mpb-fin-main-ccar-14q:<http://www.mindparabole.com/ontology/finance/FRY-14Q_Main#>
+PREFIX mpb-root-main-crm:<http://www.mindparabole.com/ontology/finance/CreditRiskManagement_Main#>
+PREFIX mpb-fin-main-ccar:<http://www.mindparabole.com/ontology/finance/CCAR_Main#>
+PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
+PREFIX pb:<http://www.mindparabole.com/ontology/finance/Parabole-Model#>
+PREFIX CDE:<http://www.mindparabole.com/ontology/finance/CDE/CriticalDataElements#>
+SELECT ?Schedule (group_concat(DISTINCT ?BS_Name ; separator = ",") AS ?Coverage) ?Num_of_Data_Elements (SUM(?test) AS ?Num_of_Data_Gaps) 
+WHERE{
+{SELECT ?Schedule ?schedule ?BS_Name ((?H1count+?H2count) AS ?Num_of_Data_Elements)?test
+WHERE{
+?schedule rdf:type mpb-root-main:ReportSchedule.
+?schedule mpb-root-main:schedulehasinternalBS ?BS.
+?BS rdfs:label ?BS_Name.
+OPTIONAL{?Sub_Schedule mpb-root-main:isPartOfReportSchedule ?schedule.}
+OPTIONAL{?Sub_Schedule  mpb-root-main:hasReportField ?Report_Field.}
+OPTIONAL{?Report_Field mpb-root-main:hasIssuecount ?IC.}
+BIND(IF(!bound(?IC)=true,0,xsd:integer(?IC)) AS ?test)
+?schedule rdfs:label ?Schedule.
+{SELECT (SUM(?h1count) AS ?H1) (SUM(?h2count)AS ?H2)
+WHERE{
+?cde CDE:usedinscheduleh1 ?h1.
+?cde CDE:usedinscheduleh2 ?h2.
+BIND(IF(?h1 = "H1",1,0) AS ?h1count)
+BIND(IF(?h2 = "H2",1,0) AS ?h2count)
+}}
+BIND(IF(?Schedule = "Schedule H Wholesale Risk",?H1,0) AS ?H1count)
+BIND(IF(?Schedule = "Schedule H Wholesale Risk",?H2,0) AS ?H2count)}}
+}
+GROUP BY ?Schedule ?Num_of_Data_Elements
+ORDER BY ?Schedule

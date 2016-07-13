@@ -3,7 +3,6 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET     /                         com.parabole.auth.controllers.HomeController.index
 
 # Map static resources from the /public folder to the /assets URL path
 GET      /authassets/*file        controllers.Assets.at(path="/public/lib/parabole-module-auth", file)

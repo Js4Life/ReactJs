@@ -1,0 +1,107 @@
+PREFIX mpb-root-main: <http://www.mindparabole.com/ontology/finance/MPBRoot_Main#> 
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX cit:<http://www.mindparabole.com/ontology/finance/Bank_Main#>
+PREFIX mpb-fin-main-ccar-14q:<http://www.mindparabole.com/ontology/finance/FRY-14Q_Main#>
+PREFIX mpb-root-main-crm:<http://www.mindparabole.com/ontology/finance/CreditRiskManagement_Main#>
+PREFIX mpb-fin-main-ccar:<http://www.mindparabole.com/ontology/finance/CCAR_Main#>
+PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
+PREFIX pb:<http://www.mindparabole.com/ontology/finance/Parabole-Model#>
+PREFIX CDE:<http://www.mindparabole.com/ontology/finance/CDE/CriticalDataElements#>
+PREFIX dpfin:<http://www.mindparabole.com/ontology/finance/DepositorFin>
+select  ?g1 ?ppnritem (sum (?NII) as ?actual)
+
+where{
+
+ 
+
+{select * where {
+
+?item pb:hasObligorID ?info .
+
+?item pb:hasProduct ?product .
+
+?item pb:hasSegment ?segment .
+
+?item pb:commitmentFeePerQuarter ?fee2 .
+BIND(xsd:float(?fee2) AS ?fee)
+
+?item pb:customerAnnualRevenue ?rev2 .
+BIND(xsd:float(?rev2) AS ?rev)
+
+?item pb:hasNotionalValue ?amount2 .
+BIND(xsd:float(?amount2) AS ?amount)
+
+?ftpitem rdf:type dpfin:FTP .
+
+?ftpitem dpfin:internalPricing ?ftp2 .
+BIND(xsd:float(?ftp2) AS ?ftp)
+
+?item pb:hasAPR ?apr2 .
+BIND(xsd:float(?apr2) AS ?apr)
+
+BIND (xsd:string( IF ((?rev <10000000)&&(?rev >0),"Small Medium",  (IF ((?rev >10000000)&&(?rev<2000000000), "Commercial",(IF ((?rev >2000000000), "Corporate",(IF ((?rev =0), "Small Medium",false ))))))))AS ?fedsegment)
+
+BIND (xsd:string
+
+(IF(?fedsegment = "Corporate",(IF ((?product = pb:Growth_Capital)||(?product = pb:Leveraged_Buyout),false,(IF ((?product =pb:Mezzanine_Financing)||(?product = pb:Venture_Capital),false,IF ((?product = pb:CDO)||(?product=pb:CMO),"5A",false))))) ,
+
+(IF(?fedsegment = "Commercial",      (IF (?amount >0,false,false)),
+
+(IF(?fedsegment = "Small Medium", (IF ((?product = pb:Credit_Card), "1B", (IF ((?product = pb:Mortgage), "1C","1A")))),
+
+0))))))AS ?g1)}}
+
+ 
+
+UNION
+
+ 
+
+{select *where {
+
+?a dpfin:internalPricing ?ftp2.
+BIND(xsd:float(?ftp2) AS ?ftp)
+
+?item pb:hasNotionalValue ?amount2 .
+BIND(xsd:float(?amount2) AS ?amount)
+
+?item pb:hasAPR ?apr2 .
+BIND(xsd:float(?apr2) AS ?apr)
+
+?item rdf:type dpfin:DepositorFin .
+
+?item pb:hasProduct ?product .
+
+?item pb:hasSubProduct ?subproduct .
+
+?item pb:hasSegment ?segment .
+
+bind (xsd:string(if (?segment = pb:Retail_and_Small_Business,"1E",false)) as ?g1)}}
+
+ 
+
+ 
+
+ 
+
+{?gitem rdfs:label ?glabel .
+
+?gitem rdf:type pb:PPNRLineItemID .
+
+?gitem rdfs:comment ?ppnritem.
+
+?gitem pb:gNumber ?gnumber.
+
+?gitem pb:gOrder ?gorder }
+
+ 
+
+bind (xsd:float(?amount *( ?apr- ?ftp) /4) as ?NII)
+
+FILTER (?glabel = ?g1)
+FILTER(?g1!="5A")
+}
+
+group by ?g1 ?ppnritem
+ORDER BY ?g1

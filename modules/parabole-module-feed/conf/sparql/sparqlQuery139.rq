@@ -1,0 +1,37 @@
+PREFIX mpb-root-main: <http://www.mindparabole.com/ontology/finance/MPBRoot_Main#> 
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX cit:<http://www.mindparabole.com/ontology/finance/Bank_Main#>
+PREFIX CDE:<http://www.mindparabole.com/ontology/finance/CDE/CriticalDataElements#>
+PREFIX mt:<http://www.mindparabole.com/meeting#>
+PREFIX pb:<http://www.mindparabole.com/ontology/finance/Parabole-Model#>
+PREFIX mpb-fin-main-ccar-14q:<http://www.mindparabole.com/ontology/finance/FRY-14Q_Main#>
+PREFIX mpb-root-main-crm:<http://www.mindparabole.com/ontology/finance/CreditRiskManagement_Main#>
+PREFIX mpb-fin-main-ccar:<http://www.mindparabole.com/ontology/finance/CCAR_Main#>
+PREFIX Y14DB_Main:<http://www.mindparabole.com/ontology/finance/Y14DB_Main#>
+PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
+SELECT  ?labelReport ?report ?start ?reportDescription 
+WHERE{
+ {SELECT ?labelReport ?report ?start ?reportDescription
+ WHERE{
+    ?model rdf:type pb:Model .
+    FILTER(?model = pb:Credit_RWA_Calculation)
+    ?model pb:Model_has_Lifecycle ?lf.
+    ?lf rdfs:label ?reportDescription.
+    ?lf rdfs:label ?labelReport.
+    ?lf pb:LifecycleStatusDate ?Date.
+    BIND(replace(?Date,"_","-") AS ?Date2)
+    BIND(xsd:date(?Date2) AS ?start) 
+    BIND(?labelReport AS ?report)
+}}
+UNION 
+{SELECT ?labelReport ?report ?start ?reportDescription
+WHERE{
+?ActionItem rdf:type CDE:Action_Item .
+    OPTIONAL {?ActionItem CDE:ActionItemHasResolutionDate ?Date.}
+    BIND(replace(?Date,"_","-") AS ?Date2)
+    BIND(xsd:date(?Date2) AS ?start)
+    OPTIONAL {?ActionItem CDE:hasActionItemType ?report.}
+   FILTER(?report = "EnterpriseStatus"^^xsd:string)
+    OPTIONAL{?ActionItem mt:has_Agenda ?reportDescription.}
+    OPTIONAL {?ActionItem rdfs:label ?labelReport. } }}}
