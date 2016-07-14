@@ -13,6 +13,14 @@ body{
     border-radius: 0px;
 }
 
+h1, h2, h3, h4{
+    font-family: 'Slabo 27px', serif;
+}
+
+h4, h5, h6, p{
+    font-family: 'Raleway', sans-serif;
+}
+
 
 a:hover, a:focus {
     text-decoration: none;
@@ -56,7 +64,7 @@ a{
     background-image: none;
     text-align: center;
     color: #fff;
-    background-color: rgba(25, 39, 230, 0.57);
+    background-color: #6dcff6;
     border: none;
     border-radius: 0px;
     box-shadow: none;
@@ -118,7 +126,7 @@ a{
 
 .navbar-real-white{
     background-image: none;
-    background-color: #ffffff;
+    background-color: #6dcff6;
     border-bottom: 1px solid #f9f9f9;
 }
 
@@ -161,7 +169,7 @@ a{
 .nav-sidebar > .active > a:hover,
 .nav-sidebar > .active > a:focus {
     color: #fff;
-    background-color: #428bca;
+    background-color: #6dcff6;
 }
 
 .sidebarLogo{
