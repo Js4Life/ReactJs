@@ -1,0 +1,17 @@
+<div class="panel panel-default">
+  <div class="panel-heading" style="padding-bottom:9px" >
+    <b>{{heading.title}}</b>
+  </div>
+  <div class="panel-body zero-padding" style="max-height:81vh;overflow: auto;">
+    <table class="table table-bordered table-striped" style="margin-bottom: 0;">
+      <thead>
+        <th></th><th style="background: #ececec;" ng-repeat="col in columns">{{col | uppercase}}</th>
+      </thead>
+      <tbody>
+        <tr ng-repeat="(k, v) in allAreas">
+          <td style="background: #ececec;"><strong>{{k}}</strong></td><td ng-repeat="(k1, v1) in v"><div class="pointer" ng-repeat="v2 in v1">{{v2}}</div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

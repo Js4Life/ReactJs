@@ -46,8 +46,11 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$('.sidebar-nav').eq(idx).addClass('active-nav');
 		switch(obj)
 		{
-			case Constant.DOCUMENT_BROWSER_TAB : $scope.viewTitle=Constant.DOCUMENT_BROWSER_TAB;
+			case Constant.DOCUMENT_BROWSER_TAB : $scope.viewTitle = Constant.DOCUMENT_BROWSER_TAB;
 				$state.go('landing.home');
+				break;
+			case Constant.IMPACT_TAB : $scope.viewTitle = Constant.IMPACT_TAB;
+				$state.go('landing.impact');
 				break;
 		}
 
@@ -168,9 +171,12 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			$scope.nodes = data.vertices;
 		});*/
 		$scope.nodes = MockService.CeclBaseNodes;
+		$scope.breads = [];
 	}
 	
 	$scope.exploreNode = function (node, e) {
+		$scope.breads = [];
+		$scope.breads.push(node);
 		$scope.searchText = "";
 		/*graphService.getRelatedNodes(node.id).then( function( nodeDef ){
 			$scope.childNodes = nodeDef.vertices;
@@ -187,22 +193,42 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		scaleSlides();
 	}
 
-	$scope.getNodeDetails = function (childNode) {
+	$scope.getNodeDetails = function (childNode, index) {
 		$scope.currentNode = childNode;
 		$scope.currentNode.definition = MockService.CeclChildNodeDetails[$scope.currentNode.name] || null;
-		$scope.getFilteredDataByCompName(childNode.name, childNode);
+		$scope.getFilteredDataByCompName(childNode.name, childNode, index);
 	}
 
-	$scope.getFilteredDataByCompName = function (nodeName, currentNode) {
+	$scope.getFilteredDataByCompName = function (nodeName, currentNode, index) {
 		if(!currentNode){
 			$scope.currentNode = _.findWhere($scope.childNodes, {"name": nodeName});
 			$scope.currentNode.definition = MockService.CeclChildNodeDetails[$scope.currentNode.name] || null;
 		}
-		SharedService.getFilteredDataByCompName("ceclChildNodeDetails", nodeName).then(function (data) {
-			var nodes = data.data;
-			$scope.nodeDetails = _.groupBy(nodes, "type");
-			$('#dsViewer').modal('show');
-		});
+
+		var compName = "";
+		switch (currentNode.type){
+			case "Topic": 
+				compName = "ceclTopicNodeDetails";
+				SharedService.getFilteredDataByCompName(compName, nodeName).then(function (data) {
+					$scope.childNodes = data.data;
+					addBread();
+				});
+				break;
+			case "FASB Concept":
+				compName = "ceclConceptNodeDetails";
+				SharedService.getFilteredDataByCompName(compName, nodeName).then(function (data) {
+					var nodes = data.data;
+					$scope.nodeDetails = _.groupBy(nodes, "type");
+					$('#dsViewer').modal('show');
+				});
+				break;
+		}
+	}
+
+	function addBread() {
+		var currentBread = $scope.breads[$scope.breads.length-1];
+		if(currentBread.idx === 4) return;
+		$scope.breads.push(_.findWhere(MockService.CeclBaseNodes, {"idx": currentBread.idx+1}));
 	}
 
 	function scaleSlides(){
@@ -219,4 +245,25 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}
 
 	$scope.iniitialize();
+})
+
+.controller('impactCtrl', function($scope, $state, $stateParams, SharedService) {
+	$scope.initialize = function () {
+		$scope.user = {name: "Bruce Lloyd", role: "Accounts Manager"};    //{name: "Betsy Walters", role: "Branch Manager"}
+		$scope.heading = SharedService.primaryNav[1];
+		SharedService.getFilteredDataByCompName("impactProductsByRole", $scope.user.role).then(function (data) {
+			var products = data.data;
+			var prodList = [];
+			angular.forEach(products, function (prod) {
+				prodList.push(prod.type + " - " + prod.name);
+			});
+			SharedService.getFunctionalAreasByProducts("impactAreaByProduct", prodList).then(function (data) {
+				$scope.allAreas = data.data;
+				$scope.columns = data.columns;
+				console.log(data);
+			});
+		});
+	}
+
+	$scope.initialize();
 });

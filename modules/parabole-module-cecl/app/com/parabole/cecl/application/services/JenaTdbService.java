@@ -1435,7 +1435,12 @@ public class JenaTdbService {
             }
             String sparqlQueryString = AppUtils.getFileContent("sparql/sparqlQuery" + fileIdentification + ".rq");
             if(filterStr != null && filterStr.trim().length() != 0) {
-                filterStr = "\"" + filterStr + "\"";
+                if(filterDefJson.has("filterNamespace")){
+                    String filterNamespace = filterDefJson.getString("filterNamespace");
+                    filterStr = filterNamespace + ":" + filterStr;
+                } else {
+                    filterStr = "\"" + filterStr + "\"";
+                }
                 sparqlQueryString = sparqlQueryString.replace("$$FILTERS$$", filterStr);
             }
             final HashMap<String, HashMap<String, String>> branches = getValueFromQueryStringByAttrs(sparqlQueryString, attrLabels.keySet(), groupByField, dataset);

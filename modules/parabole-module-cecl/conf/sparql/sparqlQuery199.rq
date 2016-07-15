@@ -25,14 +25,10 @@ PREFIX pnc:<http://mindparabole.com/finance/pnc_cecl#>
 PREFIX cst:<http://mindparabole.com/finance/cecl_structure#>
 PREFIX owl:<http://www.w3.org/2002/07/owl#>
 
-select ?topic ?type ?name
-where {
-?topic rdf:type ?tclass .
-?tclass rdfs:subClassOf cst:Topic .
-?topic cst:tophasSt ?subtopic .
-?subtopic rdfs:label ?name .
-?subtopic rdf:type ?subtopicType .
-?subtopicType rdfs:label ?type .
-#filter (?topic = cst:Topic321)
-filter (?topic = $$FILTERS$$)
+select ?role ?product
+where{
+?hasRole pb:hasProduct ?hasProduct .
+?hasProduct rdfs:label ?product .
+?hasRole rdfs:label ?role .
+filter (?role = $$FILTERS$$)
 }

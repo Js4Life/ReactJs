@@ -68,7 +68,8 @@ angular.module('RDAApp.services', [])
         'GetJsonForAllLinegeAgainstNodeIdwithAdaptiveLearning' : 'getJsonForAllLinegeAgainstNodeIdwithAdaptiveLearning',
         'GetJsonForAllLinegewithAdaptiveLearning' : 'getJsonForAllLinegewithAdaptiveLearning',
         'GetLineageDbData' : 'getLineageDbData',
-        'GetFilteredDataByCompName' : 'getFilteredDataByCompName'
+        'GetFilteredDataByCompName' : 'getFilteredDataByCompName',
+        'GetFunctionalAreasByProducts' : 'getFunctionalAreasByProducts'
     };
     SharedService.chartDataMap = {
         '0' : 'getHardCodedResponse/chartData1',
@@ -147,7 +148,8 @@ angular.module('RDAApp.services', [])
         DOWN: 'red'
     };
     SharedService.primaryNav = [
-        {"id": "1" , "label":"ceclassets/images/document-browser.png", "title" : Constant.DOCUMENT_BROWSER_TAB}
+        {"id": "1" , "label":"ceclassets/images/document-browser.png", "title" : Constant.DOCUMENT_BROWSER_TAB},
+        {"id": "2" , "label":"ceclassets/images/impact.png", "title" : Constant.IMPACT_TAB}
    ];
     SharedService.layoutGraphData = [
                                         ["Jan-13", 11],["Feb-13", 9], ["March-13", 15], ["July-13", 12]
@@ -559,6 +561,11 @@ angular.module('RDAApp.services', [])
     SharedService.getFilteredDataByCompName = function(compName, filterStr){
         var sendObj = {"compName": compName, "filterStr": filterStr};
         return SharedService.invokeService('GetFilteredDataByCompName', sendObj, 'post');
+    }
+
+    SharedService.getFunctionalAreasByProducts = function(compName, products){
+        var sendObj = {"compName": compName, "products": products};
+        return SharedService.invokeService('GetFunctionalAreasByProducts', sendObj, 'post');
     }
 
     return SharedService;
@@ -1430,7 +1437,7 @@ angular.module('RDAApp.services', [])
                         };
 
     MockService.CeclBaseNodes = [
-        {"name": "Topic", "id": "Topic"},{"name": "Sub-Topic", "id": "Sub-Topic"},{"name": "Section", "id": "Section"},{"name": "Paragraph", "id": "Paragraph"},{"name": "Concept", "id": "FASB Concept"}
+        {"name": "Topic", "id": "Topic", "idx": 0},{"name": "Sub-Topic", "id": "Sub-Topic", "idx": 1},{"name": "Section", "id": "Section", "idx": 2},{"name": "Paragraph", "id": "Paragraph", "idx": 3},{"name": "Concept", "id": "FASB Concept", "idx": 4}
     ];
 
     MockService.CeclChildNodeDetails = {

@@ -9,7 +9,7 @@
       <span ng-click="leftSlideToggle()" class="glyphicon glyphicon-fullscreen pull-right" tooltip='"title":"Fullscreen"'></span>
     </div>
   </div>
-  <div class="panel-body" style="padding:0;">
+  <div class="panel-body zero-padding">
     <div panel panel-default>
       <div class="panel-body" style="padding:0;">
         <div ng-class="collapseClasses.left" style="overflow-y:auto;height:80vh;">
@@ -19,9 +19,12 @@
             </li>
           </ul>
         </div>
-        <div ng-class="collapseClasses.center" style="cursor:hand;height:80vh;border:1px solid #ddd;overflow: auto;padding:15px;">
-            <div class="col-md-2" ng-repeat="child in childNodes | orderBy : 'name' | filter: searchText">
-              <div class="panel panel-default pointer" ng-click="getNodeDetails(child)">
+        <div class="zero-padding" ng-class="collapseClasses.center" style="cursor:hand;height:80vh;border:1px solid #ddd;overflow: auto;">
+            <ol class="breadcrumb" ng-if="breads.length > 0">
+                <li ng-repeat="bread in breads">{{bread.name}}</li>
+            </ol>
+            <div class="col-md-2" ng-repeat="child in childNodes | orderBy : 'name' | filter: searchText" index="{{$index}}">
+              <div class="panel panel-default pointer" ng-click="getNodeDetails(child, $index)">
                 <div class="panel-body text-center zero-padding" style="background:#cccccc;font-size: 2.5em;">
                     <div style="font-weight: bold;">{{child.name.charAt(0)}}</div>
                 </div>
