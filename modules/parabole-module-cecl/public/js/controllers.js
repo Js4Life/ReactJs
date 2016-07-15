@@ -172,6 +172,8 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		});*/
 		$scope.nodes = MockService.CeclBaseNodes;
 		$scope.breads = [];
+		$scope.showGraph = false;
+		$scope.graphData = MockService.liquidityProfile;
 	}
 	
 	$scope.exploreNode = function (node, e) {
@@ -214,6 +216,27 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 					addBread();
 				});
 				break;
+			case "Sub-Topic":
+				compName = "ceclSubTopicNodeDetails";
+				SharedService.getFilteredDataByCompName(compName, nodeName).then(function (data) {
+					$scope.childNodes = data.data;
+					addBread();
+				});
+				break;
+			case "Section":
+				compName = "ceclSectionNodeDetails";
+				SharedService.getFilteredDataByCompName(compName, nodeName).then(function (data) {
+					$scope.childNodes = data.data;
+					addBread();
+				});
+				break;
+			case "Paragraph":
+				compName = "ceclParagraphNodeDetails";
+				SharedService.getFilteredDataByCompName(compName, nodeName).then(function (data) {
+					$scope.childNodes = data.data;
+					addBread();
+				});
+				break;
 			case "FASB Concept":
 				compName = "ceclConceptNodeDetails";
 				SharedService.getFilteredDataByCompName(compName, nodeName).then(function (data) {
@@ -223,6 +246,10 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				});
 				break;
 		}
+	}
+
+	$scope.getGraph = function () {
+		$scope.showGraph = !$scope.showGraph;
 	}
 
 	function addBread() {

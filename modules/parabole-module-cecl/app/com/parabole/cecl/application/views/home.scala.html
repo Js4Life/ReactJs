@@ -43,32 +43,36 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         <h4 class="modal-title" id="myModalLabel">{{currentNode.name}}&nbsp({{currentNode.type}})</h4>
+        <i ng-click="getGraph()" class="fa pull-right" ng-class="{'fa-th-large':showGraph, 'fa-sitemap':!showGraph}" aria-hidden="true" style="margin: -22px 30px;"></i>
       </div>
-      <div class="modal-body" style="max-height: 66vh; overflow: auto;padding-bottom: 0;">
-        <div class="row zero-padding">
-          <div class="col-md-12">
-            <textarea ng-if="currentNode.definition" ng-disabled="true" ng-model="currentNode.definition" rows="4" cols="40" style="border:none;width:100%;padding:10px;">
+      <div class="modal-body" style="height: 66vh; overflow: auto;padding-bottom: 0;">
+        <div ng-if="!showGraph">
+          <div class="row zero-padding">
+            <div class="col-md-12">
+              <textarea ng-if="currentNode.definition" ng-disabled="true" ng-model="currentNode.definition" rows="4" cols="40" style="border:none;width:100%;padding:10px;">
 
-            </textarea>
-          </div>
-        </div>
-        <br />
-        <div class="row zero-padding">
-          <div class="col-md-2" ng-repeat="(k, v) in nodeDetails">
-            <div class="panel panel-default" ng-if="k==='Related Concept'">
-              <div class="panel-heading">{{k}}</div>
-              <ul class="list-group" style="max-height: 40vh; overflow: auto;">
-                <li class="list-group-item pointer text-primary" ng-repeat="o in v" ng-click="getFilteredDataByCompName(o.name)">{{o.name}}</li>
-              </ul>
-            </div>
-            <div class="panel panel-default" ng-if="k!='Related Concept'">
-              <div class="panel-heading">{{k}}</div>
-              <ul class="list-group" style="max-height: 40vh; overflow: auto;">
-                <li class="list-group-item" ng-repeat="o in v">{{o.name}}</li>
-              </ul>
+              </textarea>
             </div>
           </div>
+          <br />
+          <div class="row zero-padding">
+            <div class="col-md-2" ng-repeat="(k, v) in nodeDetails">
+              <div class="panel panel-default" ng-if="k==='Related Concept'">
+                <div class="panel-heading">{{k}}</div>
+                <ul class="list-group" style="max-height: 40vh; overflow: auto;">
+                  <li class="list-group-item pointer text-primary" ng-repeat="o in v" ng-click="getFilteredDataByCompName(o.name)">{{o.name}}</li>
+                </ul>
+              </div>
+              <div class="panel panel-default" ng-if="k!='Related Concept'">
+                <div class="panel-heading">{{k}}</div>
+                <ul class="list-group" style="max-height: 40vh; overflow: auto;">
+                  <li class="list-group-item" ng-repeat="o in v">{{o.name}}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
+        <vis-graph ng-if="showGraph" data="graphData"></vis-graph>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

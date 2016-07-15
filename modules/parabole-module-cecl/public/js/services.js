@@ -110,7 +110,7 @@ angular.module('RDAApp.services', [])
         "information_disable" : "rdaassets/images/graph_info_disable.png",
         "person" : "rdaassets/images/user48.png",
         "system" : "rdaassets/images/graph_system.png",
-        "default" : "rdaassets/images/blue_dot.png"
+        "default" : "ceclassets/images/blue_dot.png"
     };
 
     SharedService.mappableEdges = [];
@@ -1435,6 +1435,28 @@ angular.module('RDAApp.services', [])
                                 {'frb':'13', 'name':'Ticker Symbol 1', 'status':'Transformation required 1', 'remediation':''}
                             ]
                         };
+
+    MockService.liquidityProfile = {
+        nodes: [
+            {id: 1, name: "Bank", type: "default", level: 1},
+            {id: 2, name: "Subsidiary-1", type: "default", level: 2},
+            {id: 3, name: "Subsidiary-2", type: "default", level: 2},
+            {id: 4, name: "Branch-1", type: "default", level: 3},
+            {id: 5, name: "Branch-2", type: "default", level: 3},
+            {id: 6, name: "Branch-3", type: "default", level: 3},
+            {id: 7, name: "Branch-4", type: "default", level: 3},
+            {id: 8, name: "Branch-5", type: "default", level: 3}
+        ],
+        edges: [
+            {from: 1, to: 2},
+            {from: 1, to: 3},
+            {from: 2, to: 4},
+            {from: 2, to: 5},
+            {from: 3, to: 6},
+            {from: 3, to: 7},
+            {from: 3, to: 8}
+        ]
+    }
 
     MockService.CeclBaseNodes = [
         {"name": "Topic", "id": "Topic", "idx": 0},{"name": "Sub-Topic", "id": "Sub-Topic", "idx": 1},{"name": "Section", "id": "Section", "idx": 2},{"name": "Paragraph", "id": "Paragraph", "idx": 3},{"name": "Concept", "id": "FASB Concept", "idx": 4}

@@ -111,6 +111,51 @@
 			"label" : "link"
 		}]
 	},
+	"ceclSubTopicNodeDetails" : {
+		"outputFormat":"table",
+		"source":"200",
+		"groupByField" : "name",
+		"columns" :  [{
+			"name" : "name",
+			"label" : "name"
+		},{
+			"name" : "type",
+			"label" : "type"
+		},{
+			"name" : "subtopic",
+			"label" : "subtopic"
+		}]
+	},
+	"ceclSectionNodeDetails" : {
+		"outputFormat":"table",
+		"source":"201",
+		"groupByField" : "name",
+		"columns" :  [{
+			"name" : "name",
+			"label" : "name"
+		},{
+			"name" : "type",
+			"label" : "type"
+		},{
+			"name" : "section",
+			"label" : "section"
+		}]
+	},
+	"ceclParagraphNodeDetails" : {
+		"outputFormat":"table",
+		"source":"202",
+		"groupByField" : "name",
+		"columns" :  [{
+			"name" : "name",
+			"label" : "name"
+		},{
+			"name" : "type",
+			"label" : "type"
+		},{
+			"name" : "paragraph",
+			"label" : "paragraph"
+		}]
+	},
 	"impactProductsByRole" : {
 		"outputFormat":"table",
 		"source":"199",
