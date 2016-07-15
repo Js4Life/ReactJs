@@ -1,0 +1,99 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <span class="glyphicon glyphicon-chevron-left pull-left" style="margin-right:10px;" ng-click="goPreviousScreen()"></span>
+        {{heading.title}}
+    </div>
+    <div id="graphDiv" class="panel-body" style="height: 76vh;">
+        <div class="panel-3d max-height" style="border: 1px solid #ccc">
+            <div ng-if="isMapProfile" class="right-inner-addon map-search" style="display:inline-block;width:16%;">
+                <i class="glyphicon glyphicon-search" style="z-index: 2;font-size: smaller;"></i>
+                <div angucomplete-alt
+                placeholder="Search countries"
+                pause="100"
+                selected-object="selectedCountry"
+                local-data="mapData"
+                search-fields="name"
+                title-field="name"
+                minlength="1"
+                input-class="form-control form-control-small"
+                match-class="text-green">
+                </div>
+            </div>
+                <!-- <vis-graph ng-if="!isMapProfile" data="graphData" options="options" ></vis-graph> -->
+            <div high-map ng-if="isMapProfile" data="mapData" options="options" class="max-height"></div>
+            <div ng-if="!isMapProfile" class="max-height">
+                <div class="col-xs-3 max-height zero-padding" style="background: #f3f3f3;">
+                    <div class="panel panel-default" style="border-width: 0;background: transparent;">
+                        <div class="panel-heading">Filters</div>
+                        <div class="panel-body">
+                            <form>
+                                <div class="form-group">
+                                    <div angucomplete-alt
+                                    placeholder="Search countries"
+                                    pause="100"
+                                    selected-object="selectedCountry"
+                                    local-data="mapData"
+                                    search-fields="name"
+                                    title-field="name"
+                                    minlength="1"
+                                    input-class="form-control form-control-small"
+                                    match-class="text-green">
+                                    </div>
+                                </div>
+                                <div class="form-group" ng-repeat="(key, filter) in filters">
+                                    <label>{{filter.name}}</label>
+                                    <input ng-if="filter.type === 'text'" type="text" class="form-control" placeholder="{{filter.name}}" ng-model="filter.value">
+                                    <select ng-if="filter.type === 'dropdown'" class="form-control" ng-options="o.id as o.name for o in filter.source" ng-model="filter.value"></select>
+                                    <select multiple ng-if="filter.type === 'multiselect'" class="form-control" ng-options="o.id as o.name for o in filter.source" ng-model="filter.value"></select>
+                                </div>
+                                <button type="submit" class="btn btn-default pull-right max-width" ng-click="searchByFilters()">Search</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-9 max-height zero-padding">
+                    <div id="grid" ui-grid="gridOptions" ui-grid-selection ui-grid-grouping class="grid max-height"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <div ng-if="isMapProfile" class="text-muted">
+            <i>** Scroll up to zoom</i>
+        </div>
+        <div ng-if="!isMapProfile" class="text-muted">
+            <i>** Comments</i>
+        </div>
+            <!-- <div ng-if="!isMapProfile && currentDashboard.type == constants.DASHBOARD.LIQUIDITY">
+          <span class="tiny-legend-icon" ng-bind-html="constants.MILESTONE_FLAG.MAIN_ENTITY"></span><span class="tiny-legend-text">Main Entity</span>
+          <span class="tiny-legend-icon" ng-bind-html="constants.MILESTONE_FLAG.SUBSIDIARY"></span><span class="tiny-legend-text">Subsidiary</span>
+          <span class="tiny-legend-icon" ng-bind-html="constants.MILESTONE_FLAG.BRANCH"></span><span class="tiny-legend-text">Branch</span>
+        </div>  -->
+    </div>
+</div>
+
+<div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Filters</h4>
+            </div>
+            <div class="modal-body" style="max-height:70vh;overflow:auto;">
+                <form>
+                    <div class="form-group" ng-repeat="(key, filter) in filters">
+                        <label>{{filter.name}}</label>
+                        <input ng-if="filter.type === 'text'" type="text" class="form-control" placeholder="{{filter.name}}" ng-model="filter.value">
+                        <select ng-if="filter.type === 'dropdown'" class="form-control" ng-options="o.id as o.name for o in filter.source" ng-model="filter.value"></select>
+                        <select multiple ng-if="filter.type === 'multiselect'" class="form-control" ng-options="o.id as o.name for o in filter.source" ng-model="filter.value"></select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" ng-click="searchByFilters()">Search</button>
+            </div>
+        </div>
+    </div>
+</div>

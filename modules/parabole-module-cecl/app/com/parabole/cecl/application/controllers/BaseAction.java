@@ -19,7 +19,6 @@ import com.parabole.cecl.application.services.*;
 import com.parabole.cecl.platform.exceptions.AppException;
 import com.parabole.cecl.platform.securities.AuthenticationManager;
 import com.parabole.cecl.platform.utils.AppUtils;
-import com.parabole.feed.services.TestClass;
 import org.json.JSONObject;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -59,12 +58,6 @@ public class BaseAction extends Controller {
     @Inject
     protected AuthenticationManager authenticationManager;
 
-    @Inject
-    protected TestClass testClass;
-
-    public Result testFeed(){
-        return ok(testClass.testMethod());
-    }
 
 
     public Result login() {

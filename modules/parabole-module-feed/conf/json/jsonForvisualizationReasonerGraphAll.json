@@ -1,0 +1,101 @@
+{
+	"rules" : [
+        {
+            "id": 1,
+            "name": "MockRule1"
+        },
+        {
+            "id": 2,
+            "name": "MockRule2"
+        }
+    ],
+
+    "glossarySets" : {
+        "Set-1" : [
+            {"id": "s11", "name": "glossary-1"},
+            {"id": "s12", "name": "glossary-2"},
+            {"id": "s13", "name": "glossary-3"},
+            {"id": "s14", "name": "glossary-4"},
+            {"id": "s15", "name": "glossary-5"},
+            {"id": "s16", "name": "glossary-6"}
+        ],
+        "Set-2" : [
+            {"id": "s21", "name": "glossary-1"},
+            {"id": "s22", "name": "glossary-2"},
+            {"id": "s23", "name": "glossary-3"},
+            {"id": "s24", "name": "glossary-4"},
+            {"id": "s25", "name": "glossary-5"},
+            {"id": "s26", "name": "glossary-6"}
+        ],
+        "Set-3" : [
+            {"id": "s31", "name": "glossary-1"},
+            {"id": "s32", "name": "glossary-2"},
+            {"id": "s33", "name": "glossary-3"},
+            {"id": "s34", "name": "glossary-4"},
+            {"id": "s35", "name": "glossary-5"},
+            {"id": "s36", "name": "glossary-6"}
+        ]
+    },
+
+    "graphData" : {
+        "vertices" : [
+            {
+                "id":356,
+                "level":0,
+                "name":"Portfolio",
+                "type":"concept",
+                "color":"green"
+            },
+            {
+                "id":239,
+                "level":1,
+                "name":"Report",
+                "type":"concept",
+                "color":"green"
+            },
+            {
+                "id":211,
+                "level":0,
+                "name":"Person",
+                "type":"concept",
+                "color":"green"
+            },
+            {
+                "id":115,
+                "level":1,
+                "name":"customer",
+                "type":"concept",
+                "color":"green"
+            },
+            {
+                "id":110,
+                "level":0,
+                "name":"Member",
+                "type":"concept",
+                "color":"red"
+            },
+            {
+                "id":111,
+                "level":0,
+                "name":"Product",
+                "type":"concept",
+                "color":"green"
+            },
+            {
+                "id":123,
+                "level":1,
+                "name":"Facility",
+                "type":"concept",
+                "color":"red"
+            },
+            {
+                "id":412,
+                "level":2,
+                "name":"System",
+                "type":"concept",
+                "color":"red"
+            }
+        ]
+    }
+
+}

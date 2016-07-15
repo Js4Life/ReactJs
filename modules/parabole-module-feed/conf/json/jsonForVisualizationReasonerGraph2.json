@@ -1,0 +1,45 @@
+{
+	"rule" :{
+            "id": 2,
+            "name": "Rule2",
+            "knowledgeData": {
+                "vertices" : [
+                    {
+                        "id":111,
+                        "level":0,
+                        "name":"Product",
+                        "color":"red"
+                    },
+                    {
+                        "id":123,
+                        "level":1,
+                        "name":"Facility",
+                        "color":"green"
+                    },
+                    {
+                        "id":211,
+                        "level":0,
+                        "name":"Person",
+                        "color":"red"
+                    },
+                    {
+                        "id":412,
+                        "level":2,
+                        "name":"System",
+                        "color":"green"
+                    },
+                    {
+                        "id":110,
+                        "level":0,
+                        "name":"Member",
+                        "color":"red"
+                    }
+                ]
+            },
+            "glossaryData": {
+                "Set-1" : ["s12"],
+                "Set-2" : ["s25"],
+                "Set-3" : ["s31", "s32", "s34"]
+            }
+        }
+}

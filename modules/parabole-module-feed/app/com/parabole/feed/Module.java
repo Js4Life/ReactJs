@@ -1,9 +1,7 @@
 package com.parabole.feed;
 
 import com.google.inject.AbstractModule;
-import com.parabole.feed.services.ApplicationTimer;
-import com.parabole.feed.services.AtomicCounter;
-import com.parabole.feed.services.Counter;
+
 
 import java.time.Clock;
 
@@ -25,9 +23,7 @@ public class Module extends AbstractModule {
         bind(Clock.class).toInstance(Clock.systemDefaultZone());
         // Ask Guice to create an instance of ApplicationTimer when the
         // application starts.
-        bind(ApplicationTimer.class).asEagerSingleton();
         // Set AtomicCounter as the implementation for Counter.
-        bind(Counter.class).to(AtomicCounter.class);
     }
 
 }

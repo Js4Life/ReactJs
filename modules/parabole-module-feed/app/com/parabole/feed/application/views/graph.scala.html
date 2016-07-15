@@ -1,0 +1,104 @@
+<div class="bread" breadcrum-scroll>
+    <div class="arrow pull-left">
+        <button id="right-button" class="btn btn-default glyphicon glyphicon-arrow-left" ng-click="right()" ng-disabled = "!scrollActivate"></button>
+    </div>
+    <div id="outer" disable-scroll ng-model="breadCrumbs" >
+        <div id="inner" >
+            <div style="padding:5px 15px 0 15px; height:28px; position:relative; display:inline-block;" ng-repeat="b in breadCrumbs">{{b.state}} ></div>
+        </div>
+    </div>
+    <div class="arrow pull-right">
+        <button id="left-button" class="btn btn-default glyphicon glyphicon-arrow-right pull-right" ng-click="left()" ng-disabled = "!scrollActivate"></button>
+    </div>
+</div>
+<br />
+<br />
+
+<div class="panel panel-default">
+  <div class="panel-heading" style="padding-bottom:9px"><span class="glyphicon glyphicon-chevron-left pull-left" style="margin-right:10px;margin-top: 5px;" ng-click="goPreviousScreen()"></span>
+    <b>{{heading.title}}</b>
+    <div class="right-inner-addon" style="display:inline-block;width:25%;margin-left:20px;">
+          <i class="glyphicon glyphicon-search"></i>
+          <input type="search" class="form-control" placeholder="Search" ng-model="searchText" ng-enter="searchNode()" />
+    </div>
+    <div class="btn-group pull-right">
+      <button style="padding:3px;" type="button" class="btn btn-default" ng-click="fetchGraphName()" ng-disabled = "!aggregateState"><span class="glyphicon glyphicon-floppy-disk" tooltip='"title":"Save Model"'></span></button>
+      <button style="padding:3px;" type="button" class="btn btn-default" ng-click="goNextScreen()" ng-disabled = "!aggregateState"><span class="glyphicon glyphicon-stats" tooltip='"title":"View Chart"'></span></button>
+      <button class="btn btn-default" ng-click="getNodeDescription()" style="padding:3px;" ng-disabled="!currentSelNode.definition" tooltip='"title":"Definition"'><span class="glyphicon glyphicon-pencil"></span></button>
+    </div>
+  </div>
+
+  <div class="panel-body">
+    <div id="graphDiv" ng-model='graphData' style="height:67vh;padding:0;">
+          
+    </div>
+    <div style="height:3vh;">
+      <div class="legend">
+        <div class="arrow orange-arrow"></div>
+        <div class="bubble-title">Structure</div>
+        <div class="arrow green-arrow"></div>
+        <div class="bubble-title">Behaviour</div>
+        <div class="arrow report"></div>
+        <div class="bubble-title">Report</div>
+        <div class="arrow policy"></div>
+        <div class="bubble-title">Policy</div>
+        <div class="arrow person"></div>
+        <div class="bubble-title">Person</div>
+        <div class="arrow model"></div>
+        <div class="bubble-title">Model</div>
+        <div class="arrow committee"></div>
+        <div class="bubble-title">Committee</div>
+        <div class="arrow information"></div>
+        <div class="bubble-title">Information</div>
+        <div class="arrow system"></div>
+        <div class="bubble-title">System</div>
+        <div class="arrow data"></div>
+        <div class="bubble-title">Data</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade bs-example-modal-sm" id="inputModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Enter a name</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form">
+          <div class="form-group">
+            <input type="text" class="form-control" ng-model="graphName" placeholder="Enter a name">
+          </div>
+        </form>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" ng-click="saveAggregate()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="dsViewer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">{{dsViewerHead}}</h4>
+      </div>
+      <div class="modal-body">
+        <textarea ng-disabled="true" ng-model="allColumnStr" rows="10" cols="40" style="border:none;width:100%;">
+
+        </textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="closeDsViewer()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

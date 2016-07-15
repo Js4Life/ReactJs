@@ -1,0 +1,12 @@
+<div class="col-xs-6" ng-class="animation" ng-repeat="temp in dashboardTemplates">   
+    <div class="card">
+        <div class="card-body pointer" ng-click="goTo(temp)">
+            <div class="card-image container-fluid zero-padding">
+                <div ng-class="temp.type"></div>
+            </div>
+        </div>
+        <div class="card-action">
+            <label>{{temp.name}}</label>
+        </div>
+    </div>
+</div>
