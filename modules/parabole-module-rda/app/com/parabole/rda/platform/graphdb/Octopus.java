@@ -13,30 +13,25 @@
 // =============================================================================
 package com.parabole.rda.platform.graphdb;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.function.Predicate;
-
+import com.google.common.collect.Lists;
+import com.google.inject.Singleton;
+import com.parabole.rda.application.controllers.ActionAuthenticator;
+import com.parabole.rda.application.global.RdaAppConstants;
 import com.parabole.rda.platform.AppConstants;
 import com.parabole.rda.platform.utils.AppUtils;
-import com.parabole.rda.application.controllers.ActionAuthenticator;
+import com.tinkerpop.blueprints.*;
+import com.tinkerpop.blueprints.impls.orient.OrientGraphFactory;
+import com.tinkerpop.blueprints.impls.orient.OrientGraphNoTx;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
-import com.google.common.collect.Lists;
-import com.google.inject.Singleton;
-import com.parabole.rda.application.global.RdaAppConstants;
-import com.tinkerpop.blueprints.Compare;
-import com.tinkerpop.blueprints.Direction;
-import com.tinkerpop.blueprints.Edge;
-import com.tinkerpop.blueprints.Element;
-import com.tinkerpop.blueprints.GraphQuery;
-import com.tinkerpop.blueprints.Vertex;
-import com.tinkerpop.blueprints.impls.orient.OrientGraphFactory;
-import com.tinkerpop.blueprints.impls.orient.OrientGraphNoTx;
 import play.mvc.Security;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.function.Predicate;
 
 /**
  * Semantic Rules Graph-Database.

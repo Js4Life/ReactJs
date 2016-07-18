@@ -10,6 +10,7 @@ public class AppConstants {
     public static final String NAME = "name";
     public static final String TAG = "tag";
     public static final String ELEMENT_ID = "eId";
+    public static final String URI = "uri";
     public static final String MIME_JSON = "application/json";
     public static final String MIME_LOG = "text/x-log";
     public static final String MIME_PDF = "application/pdf";

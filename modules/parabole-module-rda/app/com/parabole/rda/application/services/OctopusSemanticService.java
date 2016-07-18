@@ -13,31 +13,27 @@
 // =============================================================================
 package com.parabole.rda.application.services;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.function.Predicate;
-
+import com.google.common.collect.Lists;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.parabole.rda.application.global.RdaAppConstants;
 import com.parabole.rda.platform.exceptions.AppException;
 import com.parabole.rda.platform.graphdb.Octopus;
+import com.parabole.rda.platform.knowledge.KGraph;
 import com.parabole.rda.platform.reasoner.RGraph;
 import com.parabole.rda.platform.utils.AppUtils;
+import com.tinkerpop.blueprints.*;
+import com.tinkerpop.blueprints.impls.orient.OrientGraphNoTx;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.tuple.Pair;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import com.google.common.collect.Lists;
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
-import com.parabole.rda.platform.knowledge.KGraph;
-import com.tinkerpop.blueprints.Compare;
-import com.tinkerpop.blueprints.Direction;
-import com.tinkerpop.blueprints.Edge;
-import com.tinkerpop.blueprints.GraphQuery;
-import com.tinkerpop.blueprints.Vertex;
-import com.tinkerpop.blueprints.impls.orient.OrientGraphNoTx;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.function.Predicate;
 
 /**
  * Semantic Services for Octopus Rule-Engine DB.
@@ -45,6 +41,7 @@ import com.tinkerpop.blueprints.impls.orient.OrientGraphNoTx;
  * @author Subhasis Sanyal
  * @since v1.0
  */
+
 @Singleton
 public class OctopusSemanticService {
 

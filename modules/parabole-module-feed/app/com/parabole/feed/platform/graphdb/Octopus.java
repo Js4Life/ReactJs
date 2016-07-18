@@ -25,7 +25,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
-import play.mvc.Security;
 
 import java.util.HashSet;
 import java.util.List;
@@ -72,6 +71,14 @@ public class Octopus extends GraphDb {
         return vertices.isEmpty() ? null : vertices.get(0);
     }
 
+    public Vertex getVertexByURI(final OrientGraphNoTx graphDbNoTx, final String uri) {
+        Validate.notNull(graphDbNoTx, "'graphDbNoTx' cannot be null!");
+        Validate.notNull(uri, "'vertexId' cannot be null!");
+        final GraphQuery graphQuery = graphDbNoTx.query().has(AppConstants.URI, Compare.EQUAL, uri);
+        final List<Vertex> vertices = Lists.newArrayList(graphQuery.vertices());
+        return vertices.isEmpty() ? null : vertices.get(0);
+    }
+
     public Edge getEdge(final OrientGraphNoTx graphDbNoTx, final Integer edgeId) {
         Validate.notNull(graphDbNoTx, "'graphDbNoTx' cannot be null!");
         Validate.notNull(edgeId, "'edgeId' cannot be null!");
@@ -90,6 +97,12 @@ public class Octopus extends GraphDb {
         Validate.notNull(vertex, "'vertex' cannot be null!");
         final Object returnObject = vertex.getProperty(AppConstants.ELEMENT_ID);
         return (null == returnObject) ? null : (Integer) returnObject;
+    }
+
+    public String getURI(final Vertex vertex) {
+        Validate.notNull(vertex, "'vertex' cannot be null!");
+        final Object returnObject = vertex.getProperty(AppConstants.URI);
+        return (null == returnObject) ? null : (String) returnObject;
     }
 
     public Integer getId(final Edge edge) {

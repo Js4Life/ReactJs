@@ -115,6 +115,56 @@ public class OctopusSemanticService {
         return finalJsonObject.toString();
     }
 
+    public String getRelatedVerticesByURI(final String uri) throws AppException {
+        Validate.notNull(uri, "'vertexId' cannot be null!");
+        final JSONObject finalJsonObject = new JSONObject();
+        final JSONArray verticesJsonArray = new JSONArray();
+        final JSONArray conectionsJsonArray = new JSONArray();
+        final OrientGraphNoTx graphDbNoTx = octopus.getGraphConnectionNoTx();
+        try {
+            // ===================================================================
+            // Retrieve the Vertex
+            // ===================================================================
+            final Vertex vertex = octopus.getVertexByURI(graphDbNoTx, uri);
+            if (null != vertex) {
+                // ===================================================================
+                // Retrieve the Unary Relations
+                // ===================================================================
+                final Set<Pair<Edge, Vertex>> adjacentUnaryRelationPairs = octopus.getAdjacentUnaryRelations(vertex);
+                finalJsonObject.put("vertices", verticesJsonArray);
+                finalJsonObject.put("connecions", conectionsJsonArray);
+                if (CollectionUtils.isNotEmpty(adjacentUnaryRelationPairs)) {
+                    adjacentUnaryRelationPairs.forEach((final Pair<Edge, Vertex> adjacentPair) -> {
+                        final Vertex parentVertex = adjacentPair.getRight();
+                        final Edge unaryEdge = adjacentPair.getLeft();
+                        final String parentURI = octopus.getURI(parentVertex);
+                        addVertexEntry(verticesJsonArray, parentVertex);
+                        addConnectionEntryForURI(conectionsJsonArray, parentURI, uri, unaryEdge);
+                    });
+                }
+                // ===================================================================
+                // Retrieve the Binary Relations
+                // ===================================================================
+                final Set<Pair<Edge, Vertex>> adjacentBinaryRelationPairs = octopus.getAdjacentBinaryRelations(vertex);
+                if (CollectionUtils.isNotEmpty(adjacentBinaryRelationPairs)) {
+                    adjacentBinaryRelationPairs.forEach((final Pair<Edge, Vertex> adjacentPair) -> {
+                        final Vertex peerVertex = adjacentPair.getRight();
+                        final Edge binaryEdge = adjacentPair.getLeft();
+                        final String peerURI = octopus.getURI(peerVertex);
+                        addVertexEntry(verticesJsonArray, peerVertex);
+                        addConnectionEntryForURI(conectionsJsonArray, uri, peerURI, binaryEdge);
+                    });
+                }
+            }
+        } finally {
+            octopus.closeGraphConnection(graphDbNoTx);
+        }
+
+        nodeAssignmentOperation(finalJsonObject.getJSONArray("vertices"));
+
+        return finalJsonObject.toString();
+    }
+
     private void nodeAssignmentOperation(final JSONArray finalJsonOFVertices) throws AppException {
         for (int i = 0; i < finalJsonOFVertices.length(); i++) {
             final String assignment = AppUtils.getFileContent("json/assignment.json");
@@ -212,6 +262,19 @@ public class OctopusSemanticService {
         final JSONObject connectionJsonObject = new JSONObject();
         connectionJsonObject.put("from", fromVertexId);
         connectionJsonObject.put("to", toVertexId);
+        connectionJsonObject.put("relType", octopus.getName(edge));
+        edge.getPropertyKeys().forEach((final String propertyKey) -> {
+            if (!ignoredAttributes.contains(propertyKey)) {
+                connectionJsonObject.put(propertyKey, edge.<Object> getProperty(propertyKey));
+            }
+        });
+        conectionsJsonArray.put(connectionJsonObject);
+    }
+
+    private void addConnectionEntryForURI(final JSONArray conectionsJsonArray, final String fromVertexURI, final String toVertexURI, final Edge edge) {
+        final JSONObject connectionJsonObject = new JSONObject();
+        connectionJsonObject.put("from", fromVertexURI);
+        connectionJsonObject.put("to", toVertexURI);
         connectionJsonObject.put("relType", octopus.getName(edge));
         edge.getPropertyKeys().forEach((final String propertyKey) -> {
             if (!ignoredAttributes.contains(propertyKey)) {
