@@ -127,17 +127,21 @@ public class OctopusSemanticService {
             // ===================================================================
             final Vertex vertex = octopus.getVertexByURI(graphDbNoTx, uri);
             if (null != vertex) {
+
                 // ===================================================================
                 // Retrieve the Unary Relations
                 // ===================================================================
                 final Set<Pair<Edge, Vertex>> adjacentUnaryRelationPairs = octopus.getAdjacentUnaryRelations(vertex);
                 finalJsonObject.put("vertices", verticesJsonArray);
+                System.out.println("verticesJsonArray.length() = " + verticesJsonArray.length());
                 finalJsonObject.put("connecions", conectionsJsonArray);
                 if (CollectionUtils.isNotEmpty(adjacentUnaryRelationPairs)) {
                     adjacentUnaryRelationPairs.forEach((final Pair<Edge, Vertex> adjacentPair) -> {
                         final Vertex parentVertex = adjacentPair.getRight();
                         final Edge unaryEdge = adjacentPair.getLeft();
+                        System.out.println("vertex ID >>>>>>>>>>sagir>>>>>>>>>> = ");
                         final String parentURI = octopus.getURI(parentVertex);
+                        System.out.println("vertex ID >>>>>>>>>>sagir>>>>>>>>>> = " + parentURI);
                         addVertexEntry(verticesJsonArray, parentVertex);
                         addConnectionEntryForURI(conectionsJsonArray, parentURI, uri, unaryEdge);
                     });
