@@ -68,7 +68,8 @@ angular.module('RDAApp.services', [])
         'GetJsonForAllLinegeAgainstNodeIdwithAdaptiveLearning' : 'getJsonForAllLinegeAgainstNodeIdwithAdaptiveLearning',
         'GetJsonForAllLinegewithAdaptiveLearning' : 'getJsonForAllLinegewithAdaptiveLearning',
         'GetLineageDbData' : 'getLineageDbData',
-        'GetFilteredDataByCompName' : 'getFilteredDataByCompName'
+        'GetFilteredDataByCompName' : 'getFilteredDataByCompName',
+        'GetFunctionalAreasByProducts' : 'getFunctionalAreasByProducts'
     };
     SharedService.chartDataMap = {
         '0' : 'getHardCodedResponse/chartData1',
@@ -109,7 +110,7 @@ angular.module('RDAApp.services', [])
         "information_disable" : "rdaassets/images/graph_info_disable.png",
         "person" : "rdaassets/images/user48.png",
         "system" : "rdaassets/images/graph_system.png",
-        "default" : "rdaassets/images/blue_dot.png"
+        "default" : "ceclassets/images/blue_dot.png"
     };
 
     SharedService.mappableEdges = [];
@@ -147,7 +148,8 @@ angular.module('RDAApp.services', [])
         DOWN: 'red'
     };
     SharedService.primaryNav = [
-        {"id": "1" , "label":"ceclassets/images/document-browser.png", "title" : Constant.DOCUMENT_BROWSER_TAB}
+        {"id": "1" , "label":"ceclassets/images/document-browser.png", "title" : Constant.DOCUMENT_BROWSER_TAB},
+        {"id": "2" , "label":"ceclassets/images/impact.png", "title" : Constant.IMPACT_TAB}
    ];
     SharedService.layoutGraphData = [
                                         ["Jan-13", 11],["Feb-13", 9], ["March-13", 15], ["July-13", 12]
@@ -559,6 +561,11 @@ angular.module('RDAApp.services', [])
     SharedService.getFilteredDataByCompName = function(compName, filterStr){
         var sendObj = {"compName": compName, "filterStr": filterStr};
         return SharedService.invokeService('GetFilteredDataByCompName', sendObj, 'post');
+    }
+
+    SharedService.getFunctionalAreasByProducts = function(compName, products){
+        var sendObj = {"compName": compName, "products": products};
+        return SharedService.invokeService('GetFunctionalAreasByProducts', sendObj, 'post');
     }
 
     return SharedService;
@@ -1429,8 +1436,30 @@ angular.module('RDAApp.services', [])
                             ]
                         };
 
+    MockService.liquidityProfile = {
+        nodes: [
+            {id: 1, name: "Bank", type: "default", level: 1},
+            {id: 2, name: "Subsidiary-1", type: "default", level: 2},
+            {id: 3, name: "Subsidiary-2", type: "default", level: 2},
+            {id: 4, name: "Branch-1", type: "default", level: 3},
+            {id: 5, name: "Branch-2", type: "default", level: 3},
+            {id: 6, name: "Branch-3", type: "default", level: 3},
+            {id: 7, name: "Branch-4", type: "default", level: 3},
+            {id: 8, name: "Branch-5", type: "default", level: 3}
+        ],
+        edges: [
+            {from: 1, to: 2},
+            {from: 1, to: 3},
+            {from: 2, to: 4},
+            {from: 2, to: 5},
+            {from: 3, to: 6},
+            {from: 3, to: 7},
+            {from: 3, to: 8}
+        ]
+    }
+
     MockService.CeclBaseNodes = [
-        {"name": "Topic", "id": "Topic"},{"name": "Sub-Topic", "id": "Sub-Topic"},{"name": "Section", "id": "Section"},{"name": "Paragraph", "id": "Paragraph"},{"name": "Concept", "id": "FASB Concept"}
+        {"name": "Topic", "id": "Topic", "idx": 0},{"name": "Sub-Topic", "id": "Sub-Topic", "idx": 1},{"name": "Section", "id": "Section", "idx": 2},{"name": "Paragraph", "id": "Paragraph", "idx": 3},{"name": "Concept", "id": "FASB Concept", "idx": 4}
     ];
 
     MockService.CeclChildNodeDetails = {

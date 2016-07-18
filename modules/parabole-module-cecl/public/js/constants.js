@@ -23,6 +23,7 @@ var Constant = {
 	MODEL_TAB : 'Model Explorer',
 	HOME_TAB : 'Home',
 	DOCUMENT_BROWSER_TAB : 'Document Browser',
+	IMPACT_TAB : 'Impact',
 	COMPOSITEAGGREGATION : 'COMPOSITEAGGREGATION',
 	AGGREGATION : 'AGGREGATION',
 	COLOR : {

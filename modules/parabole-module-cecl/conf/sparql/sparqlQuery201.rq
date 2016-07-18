@@ -25,14 +25,14 @@ PREFIX pnc:<http://mindparabole.com/finance/pnc_cecl#>
 PREFIX cst:<http://mindparabole.com/finance/cecl_structure#>
 PREFIX owl:<http://www.w3.org/2002/07/owl#>
 
-select ?topic ?type ?name
+
+select  ?section ?type ?name
 where {
-?topic rdf:type ?tclass .
-?tclass rdfs:subClassOf cst:Topic .
-?topic cst:tophasSt ?subtopic .
-?subtopic rdfs:label ?name .
-?subtopic rdf:type ?subtopicType .
-?subtopicType rdfs:label ?type .
-#filter (?topic = cst:Topic321)
-filter (?topic = $$FILTERS$$)
+?sec rdf:type ?tclass .
+?sec rdfs:label ?section .
+?sec cst:sechasPara ?para .
+?para rdf:type ?paraType .
+?para rdfs:label ?name .
+?paraType rdfs:label ?type .
+filter (?section = "310-10-35 : Assets : Overall : Subsequent Measurement")
 }

@@ -1,10 +1,13 @@
 package com.parabole.cecl.application.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.parabole.feed.application.exceptions.AppException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.parabole.cecl.application.exceptions.AppException;
 import com.parabole.cecl.application.global.CCAppConstants;
-import com.parabole.feed.application.services.JenaTdbService;
+import com.parabole.cecl.application.services.JenaTdbService;
 import com.parabole.cecl.platform.utils.AppUtils;
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,7 +19,7 @@ import play.mvc.Results;
 import play.mvc.Controller;
 
 import javax.inject.Inject;
-import java.util.Iterator;
+import java.util.*;
 
 
 /**
@@ -147,5 +150,49 @@ public class JenaTdbController extends Controller {
         final String compName = json.findPath("compName").textValue();
         final String filterStr = json.findPath("filterStr").textValue();
         return Results.ok(jenaTdbService.getFilteredDataByCompName(compName, filterStr).toString());
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result getFunctionalAreasByProducts() throws AppException, JSONException {
+        final String jsonText = request().body().asJson().toString();
+        final JSONObject json = new JSONObject(jsonText);
+        final String compName = json.getString("compName");
+        final JSONArray productsArr = json.getJSONArray("products");
+        System.out.println(productsArr);
+        final LinkedHashMap<String, LinkedHashMap<String, ArrayList<String>>> valueMap = new LinkedHashMap<>();
+        final ArrayList<String> areas = new ArrayList<String>(Arrays.asList("concept", "model", "policy", "report"));
+        Set<String> columns = null;
+        for(int i=0; i<productsArr.length(); i++){
+            JSONObject res = jenaTdbService.getFilteredDataByCompName(compName, productsArr.getString(i));
+            JSONArray arr = res.getJSONArray("data");
+            for(int j=0; j<arr.length(); j++){
+                JSONObject obj = arr.getJSONObject(j);
+                String productKey = obj.getString("product");
+                if(!valueMap.containsKey(productKey)){
+                    LinkedHashMap<String, ArrayList<String>> innerMap = new LinkedHashMap<>();
+                    for (String area: areas) {
+                        innerMap.put(area, new ArrayList<>());
+                    }
+                    valueMap.put(productKey, innerMap);
+                }
+                LinkedHashMap<String, ArrayList<String>> innerMap = valueMap.get(productKey);
+                for (String area: areas) {
+                    if(obj.has(area)){
+                        ArrayList<String> areaList = innerMap.get(area);
+                        areaList.add(obj.getString(area));
+                    }
+                }
+                columns = innerMap.keySet();
+            }
+        }
+        ObjectMapper mapper = new ObjectMapper();
+        JSONObject finalRes = new JSONObject();
+        finalRes.put("columns", columns);
+        try {
+            finalRes.put("data", new JSONObject(mapper.writeValueAsString(valueMap)));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return Results.ok(finalRes.toString());
     }
 }

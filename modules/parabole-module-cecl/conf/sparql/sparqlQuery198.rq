@@ -25,14 +25,19 @@ PREFIX pnc:<http://mindparabole.com/finance/pnc_cecl#>
 PREFIX cst:<http://mindparabole.com/finance/cecl_structure#>
 PREFIX owl:<http://www.w3.org/2002/07/owl#>
 
-select ?topic ?type ?name
+select ?product ?model ?report ?policy ?concept ?role ?id
+where{
+{select *
 where {
-?topic rdf:type ?tclass .
-?tclass rdfs:subClassOf cst:Topic .
-?topic cst:tophasSt ?subtopic .
-?subtopic rdfs:label ?name .
-?subtopic rdf:type ?subtopicType .
-?subtopicType rdfs:label ?type .
-#filter (?topic = cst:Topic321)
-filter (?topic = $$FILTERS$$)
+				{?pro pb:hasModelType ?mod . ?mod rdfs:label ?model . ?pro pb:hasRole ?rol . ?rol rdfs:label ?role. }
+union		{?pro pb:hasReport ?rep . ?rep rdfs:label ?report .?pro pb:hasRole ?rol . ?rol rdfs:label ?role. }
+union		{?pro pb:hasPolicy ?pol . ?pol rdfs:label ?policy .?pro pb:hasRole ?rol . ?rol rdfs:label ?role. }
+union		{?pro pb:hasRelatedConcept ?con  . ?con rdfs:label ?concept .?pro pb:hasRole ?rol . ?rol rdfs:label ?role. }
+}}
+
+?pro rdf:type pb:Products .
+?pro rdfs:label ?product .
+#filter (?role = "Accounts Manager - Credit Card").
+filter (?role = $$FILTERS$$).
+bind(rand() AS ?id)
 }

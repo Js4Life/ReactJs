@@ -213,6 +213,30 @@ angular.module('RDAApp.directives', [])
     })
 
 
+.directive('visGraph', function ($parse, $compile, SharedService) {
+    return {
+        restrict: 'EA',
+        scope: {
+            data: '=',
+            options: '='
+        },
+        link: function (scope, element, attrs) {
+            var config = scope.options || {
+                    labelField:'name', isRandom : true,  edgeLabelField : 'relType', selectedEdgeColor : Constant.COLOR.AQUA,
+                    handlerData: { click : scope.clickNode, scope : scope },
+                    nodeShape: 'image',
+                    nodeImageMap: SharedService.graphImageMap,
+                    nodeImageField: "type",
+                    hier: false
+                };
+            scope.$parent.viz = new GRAPH.Viz ( $(element)[0], config );
+            scope.$watch('data', function (newVal) {
+                if(!newVal) return;
+                scope.$parent.viz.initialize( newVal );
+            });
+        }
+    }
+})
 
 .directive('visTimeline', function () {
         'use strict';

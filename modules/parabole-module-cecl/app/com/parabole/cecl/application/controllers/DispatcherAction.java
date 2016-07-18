@@ -37,4 +37,8 @@ public class DispatcherAction extends BaseAction {
     public Result riskAggregation() {
         return ok(com.parabole.cecl.application.views.html.risk.render());
     }
+
+    public Result impact() {
+        return ok(com.parabole.cecl.application.views.html.impact.render());
+    }
 }

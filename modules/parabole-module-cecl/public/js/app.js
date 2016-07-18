@@ -21,7 +21,13 @@ angular
               url : '/home',
               templateUrl : 'home',
               controller : 'homeCtrl'
-          });
+          })
+
+          .state('landing.impact', {
+              url : '/impact',
+              templateUrl : 'impact',
+              controller : 'impactCtrl'
+          });;
 
           $urlRouterProvider.otherwise('/landing/home');
   });

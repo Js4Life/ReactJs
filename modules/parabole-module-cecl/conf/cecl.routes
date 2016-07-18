@@ -6,6 +6,7 @@
 # ---------------------------------------------------------------------------------
 GET         /                                                                          com.parabole.cecl.application.controllers.BaseAction.dologin()
 GET         /doLogin                                                                   com.parabole.cecl.application.controllers.BaseAction.dologin()
+#GET         /testFeed                                                                  com.parabole.cecl.application.controllers.BaseAction.testFeed()
 GET         /logout                                                                    com.parabole.cecl.application.controllers.BaseAction.logout()
 GET         /getHardCodedResponse/:jsonFileName                                        com.parabole.cecl.application.controllers.BaseAction.getHardCodedResponse(jsonFileName: String)
 GET         /getLogicalViewJson/:viewName                                              com.parabole.cecl.application.controllers.BaseAction.getLogicalViewJson(viewName: String)
@@ -16,6 +17,7 @@ GET         /getLogicalViewJson/:viewName                                       
 GET         /landing                                                                   com.parabole.cecl.application.controllers.DispatcherAction.landing()
 GET         /home                                                                      com.parabole.cecl.application.controllers.DispatcherAction.home()
 GET         /riskAggregation                                                           com.parabole.cecl.application.controllers.DispatcherAction.riskAggregation()
+GET         /impact                                                                    com.parabole.cecl.application.controllers.DispatcherAction.impact()
 
 # ---------------------------------------------------------------------------------
 # Server Side Calls (All Authenticated)
@@ -131,6 +133,7 @@ GET /downloadFileByName/:name/:type         com.parabole.cecl.application.contro
 POST /getLiquidityFilters		com.parabole.cecl.application.controllers.JenaTdbController.getLiquidityFilters()
 POST /getLiquidityDataByFilters	com.parabole.cecl.application.controllers.JenaTdbController.getLiquidityDataByFilters()
 POST /getFilteredDataByCompName	com.parabole.cecl.application.controllers.JenaTdbController.getFilteredDataByCompName()
+POST /getFunctionalAreasByProducts	com.parabole.cecl.application.controllers.JenaTdbController.getFunctionalAreasByProducts()
 
 # ---------------------------------------------------------------------------------
 # Jena TDB operation {TEST}
