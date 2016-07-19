@@ -173,7 +173,6 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$scope.nodes = MockService.CeclBaseNodes;
 		$scope.breads = [];
 		$scope.showGraph = false;
-		//$scope.graphData = MockService.liquidityProfile;
 	}
 	
 	$scope.exploreNode = function (node, e) {
@@ -206,7 +205,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			currentNode = $scope.currentNode = _.findWhere($scope.childNodes, {"name": nodeName});
 			$scope.currentNode.definition = MockService.CeclChildNodeDetails[$scope.currentNode.name] || null;
 		}
-
+		$scope.showGraph = false;
 		var compName = "";
 		switch (currentNode.type){
 			case "Topic": 
@@ -242,7 +241,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				SharedService.getFilteredDataByCompName(compName, nodeName).then(function (data) {
 					var nodes = data.data;
 					$scope.nodeDetails = _.groupBy(nodes, "type");
-					getGraphByConceptUri($scope.currentNode.link);
+					getGraphByConceptUri($scope.currentNode);
 					$('#dsViewer').modal('show');
 				});
 				break;
@@ -253,8 +252,10 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$scope.showGraph = !$scope.showGraph;
 	}
 
-	function getGraphByConceptUri(uri) {
-		SharedService.getGraphByConceptUri(uri).then(function (data) {
+	function getGraphByConceptUri(currentNode) {
+		var rootNode = {name: currentNode.name, id: currentNode.link, type: "concept"}
+		SharedService.getGraphByConceptUri(currentNode.link).then(function (data) {
+			data.vertices.push(rootNode);
 			$scope.graphData = {nodes: data.vertices, edges: data.connecions};
 		});
 	}

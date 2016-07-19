@@ -262,6 +262,7 @@ public class OctopusSemanticService {
     private void addVertexEntryWithURI(final JSONArray verticesJsonArray, final Vertex vertex) {
         final JSONObject vertexjsonObject = new JSONObject();
         vertexjsonObject.put("id", octopus.getURI(vertex));
+        vertexjsonObject.put("type", "default");
         vertex.getPropertyKeys().forEach((final String propertyKey) -> {
             if (!ignoredAttributes.contains(propertyKey)) {
                 vertexjsonObject.put(propertyKey, vertex.<Object> getProperty(propertyKey));
