@@ -194,4 +194,13 @@ public class JenaTdbController extends Controller {
         }
         return Results.ok(finalRes.toString());
     }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result getMultiFilteredDataByCompName() throws AppException, JSONException {
+        final String jsonText = request().body().asJson().toString();
+        final JSONObject json = new JSONObject(jsonText);
+        final String compName = json.getString("compName");
+        final JSONArray filters = json.getJSONArray("filters");
+        return Results.ok(jenaTdbService.getMultiFilteredDataByCompName(compName, filters).toString());
+    }
 }

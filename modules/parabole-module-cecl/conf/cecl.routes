@@ -133,6 +133,7 @@ GET /downloadFileByName/:name/:type         com.parabole.cecl.application.contro
 POST /getLiquidityFilters		com.parabole.cecl.application.controllers.JenaTdbController.getLiquidityFilters()
 POST /getLiquidityDataByFilters	com.parabole.cecl.application.controllers.JenaTdbController.getLiquidityDataByFilters()
 POST /getFilteredDataByCompName	com.parabole.cecl.application.controllers.JenaTdbController.getFilteredDataByCompName()
+POST /getMultiFilteredDataByCompName	com.parabole.cecl.application.controllers.JenaTdbController.getMultiFilteredDataByCompName()
 POST /getFunctionalAreasByProducts	com.parabole.cecl.application.controllers.JenaTdbController.getFunctionalAreasByProducts()
 
 # ---------------------------------------------------------------------------------

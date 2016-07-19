@@ -9,9 +9,28 @@
       </thead>
       <tbody>
         <tr ng-repeat="(k, v) in allAreas">
-          <td style="background: #ececec;"><strong>{{k}}</strong></td><td ng-repeat="(k1, v1) in v"><div class="pointer" ng-repeat="v2 in v1">{{v2}}</div></td>
+          <td style="background: #ececec;"><strong>{{k}}</strong></td><td ng-repeat="(k1, v1) in v"><div class="pointer text-hover" ng-repeat="v2 in v1 track by $index" ng-click="getFunctionalAreaDetail(k, k1, v2)">{{v2}}</div></td>
         </tr>
       </tbody>
     </table>
+  </div>
+</div>
+
+<div id="dsViewer" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog">
+    <div class="modal-content zero-padding">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">{{modalHead}}</h4>
+      </div>
+      <div class="modal-body" style="height: 66vh; overflow: auto;padding-bottom: 0;">
+        <ul class="list-group">
+          <li class="list-group-item" ng-repeat="o in nodeElements">{{o.name}}</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
   </div>
 </div>

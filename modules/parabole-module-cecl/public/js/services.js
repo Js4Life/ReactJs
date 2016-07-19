@@ -69,6 +69,7 @@ angular.module('RDAApp.services', [])
         'GetJsonForAllLinegewithAdaptiveLearning' : 'getJsonForAllLinegewithAdaptiveLearning',
         'GetLineageDbData' : 'getLineageDbData',
         'GetFilteredDataByCompName' : 'getFilteredDataByCompName',
+        'GetMultiFilteredDataByCompName' : 'getMultiFilteredDataByCompName',
         'GetFunctionalAreasByProducts' : 'getFunctionalAreasByProducts'
     };
     SharedService.chartDataMap = {
@@ -561,6 +562,11 @@ angular.module('RDAApp.services', [])
     SharedService.getFilteredDataByCompName = function(compName, filterStr){
         var sendObj = {"compName": compName, "filterStr": filterStr};
         return SharedService.invokeService('GetFilteredDataByCompName', sendObj, 'post');
+    }
+
+    SharedService.getMultiFilteredDataByCompName = function(compName, filters){
+        var sendObj = {"compName": compName, "filters": filters};
+        return SharedService.invokeService('GetMultiFilteredDataByCompName', sendObj, 'post');
     }
 
     SharedService.getFunctionalAreasByProducts = function(compName, products){
