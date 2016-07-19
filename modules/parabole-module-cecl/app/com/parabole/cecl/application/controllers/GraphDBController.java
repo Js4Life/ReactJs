@@ -1,12 +1,15 @@
 package com.parabole.cecl.application.controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.google.inject.Inject;
 import com.parabole.cecl.application.global.RdaAppConstants;
 import com.parabole.cecl.platform.exceptions.AppException;
 import com.parabole.feed.application.services.OctopusSemanticService;
+import play.mvc.BodyParser;
 import play.mvc.Result;
 import play.mvc.Results;
 
+import static play.mvc.Controller.request;
 import static play.mvc.Controller.response;
 
 /**
@@ -29,12 +32,16 @@ public class GraphDBController {
         return Results.ok(outputJson);
     }
 
-    public Result getRelatedVerticesByURIWWW () throws AppException {
-        String hcData = "http://mindparabole.com/finance/fasb_concepts#AccountingAdjustment";
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result getRelatedVerticesByUri () throws AppException {
+        final JsonNode json = request().body().asJson();
+        final String uri = json.findPath("uri").textValue();
+        //String hcData = "http://www.mindparabole.com/ontology/finance/Parabole-Model#Segment";
         response().setContentType(RdaAppConstants.MIME_JSON);
         String outputJson = null;
         try {
-            outputJson = octopusSemanticService.getRelatedVerticesByURI(hcData);
+            outputJson = octopusSemanticService.getRelatedVerticesByURI(uri);
         } catch (com.parabole.feed.platform.exceptions.AppException e) {
             e.printStackTrace();
         }

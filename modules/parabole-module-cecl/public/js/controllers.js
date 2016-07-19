@@ -173,7 +173,6 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$scope.nodes = MockService.CeclBaseNodes;
 		$scope.breads = [];
 		$scope.showGraph = false;
-		$scope.graphData = MockService.liquidityProfile;
 	}
 	
 	$scope.exploreNode = function (node, e) {
@@ -203,10 +202,10 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 	$scope.getFilteredDataByCompName = function (nodeName, currentNode, index) {
 		if(!currentNode){
-			$scope.currentNode = _.findWhere($scope.childNodes, {"name": nodeName});
+			currentNode = $scope.currentNode = _.findWhere($scope.childNodes, {"name": nodeName});
 			$scope.currentNode.definition = MockService.CeclChildNodeDetails[$scope.currentNode.name] || null;
 		}
-
+		$scope.showGraph = false;
 		var compName = "";
 		switch (currentNode.type){
 			case "Topic": 
@@ -242,6 +241,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				SharedService.getFilteredDataByCompName(compName, nodeName).then(function (data) {
 					var nodes = data.data;
 					$scope.nodeDetails = _.groupBy(nodes, "type");
+					getGraphByConceptUri($scope.currentNode);
 					$('#dsViewer').modal('show');
 				});
 				break;
@@ -250,6 +250,14 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 	$scope.getGraph = function () {
 		$scope.showGraph = !$scope.showGraph;
+	}
+
+	function getGraphByConceptUri(currentNode) {
+		var rootNode = {name: currentNode.name, id: currentNode.link, type: "concept"}
+		SharedService.getGraphByConceptUri(currentNode.link).then(function (data) {
+			data.vertices.push(rootNode);
+			$scope.graphData = {nodes: data.vertices, edges: data.connecions};
+		});
 	}
 
 	function addBread() {
@@ -289,6 +297,29 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				$scope.columns = data.columns;
 				console.log(data);
 			});
+		});
+	}
+	
+	$scope.getFunctionalAreaDetail = function (productName, areaType, areaName) {
+		var filters = [
+			{"name": "product", "value": productName},
+			{"name": areaType, "value": areaName}
+		];
+		$scope.modalHead = areaName + " (" + productName + ")";
+		var compName = "";
+		switch (areaType){
+			case "concept":
+				compName = "dataelementByFuncArea";
+				break;
+			case "model":
+				compName = "modelByFuncArea";
+				break;
+		}
+		SharedService.getMultiFilteredDataByCompName(compName, filters).then(function (data) {
+			$scope.nodeElements = data.data;
+			if($scope.nodeElements.length > 0){
+				$('#dsViewer').modal('show');
+			}
 		});
 	}
 

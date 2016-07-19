@@ -69,7 +69,9 @@ angular.module('RDAApp.services', [])
         'GetJsonForAllLinegewithAdaptiveLearning' : 'getJsonForAllLinegewithAdaptiveLearning',
         'GetLineageDbData' : 'getLineageDbData',
         'GetFilteredDataByCompName' : 'getFilteredDataByCompName',
-        'GetFunctionalAreasByProducts' : 'getFunctionalAreasByProducts'
+        'GetMultiFilteredDataByCompName' : 'getMultiFilteredDataByCompName',
+        'GetFunctionalAreasByProducts' : 'getFunctionalAreasByProducts',
+        'GetGraphByConceptUri' : 'getRelatedVerticesByUri'
     };
     SharedService.chartDataMap = {
         '0' : 'getHardCodedResponse/chartData1',
@@ -78,39 +80,40 @@ angular.module('RDAApp.services', [])
         '3' : 'getHardCodedResponse/chartData4'
     };
     SharedService.nodeImageMap = {
-        "user" : "rdaassets/images/user48.png",
-        "usergroup" : "rdaassets/images/users48.png",
-        "datasource" : "rdaassets/images/datasource24.png",
-        "db" : "rdaassets/images/db.png",
-        "glossary" : "rdaassets/images/glossary24.png",
-        "rule" : "rdaassets/images/rule.png",
-        "database" : "rdaassets/images/database60.png",
-        "column" : "rdaassets/images/column24.png",
-        "table" : "rdaassets/images/table24.png",
-        "concept" : "rdaassets/images/concept.png",
-        "selectedRule" : "rdaassets/images/selectedRule.png",
-        "selectedConcept" : "rdaassets/images/selectedConcept.png",
-        "selectedDb" : "rdaassets/images/selectedDb.png",
-        "selectedGlossary" : "rdaassets/images/selectedGlossary.png",
-        "selectedUser" : "rdaassets/images/selectedUser.png",
-        "unSelectedRule" : "rdaassets/images/unSelectedRule.png",
-        "unSelectedConcept" : "rdaassets/images/unSelectedConcept.png",
-        "unSelectedDb" : "rdaassets/images/unSelectedDb.png",
-        "unSelectedGlossary" : "rdaassets/images/unSelectedGlossary.png",
-        "unSelectedUser" : "rdaassets/images/unSelectedUser.png"
+        "user" : "ceclassets/images/user48.png",
+        "usergroup" : "ceclassets/images/users48.png",
+        "datasource" : "ceclassets/images/datasource24.png",
+        "db" : "ceclassets/images/db.png",
+        "glossary" : "ceclassets/images/glossary24.png",
+        "rule" : "ceclassets/images/rule.png",
+        "database" : "ceclassets/images/database60.png",
+        "column" : "ceclassets/images/column24.png",
+        "table" : "ceclassets/images/table24.png",
+        "concept" : "ceclassets/images/concept.png",
+        "selectedRule" : "ceclassets/images/selectedRule.png",
+        "selectedConcept" : "ceclassets/images/selectedConcept.png",
+        "selectedDb" : "ceclassets/images/selectedDb.png",
+        "selectedGlossary" : "ceclassets/images/selectedGlossary.png",
+        "selectedUser" : "ceclassets/images/selectedUser.png",
+        "unSelectedRule" : "ceclassets/images/unSelectedRule.png",
+        "unSelectedConcept" : "ceclassets/images/unSelectedConcept.png",
+        "unSelectedDb" : "ceclassets/images/unSelectedDb.png",
+        "unSelectedGlossary" : "ceclassets/images/unSelectedGlossary.png",
+        "unSelectedUser" : "ceclassets/images/unSelectedUser.png"
     };
     SharedService.graphImageMap = {
-        "report" : "rdaassets/images/graph_report.png",
-        "selected" : "rdaassets/images/sky_dot.png",
-        "data" : "rdaassets/images/graph_data.png",
-        "policy" : "rdaassets/images/graph_policy.png",
-        "model" : "rdaassets/images/graph_model.png",
-        "committee" : "rdaassets/images/graph_committee.png",
-        "information" : "rdaassets/images/graph_info.png",
-        "information_disable" : "rdaassets/images/graph_info_disable.png",
-        "person" : "rdaassets/images/user48.png",
-        "system" : "rdaassets/images/graph_system.png",
-        "default" : "ceclassets/images/blue_dot.png"
+        "report" : "ceclassets/images/graph_report.png",
+        "selected" : "ceclassets/images/sky_dot.png",
+        "data" : "ceclassets/images/graph_data.png",
+        "policy" : "ceclassets/images/graph_policy.png",
+        "model" : "ceclassets/images/graph_model.png",
+        "committee" : "ceclassets/images/graph_committee.png",
+        "information" : "ceclassets/images/graph_info.png",
+        "information_disable" : "ceclassets/images/graph_info_disable.png",
+        "person" : "ceclassets/images/user48.png",
+        "system" : "ceclassets/images/graph_system.png",
+        "default" : "ceclassets/images/blue_dot.png",
+        "concept" : "ceclassets/images/concept.png"
     };
 
     SharedService.mappableEdges = [];
@@ -563,9 +566,19 @@ angular.module('RDAApp.services', [])
         return SharedService.invokeService('GetFilteredDataByCompName', sendObj, 'post');
     }
 
+    SharedService.getMultiFilteredDataByCompName = function(compName, filters){
+        var sendObj = {"compName": compName, "filters": filters};
+        return SharedService.invokeService('GetMultiFilteredDataByCompName', sendObj, 'post');
+    }
+
     SharedService.getFunctionalAreasByProducts = function(compName, products){
         var sendObj = {"compName": compName, "products": products};
         return SharedService.invokeService('GetFunctionalAreasByProducts', sendObj, 'post');
+    }
+
+    SharedService.getGraphByConceptUri = function(uri){
+        var sendObj = {"uri": uri};
+        return SharedService.invokeService('GetGraphByConceptUri', sendObj, 'post');
     }
 
     return SharedService;

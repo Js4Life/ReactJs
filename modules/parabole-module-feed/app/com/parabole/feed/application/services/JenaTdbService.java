@@ -1250,6 +1250,8 @@ public class JenaTdbService {
         return retList;
     }
 
+
+
     private List<HashMap<String, BaseBindObj>> deserializeBindings(final JsonArray bindings) {
         List<HashMap<String, BaseBindObj>> bindSet = new ArrayList<HashMap<String, BaseBindObj>>();
         bindSet = new Gson().fromJson(bindings, new TypeToken<ArrayList<HashMap<String, BaseBindObj>>>() {
@@ -1460,5 +1462,27 @@ public class JenaTdbService {
         return finalJson;
     }
 
+    public JsonArray getRawBindingDataValues( final String fileName ) throws AppException {
+
+        final String sparqlQueryString = AppUtils.getFileContent("sparql/" + fileName);
+        Dataset dataset = getDataset();
+        final Query query = QueryFactory.create(sparqlQueryString);
+        final QueryExecution qexec = QueryExecutionFactory.create(query, dataset);
+        final ResultSet resultsData = qexec.execSelect();
+        final JsonObject resultObj = new JsonParser().parse(sparkleResultToJSON(resultsData)).getAsJsonObject();
+        final JsonArray variables = resultObj.getAsJsonObject("head").getAsJsonArray("vars");
+        final JsonArray bindings = resultObj.getAsJsonObject("results").getAsJsonArray("bindings");
+
+        JsonArray returnOblList = new JsonArray();
+        bindings.forEach( aBinding -> {
+            JsonObject aObject = new JsonObject();
+            variables.forEach(a -> {
+                aObject.addProperty( a.getAsString(),
+                        aBinding.getAsJsonObject().get(a.getAsString()).getAsString());
+                returnOblList.add(aObject);
+            });
+        });
+        return returnOblList;
+    }
 
 }

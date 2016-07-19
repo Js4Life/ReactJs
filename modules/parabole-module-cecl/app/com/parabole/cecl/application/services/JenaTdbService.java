@@ -1465,4 +1465,57 @@ public class JenaTdbService {
         return finalJson;
     }
 
+    public JSONObject getMultiFilteredDataByCompName(final String compName, JSONArray filters){
+        final JSONObject finalJson = new JSONObject();
+        JSONObject filterDefJson = null;
+        try {
+            final Dataset dataset = getDataset();
+            dataset.begin(ReadWrite.READ);
+            final String cfgInfo = AppUtils.getFileContent("json/" + CCAppConstants.JENA_FILTERDEF_FILE);
+            final JSONObject jsonCfg = new JSONObject(cfgInfo);
+            filterDefJson = jsonCfg.getJSONObject(compName);
+            final String outputFormat = filterDefJson.getString("outputFormat");
+            finalJson.put("outputFormat", outputFormat);
+            final String fileIdentification = filterDefJson.getString("source");
+            final String groupByField = filterDefJson.getString("groupByField");
+            final JSONArray attrArr = filterDefJson.getJSONArray("columns");
+            final HashMap<String, String> attrLabels = new HashMap<String, String>();
+            for (int i = 0; i < attrArr.length(); i++) {
+                final JSONObject colObj = attrArr.getJSONObject(i);
+                final String attr = colObj.getString("name");
+                final String colLabel = colObj.getString("label");
+                attrLabels.put(attr, colLabel);
+            }
+            String filterStr = "";
+            String sparqlQueryString = AppUtils.getFileContent("sparql/sparqlQuery" + fileIdentification + ".rq");
+            if(filters != null && filters.length() != 0) {
+                for (int i = 0; i < filters.length(); i++) {
+                    final JSONObject filter = filters.getJSONObject(i);
+                    final String name = filter.getString("name");
+                    final String value = filter.getString("value");
+                    filterStr += " FILTER(?" + name + " = \"" + value + "\")";
+                }
+                sparqlQueryString = sparqlQueryString.replace("$$FILTERS$$", filterStr);
+            }
+            final HashMap<String, HashMap<String, String>> branches = getValueFromQueryStringByAttrs(sparqlQueryString, attrLabels.keySet(), groupByField, dataset);
+
+            final Iterator<?> branchKeys = branches.keySet().iterator();
+            final JSONArray jsArr = new JSONArray();
+            finalJson.put("data", jsArr);
+            while (branchKeys.hasNext()) {
+                final String branchKey = branchKeys.next().toString();
+                final JSONObject jsObj = new JSONObject();
+                final HashMap<String, String> aBranch = branches.get(branchKey);
+                final Iterator<?> attrKeys = attrLabels.keySet().iterator();
+                while (attrKeys.hasNext()) {
+                    final String attrKey = attrKeys.next().toString();
+                    jsObj.put(attrLabels.get(attrKey), aBranch.get(attrKey));
+                }
+                jsArr.put(jsObj);
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return finalJson;
+    }
 }
