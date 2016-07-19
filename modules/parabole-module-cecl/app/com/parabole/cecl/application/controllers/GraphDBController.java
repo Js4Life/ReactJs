@@ -32,6 +32,7 @@ public class GraphDBController {
         return Results.ok(outputJson);
     }
 
+
     @BodyParser.Of(BodyParser.Json.class)
     public Result getRelatedVerticesByUri () throws AppException {
         final JsonNode json = request().body().asJson();
