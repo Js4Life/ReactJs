@@ -30,7 +30,7 @@ public class GraphDBController {
     }
 
     public Result getRelatedVerticesByURIWWW () throws AppException {
-        String hcData = "http://www.mindparabole.com/ontology/finance/Parabole-Model#Segment";
+        String hcData = "http://mindparabole.com/finance/fasb_concepts#AccountingAdjustment";
         response().setContentType(RdaAppConstants.MIME_JSON);
         String outputJson = null;
         try {

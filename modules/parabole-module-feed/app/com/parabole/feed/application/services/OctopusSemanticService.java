@@ -260,13 +260,28 @@ public class OctopusSemanticService {
     }
 
     private void addVertexEntryWithURI(final JSONArray verticesJsonArray, final Vertex vertex) {
-        final JSONObject vertexjsonObject = new JSONObject();
+        JSONObject vertexjsonObject = new JSONObject();
         vertexjsonObject.put("id", octopus.getURI(vertex));
         vertex.getPropertyKeys().forEach((final String propertyKey) -> {
             if (!ignoredAttributes.contains(propertyKey)) {
                 vertexjsonObject.put(propertyKey, vertex.<Object> getProperty(propertyKey));
+                System.out.println("propertyKey = " + propertyKey);
+
+
+                String val = vertexjsonObject.get(propertyKey).toString();
+                if(val.toLowerCase().contains("true".toLowerCase())){
+                    //String finalType = propertyKey.replace("is","").toLowerCase();
+                    String upToNCharacters = propertyKey.substring(0, Math.min(propertyKey.length(), 2));
+                    if(upToNCharacters.contains("is")){
+                        vertexjsonObject.put("type",  propertyKey.substring(2));
+                    }else {
+                        vertexjsonObject.put("type",  propertyKey);
+                    }
+                }
+
             }
         });
+
         verticesJsonArray.put(vertexjsonObject);
     }
 
