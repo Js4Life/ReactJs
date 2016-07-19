@@ -113,7 +113,8 @@ angular.module('RDAApp.services', [])
         "person" : "ceclassets/images/user48.png",
         "system" : "ceclassets/images/graph_system.png",
         "default" : "ceclassets/images/blue_dot.png",
-        "concept" : "ceclassets/images/concept.png"
+        "concept" : "ceclassets/images/concept.png",
+        "paragraph" : "ceclassets/images/graph_paragraph.png"
     };
 
     SharedService.mappableEdges = [];
