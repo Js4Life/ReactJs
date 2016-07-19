@@ -274,9 +274,9 @@ public class OctopusSemanticService {
                     //String finalType = propertyKey.replace("is","").toLowerCase();
                     String upToNCharacters = propertyKey.substring(0, Math.min(propertyKey.length(), 2));
                     if(upToNCharacters.contains("is")){
-                        vertexjsonObject.put("type",  propertyKey.substring(2));
+                        vertexjsonObject.put("type",  propertyKey.substring(2).toLowerCase());
                     }else {
-                        vertexjsonObject.put("type",  propertyKey);
+                        vertexjsonObject.put("type",  propertyKey.toLowerCase());
                     }
                 }
 
