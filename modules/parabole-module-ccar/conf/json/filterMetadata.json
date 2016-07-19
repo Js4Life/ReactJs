@@ -78,6 +78,9 @@
 		},{
 			"name" : "name",
 			"label" : "type"
+		},{
+			"name" : "item",
+			"label" : "link"
 		}]
 	},
 	"ceclConceptNodeDetails" : {
@@ -187,6 +190,24 @@
 		},{
 			"name" : "concept",
 			"label" : "concept"
+		}]
+	},
+	"dataelementByFuncArea"  : {
+		"outputFormat":"table",
+		"source":"203",
+		"groupByField" : "dataelement",
+		"columns" :  [{
+			"name" : "dataelement",
+			"label" : "name"
+		}]
+	},
+	"modelByFuncArea"  : {
+		"outputFormat":"table",
+		"source":"204",
+		"groupByField" : "modelName",
+		"columns" :  [{
+			"name" : "modelName",
+			"label" : "name"
 		}]
 	}
 }

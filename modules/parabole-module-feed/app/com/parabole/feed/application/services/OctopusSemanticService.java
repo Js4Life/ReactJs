@@ -127,7 +127,6 @@ public class OctopusSemanticService {
             // ===================================================================
             final Vertex vertex = octopus.getVertexByURI(graphDbNoTx, uri);
             if (null != vertex) {
-
                 // ===================================================================
                 // Retrieve the Unary Relations
                 // ===================================================================
@@ -139,10 +138,8 @@ public class OctopusSemanticService {
                     adjacentUnaryRelationPairs.forEach((final Pair<Edge, Vertex> adjacentPair) -> {
                         final Vertex parentVertex = adjacentPair.getRight();
                         final Edge unaryEdge = adjacentPair.getLeft();
-                        System.out.println("vertex ID >>>>>>>>>>sagir>>>>>>>>>> = ");
                         final String parentURI = octopus.getURI(parentVertex);
-                        System.out.println("vertex ID >>>>>>>>>>sagir>>>>>>>>>> = " + parentURI);
-                        addVertexEntry(verticesJsonArray, parentVertex);
+                        addVertexEntryWithURI(verticesJsonArray, parentVertex);
                         addConnectionEntryForURI(conectionsJsonArray, parentURI, uri, unaryEdge);
                     });
                 }
@@ -155,7 +152,7 @@ public class OctopusSemanticService {
                         final Vertex peerVertex = adjacentPair.getRight();
                         final Edge binaryEdge = adjacentPair.getLeft();
                         final String peerURI = octopus.getURI(peerVertex);
-                        addVertexEntry(verticesJsonArray, peerVertex);
+                        addVertexEntryWithURI(verticesJsonArray, peerVertex);
                         addConnectionEntryForURI(conectionsJsonArray, uri, peerURI, binaryEdge);
                     });
                 }
@@ -254,6 +251,18 @@ public class OctopusSemanticService {
     private void addVertexEntry(final JSONArray verticesJsonArray, final Vertex vertex) {
         final JSONObject vertexjsonObject = new JSONObject();
         vertexjsonObject.put("id", octopus.getId(vertex));
+        vertex.getPropertyKeys().forEach((final String propertyKey) -> {
+            if (!ignoredAttributes.contains(propertyKey)) {
+                vertexjsonObject.put(propertyKey, vertex.<Object> getProperty(propertyKey));
+            }
+        });
+        verticesJsonArray.put(vertexjsonObject);
+    }
+
+    private void addVertexEntryWithURI(final JSONArray verticesJsonArray, final Vertex vertex) {
+        final JSONObject vertexjsonObject = new JSONObject();
+        vertexjsonObject.put("id", octopus.getURI(vertex));
+        vertexjsonObject.put("type", "default");
         vertex.getPropertyKeys().forEach((final String propertyKey) -> {
             if (!ignoredAttributes.contains(propertyKey)) {
                 vertexjsonObject.put(propertyKey, vertex.<Object> getProperty(propertyKey));

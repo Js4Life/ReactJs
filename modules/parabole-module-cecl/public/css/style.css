@@ -2406,3 +2406,7 @@ li.list-group-item.puff{
       border-bottom-left-radius: 0;
       box-shadow: 0 0 5px 0 #ccc;
   }
+
+  .text-hover:hover{
+      color: blue;
+  }

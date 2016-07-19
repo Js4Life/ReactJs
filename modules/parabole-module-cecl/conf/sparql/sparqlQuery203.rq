@@ -25,18 +25,15 @@ PREFIX pnc:<http://mindparabole.com/finance/pnc_cecl#>
 PREFIX cst:<http://mindparabole.com/finance/cecl_structure#>
 PREFIX owl:<http://www.w3.org/2002/07/owl#>
 
-select DISTINCT ?product ?model ?report ?policy ?concept ?role ?dataelement ?id
-where{
-{select *
-where {
-				{?pro pb:hasModel ?mod . ?mod rdf:type ?mtype . ?mtype rdfs:label ?model. ?pro pb:hasRole ?rol . ?rol rdfs:label ?role. }
-union		{?pro pb:hasReport ?rep . ?rep rdf:type ?rtype.  ?rtype rdfs:label ?report .?pro pb:hasRole ?rol . ?rol rdfs:label ?role. }
-union		{?pro pb:hasPolicy ?pol . ?pol rdf:type ?ptype. ?ptype rdfs:label ?policy .?pro pb:hasRole ?rol . ?rol rdfs:label ?role. }
-union		{?pro pb:hasRelatedConcept ?con  . ?con rdfs:label ?concept .?pro pb:hasRole ?rol . ?rol rdfs:label ?role. }
-}}
 
-?pro rdf:type pb:Products .
-?pro rdfs:label ?product .
-filter (?role = $$FILTERS$$) .
-bind(rand() AS ?id)
+select DISTINCT ?dataelement
+where {
+?pro pb:hasRelatedConcept ?con  .
+?con rdfs:label ?concept .
+?con pb:ConcepthasDataElement ?de.
+?de rdfs:label ?dataelement.
+?pro pb:hasRole ?rol .
+?rol rdfs:label ?role.
+?pro rdfs:label ?product.
+$$FILTERS$$
 }
