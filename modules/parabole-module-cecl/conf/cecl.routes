@@ -145,3 +145,13 @@ GET /jenaTDBBatch/:fileIdentification      com.parabole.cecl.application.control
 GET /jenaTDBInsert/:fileIdentification     com.parabole.cecl.application.controllers.JenaTdbController.jenaTDBInsert(fileIdentification: String)
 GET /loadAllFromBatch                      com.parabole.cecl.application.controllers.JenaTdbController.loadAllFromBatch()
 
+
+
+
+# ---------------------------------------------------------------------------------
+# GRAPH DB OPERATIONS
+# ---------------------------------------------------------------------------------
+
+GET /getRelatedVerticesByURI/:uri       com.parabole.cecl.application.controllers.GraphDBController.getRelatedVerticesByURI(uri: String)
+GET /getRelatedVerticesByURIWWW       com.parabole.cecl.application.controllers.GraphDBController.getRelatedVerticesByURIWWW
+

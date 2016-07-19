@@ -59,7 +59,6 @@ public class BaseAction extends Controller {
     protected AuthenticationManager authenticationManager;
 
 
-
     public Result login() {
         return ok(com.parabole.cecl.application.views.html.login.render());
     }
