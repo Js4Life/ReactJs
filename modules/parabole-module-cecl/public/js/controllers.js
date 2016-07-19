@@ -173,7 +173,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$scope.nodes = MockService.CeclBaseNodes;
 		$scope.breads = [];
 		$scope.showGraph = false;
-		$scope.graphData = MockService.liquidityProfile;
+		//$scope.graphData = MockService.liquidityProfile;
 	}
 	
 	$scope.exploreNode = function (node, e) {
@@ -242,6 +242,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				SharedService.getFilteredDataByCompName(compName, nodeName).then(function (data) {
 					var nodes = data.data;
 					$scope.nodeDetails = _.groupBy(nodes, "type");
+					getGraphByConceptUri($scope.currentNode.link);
 					$('#dsViewer').modal('show');
 				});
 				break;
@@ -250,6 +251,12 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 	$scope.getGraph = function () {
 		$scope.showGraph = !$scope.showGraph;
+	}
+
+	function getGraphByConceptUri(uri) {
+		SharedService.getGraphByConceptUri(uri).then(function (data) {
+			$scope.graphData = {nodes: data.vertices, edges: data.connecions};
+		});
 	}
 
 	function addBread() {

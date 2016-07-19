@@ -70,7 +70,8 @@ angular.module('RDAApp.services', [])
         'GetLineageDbData' : 'getLineageDbData',
         'GetFilteredDataByCompName' : 'getFilteredDataByCompName',
         'GetMultiFilteredDataByCompName' : 'getMultiFilteredDataByCompName',
-        'GetFunctionalAreasByProducts' : 'getFunctionalAreasByProducts'
+        'GetFunctionalAreasByProducts' : 'getFunctionalAreasByProducts',
+        'GetGraphByConceptUri' : 'getRelatedVerticesByUri'
     };
     SharedService.chartDataMap = {
         '0' : 'getHardCodedResponse/chartData1',
@@ -572,6 +573,11 @@ angular.module('RDAApp.services', [])
     SharedService.getFunctionalAreasByProducts = function(compName, products){
         var sendObj = {"compName": compName, "products": products};
         return SharedService.invokeService('GetFunctionalAreasByProducts', sendObj, 'post');
+    }
+
+    SharedService.getGraphByConceptUri = function(uri){
+        var sendObj = {"uri": uri};
+        return SharedService.invokeService('GetGraphByConceptUri', sendObj, 'post');
     }
 
     return SharedService;

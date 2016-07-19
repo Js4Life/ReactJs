@@ -78,6 +78,9 @@
 		},{
 			"name" : "name",
 			"label" : "type"
+		},{
+			"name" : "item",
+			"label" : "link"
 		}]
 	},
 	"ceclConceptNodeDetails" : {

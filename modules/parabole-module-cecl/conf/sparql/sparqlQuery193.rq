@@ -27,7 +27,7 @@ PREFIX owl:<http://www.w3.org/2002/07/owl#>
 
 select *
 where{
-{select  DISTINCT ?name ?itemname
+{select  DISTINCT ?name ?itemname ?item
 where{
 values (?a)
 {("Topic")
@@ -43,7 +43,7 @@ FILTER(?a = ?name)
 ?item rdfs:label ?itemname.
 }}
 UNION
-{select  DISTINCT ?name ?itemname
+{select  DISTINCT ?name ?itemname ?item
 where{
 values (?a)
 {("Topic")

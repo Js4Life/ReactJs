@@ -153,5 +153,5 @@ GET /loadAllFromBatch                      com.parabole.cecl.application.control
 # ---------------------------------------------------------------------------------
 
 GET /getRelatedVerticesByURI/:uri       com.parabole.cecl.application.controllers.GraphDBController.getRelatedVerticesByURI(uri: String)
-GET /getRelatedVerticesByURIWWW       com.parabole.cecl.application.controllers.GraphDBController.getRelatedVerticesByURIWWW
+POST /getRelatedVerticesByUri      com.parabole.cecl.application.controllers.GraphDBController.getRelatedVerticesByUri
 
