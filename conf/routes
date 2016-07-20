@@ -11,6 +11,7 @@
 ->   /rda       rda.Routes
 ->   /auth      auth.Routes
 ->   /cecl      cecl.Routes
+->   /feed      feed.Routes
 
 # ---------------------------------------------------------------------------------
 # Static Resources

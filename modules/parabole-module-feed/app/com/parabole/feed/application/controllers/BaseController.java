@@ -1,10 +1,7 @@
 package com.parabole.feed.application.controllers;
 
 import com.google.inject.Inject;
-import com.parabole.feed.application.services.CoralConfigurationService;
-import com.parabole.feed.application.services.CoralUserService;
-import com.parabole.feed.application.services.OctopusSemanticService;
-import com.parabole.feed.platform.securities.AuthenticationManager;
+import com.parabole.feed.application.services.*;
 import play.mvc.Controller;
 
 /**
@@ -20,12 +17,12 @@ public class BaseController extends Controller {
     protected CoralUserService coralUserService;
 
     @Inject
-    protected AuthenticationManager authenticationManager;
-
-    @Inject
     protected CoralConfigurationService coralConfigurationService;
 
     @Inject
     protected OctopusSemanticService octopusSemanticService;
+
+    @Inject
+    protected JenaTdbService jenaTdbService;
 
 }
