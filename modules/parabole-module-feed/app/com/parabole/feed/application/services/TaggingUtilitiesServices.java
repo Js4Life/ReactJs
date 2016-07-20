@@ -5,10 +5,12 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.google.inject.Inject;
 import com.parabole.feed.application.exceptions.AppException;
 import com.parabole.feed.application.global.CCAppConstants;
+import com.parabole.feed.application.utils.AppUtils;
 import edu.stanford.nlp.ling.HasWord;
 import edu.stanford.nlp.ling.TaggedWord;
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 import org.apache.commons.lang3.Validate;
+import org.json.JSONObject;
 
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -16,6 +18,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
+
+import static play.mvc.Controller.response;
 
 public class TaggingUtilitiesServices {
 
@@ -77,6 +81,20 @@ public class TaggingUtilitiesServices {
         });
         return taggedSentences;
     }
+
+
+    public String getConfigurationDetailWithnodeinfo(final Integer ConfigarationId) throws AppException {
+
+        final String jsonFileContent = AppUtils.getFileContent("json/assignment.json");
+        response().setContentType("application/json");
+        final JSONObject assignment = new JSONObject(jsonFileContent);
+
+        // TODO
+
+        return null;
+    }
+
+
 
 
     public Integer saveData(final String userId, final JsonNode json, final CCAppConstants.ConfigurationType configurationType) throws AppException, com.parabole.feed.platform.exceptions.AppException {
