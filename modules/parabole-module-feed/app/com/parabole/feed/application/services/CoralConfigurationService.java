@@ -1,12 +1,5 @@
 package com.parabole.feed.application.services;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import org.apache.commons.lang3.Validate;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -14,6 +7,14 @@ import com.parabole.feed.application.global.CCAppConstants;
 import com.parabole.feed.application.global.CCAppConstants.ConfigurationType;
 import com.parabole.feed.platform.exceptions.AppException;
 import com.parabole.feed.platform.graphdb.Coral;
+import org.apache.commons.lang3.Validate;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Singleton
 public class CoralConfigurationService {
@@ -80,6 +81,15 @@ public class CoralConfigurationService {
 	        Validate.notBlank(configurationDetails, "'configurationDetails' cannot be empty!");
 	        Validate.notNull(configurationType, "'configurationType' cannot be null!");
 	        return coral.saveConfiguration(userId, configurationType.toString(), configurationName, configurationDetails);
+    }
+
+
+    public Integer saveConfiguration(final String userId, final String configurationType, final String configurationName, final String configurationDetails) throws AppException {
+        Validate.notNull(userId, "'json' cannot be null!");
+        Validate.notBlank(configurationName, "'configurationName' cannot be empty!");
+        Validate.notBlank(configurationDetails, "'configurationDetails' cannot be empty!");
+        Validate.notNull(configurationType, "'configurationType' cannot be null!");
+        return coral.saveConfiguration(userId, configurationType.toString(), configurationName, configurationDetails);
     }
 
     public Integer saveConfiguration(final String userId, final String configurationName, final String configurationDetails, final ConfigurationType configurationType, final byte[] fileBytes) throws AppException {

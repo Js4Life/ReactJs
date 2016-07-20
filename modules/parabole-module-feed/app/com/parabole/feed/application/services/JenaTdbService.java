@@ -1462,7 +1462,7 @@ public class JenaTdbService {
         return finalJson;
     }
 
-    public JsonArray getRawBindingDataValues( final String fileName ) throws AppException {
+    public String getRawBindingDataValues( final String fileName ) throws AppException {
 
         final String sparqlQueryString = AppUtils.getFileContent("sparql/" + fileName);
         Dataset dataset = getDataset();
@@ -1482,7 +1482,7 @@ public class JenaTdbService {
                 returnOblList.add(aObject);
             });
         });
-        return returnOblList;
+        return returnOblList.toString();
     }
 
 }

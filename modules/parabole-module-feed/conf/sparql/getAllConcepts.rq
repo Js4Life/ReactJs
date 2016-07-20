@@ -1,0 +1,117 @@
+SELECT  ?Name ?Label
+WHERE
+{
+?Name rdfs:label ?Label.
+{?Name rdf:type*cst:AccountingAdjustment }
+UNION{ 
+?Name rdf:type* cst:AccountingConcept.
+}
+UNION { 
+?Name rdf:type* cst:AccountingRule.
+}UNION { 
+?Name rdf:type* cst:Amount.
+}UNION { 
+?Name rdf:type* cst:BalanceSheetItem.
+}UNION { 
+?Name rdf:type* cst:ContractualItem.
+}UNION { 
+?Name rdf:type* cst:CreditManagement.
+}UNION { 
+?Name rdf:type* cst:CreditQuality.
+}UNION { 
+?Name rdf:type* cst:Entity.
+}UNION { 
+?Name rdf:type* cst:Event.
+}UNION { 
+?Name rdf:type* cst:EventDate.
+}UNION { 
+?Name rdf:type* cst:FinancialStatementItem.
+}UNION { 
+?Name rdf:type* cst:InterestRate.
+}UNION { 
+?Name rdf:type* cst:OffBalanceSheetItem.
+}UNION { 
+?Name rdf:type* cst:Party.
+}UNION { 
+?Name rdf:type* cst:PPNRItem.
+}UNION { 
+?Name rdf:type* cst:Price.
+}UNION { 
+?Name rdf:type* cst:RegulatoryReportingItem.
+}UNION { 
+?Name rdf:type* cst:Risk.
+}UNION { 
+?Name rdf:type*cst:Transaction.
+}UNION { 
+?Name rdf:type*cst:TranslationAdjustment.
+}UNION { 
+?Name rdf:type* cst:ValuationMethod.
+}
+MINUS {SELECT ?Name
+WHERE{{
+?Name rdfs:label "Translation Adjustment".}
+UNION {
+?Name rdfs:label "Accounting Rule".
+}
+UNION {
+?Name rdfs:label "Accounting Concept".
+}
+UNION {
+?Name rdfs:label "Amount".
+}
+UNION {
+?Name rdfs:label "Balance Sheet Item".
+}
+UNION {
+?Name rdfs:label "Contractual Item".
+}
+UNION {
+?Name rdfs:label "Credit Management".
+}
+UNION {
+?Name rdfs:label "Credit Quality".
+}
+UNION {
+?Name rdfs:label "Entity".
+}
+UNION {
+?Name rdfs:label "Event".
+}
+UNION {
+?Name rdfs:label "Event Date".
+}
+UNION {
+?Name rdfs:label "Financial Statement Item".
+}
+UNION {
+?Name rdfs:label "Interest Rate".
+}
+UNION {
+?Name rdfs:label "Off Balance Sheet Item".
+}
+UNION {
+?Name rdfs:label "Party".
+}
+UNION {
+?Name rdfs:label "PPNR Item".
+}
+UNION {
+?Name rdfs:label "Price".
+}
+UNION {
+?Name rdfs:label "Regulatory Reporting Item".
+}
+UNION {
+?Name rdfs:label "Risk".
+}
+UNION {
+?Name rdfs:label "Transaction".
+}
+UNION {
+?Name rdfs:label "Valuation Method".
+}
+UNION {
+?Name rdfs:label "Accounting Adjustment".
+}
+
+}}}
