@@ -114,6 +114,7 @@ angular.module('RDAApp.services', [])
         "system" : "ceclassets/images/graph_system.png",
         "default" : "ceclassets/images/blue_dot.png",
         "concept" : "ceclassets/images/concept.png",
+        "related concept" : "ceclassets/images/concept.png",
         "paragraph" : "ceclassets/images/graph_paragraph.png"
     };
 
