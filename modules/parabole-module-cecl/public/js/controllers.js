@@ -241,7 +241,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				SharedService.getFilteredDataByCompName(compName, nodeName).then(function (data) {
 					var nodes = data.data;
 					$scope.nodeDetails = _.groupBy(nodes, "type");
-					getGraphByConceptUri($scope.currentNode);
+					getGraphByConceptUri();
 					$('#dsViewer').modal('show');
 				});
 				break;
@@ -252,11 +252,24 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$scope.showGraph = !$scope.showGraph;
 	}
 
-	function getGraphByConceptUri(currentNode) {
+	/*function getGraphByConceptUri(currentNode) {
 		var rootNode = {name: currentNode.name, id: currentNode.link, type: "concept"}
 		SharedService.getGraphByConceptUri(currentNode.link).then(function (data) {
 			data.vertices.push(rootNode);
 			$scope.graphData = {nodes: data.vertices, edges: data.connecions};
+		});
+	}*/
+
+	function getGraphByConceptUri() {
+		var rootNode = {name: $scope.currentNode.name, id: $scope.currentNode.link, type: "concept"};
+		$scope.graphData = {nodes: [rootNode], edges: []};
+		angular.forEach($scope.nodeDetails, function (val, key) {
+			angular.forEach(val, function (aNode, idx) {
+				var node = {name: aNode.name, id: key+idx, type: key.toLowerCase()};
+				var edge = {from: rootNode.id, to: node.id};
+				$scope.graphData.nodes.push(node);
+				$scope.graphData.edges.push(edge);
+			});
 		});
 	}
 
