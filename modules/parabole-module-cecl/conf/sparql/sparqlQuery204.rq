@@ -34,7 +34,6 @@ where
 ?pro pb:hasRole ?rol .
 ?rol rdfs:label ?role.
 ?pro rdfs:label ?product.
-FILTER(?product ="Credit Card")
-FILTER(?model ="Risk Management Model")
+$$FILTERS$$
 }
 
