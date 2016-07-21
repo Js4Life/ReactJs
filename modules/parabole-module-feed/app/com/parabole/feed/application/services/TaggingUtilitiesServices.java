@@ -89,14 +89,10 @@ public class TaggingUtilitiesServices {
 
     public String getConfigurationDetailWithnodeinfo(final Integer ConfigarationId) throws AppException {
 
-
         String jsonFileContent = getTheassignments();
         final JSONObject assignment = new JSONObject(jsonFileContent);
-
-
         jenaTdbService.getRawBindingDataValues(jsonFileContent);
         // TODO
-
         return null;
     }
 
@@ -104,7 +100,6 @@ public class TaggingUtilitiesServices {
 
         final String jsonFileContent = AppUtils.getFileContent("json/assignment.json");
         response().setContentType("application/json");
-
         return jsonFileContent;
 
     }

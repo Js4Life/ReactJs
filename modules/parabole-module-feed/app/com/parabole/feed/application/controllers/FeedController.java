@@ -18,9 +18,9 @@ public class FeedController extends BaseController{
 
     }
 
-    public Result getTheassignments(String fileName) throws AppException {
+    public Result getTheassignments() throws AppException {
 
-        final String configurationId = taggingUtilitiesServices.getTheassignment();
+        final String configurationId = taggingUtilitiesServices.getTheassignments();
 
         return ok(configurationId);
 
