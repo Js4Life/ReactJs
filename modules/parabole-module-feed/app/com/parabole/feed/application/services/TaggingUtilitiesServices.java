@@ -6,20 +6,14 @@ import com.google.inject.Inject;
 import com.parabole.feed.application.exceptions.AppException;
 import com.parabole.feed.application.global.CCAppConstants;
 import com.parabole.feed.application.utils.AppUtils;
-import edu.stanford.nlp.ling.HasWord;
-import edu.stanford.nlp.ling.TaggedWord;
-import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 import org.apache.commons.lang3.Validate;
 import org.json.JSONObject;
 
-import java.io.StringReader;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 import static play.mvc.Controller.response;
+
+//import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 
 public class TaggingUtilitiesServices {
 
@@ -31,7 +25,7 @@ public class TaggingUtilitiesServices {
 
 
     private static ArrayList<String> NOUNS = new ArrayList<>();
-    private MaxentTagger tagger;
+   // private MaxentTagger tagger;
 
     static {
         NOUNS.add("NN");
@@ -40,14 +34,14 @@ public class TaggingUtilitiesServices {
     }
 
     public TaggingUtilitiesServices(){
-        tagger = new MaxentTagger(MaxentTagger.DEFAULT_DISTRIBUTION_PATH);
+   //     tagger = new MaxentTagger(MaxentTagger.DEFAULT_DISTRIBUTION_PATH);
     }
-
 
     public String TagAllConcepts(){
         //Run the SparQL
         return null;
     }
+/*
 
     private List<String> getTheConceptNouns( String text){
         List<String> nounList = new ArrayList<>();
@@ -85,6 +79,7 @@ public class TaggingUtilitiesServices {
         });
         return taggedSentences;
     }
+*/
 
 
     public String getConfigurationDetailWithnodeinfo(final Integer ConfigarationId) throws AppException {
