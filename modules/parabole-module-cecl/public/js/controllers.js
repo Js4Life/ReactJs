@@ -327,6 +327,12 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			case "model":
 				compName = "modelByFuncArea";
 				break;
+			case "policy":
+				compName = "policyByFuncArea";
+				break;
+			case "report":
+				compName = "reportByFuncArea";
+				break;
 		}
 		SharedService.getMultiFilteredDataByCompName(compName, filters).then(function (data) {
 			$scope.nodeElements = data.data;

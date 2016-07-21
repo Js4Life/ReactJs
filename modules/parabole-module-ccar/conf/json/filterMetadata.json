@@ -209,5 +209,23 @@
 			"name" : "modelName",
 			"label" : "name"
 		}]
+	},
+	"policyByFuncArea"  : {
+		"outputFormat":"table",
+		"source":"205",
+		"groupByField" : "policyName",
+		"columns" :  [{
+			"name" : "policyName",
+			"label" : "name"
+		}]
+	},
+	"reportByFuncArea"  : {
+		"outputFormat":"table",
+		"source":"206",
+		"groupByField" : "reportName",
+		"columns" :  [{
+			"name" : "reportName",
+			"label" : "name"
+		}]
 	}
 }

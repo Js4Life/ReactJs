@@ -32,7 +32,7 @@ where {
 where {
 {?a rdf:type ?conclass .
 ?conclass rdfs:subClassOf cst:FASBConcept .
-?a pb:hasModelType ?mprp .
+?a pb:hasModel ?mprp .
 bind(xsd:string ("Model") as ?Area)}
 union
 {?a rdf:type ?conclass .
@@ -56,9 +56,5 @@ union
 bind(xsd:string ("Related Concept") as ?Area)}}}
 ?a rdfs:label ?concept .
 ?mprp rdfs:label ?connections .
-filter (?concept = $$FILTERS$$)
+filter (?concept = "Accounting Adjustment")
 }
-
-
- 
-

@@ -26,11 +26,11 @@ PREFIX cst:<http://mindparabole.com/finance/cecl_structure#>
 PREFIX owl:<http://www.w3.org/2002/07/owl#>
 
 
-select DISTINCT ?modelName
+select DISTINCT ?reportName
 where
-{?pro pb:hasModel ?mod .
-?mod rdf:type ?mtype ;rdfs:label ?modelName.
- ?mtype rdfs:label ?model.
+{?pro pb:hasReport ?rep .
+?rep rdf:type ?rtype ;rdfs:label ?reportName.
+ ?rtype rdfs:label ?report.
 ?pro pb:hasRole ?rol .
 ?rol rdfs:label ?role.
 ?pro rdfs:label ?product.

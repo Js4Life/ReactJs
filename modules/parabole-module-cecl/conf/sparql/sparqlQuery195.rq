@@ -58,7 +58,3 @@ bind(xsd:string ("Related Concept") as ?Area)}}}
 ?mprp rdfs:label ?connections .
 filter (?concept = $$FILTERS$$)
 }
-
-
- 
-
