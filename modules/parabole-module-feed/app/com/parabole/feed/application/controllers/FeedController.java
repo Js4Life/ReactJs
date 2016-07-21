@@ -20,7 +20,7 @@ public class FeedController extends BaseController{
 
     public Result getTheassignments() throws AppException {
 
-        final String configurationId = taggingUtilitiesServices.getTheassignments();
+        final String configurationId = taggingUtilitiesServices.getConfigurationDetailWithnodeinfo();
 
         return ok(configurationId);
 
