@@ -26,6 +26,10 @@ public class TaggingUtilitiesServices {
     @Inject
     private CoralConfigurationService coralConfigurationService;
 
+    @Inject
+    private JenaTdbService jenaTdbService;
+
+
     private static ArrayList<String> NOUNS = new ArrayList<>();
     private MaxentTagger tagger;
 
@@ -85,16 +89,25 @@ public class TaggingUtilitiesServices {
 
     public String getConfigurationDetailWithnodeinfo(final Integer ConfigarationId) throws AppException {
 
-        final String jsonFileContent = AppUtils.getFileContent("json/assignment.json");
-        response().setContentType("application/json");
+
+        String jsonFileContent = getTheassignments();
         final JSONObject assignment = new JSONObject(jsonFileContent);
 
+
+        jenaTdbService.getRawBindingDataValues(jsonFileContent);
         // TODO
 
         return null;
     }
 
+    public String getTheassignments() throws AppException {
 
+        final String jsonFileContent = AppUtils.getFileContent("json/assignment.json");
+        response().setContentType("application/json");
+
+        return jsonFileContent;
+
+    }
 
 
     public Integer saveData(final String userId, final JsonNode json, final CCAppConstants.ConfigurationType configurationType) throws AppException, com.parabole.feed.platform.exceptions.AppException {

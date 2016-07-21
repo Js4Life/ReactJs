@@ -18,4 +18,12 @@ public class FeedController extends BaseController{
 
     }
 
+    public Result getTheassignments(String fileName) throws AppException {
+
+        final String configurationId = taggingUtilitiesServices.getTheassignment();
+
+        return ok(configurationId);
+
+    }
+
 }

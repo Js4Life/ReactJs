@@ -1,3 +1,147 @@
+[Name]	Label
+con:AFSDebtSecurities	AFS Debt Securities
+con:AccountingAdjustment	Accounting Adjustment
+con:Accretion	Accretion
+con:AccruedInterest	Accrued Interest
+con:AccumulatedOtherComprehensiveIncomeBalances	Accumulated Other Comprehensive Income Balances
+con:AcquiredFinancialAssets	Acquired Financial Assets
+con:Acquisition	Acquisition
+con:AcquisitionDate	Acquisition Date
+con:Agreed-uponPeriod	Agreed-upon Period
+con:AllowanceforExpectedCreditLoss	Allowance for Expected Credit Loss
+con:AmortizationofPremium	Amortization of Premium
+con:AmortizedCost	Amortized Cost
+con:AmortizedCostBasis	Amortized Cost Basis
+con:AssetforProducttobeReturned	Asset for Product to be Returned
+con:AssetsHeldForSale	Assets Held For Sale
+con:AvailableForSale	Available For Sale
+con:BusinessCombination	Business Combination
+con:CarryingAmount	Carrying Amount
+con:CarryingAmount	Carrying Amount
+con:ChangeinAccountingPrinciples	Change in Accounting Principles
+con:ChangeinAccumulatedComprehensiveIncome	Change in Accumulated Comprehensive Income
+con:ChangeinFinancialPosition	Change in Financial Position
+con:ClassofFinancingReceivable	Class of Financing Receivable
+con:CollectibilityOfReceivables	Collectibility Of Receivables
+con:ContingentAssets	Contingent Assets
+con:ContingentItems	Contingent Items
+con:ContingentLiabilities	Contingent Liabilities
+con:ContractAsset	Contract Asset
+con:ContractwithCustomer	Contract with Customer
+con:CostofSales	Cost of Sales
+con:Credit-qualityInformation	Credit-quality Information
+con:CreditDeterioration	Credit Deterioration
+con:CreditLoss	Credit Loss
+con:CreditLoss	Credit Loss
+con:CreditQualityIndicator	Credit Quality Indicator
+con:CreditRisk	Credit Risk
+con:Creditor	Creditor
+con:CustomersAbilitytoPay	Customers Ability to Pay
+con:DebtSecurities	Debt Securities
+con:Debtor	Debtor
+con:DeferredCompensationContracts	Deferred Compensation Contracts
+con:DeferredFees	Deferred Fees
+con:Derivative	Derivative
+con:DiscountRate	Discount Rate
+con:EffectiveInterestRate	Effective Interest Rate
+con:EmbeddedDerivative	Embedded Derivative
+con:EmployeeBenefits	Employee Benefits
+con:EmployeeBenefits	Employee Benefits
+con:EmployeeContribution	Employee Contribution
+con:EmployeesStockIssue	Employees Stock Issue
+con:EmploymentRelatedCosts	Employment Related Costs
+con:EquityInterest	Equity Interest
+con:ExpectedCreditLoss	Expected Credit Loss
+con:ExpectedCreditLoss	Expected Credit Loss
+con:FairValue	Fair Value
+con:FairValueHedge	Fair Value Hedge
+con:FinancialAsset	Financial Asset
+con:FinancialInstitution	Financial Institution
+con:FinancingReceivables	Financing Receivables
+con:FinancingTransaction	Financing Transaction
+con:ForeignCurrency	Foreign Currency
+con:ForeignCurrencyTranscations	Foreign Currency Transcations
+con:ForwardContract	Forward Contract
+con:FutureCashFlows	Future Cash Flows
+con:GAAP	GAAP
+con:Government-assitedAcquisition	Government-assited Acquisition
+con:Guarantee	Guarantee
+con:Guarantee	Guarantee
+con:Guarantee-ContingentAspect	Guarantee-Contingent Aspect
+con:Guarantee-Non-ContingentAspect	Guarantee-Non-Contingent Aspect
+con:Hedge	Hedge
+con:HedgeAccounting	Hedge Accounting
+con:HedgedItem	Hedged Item
+con:HeldToMaturity	Held To Maturity
+con:HoldingGainorLoss	Holding Gain or Loss
+con:ImplicitInterestRate	Implicit Interest Rate
+con:IncomeTaxes	Income Taxes
+con:IncomeTaxes	Income Taxes
+con:IndemnificationAssets	Indemnification Assets
+con:InsuranceEntityAccounting	Insurance Entity Accounting
+con:InterimFinancialData	Interim Financial Data
+con:IntraEntity	Intra Entity
+con:Inventory	Inventory
+con:Leases	Leases
+con:LoanCommitment	Loan Commitment
+con:MarketInterestRate	Market Interest Rate
+con:MarketPrice	Market Price
+con:MaturityDate	Maturity Date
+con:NetInvestmentinForeignEntity	Net Investment in Foreign Entity
+con:NewMarketableDebt	New Marketable Debt
+con:NonAccrual	Non Accrual
+con:Off-BalanceSheetRisk	Off-Balance Sheet Risk
+con:OtherComprehensiveIncome	Other Comprehensive Income
+con:Patent	Patent
+con:PatentUsage	Patent Usage
+con:Pension	Pension
+con:PostretirementBenefits	Postretirement Benefits
+con:Premium	Premium
+con:ProvisionforIncomeTax	Provision for IncomeTax
+con:PurchasedFinancialAssets	Purchased Financial Assets
+con:PurchasedOption	Purchased Option
+con:ReacquiredRights	Reacquired Rights
+con:RealEstateproperty	Real Estate property
+con:Receivable	Receivable
+con:RegularDebtRestructuring	Regular Debt Restructuring
+con:RemeasurementEvent	Remeasurement Event
+con:Revenue	Revenue
+con:RightofReturn	Right of Return
+con:SeasonalRevenue	Seasonal Revenue
+con:SellingPrice	Selling Price
+con:SettlementDate	Settlement Date
+con:Share-basedPaymentAwards	Share-based Payment Awards
+con:SignificantFinancingComponent	Significant Financing Component
+con:StrikePrice	Strike Price
+con:TroubledDebtRestructuring	Troubled Debt Restructuring
+con:UncertainCashFlows	Uncertain Cash Flows
+con:UnusualOccuringItems	Unusual Occuring Items
+con:Usage-basedRoyalty	Usage-based Royalty
+con:ValuationAllowance	Valuation Allowance
+con:VariableInterestRate	Variable Interest Rate
+cst:AccountingAdjustment	Accounting Adjustment
+cst:AccountingConcept	Accounting Concept
+cst:AccountingRule	Accounting Rule
+cst:Amount	Amount
+cst:BalanceSheetItem	Balance Sheet Item
+cst:ContractualItem	Contractual Item
+cst:CreditManagement	Credit Management
+cst:CreditQuality	Credit Quality
+cst:Entity	Entity
+cst:Event	Event
+cst:EventDate	Event Date
+cst:FinancialStatementItem	Financial Statement Item
+cst:InterestRate	Interest Rate
+cst:OffBalanceSheetItem	Off Balance Sheet Item
+cst:PPNRItem	PPNR Item
+cst:Party	Party
+cst:Price	Price
+cst:RegulatoryReportingItem	Regulatory Reporting Item
+cst:Risk	Risk
+cst:Transaction	Transaction
+cst:ValuationMethod	Valuation Method
+
+
 SELECT  ?Name ?Label
 WHERE
 {

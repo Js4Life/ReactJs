@@ -1465,8 +1465,10 @@ public class JenaTdbService {
     public String getRawBindingDataValues( final String fileName ) throws AppException {
 
         final String sparqlQueryString = AppUtils.getFileContent("sparql/" + fileName);
+        System.out.println("sparqlQueryString = " + sparqlQueryString);
         Dataset dataset = getDataset();
         final Query query = QueryFactory.create(sparqlQueryString);
+        System.out.println("query.toString() = " + query.toString());
         final QueryExecution qexec = QueryExecutionFactory.create(query, dataset);
         final ResultSet resultsData = qexec.execSelect();
         final JsonObject resultObj = new JsonParser().parse(sparkleResultToJSON(resultsData)).getAsJsonObject();
@@ -1484,5 +1486,7 @@ public class JenaTdbService {
         });
         return returnOblList.toString();
     }
+
+
 
 }
