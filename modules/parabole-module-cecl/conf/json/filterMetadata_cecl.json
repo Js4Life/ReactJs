@@ -1,0 +1,230 @@
+{
+	"filterDef" : {
+		"bs" : {
+			"name" : "Bs",
+			"filterVariable" : "bs",
+			"type" : "dropdown",
+			"sourceType" : "array",
+			"source" : [{"id":"Asset", "name":"Asset"}, {"id":"Liability", "name":"Liability"}, {"id":"Shareholder's Equity Item", "name":"Shareholder's Equity Item"}, {"id":"Commitment", "name":"Commitment"}, {"id":"Contingent Liability", "name":"Contingent Liability"}, {"id":"Revenue", "name":"Revenue"}, {"id":"Expense", "name":"Expense"}]
+		},
+		"value" : {
+			"name" : "Value",
+			"filterVariable" : "value",
+			"type" : "text",
+			"sourceType" : "text"
+		},
+		"branch" : {
+			"name" : "Branch",
+			"filterVariable" : "id",
+			"type" : "multiselect",
+			"sourceType" : "sparql",
+			"source" : "Temp1",
+			"groupByField" : "id",
+			"columns" :  [{
+				"name" : "brlabel",
+				"label" : "name"
+			},{
+				"name" : "id",
+				"label" : "id"
+			}]
+		}
+	},
+	"liquidityBranch" : {
+		"outputFormat":"table",
+		"source":"Temp2",
+		"groupByField" : "a",
+		"columns" :  [{
+			"name" : "brlabel",
+			"label" : "Name"
+		},{
+			"name" : "id",
+			"label" : "Id"
+		},{
+			"name" : "value",
+			"label" : "Value"
+		},{
+			"name" : "bs",
+			"label" : "Bs"
+		},{
+			"name" : "countrylabel",
+			"label" : "Country"
+		},{
+			"name" : "branch",
+			"label" : "Link"
+		}]
+	},
+	"liquidityHierarchyBranch" : {
+		"outputFormat":"hierarchy",
+		"source":"liq012",
+		"groupByField" : "entityName",
+		"columns" :  [{
+			"name" : "parentName",
+			"label" : "parentName"
+		},{
+			"name" : "entityName",
+			"label" : "entityName"
+		},{
+			"name" : "ownershiptype",
+			"label" : "ownershiptype"
+		}]
+	},
+	"ceclBaseNodeDetails" : {
+		"outputFormat":"table",
+		"source":"193",
+		"groupByField" : "itemname",
+		"columns" :  [{
+			"name" : "itemname",
+			"label" : "name"
+		},{
+			"name" : "name",
+			"label" : "type"
+		},{
+			"name" : "item",
+			"label" : "link"
+		}]
+	},
+	"ceclConceptNodeDetails" : {
+		"outputFormat":"table",
+		"source":"195",
+		"groupByField" : "connections",
+		"columns" :  [{
+			"name" : "connections",
+			"label" : "name"
+		},{
+			"name" : "Area",
+			"label" : "type"
+		},{
+			"name" : "mprp",
+			"label" : "link"
+		}]
+	},
+	"ceclTopicNodeDetails" : {
+		"outputFormat":"table",
+		"source":"196",
+		"groupByField" : "slabel",
+		"columns" :  [{
+			"name" : "slabel",
+			"label" : "name"
+		},{
+			"name" : "type",
+			"label" : "type"
+		},{
+			"name" : "tlabel",
+			"label" : "link"
+		}]
+	},
+	"ceclSubTopicNodeDetails" : {
+		"outputFormat":"table",
+		"source":"200",
+		"groupByField" : "name",
+		"columns" :  [{
+			"name" : "name",
+			"label" : "name"
+		},{
+			"name" : "type",
+			"label" : "type"
+		},{
+			"name" : "subtopic",
+			"label" : "subtopic"
+		}]
+	},
+	"ceclSectionNodeDetails" : {
+		"outputFormat":"table",
+		"source":"201",
+		"groupByField" : "name",
+		"columns" :  [{
+			"name" : "name",
+			"label" : "name"
+		},{
+			"name" : "type",
+			"label" : "type"
+		},{
+			"name" : "section",
+			"label" : "section"
+		}]
+	},
+	"ceclParagraphNodeDetails" : {
+		"outputFormat":"table",
+		"source":"202",
+		"groupByField" : "name",
+		"columns" :  [{
+			"name" : "name",
+			"label" : "name"
+		},{
+			"name" : "type",
+			"label" : "type"
+		},{
+			"name" : "paragraph",
+			"label" : "paragraph"
+		}]
+	},
+	"impactProductsByRole" : {
+		"outputFormat":"table",
+		"source":"199",
+		"groupByField" : "product",
+		"columns" :  [{
+			"name" : "product",
+			"label" : "name"
+		},{
+			"name" : "role",
+			"label" : "type"
+		}]
+	},
+	"impactAreaByProduct" : {
+		"outputFormat":"table",
+		"source":"198",
+		"groupByField" : "id",
+		"columns" :  [{
+			"name" : "product",
+			"label" : "product"
+		},{
+			"name" : "model",
+			"label" : "model"
+		},{
+			"name" : "report",
+			"label" : "report"
+		},{
+			"name" : "policy",
+			"label" : "policy"
+		},{
+			"name" : "concept",
+			"label" : "concept"
+		}]
+	},
+	"dataelementByFuncArea"  : {
+		"outputFormat":"table",
+		"source":"203",
+		"groupByField" : "dataelement",
+		"columns" :  [{
+			"name" : "dataelement",
+			"label" : "name"
+		}]
+	},
+	"modelByFuncArea"  : {
+		"outputFormat":"table",
+		"source":"204",
+		"groupByField" : "modelName",
+		"columns" :  [{
+			"name" : "modelName",
+			"label" : "name"
+		}]
+	},
+	"policyByFuncArea"  : {
+		"outputFormat":"table",
+		"source":"205",
+		"groupByField" : "policyName",
+		"columns" :  [{
+			"name" : "policyName",
+			"label" : "name"
+		}]
+	},
+	"reportByFuncArea"  : {
+		"outputFormat":"table",
+		"source":"206",
+		"groupByField" : "reportName",
+		"columns" :  [{
+			"name" : "reportName",
+			"label" : "name"
+		}]
+	}
+}

@@ -229,7 +229,7 @@ angular.module('RDAApp.directives', [])
                     nodeImageField: "type",
                     hier: false
                 };
-            scope.$parent.viz = new GRAPH.Viz ( $(element)[0], config );
+            scope.$parent.$parent.viz = new GRAPH.Viz ( $(element)[0], config );
             scope.$watch('data', function (newVal) {
                 if(!newVal) return;
                 scope.$parent.viz.initialize( newVal );

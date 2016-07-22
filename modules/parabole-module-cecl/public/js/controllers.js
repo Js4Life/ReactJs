@@ -173,6 +173,14 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$scope.nodes = MockService.CeclBaseNodes;
 		$scope.breads = [];
 		$scope.showGraph = false;
+		$scope.visOptions = {
+			labelField:'name',
+			handlerData: { click : $scope.clickNode, scope : $scope },
+			nodeShape: 'image',
+			nodeImageMap: SharedService.graphImageMap,
+			nodeImageField: "type",
+			hier: false
+		};
 	}
 	
 	$scope.exploreNode = function (node, e) {
@@ -196,7 +204,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 	$scope.getNodeDetails = function (childNode, index) {
 		$scope.currentNode = childNode;
-		$scope.currentNode.definition = MockService.CeclChildNodeDetails[$scope.currentNode.name] || null;
+		//$scope.currentNode.definition = MockService.CeclChildNodeDetails[$scope.currentNode.name] || null;
 		$scope.getFilteredDataByCompName(childNode.name, childNode, index);
 	}
 
@@ -255,20 +263,34 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$scope.showGraph = !$scope.showGraph;
 	}
 
-	/*function getGraphByConceptUri(currentNode) {
-		var rootNode = {name: currentNode.name, id: currentNode.link, type: "concept"}
-		SharedService.getGraphByConceptUri(currentNode.link).then(function (data) {
-			data.vertices.push(rootNode);
-			$scope.graphData = {nodes: data.vertices, edges: data.connecions};
+	$scope.clickNode = function (nodeId) {
+		if( !nodeId ) return;
+		$scope.currentGraphNode = $scope.viz.findNodeById( nodeId );
+		SharedService.getDescriptionByUri(nodeId).then(function (description) {
+			$scope.currentGraphNode.desc = description;
+			if($scope.currentGraphNode.desc.definition){
+				$('#dsViewer').modal('hide');
+				$('#definitionViewer').modal('show');
+			}
 		});
-	}*/
+	}
+
+	$scope.viewDefinitionLink = function(){
+		window.open($scope.currentGraphNode.desc.definitionlink);
+	}
+
+	$scope.closeDsViewer = function(){
+		$scope.currentGraphNodeDesc = null;
+		$('#definitionViewer').modal('hide');
+		$('#dsViewer').modal('show');
+	}
 
 	function getGraphByConceptUri() {
 		var rootNode = {name: $scope.currentNode.name, id: $scope.currentNode.link, type: "concept"};
 		$scope.graphData = {nodes: [rootNode], edges: []};
 		angular.forEach($scope.nodeDetails, function (val, key) {
 			angular.forEach(val, function (aNode, idx) {
-				var node = {name: aNode.name, id: key+idx, type: key.toLowerCase()};
+				var node = {name: aNode.name, id: aNode.link, type: key.toLowerCase()};
 				var edge = {from: rootNode.id, to: node.id};
 				$scope.graphData.nodes.push(node);
 				$scope.graphData.edges.push(edge);

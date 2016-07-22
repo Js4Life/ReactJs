@@ -28,19 +28,19 @@ import play.mvc.Results;
  */
 public class ReasonerAction extends BaseAction {
 
-    public Result getFullReasonerGraph() throws AppException {
+    public Result getFullReasonerGraph() throws Exception {
         return Results.ok(octopusSemanticService.getFullReasonerGraph().toJson());
     }
 
-    public Result getFullUnaryReasonerGraph() throws AppException {
+    public Result getFullUnaryReasonerGraph() throws Exception {
         return Results.ok(octopusSemanticService.getFullUnaryReasonerGraph().toJson());
     }
 
-    public Result getFullBinaryReasonerGraph() throws AppException {
+    public Result getFullBinaryReasonerGraph() throws Exception {
         return Results.ok(octopusSemanticService.getFullBinaryReasonerGraph().toJson());
     }
 
-    public Result getFullBinaryReasonerGraphHavingSpecifiedEdges() throws AppException {
+    public Result getFullBinaryReasonerGraphHavingSpecifiedEdges() throws Exception {
         return Results.ok(octopusSemanticService.getFullBinaryReasonerGraphHavingSpecifiedEdges().toJson());
     }
     

@@ -168,7 +168,7 @@ public class OctopusSemanticService {
 
     private void nodeAssignmentOperation(final JSONArray finalJsonOFVertices) throws AppException {
         for (int i = 0; i < finalJsonOFVertices.length(); i++) {
-            final String assignment = AppUtils.getFileContent("json/assignment.json");
+            final String assignment = AppUtils.getFileContent("json/assignment_feed.json");
             //	JSONObject obj = new JSONObject(assignment);
             final JSONObject jsonObject = new JSONObject(assignment);
             final JSONObject objectVal = finalJsonOFVertices.getJSONObject(i);
@@ -394,5 +394,26 @@ public class OctopusSemanticService {
             octopus.closeGraphConnection(graphDbNoTx);
         }
         return hyperGraph;
+    }
+
+    public JSONObject getDescriptionByUri(String uriStr) throws AppException {
+        JSONObject res = new JSONObject();
+        String cfgInfo = AppUtils.getFileContent("json/assignment_feed.json");
+        JSONObject jsObj = new JSONObject(cfgInfo);
+        JSONArray bindings = jsObj.getJSONObject("results").getJSONArray("bindings");
+        for(int i = 0; i<bindings.length(); i++){
+            JSONObject obj = bindings.getJSONObject(i);
+            JSONObject para = obj.getJSONObject("para");
+            if(para.getString("value").equals(uriStr)){
+                JSONObject definition = obj.getJSONObject("definition");
+                res.put("definition", definition.getString("value"));
+                if(obj.has("definitionlink")){
+                    JSONObject definitionlink = obj.getJSONObject("definitionlink");
+                    res.put("definitionlink", definitionlink.getString("value"));
+                }
+                break;
+            }
+        }
+        return res;
     }
 }

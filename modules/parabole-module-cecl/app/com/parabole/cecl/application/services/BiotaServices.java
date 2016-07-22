@@ -23,6 +23,7 @@ import com.parabole.cecl.platform.assimilation.*;
 import com.parabole.cecl.platform.exceptions.AppException;
 import com.parabole.cecl.platform.graphdb.Biota;
 import com.parabole.cecl.platform.graphdb.GraphDbLinkDefinition;
+import com.parabole.feed.application.services.OctopusSemanticService;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import play.Logger;

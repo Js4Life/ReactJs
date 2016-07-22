@@ -7,6 +7,7 @@ import com.parabole.cecl.application.exceptions.AppException;
 import com.parabole.cecl.application.global.CCAppConstants;
 import com.parabole.cecl.application.services.JenaTdbService;
 import com.parabole.cecl.platform.utils.AppUtils;
+import com.parabole.feed.application.services.OctopusSemanticService;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
@@ -33,6 +34,9 @@ public class JenaTdbController extends Controller {
 
     @Inject
     JenaTdbService jenaTdbService;
+
+    @Inject
+    OctopusSemanticService octopusSemanticService;
 
     public Result jenaTdbFetching(final String fileIdentification) throws AppException {
         final String resultData = jenaTdbService.jenaTdbFetching(fileIdentification);
@@ -206,10 +210,10 @@ public class JenaTdbController extends Controller {
     }
 
     @BodyParser.Of(BodyParser.Json.class)
-    public Result getDescriptionByUri() throws AppException, JSONException {
+    public Result getDescriptionByUri() throws Exception {
         final String jsonText = request().body().asJson().toString();
         final JSONObject json = new JSONObject(jsonText);
         final String uriStr = json.getString("uriStr");
-        return Results.ok(jenaTdbService.getDescriptionByUri(uriStr));
+        return Results.ok(octopusSemanticService.getDescriptionByUri(uriStr).toString());
     }
 }
