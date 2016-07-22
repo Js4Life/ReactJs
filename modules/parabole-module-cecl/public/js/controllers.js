@@ -203,8 +203,8 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.getFilteredDataByCompName = function (nodeName, currentNode, index) {
 		if(!currentNode){
 			currentNode = $scope.currentNode = _.findWhere($scope.childNodes, {"name": nodeName});
-			$scope.currentNode.definition = MockService.CeclChildNodeDetails[$scope.currentNode.name] || null;
 		}
+		console.log(" Uri: " + currentNode.link);
 		$scope.showGraph = false;
 		var compName = "";
 		switch (currentNode.type){
@@ -242,7 +242,10 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 					var nodes = data.data;
 					$scope.nodeDetails = _.groupBy(nodes, "type");
 					getGraphByConceptUri();
-					$('#dsViewer').modal('show');
+					SharedService.getDescriptionByUri($scope.currentNode.link).then(function (description) {
+						$scope.currentNode.description = description;
+						$('#dsViewer').modal('show');
+					});					
 				});
 				break;
 		}

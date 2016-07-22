@@ -135,6 +135,7 @@ POST /getLiquidityDataByFilters	com.parabole.cecl.application.controllers.JenaTd
 POST /getFilteredDataByCompName	com.parabole.cecl.application.controllers.JenaTdbController.getFilteredDataByCompName()
 POST /getMultiFilteredDataByCompName	com.parabole.cecl.application.controllers.JenaTdbController.getMultiFilteredDataByCompName()
 POST /getFunctionalAreasByProducts	com.parabole.cecl.application.controllers.JenaTdbController.getFunctionalAreasByProducts()
+POST /getDescriptionByUri       com.parabole.cecl.application.controllers.JenaTdbController.getDescriptionByUri
 
 # ---------------------------------------------------------------------------------
 # Jena TDB operation {TEST}
@@ -152,6 +153,6 @@ GET /loadAllFromBatch                      com.parabole.cecl.application.control
 # GRAPH DB OPERATIONS
 # ---------------------------------------------------------------------------------
 
-GET /getRelatedVerticesByURI/:uri       com.parabole.cecl.application.controllers.GraphDBController.getRelatedVerticesByURI(uri: String)
-POST /getRelatedVerticesByUri      com.parabole.cecl.application.controllers.GraphDBController.getRelatedVerticesByUri
+GET /getRelatedVerticesByURI/:uri           com.parabole.cecl.application.controllers.GraphDBController.getRelatedVerticesByURI(uri: String)
+POST /getRelatedVerticesByUri               com.parabole.cecl.application.controllers.GraphDBController.getRelatedVerticesByUri
 

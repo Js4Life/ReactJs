@@ -1518,4 +1518,14 @@ public class JenaTdbService {
         }
         return finalJson;
     }
+
+    public String getDescriptionByUri(String uriStr) throws AppException {
+        String cfgInfo = AppUtils.getFileContent("json/" + CCAppConstants.NODE_DESCRIPTION_FILE);
+        JSONObject jsObj = new JSONObject(cfgInfo);
+        if(jsObj.has(uriStr)) {
+            return jsObj.getString(uriStr);
+        }else{
+            return "";
+        }
+    }
 }

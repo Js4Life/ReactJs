@@ -65,6 +65,7 @@ public class CCAppConstants extends AppConstants {
     public static final String SCHEDULE_COMPLETION = "ScheduleCompletion";
     public static final String TABLE_WIDGETS = "Table";
     public static final String GRAPH_WIDGETS = "Graph";
+    public static final String NODE_DESCRIPTION_FILE = "nodeDescription.json";
 
     public static final String ADMIN_AUTH = "ADMIN";
     public static final String REGULATORY = "REGULATORY";

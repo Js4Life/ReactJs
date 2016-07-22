@@ -204,4 +204,12 @@ public class JenaTdbController extends Controller {
         final JSONArray filters = json.getJSONArray("filters");
         return Results.ok(jenaTdbService.getMultiFilteredDataByCompName(compName, filters).toString());
     }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result getDescriptionByUri() throws AppException, JSONException {
+        final String jsonText = request().body().asJson().toString();
+        final JSONObject json = new JSONObject(jsonText);
+        final String uriStr = json.getString("uriStr");
+        return Results.ok(jenaTdbService.getDescriptionByUri(uriStr));
+    }
 }
