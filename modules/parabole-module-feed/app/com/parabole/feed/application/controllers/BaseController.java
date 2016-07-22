@@ -25,4 +25,7 @@ public class BaseController extends Controller {
     @Inject
     protected JenaTdbService jenaTdbService;
 
+    @Inject
+    protected TaggingUtilitiesServices taggingUtilitiesServices;
+
 }

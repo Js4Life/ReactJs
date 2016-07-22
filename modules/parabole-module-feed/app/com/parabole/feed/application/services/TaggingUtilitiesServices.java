@@ -1,21 +1,23 @@
 package com.parabole.feed.application.services;
 
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.google.inject.Inject;
 import com.parabole.feed.application.exceptions.AppException;
-import com.parabole.feed.application.global.CCAppConstants;
 import com.parabole.feed.application.utils.AppUtils;
+import com.parabole.feed.platform.customs.IndexedConceptsData;
+import com.parabole.feed.platform.customs.IndexedData;
+import com.parabole.feed.platform.customs.IndexedParagraphsSentencesData;
 import edu.stanford.nlp.ling.HasWord;
 import edu.stanford.nlp.ling.TaggedWord;
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
-import org.apache.commons.lang3.Validate;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -25,6 +27,10 @@ public class TaggingUtilitiesServices {
 
     @Inject
     private CoralConfigurationService coralConfigurationService;
+
+    @Inject
+    private JenaTdbService jenaTdbService;
+
 
     private static ArrayList<String> NOUNS = new ArrayList<>();
     private MaxentTagger tagger;
@@ -36,16 +42,17 @@ public class TaggingUtilitiesServices {
     }
 
     public TaggingUtilitiesServices(){
-        tagger = new MaxentTagger(MaxentTagger.DEFAULT_DISTRIBUTION_PATH);
+       // final URL url = Resources.getResource("files/english-left3words-distsim.tagger");
+       // tagger = new MaxentTagger(String.valueOf(Resources.getResource("files/english-left3words-distsim.tagger")));
     }
-
 
     public String TagAllConcepts(){
         //Run the SparQL
         return null;
     }
 
-    private List<String> getTheConceptNouns( String text){
+
+    private List<String> getTheConceptNouns(String text){
         List<String> nounList = new ArrayList<>();
         List<List<HasWord>> sentences =
                 MaxentTagger.tokenizeText(new StringReader(text));
@@ -83,29 +90,69 @@ public class TaggingUtilitiesServices {
     }
 
 
-    public String getConfigurationDetailWithnodeinfo(final Integer ConfigarationId) throws AppException {
+    private Integer saveListOfTaggedWordsAgainstAllURIs() throws com.parabole.feed.platform.exceptions.AppException {
+        IndexedConceptsData taggedIndex = new IndexedConceptsData();
+        ArrayList<IndexedData> listOfTaggedIndex = new ArrayList<IndexedData>();
+        String nameOfTheKeyURI = new String();
+        ArrayList<String> listedItems = new ArrayList<String>();
+        taggedIndex.setItems(nameOfTheKeyURI, listedItems);
+        listOfTaggedIndex.add(taggedIndex);
 
+        return coralConfigurationService.saveConfiguration("admin", "taggedData",
+                "ListOfTaggedWordsAgainstAllURIs", listOfTaggedIndex.toString());
+    }
+
+    private List<Map<String, String>> getListOfTaggedWordsAgainstAllURIs() throws com.parabole.feed.platform.exceptions.AppException {
+        return coralConfigurationService.getConfigurationByName("ListOfTaggedWordsAgainstAllURIs");
+    }
+
+    private Integer saveListOfSentenceLocationsAgainstAllWords() throws com.parabole.feed.platform.exceptions.AppException {
+        IndexedParagraphsSentencesData indexedParagraphsSentencesData = new IndexedParagraphsSentencesData();
+        ArrayList<IndexedData> listOfTaggedIndex = new ArrayList<IndexedData>();
+        String wordAsKey = new String();
+        // add wordname here
+        ArrayList<HashMap<String, ArrayList<Integer>>> listedURIAgainstLocations = new ArrayList<HashMap<String, ArrayList<Integer>>>();
+        // Add locations for that word here
+        indexedParagraphsSentencesData.setItems(wordAsKey, listedURIAgainstLocations);
+        listOfTaggedIndex.add(indexedParagraphsSentencesData);
+
+        return coralConfigurationService.saveConfiguration("admin", "taggedData",
+                "ListOfSentenceLocationsAgainstAllWords", listOfTaggedIndex.toString());
+
+    }
+
+    private List<Map<String, String>> getListOfSentenceLocationsAgainstAllWords() throws com.parabole.feed.platform.exceptions.AppException {
+        return coralConfigurationService.getConfigurationByName("ListOfSentenceLocationsAgainstAllWords");
+    }
+
+
+
+    public String getConfigurationDetailWithnodeinfo() throws AppException {
+
+        String jsonFileContent = getTheAssignments();
+        final JSONObject assignment = new JSONObject(jsonFileContent);
+        //jenaTdbService.getRawBindingDataValues(jsonFileContent);
+
+        HashMap<String, String> indexedParagraph = new HashMap<>();
+        JSONArray assignmentsArray = assignment.getJSONObject("results").getJSONArray("bindings");
+
+        for (int i=0; i<assignmentsArray.length(); i++) {
+            JSONObject eachBinding = assignmentsArray.getJSONObject(i);
+            String uriForParagraph = eachBinding.getJSONObject("para").getString("value");
+            String paragraph = eachBinding.getJSONObject("definition").getString("value");
+            indexedParagraph.put(uriForParagraph, paragraph);
+        }
+
+        return indexedParagraph.toString();
+    }
+
+    private String getTheAssignments() throws AppException {
         final String jsonFileContent = AppUtils.getFileContent("json/assignment.json");
         response().setContentType("application/json");
-        final JSONObject assignment = new JSONObject(jsonFileContent);
+        return jsonFileContent;
 
-        // TODO
-
-        return null;
     }
 
-
-
-
-    public Integer saveData(final String userId, final JsonNode json, final CCAppConstants.ConfigurationType configurationType) throws AppException, com.parabole.feed.platform.exceptions.AppException {
-        Validate.notNull(json, "'json' cannot be null!");
-        final String configurationName = json.findPath("name").textValue();
-        final String configurationDetails = json.findPath("details").textValue();
-        Validate.notBlank(configurationName, "'configurationName' cannot be empty!");
-        Validate.notBlank(configurationDetails, "'configurationDetails' cannot be empty!");
-        Validate.notNull(configurationType, "'configurationType' cannot be null!");
-        return coralConfigurationService.saveConfiguration(userId, configurationType.toString(), configurationName, configurationDetails);
-    }
 
 
 }
