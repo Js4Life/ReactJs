@@ -138,4 +138,8 @@ public class JenaTdbController extends BaseController {
             return ok("Failed To Fetch Document").as("text/html");
         }
     }
+
+    public Result getLiquidityHierarchyData() throws AppException, JSONException {
+        return Results.ok(jenaTdbService.getLiquidityHierarchyData().toString());
+    }
 }

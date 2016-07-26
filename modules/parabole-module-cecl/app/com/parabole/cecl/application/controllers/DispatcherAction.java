@@ -41,4 +41,8 @@ public class DispatcherAction extends BaseAction {
     public Result impact() {
         return ok(com.parabole.cecl.application.views.html.impact.render());
     }
+
+    public Result regulation() {
+        return ok(com.parabole.cecl.application.views.html.regulation.render());
+    }
 }

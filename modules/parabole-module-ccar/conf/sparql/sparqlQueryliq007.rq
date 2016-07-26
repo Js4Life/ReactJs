@@ -1,33 +1,11 @@
-PREFIX mpb-root-main: <http://www.mindparabole.com/ontology/finance/MPBRoot_Main#> 
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX cit:<http://www.mindparabole.com/ontology/finance/Bank_Main#>
-PREFIX CDE:<http://www.mindparabole.com/ontology/finance/CDE/CriticalDataElements#>
-PREFIX mt:<http://www.mindparabole.com/meeting#>
-PREFIX pb:<http://www.mindparabole.com/ontology/finance/Parabole-Model#>
-PREFIX mpb-fin-main-ccar-14q:<http://www.mindparabole.com/ontology/finance/FRY-14Q_Main#>
-PREFIX mpb-root-main-crm:<http://www.mindparabole.com/ontology/finance/CreditRiskManagement_Main#>
-PREFIX mpb-fin-main-ccar:<http://www.mindparabole.com/ontology/finance/CCAR_Main#>
-PREFIX Y14DB_Main:<http://www.mindparabole.com/ontology/finance/Y14DB_Main#>
-PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
-PREFIX smf: <http://topbraid.org/sparqlmotionfunctions#> 
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
-PREFIX bank:<http://mindparabole.com/finance/bank#> 
-PREFIX com:<http://mindparabole.com/finance/common#> 
-PREFIX cor:<http://mindparabole.com/finance/currency#> 
-PREFIX loc:<http://mindparabole.com/finance/location#> 
-PREFIX dep:<http://mindparabole.com/liquidity/depositor#> 
-PREFIX ent:<http://mindparabole.com/liquidity/entity#> 
-PREFIX na:<http://mindparabole.com/liquidity/naics#> 
-PREFIX obl:<http://mindparabole.com/liquidity/obligor#> 
-PREFIX prs:<http://mindparabole.com/liquidity/product-segment#>
-PREFIX liq:<http://mindparabole.com/liquidity/liqdata#>
-PREFIX cur:<http://mindparabole.com/finance/currency#>
-
-
-
+PREFIX rdf:                            <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:                          <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd:                           <http://www.w3.org/2001/XMLSchema#>
+PREFIX afn:                           <http://jena.apache.org/ARQ/function#>
+PREFIX fn:                             <http://www.w3.org/2005/xpath-functions#>
+PREFIX tdb:                           <http://jena.hpl.hp.com/2008/tdb#>
+PREFIX ja:                              <http://jena.hpl.hp.com/2005/11/Assembler#>
+PREFIX text:                          <http://jena.apache.org/text#>
 
 select ?Ratio ?net
 where {
@@ -249,8 +227,8 @@ where {
 filter(	?class = com:Commitments ||
 			?class = com:ContingentLiabilities)
 			?a com:issueDate ?idate .
-			?a com:maturityDate ?mdate
-			bind (xsd:float(smf:duration("d",afn:now(), ?mdate)) as ?days)
+			?a com:maturityDate ?mdate.
+#bind (xsd:float(smf:duration("d",afn:now(), ?mdate)) as ?days)
 			?a prs:product ?prod .
 			?a com:customer ?cus .
 			?cus rdf:type ?ctype .

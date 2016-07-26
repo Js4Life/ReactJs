@@ -76,7 +76,8 @@ angular.module('CCARApp.services', [])
         'GetAllHeatMapTableData' : 'getAllHeatMapTableData',
         'DownloadFileByName' : 'downloadFileByName',
         'GetLiquidityFilters' : 'getLiquidityFilters',
-        'GetLiquidityDataByFilters' : 'getLiquidityDataByFilters'
+        'GetLiquidityDataByFilters' : 'getLiquidityDataByFilters',
+        'GetLiquidityHierarchyData' : 'getLiquidityHierarchyData'
     };
     SharedService.chartDataMap = {
         '0' : 'getHardCodedResponse/chartData1',
@@ -92,9 +93,9 @@ angular.module('CCARApp.services', [])
         "column" : "ccarassets/images/column24.png",
         "table" : "ccarassets/images/table24.png",
         "concept" : "ccarassets/images/concept.png",
-        "main-entity" : "ccarassets/images/bank.png",
-        "subsidiary" : "ccarassets/images/bank-subsidiary.png",
-        "branch" : "ccarassets/images/bank-branch.png",
+        "Bank" : "ccarassets/images/bank.png",
+        "Subsidiary" : "ccarassets/images/bank-subsidiary.png",
+        "Branch" : "ccarassets/images/bank-branch.png",
     };
     SharedService.graphImageMap = {
         "report" : "ccarassets/images/graph_report.png",
@@ -588,6 +589,10 @@ angular.module('CCARApp.services', [])
     SharedService.getLiquidityDataByFilters = function(filters){
         var sendObj = {"filters": filters};
         return SharedService.invokeService('GetLiquidityDataByFilters', sendObj, 'post');
+    }
+
+    SharedService.getLiquidityHierarchyData = function(){
+        return SharedService.invokeService('GetLiquidityHierarchyData');
     }
 
     return SharedService;

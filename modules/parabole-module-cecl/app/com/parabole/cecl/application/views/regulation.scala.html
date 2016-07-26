@@ -1,6 +1,8 @@
 <div class="panel panel-default">
-  <div class="panel-heading" style="padding-bottom:9px" >
-    <b>{{heading.title}}</b>
+  <div class="panel-heading container-fluid" style="padding-bottom:9px" >
+    <div class="col-xs-1 zero-padding" style="top:5px;"><b>{{heading.title}}</b></div>
+    <div class="col-xs-3"><select class="form-control input-sm" ng-options="reg for reg in regulations" ng-init="selRegulation=regulations[0]" ng-model="selRegulation" ng-change="onSelectRegulation()"></select></div>
+    <i class="fa fa-play pull-right" style="margin-top:5px;" aria-hidden="true" ng-click="getImpactedRegulation()"></i>
   </div>
   <div class="panel-body zero-padding" style="height:81vh;overflow: auto;">
     <table class="table table-bordered table-striped" style="margin-bottom: 0;">

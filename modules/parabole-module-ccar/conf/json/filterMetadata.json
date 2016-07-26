@@ -27,7 +27,7 @@
                 "name" : "id",
                 "label" : "id"
             }]
-		}		
+		}
 	},
 	"liquidityBranch" : {
 		"outputFormat":"table",
@@ -58,6 +58,9 @@
 		"source":"liq012",
 		"groupByField" : "entityName",
 		"columns" :  [{
+			"name" : "id",
+			"label" : "id"
+		},{
             "name" : "parentName",
             "label" : "parentName"
         },{
@@ -67,165 +70,5 @@
             "name" : "ownershiptype",
             "label" : "ownershiptype"
         }]
-	},
-	"ceclBaseNodeDetails" : {
-		"outputFormat":"table",
-		"source":"193",
-		"groupByField" : "itemname",
-		"columns" :  [{
-			"name" : "itemname",
-			"label" : "name"
-		},{
-			"name" : "name",
-			"label" : "type"
-		},{
-			"name" : "item",
-			"label" : "link"
-		}]
-	},
-	"ceclConceptNodeDetails" : {
-		"outputFormat":"table",
-		"source":"195",
-		"groupByField" : "connections",
-		"columns" :  [{
-			"name" : "connections",
-			"label" : "name"
-		},{
-			"name" : "Area",
-			"label" : "type"
-		},{
-			"name" : "concept",
-			"label" : "link"
-		}]
-	},
-	"ceclTopicNodeDetails" : {
-		"outputFormat":"table",
-		"source":"196",
-		"groupByField" : "name",
-		"filterNamespace" : "cst",
-		"columns" :  [{
-			"name" : "name",
-			"label" : "name"
-		},{
-			"name" : "type",
-			"label" : "type"
-		},{
-			"name" : "topic",
-			"label" : "link"
-		}]
-	},
-	"ceclSubTopicNodeDetails" : {
-		"outputFormat":"table",
-		"source":"200",
-		"groupByField" : "name",
-		"columns" :  [{
-			"name" : "name",
-			"label" : "name"
-		},{
-			"name" : "type",
-			"label" : "type"
-		},{
-			"name" : "subtopic",
-			"label" : "subtopic"
-		}]
-	},
-	"ceclSectionNodeDetails" : {
-		"outputFormat":"table",
-		"source":"201",
-		"groupByField" : "name",
-		"columns" :  [{
-			"name" : "name",
-			"label" : "name"
-		},{
-			"name" : "type",
-			"label" : "type"
-		},{
-			"name" : "section",
-			"label" : "section"
-		}]
-	},
-	"ceclParagraphNodeDetails" : {
-		"outputFormat":"table",
-		"source":"202",
-		"groupByField" : "name",
-		"columns" :  [{
-			"name" : "name",
-			"label" : "name"
-		},{
-			"name" : "type",
-			"label" : "type"
-		},{
-			"name" : "paragraph",
-			"label" : "paragraph"
-		}]
-	},
-	"impactProductsByRole" : {
-		"outputFormat":"table",
-		"source":"199",
-		"groupByField" : "product",
-		"columns" :  [{
-			"name" : "product",
-			"label" : "name"
-		},{
-			"name" : "role",
-			"label" : "type"
-		}]
-	},
-	"impactAreaByProduct" : {
-		"outputFormat":"table",
-		"source":"198",
-		"groupByField" : "id",
-		"columns" :  [{
-			"name" : "product",
-			"label" : "product"
-		},{
-			"name" : "model",
-			"label" : "model"
-		},{
-			"name" : "report",
-			"label" : "report"
-		},{
-			"name" : "policy",
-			"label" : "policy"
-		},{
-			"name" : "concept",
-			"label" : "concept"
-		}]
-	},
-	"dataelementByFuncArea"  : {
-		"outputFormat":"table",
-		"source":"203",
-		"groupByField" : "dataelement",
-		"columns" :  [{
-			"name" : "dataelement",
-			"label" : "name"
-		}]
-	},
-	"modelByFuncArea"  : {
-		"outputFormat":"table",
-		"source":"204",
-		"groupByField" : "modelName",
-		"columns" :  [{
-			"name" : "modelName",
-			"label" : "name"
-		}]
-	},
-	"policyByFuncArea"  : {
-		"outputFormat":"table",
-		"source":"205",
-		"groupByField" : "policyName",
-		"columns" :  [{
-			"name" : "policyName",
-			"label" : "name"
-		}]
-	},
-	"reportByFuncArea"  : {
-		"outputFormat":"table",
-		"source":"206",
-		"groupByField" : "reportName",
-		"columns" :  [{
-			"name" : "reportName",
-			"label" : "name"
-		}]
 	}
 }

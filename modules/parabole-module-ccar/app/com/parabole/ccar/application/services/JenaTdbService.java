@@ -1,5 +1,6 @@
 package com.parabole.ccar.application.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import com.google.inject.Inject;
@@ -1406,10 +1407,67 @@ public class JenaTdbService {
         return finalJson;
     }
 
-    public void getLiquidityHierarchyData() {
-        final JSONObject filterDefJson = null;
+    public JSONObject getLiquidityHierarchyData() {
+        JSONObject filterDefJson = null;
+        final JSONObject finalJson = new JSONObject();
         final String filterName = "liquidityHierarchyBranch";
+        try {
+            final Dataset dataset = getDataset();
+            dataset.begin(ReadWrite.READ);
+            final String cfgInfo = AppUtils.getFileContent("json/" + CCAppConstants.JENA_FILTERDEF_FILE);
+            final JSONObject jsonCfg = new JSONObject(cfgInfo);
+            filterDefJson = jsonCfg.getJSONObject(filterName);
+            final String outputFormat = filterDefJson.getString("outputFormat");
+            finalJson.put("outputFormat", outputFormat);
+            final String fileIdentification = filterDefJson.getString("source");
+            final String groupByField = filterDefJson.getString("groupByField");
+            final JSONArray attrArr = filterDefJson.getJSONArray("columns");
+            final HashMap<String, String> attrLabels = new HashMap<String, String>();
+            for (int i = 0; i < attrArr.length(); i++) {
+                final JSONObject colObj = attrArr.getJSONObject(i);
+                final String attr = colObj.getString("name");
+                final String colLabel = colObj.getString("label");
+                attrLabels.put(attr, colLabel);
+            }
+            String sparqlQueryString = AppUtils.getFileContent("sparql/sparqlQuery" + fileIdentification + ".rq");
+            final HashMap<String, HashMap<String, String>> branches = getValueFromQueryStringByAttrs(sparqlQueryString, attrLabels.keySet(), groupByField, dataset);
 
+            /*to remove*/
+            final HashMap<String, String> bankyBranch = new HashMap<>();
+            bankyBranch.put("entityName", "Banky");
+            bankyBranch.put("ownershiptype", "Bank");
+            bankyBranch.put("id", "BankyUniqueId");
+            branches.put("Banky", bankyBranch);
+            /*end*/
+
+            final Iterator<?> branchKeys = branches.keySet().iterator();
+            final JSONArray nodes = new JSONArray();
+            final JSONArray edges = new JSONArray();
+            finalJson.put("nodes", nodes);
+            finalJson.put("edges", edges);
+            while (branchKeys.hasNext()) {
+                final String branchKey = branchKeys.next().toString();
+                final HashMap<String, String> aBranch = branches.get(branchKey);
+                String parentName = aBranch.get("parentName");
+
+                JSONObject node = new JSONObject();
+                JSONObject edge = new JSONObject();
+                node.put("id", aBranch.get("id"));
+                node.put("name", aBranch.get("entityName"));
+                node.put("type", aBranch.get("ownershiptype"));
+                nodes.put(node);
+
+                if(parentName != null) {
+                    final HashMap<String, String> parBranch = branches.get(parentName);
+                    edge.put("from", parBranch.get("id"));
+                    edge.put("to", aBranch.get("id"));
+                    edges.put(edge);
+                }
+            }
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+        return finalJson;
     }
 
 }
