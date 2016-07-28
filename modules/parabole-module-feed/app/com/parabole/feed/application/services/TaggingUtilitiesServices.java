@@ -4,15 +4,18 @@ package com.parabole.feed.application.services;
 import com.google.inject.Inject;
 import com.parabole.feed.application.exceptions.AppException;
 import com.parabole.feed.application.utils.AppUtils;
+import com.parabole.feed.contentparser.TaggerTest;
 import com.parabole.feed.platform.customs.IndexedConceptsData;
 import com.parabole.feed.platform.customs.IndexedData;
 import com.parabole.feed.platform.customs.IndexedParagraphsSentencesData;
+import com.parabole.feed.platform.graphdb.Anchor;
 import edu.stanford.nlp.ling.HasWord;
 import edu.stanford.nlp.ling.TaggedWord;
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,10 +29,29 @@ import static play.mvc.Controller.response;
 public class TaggingUtilitiesServices {
 
     @Inject
-    private CoralConfigurationService coralConfigurationService;
+    private Anchor anchor;
 
     @Inject
     private JenaTdbService jenaTdbService;
+
+    @Inject
+    private TaggerTest taggerTest;
+
+
+    public String startContentParser(String file){
+        String result= null;
+        try {
+            result = taggerTest.startExtraction("C:\\one\\sandbox\\parabole\\parabole-enterprise-scaffolding\\modules\\parabole-module-feed\\conf\\feedFiles\\FASBAccntStandards.pdf");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public String getParagraphsAgainstConceptNames(String conceptName){
+        String result= null;
+        return result;
+    }
 
 
     private static ArrayList<String> NOUNS = new ArrayList<>();

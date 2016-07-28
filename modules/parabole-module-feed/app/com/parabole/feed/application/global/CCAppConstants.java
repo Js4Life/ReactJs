@@ -14,13 +14,14 @@ public class CCAppConstants extends AppConstants {
     public static final String RDA_APP_USERS = "APP_USERS";
     public static final String RDA_APP_USER_ROLES = "APP_USER_ROLES";
     public static final String RDA_USER_CONFIGS = "APP_USER_CONFIGS";
+    public static final String APP_CONCEPTS_INFO = "APP_CONCEPTS_INFO";
     public static final String RDA_CONCEPT_TAGS = "APP_CONCEPT_TAGS";
     public static final String RDA_GLOSSARY_CONFIGS = "GLOSSARY_CONFIGS";
     public static final String RDA_GLOSSARY_TABLE = "GLOSSARY_TABLE";
     public static final String RDA_CFG_TYPE_REPORT = "REPORTS";
     public static final String ATTR_VIEWCREATION_DETAILS = "details";
     public static final String HIERARCHY_GRAPH = "hierarchy";
-    public static final String JENA_FILTERDEF_FILE = "filterMetadata.json";
+    public static final String JENA_FILTERDEF_FILE = "filterMetadata_feed.json";
     public static final String ATTR_VIEWCREATION_DATA = "data";
     public static final String ATTR_VIEWCREATION_COLS = "columns";
     public static final String ATTR_VIEWCREATION_REFS = "references";

@@ -66,5 +66,7 @@ libraryDependencies ++=  Seq(
   "edu.stanford.nlp" % "stanford-corenlp" % "3.6.0" classifier "models",
   "edu.stanford.nlp" % "stanford-parser" % "3.6.0",
   "edu.washington.cs.knowitall.stanford-corenlp" % "stanford-parse-models" % "1.3.5",
-  "edu.stanford.nlp" % "stanford-parser" % "2.0.2"
+  "edu.stanford.nlp" % "stanford-parser" % "2.0.2",
+  "org.apache.pdfbox" % "fontbox" % "2.0.1",
+  "org.apache.pdfbox" % "pdfbox" % "2.0.1"
 )

@@ -26,4 +26,12 @@ public class FeedController extends BaseController{
 
     }
 
+    public Result startContentParser(String file) throws AppException {
+
+        final String result = taggingUtilitiesServices.startContentParser(file);
+
+        return ok(result);
+
+    }
+
 }

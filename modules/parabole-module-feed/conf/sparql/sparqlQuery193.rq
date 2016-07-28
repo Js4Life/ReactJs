@@ -24,7 +24,10 @@ PREFIX rule:<http://nextangles.com/Temp/Rule#>
 PREFIX pnc:<http://mindparabole.com/finance/pnc_cecl#>
 PREFIX cst:<http://mindparabole.com/finance/cecl_structure#>
 PREFIX owl:<http://www.w3.org/2002/07/owl#>
-select  ?name ?itemname
+
+select *
+where{
+{select  DISTINCT ?name ?itemname ?item
 where{
 values (?a)
 {("Topic")
@@ -34,13 +37,27 @@ values (?a)
 ("FASB Concept")}
 ?class rdfs:subClassOf owl:Thing .
 ?class rdfs:label ?name.
-optional{?sub rdfs:subClassOf ?class .}
 FILTER(?a = ?name)
-optional{?item rdf:type ?class.}
-optional{?item rdf:type ?sub}
+?sub rdfs:subClassOf ?class .
+?item rdf:type ?sub.
 ?item rdfs:label ?itemname.
+}}
+UNION
+{select  DISTINCT ?name ?itemname ?item
+where{
+values (?a)
+{("Topic")
+("Sub-Topic")
+("Section")
+("Paragraph")
+("FASB Concept")}
+?class rdfs:subClassOf owl:Thing .
+?class rdfs:label ?name.
+FILTER(?a = ?name)
+?item rdf:type ?class.
+?item rdfs:label ?itemname.
+}}
 FILTER(?name =$$FILTERS$$)
-
 }
  
 
