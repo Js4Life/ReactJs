@@ -1,10 +1,12 @@
 package com.parabole.feed.contentparser;
 
+import com.parabole.feed.application.global.CCAppConstants;
 import com.parabole.feed.contentparser.filters.FASBParagraphProcessor;
 import com.parabole.feed.contentparser.models.FASBDocMeta;
 import com.parabole.feed.contentparser.models.FASBIndexedDocument;
 import com.parabole.feed.contentparser.models.ParagraphElement;
 import com.parabole.feed.contentparser.models.TextFormatInfo;
+import com.parabole.feed.platform.utils.AppUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.encryption.AccessPermission;
 import org.apache.pdfbox.text.PDFTextStripper;
@@ -91,10 +93,10 @@ public class FASBDocIndexBuilder implements IDocIndexBuilder {
 
     private FASBDocMeta getFASBMetadata() {
         FASBDocMeta fasbDocMeta = new FASBDocMeta();
-        fasbDocMeta.setStartPage(16);
-        fasbDocMeta.setEndPage(Integer.MAX_VALUE);
-        fasbDocMeta.setParaStartRegEx("\\w{1,3}[-]\\w{1,3}[-]\\w{1,3}[-]\\w{1,3}");
-        fasbDocMeta.setParaIgnore("superseded");
+        fasbDocMeta.setStartPage(AppUtils.getApplicationPropertyAsInteger(CCAppConstants.PARAGRAPH + ".setStartPage"));
+        fasbDocMeta.setEndPage(AppUtils.getApplicationPropertyAsInteger(CCAppConstants.PARAGRAPH + ".setEndPage"));
+        fasbDocMeta.setParaStartRegEx(AppUtils.getApplicationProperty(CCAppConstants.PARAGRAPH + ".setParaStartRegEx"));
+        fasbDocMeta.setParaIgnore(AppUtils.getApplicationProperty(CCAppConstants.PARAGRAPH + ".setParaIgnore"));
         return fasbDocMeta;
     }
 

@@ -8,6 +8,7 @@ import java.util.Set;
 public class CCAppConstants extends AppConstants {
 
     public static final String INDUSTRY = "finance";
+    public static final String PARAGRAPH = "paragraph";
     public static final String ATTR_BASE_NODE = "baseNode";
     public static final Set<String> RDA_RELATIONSHIPS = AppUtils.createSetFromApplicationProperty(INDUSTRY + ".relationships.filter", "|");
     public static final String RDA_COUNTER_TABLE = "APP_ID_GENERATOR";
