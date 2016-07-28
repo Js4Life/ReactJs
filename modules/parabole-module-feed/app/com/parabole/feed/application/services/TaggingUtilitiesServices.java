@@ -125,8 +125,6 @@ public class TaggingUtilitiesServices {
         return coralConfigurationService.getConfigurationByName("ListOfSentenceLocationsAgainstAllWords");
     }
 
-
-
     public String getConfigurationDetailWithnodeinfo() throws AppException {
 
         String jsonFileContent = getTheAssignments();
