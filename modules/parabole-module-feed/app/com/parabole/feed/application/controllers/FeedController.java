@@ -18,6 +18,14 @@ public class FeedController extends BaseController{
 
     }
 
+    public Result saveListOfSentenceLocationsAgainstAllConcepts() throws com.parabole.feed.platform.exceptions.AppException {
+
+        final Integer configurationId = taggingUtilitiesServices.saveListOfSentenceLocationsAgainstAllConcepts();
+
+        return ok(configurationId.toString());
+
+    }
+
     public Result getTheassignments() throws AppException {
 
         final String configurationId = taggingUtilitiesServices.getConfigurationDetailWithnodeinfo();
