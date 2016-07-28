@@ -24,19 +24,19 @@ import play.mvc.Results;
  */
 public class KnowledgeAction extends BaseAction {
 
-    public Result getFullKnowledgeGraph() throws AppException {
+    public Result getFullKnowledgeGraph() throws Exception {
         return Results.ok(octopusSemanticService.getFullKnowledgeGraph().toJson());
     }
 
-    public Result getFullUnaryKnowledgeGraph() throws AppException {
+    public Result getFullUnaryKnowledgeGraph() throws Exception {
         return Results.ok(octopusSemanticService.getFullUnaryKnowledgeGraph().toJson());
     }
 
-    public Result getFullBinaryKnowledgeGraph() throws AppException {
+    public Result getFullBinaryKnowledgeGraph() throws Exception {
         return Results.ok(octopusSemanticService.getFullBinaryKnowledgeGraph().toJson());
     }
 
-    public Result getFullBinaryKnowledgeGraphHavingSpecifiedEdges() throws AppException {
+    public Result getFullBinaryKnowledgeGraphHavingSpecifiedEdges() throws Exception {
         return Results.ok(octopusSemanticService.getFullBinaryKnowledgeGraphHavingSpecifiedEdges().toJson());
     }
 }

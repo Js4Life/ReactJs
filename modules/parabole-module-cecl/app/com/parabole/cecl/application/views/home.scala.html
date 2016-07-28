@@ -49,7 +49,7 @@
         <div ng-if="!showGraph">
           <div class="row zero-padding">
             <div class="col-md-12">
-              <textarea ng-if="currentNode.definition" ng-disabled="true" ng-model="currentNode.definition" rows="4" cols="40" style="border:none;width:100%;padding:10px;">
+              <textarea ng-if="currentNode.description.definition" ng-disabled="true" ng-model="currentNode.description.definition" rows="4" cols="40" style="border:none;width:100%;padding:10px;">
 
               </textarea>
             </div>
@@ -72,8 +72,7 @@
             </div>
           </div>
         </div>
-        <vis-graph ng-if="showGraph" data="graphData"></vis-graph>
-
+        <vis-graph ng-if="showGraph" data="graphData" options="visOptions"></vis-graph>
       </div>
       <div style="height:5vh;position:absolute;right:10px;bottom:70px;" ng-if="showGraph">
         <div class="legend">
@@ -101,6 +100,26 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="definitionViewer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">{{currentGraphNode.name}}</h4>
+      </div>
+      <div class="modal-body">
+        <textarea ng-disabled="true" ng-model="currentGraphNode.desc.definition" rows="10" cols="40" style="border:none;width:100%;">
+
+        </textarea>
+        <br />
+        <a class="pointer" ng-if="currentGraphNode.desc.definitionlink" ng-click="viewDefinitionLink()">Read More...</a>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="closeDsViewer()">Cancel</button>
       </div>
     </div>
   </div>

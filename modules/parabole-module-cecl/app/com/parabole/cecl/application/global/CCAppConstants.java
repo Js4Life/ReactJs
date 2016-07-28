@@ -20,7 +20,7 @@ public class CCAppConstants extends AppConstants {
     public static final String RDA_CFG_TYPE_REPORT = "REPORTS";
     public static final String ATTR_VIEWCREATION_DETAILS = "details";
     public static final String HIERARCHY_GRAPH = "hierarchy";
-    public static final String JENA_FILTERDEF_FILE = "filterMetadata.json";
+    public static final String JENA_FILTERDEF_FILE = "filterMetadata_cecl.json";
     public static final String ATTR_VIEWCREATION_DATA = "data";
     public static final String ATTR_VIEWCREATION_COLS = "columns";
     public static final String ATTR_VIEWCREATION_REFS = "references";
@@ -65,6 +65,7 @@ public class CCAppConstants extends AppConstants {
     public static final String SCHEDULE_COMPLETION = "ScheduleCompletion";
     public static final String TABLE_WIDGETS = "Table";
     public static final String GRAPH_WIDGETS = "Graph";
+    public static final String NODE_DESCRIPTION_FILE = "nodeDescription.json";
 
     public static final String ADMIN_AUTH = "ADMIN";
     public static final String REGULATORY = "REGULATORY";

@@ -71,7 +71,8 @@ angular.module('RDAApp.services', [])
         'GetFilteredDataByCompName' : 'getFilteredDataByCompName',
         'GetMultiFilteredDataByCompName' : 'getMultiFilteredDataByCompName',
         'GetFunctionalAreasByProducts' : 'getFunctionalAreasByProducts',
-        'GetGraphByConceptUri' : 'getRelatedVerticesByUri'
+        'GetGraphByConceptUri' : 'getRelatedVerticesByUri',
+        'GetDescriptionByUri' : 'getDescriptionByUri'
     };
     SharedService.chartDataMap = {
         '0' : 'getHardCodedResponse/chartData1',
@@ -154,7 +155,8 @@ angular.module('RDAApp.services', [])
     };
     SharedService.primaryNav = [
         {"id": "1" , "label":"ceclassets/images/document-browser.png", "title" : Constant.DOCUMENT_BROWSER_TAB},
-        {"id": "2" , "label":"ceclassets/images/impact.png", "title" : Constant.IMPACT_TAB}
+        {"id": "2" , "label":"ceclassets/images/impact.png", "title" : Constant.IMPACT_TAB},
+        {"id": "3" , "label":"ceclassets/images/regulation.png", "title" : Constant.REGULATION_TAB}
    ];
     SharedService.layoutGraphData = [
                                         ["Jan-13", 11],["Feb-13", 9], ["March-13", 15], ["July-13", 12]
@@ -581,6 +583,11 @@ angular.module('RDAApp.services', [])
     SharedService.getGraphByConceptUri = function(uri){
         var sendObj = {"uri": uri};
         return SharedService.invokeService('GetGraphByConceptUri', sendObj, 'post');
+    }
+
+    SharedService.getDescriptionByUri = function (uri) {
+        var sendObj = {"uriStr": uri};
+        return SharedService.invokeService('GetDescriptionByUri', sendObj, 'post');
     }
 
     return SharedService;

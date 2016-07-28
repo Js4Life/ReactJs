@@ -27,7 +27,13 @@ angular
               url : '/impact',
               templateUrl : 'impact',
               controller : 'impactCtrl'
-          });;
+          })
+
+          .state('landing.regulation', {
+              url : '/regulation',
+              templateUrl : 'regulation',
+              controller : 'regulationCtrl'
+          });
 
           $urlRouterProvider.otherwise('/landing/home');
   });

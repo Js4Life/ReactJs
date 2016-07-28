@@ -15,10 +15,12 @@ package com.parabole.cecl.application.controllers;
 
 import com.google.inject.Inject;
 import com.parabole.cecl.application.global.RdaAppConstants;
-import com.parabole.cecl.application.services.*;
+import com.parabole.cecl.application.services.BiotaServices;
+import com.parabole.cecl.application.services.CoralUserService;
 import com.parabole.cecl.platform.exceptions.AppException;
 import com.parabole.cecl.platform.securities.AuthenticationManager;
 import com.parabole.cecl.platform.utils.AppUtils;
+import com.parabole.feed.application.services.*;
 import org.json.JSONObject;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -46,14 +48,10 @@ public class BaseAction extends Controller {
     @Inject
     protected OctopusSemanticService octopusSemanticService;
 
-    @Inject
-    protected OctopusImpactService octopusImpactService;
 
     @Inject
     protected BiotaServices biotaServices;
 
-    @Inject
-    protected AssimilationServices assimilationServices;
 
     @Inject
     protected AuthenticationManager authenticationManager;
@@ -91,7 +89,7 @@ public class BaseAction extends Controller {
         return Results.ok(jsonFileContent);
     }
 
-    public Result getLogicalViewJson(final String viewName) throws AppException {
+    public Result getLogicalViewJson(final String viewName) throws Exception {
         final String userId = session().get(RdaAppConstants.USER_ID);
         final List<Map<String, String>> cfgList = coralConfigurationService.getConfigurationByName(userId, viewName);
         JSONObject detailObj = null;

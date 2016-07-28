@@ -28,6 +28,7 @@ POST /getAllHeatMapTableData	com.parabole.ccar.application.controllers.JenaTdbCo
 GET /downloadFileByName/:name/:type         com.parabole.ccar.application.controllers.JenaTdbController.downloadFileByName(name: String, type: String)
 POST /getLiquidityFilters		com.parabole.ccar.application.controllers.JenaTdbController.getLiquidityFilters()
 POST /getLiquidityDataByFilters	com.parabole.ccar.application.controllers.JenaTdbController.getLiquidityDataByFilters()
+GET /getLiquidityHierarchyData	com.parabole.ccar.application.controllers.JenaTdbController.getLiquidityHierarchyData()
 
 
 GET /dashboardProfile           com.parabole.ccar.application.controllers.DispatcherController.dashboardProfile()

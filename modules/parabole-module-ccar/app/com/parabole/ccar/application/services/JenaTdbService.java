@@ -1,5 +1,7 @@
 package com.parabole.ccar.application.services;
 
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import com.google.inject.Inject;
@@ -8,9 +10,37 @@ import com.parabole.ccar.application.exceptions.AppException;
 import com.parabole.ccar.application.global.CCAppConstants;
 import com.parabole.ccar.application.utils.AppUtils;
 import com.parabole.ccar.platform.reasoner.BaseBindObj;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
+import org.apache.commons.io.IOUtils;
+
 import org.apache.commons.lang3.math.NumberUtils;
-import org.apache.jena.query.*;
+import org.apache.jena.query.Dataset;
+import org.apache.jena.query.Query;
+import org.apache.jena.query.QueryExecution;
+import org.apache.jena.query.QueryExecutionFactory;
+import org.apache.jena.query.QueryFactory;
+import org.apache.jena.query.ReadWrite;
 import org.apache.jena.query.ResultSet;
+import org.apache.jena.query.ResultSetFormatter;
 import org.apache.jena.sparql.core.DatasetGraph;
 import org.apache.jena.sparql.core.DatasetGraphFactory;
 import org.apache.jena.tdb.TDBFactory;
@@ -21,20 +51,18 @@ import org.apache.jena.update.UpdateRequest;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
+
 import play.Configuration;
 import play.Logger;
+import play.Play;
 import play.db.DB;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.sql.*;
-import java.text.DecimalFormat;
-import java.util.*;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 public class JenaTdbService {
 
@@ -1258,8 +1286,8 @@ public class JenaTdbService {
     }
 
     public byte[] downloadFileByName(final String fileName) throws IOException {
-        final Path srcFilePath = Paths.get(CCAppConstants.CONF_FILE_PATH, fileName);
-        final byte[] data = Files.readAllBytes(srcFilePath);
+        final java.io.InputStream strm = Play.application().classloader().getResourceAsStream(CCAppConstants.CONF_FILE_PATH + "/" + fileName);
+        final byte[] data = IOUtils.toByteArray(strm);
         return data;
     }
 
@@ -1406,10 +1434,67 @@ public class JenaTdbService {
         return finalJson;
     }
 
-    public void getLiquidityHierarchyData() {
-        final JSONObject filterDefJson = null;
+    public JSONObject getLiquidityHierarchyData() {
+        JSONObject filterDefJson = null;
+        final JSONObject finalJson = new JSONObject();
         final String filterName = "liquidityHierarchyBranch";
+        try {
+            final Dataset dataset = getDataset();
+            dataset.begin(ReadWrite.READ);
+            final String cfgInfo = AppUtils.getFileContent("json/" + CCAppConstants.JENA_FILTERDEF_FILE);
+            final JSONObject jsonCfg = new JSONObject(cfgInfo);
+            filterDefJson = jsonCfg.getJSONObject(filterName);
+            final String outputFormat = filterDefJson.getString("outputFormat");
+            finalJson.put("outputFormat", outputFormat);
+            final String fileIdentification = filterDefJson.getString("source");
+            final String groupByField = filterDefJson.getString("groupByField");
+            final JSONArray attrArr = filterDefJson.getJSONArray("columns");
+            final HashMap<String, String> attrLabels = new HashMap<String, String>();
+            for (int i = 0; i < attrArr.length(); i++) {
+                final JSONObject colObj = attrArr.getJSONObject(i);
+                final String attr = colObj.getString("name");
+                final String colLabel = colObj.getString("label");
+                attrLabels.put(attr, colLabel);
+            }
+            String sparqlQueryString = AppUtils.getFileContent("sparql/sparqlQuery" + fileIdentification + ".rq");
+            final HashMap<String, HashMap<String, String>> branches = getValueFromQueryStringByAttrs(sparqlQueryString, attrLabels.keySet(), groupByField, dataset);
 
+            /*to remove*/
+            final HashMap<String, String> bankyBranch = new HashMap<>();
+            bankyBranch.put("entityName", "Banky");
+            bankyBranch.put("ownershiptype", "Bank");
+            bankyBranch.put("id", "BankyUniqueId");
+            branches.put("Banky", bankyBranch);
+            /*end*/
+
+            final Iterator<?> branchKeys = branches.keySet().iterator();
+            final JSONArray nodes = new JSONArray();
+            final JSONArray edges = new JSONArray();
+            finalJson.put("nodes", nodes);
+            finalJson.put("edges", edges);
+            while (branchKeys.hasNext()) {
+                final String branchKey = branchKeys.next().toString();
+                final HashMap<String, String> aBranch = branches.get(branchKey);
+                String parentName = aBranch.get("parentName");
+
+                JSONObject node = new JSONObject();
+                JSONObject edge = new JSONObject();
+                node.put("id", aBranch.get("id"));
+                node.put("name", aBranch.get("entityName"));
+                node.put("type", aBranch.get("ownershiptype"));
+                nodes.put(node);
+
+                if(parentName != null) {
+                    final HashMap<String, String> parBranch = branches.get(parentName);
+                    edge.put("from", parBranch.get("id"));
+                    edge.put("to", aBranch.get("id"));
+                    edges.put(edge);
+                }
+            }
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+        return finalJson;
     }
 
 }

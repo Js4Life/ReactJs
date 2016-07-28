@@ -20,6 +20,7 @@ import com.parabole.cecl.application.global.RdaAppConstants;
 import com.parabole.cecl.platform.AppConstants;
 import com.parabole.cecl.platform.exceptions.AppException;
 import com.parabole.cecl.platform.graphdb.Coral;
+import com.parabole.feed.application.services.OctopusSemanticService;
 import org.apache.commons.lang3.Validate;
 import org.json.JSONArray;
 import org.json.JSONObject;

@@ -2416,3 +2416,39 @@ li.list-group-item.puff{
   .text-hover:hover{
       color: blue;
   }
+
+
+  /*Bootstrap: Fixed table header*/
+  .header-fixed {
+      width: 100%;
+      height: 100%;
+  }
+
+  .header-fixed > thead,
+  .header-fixed > tbody,
+  .header-fixed > thead > tr,
+  .header-fixed > tbody > tr,
+  .header-fixed > thead > tr > th,
+  .header-fixed > tbody > tr > td {
+      display: block;
+  }
+
+  .header-fixed > tbody > tr:after,
+  .header-fixed > thead > tr:after {
+      content: ' ';
+      display: block;
+      visibility: hidden;
+      clear: both;
+  }
+
+  .header-fixed > tbody {
+      overflow-y: auto;
+      height: 94%;
+  }
+
+  .header-fixed > tbody > tr > td,
+  .header-fixed > thead > tr > th {
+      width: 20%;
+      float: left;
+  }
+  /*End*/

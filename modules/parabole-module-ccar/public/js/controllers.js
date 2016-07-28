@@ -506,8 +506,17 @@ angular.module('CCARApp.controllers', ['CCARApp.services', 'CCARApp.directives',
 		$scope.currentDashboard = SharedService.currentDashboard;
 		$scope.heading = {title: $scope.currentDashboard.name};
 		$scope.isMapProfile = true;
+		$scope.isGraphProfile = false;
 		$scope.options = {
 			handlerData: { click : "clickMap", scope : $scope }
+		}
+		$scope.graphOptions = {
+			labelField:'name',
+			nodeShape: 'image',
+			handlerData: { click : $scope.clickNode, scope : $scope },
+			nodeImageMap: SharedService.nodeImageMap,
+			nodeImageField: "type",
+			hier: true
 		}
 		if(!$scope.mapData){
 			$rootScope.loader = true;
@@ -520,13 +529,14 @@ angular.module('CCARApp.controllers', ['CCARApp.services', 'CCARApp.directives',
 	        enableSorting: true,
 	        enableFiltering: true,
 	        enableRowSelection: true,
+			enableColumnResizing: true,
 	        multiSelect: false,
 	        enableRowHeaderSelection: false,
 	        selectionRowHeaderWidth: 0,
 	        onRegisterApi: function( gridApi ) {
 	            $scope.gridApi = gridApi;
 	         }
-        };
+        };		
 	}
 
 	$scope.clickNode = function (nodeId) {
@@ -547,47 +557,39 @@ angular.module('CCARApp.controllers', ['CCARApp.services', 'CCARApp.directives',
 	        return selected;
 	    }
     };
-	
-	/*$scope.$watch('selectedCountry.originalObject', function (newVal) {
-		if(newVal){
-			if($scope.isMapProfile){
-				$scope.map.zoomTo(newVal.code);
-			}
-			else{
-				SharedService.getLiquidityFilters(newVal.code).then(function (data) {
-					$scope.filters = data;
-				});
-			}
-		}
-	})*/
 
 	$scope.clickMap = function (obj) {
 		SharedService.getLiquidityFilters(obj.code).then(function (data) {
 			$scope.filters = data;
 			$('#filterModal').modal('show');
 		});
-
-		/*$scope.isMapProfile = false;
-		$scope.options = {
-			labelField:'name',
-			nodeShape: 'image',
-			handlerData: { click : $scope.clickNode, scope : $scope },
-			nodeImageMap: SharedService.nodeImageMap,
-			nodeImageField: "type",
-			hier: true
-	    };
-	    $scope.graphData = MockService.liquidityProfile;*/
 	}
 
 	$scope.searchByFilters = function () {		
 		var filters = _.map($scope.filters, function (filter,  key) { return {filterVariable: filter.filterVariable, type: filter.type, value: filter.value, prefix: filter.prefix} });
 		SharedService.getLiquidityDataByFilters(filters).then(function (data) {
 			$scope.isMapProfile = false;
+			$scope.isGraphProfile = false;
 			if(data.outputFormat === "table")
 				$scope.gridOptions.data = data.data;
 			console.log(data);
 			$('#filterModal').modal('hide');
 		});
+	}
+	
+	$scope.getLiquidityHierarchyData = function (data) {
+		$scope.isGraphProfile = true;
+		$scope.isMapProfile = false;
+		if(!$scope.graphData){
+			SharedService.getLiquidityHierarchyData().then(function (data) {
+				$scope.graphData = data;
+			});
+		}
+	}
+
+	$scope.enableMapProfile = function () {
+		$scope.isGraphProfile = false;
+		$scope.isMapProfile = true;
 	}
 
 	$scope.goPreviousScreen = function(){

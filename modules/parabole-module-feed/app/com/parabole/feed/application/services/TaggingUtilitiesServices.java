@@ -145,7 +145,7 @@ public class TaggingUtilitiesServices {
     }
 
     private String getTheAssignments() throws AppException {
-        final String jsonFileContent = AppUtils.getFileContent("json/assignment.json");
+        final String jsonFileContent = AppUtils.getFileContent("json/assignment_feed.json");
         response().setContentType("application/json");
         return jsonFileContent;
 
