@@ -177,5 +177,16 @@ public class TaggingUtilitiesServices {
     }
 
 
+    public String getParagraphsByContent(String concept, JSONObject jsonObject) {
 
+        JSONArray jsonArray =  jsonObject.getJSONObject("conceptIndex").getJSONArray(concept);
+
+        JSONArray jsonArrayOfParagraphs = new JSONArray();
+
+        for (int i=0; i<jsonArray.length(); i ++){
+            jsonArrayOfParagraphs.put(jsonObject.getJSONObject("paragraphs").getJSONObject(jsonArray.getString(i)));
+        }
+
+        return jsonArrayOfParagraphs.toString();
+    }
 }

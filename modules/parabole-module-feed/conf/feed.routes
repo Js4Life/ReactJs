@@ -8,6 +8,7 @@ GET /getRawBindingDataValues/:fileName                     com.parabole.feed.app
 GET /getTheassignments                     com.parabole.feed.application.controllers.FeedController.getTheassignments()
 GET /saveListOfSentenceLocationsAgainstAllConcepts                     com.parabole.feed.application.controllers.FeedController.saveListOfSentenceLocationsAgainstAllConcepts()
 GET /startContentParser/:fileName                     com.parabole.feed.application.controllers.FeedController.startContentParser(fileName: String)
+GET /getParagraphsByContent/:fileName                     com.parabole.feed.application.controllers.FeedController.getParagraphsByContent(fileName: String)
 
 
 # Map static resources from the /public folder to the /assets URL path
