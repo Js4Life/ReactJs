@@ -7,6 +7,7 @@
     </div>
     <div class="btn-group pull-right">
       <span ng-click="leftSlideToggle()" class="glyphicon glyphicon-fullscreen pull-right" tooltip='"title":"Fullscreen"'></span>
+      <span ng-click="startContentParser()" class="glyphicon glyphicon-play pull-right margin-right-10" tooltip='"title":"Parse Document"'></span>
     </div>
   </div>
   <div class="panel-body zero-padding">
@@ -131,13 +132,27 @@
   <div class="modal-dialog modal-lg" style="width:92%;">
     <div class="modal-content">
       <div class="modal-header">
-        Paragraphs
+        Paragraphs for {{currentNode.name}}
       </div>
       <div class="modal-body" style="height: 66vh; overflow: auto;padding-bottom: 0;">
-
+        <div class="col-xs-6">
+          <div class="well" ng-repeat="para in paragraphs">
+            <p read-more="" content="{{para.bodyText}}"></p>
+          </div>
+        </div>
+        <div class="col-xs-6">
+          <div class="col-md-4" ng-repeat="(k, v) in nodeDetails">
+            <div class="panel panel-default" ng-if="k!='Related Concept'">
+              <div class="panel-heading">{{k}}</div>
+              <ul class="list-group" style="max-height: 40vh; overflow: auto;">
+                <li class="list-group-item" ng-repeat="o in v">{{o.name}}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" ng-click="closeCheckListModal()">Close</button>
       </div>
     </div>
   </div>

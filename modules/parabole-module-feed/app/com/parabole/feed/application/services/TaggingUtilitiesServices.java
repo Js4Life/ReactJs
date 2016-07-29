@@ -47,7 +47,7 @@ public class TaggingUtilitiesServices {
             e.printStackTrace();
         }
 
-        writeFile(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedJson\\paragraph.json", result);
+        writeFile(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedJson\\paragraphs.json", result);
 
         return result;
     }

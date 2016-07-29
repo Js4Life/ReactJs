@@ -321,11 +321,26 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	
 	
 	/*Checklist related code*/
-	$scope.getParagraphsByConcept = function (concept) {
-		SharedService.getParagraphsByConcept(concept).then(function (data) {
-			$scope.paragraphs = data;
+	$scope.startContentParser = function () {
+		SharedService.startContentParser().then(function (data) {
+			if(data){
+				alert("Success!");
+			}
+		});
+	}
+
+	$scope.getParagraphsByConcept = function () {
+		SharedService.getParagraphsByConcept($scope.currentNode.name).then(function (data) {
+			$scope.paragraphs = angular.fromJson(data.data);
+			$('#dsViewer').modal('hide');
+			$('#checkListModal').modal('show');
 			console.log(data);
 		});
+	}
+
+	$scope.closeCheckListModal = function () {
+		$('#dsViewer').modal('show');
+		$('#checkListModal').modal('hide');
 	}
 	/*End*/
 })

@@ -35,11 +35,11 @@ public class CeclController extends Controller{
         final String concept = json.findPath("concept").textValue();
         JSONObject finalJson = new JSONObject();
         Boolean status = false;
-        finalJson.put("status", status);
         try {
             String result = taggingUtilitiesServices.getParagraphsByContent(concept);
-            finalJson.put("data", result);
             status = true;
+            finalJson.put("status", status);
+            finalJson.put("data", result);
         } catch (Exception e){
             e.printStackTrace();
         }
