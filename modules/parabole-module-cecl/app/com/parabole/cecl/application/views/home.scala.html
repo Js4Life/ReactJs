@@ -44,6 +44,7 @@
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         <h4 class="modal-title" id="myModalLabel">{{currentNode.name}}&nbsp({{currentNode.type}})</h4>
         <i ng-click="getGraph()" class="fa pull-right" ng-class="{'fa-th-large':showGraph, 'fa-sitemap':!showGraph}" aria-hidden="true" style="margin: -22px 30px;"></i>
+        <i class="fa fa-paragraph pull-right" aria-hidden="true" ng-click="getParagraphsByConcept()" style="margin: -22px 60px;"></i>
       </div>
       <div class="modal-body" style="height: 66vh; overflow: auto;padding-bottom: 0;">
         <div ng-if="!showGraph">

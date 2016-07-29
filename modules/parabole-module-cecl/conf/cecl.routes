@@ -61,7 +61,8 @@ POST /getFilteredDataByCompName	com.parabole.cecl.application.controllers.JenaTd
 POST /getMultiFilteredDataByCompName	com.parabole.cecl.application.controllers.JenaTdbController.getMultiFilteredDataByCompName()
 POST /getFunctionalAreasByProducts	com.parabole.cecl.application.controllers.JenaTdbController.getFunctionalAreasByProducts()
 POST /getDescriptionByUri       com.parabole.cecl.application.controllers.JenaTdbController.getDescriptionByUri
-GET /startContentParser       com.parabole.cecl.application.controllers.CeclController.startContentParser()
+GET /startContentParser         com.parabole.cecl.application.controllers.CeclController.startContentParser()
+POST /getParagraphsByConcept    com.parabole.cecl.application.controllers.CeclController.getParagraphsByConcept()
 
 # ---------------------------------------------------------------------------------
 # Jena TDB operation {TEST}

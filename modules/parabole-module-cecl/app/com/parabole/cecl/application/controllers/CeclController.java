@@ -1,7 +1,9 @@
 package com.parabole.cecl.application.controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.parabole.cecl.application.exceptions.AppException;
 import com.parabole.feed.application.services.TaggingUtilitiesServices;
+import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
@@ -27,12 +29,15 @@ public class CeclController extends Controller{
         return Results.ok(status.toString());
     }
 
-    public Result getParagraphsByConcept(String concept) {
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result getParagraphsByConcept() {
+        final JsonNode json = request().body().asJson();
+        final String concept = json.findPath("concept").textValue();
         JSONObject finalJson = new JSONObject();
         Boolean status = false;
         finalJson.put("status", status);
         try {
-            String result = taggingUtilitiesServices.getParagraphsByContent(concept, new JSONObject());
+            String result = taggingUtilitiesServices.getParagraphsByContent(concept);
             finalJson.put("data", result);
             status = true;
         } catch (Exception e){

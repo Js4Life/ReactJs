@@ -324,6 +324,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.getParagraphsByConcept = function (concept) {
 		SharedService.getParagraphsByConcept(concept).then(function (data) {
 			$scope.paragraphs = data;
+			console.log(data);
 		});
 	}
 	/*End*/
