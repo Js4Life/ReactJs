@@ -5,10 +5,13 @@ import com.parabole.feed.platform.utils.AppUtils;
 import org.json.JSONObject;
 import play.mvc.Result;
 
+import java.io.IOException;
+
 
 /**
  * Created by Sagir on 19-07-2016.
  */
+
 public class FeedController extends BaseController{
 
 
@@ -36,20 +39,16 @@ public class FeedController extends BaseController{
 
     }
 
-    public Result startContentParser(String file) throws AppException {
+    public Result startContentParser(String file) throws AppException, IOException {
 
         final String result = taggingUtilitiesServices.startContentParser(file);
-
         return ok(result);
 
     }
 
     public Result getParagraphsByContent(String concept) throws AppException, com.parabole.feed.platform.exceptions.AppException {
 
-        String jsonFileContent = AppUtils.getFileContent("feedJson/paragraphs.json");
-        JSONObject jsonObject = new JSONObject(jsonFileContent);
-        final String result = taggingUtilitiesServices.getParagraphsByContent(concept, jsonObject);
-
+        final String result = taggingUtilitiesServices.getParagraphsByContent(concept);
         return ok(result);
 
     }

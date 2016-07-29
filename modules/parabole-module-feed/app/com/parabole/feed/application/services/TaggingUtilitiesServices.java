@@ -3,6 +3,7 @@ package com.parabole.feed.application.services;
 
 import com.google.inject.Inject;
 import com.parabole.feed.application.exceptions.AppException;
+import com.parabole.feed.application.global.CCAppConstants;
 import com.parabole.feed.application.utils.AppUtils;
 import com.parabole.feed.contentparser.TaggerTest;
 import com.parabole.feed.platform.graphdb.Anchor;
@@ -12,8 +13,7 @@ import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.io.StringReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,14 +33,17 @@ public class TaggingUtilitiesServices {
     @Inject
     private TaggerTest taggerTest;
 
-
-    public String startContentParser(String file){
+    public String startContentParser(String file) throws IOException {
         String result= null;
         try {
-            result = taggerTest.startExtraction("C:\\one\\sandbox\\parabole\\parabole-enterprise-scaffolding\\modules\\parabole-module-feed\\conf\\feedFiles\\FASBAccntStandards.pdf");
+            //result = taggerTest.startExtraction("C:\\one\\sandbox\\parabole\\parabole-enterprise-scaffolding\\modules\\parabole-module-feed\\conf\\feedFiles\\FASBAccntStandards.pdf");
+            result = taggerTest.startExtraction(AppUtils.getApplicationProperty(CCAppConstants.PARAGRAPH + ".filepathToExtract"));
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        writeFile(AppUtils.getApplicationProperty(CCAppConstants.PARAGRAPH + ".fileToSaveTheExtraction"), result);
+
         return result;
     }
 
@@ -169,6 +172,14 @@ public class TaggingUtilitiesServices {
         return indexedParagraph.toString();
     }
 
+    private String writeFile(String canonicalFilename, String text)throws IOException {
+        File file = new File (canonicalFilename);
+        BufferedWriter out = new BufferedWriter(new FileWriter(file));
+        out.write(text);
+        out.close();
+        return "Saved";
+    }
+
     private String getTheAssignments() throws AppException {
         final String jsonFileContent = AppUtils.getFileContent("json/assignment_feed.json");
         response().setContentType("application/json");
@@ -177,10 +188,12 @@ public class TaggingUtilitiesServices {
     }
 
 
-    public String getParagraphsByContent(String concept, JSONObject jsonObject) {
+    public String getParagraphsByContent(String concept) throws AppException {
+
+        String jsonFileContent = AppUtils.getFileContent("feedJson/paragraphs.json");
+        JSONObject jsonObject = new JSONObject(jsonFileContent);
 
         JSONArray jsonArray =  jsonObject.getJSONObject("conceptIndex").getJSONArray(concept);
-
         JSONArray jsonArrayOfParagraphs = new JSONArray();
 
         for (int i=0; i<jsonArray.length(); i ++){

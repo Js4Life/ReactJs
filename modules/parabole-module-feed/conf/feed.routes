@@ -2,12 +2,10 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# An example controller showing a sample home page
-
-GET /getRawBindingDataValues/:fileName                     com.parabole.feed.application.controllers.FeedController.getRawBindingDataValues(fileName: String)
-GET /getTheassignments                     com.parabole.feed.application.controllers.FeedController.getTheassignments()
-GET /saveListOfSentenceLocationsAgainstAllConcepts                     com.parabole.feed.application.controllers.FeedController.saveListOfSentenceLocationsAgainstAllConcepts()
-GET /startContentParser/:fileName                     com.parabole.feed.application.controllers.FeedController.startContentParser(fileName: String)
+GET /getRawBindingDataValues/:fileName                    com.parabole.feed.application.controllers.FeedController.getRawBindingDataValues(fileName: String)
+GET /getTheassignments                                    com.parabole.feed.application.controllers.FeedController.getTheassignments()
+GET /saveListOfSentenceLocationsAgainstAllConcepts        com.parabole.feed.application.controllers.FeedController.saveListOfSentenceLocationsAgainstAllConcepts()
+GET /startContentParser/:fileName                         com.parabole.feed.application.controllers.FeedController.startContentParser(fileName: String)
 GET /getParagraphsByContent/:fileName                     com.parabole.feed.application.controllers.FeedController.getParagraphsByContent(fileName: String)
 
 
