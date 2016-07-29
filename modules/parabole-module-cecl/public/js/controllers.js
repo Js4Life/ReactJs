@@ -170,9 +170,6 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$scope.heading = SharedService.primaryNav[0];
 		$scope.collapseSlide = {left: false};
 		$scope.collapseClasses = {left: "col-xs-2 menu-back slide-container", center: "col-xs-10"};
-		/*RiskAggregateService.loadInitialState().then( function( data ) {
-			$scope.nodes = data.vertices;
-		});*/
 		$scope.nodes = MockService.CeclBaseNodes;
 		$scope.breads = [];
 		$scope.showGraph = false;
@@ -321,6 +318,15 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}
 
 	$scope.iniitialize();
+	
+	
+	/*Checklist related code*/
+	$scope.getParagraphsByConcept = function (concept) {
+		SharedService.getParagraphsByConcept(concept).then(function (data) {
+			$scope.paragraphs = data;
+		});
+	}
+	/*End*/
 })
 
 .controller('impactCtrl', function($scope, $state, $stateParams, SharedService) {
