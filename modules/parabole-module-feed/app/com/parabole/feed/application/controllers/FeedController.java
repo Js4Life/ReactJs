@@ -1,8 +1,6 @@
 package com.parabole.feed.application.controllers;
 
 import com.parabole.feed.application.exceptions.AppException;
-import com.parabole.feed.platform.utils.AppUtils;
-import org.json.JSONObject;
 import play.mvc.Result;
 
 import java.io.IOException;
@@ -46,7 +44,7 @@ public class FeedController extends BaseController{
 
     }
 
-    public Result getParagraphsByContent(String concept) throws AppException, com.parabole.feed.platform.exceptions.AppException {
+    public Result getParagraphsByContent(String concept) throws AppException, com.parabole.feed.platform.exceptions.AppException, IOException {
 
         final String result = taggingUtilitiesServices.getParagraphsByContent(concept);
         return ok(result);
