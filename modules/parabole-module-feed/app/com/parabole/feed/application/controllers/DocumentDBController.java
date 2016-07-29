@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.google.inject.Inject;
 import com.parabole.feed.application.global.CCAppConstants;
 import com.parabole.feed.application.services.CoralConfigurationService;
-import com.parabole.feed.platform.assimilation.OperationResult;
 import com.parabole.feed.platform.exceptions.AppException;
 import play.libs.Json;
 import play.mvc.BodyParser;
@@ -65,7 +64,5 @@ public class DocumentDBController extends BaseController  {
         final String result = "Success !";
         return Results.ok(Json.toJson(result));
     }
-
-
 
 }
