@@ -10,8 +10,11 @@ import com.parabole.feed.platform.graphdb.Anchor;
 import edu.stanford.nlp.ling.HasWord;
 import edu.stanford.nlp.ling.TaggedWord;
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
+import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import play.Environment;
+import play.Play;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -33,16 +36,18 @@ public class TaggingUtilitiesServices {
     @Inject
     private TaggerTest taggerTest;
 
+    @Inject
+    private Environment environment;
+
     public String startContentParser(String file) throws IOException {
         String result= null;
         try {
-            //result = taggerTest.startExtraction("C:\\one\\sandbox\\parabole\\parabole-enterprise-scaffolding\\modules\\parabole-module-feed\\conf\\feedFiles\\FASBAccntStandards.pdf");
-            result = taggerTest.startExtraction(AppUtils.getApplicationProperty(CCAppConstants.PARAGRAPH + ".filepathToExtract"));
+            result = taggerTest.startExtraction(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\FASBAccntStandards.pdf");
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        writeFile(AppUtils.getApplicationProperty(CCAppConstants.PARAGRAPH + ".fileToSaveTheExtraction"), result);
+        writeFile(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedJson\\paragraph.json", result);
 
         return result;
     }
@@ -187,8 +192,16 @@ public class TaggingUtilitiesServices {
 
     }
 
+    public byte[] downloadFileByName(final String fileName) throws IOException {
+        final java.io.InputStream strm = Play.application().classloader().getResourceAsStream(CCAppConstants.FEED_JSON_PATH + "/" + fileName);
+        final byte[] data = IOUtils.toByteArray(strm);
+        return data;
+    }
+
 
     public String getParagraphsByContent(String concept) throws AppException {
+
+        //String projectRoot =
 
         String jsonFileContent = AppUtils.getFileContent("feedJson/paragraphs.json");
         JSONObject jsonObject = new JSONObject(jsonFileContent);

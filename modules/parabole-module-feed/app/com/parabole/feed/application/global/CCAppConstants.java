@@ -74,6 +74,7 @@ public class CCAppConstants extends AppConstants {
     public static final String ENTERPRISE_WORKING_GROUP = "EWG";
     public static final String DATA_ADVISORY_COMMITTEE = "DAC";
     public static final String CONF_FILE_PATH = "conf/files/";
+    public static final String FEED_JSON_PATH = "feedJson/";
 
 
     public static enum ExcelFormat {
