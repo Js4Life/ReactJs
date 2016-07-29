@@ -1,6 +1,8 @@
 package com.parabole.feed.application.controllers;
 
 import com.parabole.feed.application.exceptions.AppException;
+import com.parabole.feed.platform.utils.AppUtils;
+import org.json.JSONObject;
 import play.mvc.Result;
 
 
@@ -18,11 +20,37 @@ public class FeedController extends BaseController{
 
     }
 
+    public Result saveListOfSentenceLocationsAgainstAllConcepts() throws com.parabole.feed.platform.exceptions.AppException {
+
+        final Integer configurationId = taggingUtilitiesServices.saveListOfSentenceLocationsAgainstAllConcepts();
+
+        return ok(configurationId.toString());
+
+    }
+
     public Result getTheassignments() throws AppException {
 
         final String configurationId = taggingUtilitiesServices.getConfigurationDetailWithnodeinfo();
 
         return ok(configurationId);
+
+    }
+
+    public Result startContentParser(String file) throws AppException {
+
+        final String result = taggingUtilitiesServices.startContentParser(file);
+
+        return ok(result);
+
+    }
+
+    public Result getParagraphsByContent(String concept) throws AppException, com.parabole.feed.platform.exceptions.AppException {
+
+        String jsonFileContent = AppUtils.getFileContent("feedJson/paragraphs.json");
+        JSONObject jsonObject = new JSONObject(jsonFileContent);
+        final String result = taggingUtilitiesServices.getParagraphsByContent(concept, jsonObject);
+
+        return ok(result);
 
     }
 

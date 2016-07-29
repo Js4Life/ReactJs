@@ -1436,6 +1436,7 @@ public class JenaTdbService {
                 attrLabels.put(attr, colLabel);
             }
             String sparqlQueryString = AppUtils.getFileContent("sparql/sparqlQuery" + fileIdentification + ".rq");
+
             if(filterStr != null && filterStr.trim().length() != 0) {
                 filterStr = "\"" + filterStr + "\"";
                 sparqlQueryString = sparqlQueryString.replace("$$FILTERS$$", filterStr);

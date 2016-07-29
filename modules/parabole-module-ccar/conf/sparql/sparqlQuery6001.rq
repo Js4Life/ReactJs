@@ -1,0 +1,41 @@
+PREFIX mpb-root-main: <http://www.mindparabole.com/ontology/finance/MPBRoot_Main#> 
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX cit:<http://www.mindparabole.com/ontology/finance/Bank_Main#>
+PREFIX CDE:<http://www.mindparabole.com/ontology/finance/CDE/CriticalDataElements#>
+PREFIX pb:<http://www.mindparabole.com/ontology/finance/Parabole-Model#>
+PREFIX mt:<http://www.mindparabole.com/meeting#>
+PREFIX mpb-fin-main-ccar-14q:<http://www.mindparabole.com/ontology/finance/FRY-14Q_Main#>
+PREFIX mpb-root-main-pm:<http://www.mindparabole.com/ontology/finance/portfolioManagement_Main#>
+PREFIX mpb-root-main-crm:<http://www.mindparabole.com/ontology/finance/CreditRiskManagement_Main#>
+PREFIX mpb-fin-main-ccar:<http://www.mindparabole.com/ontology/finance/CCAR_Main#>
+PREFIX Y14DB_Main:<http://www.mindparabole.com/ontology/finance/Y14DB_Main#>
+PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
+PREFIX Policy_Main:<http://www.mindparabole.com/ontology/finance/Policy_Main>
+PREFIX ldp:<http://www.mindparabole.com/ontology/finance/LiqdashProject>
+PREFIX dpfin:<http://www.mindparabole.com/ontology/finance/DepositorFin>
+PREFIX pb-fin:<http://www.mindparabole.com/ontology/finance/Parabole-Model-Finance>
+PREFIX ppnrexpense:<http://www.mindparabole.com/ontology/finance/ppnrexpense>
+PREFIX Customer:<http://www.mindparabole.com/ontology/finance/Customer>
+PREFIX smf: <http://topbraid.org/sparqlmotionfunctions#> 
+PREFIX bank:<http://mindparabole.com/finance/bank#> 
+PREFIX com:<http://mindparabole.com/finance/common#> 
+PREFIX cor:<http://mindparabole.com/finance/currency#> 
+PREFIX loc:<http://mindparabole.com/finance/location#> 
+PREFIX dep:<http://mindparabole.com/liquidity/depositor#> 
+PREFIX ent:<http://mindparabole.com/liquidity/entity#> 
+PREFIX na:<http://mindparabole.com/liquidity/naics#> 
+PREFIX obl:<http://mindparabole.com/liquidity/obligor#> 
+PREFIX prs:<http://mindparabole.com/liquidity/product-segment#>
+PREFIX liq:<http://mindparabole.com/liquidity/liqdata#>
+
+select *
+where {
+
+?a rdf:type ?aa .
+bind(afn:namespace(?aa) as ?t1)
+bind(afn:localname(?aa) as ?t2)
+bind(concat(xsd:string(?t1),xsd:string(?t2)) as ?final)
+filter(?final ="http://www.mindparabole.com/ontology/finance/Parabole-Model#Person")
+
+}

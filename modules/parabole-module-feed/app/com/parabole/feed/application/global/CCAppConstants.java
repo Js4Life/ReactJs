@@ -8,19 +8,21 @@ import java.util.Set;
 public class CCAppConstants extends AppConstants {
 
     public static final String INDUSTRY = "finance";
+    public static final String PARAGRAPH = "paragraph";
     public static final String ATTR_BASE_NODE = "baseNode";
     public static final Set<String> RDA_RELATIONSHIPS = AppUtils.createSetFromApplicationProperty(INDUSTRY + ".relationships.filter", "|");
     public static final String RDA_COUNTER_TABLE = "APP_ID_GENERATOR";
     public static final String RDA_APP_USERS = "APP_USERS";
     public static final String RDA_APP_USER_ROLES = "APP_USER_ROLES";
     public static final String RDA_USER_CONFIGS = "APP_USER_CONFIGS";
+    public static final String APP_CONCEPTS_INFO = "APP_CONCEPTS_INFO";
     public static final String RDA_CONCEPT_TAGS = "APP_CONCEPT_TAGS";
     public static final String RDA_GLOSSARY_CONFIGS = "GLOSSARY_CONFIGS";
     public static final String RDA_GLOSSARY_TABLE = "GLOSSARY_TABLE";
     public static final String RDA_CFG_TYPE_REPORT = "REPORTS";
     public static final String ATTR_VIEWCREATION_DETAILS = "details";
     public static final String HIERARCHY_GRAPH = "hierarchy";
-    public static final String JENA_FILTERDEF_FILE = "filterMetadata.json";
+    public static final String JENA_FILTERDEF_FILE = "filterMetadata_feed.json";
     public static final String ATTR_VIEWCREATION_DATA = "data";
     public static final String ATTR_VIEWCREATION_COLS = "columns";
     public static final String ATTR_VIEWCREATION_REFS = "references";

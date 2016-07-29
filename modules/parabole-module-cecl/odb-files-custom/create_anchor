@@ -1,0 +1,29 @@
+-------------------------------------------------------------------------------
+-- DATABASE CREATE: ANCHOR (APPLICATION CONFIGURATION FOR PARAGRAPH AND LIST)
+-------------------------------------------------------------------------------
+SET ignoreErrors true
+DROP DATABASE remote:localhost/finance-anchor root BFE376F0EBA538288064DBE92F0A56B6ED154B619187FA9AB16D1B3A16DB1D4F;
+SET ignoreErrors false
+CREATE DATABASE remote:localhost/finance-anchor root BFE376F0EBA538288064DBE92F0A56B6ED154B619187FA9AB16D1B3A16DB1D4F plocal document;
+-------------------------------------------------------------------
+-- TRANSACTION START
+-------------------------------------------------------------------
+DECLARE INTENT massiveinsert;
+BEGIN;
+-------------------------------------------------------------------
+-- SCHEMA: APP_CONCEPTS_INFO
+-------------------------------------------------------------------
+CREATE CLASS APP_CONCEPTS;
+CREATE PROPERTY APP_CONCEPTS.APP_CONCEPTS_ID STRING;
+CREATE PROPERTY APP_CONCEPTS.CONCEPT_NAME STRING;
+CREATE PROPERTY APP_CONCEPTS.PARAGRAPHS STRING;
+CREATE PROPERTY APP_CONCEPTS.TAGGS STRING;
+CREATE PROPERTY APP_CONCEPTS.CHECK_LIST BOOLEAN;
+ALTER PROPERTY APP_CONCEPTS.USER_ID MANDATORY true;
+ALTER PROPERTY APP_CONCEPTS.APP_CONCEPTS_ID NOTNULL true;
+CREATE INDEX APP_CONCEPTS.USER_ID UNIQUE;
+
+-------------------------------------------------------------------
+-- TRANSACTION END
+-------------------------------------------------------------------
+COMMIT;
