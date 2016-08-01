@@ -367,6 +367,24 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		});
 	}
 
+	$scope.getChecklistByNode = function (node) {
+		if(node.type === "Paragraph"){
+			SharedService.getChecklistByParagraphId(node.name).then(function (data) {
+				if(data.status) {
+					$scope.checkList = data.data;
+					$('#checklistModal1').modal('show');
+				}
+			});
+		} else {
+			SharedService.getChecklistByNode(node.type, node.name).then(function (data) {
+				if(data.status) {
+					$scope.checkList = data.data;
+					$('#checklistModal1').modal('show');
+				}
+			});
+		}
+	}
+
 	$scope.saveCheckList = function () {
 		var checkedQuestions = _.omit($scope.answers, function(v) {return v;});
 		var qIds = _.keys(checkedQuestions);
@@ -376,6 +394,17 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$('#dsViewer').modal('show');
 		$('#checklistModal').modal('hide');
 		clearAnswers();
+	}
+	
+	$scope.getComplianceColorcode = function (val) {
+		if(val > 99)
+			return 'compliance-green';
+		else if(val >= 90 && val <=99)
+			return 'compliance-amber';
+		else if(val >= 75 && val <=89)
+			return 'compliance-red';
+		else
+			return 'compliance-gray';
 	}
 
 	function clearAnswers() {

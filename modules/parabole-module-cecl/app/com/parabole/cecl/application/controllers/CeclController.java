@@ -173,11 +173,11 @@ public class CeclController extends Controller{
     public Result getChecklistByParagraphId() {
         final String json = request().body().asJson().toString();
         final JSONObject request = new JSONObject(json);
-        final JSONArray paraIds = request.getJSONArray("paragraphs");
+        final String paraId = request.getString("paragraphId");
         JSONObject finalJson = new JSONObject();
         Boolean status = false;
         try {
-            JSONObject result = new JSONObject();
+            /*JSONObject result = new JSONObject();
             for (int i=0; i<paraIds.length(); i++){
                 JSONObject tempObj = checkListServices.questionAgainstParagraphId(paraIds.getString(i));
                 Iterator<String> tempKeys = tempObj.keys();
@@ -185,7 +185,8 @@ public class CeclController extends Controller{
                     String key = tempKeys.next();
                     result.put(key, tempObj.getString(key));
                 }
-            }
+            }*/
+            JSONObject result = checkListServices.questionAgainstParagraphId(paraId);
             status = true;
             finalJson.put("status", status);
             finalJson.put("data", result);
@@ -222,6 +223,7 @@ public class CeclController extends Controller{
                     break;
             }
             JSONObject paraIdObj = jenaTdbService.getFilteredDataByCompName(compName, nodeName);
+            System.out.println("paraIdObj = " + paraIdObj);
             JSONArray paraIdArr = paraIdObj.getJSONArray("data");
             for (int i=0; i<paraIdArr.length(); i++){
                 JSONObject obj = paraIdArr.getJSONObject(i);

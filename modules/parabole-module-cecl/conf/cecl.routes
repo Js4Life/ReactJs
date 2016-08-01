@@ -66,6 +66,8 @@ GET /startContentParser         com.parabole.cecl.application.controllers.CeclCo
 POST /getParagraphsByConcept    com.parabole.cecl.application.controllers.CeclController.getParagraphsByConcept()
 POST /addChecklist              com.parabole.cecl.application.controllers.CeclController.addChecklist()
 POST /getChecklistByConceptAndComponent    com.parabole.cecl.application.controllers.CeclController.getChecklistByConceptAndComponent()
+POST /getChecklistByNode        com.parabole.cecl.application.controllers.CeclController.getChecklistByNode()
+POST /getChecklistByParagraphId com.parabole.cecl.application.controllers.CeclController.getChecklistByParagraphId()
 
 # ---------------------------------------------------------------------------------
 # Jena TDB operation {TEST}
