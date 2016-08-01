@@ -370,8 +370,9 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.getChecklistByNode = function (node) {
 		if(node.type === "Paragraph"){
 			SharedService.getChecklistByParagraphId(node.name).then(function (data) {
-				if(data.status) {
-					$scope.checkList = data.data;
+				var status = data.data.status;
+				if(status.haveData) {
+					$scope.checkList = data.data.questions;
 					$('#checklistModal1').modal('show');
 				}
 			});

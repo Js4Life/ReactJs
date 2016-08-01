@@ -120,17 +120,29 @@ public class CheckListServices {
     }
 
     public JSONObject questionAgainstParagraphId(String paragraphId) throws AppException {
+
+        JSONObject finalReturn = new JSONObject();
+
+        String mappedQuestions = AppUtils.getFileContent("feedJson\\mappedQuestions.json");
+        JSONObject jsonObject = new JSONObject(mappedQuestions);
+        JSONObject fileMappedQuestionsfromFASBAccntStandards = jsonObject.getJSONObject("FASBAccntStandards");
+        JSONObject indexes = fileMappedQuestionsfromFASBAccntStandards.getJSONObject("indexes");
+        JSONObject paragraphs = indexes.getJSONObject("paragraphs");
+        JSONObject questions = fileMappedQuestionsfromFASBAccntStandards.getJSONObject("questions");
+
+
         JSONObject allQuestions = new JSONObject();
-        if(paragraphId != null) {
-            String mappedQuestions = AppUtils.getFileContent("feedJson\\mappedQuestions.json");
-            JSONObject jsonObject = new JSONObject(mappedQuestions);
-            JSONObject fileMappedQuestionsfromFASBAccntStandards = jsonObject.getJSONObject("FASBAccntStandards");
-            JSONObject indexes = fileMappedQuestionsfromFASBAccntStandards.getJSONObject("indexes");
-            JSONObject paragraphs = indexes.getJSONObject("paragraphs");
-            JSONObject questions = fileMappedQuestionsfromFASBAccntStandards.getJSONObject("questions");
+        JSONObject status = new JSONObject();
+        JSONArray questionIds = new JSONArray();
 
-            JSONArray questionIds = paragraphs.getJSONArray(paragraphId);
-
+            if(paragraphs.has(paragraphId)) {
+                questionIds = paragraphs.getJSONArray(paragraphId);
+                status.put("haveData", true);
+                status.put("message", "It has total of "+questionIds.length()+" paragraphs");
+            }else {
+                status.put("haveData", false);
+                status.put("message", "No Question Present on this flow !");
+            }
 
 
             if (questionIds != null && questionIds.length() > 0) {
@@ -139,14 +151,15 @@ public class CheckListServices {
                 }
             }
 
-
-        }else{
-            allQuestions.put("message", "No Question Present on this flow !");
-        }
-        return allQuestions;
+        finalReturn.put("questions", allQuestions);
+        finalReturn.put("status", status);
+        return finalReturn;
     }
 
     public JSONObject questionAgainstConceptNameComponentTypeComponentName(String conceptName, String componentType,  String componentName) throws AppException {
+
+
+
         String mappedQuestions = AppUtils.getFileContent("feedJson\\mappedQuestions.json");
         JSONObject jsonObject = new JSONObject(mappedQuestions);
         JSONObject fileMappedQuestionsfromFASBAccntStandards = jsonObject.getJSONObject("FASBAccntStandards");

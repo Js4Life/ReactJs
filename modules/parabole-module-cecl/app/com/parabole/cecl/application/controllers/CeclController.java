@@ -175,7 +175,6 @@ public class CeclController extends Controller{
         final JSONObject request = new JSONObject(json);
         final String paraId = request.getString("paragraphId");
         JSONObject finalJson = new JSONObject();
-        Boolean status = false;
         try {
             /*JSONObject result = new JSONObject();
             for (int i=0; i<paraIds.length(); i++){
@@ -187,8 +186,6 @@ public class CeclController extends Controller{
                 }
             }*/
             JSONObject result = checkListServices.questionAgainstParagraphId(paraId);
-            status = true;
-            finalJson.put("status", status);
             finalJson.put("data", result);
         } catch (Exception e){
             e.printStackTrace();
@@ -205,7 +202,6 @@ public class CeclController extends Controller{
         JSONObject finalJson = new JSONObject();
         JSONObject data = new JSONObject();
         finalJson.put("data", data);
-        Boolean status = false;
         try {
             String compName = null;
             switch (nodeType){
@@ -229,10 +225,14 @@ public class CeclController extends Controller{
                 JSONObject obj = paraIdArr.getJSONObject(i);
                 String paraId = obj.getString("paragraphId");
                 JSONObject tempObj = checkListServices.questionAgainstParagraphId(paraId);
-                Iterator<String> tempKeys = tempObj.keys();
-                while(tempKeys.hasNext()){
-                    String key = tempKeys.next();
-                    data.put(key, tempObj.getString(key));
+                JSONObject status = tempObj.getJSONObject("status");
+                if(status.getBoolean("haveData")){
+                    JSONObject questions = tempObj.getJSONObject("questions");
+                    Iterator<String> tempKeys = questions.keys();
+                    while(tempKeys.hasNext()){
+                        String key = tempKeys.next();
+                        data.put(key, questions.getString(key));
+                    }
                 }
             }
         } catch(Exception e) {
