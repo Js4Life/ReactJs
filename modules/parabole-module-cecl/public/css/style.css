@@ -2455,4 +2455,17 @@ li.list-group-item.puff{
       width: 20%;
       float: left;
   }
+
+  .compliance-gray{
+      background: #cccccc;
+  }
+  .compliance-red{
+      background: #ff4a46;
+  }
+  .compliance-amber{
+      background: #ffb935;
+  }
+  .compliance-green{
+      background: #08ff84;
+  }
   /*End*/
