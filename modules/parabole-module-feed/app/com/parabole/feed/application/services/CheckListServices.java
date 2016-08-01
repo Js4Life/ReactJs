@@ -27,7 +27,6 @@ public class CheckListServices {
 
     public String addQuestion(JSONObject incomingQuestion) throws AppException, IOException {
 
-
         String mappedQuestions = AppUtils.getFileContent("feedJson\\mappedQuestions.json");
         JSONObject jsonObject = new JSONObject(mappedQuestions);
         JSONObject fileMappedQuestionsfromFASBAccntStandards = jsonObject.getJSONObject("FASBAccntStandards");
@@ -60,38 +59,47 @@ public class CheckListServices {
             // adding other components------------------>
             //// loop against all the components----->
             for (int j = 0; j < singleQuestionJsonObject.getJSONArray("components").length(); j++) {
-                JSONObject component = singleQuestionJsonObject.getJSONArray("components").getJSONObject(i);
+                JSONObject component = singleQuestionJsonObject.getJSONArray("components").getJSONObject(j);
                 JSONArray containArrayOfcomponentName = new JSONArray();
+
+                Boolean continueationOfThisFlow = true;
 
                 if(indexes.has(incomingQuestion.getString("conceptName")))
                     if (indexes.getJSONObject(incomingQuestion.getString("conceptName")).has(component.getString("type")))
                     {
-                        if (indexes.getJSONObject(incomingQuestion.getString("conceptName")).getJSONObject(component.getString("type")).has(component.getString("name")))
+                        if (indexes.getJSONObject(incomingQuestion.getString("conceptName")).getJSONObject(component.getString("type")).has(component.getString("name"))) {
                             containArrayOfcomponentName = indexes.getJSONObject(incomingQuestion.getString("conceptName")).getJSONObject(component.getString("type")).getJSONArray(component.getString("name"));
+                        }else{
+                            JSONArray componentName = new JSONArray();
+                            componentName.put(QuestionId);
+                            indexes.getJSONObject(incomingQuestion.getString("conceptName")).getJSONObject(component.getString("type")).put(component.getString("name"), componentName);
+                            continueationOfThisFlow = false;
+                        }
                     }else{
                         JSONArray jsonArray = new JSONArray();
                         jsonArray.put(QuestionId);
                         JSONObject jsonObject1 = new JSONObject();
                         jsonObject1.put(component.getString("name"), jsonArray);
                         indexes.getJSONObject(incomingQuestion.getString("conceptName")).put(component.getString("type"), jsonObject1);
-                        containArrayOfcomponentName = indexes.getJSONObject(incomingQuestion.getString("conceptName")).getJSONObject(component.getString("type")).getJSONArray(component.getString("name"));
+                        continueationOfThisFlow = false;
                     }
 
                 // handling component name list
-                if(containArrayOfcomponentName != null && containArrayOfcomponentName.length() > 0){
-                    System.out.println("paragraphAgainstId = null " + containArrayOfcomponentName);
-                    containArrayOfcomponentName.put(QuestionId);
-                }
-                else{
-                    System.out.println("paragraphAgainstId = " + containArrayOfcomponentName);
-                    JSONArray listOfConceptName = new JSONArray();
-                    listOfConceptName.put(QuestionId);
-                    JSONObject componentType = new JSONObject();
-                    componentType.put(component.getString("name"), listOfConceptName);
-                    JSONObject newConcept = new JSONObject();
-                    newConcept.put(component.getString("type"), componentType);
-                    indexes.put(incomingQuestion.getString("conceptName"), newConcept);
-                }
+                if(continueationOfThisFlow)
+                    if(containArrayOfcomponentName != null && containArrayOfcomponentName.length() > 0){
+                        System.out.println("paragraphAgainstId = null " + containArrayOfcomponentName);
+                        containArrayOfcomponentName.put(QuestionId);
+                    }
+                    else{
+                        System.out.println("paragraphAgainstId = " + containArrayOfcomponentName);
+                        JSONArray listOfConceptName = new JSONArray();
+                        listOfConceptName.put(QuestionId);
+                        JSONObject componentType = new JSONObject();
+                        componentType.put(component.getString("name"), listOfConceptName);
+                        JSONObject newConcept = new JSONObject();
+                        newConcept.put(component.getString("type"), componentType);
+                        indexes.put(incomingQuestion.getString("conceptName"), newConcept);
+                    }
             }
 
         }
@@ -112,20 +120,29 @@ public class CheckListServices {
     }
 
     public JSONObject questionAgainstParagraphId(String paragraphId) throws AppException {
-        String mappedQuestions = AppUtils.getFileContent("feedJson\\mappedQuestions.json");
-        JSONObject jsonObject = new JSONObject(mappedQuestions);
-        JSONObject fileMappedQuestionsfromFASBAccntStandards = jsonObject.getJSONObject("FASBAccntStandards");
-        JSONObject indexes = fileMappedQuestionsfromFASBAccntStandards.getJSONObject("indexes");
-        JSONObject paragraphs = indexes.getJSONObject("paragraphs");
-        JSONObject questions = fileMappedQuestionsfromFASBAccntStandards.getJSONObject("questions");
-
-        JSONArray questionIds = paragraphs.getJSONArray(paragraphId);
         JSONObject allQuestions = new JSONObject();
+        if(paragraphId != null) {
+            String mappedQuestions = AppUtils.getFileContent("feedJson\\mappedQuestions.json");
+            JSONObject jsonObject = new JSONObject(mappedQuestions);
+            JSONObject fileMappedQuestionsfromFASBAccntStandards = jsonObject.getJSONObject("FASBAccntStandards");
+            JSONObject indexes = fileMappedQuestionsfromFASBAccntStandards.getJSONObject("indexes");
+            JSONObject paragraphs = indexes.getJSONObject("paragraphs");
+            JSONObject questions = fileMappedQuestionsfromFASBAccntStandards.getJSONObject("questions");
 
-        for (int i = 0; i < questionIds.length(); i++) {
-            allQuestions.put(questionIds.getString(i), questions.getString(questionIds.getString(i)));
+            JSONArray questionIds = paragraphs.getJSONArray(paragraphId);
+
+
+
+            if (questionIds != null && questionIds.length() > 0) {
+                for (int i = 0; i < questionIds.length(); i++) {
+                    allQuestions.put(questionIds.getString(i), questions.getString(questionIds.getString(i)));
+                }
+            }
+
+
+        }else{
+            allQuestions.put("message", "No Question Present on this flow !");
         }
-
         return allQuestions;
     }
 
