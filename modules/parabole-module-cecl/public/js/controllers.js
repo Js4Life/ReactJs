@@ -181,6 +181,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			nodeImageField: "type",
 			hier: false
 		};
+		$scope.answers = {};
 	}
 	
 	$scope.exploreNode = function (node, e) {
@@ -322,7 +323,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	
 	
 	/*Checklist related code*/
-	$scope.startContentParser = function () {
+	/*$scope.startContentParser = function () {
 		SharedService.startContentParser().then(function (data) {
 			if(data){
 				alert("Success!");
@@ -342,7 +343,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.closeCheckListModal = function () {
 		$('#dsViewer').modal('show');
 		$('#checkListModal').modal('hide');
-	}
+	}*/
 	/*End*/
 	
 	$scope.goChecklistBuilder = function () {
@@ -354,6 +355,31 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			SharedService.currentConcept = currentConcept;
 			$state.go('landing.checklistBuilder');
 		}, 200);
+	}
+
+	$scope.getCheckList = function (conceptName, componentType, componentName) {
+		SharedService.getChecklistByConceptAndComponent(conceptName, componentType, componentName).then(function (data) {
+			if(data.status) {
+				$scope.checkList = data.data;
+				$('#dsViewer').modal('hide');
+				$('#checklistModal').modal('show');
+			}
+		});
+	}
+
+	$scope.saveCheckList = function () {
+		var checkedQuestions = _.omit($scope.answers, function(v) {return v;});
+		var qIds = _.keys(checkedQuestions);
+	}
+
+	$scope.closeCheckListModal = function () {
+		$('#dsViewer').modal('show');
+		$('#checklistModal').modal('hide');
+		clearAnswers();
+	}
+
+	function clearAnswers() {
+		$scope.answers = {};
 	}
 })
 
@@ -515,7 +541,14 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.selectParagraph = function (para, e) {
 		$(e.currentTarget).parent().children().removeClass('active');
 		$(e.currentTarget).addClass('active');
-		$scope.currentParagraph = para;
+		if($scope.currentParagraph) {
+			if ($scope.currentParagraph.id != para.id) {
+				$scope.currentParagraph = para;
+				$scope.questions = [];
+			}
+		} else{
+			$scope.currentParagraph = para;
+		}
 	}
 
 	$scope.addQuestion = function () {
@@ -527,7 +560,12 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$scope.currentQuestionCfg.paragraphId = $scope.currentParagraph.id;
 		$scope.currentQuestionCfg.conceptName = $scope.currentConcept.name;
 		$scope.currentQuestionCfg.questions = $scope.questions;
-		console.log($scope.currentQuestionCfg);
+		SharedService.addChecklist($scope.currentQuestionCfg).then(function (data) {
+			console.log(data.data);
+			if(data.status){
+				
+			}
+		});
 	}
 
 	$scope.goPreviousScreen = function () {

@@ -25,7 +25,7 @@ public class CheckListServices {
         return uniqueKey.toString();
     }
 
-    private String addQuestion(JSONObject incomingQuestion) throws AppException, IOException {
+    public String addQuestion(JSONObject incomingQuestion) throws AppException, IOException {
 
 
         String mappedQuestions = AppUtils.getFileContent("feedJson\\mappedQuestions.json");
@@ -129,14 +129,14 @@ public class CheckListServices {
         return allQuestions;
     }
 
-    public JSONObject questionAgainstConceptNameComponentTypeComponentName(String compoconceptName, String componentType,  String componentName) throws AppException {
+    public JSONObject questionAgainstConceptNameComponentTypeComponentName(String conceptName, String componentType,  String componentName) throws AppException {
         String mappedQuestions = AppUtils.getFileContent("feedJson\\mappedQuestions.json");
         JSONObject jsonObject = new JSONObject(mappedQuestions);
         JSONObject fileMappedQuestionsfromFASBAccntStandards = jsonObject.getJSONObject("FASBAccntStandards");
         JSONObject indexes = fileMappedQuestionsfromFASBAccntStandards.getJSONObject("indexes");
         JSONObject questions = fileMappedQuestionsfromFASBAccntStandards.getJSONObject("questions");
 
-        JSONObject qByConcept = indexes.getJSONObject(compoconceptName);
+        JSONObject qByConcept = indexes.getJSONObject(conceptName);
         JSONObject qByComponentByType = qByConcept.getJSONObject(componentType);
         JSONArray qByComponentByName = qByComponentByType.getJSONArray(componentName);
 

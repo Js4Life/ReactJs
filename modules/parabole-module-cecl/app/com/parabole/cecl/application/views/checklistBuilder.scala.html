@@ -23,10 +23,10 @@
           </div>
           <div class="form-group col-xs-3">
             <div class="row">
-              <div ng-hide="!currentParagraph" class="max-width" ng-dropdown-multiselect="" options="currentConcept.components" selected-model="question.components" extra-settings="multiSelectCfg" group-by="type"></div>
+              <div ng-hide="!currentParagraph || !question.text" class="max-width" ng-dropdown-multiselect="" options="currentConcept.components" selected-model="question.components" extra-settings="multiSelectCfg" group-by="type"></div>
             </div>
             <div class="row" style="margin-top: 5px;">
-              <button ng-disabled="!question.text" type="submit" class="btn btn-default max-width" ng-click="addQuestion()">Add</button>
+              <button ng-disabled="!question.text || question.components.length < 1" type="submit" class="btn btn-default max-width" ng-click="addQuestion()">Add</button>
             </div>
             <div class="row" style="margin-top: 5px;">
               <button ng-disabled="questions.length < 1" type="submit" class="btn btn-default max-width" ng-click="saveQuestions()">Save</button>
@@ -42,7 +42,7 @@
               <a href="" class="list-group-item" ng-repeat="q in questions">
                 <h5 class="list-group-item-heading">{{q.text}}</h5>
                 <div class="list-group-item-text">
-                  <div class="badge" ng-repeat="comp in q.components">{{comp.name}}</div>&nbsp;
+                  <div class="badge margin-right-5" ng-repeat="comp in q.components">{{comp.name}}</div>
                 </div>
               </a>
             </div>

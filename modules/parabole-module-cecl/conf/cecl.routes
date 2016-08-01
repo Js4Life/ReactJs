@@ -64,6 +64,8 @@ POST /getFunctionalAreasByProducts	com.parabole.cecl.application.controllers.Jen
 POST /getDescriptionByUri       com.parabole.cecl.application.controllers.JenaTdbController.getDescriptionByUri
 GET /startContentParser         com.parabole.cecl.application.controllers.CeclController.startContentParser()
 POST /getParagraphsByConcept    com.parabole.cecl.application.controllers.CeclController.getParagraphsByConcept()
+POST /addChecklist              com.parabole.cecl.application.controllers.CeclController.addChecklist()
+POST /getChecklistByConceptAndComponent    com.parabole.cecl.application.controllers.CeclController.getChecklistByConceptAndComponent()
 
 # ---------------------------------------------------------------------------------
 # Jena TDB operation {TEST}

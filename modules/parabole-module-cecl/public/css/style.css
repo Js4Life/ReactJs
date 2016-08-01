@@ -2327,6 +2327,10 @@ li.list-group-item.puff{
       margin-right: 10px;
   }
 
+  .margin-right-5{
+      margin-right: 5px;
+  }
+
   .padding-15{
       padding: 15px !important;
   }

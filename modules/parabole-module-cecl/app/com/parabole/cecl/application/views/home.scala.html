@@ -26,8 +26,9 @@
             </ol>
             <div class="col-md-2" ng-repeat="child in childNodes | orderBy : 'name' | filter: searchText" index="{{$index}}">
               <div class="panel panel-default pointer" ng-click="getNodeDetails(child, $index)">
-                <div class="panel-body text-center zero-padding" style="background:#cccccc;font-size: 2.5em;">
-                    <div style="font-weight: bold;">{{child.name.charAt(0)}}</div>
+                <div class="panel-body text-center zero-padding" style="background:#cccccc;">
+                    <div style="font-weight: bold;font-size: 2.5em;">{{child.name.charAt(0)}}</div>
+                    <div style="position:absolute;right:20px;top:5px;font-weight: bold;"></div>
                 </div>
                 <div class="panel-footer ellipsis-text" tooltip='"title":"{{child.name}}"'>{{child.name}}</div>
               </div>
@@ -68,7 +69,10 @@
               <div class="panel panel-default" ng-if="k!='Related Concept'">
                 <div class="panel-heading">{{k}}</div>
                 <ul class="list-group" style="max-height: 40vh; overflow: auto;">
-                  <li class="list-group-item" ng-repeat="o in v">{{o.name}}</li>
+                  <li class="list-group-item" ng-repeat="o in v">
+                    <span tooltip='"title":"View Checklist", "placement":"right"' class="badge pointer" ng-click="getCheckList(currentNode.name, k, o.name)">?</span>
+                    {{o.name}}
+                  </li>
                 </ul>
               </div>
             </div>
@@ -128,13 +132,13 @@
 </div>
 
 
-<div class="modal fade bs-example-modal-lg" id="checkListModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+@*<div class="modal fade bs-example-modal-lg" id="checkListModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" style="width:92%;">
     <div class="modal-content">
       <div class="modal-header">
         Paragraphs for {{currentNode.name}}
       </div>
-      <div class="modal-body" style="height: 66vh; overflow: auto;padding-bottom: 0;">
+      <div class="modal-body zero-padding-bottom" style="height: 66vh; overflow: auto;">
         <div class="col-xs-6">
             <p ng-repeat="para in paragraphs" ng-class="{'text-danger': para.willIgnore}" ng-init="formatText(para.bodyText)" read-more="" content="{{para.bodyText}}"></p>
         </div>
@@ -151,6 +155,27 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" ng-click="closeCheckListModal()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>*@
+
+<div class="modal fade" id="checklistModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Checklist</h4>
+      </div>
+      <div class="modal-body zero-padding-bottom" style="height: 66vh; overflow: auto;">
+        <ul class="list-group">
+          <li class="list-group-item" ng-repeat="(k, v) in checkList">
+            <input type="checkbox" ng-model="answers[k]" style="position: relative;top: 2px;"/>&nbsp;{{v}}
+          </li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="closeCheckListModal()">Cancel</button>
+        <button type="button" class="btn btn-default" ng-click="saveCheckList()">Save</button>
       </div>
     </div>
   </div>
