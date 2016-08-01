@@ -148,7 +148,7 @@ public class JenaTdbController extends Controller {
         }
     }
 
-    @BodyParser.Of(BodyParser.Json.class)
+    /*@BodyParser.Of(BodyParser.Json.class)
     public Result getFilteredDataByCompName() throws AppException, JSONException {
         final JsonNode json = request().body().asJson();
         final String compName = json.findPath("compName").textValue();
@@ -215,5 +215,5 @@ public class JenaTdbController extends Controller {
         final JSONObject json = new JSONObject(jsonText);
         final String uriStr = json.getString("uriStr");
         return Results.ok(octopusSemanticService.getDescriptionByUri(uriStr).toString());
-    }
+    }*/
 }

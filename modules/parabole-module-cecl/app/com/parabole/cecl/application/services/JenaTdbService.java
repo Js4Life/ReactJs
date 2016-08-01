@@ -1457,6 +1457,12 @@ public class JenaTdbService {
                     final String attrKey = attrKeys.next().toString();
                     jsObj.put(attrLabels.get(attrKey), aBranch.get(attrKey));
                 }
+
+                /*To be deleted*/
+                int r = (int) (Math.random() * (100 - 0)) + 0;
+                jsObj.put("compliance", r);
+                /*End*/
+
                 jsArr.put(jsObj);
             }
         } catch (final Exception e) {

@@ -28,7 +28,7 @@
               <div class="panel panel-default pointer" ng-click="getNodeDetails(child, $index)">
                 <div class="panel-body text-center zero-padding" style="background:#cccccc;">
                     <div style="font-weight: bold;font-size: 2.5em;">{{child.name.charAt(0)}}</div>
-                    <div style="position:absolute;right:20px;top:5px;font-weight: bold;"></div>
+                    <div style="position:absolute;right:20px;top:5px;font-weight: bold;">{{child.compliance}}%</div>
                 </div>
                 <div class="panel-footer ellipsis-text" tooltip='"title":"{{child.name}}"'>{{child.name}}</div>
               </div>
