@@ -1,0 +1,54 @@
+<style>
+  .dropdown-multiselect{
+    width: 100%;
+  }
+  .dropdown-multiselect button{
+    width: 100%;
+  }
+</style>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <span class="glyphicon glyphicon-chevron-left pull-left" style="margin-right:10px;" ng-click="goPreviousScreen()"></span>
+    <b>{{heading.title}} ({{currentConcept.name}})</b>
+  </div>
+  <div class="panel-body" style="height:81vh;overflow: hidden;">
+    <div class="col-xs-6 max-height" style="overflow: auto;padding-left: 0;">
+      <p ng-repeat="para in paragraphs" class="pointer" ng-class="{'text-danger': para.willIgnore}" read-more="" content="{{para.bodyText}}" ng-click="selectParagraph(para, $event)"></p>
+    </div>
+    <div class="col-xs-6 max-height" style="overflow: hidden;padding-right: 0;">
+      <div class="container-fluid zero-padding">
+        <form class="form-inline">
+          <div class="form-group col-xs-9" style="padding-left: 0;">
+            <textarea class="form-control max-width" ng-model="question.text" rows="5"></textarea>
+          </div>
+          <div class="form-group col-xs-3">
+            <div class="row">
+              <div ng-hide="!currentParagraph" class="max-width" ng-dropdown-multiselect="" options="currentConcept.components" selected-model="question.components" extra-settings="multiSelectCfg" group-by="type"></div>
+            </div>
+            <div class="row" style="margin-top: 5px;">
+              <button ng-disabled="!question.text" type="submit" class="btn btn-default max-width" ng-click="addQuestion()">Add</button>
+            </div>
+            <div class="row" style="margin-top: 5px;">
+              <button ng-disabled="questions.length < 1" type="submit" class="btn btn-default max-width" ng-click="saveQuestions()">Save</button>
+            </div>
+          </div>
+        </form>
+      </div><br>
+      <div class="container-fluid zero-padding">
+        <div class="panel panel-default">
+          <div class="panel-heading">{{currentParagraph.id || "No Paragraph Selected!!!"}}</div>
+          <div class="panel-body zero-padding" style="height:52vh;overflow: hidden;">
+            <div class="list-group">
+              <a href="" class="list-group-item" ng-repeat="q in questions">
+                <h5 class="list-group-item-heading">{{q.text}}</h5>
+                <div class="list-group-item-text">
+                  <div class="badge" ng-repeat="comp in q.components">{{comp.name}}</div>&nbsp;
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

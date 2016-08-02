@@ -794,7 +794,7 @@ angular.module('RDAApp.directives', [])
         restrict: 'A',
         transclude: true,
         replace: true,
-        template: '<p></p>',
+        template: '<pre></pre>',
         scope: {
             moreText: '@',
             lessText: '@',

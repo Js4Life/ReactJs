@@ -45,4 +45,8 @@ public class DispatcherAction extends BaseAction {
     public Result regulation() {
         return ok(com.parabole.cecl.application.views.html.regulation.render());
     }
+
+    public Result checklistBuilder() {
+        return ok(com.parabole.cecl.application.views.html.checklistBuilder.render());
+    }
 }

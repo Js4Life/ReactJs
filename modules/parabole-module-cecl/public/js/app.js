@@ -1,5 +1,5 @@
 angular
-    .module('RDAApp', [ 'ui.router', 'ngAnimate', 'RDAApp.controllers' ])
+    .module('RDAApp', [ 'ui.router', 'ngAnimate', 'angularjs-dropdown-multiselect', 'RDAApp.controllers' ])
 
     .config(function($stateProvider, $urlRouterProvider, $compileProvider) {
           $compileProvider
@@ -33,6 +33,12 @@ angular
               url : '/regulation',
               templateUrl : 'regulation',
               controller : 'regulationCtrl'
+          })
+
+          .state('landing.checklistBuilder', {
+              url : '/checklist-builder',
+              templateUrl : 'checklistBuilder',
+              controller : 'checklistBuilderCtrl'
           });
 
           $urlRouterProvider.otherwise('/landing/home');

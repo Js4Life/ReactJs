@@ -6,8 +6,8 @@
       <input type="search" class="form-control" placeholder="Search from {{childNodes.length}} items..." ng-model="searchText" />
     </div>
     <div class="btn-group pull-right">
-      <span ng-click="leftSlideToggle()" class="glyphicon glyphicon-fullscreen pull-right" tooltip='"title":"Fullscreen"'></span>
-      <span ng-click="startContentParser()" class="glyphicon glyphicon-play pull-right margin-right-10" tooltip='"title":"Parse Document"'></span>
+      <span ng-click="startContentParser()" class="glyphicon glyphicon-play pull-right" tooltip='"title":"Parse Document"'></span>
+      <span ng-click="leftSlideToggle()" class="glyphicon glyphicon-fullscreen pull-right margin-right-10" tooltip='"title":"Fullscreen"'></span>
     </div>
   </div>
   <div class="panel-body zero-padding">
@@ -45,7 +45,7 @@
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         <h4 class="modal-title" id="myModalLabel">{{currentNode.name}}&nbsp({{currentNode.type}})</h4>
         <i ng-click="getGraph()" class="fa pull-right" ng-class="{'fa-th-large':showGraph, 'fa-sitemap':!showGraph}" aria-hidden="true" style="margin: -22px 30px;"></i>
-        <i class="fa fa-paragraph pull-right" aria-hidden="true" ng-click="getParagraphsByConcept()" style="margin: -22px 60px;"></i>
+        <i class="fa fa-paragraph pull-right" aria-hidden="true" ng-click="goChecklistBuilder()" style="margin: -22px 60px;"></i>
       </div>
       <div class="modal-body" style="height: 66vh; overflow: auto;padding-bottom: 0;">
         <div ng-if="!showGraph">
@@ -136,9 +136,7 @@
       </div>
       <div class="modal-body" style="height: 66vh; overflow: auto;padding-bottom: 0;">
         <div class="col-xs-6">
-          <div class="well" ng-repeat="para in paragraphs">
-            <p read-more="" content="{{para.bodyText}}"></p>
-          </div>
+            <p ng-repeat="para in paragraphs" ng-class="{'text-danger': para.willIgnore}" ng-init="formatText(para.bodyText)" read-more="" content="{{para.bodyText}}"></p>
         </div>
         <div class="col-xs-6">
           <div class="col-md-4" ng-repeat="(k, v) in nodeDetails">

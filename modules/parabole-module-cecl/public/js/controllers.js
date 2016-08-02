@@ -165,7 +165,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.iniitialize();
 })
 
-.controller('homeCtrl', function($scope, $state, $stateParams, SharedService, RiskAggregateService, graphService, MockService) {
+.controller('homeCtrl', function($scope, $state, $timeout, $stateParams, SharedService, RiskAggregateService, graphService, MockService) {
 	$scope.iniitialize = function( ){
 		$scope.heading = SharedService.primaryNav[0];
 		$scope.collapseSlide = {left: false};
@@ -248,6 +248,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				compName = "ceclConceptNodeDetails";
 				SharedService.getFilteredDataByCompName(compName, nodeName).then(function (data) {
 					var nodes = data.data;
+					$scope.rawNodeDetails = nodes;
 					$scope.nodeDetails = _.groupBy(nodes, "type");
 					getGraphByConceptUri();
 					SharedService.getDescriptionByUri($scope.currentNode.link).then(function (description) {
@@ -343,6 +344,17 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$('#checkListModal').modal('hide');
 	}
 	/*End*/
+	
+	$scope.goChecklistBuilder = function () {
+		$('#dsViewer').modal('hide');
+		$timeout(function () {
+			var currentConcept = angular.copy($scope.currentNode);
+			var rawNodeDetails = _.reject($scope.rawNodeDetails, function (n) { return n.type === 'Related Concept'	});
+			currentConcept.components = angular.copy(rawNodeDetails);
+			SharedService.currentConcept = currentConcept;
+			$state.go('landing.checklistBuilder');
+		}, 200);
+	}
 })
 
 .controller('impactCtrl', function($scope, $state, $stateParams, SharedService) {
@@ -478,6 +490,48 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				$('#dsViewer').modal('show');
 			}
 		});
+	}
+
+	$scope.initialize();
+})
+
+.controller('checklistBuilderCtrl', function($scope, $state, $stateParams, SharedService) {
+	$scope.initialize = function () {
+		$scope.heading = {title: "Checklist Builder"};
+		$scope.question = {components: []};
+		$scope.questions = [];
+		$scope.currentQuestionCfg = {};
+		$scope.multiSelectCfg = {
+			idProp : "link",
+			displayProp : "name",
+			externalIdProp : ""
+		}
+		$scope.currentConcept = SharedService.currentConcept;
+		SharedService.getParagraphsByConcept($scope.currentConcept.name).then(function (data) {
+			$scope.paragraphs = angular.fromJson(data.data);
+		});
+	}
+
+	$scope.selectParagraph = function (para, e) {
+		$(e.currentTarget).parent().children().removeClass('active');
+		$(e.currentTarget).addClass('active');
+		$scope.currentParagraph = para;
+	}
+
+	$scope.addQuestion = function () {
+		$scope.questions.push($scope.question);
+		$scope.question = {components:[]};
+	}
+
+	$scope.saveQuestions = function () {
+		$scope.currentQuestionCfg.paragraphId = $scope.currentParagraph.id;
+		$scope.currentQuestionCfg.conceptName = $scope.currentConcept.name;
+		$scope.currentQuestionCfg.questions = $scope.questions;
+		console.log($scope.currentQuestionCfg);
+	}
+
+	$scope.goPreviousScreen = function () {
+		$state.go('landing.home');
 	}
 
 	$scope.initialize();
