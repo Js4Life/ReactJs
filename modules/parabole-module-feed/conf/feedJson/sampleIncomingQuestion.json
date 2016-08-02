@@ -1,0 +1,15 @@
+{
+  "paragraphId" : "pId",
+  "conceptName" : "name of the concept",
+  "questions" : [
+    {
+      "text" : "This is a question ",
+      "components" : [
+        {
+          "type" : "Model",
+          "name" : "PD Model"
+        }
+      ]
+    }
+  ]
+}

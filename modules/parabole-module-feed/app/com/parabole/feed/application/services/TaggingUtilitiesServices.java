@@ -200,9 +200,7 @@ public class TaggingUtilitiesServices {
 
 
     public String getParagraphsByContent(String concept) throws AppException {
-
-        //String projectRoot =
-
+        
         String jsonFileContent = AppUtils.getFileContent("feedJson/paragraphs.json");
         JSONObject jsonObject = new JSONObject(jsonFileContent);
 

@@ -11,9 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import play.Logger;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringWriter;
+import java.io.*;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -127,5 +125,13 @@ public class AppUtils {
             return true;
         }
         return false;
+    }
+
+    public static String writeFile(String canonicalFilename, String text)throws IOException {
+        File file = new File (canonicalFilename);
+        BufferedWriter out = new BufferedWriter(new FileWriter(file));
+        out.write(text);
+        out.close();
+        return "Saved";
     }
 }
