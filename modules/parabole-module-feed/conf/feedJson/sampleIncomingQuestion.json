@@ -1,12 +1,12 @@
 {
-  "paragraphId" : "pId0023",
+  "paragraphId" : "para0093",
   "conceptName" : "FRY-14-A",
   "questions" : [
     {
-      "text" : "it is an awesome question .. is not it ? ",
+      "text" : "second question ? ",
       "components" : [
         {
-        "type" : "report",
+        "type" : "model",
           "name" : "PD Model"
         }
       ]

@@ -119,5 +119,25 @@ public class CheckListServices {
         return allQuestions;
     }
 
+    public JSONObject questionAgainstConceptNameComponentTypeComponentName(String compoconceptName, String componentType,  String componentName) throws AppException {
+        String mappedQuestions = AppUtils.getFileContent("feedJson\\mappedQuestions.json");
+        JSONObject jsonObject = new JSONObject(mappedQuestions);
+        JSONObject fileMappedQuestionsfromFASBAccntStandards = jsonObject.getJSONObject("FASBAccntStandards");
+        JSONObject indexes = fileMappedQuestionsfromFASBAccntStandards.getJSONObject("indexes");
+        JSONObject questions = fileMappedQuestionsfromFASBAccntStandards.getJSONObject("questions");
+
+        JSONObject qByConcept = indexes.getJSONObject(compoconceptName);
+        JSONObject qByComponentByType = qByConcept.getJSONObject(componentType);
+        JSONArray qByComponentByName = qByComponentByType.getJSONArray(componentName);
+
+        JSONObject allQuestions = new JSONObject();
+
+        for (int i = 0; i < qByComponentByName.length(); i++) {
+            allQuestions.put(qByComponentByName.getString(i), questions.getString(qByComponentByName.getString(i)));
+        }
+
+        return allQuestions;
+    }
+
 
 }

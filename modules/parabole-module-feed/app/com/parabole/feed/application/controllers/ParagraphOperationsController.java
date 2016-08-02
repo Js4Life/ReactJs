@@ -38,6 +38,15 @@ public class ParagraphOperationsController extends BaseController{
     }
 
 
+    public Result questionAgainstConceptNameComponentTypeComponentName(String conceptName, String componentType,  String componentName) throws AppException {
+
+        JSONObject mappedQuestions = checkListServices.questionAgainstConceptNameComponentTypeComponentName(conceptName, componentType,  componentName);
+
+        return ok(mappedQuestions.toString());
+
+    }
+
+
 
 
 

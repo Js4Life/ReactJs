@@ -14,6 +14,7 @@ GET /getParagraphsByContent/:fileName                     com.parabole.feed.appl
 
 GET /addQuestion                     com.parabole.feed.application.controllers.ParagraphOperationsController.addQuestion()
 GET /questionAgainstParagraphId/:pid                     com.parabole.feed.application.controllers.ParagraphOperationsController.questionAgainstParagraphId(pid: String)
+GET /questionAgainstConceptNameComponentTypeComponentName/:conceptName/:componentType/:componentName                     com.parabole.feed.application.controllers.ParagraphOperationsController.questionAgainstConceptNameComponentTypeComponentName(conceptName: String, componentType: String, componentName: String)
 
 ### -------------------------------------------------------------------- END TEST ----------------------------------------------------------
 
