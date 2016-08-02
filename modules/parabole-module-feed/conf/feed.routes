@@ -9,5 +9,16 @@ GET /startContentParser/:fileName                         com.parabole.feed.appl
 GET /getParagraphsByContent/:fileName                     com.parabole.feed.application.controllers.FeedController.getParagraphsByContent(fileName: String)
 
 
+
+### --------------------------------------------------------------------    TEST    --------------------------------------------------------
+
+GET /addQuestion                     com.parabole.feed.application.controllers.ParagraphOperationsController.addQuestion()
+GET /questionAgainstParagraphId/:pid                     com.parabole.feed.application.controllers.ParagraphOperationsController.questionAgainstParagraphId(pid: String)
+GET /questionAgainstConceptNameComponentTypeComponentName/:conceptName/:componentType/:componentName                     com.parabole.feed.application.controllers.ParagraphOperationsController.questionAgainstConceptNameComponentTypeComponentName(conceptName: String, componentType: String, componentName: String)
+
+### -------------------------------------------------------------------- END TEST ----------------------------------------------------------
+
+
+
 # Map static resources from the /public folder to the /assets URL path
 GET      /feedassets/*file        controllers.Assets.at(path="/public/lib/parabole-module-feed", file)
