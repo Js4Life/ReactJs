@@ -64,8 +64,18 @@ public class CheckListServices {
                 JSONArray containArrayOfcomponentName = new JSONArray();
 
                 if(indexes.has(incomingQuestion.getString("conceptName")))
-                if (indexes.getJSONObject(incomingQuestion.getString("conceptName")).getJSONObject(component.getString("type")).has(component.getString("name")))
-                    containArrayOfcomponentName = indexes.getJSONObject(incomingQuestion.getString("conceptName")).getJSONObject(component.getString("type")).getJSONArray(component.getString("name"));
+                    if (indexes.getJSONObject(incomingQuestion.getString("conceptName")).has(component.getString("type")))
+                    {
+                        if (indexes.getJSONObject(incomingQuestion.getString("conceptName")).getJSONObject(component.getString("type")).has(component.getString("name")))
+                            containArrayOfcomponentName = indexes.getJSONObject(incomingQuestion.getString("conceptName")).getJSONObject(component.getString("type")).getJSONArray(component.getString("name"));
+                    }else{
+                        JSONArray jsonArray = new JSONArray();
+                        jsonArray.put(QuestionId);
+                        JSONObject jsonObject1 = new JSONObject();
+                        jsonObject1.put(component.getString("name"), jsonArray);
+                        indexes.getJSONObject(incomingQuestion.getString("conceptName")).put(component.getString("type"), jsonObject1);
+                        containArrayOfcomponentName = indexes.getJSONObject(incomingQuestion.getString("conceptName")).getJSONObject(component.getString("type")).getJSONArray(component.getString("name"));
+                    }
 
                 // handling component name list
                 if(containArrayOfcomponentName != null && containArrayOfcomponentName.length() > 0){
