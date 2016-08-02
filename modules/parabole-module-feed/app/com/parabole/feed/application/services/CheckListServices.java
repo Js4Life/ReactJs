@@ -25,8 +25,6 @@ public class CheckListServices {
         return uniqueKey.toString();
     }
 
-
-
     private String addQuestion(JSONObject incomingQuestion) throws AppException, IOException {
 
 
@@ -35,7 +33,7 @@ public class CheckListServices {
         JSONObject fileMappedQuestionsfromFASBAccntStandards = jsonObject.getJSONObject("FASBAccntStandards");
         JSONObject indexes = fileMappedQuestionsfromFASBAccntStandards.getJSONObject("indexes");
 
-
+        System.out.println("indexes.toString() = " + indexes.toString());
 
         // looping all the questions ----------------->
         JSONArray allQuestions = incomingQuestion.getJSONArray("questions");
@@ -49,30 +47,50 @@ public class CheckListServices {
             if (indexes.getJSONObject("paragraphs").has(incomingQuestion.getString("paragraphId")))
                 paragraphAgainstId = indexes.getJSONObject("paragraphs").getJSONArray(incomingQuestion.getString("paragraphId"));
 
-            // --------------> if paragraph id not present
+            //if paragraph id not present  ----------->
             if(paragraphAgainstId != null && paragraphAgainstId.length() > 0){
-                System.out.println("paragraphAgainstId = null " + paragraphAgainstId);
                 paragraphAgainstId.put(QuestionId);
             }
             else{
-                System.out.println("paragraphAgainstId = " + paragraphAgainstId);
                 JSONArray listOfPid = new JSONArray();
                 listOfPid.put(QuestionId);
                 indexes.getJSONObject("paragraphs").put(incomingQuestion.getString("paragraphId"), listOfPid);
             }
 
+            // adding other components------------------>
+            //// loop against all the components----->
+            for (int j = 0; j < singleQuestionJsonObject.getJSONArray("components").length(); j++) {
+                JSONObject component = singleQuestionJsonObject.getJSONArray("components").getJSONObject(i);
+                JSONArray containArrayOfcomponentName = new JSONArray();
+
+                if(indexes.has(incomingQuestion.getString("conceptName")))
+                if (indexes.getJSONObject(incomingQuestion.getString("conceptName")).getJSONObject(component.getString("type")).has(component.getString("name")))
+                    containArrayOfcomponentName = indexes.getJSONObject(incomingQuestion.getString("conceptName")).getJSONObject(component.getString("type")).getJSONArray(component.getString("name"));
+
+                // handling component name list
+                if(containArrayOfcomponentName != null && containArrayOfcomponentName.length() > 0){
+                    System.out.println("paragraphAgainstId = null " + containArrayOfcomponentName);
+                    containArrayOfcomponentName.put(QuestionId);
+                }
+                else{
+                    System.out.println("paragraphAgainstId = " + containArrayOfcomponentName);
+                    JSONArray listOfConceptName = new JSONArray();
+                    listOfConceptName.put(QuestionId);
+                    JSONObject componentType = new JSONObject();
+                    componentType.put(component.getString("name"), listOfConceptName);
+                    JSONObject newConcept = new JSONObject();
+                    newConcept.put(component.getString("type"), componentType);
+                    indexes.put(incomingQuestion.getString("conceptName"), newConcept);
+                }
+            }
+
         }
 
         // Saving ------------------------------------>
-        AppUtils.writeFile(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedJson\\mappedQuestions.json", mappedQuestions.toString());
+        AppUtils.writeFile(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedJson\\mappedQuestions.json", jsonObject.toString());
         return jsonObject.toString();
 
     }
-
-
-
-
-
 
     public String findAndAddQuestion() throws AppException, IOException {
 
@@ -81,6 +99,24 @@ public class CheckListServices {
         JSONObject jsonObject = new JSONObject(sampleIncomingQuestion);
 
         return addQuestion(jsonObject);
+    }
+
+    public JSONObject questionAgainstParagraphId(String paragraphId) throws AppException {
+        String mappedQuestions = AppUtils.getFileContent("feedJson\\mappedQuestions.json");
+        JSONObject jsonObject = new JSONObject(mappedQuestions);
+        JSONObject fileMappedQuestionsfromFASBAccntStandards = jsonObject.getJSONObject("FASBAccntStandards");
+        JSONObject indexes = fileMappedQuestionsfromFASBAccntStandards.getJSONObject("indexes");
+        JSONObject paragraphs = indexes.getJSONObject("paragraphs");
+        JSONObject questions = fileMappedQuestionsfromFASBAccntStandards.getJSONObject("questions");
+
+        JSONArray questionIds = paragraphs.getJSONArray(paragraphId);
+        JSONObject allQuestions = new JSONObject();
+
+        for (int i = 0; i < questionIds.length(); i++) {
+            allQuestions.put(questionIds.getString(i), questions.getString(questionIds.getString(i)));
+        }
+
+        return allQuestions;
     }
 
 

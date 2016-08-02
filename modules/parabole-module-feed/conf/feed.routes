@@ -13,6 +13,7 @@ GET /getParagraphsByContent/:fileName                     com.parabole.feed.appl
 ### --------------------------------------------------------------------    TEST    --------------------------------------------------------
 
 GET /addQuestion                     com.parabole.feed.application.controllers.ParagraphOperationsController.addQuestion()
+GET /questionAgainstParagraphId/:pid                     com.parabole.feed.application.controllers.ParagraphOperationsController.questionAgainstParagraphId(pid: String)
 
 ### -------------------------------------------------------------------- END TEST ----------------------------------------------------------
 

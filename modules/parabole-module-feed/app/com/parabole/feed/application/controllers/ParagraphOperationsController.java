@@ -3,6 +3,7 @@ package com.parabole.feed.application.controllers;
 import com.google.inject.Inject;
 import com.parabole.feed.application.exceptions.AppException;
 import com.parabole.feed.application.services.CheckListServices;
+import org.json.JSONObject;
 import play.mvc.Result;
 
 import java.io.IOException;
@@ -24,6 +25,15 @@ public class ParagraphOperationsController extends BaseController{
         String mappedQuestions = checkListServices.findAndAddQuestion();
 
         return ok(mappedQuestions);
+
+    }
+
+
+    public Result questionAgainstParagraphId(String paragrphId) throws AppException, IOException {
+
+        JSONObject mappedQuestions = checkListServices.questionAgainstParagraphId(paragrphId);
+
+        return ok(mappedQuestions.toString());
 
     }
 
