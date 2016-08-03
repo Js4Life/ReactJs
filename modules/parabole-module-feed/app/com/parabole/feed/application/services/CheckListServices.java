@@ -74,7 +74,6 @@ public class CheckListServices {
                             componentName.put(QuestionId);
                             indexes.getJSONObject(incomingQuestion.getString("conceptName")).getJSONObject(component.getString("type")).put(component.getString("name"), componentName);
                             continueationOfThisFlow = false;
-                        //    containArrayOfcomponentName = indexes.getJSONObject(incomingQuestion.getString("conceptName")).getJSONObject(component.getString("type")).getJSONArray(component.getString("name"));
                         }
                     }else{
                         JSONArray jsonArray = new JSONArray();
@@ -83,7 +82,6 @@ public class CheckListServices {
                         jsonObject1.put(component.getString("name"), jsonArray);
                         indexes.getJSONObject(incomingQuestion.getString("conceptName")).put(component.getString("type"), jsonObject1);
                         continueationOfThisFlow = false;
-                    //    containArrayOfcomponentName = indexes.getJSONObject(incomingQuestion.getString("conceptName")).getJSONObject(component.getString("type")).getJSONArray(component.getString("name"));
                     }
 
                 // handling component name list
