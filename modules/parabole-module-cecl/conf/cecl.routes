@@ -58,10 +58,10 @@ POST /getAllHeatMapTableData	com.parabole.cecl.application.controllers.JenaTdbCo
 GET /downloadFileByName/:name/:type         com.parabole.cecl.application.controllers.JenaTdbController.downloadFileByName(name: String, type: String)
 POST /getLiquidityFilters		com.parabole.cecl.application.controllers.JenaTdbController.getLiquidityFilters()
 POST /getLiquidityDataByFilters	com.parabole.cecl.application.controllers.JenaTdbController.getLiquidityDataByFilters()
-POST /getFilteredDataByCompName	com.parabole.cecl.application.controllers.JenaTdbController.getFilteredDataByCompName()
-POST /getMultiFilteredDataByCompName	com.parabole.cecl.application.controllers.JenaTdbController.getMultiFilteredDataByCompName()
-POST /getFunctionalAreasByProducts	com.parabole.cecl.application.controllers.JenaTdbController.getFunctionalAreasByProducts()
-POST /getDescriptionByUri       com.parabole.cecl.application.controllers.JenaTdbController.getDescriptionByUri
+POST /getFilteredDataByCompName	com.parabole.cecl.application.controllers.CeclController.getFilteredDataByCompName()
+POST /getMultiFilteredDataByCompName	com.parabole.cecl.application.controllers.CeclController.getMultiFilteredDataByCompName()
+POST /getFunctionalAreasByProducts	com.parabole.cecl.application.controllers.CeclController.getFunctionalAreasByProducts()
+POST /getDescriptionByUri       com.parabole.cecl.application.controllers.CeclController.getDescriptionByUri
 GET /startContentParser         com.parabole.cecl.application.controllers.CeclController.startContentParser()
 POST /getParagraphsByConcept    com.parabole.cecl.application.controllers.CeclController.getParagraphsByConcept()
 POST /addChecklist              com.parabole.cecl.application.controllers.CeclController.addChecklist()
