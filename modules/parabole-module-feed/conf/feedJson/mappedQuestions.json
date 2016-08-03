@@ -1,10 +1,1 @@
-{
-  "FASBAccntStandards": {
-    "indexes": {
-      "paragraphs": {}
-
-    },
-    "questions": {
-    }
-  }
-}
+{"FASBAccntStandards":{"indexes":{"paragraphs":{"para0095":["9042be4b-8f98-4143-9bfc-30df0f0422dc","30b0dd88-3201-4343-91b7-777a1d72e2d1"]},"newConceptTwo":{"modelC":{"PD Model 10000":["30b0dd88-3201-4343-91b7-777a1d72e2d1","30b0dd88-3201-4343-91b7-777a1d72e2d1"]},"modelB":{"PD Model 100":["9042be4b-8f98-4143-9bfc-30df0f0422dc"]},"policyD":{"newComponent 2000":["30b0dd88-3201-4343-91b7-777a1d72e2d1","30b0dd88-3201-4343-91b7-777a1d72e2d1"]},"policyC":{"newComponent 100":["9042be4b-8f98-4143-9bfc-30df0f0422dc","9042be4b-8f98-4143-9bfc-30df0f0422dc"]}}},"questions":{"9042be4b-8f98-4143-9bfc-30df0f0422dc":"fourth question ","30b0dd88-3201-4343-91b7-777a1d72e2d1":"fifth question "}}}

@@ -62,20 +62,19 @@ public class CheckListServices {
                 JSONObject component = singleQuestionJsonObject.getJSONArray("components").getJSONObject(j);
                 JSONArray containArrayOfcomponentName = new JSONArray();
 
-                System.out.println("component.toString() = " + component.toString());
+                Boolean continueationOfThisFlow = true;
 
                 if(indexes.has(incomingQuestion.getString("conceptName")))
                     if (indexes.getJSONObject(incomingQuestion.getString("conceptName")).has(component.getString("type")))
                     {
                         if (indexes.getJSONObject(incomingQuestion.getString("conceptName")).getJSONObject(component.getString("type")).has(component.getString("name"))) {
                             containArrayOfcomponentName = indexes.getJSONObject(incomingQuestion.getString("conceptName")).getJSONObject(component.getString("type")).getJSONArray(component.getString("name"));
-                            System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<containArrayOfcomponentName = " + component.getString("name"));
                         }else{
                             JSONArray componentName = new JSONArray();
                             componentName.put(QuestionId);
-                            System.out.println("-------------------------------------------------------->componentName.toString() = " + componentName.toString());
                             indexes.getJSONObject(incomingQuestion.getString("conceptName")).getJSONObject(component.getString("type")).put(component.getString("name"), componentName);
-                            containArrayOfcomponentName = indexes.getJSONObject(incomingQuestion.getString("conceptName")).getJSONObject(component.getString("type")).getJSONArray(component.getString("name"));
+                            continueationOfThisFlow = false;
+                        //    containArrayOfcomponentName = indexes.getJSONObject(incomingQuestion.getString("conceptName")).getJSONObject(component.getString("type")).getJSONArray(component.getString("name"));
                         }
                     }else{
                         JSONArray jsonArray = new JSONArray();
@@ -83,24 +82,26 @@ public class CheckListServices {
                         JSONObject jsonObject1 = new JSONObject();
                         jsonObject1.put(component.getString("name"), jsonArray);
                         indexes.getJSONObject(incomingQuestion.getString("conceptName")).put(component.getString("type"), jsonObject1);
-                        containArrayOfcomponentName = indexes.getJSONObject(incomingQuestion.getString("conceptName")).getJSONObject(component.getString("type")).getJSONArray(component.getString("name"));
+                        continueationOfThisFlow = false;
+                    //    containArrayOfcomponentName = indexes.getJSONObject(incomingQuestion.getString("conceptName")).getJSONObject(component.getString("type")).getJSONArray(component.getString("name"));
                     }
 
                 // handling component name list
-                if(containArrayOfcomponentName != null && containArrayOfcomponentName.length() > 0){
-                    System.out.println("paragraphAgainstId = null " + containArrayOfcomponentName);
-                    containArrayOfcomponentName.put(QuestionId);
-                }
-                else{
-                    System.out.println("paragraphAgainstId = " + containArrayOfcomponentName);
-                    JSONArray listOfConceptName = new JSONArray();
-                    listOfConceptName.put(QuestionId);
-                    JSONObject componentType = new JSONObject();
-                    componentType.put(component.getString("name"), listOfConceptName);
-                    JSONObject newConcept = new JSONObject();
-                    newConcept.put(component.getString("type"), componentType);
-                    indexes.put(incomingQuestion.getString("conceptName"), newConcept);
-                }
+                if(continueationOfThisFlow)
+                    if(containArrayOfcomponentName != null && containArrayOfcomponentName.length() > 0){
+                        System.out.println("paragraphAgainstId = null " + containArrayOfcomponentName);
+                        containArrayOfcomponentName.put(QuestionId);
+                    }
+                    else{
+                        System.out.println("paragraphAgainstId = " + containArrayOfcomponentName);
+                        JSONArray listOfConceptName = new JSONArray();
+                        listOfConceptName.put(QuestionId);
+                        JSONObject componentType = new JSONObject();
+                        componentType.put(component.getString("name"), listOfConceptName);
+                        JSONObject newConcept = new JSONObject();
+                        newConcept.put(component.getString("type"), componentType);
+                        indexes.put(incomingQuestion.getString("conceptName"), newConcept);
+                    }
             }
 
         }
