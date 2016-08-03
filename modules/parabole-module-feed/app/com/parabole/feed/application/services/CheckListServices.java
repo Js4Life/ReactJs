@@ -120,20 +120,29 @@ public class CheckListServices {
     }
 
     public JSONObject questionAgainstParagraphId(String paragraphId) throws AppException {
-        String mappedQuestions = AppUtils.getFileContent("feedJson\\mappedQuestions.json");
-        JSONObject jsonObject = new JSONObject(mappedQuestions);
-        JSONObject fileMappedQuestionsfromFASBAccntStandards = jsonObject.getJSONObject("FASBAccntStandards");
-        JSONObject indexes = fileMappedQuestionsfromFASBAccntStandards.getJSONObject("indexes");
-        JSONObject paragraphs = indexes.getJSONObject("paragraphs");
-        JSONObject questions = fileMappedQuestionsfromFASBAccntStandards.getJSONObject("questions");
-
-        JSONArray questionIds = paragraphs.getJSONArray(paragraphId);
         JSONObject allQuestions = new JSONObject();
+        if(paragraphId != null) {
+            String mappedQuestions = AppUtils.getFileContent("feedJson\\mappedQuestions.json");
+            JSONObject jsonObject = new JSONObject(mappedQuestions);
+            JSONObject fileMappedQuestionsfromFASBAccntStandards = jsonObject.getJSONObject("FASBAccntStandards");
+            JSONObject indexes = fileMappedQuestionsfromFASBAccntStandards.getJSONObject("indexes");
+            JSONObject paragraphs = indexes.getJSONObject("paragraphs");
+            JSONObject questions = fileMappedQuestionsfromFASBAccntStandards.getJSONObject("questions");
 
-        for (int i = 0; i < questionIds.length(); i++) {
-            allQuestions.put(questionIds.getString(i), questions.getString(questionIds.getString(i)));
+            JSONArray questionIds = paragraphs.getJSONArray(paragraphId);
+
+
+
+            if (questionIds != null && questionIds.length() > 0) {
+                for (int i = 0; i < questionIds.length(); i++) {
+                    allQuestions.put(questionIds.getString(i), questions.getString(questionIds.getString(i)));
+                }
+            }
+
+
+        }else{
+            allQuestions.put("message", "No Question Present on this flow !")
         }
-
         return allQuestions;
     }
 
