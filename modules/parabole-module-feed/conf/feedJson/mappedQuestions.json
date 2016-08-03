@@ -1,1 +1,10 @@
-{"FASBAccntStandards":{"indexes":{"Accounting Adjustment":{"Model":{"RWA Model":["62824d79-40ee-4c37-9d88-b846febd1780","62824d79-40ee-4c37-9d88-b846febd1780"]}},"paragraphs":{"326-20-30-5":["62824d79-40ee-4c37-9d88-b846febd1780"]}},"questions":{"62824d79-40ee-4c37-9d88-b846febd1780":"Is If an entity estimates expected credit losses using a method other \nthan a discounted cash flow method described?"}}}
+{
+  "FASBAccntStandards": {
+    "indexes": {
+      "paragraphs": {}
+
+    },
+    "questions": {
+    }
+  }
+}

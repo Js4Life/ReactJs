@@ -27,7 +27,6 @@ public class CheckListServices {
 
     public String addQuestion(JSONObject incomingQuestion) throws AppException, IOException {
 
-
         String mappedQuestions = AppUtils.getFileContent("feedJson\\mappedQuestions.json");
         JSONObject jsonObject = new JSONObject(mappedQuestions);
         JSONObject fileMappedQuestionsfromFASBAccntStandards = jsonObject.getJSONObject("FASBAccntStandards");
@@ -60,14 +59,24 @@ public class CheckListServices {
             // adding other components------------------>
             //// loop against all the components----->
             for (int j = 0; j < singleQuestionJsonObject.getJSONArray("components").length(); j++) {
-                JSONObject component = singleQuestionJsonObject.getJSONArray("components").getJSONObject(i);
+                JSONObject component = singleQuestionJsonObject.getJSONArray("components").getJSONObject(j);
                 JSONArray containArrayOfcomponentName = new JSONArray();
+
+                System.out.println("component.toString() = " + component.toString());
 
                 if(indexes.has(incomingQuestion.getString("conceptName")))
                     if (indexes.getJSONObject(incomingQuestion.getString("conceptName")).has(component.getString("type")))
                     {
-                        if (indexes.getJSONObject(incomingQuestion.getString("conceptName")).getJSONObject(component.getString("type")).has(component.getString("name")))
+                        if (indexes.getJSONObject(incomingQuestion.getString("conceptName")).getJSONObject(component.getString("type")).has(component.getString("name"))) {
                             containArrayOfcomponentName = indexes.getJSONObject(incomingQuestion.getString("conceptName")).getJSONObject(component.getString("type")).getJSONArray(component.getString("name"));
+                            System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<containArrayOfcomponentName = " + component.getString("name"));
+                        }else{
+                            JSONArray componentName = new JSONArray();
+                            componentName.put(QuestionId);
+                            System.out.println("-------------------------------------------------------->componentName.toString() = " + componentName.toString());
+                            indexes.getJSONObject(incomingQuestion.getString("conceptName")).getJSONObject(component.getString("type")).put(component.getString("name"), componentName);
+                            containArrayOfcomponentName = indexes.getJSONObject(incomingQuestion.getString("conceptName")).getJSONObject(component.getString("type")).getJSONArray(component.getString("name"));
+                        }
                     }else{
                         JSONArray jsonArray = new JSONArray();
                         jsonArray.put(QuestionId);
