@@ -168,7 +168,8 @@ public class CheckListServices {
         JSONObject indexes = fileMappedQuestionsfromFASBAccntStandards.getJSONObject("indexes");
         JSONObject paragraphs = indexes.getJSONObject("paragraphs");
         JSONObject questions = fileMappedQuestionsfromFASBAccntStandards.getJSONObject("questions");
-
+        JSONObject allAnswers = fileMappedQuestionsfromFASBAccntStandards.getJSONObject("answers");
+        JSONObject answers = new JSONObject();
 
         JSONObject allQuestions = new JSONObject();
         JSONObject status = new JSONObject();
@@ -183,15 +184,17 @@ public class CheckListServices {
                 status.put("message", "No Question Present on this flow !");
             }
 
-
             if (questionIds != null && questionIds.length() > 0) {
                 for (int i = 0; i < questionIds.length(); i++) {
                     allQuestions.put(questionIds.getString(i), questions.getString(questionIds.getString(i)));
+                    if(allAnswers.has(questionIds.getString(i)))
+                        answers.put(questionIds.getString(i), true);
                 }
             }
 
         finalReturn.put("questions", allQuestions);
         finalReturn.put("status", status);
+        finalReturn.put("answers", answers);
         return finalReturn;
     }
 
@@ -205,6 +208,8 @@ public class CheckListServices {
         JSONObject fileMappedQuestionsfromFASBAccntStandards = jsonObject.getJSONObject("FASBAccntStandards");
         JSONObject indexes = fileMappedQuestionsfromFASBAccntStandards.getJSONObject("indexes");
         JSONObject questions = fileMappedQuestionsfromFASBAccntStandards.getJSONObject("questions");
+        JSONObject allAnswers = fileMappedQuestionsfromFASBAccntStandards.getJSONObject("answers");
+        JSONObject answers = new JSONObject();
 
         JSONObject qByConcept = new JSONObject();
 
@@ -217,11 +222,8 @@ public class CheckListServices {
             status.put("message", "no such concept Name:&: input error");
         }
 
-
-
         JSONObject qByComponentByType = new JSONObject();
         JSONArray qByComponentByName = new JSONArray();
-
 
         if(qByConcept.has(componentType)) {
             qByComponentByType = qByConcept.getJSONObject(componentType);
@@ -232,8 +234,7 @@ public class CheckListServices {
             status.put("message", "input error");
         }
 
-
-        if(qByConcept.has(componentName)) {
+        if(qByComponentByType.has(componentName)) {
             qByComponentByName = qByComponentByType.getJSONArray(componentName);
             status.put("have component Name", true);
             status.put("message", "componentName : "+componentName);
@@ -242,15 +243,17 @@ public class CheckListServices {
             status.put("message", "Input Error");
         }
 
-
         JSONObject allQuestions = new JSONObject();
 
         for (int i = 0; i < qByComponentByName.length(); i++) {
             allQuestions.put(qByComponentByName.getString(i), questions.getString(qByComponentByName.getString(i)));
+            if(allAnswers.has(qByComponentByName.getString(i)))
+                answers.put(qByComponentByName.getString(i), true);
         }
 
         finalReturn.put("questions", allQuestions);
         finalReturn.put("status", status);
+        finalReturn.put("answers", answers);
         return finalReturn;
     }
 
