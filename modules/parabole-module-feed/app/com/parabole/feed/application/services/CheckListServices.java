@@ -197,7 +197,8 @@ public class CheckListServices {
 
     public JSONObject questionAgainstConceptNameComponentTypeComponentName(String conceptName, String componentType,  String componentName) throws AppException {
 
-
+        JSONObject finalReturn = new JSONObject();
+        JSONObject status = new JSONObject();
 
         String mappedQuestions = AppUtils.getFileContent("feedJson\\mappedQuestions.json");
         JSONObject jsonObject = new JSONObject(mappedQuestions);
@@ -205,9 +206,42 @@ public class CheckListServices {
         JSONObject indexes = fileMappedQuestionsfromFASBAccntStandards.getJSONObject("indexes");
         JSONObject questions = fileMappedQuestionsfromFASBAccntStandards.getJSONObject("questions");
 
-        JSONObject qByConcept = indexes.getJSONObject(conceptName);
-        JSONObject qByComponentByType = qByConcept.getJSONObject(componentType);
-        JSONArray qByComponentByName = qByComponentByType.getJSONArray(componentName);
+        JSONObject qByConcept = new JSONObject();
+
+        if(indexes.has(conceptName)) {
+            qByConcept = indexes.getJSONObject(conceptName);
+            status.put("have concept Name", true);
+            status.put("message", "conceptName : "+conceptName);
+        }else {
+            status.put("have concept Name", false);
+            status.put("message", "no such concept Name:&: input error");
+        }
+
+
+
+        JSONObject qByComponentByType = new JSONObject();
+        JSONArray qByComponentByName = new JSONArray();
+
+
+        if(qByConcept.has(componentType)) {
+            qByComponentByType = qByConcept.getJSONObject(componentType);
+            status.put("have Component Type", true);
+            status.put("message", "ComponentType : "+componentType);
+        }else {
+            status.put("have Component Type", false);
+            status.put("message", "input error");
+        }
+
+
+        if(qByConcept.has(componentName)) {
+            qByComponentByName = qByComponentByType.getJSONArray(componentName);
+            status.put("have component Name", true);
+            status.put("message", "componentName : "+componentName);
+        }else {
+            status.put("have Component Name", false);
+            status.put("message", "Input Error");
+        }
+
 
         JSONObject allQuestions = new JSONObject();
 
@@ -215,7 +249,9 @@ public class CheckListServices {
             allQuestions.put(qByComponentByName.getString(i), questions.getString(qByComponentByName.getString(i)));
         }
 
-        return allQuestions;
+        finalReturn.put("questions", allQuestions);
+        finalReturn.put("status", status);
+        return finalReturn;
     }
 
 

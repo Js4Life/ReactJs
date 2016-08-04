@@ -25,12 +25,12 @@
                 <li ng-repeat="bread in breads">{{bread.name}}</li>
             </ol>
             <div class="col-md-2" ng-repeat="child in childNodes | orderBy : 'name' | filter: searchText" index="{{$index}}">
-              <div class="panel panel-default pointer" ng-click="getNodeDetails(child, $index)">
-                <div class="panel-body text-center zero-padding" style="background:#cccccc;">
+              <div class="panel panel-default">
+                <div class="panel-body text-center zero-padding" ng-class="getComplianceColorcode(child.compliance)">
                     <div style="font-weight: bold;font-size: 2.5em;">{{child.name.charAt(0)}}</div>
-                    <div style="position:absolute;right:20px;top:5px;font-weight: bold;">{{child.compliance}}%</div>
+                    <div class="pointer" style="position:absolute;right:20px;top:5px;font-weight: bold;" ng-click="getChecklistByNode(child)">{{child.compliance}}%</div>
                 </div>
-                <div class="panel-footer ellipsis-text" tooltip='"title":"{{child.name}}"'>{{child.name}}</div>
+                <div ng-click="getNodeDetails(child, $index)" class="panel-footer ellipsis-text pointer" tooltip='"title":"{{child.name}}"'>{{child.name}}</div>
               </div>
             </div>
         </div>
@@ -175,6 +175,27 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" ng-click="closeCheckListModal()">Cancel</button>
+        <button type="button" class="btn btn-default" ng-click="saveCheckList()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="checklistModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Checklist</h4>
+      </div>
+      <div class="modal-body zero-padding-bottom" style="height: 66vh; overflow: auto;">
+        <ul class="list-group">
+          <li class="list-group-item" ng-repeat="(k, v) in checkList">
+            <input type="checkbox" ng-model="answers[k]" style="position: relative;top: 2px;"/>&nbsp;{{v}}
+          </li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
         <button type="button" class="btn btn-default" ng-click="saveCheckList()">Save</button>
       </div>
     </div>
