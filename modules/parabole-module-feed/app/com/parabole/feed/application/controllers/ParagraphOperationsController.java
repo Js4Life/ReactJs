@@ -29,6 +29,15 @@ public class ParagraphOperationsController extends BaseController{
     }
 
 
+    public Result addAnswer() throws AppException, IOException {
+
+        String mappedQuestions = checkListServices.findAndAddAnswer();
+
+        return ok(mappedQuestions);
+
+    }
+
+
     public Result questionAgainstParagraphId(String paragrphId) throws AppException, IOException {
 
         JSONObject mappedQuestions = checkListServices.questionAgainstParagraphId(paragrphId);

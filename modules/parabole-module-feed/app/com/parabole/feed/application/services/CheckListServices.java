@@ -119,6 +119,45 @@ public class CheckListServices {
         return addQuestion(jsonObject);
     }
 
+    public String findAndAddAnswer() throws AppException, IOException {
+
+        String sampleIncomingAnswer = AppUtils.getFileContent("feedJson\\answersToAdd.json");
+
+        JSONObject jsonObject = new JSONObject(sampleIncomingAnswer);
+
+        return addAnswer(jsonObject);
+    }
+
+    private String addAnswer(JSONObject answersToAdd) throws AppException, IOException {
+        String mappedQuestions = AppUtils.getFileContent("feedJson\\mappedQuestions.json");
+        JSONObject fullJson = new JSONObject(mappedQuestions);
+        JSONObject fileMappedQuestionsfromFASBAccntStandards = fullJson.getJSONObject("FASBAccntStandards");
+        JSONObject alreadyAddedAnswers = new JSONObject();
+
+        if(fileMappedQuestionsfromFASBAccntStandards.has("answers")) {
+            alreadyAddedAnswers = fileMappedQuestionsfromFASBAccntStandards.getJSONObject("answers");
+        }
+        else{
+            JSONObject answer = new JSONObject();
+            fileMappedQuestionsfromFASBAccntStandards.put("answers", answer);
+            alreadyAddedAnswers = fileMappedQuestionsfromFASBAccntStandards.getJSONObject("answers");
+        }
+
+
+        JSONArray answersToAddArray = answersToAdd.getJSONArray("answers");
+        // looping all the answers ----------------->
+        if(answersToAddArray != null & answersToAddArray.length() > 0 )
+            for (int i = 0; i < answersToAddArray.length(); i++) {
+                if(!alreadyAddedAnswers.has(answersToAddArray.getString(i)))
+                    alreadyAddedAnswers.put(answersToAddArray.getString(i), true);
+            }
+
+        // Saving ------------------------------------>
+        AppUtils.writeFile(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedJson\\mappedQuestions.json", fullJson.toString());
+        return fullJson.toString();
+
+    }
+
     public JSONObject questionAgainstParagraphId(String paragraphId) throws AppException {
 
         JSONObject finalReturn = new JSONObject();
