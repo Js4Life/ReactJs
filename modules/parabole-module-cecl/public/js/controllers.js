@@ -359,8 +359,14 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 	$scope.getCheckList = function (conceptName, componentType, componentName) {
 		SharedService.getChecklistByConceptAndComponent(conceptName, componentType, componentName).then(function (data) {
-			if(data.status) {
+			/*if(data.status) {
 				$scope.checkList = data.data;
+				$('#dsViewer').modal('hide');
+				$('#checklistModal').modal('show');
+			}*/
+			var status = data.data.status;
+			if(status.haveData) {
+				$scope.checkList = data.data.questions;
 				$('#dsViewer').modal('hide');
 				$('#checklistModal').modal('show');
 			}

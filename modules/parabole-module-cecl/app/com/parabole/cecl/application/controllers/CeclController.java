@@ -157,11 +157,8 @@ public class CeclController extends Controller{
         final String componentType = request.getString("componentType");
         final String componentName = request.getString("componentName");
         JSONObject finalJson = new JSONObject();
-        Boolean status = false;
         try {
             JSONObject result = checkListServices.questionAgainstConceptNameComponentTypeComponentName(conceptName, componentType, componentName);
-            status = true;
-            finalJson.put("status", status);
             finalJson.put("data", result);
         } catch (Exception e){
             e.printStackTrace();
@@ -176,15 +173,6 @@ public class CeclController extends Controller{
         final String paraId = request.getString("paragraphId");
         JSONObject finalJson = new JSONObject();
         try {
-            /*JSONObject result = new JSONObject();
-            for (int i=0; i<paraIds.length(); i++){
-                JSONObject tempObj = checkListServices.questionAgainstParagraphId(paraIds.getString(i));
-                Iterator<String> tempKeys = tempObj.keys();
-                while(tempKeys.hasNext()){
-                    String key = tempKeys.next();
-                    result.put(key, tempObj.getString(key));
-                }
-            }*/
             JSONObject result = checkListServices.questionAgainstParagraphId(paraId);
             finalJson.put("data", result);
         } catch (Exception e){

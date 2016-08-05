@@ -215,10 +215,10 @@ public class CheckListServices {
 
         if(indexes.has(conceptName)) {
             qByConcept = indexes.getJSONObject(conceptName);
-            status.put("have concept Name", true);
+            status.put("haveConceptName", true);
             status.put("message", "conceptName : "+conceptName);
         }else {
-            status.put("have concept Name", false);
+            status.put("haveConceptName", false);
             status.put("message", "no such concept Name:&: input error");
         }
 
@@ -227,19 +227,19 @@ public class CheckListServices {
 
         if(qByConcept.has(componentType)) {
             qByComponentByType = qByConcept.getJSONObject(componentType);
-            status.put("have Component Type", true);
+            status.put("haveComponentType", true);
             status.put("message", "ComponentType : "+componentType);
         }else {
-            status.put("have Component Type", false);
+            status.put("haveComponentType", false);
             status.put("message", "input error");
         }
 
         if(qByComponentByType.has(componentName)) {
             qByComponentByName = qByComponentByType.getJSONArray(componentName);
-            status.put("have component Name", true);
+            status.put("haveComponentName", true);
             status.put("message", "componentName : "+componentName);
         }else {
-            status.put("have Component Name", false);
+            status.put("haveComponentName", false);
             status.put("message", "Input Error");
         }
 
@@ -249,6 +249,12 @@ public class CheckListServices {
             allQuestions.put(qByComponentByName.getString(i), questions.getString(qByComponentByName.getString(i)));
             if(allAnswers.has(qByComponentByName.getString(i)))
                 answers.put(qByComponentByName.getString(i), true);
+        }
+
+        if(qByComponentByName.length() > 0){
+            status.put("haveData", true);
+        } else {
+            status.put("haveData", false);
         }
 
         finalReturn.put("questions", allQuestions);
