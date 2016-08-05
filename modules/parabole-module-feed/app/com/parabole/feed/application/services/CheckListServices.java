@@ -124,11 +124,11 @@ public class CheckListServices {
         String sampleIncomingAnswer = AppUtils.getFileContent("feedJson\\answersToAdd.json");
 
         JSONObject jsonObject = new JSONObject(sampleIncomingAnswer);
-
-        return addAnswer(jsonObject);
+        JSONArray answersToAddArray = jsonObject.getJSONArray("answers");
+        return addAnswer(answersToAddArray);
     }
 
-    private String addAnswer(JSONObject answersToAdd) throws AppException, IOException {
+    public String addAnswer(JSONArray answersToAddArray) throws AppException, IOException {
         String mappedQuestions = AppUtils.getFileContent("feedJson\\mappedQuestions.json");
         JSONObject fullJson = new JSONObject(mappedQuestions);
         JSONObject fileMappedQuestionsfromFASBAccntStandards = fullJson.getJSONObject("FASBAccntStandards");
@@ -143,8 +143,6 @@ public class CheckListServices {
             alreadyAddedAnswers = fileMappedQuestionsfromFASBAccntStandards.getJSONObject("answers");
         }
 
-
-        JSONArray answersToAddArray = answersToAdd.getJSONArray("answers");
         // looping all the answers ----------------->
         if(answersToAddArray != null & answersToAddArray.length() > 0 )
             for (int i = 0; i < answersToAddArray.length(); i++) {

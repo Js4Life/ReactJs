@@ -359,14 +359,10 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 	$scope.getCheckList = function (conceptName, componentType, componentName) {
 		SharedService.getChecklistByConceptAndComponent(conceptName, componentType, componentName).then(function (data) {
-			/*if(data.status) {
-				$scope.checkList = data.data;
-				$('#dsViewer').modal('hide');
-				$('#checklistModal').modal('show');
-			}*/
 			var status = data.data.status;
 			if(status.haveData) {
 				$scope.checkList = data.data.questions;
+				$scope.answers = data.data.answers;
 				$('#dsViewer').modal('hide');
 				$('#checklistModal').modal('show');
 			}
@@ -379,6 +375,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				var status = data.data.status;
 				if(status.haveData) {
 					$scope.checkList = data.data.questions;
+					$scope.answers = data.data.answers;
 					$('#checklistModal1').modal('show');
 				}
 			});
@@ -392,9 +389,15 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		}
 	}
 
-	$scope.saveCheckList = function () {
-		var checkedQuestions = _.omit($scope.answers, function(v) {return v;});
+	$scope.saveAnswers = function () {
+		var checkedQuestions = _.omit($scope.answers, function(v) {return !v;});
 		var qIds = _.keys(checkedQuestions);
+		SharedService.addAnswer(qIds).then(function (data) {
+			if(data.status){
+				$('#checklistModal').modal('hide');
+				$('#checklistModal1').modal('hide');
+			}
+		});
 	}
 
 	$scope.closeCheckListModal = function () {

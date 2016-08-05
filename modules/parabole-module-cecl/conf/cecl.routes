@@ -68,6 +68,7 @@ POST /addChecklist              com.parabole.cecl.application.controllers.CeclCo
 POST /getChecklistByConceptAndComponent    com.parabole.cecl.application.controllers.CeclController.getChecklistByConceptAndComponent()
 POST /getChecklistByNode        com.parabole.cecl.application.controllers.CeclController.getChecklistByNode()
 POST /getChecklistByParagraphId com.parabole.cecl.application.controllers.CeclController.getChecklistByParagraphId()
+POST /addAnswer                 com.parabole.cecl.application.controllers.CeclController.addAnswer()
 
 # ---------------------------------------------------------------------------------
 # Jena TDB operation {TEST}

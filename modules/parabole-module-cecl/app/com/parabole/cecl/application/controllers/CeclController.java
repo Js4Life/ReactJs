@@ -135,7 +135,6 @@ public class CeclController extends Controller{
         final String json = request().body().asJson().toString();
         final JSONObject request = new JSONObject(json);
         final JSONObject checkListJson = request.getJSONObject("checkList");
-        System.out.println("checkListJson = " + checkListJson);
         JSONObject finalJson = new JSONObject();
         Boolean status = false;
         try {
@@ -224,6 +223,24 @@ public class CeclController extends Controller{
                 }
             }
         } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return ok(finalJson.toString());
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result addAnswer() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final JSONArray answerJson = request.getJSONArray("answers");
+        JSONObject finalJson = new JSONObject();
+        Boolean status = false;
+        try {
+            String result = checkListServices.addAnswer(answerJson);
+            status = true;
+            finalJson.put("status", status);
+            finalJson.put("data", result);
+        } catch (Exception e){
             e.printStackTrace();
         }
         return ok(finalJson.toString());
