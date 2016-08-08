@@ -13,6 +13,8 @@
 // =============================================================================
 package com.parabole.rda.application.controllers;
 
+import be.objectify.deadbolt.java.actions.Group;
+import be.objectify.deadbolt.java.actions.Restrict;
 import com.google.inject.Inject;
 import com.parabole.rda.application.global.RdaAppConstants;
 import com.parabole.rda.application.services.*;
@@ -20,6 +22,7 @@ import com.parabole.rda.platform.exceptions.AppException;
 import com.parabole.rda.platform.securities.AuthenticationManager;
 import com.parabole.rda.platform.utils.AppUtils;
 import org.json.JSONObject;
+import play.libs.F;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
@@ -67,6 +70,7 @@ public class BaseAction extends Controller {
         // final String password = requestData.get("password");
         final String password = "admin";
         if (authenticationManager.authenticate(userId, password)) {
+            session().put(RdaAppConstants.ROLE, "ADMIN");
             session().put(RdaAppConstants.USER_ID, userId);
             session().put(RdaAppConstants.USER_NAME, coralUserService.getSpecificDocumentUsingIdAndColumnName(userId, RdaAppConstants.ATTR_DATABASE_USER_NAME_COLUMN_NAME));
             return index();
@@ -79,6 +83,15 @@ public class BaseAction extends Controller {
     public Result logout() {
         session().clear();
         return login();
+    }
+
+    public Result testAction4()
+    {
+        return  ok("i AM not FINE HERE !!");
+    }
+
+    public Result testAction3() throws AppException {
+        return  ok("i AM FINE HERE !!");
     }
 
     public Result getHardCodedResponse(final String jsonFileName) throws AppException {

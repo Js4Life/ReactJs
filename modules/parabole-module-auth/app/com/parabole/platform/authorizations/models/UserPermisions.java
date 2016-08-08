@@ -1,4 +1,4 @@
-package com.parabole.ccar.platform.authorizations.models;
+package com.parabole.platform.authorizations.models;
 
 import be.objectify.deadbolt.core.models.Permission;
 

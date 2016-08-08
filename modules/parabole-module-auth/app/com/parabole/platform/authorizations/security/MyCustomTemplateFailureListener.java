@@ -1,4 +1,4 @@
-package com.parabole.ccar.platform.authorizations.security;
+package com.parabole.platform.authorizations.security;
 
 import be.objectify.deadbolt.java.TemplateFailureListener;
 import org.slf4j.Logger;
@@ -6,7 +6,9 @@ import org.slf4j.LoggerFactory;
 
 import javax.inject.Singleton;
 
-
+/**
+ * @author Steve Chaloner (steve@objectify.be)
+ */
 @Singleton
 public class MyCustomTemplateFailureListener implements TemplateFailureListener
 {

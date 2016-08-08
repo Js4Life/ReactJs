@@ -1,9 +1,9 @@
-package com.parabole.ccar.platform.authorizations.models;
+package com.parabole.platform.authorizations.models;
 
 import be.objectify.deadbolt.core.models.Permission;
 import be.objectify.deadbolt.core.models.Role;
 import be.objectify.deadbolt.core.models.Subject;
-import com.parabole.ccar.application.global.CCAppConstants;
+import com.parabole.auth.global.AuthConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +15,30 @@ import static play.mvc.Http.Context.Implicit.session;
  */
 
 public class UserModel implements Subject {
+/*
+
+
+    @Override
+    public List<? extends Role> getRoles() {
+        return null;
+    }
+
+    @Override
+    public List<? extends Permission> getPermissions() {
+        return null;
+    }
+
+    @Override
+    public String getIdentifier() {
+        return null;
+    }
+
+    public static Subject findByUserName(String userId) {
+        List<UserRoles> roles  = new ArrayList<>();
+        roles.add(UserRoles.findByName(session().get(AuthConstants.ROLE)));
+        return new UserModel(userId, roles, null);
+    }
+*/
 
     public String userId;
 
@@ -49,7 +73,7 @@ public class UserModel implements Subject {
 
     public static Subject findByUserName(String userId) {
         List<UserRoles> roles  = new ArrayList<>();
-        roles.add(UserRoles.findByName(session().get(CCAppConstants.ROLE)));
+        roles.add(UserRoles.findByName(session().get(AuthConstants.ROLE)));
         return new UserModel(userId, roles, null);
     }
 }

@@ -22,6 +22,7 @@ package com.parabole.rda.platform;
 public class AppConstants {
 
     public static final String USER_ID = "USER_ID";
+    public static final String ROLE = "role";
     public static final String USER_NAME = "USER_NAME";
     public static final String IsA_RELATIONSHIP = "isA";
     public static final String WEIGHT = "weight";

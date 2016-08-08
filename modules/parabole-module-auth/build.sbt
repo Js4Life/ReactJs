@@ -42,6 +42,6 @@ libraryDependencies ++= Seq(
   "cglib" % "cglib" % "3.2.2",
   "org.json" % "json" % "20160212",
   "com.google.code.gson" % "gson" % "2.6.2",
-  "be.objectify" %% "deadbolt-java" % "2.4.4",
-  "net.sf.jsqlparser" % "jsqlparser" % "0.8.0"
+  "net.sf.jsqlparser" % "jsqlparser" % "0.8.0",
+  "be.objectify" % "deadbolt-java_2.11" % "2.5.1"
 )
