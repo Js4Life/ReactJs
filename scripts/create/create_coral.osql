@@ -104,9 +104,28 @@ CREATE INDEX APP_FILES.CFG_ID UNIQUE;
 -------------------------------------------------------------------
 -- DATA INSERTS
 -------------------------------------------------------------------
-INSERT INTO APP_USERS (USER_ID, PASSWORD,USER_NAME,EMAIL,ACTIVE) VALUES('root', 'Qb0iVj2Z+flmV/K2O/pZF0/r5xF2wd+EGBZ5FkPWGWk=$6lj0wD6xdlvhkrpECO5RPlnMv4B8R5b/PpbMudcL4Ko=','Administrator','admin@mindparabole.com',true);
+
+INSERT INTO APP_USERS (USER_ID, PASSWORD,USER_NAME, EMAIL, ACTIVE) VALUES('root', 'Qb0iVj2Z+flmV/K2O/pZF0/r5xF2wd+EGBZ5FkPWGWk=$6lj0wD6xdlvhkrpECO5RPlnMv4B8R5b/PpbMudcL4Ko=','Super Admin', 'rajib@mindparabole.com',true);
 INSERT INTO APP_USER_GROUPS (USER_ID, GROUP_NAME) VALUES('root', 'ADMIN');
 INSERT INTO APP_ID_GENERATOR SET ID_NAME = 'APP_USER_CONFIGS', ID_VALUE = 0;
+
+INSERT INTO APP_USERS (USER_ID, PASSWORD,USER_NAME, EMAIL, ACTIVE) VALUES('cco', 'Qb0iVj2Z+flmV/K2O/pZF0/r5xF2wd+EGBZ5FkPWGWk=$6lj0wD6xdlvhkrpECO5RPlnMv4B8R5b/PpbMudcL4Ko=','Chief Compliance Officer', 'sagir@mindparabole.com',true);
+INSERT INTO APP_USER_GROUPS (USER_ID, GROUP_NAME) VALUES('cco', 'CCO');
+
+
+INSERT INTO APP_USERS (USER_ID, PASSWORD,USER_NAME, EMAIL, ACTIVE) VALUES('cdo/cio', 'Qb0iVj2Z+flmV/K2O/pZF0/r5xF2wd+EGBZ5FkPWGWk=$6lj0wD6xdlvhkrpECO5RPlnMv4B8R5b/PpbMudcL4Ko=','CDO / CIO', 'sandip@mindparabole.com',true);
+INSERT INTO APP_USER_GROUPS (USER_ID, GROUP_NAME) VALUES('cdo/cio', 'CDOCIO');
+
+
+INSERT INTO APP_USERS (USER_ID, PASSWORD,USER_NAME, EMAIL, ACTIVE) VALUES('auditor', 'Qb0iVj2Z+flmV/K2O/pZF0/r5xF2wd+EGBZ5FkPWGWk=$6lj0wD6xdlvhkrpECO5RPlnMv4B8R5b/PpbMudcL4Ko=','Auditor', 'atanu@mindparabole.com',true);
+INSERT INTO APP_USER_GROUPS (USER_ID, GROUP_NAME) VALUES('auditor', 'AUDITOR');
+
+
+INSERT INTO APP_USERS (USER_ID, PASSWORD,USER_NAME, EMAIL, ACTIVE) VALUES('extsme', 'Qb0iVj2Z+flmV/K2O/pZF0/r5xF2wd+EGBZ5FkPWGWk=$6lj0wD6xdlvhkrpECO5RPlnMv4B8R5b/PpbMudcL4Ko=','EXTERNAL SME', 'manesh@mindparabole.com',true);
+INSERT INTO APP_USER_GROUPS (USER_ID, GROUP_NAME) VALUES('extsme', 'EXTSME');
+
+
+
 -------------------------------------------------------------------
 -- TRANSACTION END
 -------------------------------------------------------------------

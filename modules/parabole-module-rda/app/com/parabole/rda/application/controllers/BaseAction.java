@@ -13,8 +13,6 @@
 // =============================================================================
 package com.parabole.rda.application.controllers;
 
-import be.objectify.deadbolt.java.actions.Group;
-import be.objectify.deadbolt.java.actions.Restrict;
 import com.google.inject.Inject;
 import com.parabole.rda.application.global.RdaAppConstants;
 import com.parabole.rda.application.services.*;
@@ -59,6 +57,7 @@ public class BaseAction extends Controller {
     @Inject
     protected AuthenticationManager authenticationManager;
 
+
     public Result login() {
         return ok(com.parabole.rda.application.views.html.login.render());
     }
@@ -83,15 +82,6 @@ public class BaseAction extends Controller {
     public Result logout() {
         session().clear();
         return login();
-    }
-
-    public Result testAction4()
-    {
-        return  ok("i AM not FINE HERE !!");
-    }
-
-    public Result testAction3() throws AppException {
-        return  ok("i AM FINE HERE !!");
     }
 
     public Result getHardCodedResponse(final String jsonFileName) throws AppException {
@@ -120,6 +110,7 @@ public class BaseAction extends Controller {
 
     protected Result index() {
         final String userName = session().get(RdaAppConstants.USER_NAME);
+       // UserModel.findByUserName(userName);
         return ok(com.parabole.rda.application.views.html.main.render(userName));
     }
 

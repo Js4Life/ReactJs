@@ -8,3 +8,4 @@ libraryDependencies ++= Common.commonDependencies ++: Seq(
   "org.apache.jena" % "apache-jena-libs" % "3.0.1",
   "log4j" % "log4j" % "1.2.17"
 )
+

@@ -5,6 +5,11 @@ version := "1.0-SNAPSHOT"
 PlayKeys.devSettings += ("play.http.router", "feed.Routes")
 
 lazy val feed = (project in file(".")).enablePlugins(PlayJava)
+  .aggregate(auth)
+  .dependsOn(auth)
+
+val auth = RootProject(file("./modules/parabole-module-auth"))
+
 
 scalaVersion := "2.11.7"
 
@@ -50,7 +55,6 @@ libraryDependencies ++=  Seq(
   "org.modelmapper" % "modelmapper" % "0.7.4",
   "javax.mail" % "mail" % "1.4.1",
   "org.apache.commons" % "commons-email" % "1.3.1",
-  "be.objectify" %% "deadbolt-java" % "2.4.4" exclude("javax.jms", "jms") exclude("com.sun.jdmk", "jmxtools") exclude("com.sun.jmx", "jmxri"),
   "log4j" % "log4j" % "1.2.15",
   "fr.xebia.extras" % "selma-processor" % "0.14",
   "com.worldpay.api.client" % "worldpay-client-core" % "0.0.1",

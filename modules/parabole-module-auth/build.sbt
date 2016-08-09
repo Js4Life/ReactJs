@@ -18,6 +18,8 @@ val settings: Seq[Setting[_]] = Seq(
 PlayKeys.devSettings += ("play.http.router", "auth.Routes")
 
 lazy val auth = (project in file(".")).enablePlugins(PlayJava)
+  .aggregate(feed)
+  .dependsOn(feed)
 
 scalaVersion := "2.11.7"
 
@@ -45,3 +47,7 @@ libraryDependencies ++= Seq(
   "net.sf.jsqlparser" % "jsqlparser" % "0.8.0",
   "be.objectify" % "deadbolt-java_2.11" % "2.5.1"
 )
+
+
+val feed = RootProject(file("./modules/parabole-module-feed"))
+

@@ -10,6 +10,7 @@ public class AuthConstants {
     public static final String ROLE = "role";
     public static final String USER_NAME = "userid";
     public static final String PASSWORD = "password";
+    public static final String ATTR_DATABASE_USER_NAME = "userid";
 
 
     public static enum ExcelFormat {

@@ -1,6 +1,7 @@
 package com.parabole.platform.authorizations.models;
 
-import be.objectify.deadbolt.core.models.Role;
+import be.objectify.deadbolt.java.models.Role;
+
 
 /**
  * Created by Sagiruddin on 2/24/2016.
