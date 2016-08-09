@@ -41,7 +41,7 @@ public class MyDeadboltHandler extends AbstractDeadboltHandler
     {
         final Http.Cookie userCookie = context.request().cookie("user");
         //return CompletableFuture.supplyAsync(() -> Optional.ofNullable(UserModel.findByUserName(session().get(AuthConstants.USER_NAME))));
-        return CompletableFuture.supplyAsync(() -> Optional.ofNullable(UserModel.find()));
+        return CompletableFuture.supplyAsync(() -> Optional.ofNullable(UserModel.findByUserName(session().get("userid"))));
     }
 
     @Override

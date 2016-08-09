@@ -76,10 +76,10 @@ public class UserModel implements Subject {
         roles.add(UserRoles.findByName(session().get(AuthConstants.ROLE)));
         return new UserModel(userId, roles, null);
     }
-
+/*
     public static Subject find() {
         List<UserRoles> roles  = new ArrayList<>();
         roles.add(UserRoles.findByName("ADMIN"));
         return new UserModel("root", roles, null);
-    }
+    }*/
 }

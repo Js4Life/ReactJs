@@ -7,10 +7,13 @@ import java.util.Set;
  */
 public class AuthConstants {
 
+    public static final String USER_ID = "USER_ID";
     public static final String ROLE = "role";
     public static final String USER_NAME = "userid";
     public static final String PASSWORD = "password";
     public static final String ATTR_DATABASE_USER_NAME = "userid";
+    public static final String ATTR_DATABASE_PASSWORD_COLUMN_NAME = "PASSWORD";
+
 
 
     public static enum ExcelFormat {

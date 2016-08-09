@@ -8,7 +8,6 @@ GET /saveListOfSentenceLocationsAgainstAllConcepts        com.parabole.feed.appl
 GET /startContentParser/:fileName                         com.parabole.feed.application.controllers.FeedController.startContentParser(fileName: String)
 GET /getParagraphsByContent/:fileName                     com.parabole.feed.application.controllers.FeedController.getParagraphsByContent(fileName: String)
 
-GET /login/:userid/:password                     com.parabole.feed.application.controllers.BaseController.login(userid: String, password: String)
 
 
 ### --------------------------------------------------------------------    TEST    --------------------------------------------------------

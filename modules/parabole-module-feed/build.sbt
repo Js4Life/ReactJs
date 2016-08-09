@@ -5,10 +5,6 @@ version := "1.0-SNAPSHOT"
 PlayKeys.devSettings += ("play.http.router", "feed.Routes")
 
 lazy val feed = (project in file(".")).enablePlugins(PlayJava)
-  .aggregate(auth)
-  .dependsOn(auth)
-
-val auth = RootProject(file("./modules/parabole-module-auth"))
 
 
 scalaVersion := "2.11.7"

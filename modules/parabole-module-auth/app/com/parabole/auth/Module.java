@@ -1,9 +1,13 @@
 package com.parabole.auth;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.multibindings.Multibinder;
 import com.parabole.auth.services.ApplicationTimer;
 import com.parabole.auth.services.AtomicCounter;
 import com.parabole.auth.services.Counter;
+import com.parabole.platform.authorizations.securities.AuthenticationProvider;
+import com.parabole.platform.authorizations.securities.InternalAuthenticationProvider;
+
 
 import java.time.Clock;
 
@@ -28,6 +32,9 @@ public class Module extends AbstractModule {
         bind(ApplicationTimer.class).asEagerSingleton();
         // Set AtomicCounter as the implementation for Counter.
         bind(Counter.class).to(AtomicCounter.class);
+
+        final Multibinder<AuthenticationProvider> actionBinder = Multibinder.newSetBinder(binder(), AuthenticationProvider.class);
+        actionBinder.addBinding().to(InternalAuthenticationProvider.class);
     }
 
 }

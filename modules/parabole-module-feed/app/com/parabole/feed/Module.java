@@ -27,6 +27,7 @@ public class Module extends AbstractModule {
         // Ask Guice to create an instance of ApplicationTimer when the
         // application starts.
         // Set AtomicCounter as the implementation for Counter.
+
         final Multibinder<AuthenticationProvider> actionBinder = Multibinder.newSetBinder(binder(), AuthenticationProvider.class);
         actionBinder.addBinding().to(InternalAuthenticationProvider.class);
     }
