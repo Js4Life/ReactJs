@@ -365,6 +365,8 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				$scope.answers = data.data.answers;
 				$('#dsViewer').modal('hide');
 				$('#checklistModal').modal('show');
+			} else{
+				toastr.warning('No checklist found for ' + componentName);
 			}
 		});
 	}
@@ -377,13 +379,19 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 					$scope.checkList = data.data.questions;
 					$scope.answers = data.data.answers;
 					$('#checklistModal1').modal('show');
+				} else{
+					toastr.warning('No checklist found for ' + node.name);
 				}
 			});
 		} else {
 			SharedService.getChecklistByNode(node.type, node.name).then(function (data) {
-				if(data.status) {
-					$scope.checkList = data.data;
+				var status = data.data.status;
+				if(status.haveData) {
+					$scope.checkList = data.data.questions;
+					$scope.answers = data.data.answers;
 					$('#checklistModal1').modal('show');
+				} else{
+					toastr.warning('No checklist found for ' + node.name);
 				}
 			});
 		}
@@ -407,11 +415,19 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}
 	
 	$scope.getComplianceColorcode = function (val) {
-		if(val > 99)
+		/*if(val > 99)
 			return 'compliance-green';
 		else if(val >= 90 && val <=99)
 			return 'compliance-amber';
 		else if(val >= 75 && val <=89)
+			return 'compliance-red';
+		else
+			return 'compliance-gray';*/
+		if(val > 95)
+			return 'compliance-green';
+		else if(val >= 85 && val <=95)
+			return 'compliance-amber';
+		else if(val >= 75 && val <=84)
 			return 'compliance-red';
 		else
 			return 'compliance-gray';
@@ -562,6 +578,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 .controller('checklistBuilderCtrl', function($scope, $state, $stateParams, SharedService) {
 	$scope.initialize = function () {
+		toastr.info('Select a Paragraph..', '', {"positionClass" : "custom-toast-top-left"});
 		$scope.heading = {title: "Checklist Builder"};
 		$scope.question = {components: []};
 		$scope.questions = [];
@@ -578,8 +595,10 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}
 
 	$scope.selectParagraph = function (para, e) {
-		$(e.currentTarget).parent().children().removeClass('active');
-		$(e.currentTarget).addClass('active');
+		toastr.options.positionClass = 'custom-toast-top-right';
+		toastr.info('Type Question here..', '', {"positionClass" : "custom-toast-top-right"});
+		$(e.currentTarget).parent().children().removeClass('bg-info');
+		$(e.currentTarget).addClass('bg-info');
 		if($scope.currentParagraph) {
 			if ($scope.currentParagraph.id != para.id) {
 				$scope.currentParagraph = para;

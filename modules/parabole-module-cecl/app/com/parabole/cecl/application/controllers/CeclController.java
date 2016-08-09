@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.parabole.cecl.application.exceptions.AppException;
+import com.parabole.cecl.application.global.CCAppConstants;
 import com.parabole.cecl.application.services.JenaTdbService;
 import com.parabole.feed.application.services.CheckListServices;
 import com.parabole.feed.application.services.OctopusSemanticService;
@@ -170,17 +171,11 @@ public class CeclController extends Controller{
         final String json = request().body().asJson().toString();
         final JSONObject request = new JSONObject(json);
         final String paraId = request.getString("paragraphId");
-        JSONObject finalJson = new JSONObject();
-        try {
-            JSONObject result = checkListServices.questionAgainstParagraphId(paraId);
-            finalJson.put("data", result);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        return ok(finalJson.toString());
+        JSONObject result = jenaTdbService.getChecklistByParagraphId(paraId);
+        return ok(result.toString());
     }
 
-    @BodyParser.Of(BodyParser.Json.class)
+    /*@BodyParser.Of(BodyParser.Json.class)
     public Result getChecklistByNode() throws AppException, JSONException {
         final String jsonText = request().body().asJson().toString();
         final JSONObject json = new JSONObject(jsonText);
@@ -226,6 +221,34 @@ public class CeclController extends Controller{
             e.printStackTrace();
         }
         return ok(finalJson.toString());
+    }*/
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result getChecklistByNode() throws AppException, JSONException {
+        final String jsonText = request().body().asJson().toString();
+        final JSONObject json = new JSONObject(jsonText);
+        String nodeType = json.getString("nodeType");
+        final String nodeName = json.getString("nodeName");
+        JSONObject finalJson = new JSONObject();
+        JSONObject data = new JSONObject();
+        try {
+            String compName = null;
+            switch (nodeType){
+                case "Topic":
+                case "Sub-Topic":
+                case "Section":
+                    data = jenaTdbService.getChecklistByNode(CCAppConstants.DocumentName.FASBAccntStandards.toString(), nodeType.trim(), nodeName.trim());
+                    break;
+                case "FASB Concept":
+                    compName = "paragraphIdByConcept";
+                    break;
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        finalJson.put("data", data);
+        return ok(finalJson.toString());
     }
 
     @BodyParser.Of(BodyParser.Json.class)
@@ -244,5 +267,20 @@ public class CeclController extends Controller{
             e.printStackTrace();
         }
         return ok(finalJson.toString());
+    }
+
+    public Result parseDocumentHierarchy(){
+        final String userId = session().get(CCAppConstants.USER_ID);
+        final Boolean status = jenaTdbService.parseDocumentHierarchy("parseDocumentHierarchy", CCAppConstants.DocumentName.FASBAccntStandards.toString(), userId);
+        JSONObject res = new JSONObject();
+        res.put("status", status);
+        return ok(res.toString());
+    }
+
+    public Result getChecklistByNodeCfg(){
+        //final String cfg = jenaTdbService.getChecklistByNode(CCAppConstants.DocumentName.FASBAccntStandards.toString(), "SubTopic", "325 : Assets : Beneficial Interests in Securitized Financial Assets");
+        JSONObject res = new JSONObject();
+        //res.put("status", status);
+        return ok("");
     }
 }

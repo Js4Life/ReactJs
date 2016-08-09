@@ -262,5 +262,12 @@
 			"name" : "Paragraphid",
 			"label" : "paragraphId"
 		}]
+	},
+	"parseDocumentHierarchy"  : {
+		"outputFormat":"table",
+		"source":"504",
+		"groupByField" : "id",
+		"columns" :  ["id", "Topic", "SubTopic", "Section", "Paragraphid"],
+		"tagColumns" : ["Topic", "SubTopic", "Section"]
 	}
 }
