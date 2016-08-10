@@ -207,14 +207,13 @@ public class CeclController extends Controller{
     public Result addAnswer() {
         final String json = request().body().asJson().toString();
         final JSONObject request = new JSONObject(json);
-        final JSONArray answerJson = request.getJSONArray("answers");
+        //final JSONArray answerJson = request.getJSONArray("answers");
+        final JSONObject answerJson = request.getJSONObject("answers");
         JSONObject finalJson = new JSONObject();
         Boolean status = false;
         try {
-            String result = checkListServices.addAnswer(answerJson);
-            status = true;
+            status = checkListServices.addAnswer(answerJson);
             finalJson.put("status", status);
-            finalJson.put("data", result);
         } catch (Exception e){
             e.printStackTrace();
         }

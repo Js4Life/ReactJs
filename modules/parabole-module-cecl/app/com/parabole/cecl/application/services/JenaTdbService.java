@@ -1678,7 +1678,6 @@ public class JenaTdbService {
         Boolean haveData = false;
         try{
             JSONArray paraIds = taggingUtilitiesServices.getParagraphIdsByConcept(concept);
-            System.out.println("paraIds = " + paraIds);
             for (int i = 0; i < paraIds.length(); i++) {
                 String aParaId = paraIds.getString(i);
                 JSONObject checkListObj = checkListServices.questionAgainstParagraphId(aParaId);
@@ -1723,7 +1722,14 @@ public class JenaTdbService {
             JSONObject questions = checklistObj.getJSONObject("questions");
             JSONObject answers = checklistObj.getJSONObject("answers");
             int qCount = questions.length();
-            int aCount = answers.length();
+            int aCount = 0;
+            Iterator<String> answerKeys = answers.keys();
+            while (answerKeys.hasNext()){
+                String aKey = answerKeys.next();
+                if(answers.getBoolean(aKey)){
+                    aCount++;
+                }
+            }
             compliance = Math.ceil((aCount*100)/qCount);
         }
         return compliance;

@@ -347,6 +347,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}
 
 	$scope.getChecklistByNode = function (node) {
+		$scope.currentNode = node;
 		if(node.type === "Paragraph"){
 			SharedService.getChecklistByParagraphId(node.name).then(function (data) {
 				var status = data.data.status;
@@ -373,14 +374,23 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}
 
 	$scope.saveAnswers = function () {
-		var checkedQuestions = _.omit($scope.answers, function(v) {return !v;});
-		var qIds = _.keys(checkedQuestions);
-		SharedService.addAnswer(qIds).then(function (data) {
+		//var checkedQuestions = _.omit($scope.answers, function(v) {return !v;});
+		//var qIds = _.keys(checkedQuestions);
+		SharedService.addAnswer($scope.answers).then(function (data) {
 			if(data.status){
+				recalculateCompliance();
 				$('#checklistModal').modal('hide');
 				$('#checklistModal1').modal('hide');
+				toastr.success('Saved Successfully..', '', {"positionClass" : "toast-top-right"});
 			}
 		});
+	}
+
+	function recalculateCompliance() {
+		var qCount = _.size($scope.checkList);
+		var checkedQuestions = _.omit($scope.answers, function(v) {return !v;});
+		var aCount = _.size(checkedQuestions);
+		$scope.currentNode.compliance = Math.floor((aCount*100)/qCount);
 	}
 
 	$scope.closeCheckListModal = function () {
