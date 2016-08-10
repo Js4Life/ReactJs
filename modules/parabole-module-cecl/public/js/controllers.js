@@ -408,11 +408,11 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			return 'compliance-red';
 		else
 			return 'compliance-gray';*/
-		if(val > 95)
+		if(val > 81)
 			return 'compliance-green';
-		else if(val >= 75 && val <=95)
+		else if(val >= 51 && val <=80)
 			return 'compliance-amber';
-		else if(val >= 50 && val <=74)
+		else if(val > 0 && val <=50)
 			return 'compliance-red';
 		else
 			return 'compliance-gray';
