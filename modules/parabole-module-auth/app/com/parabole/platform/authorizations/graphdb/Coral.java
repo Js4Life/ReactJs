@@ -19,10 +19,10 @@ import com.orientechnologies.orient.core.record.impl.ODocument;
 import com.orientechnologies.orient.core.record.impl.ORecordBytes;
 import com.orientechnologies.orient.core.sql.OCommandSQL;
 import com.orientechnologies.orient.core.sql.query.OSQLSynchQuery;
-import com.parabole.feed.application.global.CCAppConstants;
-import com.parabole.feed.platform.exceptions.AppErrorCode;
-import com.parabole.feed.platform.exceptions.AppException;
-import com.parabole.feed.platform.utils.AppUtils;
+import com.parabole.auth.global.AuthConstants;
+import com.parabole.auth.exceptions.AppErrorCode;
+import com.parabole.auth.exceptions.AppException;
+import com.parabole.auth.utils.AppUtils;
 import com.tinkerpop.blueprints.impls.orient.OrientGraphFactory;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -43,11 +43,11 @@ import java.util.Map.Entry;
 public class Coral extends GraphDb {
 
     public Coral() {
-        final String graphDbUrl = AppUtils.getApplicationProperty(CCAppConstants.INDUSTRY + ".coral.graphdb.url");
-        final String graphDbUser = AppUtils.getApplicationProperty(CCAppConstants.INDUSTRY + ".coral.graphdb.user");
-        final String graphDbPassword = AppUtils.getApplicationProperty(CCAppConstants.INDUSTRY + ".coral.graphdb.password");
-        final Integer graphDbPoolMinSize = AppUtils.getApplicationPropertyAsInteger(CCAppConstants.INDUSTRY + ".coral.graphdb.pool.min");
-        final Integer graphDbPoolMaxSize = AppUtils.getApplicationPropertyAsInteger(CCAppConstants.INDUSTRY + ".coral.graphdb.pool.max");
+        final String graphDbUrl = AppUtils.getApplicationProperty(AuthConstants.INDUSTRY + ".coral.graphdb.url");
+        final String graphDbUser = AppUtils.getApplicationProperty(AuthConstants.INDUSTRY + ".coral.graphdb.user");
+        final String graphDbPassword = AppUtils.getApplicationProperty(AuthConstants.INDUSTRY + ".coral.graphdb.password");
+        final Integer graphDbPoolMinSize = AppUtils.getApplicationPropertyAsInteger(AuthConstants.INDUSTRY + ".coral.graphdb.pool.min");
+        final Integer graphDbPoolMaxSize = AppUtils.getApplicationPropertyAsInteger(AuthConstants.INDUSTRY + ".coral.graphdb.pool.max");
         this.orientGraphFactory = new OrientGraphFactory(graphDbUrl, graphDbUser, graphDbPassword).setupPool(graphDbPoolMinSize, graphDbPoolMaxSize);
     }
 
@@ -56,7 +56,7 @@ public class Coral extends GraphDb {
         final ODatabaseDocumentTx dbTx = getDocDBConnectionTx();
         try {
             dbTx.begin();
-            final OCommandSQL query = new OCommandSQL("UPDATE " + CCAppConstants.RDA_COUNTER_TABLE + " INCREMENT ID_VALUE = 1 RETURN AFTER @this WHERE ID_NAME = '" + counterKeyName + "'");
+            final OCommandSQL query = new OCommandSQL("UPDATE " + AuthConstants.RDA_COUNTER_TABLE + " INCREMENT ID_VALUE = 1 RETURN AFTER @this WHERE ID_NAME = '" + counterKeyName + "'");
             final List<ODocument> results = dbTx.command(query).execute();
             dbTx.commit();
             if (CollectionUtils.isNotEmpty(results)) {
@@ -79,7 +79,7 @@ public class Coral extends GraphDb {
         final Map<Integer, String> outputMap = new HashMap<Integer, String>();
         final ODatabaseDocumentTx dbNoTx = getDocDBConnectionNoTx();
         try {
-            final OSQLSynchQuery<ODocument> query = new OSQLSynchQuery<ODocument>("SELECT CFG_ID, CFG_NAME FROM " + CCAppConstants.RDA_USER_CONFIGS + " WHERE CFG_USER = '" + userId + "' AND CFG_TYPE = '" + configurationType + "'");
+            final OSQLSynchQuery<ODocument> query = new OSQLSynchQuery<ODocument>("SELECT CFG_ID, CFG_NAME FROM " + AuthConstants.RDA_USER_CONFIGS + " WHERE CFG_USER = '" + userId + "' AND CFG_TYPE = '" + configurationType + "'");
             final List<ODocument> results = dbNoTx.command(query).execute();
             results.forEach((final ODocument result) -> {
                 final Integer configurationId = result.field("CFG_ID");
@@ -99,7 +99,7 @@ public class Coral extends GraphDb {
         Validate.notNull(configurationId, "'configurationId' cannot be empty!");
         final ODatabaseDocumentTx dbNoTx = getDocDBConnectionNoTx();
         try {
-            final OSQLSynchQuery<ODocument> query = new OSQLSynchQuery<ODocument>("SELECT CFG_INFO FROM " + CCAppConstants.RDA_USER_CONFIGS + " WHERE CFG_ID = " + configurationId);
+            final OSQLSynchQuery<ODocument> query = new OSQLSynchQuery<ODocument>("SELECT CFG_INFO FROM " + AuthConstants.RDA_USER_CONFIGS + " WHERE CFG_ID = " + configurationId);
             final List<ODocument> results = dbNoTx.command(query).execute();
             if (CollectionUtils.isNotEmpty(results)) {
                 return results.get(0).field("CFG_INFO");
@@ -119,7 +119,7 @@ public class Coral extends GraphDb {
         final List<Map<String, String>> outputList = new ArrayList<Map<String, String>>();
         final ODatabaseDocumentTx dbNoTx = getDocDBConnectionNoTx();
         try {
-            final OSQLSynchQuery<ODocument> query = new OSQLSynchQuery<ODocument>("SELECT CFG_NAME, CFG_INFO FROM " + CCAppConstants.RDA_USER_CONFIGS + " WHERE CFG_USER = '" + userId + "' AND CFG_TYPE = '" + configurationType + "'");
+            final OSQLSynchQuery<ODocument> query = new OSQLSynchQuery<ODocument>("SELECT CFG_NAME, CFG_INFO FROM " + AuthConstants.RDA_USER_CONFIGS + " WHERE CFG_USER = '" + userId + "' AND CFG_TYPE = '" + configurationType + "'");
             final List<ODocument> results = dbNoTx.command(query).execute();
             results.forEach((final ODocument result) -> {
                 final Map<String, String> outputMap = new HashMap<String, String>();
@@ -144,7 +144,7 @@ public class Coral extends GraphDb {
         JSONObject jsonObject = null;
         final ODatabaseDocumentTx dbNoTx = getDocDBConnectionNoTx();
         try {
-            final OSQLSynchQuery<ODocument> query = new OSQLSynchQuery<ODocument>("SELECT CFG_NAME, CFG_INFO  FROM " + CCAppConstants.RDA_USER_CONFIGS + " WHERE CFG_NAME = '" + configurationName + "'");
+            final OSQLSynchQuery<ODocument> query = new OSQLSynchQuery<ODocument>("SELECT CFG_NAME, CFG_INFO  FROM " + AuthConstants.RDA_USER_CONFIGS + " WHERE CFG_NAME = '" + configurationName + "'");
             final List<ODocument> results = dbNoTx.command(query).execute();
             results.forEach((final ODocument result) -> {
             	final Map<String, String> outputMap = new HashMap<String, String>();
@@ -168,7 +168,7 @@ public class Coral extends GraphDb {
         final List<Map<String, String>> outputList = new ArrayList<Map<String, String>>();
         final ODatabaseDocumentTx dbNoTx = getDocDBConnectionNoTx();
         try {
-            final OSQLSynchQuery<ODocument> query = new OSQLSynchQuery<ODocument>("SELECT CFG_NAME, CFG_INFO  FROM " + CCAppConstants.RDA_USER_CONFIGS + " WHERE CFG_NAME like '" + configurationName + "_%' ");
+            final OSQLSynchQuery<ODocument> query = new OSQLSynchQuery<ODocument>("SELECT CFG_NAME, CFG_INFO  FROM " + AuthConstants.RDA_USER_CONFIGS + " WHERE CFG_NAME like '" + configurationName + "_%' ");
             final List<ODocument> results = dbNoTx.command(query).execute();
             results.forEach((final ODocument result) -> {
                 final Map<String, String> outputMap = new HashMap<String, String>();
@@ -195,9 +195,9 @@ public class Coral extends GraphDb {
         try {
             String sqlQuery = null;
             if (useLikePattern) {
-                sqlQuery = "SELECT CFG_NAME, CFG_INFO FROM " + CCAppConstants.RDA_USER_CONFIGS + " WHERE CFG_USER = '" + userId + "' AND CFG_NAME like '" + configurationName + "-%'";
+                sqlQuery = "SELECT CFG_NAME, CFG_INFO FROM " + AuthConstants.RDA_USER_CONFIGS + " WHERE CFG_USER = '" + userId + "' AND CFG_NAME like '" + configurationName + "-%'";
             } else {
-                sqlQuery = "SELECT CFG_NAME, CFG_INFO FROM " + CCAppConstants.RDA_USER_CONFIGS + " WHERE CFG_USER = '" + userId + "' AND CFG_NAME = '" + configurationName + "'";
+                sqlQuery = "SELECT CFG_NAME, CFG_INFO FROM " + AuthConstants.RDA_USER_CONFIGS + " WHERE CFG_USER = '" + userId + "' AND CFG_NAME = '" + configurationName + "'";
             }
             
             final OSQLSynchQuery<ODocument> query = new OSQLSynchQuery<ODocument>(sqlQuery);
@@ -220,14 +220,14 @@ public class Coral extends GraphDb {
     }
 
     public Integer saveConfiguration(final String userId, final String configurationType, final String configurationName, final String configurationDetails) throws AppException {
-        final Integer configurationId = generateId(CCAppConstants.RDA_USER_CONFIGS);
+        final Integer configurationId = generateId(AuthConstants.RDA_USER_CONFIGS);
         final Map<String, Object> dataMap = new HashMap<String, Object>();
         dataMap.put("CFG_ID", configurationId);
         dataMap.put("CFG_USER", userId);
         dataMap.put("CFG_NAME", configurationName);
         dataMap.put("CFG_TYPE", configurationType);
         dataMap.put("CFG_INFO", configurationDetails);
-        save(CCAppConstants.RDA_USER_CONFIGS, dataMap);
+        save(AuthConstants.RDA_USER_CONFIGS, dataMap);
         return configurationId;
     }
 
@@ -294,13 +294,13 @@ public class Coral extends GraphDb {
 
     public void deleteConfiguration(final Integer configurationId) throws AppException {
         Validate.notNull(configurationId, "'configurationId' cannot be null!");
-        executeUpdate("DELETE FROM " + CCAppConstants.RDA_USER_CONFIGS + " WHERE CFG_ID = " + configurationId);
+        executeUpdate("DELETE FROM " + AuthConstants.RDA_USER_CONFIGS + " WHERE CFG_ID = " + configurationId);
     }
 
     public void deleteConfigurationByName(final String userId, final String configurationName) throws AppException {
         Validate.notBlank(userId, "'userId' cannot be null!");
         Validate.notBlank(configurationName, "'configurationName' cannot be empty!");
-        executeUpdate("DELETE FROM " + CCAppConstants.RDA_USER_CONFIGS + " WHERE CFG_USER = '" + userId + "' AND CFG_NAME = '" + configurationName + "'");
+        executeUpdate("DELETE FROM " + AuthConstants.RDA_USER_CONFIGS + " WHERE CFG_USER = '" + userId + "' AND CFG_NAME = '" + configurationName + "'");
     }
     
     public String saveConceptTags(final String nodeId, final String nodeName, final Map<String, Boolean> tagDetails) throws AppException {
@@ -313,7 +313,7 @@ public class Coral extends GraphDb {
         	dataMap.put("IS_IMPACT_ROOT", tagDetails.get("isImpactRoot"));
         if(tagDetails.get("isImpactDestination") != null)
         	dataMap.put("IS_IMPACT_DESTINATION", tagDetails.get("isImpactDestination"));
-        save(CCAppConstants.RDA_CONCEPT_TAGS, dataMap); 
+        save(AuthConstants.RDA_CONCEPT_TAGS, dataMap); 
         return nodeId;
     }
     
@@ -322,7 +322,7 @@ public class Coral extends GraphDb {
         final Map<Integer, String> outputMap = new HashMap<Integer, String>();
         final ODatabaseDocumentTx dbNoTx = getDocDBConnectionNoTx();
         try {
-            final OSQLSynchQuery<ODocument> query = new OSQLSynchQuery<ODocument>("SELECT NODE_ID, NODE_NAME FROM " + CCAppConstants.RDA_CONCEPT_TAGS + "WHERE '" + tag + "' = '" + true + "'");
+            final OSQLSynchQuery<ODocument> query = new OSQLSynchQuery<ODocument>("SELECT NODE_ID, NODE_NAME FROM " + AuthConstants.RDA_CONCEPT_TAGS + "WHERE '" + tag + "' = '" + true + "'");
             final List<ODocument> results = dbNoTx.command(query).execute();
             results.forEach((final ODocument result) -> {
                 final Integer nodeId = result.field("NODE_ID");

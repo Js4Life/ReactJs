@@ -1,12 +1,13 @@
 package com.parabole.auth.controllers;
 
 import com.google.inject.Inject;
+import com.parabole.auth.exceptions.AppException;
+import com.parabole.auth.global.AuthConstants;
 import com.parabole.auth.services.CoralUserService;
 import com.parabole.platform.authorizations.models.UserModel;
 import com.parabole.platform.authorizations.securities.AuthenticationManager;
 import play.mvc.Result;
 
-import static com.parabole.feed.application.services.SessionServices.gerUserIdFromSession;
 import static play.mvc.Http.Context.Implicit.session;
 import static play.mvc.Results.ok;
 
@@ -27,24 +28,30 @@ public class AuthController {
         // return ok(com.parabole.ccar.application.views.html.login.render());
         // final DynamicForm requestData = Form.form().bindFromRequest();
         final String userId = username;
+        String role = null;
         if (authenticationManager.authenticate(userId, password)) {
-            final String role = coralUserService.getSpecificDocumentUsingIdAndColumnNameFromUserGroup(userId, CCAppConstants.ATTR_DATABASE_GROUP_NAME_COLUMN_NAME);
-            session().put(CCAppConstants.ROLE, role);
-            session().put(CCAppConstants.USER_ID, userId);
-            session().put(CCAppConstants.USER_NAME, coralUserService.getSpecificDocumentUsingIdAndColumnName(userId, CCAppConstants.ATTR_DATABASE_USER_NAME_COLUMN_NAME));
+
+            try {
+                role = coralUserService.getSpecificDocumentUsingIdAndColumnNameFromUserGroup(userId, AuthConstants.ATTR_DATABASE_GROUP_NAME_COLUMN_NAME);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            session().put(AuthConstants.ROLE, role);
+            session().put(AuthConstants.USER_ID, userId);
+            try {
+                session().put(AuthConstants.USER_NAME, coralUserService.getSpecificDocumentUsingIdAndColumnName(userId, AuthConstants.ATTR_DATABASE_USER_NAME_COLUMN_NAME));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             UserModel.findByUserName(userId);
 
-            return ok(session().get(CCAppConstants.USER_NAME));
+            return ok(session().get(AuthConstants.USER_NAME));
         } else {
             return ok("not authorised");
         }
     }
 
-    public Result getSessionData() throws AppException, com.parabole.feed.application.exceptions.AppException {
-
-        return ok(gerUserIdFromSession());
-    }
 
 
 }

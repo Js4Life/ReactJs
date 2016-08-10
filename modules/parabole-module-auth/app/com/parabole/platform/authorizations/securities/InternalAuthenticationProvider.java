@@ -15,7 +15,7 @@ package com.parabole.platform.authorizations.securities;
 
 import com.google.inject.Inject;
 import com.parabole.auth.global.AuthConstants;
-import com.parabole.feed.application.services.CoralUserService;
+import com.parabole.auth.services.CoralUserService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import play.Logger;

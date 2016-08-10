@@ -13,7 +13,8 @@
 // =============================================================================
 package com.parabole.platform.authorizations.graphdb;
 
-import com.parabole.feed.platform.BaseDTO;
+import com.parabole.platform.authorizations.BaseDTO;
+import com.parabole.platform.authorizations.BaseDTO;
 
 import java.util.ArrayList;
 import java.util.List;
