@@ -227,42 +227,6 @@
 			"label" : "name"
 		}]
 	},
-	"paragraphIdByConcept"  : {
-		"outputFormat":"table",
-		"source":"500",
-		"groupByField" : "Paragraphid",
-		"columns" :  [{
-			"name" : "Paragraphid",
-			"label" : "paragraphId"
-		}]
-	},
-	"paragraphIdByTopic"  : {
-		"outputFormat":"table",
-		"source":"501",
-		"groupByField" : "Paragraphid",
-		"columns" :  [{
-			"name" : "Paragraphid",
-			"label" : "paragraphId"
-		}]
-	},
-	"paragraphIdBySubTopic"  : {
-		"outputFormat":"table",
-		"source":"502",
-		"groupByField" : "Paragraphid",
-		"columns" :  [{
-			"name" : "Paragraphid",
-			"label" : "paragraphId"
-		}]
-	},
-	"paragraphIdBySection"  : {
-		"outputFormat":"table",
-		"source":"503",
-		"groupByField" : "Paragraphid",
-		"columns" :  [{
-			"name" : "Paragraphid",
-			"label" : "paragraphId"
-		}]
-	},
 	"parseDocumentHierarchy"  : {
 		"outputFormat":"table",
 		"source":"504",

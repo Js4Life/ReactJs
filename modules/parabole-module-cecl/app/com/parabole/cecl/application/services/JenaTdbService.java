@@ -3,7 +3,6 @@ package com.parabole.cecl.application.services;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
-import com.google.inject.Inject;
 import com.parabole.cecl.application.exceptions.AppErrorCode;
 import com.parabole.cecl.application.exceptions.AppException;
 import com.parabole.cecl.application.global.CCAppConstants;
@@ -12,6 +11,7 @@ import com.parabole.cecl.application.utils.AppUtils;
 import com.parabole.cecl.platform.reasoner.BaseBindObj;
 import com.parabole.feed.application.services.CheckListServices;
 import com.parabole.feed.application.services.CoralConfigurationService;
+import com.parabole.feed.application.services.TaggingUtilitiesServices;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.jena.query.*;
 import org.apache.jena.query.ResultSet;
@@ -29,6 +29,7 @@ import play.Configuration;
 import play.Logger;
 import play.db.DB;
 
+import javax.inject.Inject;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -45,8 +46,11 @@ public class JenaTdbService {
     @Inject
     private CoralConfigurationService coralConfigurationService;
 
-    @javax.inject.Inject
+    @Inject
     CheckListServices checkListServices;
+
+    @Inject
+    TaggingUtilitiesServices taggingUtilitiesServices;
 
     public JenaTdbService(){
 
@@ -1466,7 +1470,7 @@ public class JenaTdbService {
                 }
 
                 /*To be deleted*/
-                int compliance = 0;
+                double compliance = 0;
                 String nodeType = jsObj.getString("type");
                 String nodeName = jsObj.getString("name");
                 switch (nodeType){
@@ -1474,10 +1478,8 @@ public class JenaTdbService {
                     case "Sub-Topic":
                     case "Section":
                     case "Paragraph":
-                        compliance = calculateCompliance(nodeType, nodeName);
-                        break;
                     case "FASB Concept":
-                        compliance = (int) (Math.random() * (100 - 0)) + 0;
+                        compliance = calculateCompliance(nodeType, nodeName);
                         break;
                 }
                 jsObj.put("compliance", compliance);
@@ -1668,13 +1670,52 @@ public class JenaTdbService {
         return finalJson;
     }
 
-    private int calculateCompliance(String nodeType, String nodeName){
-        int compliance = 0;
+    public JSONObject getChecklistByConcept(String concept){
+        JSONObject finalJson = new JSONObject();
+        JSONObject finalQuestions = new JSONObject();
+        JSONObject finalAnswers = new JSONObject();
+        JSONObject finalStatus = new JSONObject();
+        Boolean haveData = false;
+        try{
+            JSONArray paraIds = taggingUtilitiesServices.getParagraphIdsByConcept(concept);
+            System.out.println("paraIds = " + paraIds);
+            for (int i = 0; i < paraIds.length(); i++) {
+                String aParaId = paraIds.getString(i);
+                JSONObject checkListObj = checkListServices.questionAgainstParagraphId(aParaId);
+                JSONObject status = checkListObj.getJSONObject("status");
+                if (status.getBoolean("haveData")) {
+                    haveData = true;
+                    JSONObject questions = checkListObj.getJSONObject("questions");
+                    Iterator<String> qKeys = questions.keys();
+                    while (qKeys.hasNext()) {
+                        String key = qKeys.next();
+                        finalQuestions.put(key, questions.getString(key));
+                    }
+                    JSONObject answers = checkListObj.getJSONObject("answers");
+                    Iterator<String> aKeys = answers.keys();
+                    while (aKeys.hasNext()) {
+                        String key = aKeys.next();
+                        finalAnswers.put(key, answers.getBoolean(key));
+                    }
+                }
+            }
+            finalStatus.put("haveData", haveData);
+            finalJson.put("questions", finalQuestions).put("answers", finalAnswers).put("status", finalStatus);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return finalJson;
+    }
+
+    private double calculateCompliance(String nodeType, String nodeName){
+        double compliance = 0;
         JSONObject checklistObj = null;
         if(nodeType.equals("Paragraph")){
             JSONObject res = getChecklistByParagraphId(nodeName);
             checklistObj = res.getJSONObject("data");
-        }else {
+        } else if(nodeType.equals("FASB Concept")){
+            checklistObj = getChecklistByConcept(nodeName.trim());
+        } else {
             checklistObj = getChecklistByNode(CCAppConstants.DocumentName.FASBAccntStandards.toString(), nodeType.trim(), nodeName.trim());
         }
         JSONObject status = checklistObj.getJSONObject("status");
@@ -1683,7 +1724,7 @@ public class JenaTdbService {
             JSONObject answers = checklistObj.getJSONObject("answers");
             int qCount = questions.length();
             int aCount = answers.length();
-            compliance = (aCount/qCount) * 100;
+            compliance = Math.ceil((aCount*100)/qCount);
         }
         return compliance;
     }

@@ -321,31 +321,6 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 	$scope.iniitialize();
 	
-	
-	/*Checklist related code*/
-	/*$scope.startContentParser = function () {
-		SharedService.startContentParser().then(function (data) {
-			if(data){
-				alert("Success!");
-			}
-		});
-	}
-
-	$scope.getParagraphsByConcept = function () {
-		SharedService.getParagraphsByConcept($scope.currentNode.name).then(function (data) {
-			$scope.paragraphs = angular.fromJson(data.data);
-			$('#dsViewer').modal('hide');
-			$('#checkListModal').modal('show');
-			console.log(data);
-		});
-	}
-
-	$scope.closeCheckListModal = function () {
-		$('#dsViewer').modal('show');
-		$('#checkListModal').modal('hide');
-	}*/
-	/*End*/
-	
 	$scope.goChecklistBuilder = function () {
 		$('#dsViewer').modal('hide');
 		$timeout(function () {
@@ -425,9 +400,9 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			return 'compliance-gray';*/
 		if(val > 95)
 			return 'compliance-green';
-		else if(val >= 85 && val <=95)
+		else if(val >= 75 && val <=95)
 			return 'compliance-amber';
-		else if(val >= 75 && val <=84)
+		else if(val >= 50 && val <=74)
 			return 'compliance-red';
 		else
 			return 'compliance-gray';
@@ -578,7 +553,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 .controller('checklistBuilderCtrl', function($scope, $state, $stateParams, SharedService) {
 	$scope.initialize = function () {
-		toastr.info('Select a Paragraph..', '', {"positionClass" : "custom-toast-top-left"});
+		toastr.info('Select a paragraph..', '', {"positionClass" : "toast-top-right"});
 		$scope.heading = {title: "Checklist Builder"};
 		$scope.question = {components: []};
 		$scope.questions = [];
@@ -595,21 +570,22 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}
 
 	$scope.selectParagraph = function (para, e) {
-		toastr.options.positionClass = 'custom-toast-top-right';
-		toastr.info('Type Question here..', '', {"positionClass" : "custom-toast-top-right"});
 		$(e.currentTarget).parent().children().removeClass('bg-info');
 		$(e.currentTarget).addClass('bg-info');
 		if($scope.currentParagraph) {
 			if ($scope.currentParagraph.id != para.id) {
+				toastr.info('Type a question and select related components from dropdown..', '', {"positionClass" : "toast-top-right"});
 				$scope.currentParagraph = para;
 				$scope.questions = [];
 			}
 		} else{
+			toastr.info('Type a question and select related components from dropdown..', '', {"positionClass" : "toast-top-right"});
 			$scope.currentParagraph = para;
 		}
 	}
 
 	$scope.addQuestion = function () {
+		toastr.info('Save or Add another question..', '', {"positionClass" : "toast-top-right"});
 		$scope.questions.push($scope.question);
 		$scope.question = {components:[]};
 	}
@@ -621,9 +597,16 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		SharedService.addChecklist($scope.currentQuestionCfg).then(function (data) {
 			console.log(data.data);
 			if(data.status){
-				
+				toastr.success('Saved Successfully..', '', {"positionClass" : "toast-top-right"});
+				$scope.cleanQuestionEditor();
 			}
 		});
+	}
+
+	$scope.cleanQuestionEditor = function () {
+		$scope.currentParagraph = undefined;
+		$scope.questions = [];
+		$scope.question = {components:[]};
 	}
 
 	$scope.goPreviousScreen = function () {

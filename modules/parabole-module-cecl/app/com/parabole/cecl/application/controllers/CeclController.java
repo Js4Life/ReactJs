@@ -175,54 +175,6 @@ public class CeclController extends Controller{
         return ok(result.toString());
     }
 
-    /*@BodyParser.Of(BodyParser.Json.class)
-    public Result getChecklistByNode() throws AppException, JSONException {
-        final String jsonText = request().body().asJson().toString();
-        final JSONObject json = new JSONObject(jsonText);
-        final String nodeType = json.getString("nodeType");
-        final String nodeName = json.getString("nodeName");
-        JSONObject finalJson = new JSONObject();
-        JSONObject data = new JSONObject();
-        finalJson.put("data", data);
-        try {
-            String compName = null;
-            switch (nodeType){
-                case "Topic":
-                    compName = "paragraphIdByTopic";
-                    break;
-                case "Sub-Topic":
-                    compName = "paragraphIdBySubTopic";
-                    break;
-                case "Section":
-                    compName = "paragraphIdBySection";
-                    break;
-                case "FASB Concept":
-                    compName = "paragraphIdByConcept";
-                    break;
-            }
-            JSONObject paraIdObj = jenaTdbService.getFilteredDataByCompName(compName, nodeName);
-            System.out.println("paraIdObj = " + paraIdObj);
-            JSONArray paraIdArr = paraIdObj.getJSONArray("data");
-            for (int i=0; i<paraIdArr.length(); i++){
-                JSONObject obj = paraIdArr.getJSONObject(i);
-                String paraId = obj.getString("paragraphId");
-                JSONObject tempObj = checkListServices.questionAgainstParagraphId(paraId);
-                JSONObject status = tempObj.getJSONObject("status");
-                if(status.getBoolean("haveData")){
-                    JSONObject questions = tempObj.getJSONObject("questions");
-                    Iterator<String> tempKeys = questions.keys();
-                    while(tempKeys.hasNext()){
-                        String key = tempKeys.next();
-                        data.put(key, questions.getString(key));
-                    }
-                }
-            }
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-        return ok(finalJson.toString());
-    }*/
-
     @BodyParser.Of(BodyParser.Json.class)
     public Result getChecklistByNode() throws AppException, JSONException {
         final String jsonText = request().body().asJson().toString();
@@ -240,7 +192,7 @@ public class CeclController extends Controller{
                     data = jenaTdbService.getChecklistByNode(CCAppConstants.DocumentName.FASBAccntStandards.toString(), nodeType.trim(), nodeName.trim());
                     break;
                 case "FASB Concept":
-                    compName = "paragraphIdByConcept";
+                    data = jenaTdbService.getChecklistByConcept(nodeName.trim());
                     break;
             }
         } catch(Exception e) {
