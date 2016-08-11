@@ -2466,6 +2466,15 @@ li.list-group-item.puff{
       background: #ffb935;
   }
   .compliance-green{
-      background: #08ff84;
+      background: #04de72;
+  }
+
+  .custom-toast-top-left {
+      top: 150px;
+      left: 250px;
+  }
+  .custom-toast-top-right {
+      top: 150px;
+      right: 330px;
   }
   /*End*/

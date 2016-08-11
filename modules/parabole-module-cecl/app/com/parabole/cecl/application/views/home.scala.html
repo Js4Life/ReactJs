@@ -131,35 +131,6 @@
   </div>
 </div>
 
-
-@*<div class="modal fade bs-example-modal-lg" id="checkListModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" style="width:92%;">
-    <div class="modal-content">
-      <div class="modal-header">
-        Paragraphs for {{currentNode.name}}
-      </div>
-      <div class="modal-body zero-padding-bottom" style="height: 66vh; overflow: auto;">
-        <div class="col-xs-6">
-            <p ng-repeat="para in paragraphs" ng-class="{'text-danger': para.willIgnore}" ng-init="formatText(para.bodyText)" read-more="" content="{{para.bodyText}}"></p>
-        </div>
-        <div class="col-xs-6">
-          <div class="col-md-4" ng-repeat="(k, v) in nodeDetails">
-            <div class="panel panel-default" ng-if="k!='Related Concept'">
-              <div class="panel-heading">{{k}}</div>
-              <ul class="list-group" style="max-height: 40vh; overflow: auto;">
-                <li class="list-group-item" ng-repeat="o in v">{{o.name}}</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" ng-click="closeCheckListModal()">Close</button>
-      </div>
-    </div>
-  </div>
-</div>*@
-
 <div class="modal fade" id="checklistModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -175,7 +146,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" ng-click="closeCheckListModal()">Cancel</button>
-        <button type="button" class="btn btn-default" ng-click="saveCheckList()">Save</button>
+        <button type="button" class="btn btn-default" ng-click="saveAnswers()">Save</button>
       </div>
     </div>
   </div>
@@ -196,7 +167,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-default" ng-click="saveCheckList()">Save</button>
+        <button type="button" class="btn btn-default" ng-click="saveAnswers()">Save</button>
       </div>
     </div>
   </div>

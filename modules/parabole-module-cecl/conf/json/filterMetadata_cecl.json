@@ -227,40 +227,11 @@
 			"label" : "name"
 		}]
 	},
-	"paragraphIdByConcept"  : {
+	"parseDocumentHierarchy"  : {
 		"outputFormat":"table",
-		"source":"500",
-		"groupByField" : "Paragraphid",
-		"columns" :  [{
-			"name" : "Paragraphid",
-			"label" : "paragraphId"
-		}]
-	},
-	"paragraphIdByTopic"  : {
-		"outputFormat":"table",
-		"source":"501",
-		"groupByField" : "Paragraphid",
-		"columns" :  [{
-			"name" : "Paragraphid",
-			"label" : "paragraphId"
-		}]
-	},
-	"paragraphIdBySubTopic"  : {
-		"outputFormat":"table",
-		"source":"502",
-		"groupByField" : "Paragraphid",
-		"columns" :  [{
-			"name" : "Paragraphid",
-			"label" : "paragraphId"
-		}]
-	},
-	"paragraphIdBySection"  : {
-		"outputFormat":"table",
-		"source":"503",
-		"groupByField" : "Paragraphid",
-		"columns" :  [{
-			"name" : "Paragraphid",
-			"label" : "paragraphId"
-		}]
+		"source":"504",
+		"groupByField" : "id",
+		"columns" :  ["id", "Topic", "SubTopic", "Section", "Paragraphid"],
+		"tagColumns" : ["Topic", "SubTopic", "Section"]
 	}
 }

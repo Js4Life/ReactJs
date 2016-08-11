@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import play.Environment;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.UUID;
 
 /**
@@ -124,11 +125,11 @@ public class CheckListServices {
         String sampleIncomingAnswer = AppUtils.getFileContent("feedJson\\answersToAdd.json");
 
         JSONObject jsonObject = new JSONObject(sampleIncomingAnswer);
-
-        return addAnswer(jsonObject);
+        JSONArray answersToAddArray = jsonObject.getJSONArray("answers");
+        return addAnswer(answersToAddArray);
     }
 
-    private String addAnswer(JSONObject answersToAdd) throws AppException, IOException {
+    public String addAnswer(JSONArray answersToAddArray) throws AppException, IOException {
         String mappedQuestions = AppUtils.getFileContent("feedJson\\mappedQuestions.json");
         JSONObject fullJson = new JSONObject(mappedQuestions);
         JSONObject fileMappedQuestionsfromFASBAccntStandards = fullJson.getJSONObject("FASBAccntStandards");
@@ -143,8 +144,6 @@ public class CheckListServices {
             alreadyAddedAnswers = fileMappedQuestionsfromFASBAccntStandards.getJSONObject("answers");
         }
 
-
-        JSONArray answersToAddArray = answersToAdd.getJSONArray("answers");
         // looping all the answers ----------------->
         if(answersToAddArray != null & answersToAddArray.length() > 0 )
             for (int i = 0; i < answersToAddArray.length(); i++) {
@@ -156,6 +155,39 @@ public class CheckListServices {
         AppUtils.writeFile(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedJson\\mappedQuestions.json", fullJson.toString());
         return fullJson.toString();
 
+    }
+
+    public Boolean addAnswer(JSONObject answersToAdd) throws AppException, IOException {
+        String mappedQuestions = AppUtils.getFileContent("feedJson\\mappedQuestions.json");
+        JSONObject fullJson = new JSONObject(mappedQuestions);
+        JSONObject fileMappedQuestionsfromFASBAccntStandards = fullJson.getJSONObject("FASBAccntStandards");
+        JSONObject alreadyAddedAnswers = new JSONObject();
+        Boolean status = false;
+        try {
+            if (fileMappedQuestionsfromFASBAccntStandards.has("answers")) {
+                alreadyAddedAnswers = fileMappedQuestionsfromFASBAccntStandards.getJSONObject("answers");
+            } else {
+                JSONObject answer = new JSONObject();
+                fileMappedQuestionsfromFASBAccntStandards.put("answers", answer);
+                alreadyAddedAnswers = fileMappedQuestionsfromFASBAccntStandards.getJSONObject("answers");
+            }
+
+            // looping all the answers ----------------->
+            if (answersToAdd != null & answersToAdd.length() > 0) {
+                Iterator<String> keys = answersToAdd.keys();
+                while (keys.hasNext()) {
+                    String key = keys.next();
+                    alreadyAddedAnswers.put(key, answersToAdd.getBoolean(key));
+                }
+            }
+
+            // Saving ------------------------------------>
+            AppUtils.writeFile(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedJson\\mappedQuestions.json", fullJson.toString());
+            status = true;
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return status;
     }
 
     public JSONObject questionAgainstParagraphId(String paragraphId) throws AppException {
@@ -188,7 +220,7 @@ public class CheckListServices {
                 for (int i = 0; i < questionIds.length(); i++) {
                     allQuestions.put(questionIds.getString(i), questions.getString(questionIds.getString(i)));
                     if(allAnswers.has(questionIds.getString(i)))
-                        answers.put(questionIds.getString(i), true);
+                        answers.put(questionIds.getString(i), allAnswers.getBoolean(questionIds.getString(i)));
                 }
             }
 
@@ -215,10 +247,10 @@ public class CheckListServices {
 
         if(indexes.has(conceptName)) {
             qByConcept = indexes.getJSONObject(conceptName);
-            status.put("have concept Name", true);
+            status.put("haveConceptName", true);
             status.put("message", "conceptName : "+conceptName);
         }else {
-            status.put("have concept Name", false);
+            status.put("haveConceptName", false);
             status.put("message", "no such concept Name:&: input error");
         }
 
@@ -227,19 +259,19 @@ public class CheckListServices {
 
         if(qByConcept.has(componentType)) {
             qByComponentByType = qByConcept.getJSONObject(componentType);
-            status.put("have Component Type", true);
+            status.put("haveComponentType", true);
             status.put("message", "ComponentType : "+componentType);
         }else {
-            status.put("have Component Type", false);
+            status.put("haveComponentType", false);
             status.put("message", "input error");
         }
 
         if(qByComponentByType.has(componentName)) {
             qByComponentByName = qByComponentByType.getJSONArray(componentName);
-            status.put("have component Name", true);
+            status.put("haveComponentName", true);
             status.put("message", "componentName : "+componentName);
         }else {
-            status.put("have Component Name", false);
+            status.put("haveComponentName", false);
             status.put("message", "Input Error");
         }
 
@@ -248,7 +280,13 @@ public class CheckListServices {
         for (int i = 0; i < qByComponentByName.length(); i++) {
             allQuestions.put(qByComponentByName.getString(i), questions.getString(qByComponentByName.getString(i)));
             if(allAnswers.has(qByComponentByName.getString(i)))
-                answers.put(qByComponentByName.getString(i), true);
+                answers.put(qByComponentByName.getString(i), allAnswers.getBoolean(qByComponentByName.getString(i)));
+        }
+
+        if(qByComponentByName.length() > 0){
+            status.put("haveData", true);
+        } else {
+            status.put("haveData", false);
         }
 
         finalReturn.put("questions", allQuestions);

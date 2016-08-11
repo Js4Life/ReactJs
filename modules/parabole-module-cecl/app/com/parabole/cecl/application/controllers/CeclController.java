@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.parabole.cecl.application.exceptions.AppException;
+import com.parabole.cecl.application.global.CCAppConstants;
 import com.parabole.cecl.application.services.JenaTdbService;
 import com.parabole.feed.application.services.CheckListServices;
 import com.parabole.feed.application.services.OctopusSemanticService;
@@ -135,7 +136,6 @@ public class CeclController extends Controller{
         final String json = request().body().asJson().toString();
         final JSONObject request = new JSONObject(json);
         final JSONObject checkListJson = request.getJSONObject("checkList");
-        System.out.println("checkListJson = " + checkListJson);
         JSONObject finalJson = new JSONObject();
         Boolean status = false;
         try {
@@ -157,11 +157,8 @@ public class CeclController extends Controller{
         final String componentType = request.getString("componentType");
         final String componentName = request.getString("componentName");
         JSONObject finalJson = new JSONObject();
-        Boolean status = false;
         try {
             JSONObject result = checkListServices.questionAgainstConceptNameComponentTypeComponentName(conceptName, componentType, componentName);
-            status = true;
-            finalJson.put("status", status);
             finalJson.put("data", result);
         } catch (Exception e){
             e.printStackTrace();
@@ -174,70 +171,67 @@ public class CeclController extends Controller{
         final String json = request().body().asJson().toString();
         final JSONObject request = new JSONObject(json);
         final String paraId = request.getString("paragraphId");
-        JSONObject finalJson = new JSONObject();
-        try {
-            /*JSONObject result = new JSONObject();
-            for (int i=0; i<paraIds.length(); i++){
-                JSONObject tempObj = checkListServices.questionAgainstParagraphId(paraIds.getString(i));
-                Iterator<String> tempKeys = tempObj.keys();
-                while(tempKeys.hasNext()){
-                    String key = tempKeys.next();
-                    result.put(key, tempObj.getString(key));
-                }
-            }*/
-            JSONObject result = checkListServices.questionAgainstParagraphId(paraId);
-            finalJson.put("data", result);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        return ok(finalJson.toString());
+        JSONObject result = jenaTdbService.getChecklistByParagraphId(paraId);
+        return ok(result.toString());
     }
 
     @BodyParser.Of(BodyParser.Json.class)
     public Result getChecklistByNode() throws AppException, JSONException {
         final String jsonText = request().body().asJson().toString();
         final JSONObject json = new JSONObject(jsonText);
-        final String nodeType = json.getString("nodeType");
+        String nodeType = json.getString("nodeType");
         final String nodeName = json.getString("nodeName");
         JSONObject finalJson = new JSONObject();
         JSONObject data = new JSONObject();
-        finalJson.put("data", data);
         try {
             String compName = null;
             switch (nodeType){
                 case "Topic":
-                    compName = "paragraphIdByTopic";
-                    break;
                 case "Sub-Topic":
-                    compName = "paragraphIdBySubTopic";
-                    break;
                 case "Section":
-                    compName = "paragraphIdBySection";
+                    data = jenaTdbService.getChecklistByNode(CCAppConstants.DocumentName.FASBAccntStandards.toString(), nodeType.trim(), nodeName.trim());
                     break;
                 case "FASB Concept":
-                    compName = "paragraphIdByConcept";
+                    data = jenaTdbService.getChecklistByConcept(nodeName.trim());
                     break;
-            }
-            JSONObject paraIdObj = jenaTdbService.getFilteredDataByCompName(compName, nodeName);
-            System.out.println("paraIdObj = " + paraIdObj);
-            JSONArray paraIdArr = paraIdObj.getJSONArray("data");
-            for (int i=0; i<paraIdArr.length(); i++){
-                JSONObject obj = paraIdArr.getJSONObject(i);
-                String paraId = obj.getString("paragraphId");
-                JSONObject tempObj = checkListServices.questionAgainstParagraphId(paraId);
-                JSONObject status = tempObj.getJSONObject("status");
-                if(status.getBoolean("haveData")){
-                    JSONObject questions = tempObj.getJSONObject("questions");
-                    Iterator<String> tempKeys = questions.keys();
-                    while(tempKeys.hasNext()){
-                        String key = tempKeys.next();
-                        data.put(key, questions.getString(key));
-                    }
-                }
             }
         } catch(Exception e) {
             e.printStackTrace();
         }
+
+        finalJson.put("data", data);
         return ok(finalJson.toString());
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result addAnswer() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        //final JSONArray answerJson = request.getJSONArray("answers");
+        final JSONObject answerJson = request.getJSONObject("answers");
+        JSONObject finalJson = new JSONObject();
+        Boolean status = false;
+        try {
+            status = checkListServices.addAnswer(answerJson);
+            finalJson.put("status", status);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return ok(finalJson.toString());
+    }
+
+    public Result parseDocumentHierarchy(){
+        final String userId = session().get(CCAppConstants.USER_ID);
+        final Boolean status = jenaTdbService.parseDocumentHierarchy("parseDocumentHierarchy", CCAppConstants.DocumentName.FASBAccntStandards.toString(), userId);
+        JSONObject res = new JSONObject();
+        res.put("status", status);
+        return ok(res.toString());
+    }
+
+    public Result getChecklistByNodeCfg(){
+        //final String cfg = jenaTdbService.getChecklistByNode(CCAppConstants.DocumentName.FASBAccntStandards.toString(), "SubTopic", "325 : Assets : Beneficial Interests in Securitized Financial Assets");
+        JSONObject res = new JSONObject();
+        //res.put("status", status);
+        return ok("");
     }
 }

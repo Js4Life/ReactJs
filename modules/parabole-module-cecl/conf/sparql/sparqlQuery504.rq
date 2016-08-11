@@ -6,10 +6,17 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
-##paragraph id wrt section
-SELECT ?Paragraphid
-WHERE{
-   ?subject rdfs:label ?Paragraphid.
-?Section cst:sechasPara ?subject.
-?Section rdfs:label $$FILTERS$$.
+
+
+SELECT ?Topic ?SubTopic  ?Section ?Paragraphid ?id
+WHERE {
+
+?TTopic rdfs:label ?Topic.
+?TTopic cst:tophasSt ?SSubTopic.
+?SSubTopic rdfs:label ?SubTopic.
+?SSubTopic cst:sthasSec ?SSection.
+?SSection rdfs:label ?Section.
+?SSection cst:sechasPara ?Paragraph.
+?Paragraph rdfs:label ?Paragraphid.
+bind(rand() AS ?id)
 }
