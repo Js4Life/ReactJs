@@ -1717,6 +1717,7 @@ public class JenaTdbService {
         } else {
             checklistObj = getChecklistByNode(CCAppConstants.DocumentName.FASBAccntStandards.toString(), nodeType.trim(), nodeName.trim());
         }
+        System.out.println("checklistObj = " + checklistObj);
         JSONObject status = checklistObj.getJSONObject("status");
         if(status.getBoolean("haveData")){
             JSONObject questions = checklistObj.getJSONObject("questions");

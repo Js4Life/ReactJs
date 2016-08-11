@@ -5,9 +5,22 @@
       <i class="glyphicon glyphicon-search"></i>
       <input type="search" class="form-control" placeholder="Search from {{childNodes.length}} items..." ng-model="searchText" />
     </div>
-    <div class="btn-group pull-right">
-      <span ng-click="startContentParser()" class="glyphicon glyphicon-play pull-right" tooltip='"title":"Parse Document"'></span>
-      <span ng-click="leftSlideToggle()" class="glyphicon glyphicon-fullscreen pull-right margin-right-10" tooltip='"title":"Fullscreen"'></span>
+    <div class="pull-right">
+      @*<span ng-click="startContentParser()" class="glyphicon glyphicon-play pull-right" tooltip='"title":"Parse Document"'></span>*@
+
+
+
+      <span ng-click="leftSlideToggle()" class="fa fa-expand pull-right" tooltip='"title":"Fullscreen"'></span>
+      <div class="dropdown pull-right margin-right-10" style="top: -6px;">
+        <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+          <i class="fa fa-cog" aria-hidden="true"></i>
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dLabel">
+          <li class="pointer" ng-click="startContentParser()"><a><i class="fa fa-file-pdf-o"></i> Document Parser</a></li>
+          <li class="pointer" ng-click="startOntologyParser()"><a><i class="fa fa-share-alt"></i> Ontology Parser</a></li>
+        </ul>
+      </div>
     </div>
   </div>
   <div class="panel-body zero-padding">
