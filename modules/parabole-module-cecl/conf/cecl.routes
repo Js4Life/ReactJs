@@ -62,13 +62,14 @@ POST /getFilteredDataByCompName	com.parabole.cecl.application.controllers.CeclCo
 POST /getMultiFilteredDataByCompName	com.parabole.cecl.application.controllers.CeclController.getMultiFilteredDataByCompName()
 POST /getFunctionalAreasByProducts	com.parabole.cecl.application.controllers.CeclController.getFunctionalAreasByProducts()
 POST /getDescriptionByUri       com.parabole.cecl.application.controllers.CeclController.getDescriptionByUri
-GET /startContentParser         com.parabole.cecl.application.controllers.CeclController.startContentParser()
 POST /getParagraphsByConcept    com.parabole.cecl.application.controllers.CeclController.getParagraphsByConcept()
 POST /addChecklist              com.parabole.cecl.application.controllers.CeclController.addChecklist()
 POST /getChecklistByConceptAndComponent    com.parabole.cecl.application.controllers.CeclController.getChecklistByConceptAndComponent()
 POST /getChecklistByNode        com.parabole.cecl.application.controllers.CeclController.getChecklistByNode()
 POST /getChecklistByParagraphId com.parabole.cecl.application.controllers.CeclController.getChecklistByParagraphId()
 POST /addAnswer                 com.parabole.cecl.application.controllers.CeclController.addAnswer()
+GET /startContentParser                    com.parabole.cecl.application.controllers.CeclController.startContentParser()
+GET /startOntologyParser                   com.parabole.cecl.application.controllers.CeclController.parseDocumentHierarchy()
 
 # ---------------------------------------------------------------------------------
 # Jena TDB operation {TEST}
@@ -78,8 +79,6 @@ GET /jenaTDBUpdate/:fileIdentification     com.parabole.cecl.application.control
 GET /jenaTDBBatch/:fileIdentification      com.parabole.cecl.application.controllers.JenaTdbController.jenaTDBBatch(fileIdentification: String)
 GET /jenaTDBInsert/:fileIdentification     com.parabole.cecl.application.controllers.JenaTdbController.jenaTDBInsert(fileIdentification: String)
 GET /loadAllFromBatch                      com.parabole.cecl.application.controllers.JenaTdbController.loadAllFromBatch()
-GET /parseDocumentHierarchy                com.parabole.cecl.application.controllers.CeclController.parseDocumentHierarchy()
-GET /getChecklistByNodeCfg                 com.parabole.cecl.application.controllers.CeclController.getChecklistByNodeCfg()
 
 
 

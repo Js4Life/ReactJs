@@ -421,6 +421,22 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	function clearAnswers() {
 		$scope.answers = {};
 	}
+
+	$scope.startContentParser = function () {
+		SharedService.startContentParser().then(function (data) {
+			if(data){
+				toastr.success('Document parsed successfully', '', {"positionClass" : "toast-top-right"});
+			}
+		});
+	}
+
+	$scope.startOntologyParser = function () {
+		SharedService.startOntologyParser().then(function (data) {
+			if(data){
+				toastr.success('Ontology parsed successfully', '', {"positionClass" : "toast-top-right"});
+			}
+		});
+	}
 })
 
 .controller('impactCtrl', function($scope, $state, $stateParams, SharedService) {

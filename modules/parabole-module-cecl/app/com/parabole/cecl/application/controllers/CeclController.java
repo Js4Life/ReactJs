@@ -227,11 +227,4 @@ public class CeclController extends Controller{
         res.put("status", status);
         return ok(res.toString());
     }
-
-    public Result getChecklistByNodeCfg(){
-        //final String cfg = jenaTdbService.getChecklistByNode(CCAppConstants.DocumentName.FASBAccntStandards.toString(), "SubTopic", "325 : Assets : Beneficial Interests in Securitized Financial Assets");
-        JSONObject res = new JSONObject();
-        //res.put("status", status);
-        return ok("");
-    }
 }

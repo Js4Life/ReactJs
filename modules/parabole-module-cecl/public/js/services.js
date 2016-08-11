@@ -75,6 +75,7 @@ angular.module('RDAApp.services', [])
         'GetDescriptionByUri' : 'getDescriptionByUri',
         'GetParagraphsByConcept' : 'getParagraphsByConcept',
         'StartContentParser' : 'startContentParser',
+        'StartOntologyParser' : 'startOntologyParser',
         'AddChecklist' : 'addChecklist',
         'GetChecklistByConceptAndComponent' : 'getChecklistByConceptAndComponent',
         'GetChecklistByNode' : 'getChecklistByNode',
@@ -599,6 +600,10 @@ angular.module('RDAApp.services', [])
 
     SharedService.startContentParser = function () {
         return SharedService.invokeService('StartContentParser');
+    }
+
+    SharedService.startOntologyParser = function () {
+        return SharedService.invokeService('StartOntologyParser');
     }
 
     SharedService.getParagraphsByConcept = function (concept) {
