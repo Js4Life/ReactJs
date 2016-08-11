@@ -1,10 +1,14 @@
 package com.parabole.ui.controllers;
 
+import com.parabole.auth.controllers.AuthController;
 import com.parabole.ui.views.html.index;
+import com.parabole.ui.views.html.main;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
+
+import javax.inject.Inject;
 
 /**
  * This controller contains an action to handle HTTP requests
@@ -12,6 +16,8 @@ import play.mvc.Result;
  */
 public class HomeController extends Controller {
 
+    @Inject
+    AuthController authController;
 
     /**
      * An action that renders an HTML page with a welcome message.
@@ -27,9 +33,11 @@ public class HomeController extends Controller {
         final DynamicForm requestData = Form.form().bindFromRequest();
         final String userId = requestData.get("userid");
         final String password = requestData.get("password");
-
-
-        return ok("Okk");
+        Boolean status = authController.login(userId, password);
+        if(status)
+            return ok(main.render("Parabole Platform"));
+        else
+            return index();
     }
 
 }

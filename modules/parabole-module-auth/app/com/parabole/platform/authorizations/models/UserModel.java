@@ -55,7 +55,7 @@ public class UserModel implements Subject {
     @Override
     public List<? extends Role> getRoles()
     {
-        System.out.println("userId = " + roles.toString());
+        System.out.println("ROLES = " + roles.toString());
         return roles;
     }
 
@@ -73,6 +73,7 @@ public class UserModel implements Subject {
 
     public static Subject findByUserName(String userId) {
         List<UserRoles> roles  = new ArrayList<>();
+        System.out.println("session().get(AuthConstants.ROLE) = " + session().get(AuthConstants.ROLE));
         roles.add(UserRoles.findByName(session().get(AuthConstants.ROLE)));
         return new UserModel(userId, roles, null);
     }

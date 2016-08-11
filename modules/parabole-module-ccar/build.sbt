@@ -9,3 +9,10 @@ libraryDependencies ++= Common.commonDependencies ++: Seq(
   "log4j" % "log4j" % "1.2.17"
 )
 
+
+val auth = RootProject(file("./modules/parabole-module-auth"))
+
+
+lazy val ccar = (project in file(".")).enablePlugins(PlayJava)
+  .aggregate(auth)
+  .dependsOn(auth)

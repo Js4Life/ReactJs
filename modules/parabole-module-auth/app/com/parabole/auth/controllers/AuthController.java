@@ -25,12 +25,17 @@ public class AuthController {
     @Inject
     protected CoralUserService coralUserService;
 
+    public static String getLoginD(){
+        return session().get(AuthConstants.ROLE);
+    }
 
-    public Result login(String username, String password)  {
+
+    public Boolean login(String username, String password)  {
         // return ok(com.parabole.ccar.application.views.html.login.render());
         // final DynamicForm requestData = Form.form().bindFromRequest();
         final String userId = username;
         String role = null;
+        Boolean status = false;
         if (authenticationManager.authenticate(userId, password)) {
 
             try {
@@ -47,10 +52,10 @@ public class AuthController {
             }
 
             UserModel.findByUserName(userId);
-
-            return ok(session().get(AuthConstants.USER_NAME));
+            status = true;
+            return status;
         } else {
-            return ok("not authorised");
+            return status;
         }
     }
 

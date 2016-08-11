@@ -21,6 +21,8 @@ public class UserRoles implements Role {
 
     public static UserRoles findByName(String name)
     {
+
+        System.out.println("ROLE -----------> = " + name);
         return new UserRoles(name);
     }
 }

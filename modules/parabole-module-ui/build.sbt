@@ -6,7 +6,7 @@ Common.settings
 
 PlayKeys.devSettings += ("play.http.router", "ui.Routes")
 
-lazy val ui = (project in file(".")).enablePlugins(PlayJava)
+
 
 scalaVersion := "2.11.7"
 
@@ -15,3 +15,11 @@ libraryDependencies ++= Common.commonDependencies ++: Seq(
   cache,
   javaWs
 )
+
+val authTwo = RootProject(file("./modules/parabole-module-auth"))
+
+lazy val ui = (project in file(".")).enablePlugins(PlayJava)
+  .aggregate(authTwo)
+  .dependsOn(authTwo)
+
+
