@@ -6,6 +6,8 @@ import com.parabole.auth.global.AuthConstants;
 import com.parabole.auth.services.CoralUserService;
 import com.parabole.platform.authorizations.models.UserModel;
 import com.parabole.platform.authorizations.securities.AuthenticationManager;
+import play.data.DynamicForm;
+import play.data.Form;
 import play.mvc.Result;
 
 import static play.mvc.Http.Context.Implicit.session;
@@ -51,7 +53,5 @@ public class AuthController {
             return ok("not authorised");
         }
     }
-
-
 
 }

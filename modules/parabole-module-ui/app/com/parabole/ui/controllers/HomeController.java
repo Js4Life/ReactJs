@@ -1,6 +1,8 @@
 package com.parabole.ui.controllers;
 
 import com.parabole.ui.views.html.index;
+import play.data.DynamicForm;
+import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -10,6 +12,7 @@ import play.mvc.Result;
  */
 public class HomeController extends Controller {
 
+
     /**
      * An action that renders an HTML page with a welcome message.
      * The configuration in the <code>routes</code> file means that
@@ -18,6 +21,15 @@ public class HomeController extends Controller {
      */
     public Result index() {
         return ok(index.render("Your new application is ready."));
+    }
+
+    public Result dologin() {
+        final DynamicForm requestData = Form.form().bindFromRequest();
+        final String userId = requestData.get("userid");
+        final String password = requestData.get("password");
+
+
+        return ok("Okk");
     }
 
 }

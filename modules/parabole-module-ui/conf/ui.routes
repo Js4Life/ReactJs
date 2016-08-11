@@ -9,6 +9,8 @@ GET     /count                      com.parabole.ui.controllers.CountController.
 # An example controller showing how to write asynchronous code
 GET     /message                    com.parabole.ui.controllers.AsyncController.message
 
+POST    /doLogin                    com.parabole.ui.controllers.HomeController.dologin()
+
 # Map static resources from the /public folder to the /assets URL path
 #GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 GET      /uiassets/*file             controllers.Assets.at(path="/public/lib/parabole-module-ui", file)
