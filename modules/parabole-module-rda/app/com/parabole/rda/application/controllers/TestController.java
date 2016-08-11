@@ -17,13 +17,17 @@ import be.objectify.deadbolt.java.actions.Group;
 import be.objectify.deadbolt.java.actions.Restrict;
 import be.objectify.deadbolt.java.actions.SubjectNotPresent;
 import be.objectify.deadbolt.java.actions.SubjectPresent;
+import com.google.inject.Inject;
+import com.parabole.platform.authorizations.models.UserModel;
 import com.parabole.rda.platform.exceptions.AppException;
 import com.parabole.rda.platform.utils.AppUtils;
 import play.mvc.Result;
 import play.mvc.Results;
 
-@Restrict({@Group("!ADMIN")})
+//@Restrict({@Group("CCO")})
 public class TestController extends BaseAction {
+
+
 
     @SubjectPresent
     public Result testAction1() throws AppException {
@@ -39,14 +43,14 @@ public class TestController extends BaseAction {
         return Results.ok(jsonFileContent);
     }
 
-    @Restrict({  @Group("!ADMIN")})
+    @Restrict({  @Group("CCO")})
     public Result testAction3() throws AppException {
         final String jsonFileContent = AppUtils.getFileContent("json/testJson.json");
         response().setContentType("application/json");
         return Results.ok(jsonFileContent);
     }
 
-    @Restrict(@Group({"!ADMIN"}))
+    @Restrict({  @Group("cco")})
     public Result testAction4()
     {
         return ok("okk !");

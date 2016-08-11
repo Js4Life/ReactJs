@@ -23,6 +23,10 @@ public class AuthController {
     @Inject
     protected CoralUserService coralUserService;
 
+    public static String getLoginD(){
+        return session().get(AuthConstants.ROLE);
+    }
+
 
     public Result login(String username, String password)  {
         // return ok(com.parabole.ccar.application.views.html.login.render());

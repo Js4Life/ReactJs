@@ -1,8 +1,8 @@
+import play.sbt.PlayImport._
+
 name := "parabole-module-auth"
 
 version := "1.0-SNAPSHOT"
-scalaVersion := "2.11.7"
-
 
 val settings: Seq[Setting[_]] = Seq(
   organization := "com.parabole.finance",
@@ -17,6 +17,9 @@ val settings: Seq[Setting[_]] = Seq(
 
 PlayKeys.devSettings += ("play.http.router", "auth.Routes")
 
+lazy val auth = (project in file(".")).enablePlugins(PlayJava)
+
+scalaVersion := "2.11.7"
 
 libraryDependencies ++= Seq(
   javaCore,

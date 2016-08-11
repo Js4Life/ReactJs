@@ -7,6 +7,7 @@ import be.objectify.deadbolt.java.ExecutionContextProvider;
 import be.objectify.deadbolt.java.models.Subject;
 import com.parabole.auth.global.AuthConstants;
 import com.parabole.platform.authorizations.models.UserModel;
+import play.libs.F;
 import play.mvc.Http;
 import play.mvc.Result;
 
@@ -16,7 +17,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
-import static play.mvc.Http.Context.Implicit.session;
+
+import static play.mvc.Controller.session;
 
 /**
  * @author Steve Chaloner (steve@objectify.be)
@@ -25,6 +27,8 @@ import static play.mvc.Http.Context.Implicit.session;
 public class MyDeadboltHandler extends AbstractDeadboltHandler
 {
     private final DynamicResourceHandler dynamicHandler;
+
+
 
     @Inject
     public MyDeadboltHandler(final ExecutionContextProvider ecProvider)
@@ -37,11 +41,31 @@ public class MyDeadboltHandler extends AbstractDeadboltHandler
     }
 
     @Override
-    public CompletionStage<Optional<? extends Subject>> getSubject(final Http.Context context)
+    public CompletionStage<Optional<? extends Subject>> getSubject(Http.Context context)
     {
-        final Http.Cookie userCookie = context.request().cookie("user");
         //return CompletableFuture.supplyAsync(() -> Optional.ofNullable(UserModel.findByUserName(session().get(AuthConstants.USER_NAME))));
-        return CompletableFuture.supplyAsync(() -> Optional.ofNullable(UserModel.findByUserName(session().get("userid"))));
+
+ /*       final AuthUser authUser = PlayAuthenticate.getUser(context.session());
+        if( authUser != null) {
+            CojunBaseUserModel cojunBaseUserModel = cojunUserService.getCojunUserByAuthProvider(authUser);
+            if (cojunBaseUserModel != null) {
+                return F.Promise.promise(() -> Optional.of(cojunBaseUserModel));
+            }
+            else
+                return F.Promise.promise(() -> Optional.<Subject>empty());
+        }
+        return F.Promise.promise(() -> Optional.<Subject>empty());*/
+
+        System.out.println("session().get(\"USER_ID\") = " + session().get("USER_ID"));
+
+        UserModel userModel = (UserModel) UserModel.findByUserName(session().get("USER_ID"));
+
+        if (userModel != null) {
+            return CompletableFuture.supplyAsync(() ->  Optional.of(userModel));
+        }
+        else
+            return CompletableFuture.supplyAsync(() -> Optional.<Subject>empty());
+
     }
 
     @Override

@@ -11,3 +11,9 @@ libraryDependencies ++= Common.commonDependencies ++: Seq(
   "org.apache.xmlgraphics" % "batik-codec" % "1.8"
 )
 
+val authTwo = RootProject(file("./modules/parabole-module-auth"))
+
+
+lazy val rda = (project in file(".")).enablePlugins(PlayJava)
+  .aggregate(authTwo)
+  .dependsOn(authTwo)

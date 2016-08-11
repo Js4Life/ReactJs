@@ -1,5 +1,7 @@
 package com.parabole.platform.authorizations.modules;
 
+
+
 import be.objectify.deadbolt.java.DeadboltExecutionContextProvider;
 import be.objectify.deadbolt.java.DeadboltHandler;
 import be.objectify.deadbolt.java.DefaultDeadboltExecutionContextProvider;
@@ -22,7 +24,7 @@ public class CustomDeadboltHook extends Module
     @Override
     public Seq<Binding<?>> bindings(final Environment environment,
                                     final Configuration configuration)
-    {
+   {
         return seq(bind(TemplateFailureListener.class).to(MyCustomTemplateFailureListener.class).in(Singleton.class),
                    // it's not necessary to make this execution context provider binding, this is just for testing
                 bind(DeadboltExecutionContextProvider.class).to(DefaultDeadboltExecutionContextProvider.class).in(Singleton.class),
@@ -31,4 +33,12 @@ public class CustomDeadboltHook extends Module
                 bind(HandlerCache.class).to(MyHandlerCache.class).in(Singleton.class),
                 bind(CompositeConstraints.class).toSelf().eagerly());
     }
+
+
+
+/*        @Override
+        public Seq<Binding<?>> bindings(final Environment environment, final Configuration configuration) {
+            return seq(bind(HandlerCache.class).to(MyHandlerCache.class).in(Singleton.class),
+                    bind(HandlerCache.class).to(MyHandlerCache.class).in(Singleton.class));
+        }*/
 }

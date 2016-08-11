@@ -51,7 +51,7 @@ public class BaseController extends Controller {
     }
 
     public Result dologin() throws AppException {
-        final DynamicForm requestData = Form.form().bindFromRequest();
+/*        final DynamicForm requestData = Form.form().bindFromRequest();
         //final String userId = requestData.get("userid");
         final String userId = "root";
         //final String password = requestData.get("password");
@@ -64,7 +64,13 @@ public class BaseController extends Controller {
             return index();
         } else {
             return login();
-        }
+        }*/
+
+
+        if(session().get(CCAppConstants.ROLE) != null)
+            return index();
+        else
+            return ok("Please Login First");
     }
 
     public Result logout() {
