@@ -1710,7 +1710,7 @@ public class JenaTdbService {
     private JSONObject calculateCompliance(String nodeType, String nodeName){
         JSONObject complianceObj = new JSONObject();
         complianceObj.put("hasChecklist", false);
-        complianceObj.put("compliance", -1);
+        complianceObj.put("compliance", 0);
         JSONObject checklistObj = null;
         if(nodeType.equals("Paragraph")){
             JSONObject res = getChecklistByParagraphId(nodeName);

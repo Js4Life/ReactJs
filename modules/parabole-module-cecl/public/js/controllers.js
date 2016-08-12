@@ -182,6 +182,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			hier: false
 		};
 		$scope.answers = {};
+		$scope.currentColorCode = 'all';
 	}
 	
 	$scope.exploreNode = function (node, e) {
@@ -399,7 +400,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		clearAnswers();
 	}
 	
-	$scope.getComplianceColorcode = function (val) {
+	$scope.getComplianceColorcode = function (obj) {
 		/*if(val > 99)
 			return 'compliance-green';
 		else if(val >= 90 && val <=99)
@@ -408,14 +409,20 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			return 'compliance-red';
 		else
 			return 'compliance-gray';*/
-		if(val > 81)
+		var val = obj.compliance;
+		if(val > 81) {
+			obj.colorCode = "green";
 			return 'compliance-green';
-		else if(val >= 51 && val <=80)
+		}else if(val >= 51 && val <=80) {
+			obj.colorCode = "amber";
 			return 'compliance-amber';
-		else if(val > 0 && val <=50)
+		}else if(val > 0 && val <=50) {
+			obj.colorCode = "red";
 			return 'compliance-red';
-		else
+		}else {
+			obj.colorCode = "gray";
 			return 'compliance-gray';
+		}
 	}
 
 	function clearAnswers() {
@@ -436,6 +443,10 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				toastr.success('Ontology parsed successfully', '', {"positionClass" : "toast-top-right"});
 			}
 		});
+	}
+
+	$scope.setColorCode = function (colorCode) {
+		$scope.currentColorCode = colorCode;
 	}
 })
 

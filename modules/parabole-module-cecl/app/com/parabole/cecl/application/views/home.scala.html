@@ -30,12 +30,29 @@
           </ul>
         </div>
         <div class="zero-padding" ng-class="collapseClasses.center" style="cursor:hand;height:80vh;border:1px solid #ddd;overflow: auto;">
-            <ol class="breadcrumb" ng-if="breads.length > 0">
+            <ol class="breadcrumb" ng-if="breads.length > 0" style="height:45px;">
                 <li ng-repeat="bread in breads">{{bread.name}}</li>
+                <div class="btn-group btn-group-sm pull-right" data-toggle="buttons">
+                  <label class="btn btn-primary" ng-click="setColorCode('all')">
+                    <input type="radio" name="options" id="option1" autocomplete="off"> All
+                  </label>
+                  <label class="btn btn-danger" ng-click="setColorCode('red')">
+                    <input type="radio" name="options" id="option1" autocomplete="off"> <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+                  </label>
+                  <label class="btn btn-warning" ng-click="setColorCode('amber')">
+                    <input type="radio" name="options" id="option2" autocomplete="off"> <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+                  </label>
+                  <label class="btn btn-success" ng-click="setColorCode('green')">
+                    <input type="radio" name="options" id="option3" autocomplete="off"> <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+                  </label>
+                  <label class="btn btn-default" ng-click="setColorCode('gray')">
+                    <input type="radio" name="options" id="option3" autocomplete="off"> <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+                  </label>
+                </div>
             </ol>
-            <div ng-if="child.hasChecklist" class="col-md-2" ng-repeat="child in childNodes | orderBy : 'name' | filter: searchText" index="{{$index}}">
+            <div ng-if="currentColorCode === child.colorCode || currentColorCode === 'all'" class="col-md-2" ng-repeat="child in childNodes | orderBy : 'name' | filter: searchText" index="{{$index}}">
               <div class="panel panel-default">
-                <div class="panel-body text-center zero-padding" ng-class="getComplianceColorcode(child.compliance)">
+                <div class="panel-body text-center zero-padding" ng-class="getComplianceColorcode(child)">
                     <div style="font-weight: bold;font-size: 2.5em;">{{child.name.charAt(0)}}</div>
                     <div class="pointer" style="position:absolute;right:20px;top:5px;font-weight: bold;" ng-click="getChecklistByNode(child)">{{child.compliance}}%</div>
                 </div>
