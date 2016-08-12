@@ -9,7 +9,7 @@ PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
 PREFIX pb:<http://www.mindparabole.com/ontology/finance/Parabole-Model#>
 SELECT ?labelReport 
 WHERE {
- 	?report rdf:type pb:Report .
+ 	?report rdf:type pb:Regulatory_Report .
     ?report rdfs:label ?labelReport .
 FILTER(?labelReport = "FRY-14Q"^^xsd:string)
 
