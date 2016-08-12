@@ -6,10 +6,6 @@
       <input type="search" class="form-control" placeholder="Search from {{childNodes.length}} items..." ng-model="searchText" />
     </div>
     <div class="pull-right">
-      @*<span ng-click="startContentParser()" class="glyphicon glyphicon-play pull-right" tooltip='"title":"Parse Document"'></span>*@
-
-
-
       <span ng-click="leftSlideToggle()" class="fa fa-expand pull-right" tooltip='"title":"Fullscreen"'></span>
       <div class="dropdown pull-right margin-right-10" style="top: -6px;">
         <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
@@ -37,7 +33,7 @@
             <ol class="breadcrumb" ng-if="breads.length > 0">
                 <li ng-repeat="bread in breads">{{bread.name}}</li>
             </ol>
-            <div class="col-md-2" ng-repeat="child in childNodes | orderBy : 'name' | filter: searchText" index="{{$index}}">
+            <div ng-if="child.hasChecklist" class="col-md-2" ng-repeat="child in childNodes | orderBy : 'name' | filter: searchText" index="{{$index}}">
               <div class="panel panel-default">
                 <div class="panel-body text-center zero-padding" ng-class="getComplianceColorcode(child.compliance)">
                     <div style="font-weight: bold;font-size: 2.5em;">{{child.name.charAt(0)}}</div>
