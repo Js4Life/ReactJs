@@ -1479,10 +1479,11 @@ public class JenaTdbService {
                     case "Section":
                     case "Paragraph":
                     case "FASB Concept":
-                        compliance = calculateCompliance(nodeType, nodeName);
+                        JSONObject complianceObj = calculateCompliance(nodeType, nodeName);
+                        jsObj.put("hasChecklist", complianceObj.get("hasChecklist"));
+                        jsObj.put("compliance", complianceObj.get("compliance"));
                         break;
                 }
-                jsObj.put("compliance", compliance);
                 /*End*/
 
                 jsArr.put(jsObj);
@@ -1706,8 +1707,10 @@ public class JenaTdbService {
         return finalJson;
     }
 
-    private double calculateCompliance(String nodeType, String nodeName){
-        double compliance = 0;
+    private JSONObject calculateCompliance(String nodeType, String nodeName){
+        JSONObject complianceObj = new JSONObject();
+        complianceObj.put("hasChecklist", false);
+        complianceObj.put("compliance", 0);
         JSONObject checklistObj = null;
         if(nodeType.equals("Paragraph")){
             JSONObject res = getChecklistByParagraphId(nodeName);
@@ -1717,22 +1720,25 @@ public class JenaTdbService {
         } else {
             checklistObj = getChecklistByNode(CCAppConstants.DocumentName.FASBAccntStandards.toString(), nodeType.trim(), nodeName.trim());
         }
-        System.out.println("checklistObj = " + checklistObj);
         JSONObject status = checklistObj.getJSONObject("status");
         if(status.getBoolean("haveData")){
             JSONObject questions = checklistObj.getJSONObject("questions");
             JSONObject answers = checklistObj.getJSONObject("answers");
             int qCount = questions.length();
             int aCount = 0;
-            Iterator<String> answerKeys = answers.keys();
-            while (answerKeys.hasNext()){
-                String aKey = answerKeys.next();
-                if(answers.getBoolean(aKey)){
-                    aCount++;
+            if(qCount > 0) {
+                Iterator<String> answerKeys = answers.keys();
+                while (answerKeys.hasNext()) {
+                    String aKey = answerKeys.next();
+                    if (answers.getBoolean(aKey)) {
+                        aCount++;
+                    }
                 }
+                double compliance = Math.ceil((aCount*100)/qCount);
+                complianceObj.put("hasChecklist", true);
+                complianceObj.put("compliance", compliance);
             }
-            compliance = Math.ceil((aCount*100)/qCount);
         }
-        return compliance;
+        return complianceObj;
     }
 }

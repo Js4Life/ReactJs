@@ -50,7 +50,7 @@ public class TestController extends BaseAction {
         return Results.ok(jsonFileContent);
     }
 
-    @Restrict({  @Group("cco")})
+    @Restrict({  @Group("!CCO")})
     public Result testAction4()
     {
         return ok("okk !");
