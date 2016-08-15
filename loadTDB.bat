@@ -31,7 +31,7 @@ SET ONTOLOGY_LOC=%1
 GOTO START
 
 :DEFAULT
-SET ONTOLOGY_LOC=c:/one/sandbox/parabole/parabole-semantics-builder/src/main/resources/ontology/finance
+SET ONTOLOGY_LOC=c:/sandbox/parabole/parabole-semantics-builder/src/main/resources/ontology/finance
 GOTO START
 
 :START
