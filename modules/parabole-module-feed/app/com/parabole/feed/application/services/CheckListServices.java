@@ -44,18 +44,20 @@ public class CheckListServices {
             JSONArray paragraphAgainstId = new JSONArray();
 
             fileMappedQuestionsfromFASBAccntStandards.getJSONObject("questions").put(QuestionId, singleQuestionJsonObject.getString("text"));
-            if (indexes.getJSONObject("paragraphs").has(incomingQuestion.getString("paragraphId")))
-                paragraphAgainstId = indexes.getJSONObject("paragraphs").getJSONArray(incomingQuestion.getString("paragraphId"));
+            JSONArray allParagraphs = incomingQuestion.getJSONArray("paragraphs");
+            for (int iteration = 0; iteration < allParagraphs.length(); iteration++) {
+                if (indexes.getJSONObject("paragraphs").has(allParagraphs.getString(i)))
+                    paragraphAgainstId = indexes.getJSONObject("paragraphs").getJSONArray(allParagraphs.getString(i));
+                //if paragraph id is present  ----------->
+                if (paragraphAgainstId != null && paragraphAgainstId.length() > 0) {
+                    paragraphAgainstId.put(QuestionId);
+                } else {
+                    JSONArray listOfPid = new JSONArray();
+                    listOfPid.put(QuestionId);
+                    indexes.getJSONObject("paragraphs").put(allParagraphs.getString(i), listOfPid);
+                }
+            }
 
-            //if paragraph id not present  ----------->
-            if(paragraphAgainstId != null && paragraphAgainstId.length() > 0){
-                paragraphAgainstId.put(QuestionId);
-            }
-            else{
-                JSONArray listOfPid = new JSONArray();
-                listOfPid.put(QuestionId);
-                indexes.getJSONObject("paragraphs").put(incomingQuestion.getString("paragraphId"), listOfPid);
-            }
 
             // adding other components------------------>
             //// loop against all the components----->
