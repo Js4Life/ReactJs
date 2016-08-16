@@ -3998,6 +3998,26 @@
       {
         "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#OrderlyTransaction" } ,
         "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Transaction That Assumes Exposure To The Market For A Period Before The Measurement Date To Allow For Marketing Activities That Are Usual And Customary For Transactionsinvolving Such Assets Or Liabilities; It Is Not A Forced Transaction (Eg A Forced Liquidation Or Distress Sale)." }
+      },
+       {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#NonAccrual" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A nonaccrual relates to a nonperforming loan that is not generating its stated interest rate because of nonpayment from the borrower. Nonaccrual loans are more likely to default, meaning that the lender will not receive its principal and interest unless the lender has adequate collateral to cover the loan. Because these loans can have interest credited only when the borrower makes a payment, the interest on a nonaccrual loan is recorded as earned income." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#PatentUsage" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Usage of a patent by a franchisee for a limited or specific time" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#PurchasedFinancialAssets" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Financial assets that are purchased by a company rather than originated" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#RealEstateProperty" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Real Estate Held By A Financial Entity; Property consisting of land and the buildings on it, along with its natural resources such as crops, minerals or water; or immovable property of this nature; or an interest vested in this; buildings or housing in general." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#UncertainCashFlows" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Cash flows relating to a project that are uncertain or that cannot be defined with certainty" }
       }
     ]
   }
