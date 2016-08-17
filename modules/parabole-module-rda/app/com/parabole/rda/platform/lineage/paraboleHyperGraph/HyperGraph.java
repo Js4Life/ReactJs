@@ -17,7 +17,7 @@ public class HyperGraph {
 		private int						num_of_concept_node;	//Layer 0 nodes
 		private int						num_of_concept_edge;	//Layer 0 edges
 		private	int						constructed_layer;      //Stores the highest layer already constructed
-		private List<DGraph>			DGraph_list; //DGraph list
+		public List<DGraph>			DGraph_list; //DGraph list
 		private	List<EquiConceptLine_element>[]	EquiConcept_list; //Equi-concept line list
 		private List<EquiRelationLine_element>[] EquiRelation_list; //Equi-relation line list
 		private List<glossarytodb_map>  pGlossaryDB_Map;

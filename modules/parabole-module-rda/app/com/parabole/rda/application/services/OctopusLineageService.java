@@ -25,6 +25,7 @@ import com.parabole.rda.platform.lineage.GlossarytoDBMapper.glossarytodb_map;
 import com.parabole.rda.platform.lineage.businessRuleReader.RuleDef;
 import com.parabole.rda.platform.lineage.businessUCReader.UCDef;
 import com.parabole.rda.platform.lineage.datareader.DataReader;
+import com.parabole.rda.platform.lineage.paraboleGraph.DGraph;
 import com.parabole.rda.platform.lineage.paraboleHyperGraph.HyperGraphUtil;
 import com.parabole.rda.platform.lineage.paraboleHyperGraph.VisualDef;
 import com.parabole.rda.platform.utils.ParaboleTree;
@@ -185,7 +186,11 @@ public class OctopusLineageService {
 		int DataLength = pDataRD.getDataArrayListFromExcel(datafile, x, y, pDataArray, startyear, endyear);
 		System.out.println("Reading Data File End");
 		
-		double[][] a = new double[DataLength][(pDataArray.size()-1)];
+		int dataColSize = 0;
+		if(pDataArray.size() > pVDef.GetGlossaryListSize()) {dataColSize = pVDef.GetGlossaryListSize();}
+		else {dataColSize = pDataArray.size();}
+		
+		double[][] a = new double[DataLength][dataColSize];
 		double[] b = new double[DataLength];
 		
 		//Copy Y
@@ -195,7 +200,7 @@ public class OctopusLineageService {
 		}
 		
 		//Copy X
-		for(int k = 0; k < (pDataArray.size()-1) ; k++){
+		for(int k = 0; k < (dataColSize-1) ; k++){
 			for(int l = 0 ; l < DataLength ; l++){
 				a[l][k] = x[l][k];
 				//System.out.println("a[l][k] " + a[l][k] );
@@ -204,12 +209,12 @@ public class OctopusLineageService {
 			
 		
 		System.out.println("MultipleLinearRegression Start");		
-		MultipleLinearRegression regression = new MultipleLinearRegression(a, b, DataLength, (pDataArray.size()-1));
+		MultipleLinearRegression regression = new MultipleLinearRegression(a, b, DataLength, (dataColSize-1));
 		System.out.println("MultipleLinearRegression end");
 		
 		
 		NodeImpactSum = 0;
-		for(int i = 0 ; i < (pDataArray.size()-1); i++){			
+		for(int i = 0 ; i < (dataColSize-1); i++){			
 			NodeImpact[i] = (regression.beta(i) > 0) ? regression.beta(i) : -regression.beta(i);
 			System.out.println("NodeImpact[i] : " + NodeImpact[i]);
 			NodeImpactSum = NodeImpactSum + NodeImpact[i];
@@ -250,6 +255,7 @@ public class OctopusLineageService {
 			
 			for(int i=1 ; i < pDataArray.size(); i++){
 				lLineageList = pDataArray.get(i);
+				if(lLineageList.size() < 2) { continue;}
 				if(Glossary_name.equals(lLineageList.get(1)))
 				{
 					//System.out.println("NodeImpact[i]/NodeImpactSum : " + NodeImpact[i-1]/NodeImpactSum);
@@ -287,14 +293,14 @@ public class OctopusLineageService {
 	
 		//Read Rule Def file
 		final String UC_FILE_PATH = "UC_Concept_Map.xlsx";	
-		List<UCDef> pUC = pHGUtil.ReadSpecificUCfromXLS(UC_FILE_PATH, UseCaseId);
+		List<UCDef> pUC = pHGUtil.ReadSpecificUCfromXLSspecificNodeId(UC_FILE_PATH, UseCaseId, nodeId);
 
 	
 		
 		//Get Lineage Graph for the requested Use Case
 		VisualDef	pVDef = pHGUtil.GetLineageGraphbyUC(pUC);
 		//Create JSON from pVDef	
-		return createUCNodeSpecificVisGraphFormatJson(pVDef, pUC.get(0).getUC_Name(), nodeId);
+		return createUCNodeSpecificVisGraphFormatJson(pVDef, pUC.get(0).getUC_Name(), nodeId, pHGUtil);
 	}
 
 	public String getLineageForSpecificRules(int RuleId) throws AppException {
@@ -664,6 +670,7 @@ public class OctopusLineageService {
 			//update pDataArray with glossary node
 			for(int k = 0; k < pDataArrayIndex; k++){
 				ArrayList<String>	tmpLineageList = new ArrayList<String>();
+				if(pDataArray.get(k).size() < 2){continue;}
 				tmpLineageList = pDataArray.get(k);
 				if((tmpLineageList.get(1)).equals(pVDef.GetGlossaryName(i))){
 					tmpLineageList.add(pVDef.GetDBTable(i));
@@ -923,7 +930,7 @@ public class OctopusLineageService {
 	
 	
 	//Create UC specific Lineage JSON highlighting sub tree associated with specific node
-	private String createUCNodeSpecificVisGraphFormatJson(VisualDef pVDef, String UC_Name, int search_nodeId) {
+	private String createUCNodeSpecificVisGraphFormatJson(VisualDef pVDef, String UC_Name, int search_nodeId, HyperGraphUtil pHGUtil) {
 		final JSONObject outputJson = new JSONObject();
 		final JSONObject lineagedata = new JSONObject();
 		int	  vertex_cnt;
@@ -1000,6 +1007,32 @@ public class OctopusLineageService {
 			
 			//Increase connection_cnt
 			connection_cnt = connection_cnt + 1;
+			
+			//System.out.println("Starting check for associated concept");
+			
+			//check if the current node is the same as search_nodeId
+			if((pPTree.IsChild(search_nodeId, concept_vertex_cnt)) || (pPTree.IsParent(search_nodeId, concept_vertex_cnt))){
+				int		Relation_ID;
+				int		Associated_Concept_Id;
+				DGraph pDGraph;
+				pDGraph = pHGUtil.getConceptGraph(); 
+
+				System.out.println("Associated Root Node ID" + pVDef.GetConceptID(i));
+				System.out.println("Associated Root Node name" + octopusSemanticService.getVertexNameById(pVDef.GetConceptID(i)));
+				
+				//Now go through the all relation paths for this ID
+				for(int j = 0 ; j < pDGraph.AdjList[pVDef.GetConceptID(i)].size() ; j++){
+					//First get the relation node
+					Relation_ID = (pDGraph.AdjList[pVDef.GetConceptID(i)].get(j)).dest_ID;
+					//Then find the other edge of the relation node
+					Associated_Concept_Id = pDGraph.AdjList[Relation_ID].get(0).dest_ID;
+					System.out.println("Associated_Concept_Id +++++++++ " + Associated_Concept_Id);
+
+					//create the corresponding json object
+
+				}
+				
+			}
 		}
 
 		
