@@ -5,9 +5,18 @@
       <i class="glyphicon glyphicon-search"></i>
       <input type="search" class="form-control" placeholder="Search from {{childNodes.length}} items..." ng-model="searchText" />
     </div>
-    <div class="btn-group pull-right">
-      <span ng-click="startContentParser()" class="glyphicon glyphicon-play pull-right" tooltip='"title":"Parse Document"'></span>
-      <span ng-click="leftSlideToggle()" class="glyphicon glyphicon-fullscreen pull-right margin-right-10" tooltip='"title":"Fullscreen"'></span>
+    <div class="pull-right">
+      <span ng-click="leftSlideToggle()" class="fa fa-expand pull-right" tooltip='"title":"Fullscreen"'></span>
+      <div class="dropdown pull-right margin-right-10" style="top: -6px;">
+        <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+          <i class="fa fa-cog" aria-hidden="true"></i>
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dLabel">
+          <li class="pointer" ng-click="startContentParser()"><a><i class="fa fa-file-pdf-o"></i> Document Parser</a></li>
+          <li class="pointer" ng-click="startOntologyParser()"><a><i class="fa fa-share-alt"></i> Ontology Parser</a></li>
+        </ul>
+      </div>
     </div>
   </div>
   <div class="panel-body zero-padding">
@@ -21,12 +30,29 @@
           </ul>
         </div>
         <div class="zero-padding" ng-class="collapseClasses.center" style="cursor:hand;height:80vh;border:1px solid #ddd;overflow: auto;">
-            <ol class="breadcrumb" ng-if="breads.length > 0">
+            <ol class="breadcrumb" ng-if="breads.length > 0" style="height:45px;">
                 <li ng-repeat="bread in breads">{{bread.name}}</li>
+                <div class="btn-group btn-group-sm pull-right" data-toggle="buttons">
+                  <label class="btn btn-primary" ng-click="setColorCode('all')">
+                    <input type="radio" name="options" id="option1" autocomplete="off"> All
+                  </label>
+                  <label class="btn btn-danger" ng-click="setColorCode('red')">
+                    <input type="radio" name="options" id="option1" autocomplete="off"> <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+                  </label>
+                  <label class="btn btn-warning" ng-click="setColorCode('amber')">
+                    <input type="radio" name="options" id="option2" autocomplete="off"> <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+                  </label>
+                  <label class="btn btn-success" ng-click="setColorCode('green')">
+                    <input type="radio" name="options" id="option3" autocomplete="off"> <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+                  </label>
+                  <label class="btn btn-default" ng-click="setColorCode('gray')">
+                    <input type="radio" name="options" id="option3" autocomplete="off"> <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+                  </label>
+                </div>
             </ol>
-            <div class="col-md-2" ng-repeat="child in childNodes | orderBy : 'name' | filter: searchText" index="{{$index}}">
+            <div ng-if="currentColorCode === child.colorCode || currentColorCode === 'all'" class="col-md-2" ng-repeat="child in childNodes | orderBy : 'name' | filter: searchText" index="{{$index}}">
               <div class="panel panel-default">
-                <div class="panel-body text-center zero-padding" ng-class="getComplianceColorcode(child.compliance)">
+                <div class="panel-body text-center zero-padding" ng-class="getComplianceColorcode(child)">
                     <div style="font-weight: bold;font-size: 2.5em;">{{child.name.charAt(0)}}</div>
                     <div class="pointer" style="position:absolute;right:20px;top:5px;font-weight: bold;" ng-click="getChecklistByNode(child)">{{child.compliance}}%</div>
                 </div>
@@ -130,35 +156,6 @@
     </div>
   </div>
 </div>
-
-
-@*<div class="modal fade bs-example-modal-lg" id="checkListModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" style="width:92%;">
-    <div class="modal-content">
-      <div class="modal-header">
-        Paragraphs for {{currentNode.name}}
-      </div>
-      <div class="modal-body zero-padding-bottom" style="height: 66vh; overflow: auto;">
-        <div class="col-xs-6">
-            <p ng-repeat="para in paragraphs" ng-class="{'text-danger': para.willIgnore}" ng-init="formatText(para.bodyText)" read-more="" content="{{para.bodyText}}"></p>
-        </div>
-        <div class="col-xs-6">
-          <div class="col-md-4" ng-repeat="(k, v) in nodeDetails">
-            <div class="panel panel-default" ng-if="k!='Related Concept'">
-              <div class="panel-heading">{{k}}</div>
-              <ul class="list-group" style="max-height: 40vh; overflow: auto;">
-                <li class="list-group-item" ng-repeat="o in v">{{o.name}}</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" ng-click="closeCheckListModal()">Close</button>
-      </div>
-    </div>
-  </div>
-</div>*@
 
 <div class="modal fade" id="checklistModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">

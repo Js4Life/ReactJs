@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import play.Environment;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.UUID;
 
 /**
@@ -156,6 +157,39 @@ public class CheckListServices {
 
     }
 
+    public Boolean addAnswer(JSONObject answersToAdd) throws AppException, IOException {
+        String mappedQuestions = AppUtils.getFileContent("feedJson\\mappedQuestions.json");
+        JSONObject fullJson = new JSONObject(mappedQuestions);
+        JSONObject fileMappedQuestionsfromFASBAccntStandards = fullJson.getJSONObject("FASBAccntStandards");
+        JSONObject alreadyAddedAnswers = new JSONObject();
+        Boolean status = false;
+        try {
+            if (fileMappedQuestionsfromFASBAccntStandards.has("answers")) {
+                alreadyAddedAnswers = fileMappedQuestionsfromFASBAccntStandards.getJSONObject("answers");
+            } else {
+                JSONObject answer = new JSONObject();
+                fileMappedQuestionsfromFASBAccntStandards.put("answers", answer);
+                alreadyAddedAnswers = fileMappedQuestionsfromFASBAccntStandards.getJSONObject("answers");
+            }
+
+            // looping all the answers ----------------->
+            if (answersToAdd != null & answersToAdd.length() > 0) {
+                Iterator<String> keys = answersToAdd.keys();
+                while (keys.hasNext()) {
+                    String key = keys.next();
+                    alreadyAddedAnswers.put(key, answersToAdd.getBoolean(key));
+                }
+            }
+
+            // Saving ------------------------------------>
+            AppUtils.writeFile(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedJson\\mappedQuestions.json", fullJson.toString());
+            status = true;
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return status;
+    }
+
     public JSONObject questionAgainstParagraphId(String paragraphId) throws AppException {
 
         JSONObject finalReturn = new JSONObject();
@@ -186,7 +220,7 @@ public class CheckListServices {
                 for (int i = 0; i < questionIds.length(); i++) {
                     allQuestions.put(questionIds.getString(i), questions.getString(questionIds.getString(i)));
                     if(allAnswers.has(questionIds.getString(i)))
-                        answers.put(questionIds.getString(i), true);
+                        answers.put(questionIds.getString(i), allAnswers.getBoolean(questionIds.getString(i)));
                 }
             }
 
@@ -246,7 +280,7 @@ public class CheckListServices {
         for (int i = 0; i < qByComponentByName.length(); i++) {
             allQuestions.put(qByComponentByName.getString(i), questions.getString(qByComponentByName.getString(i)));
             if(allAnswers.has(qByComponentByName.getString(i)))
-                answers.put(qByComponentByName.getString(i), true);
+                answers.put(qByComponentByName.getString(i), allAnswers.getBoolean(qByComponentByName.getString(i)));
         }
 
         if(qByComponentByName.length() > 0){

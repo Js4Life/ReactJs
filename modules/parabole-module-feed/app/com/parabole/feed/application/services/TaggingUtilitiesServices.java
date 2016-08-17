@@ -213,4 +213,11 @@ public class TaggingUtilitiesServices {
 
         return jsonArrayOfParagraphs.toString();
     }
+
+    public  JSONArray getParagraphIdsByConcept(String concept) throws AppException{
+        String jsonFileContent = AppUtils.getFileContent("feedJson/paragraphs.json");
+        JSONObject jsonObject = new JSONObject(jsonFileContent);
+        JSONArray jsonArray =  jsonObject.getJSONObject("conceptIndex").getJSONArray(concept);
+        return jsonArray;
+    }
 }

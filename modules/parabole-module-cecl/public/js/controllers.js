@@ -182,6 +182,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			hier: false
 		};
 		$scope.answers = {};
+		$scope.currentColorCode = 'all';
 	}
 	
 	$scope.exploreNode = function (node, e) {
@@ -321,31 +322,6 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 	$scope.iniitialize();
 	
-	
-	/*Checklist related code*/
-	/*$scope.startContentParser = function () {
-		SharedService.startContentParser().then(function (data) {
-			if(data){
-				alert("Success!");
-			}
-		});
-	}
-
-	$scope.getParagraphsByConcept = function () {
-		SharedService.getParagraphsByConcept($scope.currentNode.name).then(function (data) {
-			$scope.paragraphs = angular.fromJson(data.data);
-			$('#dsViewer').modal('hide');
-			$('#checkListModal').modal('show');
-			console.log(data);
-		});
-	}
-
-	$scope.closeCheckListModal = function () {
-		$('#dsViewer').modal('show');
-		$('#checkListModal').modal('hide');
-	}*/
-	/*End*/
-	
 	$scope.goChecklistBuilder = function () {
 		$('#dsViewer').modal('hide');
 		$timeout(function () {
@@ -365,11 +341,14 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				$scope.answers = data.data.answers;
 				$('#dsViewer').modal('hide');
 				$('#checklistModal').modal('show');
+			} else{
+				toastr.warning('No checklist found for ' + componentName);
 			}
 		});
 	}
 
 	$scope.getChecklistByNode = function (node) {
+		$scope.currentNode = node;
 		if(node.type === "Paragraph"){
 			SharedService.getChecklistByParagraphId(node.name).then(function (data) {
 				var status = data.data.status;
@@ -377,27 +356,42 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 					$scope.checkList = data.data.questions;
 					$scope.answers = data.data.answers;
 					$('#checklistModal1').modal('show');
+				} else{
+					toastr.warning('No checklist found for ' + node.name);
 				}
 			});
 		} else {
 			SharedService.getChecklistByNode(node.type, node.name).then(function (data) {
-				if(data.status) {
-					$scope.checkList = data.data;
+				var status = data.data.status;
+				if(status.haveData) {
+					$scope.checkList = data.data.questions;
+					$scope.answers = data.data.answers;
 					$('#checklistModal1').modal('show');
+				} else{
+					toastr.warning('No checklist found for ' + node.name);
 				}
 			});
 		}
 	}
 
 	$scope.saveAnswers = function () {
-		var checkedQuestions = _.omit($scope.answers, function(v) {return !v;});
-		var qIds = _.keys(checkedQuestions);
-		SharedService.addAnswer(qIds).then(function (data) {
+		//var checkedQuestions = _.omit($scope.answers, function(v) {return !v;});
+		//var qIds = _.keys(checkedQuestions);
+		SharedService.addAnswer($scope.answers).then(function (data) {
 			if(data.status){
+				recalculateCompliance();
 				$('#checklistModal').modal('hide');
 				$('#checklistModal1').modal('hide');
+				toastr.success('Saved Successfully..', '', {"positionClass" : "toast-top-right"});
 			}
 		});
+	}
+
+	function recalculateCompliance() {
+		var qCount = _.size($scope.checkList);
+		var checkedQuestions = _.omit($scope.answers, function(v) {return !v;});
+		var aCount = _.size(checkedQuestions);
+		$scope.currentNode.compliance = Math.floor((aCount*100)/qCount);
 	}
 
 	$scope.closeCheckListModal = function () {
@@ -406,19 +400,53 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		clearAnswers();
 	}
 	
-	$scope.getComplianceColorcode = function (val) {
-		if(val > 99)
+	$scope.getComplianceColorcode = function (obj) {
+		/*if(val > 99)
 			return 'compliance-green';
 		else if(val >= 90 && val <=99)
 			return 'compliance-amber';
 		else if(val >= 75 && val <=89)
 			return 'compliance-red';
 		else
+			return 'compliance-gray';*/
+		var val = obj.compliance;
+		if(val > 81) {
+			obj.colorCode = "green";
+			return 'compliance-green';
+		}else if(val >= 51 && val <=80) {
+			obj.colorCode = "amber";
+			return 'compliance-amber';
+		}else if(val > 0 && val <=50) {
+			obj.colorCode = "red";
+			return 'compliance-red';
+		}else {
+			obj.colorCode = "gray";
 			return 'compliance-gray';
+		}
 	}
 
 	function clearAnswers() {
 		$scope.answers = {};
+	}
+
+	$scope.startContentParser = function () {
+		SharedService.startContentParser().then(function (data) {
+			if(data){
+				toastr.success('Document parsed successfully', '', {"positionClass" : "toast-top-right"});
+			}
+		});
+	}
+
+	$scope.startOntologyParser = function () {
+		SharedService.startOntologyParser().then(function (data) {
+			if(data){
+				toastr.success('Ontology parsed successfully', '', {"positionClass" : "toast-top-right"});
+			}
+		});
+	}
+
+	$scope.setColorCode = function (colorCode) {
+		$scope.currentColorCode = colorCode;
 	}
 })
 
@@ -562,6 +590,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 .controller('checklistBuilderCtrl', function($scope, $state, $stateParams, SharedService) {
 	$scope.initialize = function () {
+		toastr.info('Select a paragraph..', '', {"positionClass" : "toast-top-right"});
 		$scope.heading = {title: "Checklist Builder"};
 		$scope.question = {components: []};
 		$scope.questions = [];
@@ -578,19 +607,22 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}
 
 	$scope.selectParagraph = function (para, e) {
-		$(e.currentTarget).parent().children().removeClass('active');
-		$(e.currentTarget).addClass('active');
+		$(e.currentTarget).parent().children().removeClass('bg-info');
+		$(e.currentTarget).addClass('bg-info');
 		if($scope.currentParagraph) {
 			if ($scope.currentParagraph.id != para.id) {
+				toastr.info('Type a question and select related components from dropdown..', '', {"positionClass" : "toast-top-right"});
 				$scope.currentParagraph = para;
 				$scope.questions = [];
 			}
 		} else{
+			toastr.info('Type a question and select related components from dropdown..', '', {"positionClass" : "toast-top-right"});
 			$scope.currentParagraph = para;
 		}
 	}
 
 	$scope.addQuestion = function () {
+		toastr.info('Save or Add another question..', '', {"positionClass" : "toast-top-right"});
 		$scope.questions.push($scope.question);
 		$scope.question = {components:[]};
 	}
@@ -602,9 +634,16 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		SharedService.addChecklist($scope.currentQuestionCfg).then(function (data) {
 			console.log(data.data);
 			if(data.status){
-				
+				toastr.success('Saved Successfully..', '', {"positionClass" : "toast-top-right"});
+				$scope.cleanQuestionEditor();
 			}
 		});
+	}
+
+	$scope.cleanQuestionEditor = function () {
+		$scope.currentParagraph = undefined;
+		$scope.questions = [];
+		$scope.question = {components:[]};
 	}
 
 	$scope.goPreviousScreen = function () {

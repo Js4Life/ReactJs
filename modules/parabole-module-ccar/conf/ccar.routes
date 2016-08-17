@@ -80,14 +80,6 @@ GET  /getConfigurationDetailsByName/:ConfigarationName                      com.
 POST /deleteConfig                                                          com.parabole.ccar.application.controllers.DocumentDBController.deleteConfiguration()
 POST /connectionChecker                                                     com.parabole.ccar.application.controllers.DocumentDBController.connectionChecker()
 
-# ---------------------------------------------------------------------------------
-# Authorizations Test Cases
-# ---------------------------------------------------------------------------------
-
-GET  /testAuthorization1   com.parabole.ccar.application.controllers.TestController.testAction1()
-GET  /testAuthorization2   com.parabole.ccar.application.controllers.TestController.testAction2()
-GET  /testAuthorization3   com.parabole.ccar.application.controllers.TestController.testAction3()
-GET  /testAuthorization4   com.parabole.ccar.application.controllers.TestController.testAction4()
 
 # ---------------------------------------------------------------------------------
 # Static Resources

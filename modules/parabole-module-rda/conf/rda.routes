@@ -9,6 +9,8 @@ GET         /doLogin                                                            
 GET         /logout                                                                    com.parabole.rda.application.controllers.BaseAction.logout()
 GET         /getHardCodedResponse/:jsonFileName                                        com.parabole.rda.application.controllers.BaseAction.getHardCodedResponse(jsonFileName: String)
 GET         /getLogicalViewJson/:viewName                                              com.parabole.rda.application.controllers.BaseAction.getLogicalViewJson(viewName: String)
+GET         /testAction4                                                               com.parabole.rda.application.controllers.TestController.testAction4()
+GET         /testAction3                                                               com.parabole.rda.application.controllers.TestController.testAction3()
 
 # ---------------------------------------------------------------------------------
 # View DispatcherActions (All Authenticated)

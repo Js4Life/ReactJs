@@ -1,13 +1,17 @@
 package com.parabole.cecl.application.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
-import com.google.inject.Inject;
 import com.parabole.cecl.application.exceptions.AppErrorCode;
 import com.parabole.cecl.application.exceptions.AppException;
 import com.parabole.cecl.application.global.CCAppConstants;
+import com.parabole.cecl.application.global.RdaAppConstants;
 import com.parabole.cecl.application.utils.AppUtils;
 import com.parabole.cecl.platform.reasoner.BaseBindObj;
+import com.parabole.feed.application.services.CheckListServices;
+import com.parabole.feed.application.services.CoralConfigurationService;
+import com.parabole.feed.application.services.TaggingUtilitiesServices;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.jena.query.*;
 import org.apache.jena.query.ResultSet;
@@ -25,6 +29,7 @@ import play.Configuration;
 import play.Logger;
 import play.db.DB;
 
+import javax.inject.Inject;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -40,6 +45,12 @@ public class JenaTdbService {
 
     @Inject
     private CoralConfigurationService coralConfigurationService;
+
+    @Inject
+    CheckListServices checkListServices;
+
+    @Inject
+    TaggingUtilitiesServices taggingUtilitiesServices;
 
     public JenaTdbService(){
 
@@ -116,7 +127,7 @@ public class JenaTdbService {
             data = coralConfigurationService.getConfigurationByName("root", nameOfTheSource);
             receivedData = new JSONArray(data);
             Logger.info("|JenaTdbService|126|  datasource ----> "+receivedData +" nameOfTheSource -->"+ nameOfTheSource + " data --> "+ data);
-        } catch (com.parabole.cecl.platform.exceptions.AppException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         final String details = receivedData.getJSONObject(0).getString("details").toString();
@@ -1459,8 +1470,20 @@ public class JenaTdbService {
                 }
 
                 /*To be deleted*/
-                int r = (int) (Math.random() * (100 - 0)) + 0;
-                jsObj.put("compliance", r);
+                double compliance = 0;
+                String nodeType = jsObj.getString("type");
+                String nodeName = jsObj.getString("name");
+                switch (nodeType){
+                    case "Topic":
+                    case "Sub-Topic":
+                    case "Section":
+                    case "Paragraph":
+                    case "FASB Concept":
+                        JSONObject complianceObj = calculateCompliance(nodeType, nodeName);
+                        jsObj.put("hasChecklist", complianceObj.get("hasChecklist"));
+                        jsObj.put("compliance", complianceObj.get("compliance"));
+                        break;
+                }
                 /*End*/
 
                 jsArr.put(jsObj);
@@ -1533,5 +1556,189 @@ public class JenaTdbService {
         }else{
             return "";
         }
+    }
+
+    public Boolean parseDocumentHierarchy(String compName, String docName, String userId) {
+        Boolean status = false;
+        String finalStr = "";
+        compName = (compName != null && compName.trim().equals("") != true) ? compName : "parseDocumentHierarchy";
+        final JSONObject finalJson = new JSONObject();
+        JSONObject filterDefJson = null;
+        try {
+            final Dataset dataset = getDataset();
+            dataset.begin(ReadWrite.READ);
+            final String cfgInfo = AppUtils.getFileContent("json/" + CCAppConstants.JENA_FILTERDEF_FILE);
+            final JSONObject jsonCfg = new JSONObject(cfgInfo);
+            filterDefJson = jsonCfg.getJSONObject(compName);
+            final String outputFormat = filterDefJson.getString("outputFormat");
+            finalJson.put("outputFormat", outputFormat);
+            final String fileIdentification = filterDefJson.getString("source");
+            final String groupByField = filterDefJson.getString("groupByField");
+            final JSONArray attrArr = filterDefJson.getJSONArray("columns");
+            final Set<String> attrSet = new HashSet<String>();
+            for (int i = 0; i < attrArr.length(); i++) {
+                attrSet.add(attrArr.getString(i));
+            }
+            String sparqlQueryString = AppUtils.getFileContent("sparql/sparqlQuery" + fileIdentification + ".rq");
+            final HashMap<String, HashMap<String, String>> branches = getValueFromQueryStringByAttrs(sparqlQueryString, attrSet, groupByField, dataset);
+
+            final JSONArray tagColumns = filterDefJson.getJSONArray("tagColumns");
+            final HashMap<String, HashMap<String, Set<String>>> parsedData = new HashMap<>();
+            for (int i = 0; i < tagColumns.length(); i++) {
+                final String col = tagColumns.getString(i);
+                parsedData.put(col, new HashMap<>());
+            }
+            final Iterator<?> branchKeys = branches.keySet().iterator();
+            while (branchKeys.hasNext()) {
+                final String branchKey = branchKeys.next().toString();
+                final HashMap<String, String> aBranch = branches.get(branchKey);
+                final String paraId = aBranch.get("Paragraphid");
+                for (int i = 0; i < tagColumns.length(); i++) {
+                    final String col = tagColumns.getString(i);
+                    HashMap<String, Set<String>> tempMap = parsedData.get(col);
+                    ObjectMapper objectMapper1 = new ObjectMapper();
+                    final String aBranchVal = aBranch.get(col);
+                    if(tempMap.get(aBranchVal) == null){
+                        tempMap.put(aBranchVal, new HashSet<String>());
+                    }
+                    Set<String> tempSet = tempMap.get(aBranchVal);
+                    tempSet.add(paraId);
+                }
+            }
+            ObjectMapper objectMapper = new ObjectMapper();
+            finalStr = objectMapper.writeValueAsString(parsedData);
+            coralConfigurationService.saveConfiguration(userId, CCAppConstants.ConfigurationType.DOCUMENT_PARSED_JSON.toString(), docName, finalStr);
+            status = true;
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return status;
+    }
+
+    public JSONObject getChecklistByNode(final String docName, String nodeType, final String nodeName){
+        if(nodeType.equals("Sub-Topic"))
+            nodeType = "SubTopic";
+        JSONObject finalJson = new JSONObject();
+        String details = "";
+        JSONObject finalQuestions = new JSONObject();
+        JSONObject finalAnswers = new JSONObject();
+        JSONObject finalStatus = new JSONObject();
+        Boolean haveData = false;
+        try{
+            List<Map<String, String>> cfg = coralConfigurationService.getConfigurationByNameOnly(docName);
+            details = cfg.get(0).get("details");
+            JSONObject tempObj = new JSONObject(details);
+            JSONObject itemTypeObj = tempObj.getJSONObject(nodeType);
+            if(itemTypeObj.has(nodeName)) {
+                JSONArray paraIds = itemTypeObj.getJSONArray(nodeName);
+                for (int i = 0; i < paraIds.length(); i++) {
+                    String aParaId = paraIds.getString(i);
+                    JSONObject checkListObj = checkListServices.questionAgainstParagraphId(aParaId);
+                    JSONObject status = checkListObj.getJSONObject("status");
+                    if (status.getBoolean("haveData")) {
+                        haveData = true;
+                        JSONObject questions = checkListObj.getJSONObject("questions");
+                        Iterator<String> qKeys = questions.keys();
+                        while (qKeys.hasNext()) {
+                            String key = qKeys.next();
+                            finalQuestions.put(key, questions.getString(key));
+                        }
+                        JSONObject answers = checkListObj.getJSONObject("answers");
+                        Iterator<String> aKeys = answers.keys();
+                        while (aKeys.hasNext()) {
+                            String key = aKeys.next();
+                            finalAnswers.put(key, answers.getBoolean(key));
+                        }
+                    }
+                }
+            }
+            finalStatus.put("haveData", haveData);
+            finalJson.put("questions", finalQuestions).put("answers", finalAnswers).put("status", finalStatus);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return finalJson;
+    }
+
+    public JSONObject getChecklistByParagraphId(final String paragraphId){
+        JSONObject finalJson = new JSONObject();
+        try {
+            JSONObject checklistObj = checkListServices.questionAgainstParagraphId(paragraphId);
+            finalJson.put("data", checklistObj);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return finalJson;
+    }
+
+    public JSONObject getChecklistByConcept(String concept){
+        JSONObject finalJson = new JSONObject();
+        JSONObject finalQuestions = new JSONObject();
+        JSONObject finalAnswers = new JSONObject();
+        JSONObject finalStatus = new JSONObject();
+        Boolean haveData = false;
+        try{
+            JSONArray paraIds = taggingUtilitiesServices.getParagraphIdsByConcept(concept);
+            for (int i = 0; i < paraIds.length(); i++) {
+                String aParaId = paraIds.getString(i);
+                JSONObject checkListObj = checkListServices.questionAgainstParagraphId(aParaId);
+                JSONObject status = checkListObj.getJSONObject("status");
+                if (status.getBoolean("haveData")) {
+                    haveData = true;
+                    JSONObject questions = checkListObj.getJSONObject("questions");
+                    Iterator<String> qKeys = questions.keys();
+                    while (qKeys.hasNext()) {
+                        String key = qKeys.next();
+                        finalQuestions.put(key, questions.getString(key));
+                    }
+                    JSONObject answers = checkListObj.getJSONObject("answers");
+                    Iterator<String> aKeys = answers.keys();
+                    while (aKeys.hasNext()) {
+                        String key = aKeys.next();
+                        finalAnswers.put(key, answers.getBoolean(key));
+                    }
+                }
+            }
+            finalStatus.put("haveData", haveData);
+            finalJson.put("questions", finalQuestions).put("answers", finalAnswers).put("status", finalStatus);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return finalJson;
+    }
+
+    private JSONObject calculateCompliance(String nodeType, String nodeName){
+        JSONObject complianceObj = new JSONObject();
+        complianceObj.put("hasChecklist", false);
+        complianceObj.put("compliance", 0);
+        JSONObject checklistObj = null;
+        if(nodeType.equals("Paragraph")){
+            JSONObject res = getChecklistByParagraphId(nodeName);
+            checklistObj = res.getJSONObject("data");
+        } else if(nodeType.equals("FASB Concept")){
+            checklistObj = getChecklistByConcept(nodeName.trim());
+        } else {
+            checklistObj = getChecklistByNode(CCAppConstants.DocumentName.FASBAccntStandards.toString(), nodeType.trim(), nodeName.trim());
+        }
+        JSONObject status = checklistObj.getJSONObject("status");
+        if(status.getBoolean("haveData")){
+            JSONObject questions = checklistObj.getJSONObject("questions");
+            JSONObject answers = checklistObj.getJSONObject("answers");
+            int qCount = questions.length();
+            int aCount = 0;
+            if(qCount > 0) {
+                Iterator<String> answerKeys = answers.keys();
+                while (answerKeys.hasNext()) {
+                    String aKey = answerKeys.next();
+                    if (answers.getBoolean(aKey)) {
+                        aCount++;
+                    }
+                }
+                double compliance = Math.ceil((aCount*100)/qCount);
+                complianceObj.put("hasChecklist", true);
+                complianceObj.put("compliance", compliance);
+            }
+        }
+        return complianceObj;
     }
 }

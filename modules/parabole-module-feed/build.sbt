@@ -6,6 +6,7 @@ PlayKeys.devSettings += ("play.http.router", "feed.Routes")
 
 lazy val feed = (project in file(".")).enablePlugins(PlayJava)
 
+
 scalaVersion := "2.11.7"
 
 libraryDependencies ++=  Seq(
@@ -34,7 +35,6 @@ libraryDependencies ++=  Seq(
   "cglib" % "cglib" % "3.2.2",
   "org.json" % "json" % "20160212",
   "com.google.code.gson" % "gson" % "2.6.2",
-  "be.objectify" %% "deadbolt-java" % "2.4.4",
   "net.sf.jsqlparser" % "jsqlparser" % "0.8.0",
   "org.json" % "json" % "20151123",
   "org.apache.jena" % "apache-jena-libs" % "3.0.0",
@@ -51,7 +51,6 @@ libraryDependencies ++=  Seq(
   "org.modelmapper" % "modelmapper" % "0.7.4",
   "javax.mail" % "mail" % "1.4.1",
   "org.apache.commons" % "commons-email" % "1.3.1",
-  "be.objectify" %% "deadbolt-java" % "2.4.4" exclude("javax.jms", "jms") exclude("com.sun.jdmk", "jmxtools") exclude("com.sun.jmx", "jmxri"),
   "log4j" % "log4j" % "1.2.15",
   "fr.xebia.extras" % "selma-processor" % "0.14",
   "com.worldpay.api.client" % "worldpay-client-core" % "0.0.1",

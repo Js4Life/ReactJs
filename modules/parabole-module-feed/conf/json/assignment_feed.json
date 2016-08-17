@@ -2350,6 +2350,1674 @@
         "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#FRY-14A" } ,
         "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The FR Y-14A report collects detailed data on bank holding companies' (BHCs) and intermediate holding companies' (IHCs) quantitative projections of balance sheet assets and liabilities, income, losses, and capital across a range of macroeconomic scenarios and qualitative information on methodologies used to develop internal projections of capital across scenarios. The report is comprised of Summary, Macro Scenario, Regulatory Capital Instruments, Regulatory Capital Transitions, Operational Risk, Business Plan Changes, and Retail Repurchase Exposures schedules, each with multiple supporting sub-schedules. The number of schedules a respondent must complete is subject to materiality thresholds and certain other criteria. Respondents report projections on the FR Y-14A schedules across supervisory scenarios as well as firm-defined scenarios. One or more of the macroeconomic scenarios includes a market risk shock that the firm will assume when making trading and counterparty loss projections. Respondents are also required to submit qualitative information supporting their projections, including descriptions of the methodologies used to develop the internal projections of capital across scenarios and other analyses that support their comprehensive capital plans." },
         "definitionlink": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "http://www.federalreserve.gov/apps/reportforms/reportdetail.aspx?sOoYJ+5BzDa2AwLR/gLe5DPhQFttuq/4" }
+      },
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#FRY-14Q" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Report That Collects Detailed Data On Bank Holding Companies' (Bhc) And Intermediate Holding Companies' (Ihc) Various Asset Classes, Capital Components, And Categories Of Pre-Provision Net Revenue (Ppnr) On A Quarterly Basis" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#BranchProfitability" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Revenue-Earning Capabilities Of A Specific Branch Within A Larger Financial Entity" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#CapitalManagementPolicy" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Method In Which Financial Entities Preserve Liquidity And Manage Their Capital" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#ManagementReport" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Formal Business Document That Discloses A Company'S Profit And Loss Statements In One- To Four-Month Periods." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#CCLGDModel" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Loss Given Default Model" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#TradeFinanceModel" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Approach A Financial Entity Takes To Trade Finance Activities" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#PPNRModel" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Approach Based On Evaluating And Assessing The Pre Provision Net Revenue Of A Company" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#MaternityLeavePolicy" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Period Of Approved Absence For A Female Employee Granted For The Purpose Of Giving Birth And Taking Care Of Infant Children" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#BranchManagementPolicy" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Approach Financial Entities Take To Manage The Quality And Operations Of Their Multiple Branches" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#CreditCardPolicy" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Purpose Of This Policy Is To Communicate Eligibility, Usage And Payment Of Expenditure Requirements For The Corporate Credit Card" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#DepositReport" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Report Provided When A Deposit Is Made Into An Account" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#VarianceAnalysis" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Quantitative Investigation Of The Difference Between Actual And Planned Behavior. This Analysis Is Used To Maintain Control Over A Business" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#TransportationLoanPolicy" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Policy A Financial Entity Adopts In Constructing Its Transportaion Loan Practices" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#AccrualAccountingPolicy" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Method In Which Expenses Are Matched With The Related Revenues And/Or Are Reported When The Expense Occurs, Not When The Cash Is Paid. The Result Of Accrual Accounting Is An Income Statement That Better Measures The Profitability Of A Company During A Specific Time Period." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#Budget" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "An Estimation Of The Revenue And Expenses Over A Specified Future Period Of Time And Is Compiled And Re-Evaluated On A Periodic Basis" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#CreditPolicy" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Company'S Policy On When Its Customers Should Pay For Goods Or Services They Have Ordered A Government'S Policy At A Particular Time On How Easy Or Difficult It Should Be For People And Businesses To Borrow And How Much It Should Cost." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#UnderwritingPolicy" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Process By Which Investment Bankers Raise Investment Capital From Investors On Behalf Of Corporations And Governments That Are Issuing Either Equity Or Debt Securities" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#CompensationPolicy" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Approach An Entity Takes In Compensating Its Workers For Their Efforts And Input" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#TreasuryPolicy" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Document, Generally And Preferably Approved At Board Level, That Gives Treasury Staff Written Guidelines On What They Are Responsible For, How They Should Go About This, What Their Boundaries Are And How Their Performance Will Be Measured." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#BusinessPlan" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Formal Statement Of Business Goals, Reasons They Are Attainable, And Plans For Reaching Them" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#RWAModel" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Risk Weighted Assets-Based Approach In Evaluating The Credit Risk Of A Company" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#AnnualFinancialStatement" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Report Created Annually That Quantifiably Describes The Financial Viability Of A Company. This Includes A Statement Of Income, Statement Of Changes In Net Worth And A Balance Sheet. It Also Often Includes A Cash Flow Statement. These Elements Should Be Tracked On A Monthly Basis For The Most Accurate Reporting." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#Forecast" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Act Of Predicting Business Activity For A Future Period Of Time" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#AircraftFinancePolicy" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Policy Related To The Financing For The Purchase And Operation Of Aircraft" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#RetirementBenefitPolicy" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Policy Adoped By A Company In Handling Its Retirement Developments" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#FRY-9C" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "This Report Collects Basic Financial Data From A Domestic Bank Holding Company (Bhc), A Savings And Loan Holding Company (Slhc), And A Securities Holding Company (Shc) On A Consolidated Basis In The Form Of A Balance Sheet, An Income Statement, And Detailed Supporting Schedules, Including A Schedule Of Off Balance-Sheet Items" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#RevenuePolicy" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Revenue Income Handling Policy" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#RecruitmentPolicy" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Policy Which Judges A Certain Company'S Hiring Practices" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#ExpenditurePolicy" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Approach A Financial Entity Takes In Making And Reporting Expenses" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#TradeFinancePolicy" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Approach A Financial Entity Takes To Trade Finance Activities" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#OPRiskModel" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Model Used To Assess The Risk Of Loss Arising From Inadequate Or Failed Internal Processes, People, Systems Or External Events." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#RiskManagementPolicy" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Forecasting And Evaluation Of Financial Risks Together With The Identification Of Procedures To Avoid Or Minimize Their Impact." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#FRY-14A" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Report That Collects Detailed Data On Bank Holding Companies' (Bhcs) And Intermediate Holding Companies' (Ihcs) Quantitative Projections Of Balance Sheet Assets And Liabilities, Income, Losses, And Capital Across A Range Of Macroeconomic Scenarios And Qualitative Information On Methodologies Used To Develop Internal Projections Of Capital Across Scenarios. " }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#SegmentProfitability" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Revenue-Earning Capabilities Of A Certain Segment Of A Financial Entity" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#SalesbyRegion" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Transactional Activity For A Financial Entity Within A Certain Geographical Location" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#ShippingFinancePolicy" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Approach A Business Takes When Considering Shipping Practices And Motives" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#RegulatoryReport" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Reporting Practices Which Managed Either Internally Or Externally By Regulatory Bodies" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#OpsRiskPolicy" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Policyh Used To Handle The Risk Of Loss Arising From Inadequate Or Failed Internal Processes, People, Systems Or External Events." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#AutoLGDModel" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Model Which Is Founded On The Credit Loss Incurred If An Obligor Of The Bank Defaults" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#CCPDModel" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Probability Of Default Model" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#GroupAccountingPolicy" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Financial Statements Of A Group Of Companies. These Are Usually Presented In The Form Of Consolidated Accounts." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#MMLGDModel" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Loss Given Default Model" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#MMPDModel" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Probability Of Default Model" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#CashFlowModel" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Practice Of Planning And Forecasting The Sources And Uses Of Cash" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#MortgageLoanPolicy" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Policy A Bank Takes When Issuing Mortgage Loans" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#EADModel" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Credit Risk Model Based On Exposure-At-Default For A Financial Entity" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#MachineryLoanPolicy" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Policy A Company Takes When Dealing High Value Assets Such As Machinery" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://www.mindparabole.com/ontology/finance/Parabole-Model#ConsumerLoanReport" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Periodic Report Given To The Consumer Rehashing The Details Of His Or Her Loan Situation" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#DateOfTransfer" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Specific Date In Which Assets Are Transferred" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Leverage" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Use Of Various Financial Instruments Or Borrowed Capital, Such As Margin, To Increase The Potential Return Of An Investment" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#CurrentAssets" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Cash And Other Assets That Are Expected To Be Converted To Cash Within A Year." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#FinancialAsset" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Tangible Liquid Asset That Derives Value Because Of A Contractual Claim Of What It Represents" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#PortfolioSegment" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Level At Which A Reporting Entity Develops And Documents A Systematic Methodology To Determine Its Allowance For Credit Losses." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#CreditQualityIndicator" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "An Indicator Which Shows The Creditworthiness Of A Certain Consumer" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#AgingSchedule" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "An Accounting Table That Shows The Relationship Between A Company\u2019S Bills And Invoices And Its Due Dates" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#OperatingIncome" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "An Accounting Figure That Measures The Amount Of Profit Realized From A Business'S Operations, After Deducting Operating Expenses Such As Cost Of Goods Sold (Cogs), Wages And Depreciation" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#AcquisitionDate" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Date On Which A Purchase Commits To Buying An Asset And Effectively Takes Control Of The Asset From The Seller." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#LoanReceivable" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "An Asset Account In A Bank'S General Ledger That Indicates The Amounts Owed By Borrowers To The Bank As Of A Given Date." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#ConsumerCreditRiskScores" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Risk Of Loss Due To A Customer'S Non Re-Payment (Default) On A Consumer Credit Product, Such As A Mortgage, Unsecured Personal Loan, Credit Card, Overdraft Etc. (The Latter Two Options Being Forms Of Unsecured Banking Credit)" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#UnderlyingAsset" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Financial Instrument (Such As Stock, Futures, A Commodity, A Currency Or An Index) On Which A Derivative'S Price Is Based." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#DerivativeInstrument" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Contract Between Two Or More Parties Based Upon The Asset Or Assets. Its Value Is Determined By Fluctuations In The Underlying Asset." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#ActualLosses" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Loss That Occurs When The Insured Property Is Totally Destroyed Or Is Damaged In Such A Way That It Can Be Neither Recovered Nor Repaired For Further Use, Or The Insured Is Irretrievably Deprived Of It." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#LeaseReceivable" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Receivable Amount That Is Brought On By The Outstanding Leases Of A Financial Entity" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#GainonSaleofSecurity" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Net Profit On The Sale Of A Certain Financial Security" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#FinancingReceivables" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Way To Quickly Convert Receivables Into Cash." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#FuturePremiumsReceivable" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Future Incoming Premium Receivables" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#RealEstateproperty" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Real Estate Held By A Financial Entity" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#CommonStock" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Shares Entitling Their Holder To Dividends That Vary In Amount And May Even Be Missed, Depending On The Fortunes Of The Company." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#ChangeinAccumulatedComprehensiveIncome" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Change In The Net Comprehensive Income Of The Company" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#LIBORSwapRate" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Shows The Fixed Rate You Would Have To Pay If You Entered Into A Swap Agreement Where You Received The Floating 3-Month Libor Rate" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Concessions" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Selling Group'S Compensation In A Stock Or Bond Underwriting Agreement. The Amount Of Compensation Is Based On The Underwriting Spread, Or The Difference Between What The Public Pays For The Securities And What The Issuing Company Receives From The Sale" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Speculation" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Act Of Trading In An Asset Or Conducting A Financial Transaction That Has A Significant Risk Of Losing Most Or All Of The Initial Outlay With The Expectation Of A Substantial Gain" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#ValuationAllowance" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Balance Sheet Line Item That Offsets All Or A Portion Of The Value Of A Company'S Deferred Tax Assets Because The Company Doesn'T Expect It Will Be Able To Realize This Value." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#ContingentItems" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Condition Which Exists At A Reporting Date Where The Outcome Will Be Confirmed Only On The Occurrence Or Non-Occurrence Of One Or More Uncertain Future Events." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#CollateralDependentLoans" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Loan Where The Ultimate Repayment Of The Loan Is Based Upon The Sale Of The Collateral" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#IncomeRecognized" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Amount Of Revenue That Is Recognized As A Part Of Business Opeprations" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#InitialTransactionDate" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Initial Date A Transaction Is Scheduled To Take Place" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Derivative" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Derivative Is A Security With A Price That Is Dependent Upon Or Derived From One Or More Underlying Assets. The Derivative Itself Is A Contract Between Two Or More Parties Based Upon The Asset Or Assets." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Premium" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Total Cost To Buy An Option, Which Gives The Holder The Right But Not The Obligation To Buy Or Sell The Underlying Financial Instrument At A Specified Strike Price" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#SufficientlyCollaterizedSecurities" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "He Act Where A Borrower Pledges An Asset As Recourse To The Lender In The Event That The Borrower Defaults On The Initial Loan" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#ContractwithCustomer" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Contractual Agreement Between A Financial Entity And A Customer" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#ConsumerLoanBorrowers" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Borrwers Of Money Lent To An Individual (Usually On A Nonsecured Basis) For Personal, Family, Or Household Purposes" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#NetCarryingAmount" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": " The Amounts That The Company Has On Its Books For An Asset Or A Liability" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#DiscountAmortization" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Amortizing An Asset At A Discounted Rate" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#FinancialServices" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Economic Services Provided By The Finance Industry, Which Encompasses A Broad Range Of Businesses That Manage Money, Including Credit Unions,Banks, Credit-Card Companies, Insurance Companies, Accountancy Companies, Consumer-Finance Companies, Stock Brokerages, Investment Funds And Some Government-Sponsored Enterprises" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#RentalRates" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Rates Associated With The Renting Of Commercial Property" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#AmortizationofPremium" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Reducing The Premium On Bonds Payable Each Period By A Logical Amount" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#CashFlowsExpectedatAcquisition" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Expected Cash Flows Following The Acquisiton Of A Financial Entity" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#EmployeeContribution" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Company-Sponsored Retirement Plan Where Employees May Elect To Have A Portion Of Each Paycheck Deposited Into A Retirement Account Owned By The Employee And Held In His Or Her Name." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#EmployeeBenefitPlans" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Type Of Pension Plan In Which An Employer/Sponsor Promises A Specified Monthly Benefit On Retirement That Is Predetermined By A Formula Based On The Employee'S Earnings History, Tenure Of Service And Age, Rather Than Depending Directly On Individual Investment Returns." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#FutureCashFlows" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Cash Flows Which Are Expected To Occur In The Future" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#ZeroPercentEffectiveYield" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Total Yield An Investor Receives In Relation To The Nominal Yield Or Coupon Of A Bond" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#CollectionRisk" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Risk Associated With Collection" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#ComprehensiveIncome" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Sum Of Net Income And Other Items That Must Bypass The Income Statement Because They Have Not Been Realized, Including Items Like An Unrealized Holding Gain Or Loss From Available For Sale Securities And Foreign Currency Translation Gains Or Losses." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Acquisition" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Corporate Action In Which A Company Buys Most, If Not All, Of The Controlling Share Of Another Entity" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#EmploymentRelatedCosts" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Costs Related To The Employees Which May Include Employee Benefits, Salaries, Etc" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#FederalHomeLoanMortgageCorporation" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Public Government-Sponsored Enterprise, Headquartered In The Tyson'S Corner Cdp In Unincorporated Fairfax County, Virginia." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Agreed-uponPeriod" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Period Of Payment That Is Agreed Upon By The Debtor And The Creditor" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#StandbyCommitment" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Formal Agreement By A Bank Agreeing To Lend Money To A Borrower Up To A Specified Amount For A Specific Period" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Inventory" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Value Of Materials And Goods Held By An Organization" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#HsitoricalLifetimeCreditLossRate" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Credit Loss Rate As Computed On A Continous, Lifetime Basis" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#CollectiveEvaluation" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "An Evaluation Of The Collectivee State Of Balance Sheet Items" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#CumulativeLoss" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Net Loss Experienced By A Financial Entity" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Investor" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Any Person Who Commits Capital With The Expectation Of Financial Returns" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#GrossUnrecognizedHoldingLosses" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Gross Unrecognized Decreases In The Replacement Costs Of The Assets Held During A Given Period." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#SellingPrice" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Price A Certain Class Of Good Or Service Is Typically Sold For. Average Selling Price Is Affected By The Type Of Product And The Product Life Cycle." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#DeferredCompensationContracts" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "An Arrangement In Which A Portion Of An Employee'S Income Is Paid Out At A Later Date After Which The Income Was Actually Earned" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#DiscountRateAdjustmentTechnique" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Technique Used To Adjust The Discount Rate" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#InterestRate" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Amount Charged, Expressed As A Percentage Of Principal, By A Lender To A Borrower For The Use Of Assets" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#PortfolioMix" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Diversifed Asset Allocation Within A Portfolio" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#ResidentialProperty" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Type Of Leased Property, Containing Either A Single Family Or Multifamily Structure, That Is Available For Occupation For Non-Business Purposes." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#ExpectedCredit-Loss-RateCalculation" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Calculation Utilized To Compute Credit Loss Rate For A Certain Consumer" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#RelatedParty" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Party Which Is Related To A Financial Entity By Some Specialo Circumstance" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Foreclosure" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Process Of Taking Possession Of A Mortgaged Property As A Result Of The Mortgagor'S Failure To Keep Up Mortgage Payments." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#TransactionDate" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Date Upon Which A Security Or Other Financial Instrument Is Traded" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#InvestmentPortfolio" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Collection Of Investments Held By An Investmentcompany, Hedge Fund, Financial Institution Or Individual." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#CollectionExperience" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Process Of Recovering Amounts Owed To A Firm By Its Customers." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#AccruedInterest" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Interest On A Bond Or Loan That Has Accumulated Since The Principal Investment, Or Since The Previous Coupon Payment If There Has Been One Already." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Loan-To-CollateralValueRatios" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Ratio Of A Loan To The Value Of An Asset Purchased" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#CreditCardReceivables" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Also Known As Credit Card Factoring, Is A Viable Source Of Financing To Small Businesses Unable To Receive Traditional Loans." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#PurchasePrice" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Price An Investor Pays For An Investment, And The Price Becomes The Investor\u2019S Cost Basis For The Calculation Of A Gain Or Loss When The Investment Is Sold" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#AgingScheduleMethods" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": " Refers To The Technique Used For Determining The Credit Balance Needed In The Account Allowance For Doubtful (Or Uncollectible) Accounts" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#ConcurrentDocumentation" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": " A Process In Which Clinicians And Clients Collaborate In Thedocumentation Of The Assessment, Service Planning, And Ongoing Client-Practitioner Interactions" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#ContractAsset" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "An Entity'S Right To Payment For Goods And Services Already Transferred To A Customer If That Right To Payment Is Conditional On Something Other Than The Passage Of Time" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#AllowanceforCreditLoss" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "An Estimation Of The Debt That A Company Is Unlikely To Recover. The Allowance For Credit Losses Is From The Perspective Of The Selling Company That Extended Credit To Its Buyers" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#CurrentPeriodProvision" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Provision For The Current Financial Period" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#EmployeeBenefits" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Various Types Of Non-Wage Compensation Provided To Employees In Addition To Their Normal Wages Or Salaries." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#LeaseTerm" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Period Of Time Indicated In The Lease Contract" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#AggregateFairValue" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Price That A Person Reasonable Interested In Buying A Given Asset Would Pay To A Person Reasonably Interested In Selling It For The Purchase Of The Asset Or Asset Would Fetch In The Marketplace" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#ExternalInformation" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Information In Which Documentation Is Made Available To The Public From A Third Party" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#RemeasurementEvent" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Event That Necessitates The Remeasurement Of Financial Instruments" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#MortgageBankingReceivables" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Bank'S Receivables Based On Its Outstanding Mortgages" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#FirmCommitment" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Lending Institution'S Promise To Enter Into A Loan Agreement With A Specific Entity Within A Certain Period Of Time. " }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#AssetQuality" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "An Evaluation Of Asset To Measure The Credit Risk Associated With It." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#ClassofFinancingReceivable" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Type Of Financing Receivable The Company Has On Its Balance Sheet" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#MarketParticipants" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Producer Or Supplier Of A Marketable Good Or Service." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#InsuranceFinancialServices" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Financial Entities Which Provide Insurance Services To Both Consumer And Commercial Customers" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#InternalInformation" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Internal Metrics Created By The Operation Of An Organization That Includes Sales, Purchase Orders, And Transactions In Inventory Instead Of The Data Being Created By An Independent Study Or Database." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#GeographicalLocation" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Location Of A Financial Entity" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#IndividualAssessment" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Assessment Of Employmees Within A Financial Instiution" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#CollectiveAssessment" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Calculated To Reflect Impairment Losses Incurred At The Balance Sheet Date Which Will Only Be Individually Identified In The Future" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#CustomersAbilitytoPay" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Capacity For A Customer To Pay His Or Her Debts" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#IndustryoftheBorrower" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Commercial Industry The Borrower In Question Is A Part Of" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#DiscountedCashFlowMethod" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Method Of Valuing A Project, Company, Or Asset Using The Concepts Of The Time Value Of Money." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#InsuranceEntityAccounting" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Type Of Accounting Associated With The Proper Management Of Inusrance Policies" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#UnderwritingPractices" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Process By Which Investment Bankers Raise Investment Capital From Investors On Behalf Of Corporations And Governments That Are Issuing Either Equity Or Debt Securities" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#ContractuallyRequiredPaymentsReceivable" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Payments Receivable Which Are Required Via Contractual Obligation" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Debtor" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Person Or Institution That Owes A Sum Of Money." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#RedeemablePreferredStock" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Type Of Preferred Stock That Allows The Issuer To Buy Back The Stock At A Certain Price And Retire It, Thereby Converting Thestock To Treasury Stock" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Guarantee-ContingentAspect" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Guarantee Of Payment Made By A Third Party, Known As The Guarantor, To The Seller Or Provider Of A Product Or Service In The Event Of Non-Payment By The Buyer" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#CollateralType" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Type Of Collateral A Financial Entity Accepts" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#StandbyLetterOfCredit" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Guarantee Of Payment Issued By A Bank On Behalf Of A Client That Is Used As 'Payment Of Last Resort' Should The Client Fail To Fulfill A Contractual Commitment With A Third Party." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#FinancialInstitution" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Company Engaged In The Business Of Dealing With Monetary Transactions, Such As Deposits, Loans, Investments And Currency Exchange" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#CreditorRelationship" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Where A Bank Lends Money To An Individual Or Company, On The Basis That The Money Has To Be Paid Back At Some Point To The Bank." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Intra-EntityInterest" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Interest That Is Accrued Within The Entity" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#HistoricalCostBasis" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Measure Of Value Used In Accounting In Which The Price Of An Asset On The Balance Sheet Is Based On Its Nominal Or Original Cost When Acquired By The Company" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#ContinuousBasis" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Evaluating Interest Payments And Status Of A Loan On A Continuous, Rolling Basis" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#OperatingLoss" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Net Loss Recorded As A Result Of A Company'S Unprofitable Operation, Considering Only The Company'S Operating Income Versus Its Operating Expenditures" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#TotalCombinedInvestment" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Total Money Invested By A Financial Entity" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#FreestandingContract" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Unlike Embedded Instruments, Freestanding Contracts Are Subject To Thcange In Their Terms Of Operation" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#RightofReturn" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "He Buyer'S Right To Return Merchandise" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#PresentValue" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Value In The Present Of A Sum Of Money, In Contrast To Some Future Value It Will Have When It Has Been Invested At Compound Interest." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#OverduePrincipal" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Payment Of The Principal Which Has Not Yet Been Honored" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#InterestCashFlows" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Cash Flows As A Result Of Interest Payments" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#ForecastedDirection" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Current Forecasted Financial Direction Of The Company" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#UncollectibleAmounts" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Sunk Costs Associated With Collection" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#FinanceChargeIncome" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Income From Any Fee Representing The Cost Of Credit, Or The Cost Of Borrowing" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#BasisforAllocation" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Basis Upon Which An Entity Allocates Its Overhead Costs. An Allocation Base Takes The Form Of A Quantity, Such As Machine Hours Used, Kilowatt Hours Consumed, Or Square Footage Occupied." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#AvailableForSale" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Debt Or Equity Security Purchased With The Intent Of Selling Before It Reaches Maturity, Or Selling Prior To A Lengthy Time Period In The Event The Security Does Not Have A Maturity" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#OverdueInterest" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Overdue Sums Of Money Have Not Been Paid, Even Though It Is Later Than The Date On Which They Should Have Been Paid.  " }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#StrikePrice" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Price Fixed By The Seller Of A Security After Receiving Bids In A Tender Offer, Typically For A Sale Of Bonds Or A New Stock Market Issue." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#MaturityGrouping" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Classification Of Some Financial Instruments Based On Their Growth And Development" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#DisclosureRequirement" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Act Of Releasing All Relevant Information Pertaining To A Company That May Influence An Investment Decision" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#MarketInterestRate" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Prevailing Rate Of Interest Offered On Cash Deposits, Determined By Demand And Supply Of Deposits And Based On The Duration (The Longer The Duration, The Higher The Rate) And Amount (The Higher The Amount, The Higher The Rate) Of Deposits." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#EquityInterest" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Amount Of Equity A Single Person Holds In A Business" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Prepayment" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Settlement Of A Debt Or Installment Payment Before Its Official Due Date" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#EffectiveYield" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Total Yield An Investor Receives In Relation To The Nominal Yieldor Coupon Of A Bond" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#ExtensionofFinancingReceivable" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "An Extension Given To A Party Who Is Liable For A Debt To Be Repaid" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#CreditScore" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Three Digit Number Calculated From Your Data-Rich Credit Report And Is One Factor Used By Lenders To Determine Your Creditworthiness For A Mortgage, Loan Or Credit Card. Your Score Can Affect Whether Or Not You Are Approved As Well As What Interest Rate You Are Charged." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#UndiscountedCashFlows" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Cash Flows Taken At Its Nominal, Undiscounted Rate" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Revenue" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Amount Of Money That A Company Actually Receives During A Specific Period, Including Discounts And Deductions For Returned Merchandise" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#OptionPremium" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Income Received By An Investor Who Sells Or 'Writes' An Option Contract To Another Party" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#CommercialLoanBorrowers" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Debt-Based Funding Arrangement Between A Business And A Financial Institution, Typically Used To Fund Major Capital Expenditures And Or Cover Operational Costs That The Company May Otherwise Be Unable To Afford." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#EmployeesStockIssue" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Issuing Employees Call Options On The Common Stock Of A Company, Granted By The Company To An Employee As Part Of The Employee'S Remuneration Package" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#AcquiredFinancialAssets" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Tangible Liquid Asset That Derives Value Because Of A Contractual Claim Of What It Represents." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#AccretableYield" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Difference Between The Actual Money Expected To Flow Into The Bank And The Value Of The Loans That The Bank Has Already Made." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#LIBOR" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Average Of Interest Rates Estimated By Each Of The Leading Banks In London That It Would Be Charged Were It To Borrow From Other Banks" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Foreign-Currency-DenominatedDebtSecurity" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Debt Secuirty Which Is Associated With Holdings Of A Foreign Currency" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#ReverseRepurchaseAgreement" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Purchase Of Securities With The Agreement To Sell Them At A Higher Price At A Specific Future Date" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Level-YieldBasis" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "One Of Two Ways Of Calculating The Accrued Discount Of Bonds That Trade In The Secondary Market" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#GAAP" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Common Set Of Accounting Principles, Standards And Procedures That Companies Must Follow When They Compile Their Financial Statements" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#LendingFinancialServices" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Financial Service Systems Which Lend Funds To Consuemrs For Personal Or Commercial Use" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#CarryingAmount" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Amounts That The Company Has On Its Books For An Asset Or A Liability" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#MortgageLoans" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Loan In Which Property Or Real Estate Is Used As Collateral. The Borrower Enters Into An Agreement With The Lender (Usually A Bank) Wherein The Borrower Receives Cash Upfront Then Makes Payments Over A Set Time Span Until He Pays Back The Lender In Full." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#EconomicEnvironment" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Totality Of Economic Factors, Such As Employment, Income, Inflation, Interest Rates, Productivity, And Wealth, That Influence The Buying Behavior Of Consumers And Institutions." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#InternalRiskRatings" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": " A Set Of Credit Risk Measurement Techniques Proposed Under Basel Ii Capital Adequacy Rules For Banking Institutions" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#BeneficialInterest" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Right To Receive Benefits On Assets Held By Another Party. Beneficial Interest Is Often Referred To In Matters Concerning Trusts" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Investee" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Business Entity In Which An Investment Has Been Made" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#AffiliatedEntity" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Companies That Are Less Than 50% Owned By A Parent Company; The Parents Are Minority Shareholders" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#CreditWorthiness" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Valuation Performed By Lenders That Determines The Possibility A Borrower May Default On His Debt Obligations. It Considers Factors, Such As Repayment History And Credit Score." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#TransactionGain-or-Loss" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Increase Or Decrease In A Cash Flow Caused By A Change In The Exchange Rate Of Two Currencies, Such As When An Invoice Denominated In One Currency Is Paid In Another" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#HeldForSale" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Assets, Usually Long-Term, Which One Party Wishes To Liquidate Through Sales To Other Parties" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#NonrefundableFees" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Used To Describe Money That You Pay That You Cannot Get Back" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#SatisfactionofaReceivable" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Satisfaction Of A Pending Incoming Payment" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#LeaseModifications" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Modificiations Made To A Lease Contract" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#SettlementDate" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Ecurities Industry Term Describing The Date On Which A Trade (Bonds, Equities, Foreign Exchange, Commodities, Etc.) Settles" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#DepositoryFinancialServices" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Facility Such As A Building, Office Or Warehouse Where Something Is Deposited For Storage Or Safeguarding" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Repayment" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Process Of Honoring A Previous Loan Or Commitment" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#UnderlyingValue" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Value Of The Financial Instrument (Such As Stock, Futures, A Commodity, A Currency Or An Index) On Which A Derivative'S Price Is Based." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#HedgeAccounting" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Method Of Accounting Where Entries For The Ownership Of A Security And The Opposing Hedge Are Treated As One" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#TransitionRequirements" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Capabilities That The Solution Must Have In Order To Facilitate Transition From The Current State Of The Enterprise To A Desired Future State, But That Will Not Be Needed Once That Transition Is Complete" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Government-GuaranteedCollateral" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Collateral Which Is Backed By Government Support" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#ContractualMaturity" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Final Payment Date Of A Loan Or Other Financial Instrument, At Which Point All The Remaining Outstanding Principal Will Be Repaid And Interest Is Due To Be Paid." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#PrincipalPayments" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Payment Toward The Amount Of Principal Owed" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#ChangeinAccountingPrinciples" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Alteration Of The Accounting Approach Used" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#InsuranceReceivables" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Receivables Which Are Expected As A Result Of Insurance Payments" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#ImpairmentofLong-LivedAssets" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Slow And Steady Depreciation Of Assets Which Have Been Held For A Long Period Of Time" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#HeldToMaturity" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Purchased With The Intention Of Holding The Investment To Maturity. This Type Of Security Is Reported At Amortized Cost On A Company'S Financial Statements And Is Usually In The Form Of A Debt Security With A Specificmaturity Date." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#ForwardContract" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "An Informal Agreement Traded Through A Broker-Dealer Network To Buy And Sell Specified Assets, Typically Currency, At A Specified Price At A Certain Future Date." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#MarketPrice" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Price Of A Commodity When Sold In A Given Market." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Accretion" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Asset And Earnings Growth Due To Business Expansion, And It Can Occur Through A Company'S Internal Growth Or By Way Of Mergers And Acquisitions" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#CollectibilityOfReceivables" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Collection Of All Pending Receivables" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#PublicBusinessEntity" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Publicly Traded Company In An Economic Environment" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#ContractualCashFlows" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Cash Flows That Are Judged By The Pertinent Terms Within A Contractual Agreement" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Off-Balance-SheetExposures" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Assets Or Liabilities That Do Not Appear On A Company'S Balance Sheet But That Are Nonetheless Effectively Assets Or Liabilities Of The Company." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#ResaleMarket" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Market In Which Previously Owend Assets Are Put Up Once Again For Sale" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#UnearnedPremiumRevenue" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Liability Account That Reports An Insurance Company'S Premiums Received From Its Insured That Have Not Yet Been Earned" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#NetAssets" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Total Assets Minus Total Liabilities" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#FinancialGuarantees" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "An Non-Cancellable Indemnity Bond That Is Backed By An Insurer In Order To Guarantee Investors That Principal And Interest Payments Will Be Made" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#InternalMetrics" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Information Created By The Operation Of An Organization That Includes Sales, Purchase Orders, And Transactions In Inventory Instead Of The Data Being Created By An Independent Study Or Database." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Line-Of-CreditArrangement" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "An Arrangement Between A Financial Institution, Usually A Bank, And A Customer That Establishes A Maximum Loan Balance That The Lender Permits The Borrower To Access Or Maintain" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#InvestmentIncome" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Income That Comes From Interest Payments, Dividends, Capital Gains Collected Upon The Sale Of A Security Or Other Assets, And Any Other Profit Made Through An Investment Vehicle Of Any Kind" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#NontroubledDebtors" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Debtor Who Is Not Being Affected By Credit Problems" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#CreditReviewSystem" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A System To Review The Creditworthiness Of A User Or Financial Entity" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#CreditCardLoans" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Loans Associated With Credit Cards Which Need To Be Repaid" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#PortfolioDiversificationObjective" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Risk Management Technique That Mixes A Wide Variety Ofinvestments Within A Portfolio" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#CostRecoveryMethod" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "When A Business Does Not Recognize Any Income Related To A Sale Transaction Until Such Time As The Cost Element Of The Sale Has Been Paid In Cash By The Customer" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Not-for-profitEntity" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Type Of Organization That Does Not Earn Profits For Its Owners" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#DividendsReceivable" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Incoming Income From Dividends" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Debt-EquitySwap" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Transaction In Which The Obligations Or Debts Of A Company Or Individual Are Exchanged For Something Of Value, Equity. In The Case Of A Publicly Traded Company, This Generally Entails An Exchange Of Bonds For Stock." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#ResidualAsset" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "An Estimate Of How Much An Asset Will Be Worth At The End Of Its Lease, Or At The End Of Its Useful Life" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#GrossUnrecognizedHoldingGains" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Gross Unrecognized Increases In The Replacement Costs Of The Assets Held During A Given Period." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#InherentCreditRisk" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Probability Of Loss Arising Out Of Circumstances Or Existing In An Environment, In The Absence Of Any Action To Control Or Modify The Circumstances." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#DomesticDistribution" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Distribution Of Funds Within A Domestic Environment" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#ContingentLiabilities" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Potential Liability That May Occur, Depending On The Outcome Of An Uncertain Future Event. A Contingent Liability Is Recorded In The Accounting Records If The Contingency Is Probable And The Amount Of The Liability Can Be Reasonably Estimated." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#EquityMethod" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "An Accounting Technique Used By Firms To Assess The Profits Earned By Their Investments In Other Companies" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#NoncashIncome" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Check Or Other Negotiable Item, Such As A Draft, Deposited Into A Customer'S Account But Not Credited To The Account Until It Clears The Issuer'S Account" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Option" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Financial Derivative That Represents A Contract Sold By One Party (The Option Writer) To Another Party (The Option Holder)" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#InitialAllowanceforCreditLosses" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Initial Amount That Is Allocated For Credit Losses Within A Financial Institution" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#AmortizedCostBasis" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Method Of Recording Cost Of A Fixed Asset That Has Been Charged To Expense Through Either Depreciation Or Amortization" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Securitization" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Process Of Taking An Illiquid Asset, Or Group Of Assets, And Through Financial Engineering, Transforming Them Into A Security" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#ImplicitInterestRate" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Rate That Is Not Explicit; In Other Words, The Rate Is Not Stated" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Patent" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Government License That Gives The Holder Exclusive Rights To A Process, Design Or New Invention For A Designated Period Of Time" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Credit-qualityInformation" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Information Regarding The Credit Worthiness Of A Select Individual" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#ManagementPractices" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Business Strategy Intended To Help Companies Overcome The Challenges Of Fluctuating Markets And Adapt To The Ever-Evolving Needs Of Consumers." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#ContingentAssets" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Potential Asset Associated With A Contingent Gain. Unlikecontingent Liabilities And Contingent Losses, Contingent Assets And Contingentgains Are Not Recorded In Accounts, Even When They Are Probable And The Amount Can Be Estimated." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Lessor" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": " The Owner Of An Asset That Is Leased Under An Agreement To A Lessee" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#OutstandingLoans" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Unpaid, Interest-Bearing Balance Of A Loan Portfolio Averaged Over A Period Of Time, Usually One Month" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#SpecialPurposeEntity" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Subsidiary Company With An Asset/Liability Structure And Legal Status That Makes Its Obligations Secure Even If The Parent Company Goes Bankrupt" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#DividendIncome" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Income From The Distribution Of A Portion Of A Company'S Earnings, Decided By The Board Of Directors, To A Class Of Its Shareholders" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Leases" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Contract Outlining The Terms Under Which One Party Agrees To Rent Property Owned By Another Party" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#NetDeferredCosts" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Long-Term Prepaid Expense That Is Treated As An Asset On A Balance Sheet And Is Carried Forward Until It Is Actually Used" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#BusinessCombination" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Transaction In Which The Acquirer Obtains Control Of Another Business (The Acquiree)" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#LeaseTermination" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Ending Of A Lease Contract" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#TransactionLoss" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Loss That Comes About From Transactional Activity" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#CreditDeterioration" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Deterioration In The Creditworthiness Of An Individual Or Entity. This Is Usually Reflected Through A Lower Credit Score, In The Case Of An Individual, Or A Reduction In The Credit Rating Assigned To An Entity By A Rating Agency Or Lender." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#CreditRating" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "An Estimate Of The Ability Of A Person Or Organization To Fulfill Their Financial Commitments, Based On Previous Dealings." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#InterimFinancialData" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Financial Information For The Interim Period" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#FairValueOption" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Alternative For A Business To Record Its Financial Instruments At Their Fair Values" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#ChangeinFinancialPosition" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Change In The Financial Standing Of A Company" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Past-DueStatus" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Loan Payment That Has Not Been Made As Of Its Due Date" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#ForeignCurrency" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Currency (I.E. Money) Of Another Country" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#FinanceLeases" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Way Of Providing Finance \u2013 Effectively A Leasing Company (The Lessor Or Owner) Buys The Asset For The User (Usually Called The Hirer Or Lessee) And Rents It To Them For An Agreed Period" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#LendingStrategies" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Methods Utilized By Banks To Make Loans On A Consumer And Commercial Basis" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#RealEstateValues" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Value Of Real Estate" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#DirectFinancingLease" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": " The Coupling Of A Sale Andfinancing Transaction. In This Case, The Lessor Removes The Leased Asset From Its Books And Replaces It With A Receivable From The Lessee." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#AdjustedBasis" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Original Cost Or Other Basis Of Property, Reduced By Depreciation Deductions And Increased By Capital Expenditures." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#LoanCommitment" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Loan From A Commercial Bank Or Other Lending Institution That May Be Drawn Down And Contractually Funded In The Future." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#InverseFloater" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Bond Or Other Type Of Debt Whose Coupon Rate Has An Inverse Relationship To A Benchmark Rate" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Usage-basedRoyalty" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Royalties Which Are Accrued As A Result Of A Consumer Using A Product" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#CreditRisk" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Risk Of Default On A Debt That May Arise From A Borrower Failing To Make Required Payments" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#NetDeferredFees" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Long-Term Prepaid Expense That Is Treated As An Asset On A Balance Sheet And Is Carried Forward Until It Is Actually Used" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#HedgedItem" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Financial Item Which Is Being Used For The Process Of Hedging" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Probability-Of-DefaultMethod" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Likelihood Of A Default Over A Particular Time Horizon" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#HostContract" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Debt Instrument Because The Instrument Has A Stated Maturity And Because The Holder Has None Of The Rights Of A Shareholder, Such As The Ability To Vote The Shares And Receive Distributions To Shareholders" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#IndividualEvaluation" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Assessment Of Employmees Within A Financial Instiution" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#FairValue" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Estimated Value Of All Assets And Liabilities Of An Acquir" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#IndemnificationAssets" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Compensation For Damages Or Loss" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#ReacquiredRights" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Rights That Are Reacquired By A Certain Financial Entity" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#ExpectedCreditLoss" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Expected Credit Loss During A Financial Period" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Government-assistedAcquisition" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Subsidized Acquisition That Is Aided By The Government" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#CreditQualityInformation" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Creditworthiness Of A Certain User" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#MacroeconomicConditions" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Economic Factors That Influence The State Of The Whole (Aggregate) Economy, Such As Changes In Employment Levels, Gross National Product (Gnp), And Prices (Deflation Or Inflation)." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Creditor" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Person Or Company To Whom Money Is Owed." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Loss-RateMethod" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Dollar Amount Declared Non-Receivable And Written Off, Net Of Recoveries, During The Fiscal Year Divided By The Total Dollar Amount Of Microloans Outstanding For The Fiscal Year." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#SeasonalRevenue" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Revenue That Is Dependent On The Time Of Year" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Mortgage-backedSecurity" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Type Of Asset-Backed Security That Is Secured By A Mortgage Or Collection Of Mortgages" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#LiquidityNeeds" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Requirement For A Bank To Be Liquid Under Certain Conditions In The Case Of Financial Catastrophe" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#CashCollections" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Recovery Of Cash From A Business Or Individual With Which You Have Issued An Invoice" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#RetainedEarnings" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Percentage Of Net Earnings Not Paid Out As Dividends, But Retained By The Company To Be Reinvested In Its Core Business, Or To Pay Debt" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#OperatingResults" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Results Which Come From The Core Operations Of A Small Or Large Business." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#LoanOriginationFee" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "An Up-Front Fee Charged By A Lender For Processing A New Loan Application, Used As Compensation For Putting The Loan In Place" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#DebtSecurities" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Negotiable Or Tradable Liability Or Loan." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#DisposalofLong-LivedAssets" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Disposal Of Any Asset That A Business Expects To Retain For At Least One Year" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Short-TermFinancing" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Concept That Refers To Holding An Asset For A Year Or Less, And Accountants Use The Term \u201CCurrent\u201D To Refer To An Asset Expected To Be Converted Into Cash In The Next Year Or A Liability Coming Due In The Next Year." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#IncomeTaxes" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Tax Imposed On Individuals Or Entities (Taxpayers) That Varies With The Income Or Profits (Taxable Income) Of The Taxpayer." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Current-PeriodOriginations" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Process By Which A Borrower Applies For A New Loan, And A Lender Processes That Application" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#AllowanceforExpectedCreditLoss" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Allowance Section For The Credit Losses A Bank Has Projected For The Fiscal Term" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#ForeclosedProperty" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Property In Which The Owner Is Unable To Make His Mortgage Loan Payments And The Bank Repossessed The Home" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Interest-OnlyLoans" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Borrower Only Pays The Interest On The Mortgage Through Monthly Payments For A Term That Is Fixed On An Interest-Only Mortgage Loan." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#ForwardContractPrice" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Value Of A Non-Standardized Contractbetween Two Parties To Buy Or To Sell An Asset At A Specified Future Time At A Priceagreed Upon Today, Making It A Type Of Derivative Instrument." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Write-Downs" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Reduction In The Estimated Or Nominal Value Of An Asset." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#HoldingGainorLoss" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Gain Or Loss That Occurs By Holding An Asset" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#LeveragedLease" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Lease In Which The Lessor Puts Up Some Of The Money Required To Purchase The Asset And Borrows The Rest From A Lender" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#MeasurementDate" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Date At Which The Fair Value Of The Equity Instruments Granted Is Measured" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#DeferredTaxAccount" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Refers To A Situation Where A Business Has Overpaid Taxes Or Taxes Paid In Advance On Its Balance Sheet. These Taxes Are Eventually Returned To The Business In The Form Of Tax Relief, And The Over-Payment Is, Therefore, An Asset For The Company" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#AssetsHeldForSale" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Assets (Or Disposal Groups) Which Are Not Depreciated, Are Measured At The Lower Of Carrying Amount And Fair Value Less Costs To Sell, And Are Presented Separately In The Statement Of Financial Position." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#LoanRefinancing" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Restructuring Of An Existing Debt Obligation With Another Debt Obligation Under Different Terms" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#DeferredFees" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "An Accounting Concept Meaning Costs Associated With Issuing Debt (Loans And Bonds), Such As Various Fees And Commissions Paid To Investment Banks, Law Firms, Auditors, Regulators, And So On" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#CostBasis" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Original Value Of An Asset For Tax Purposes, Usually The Purchase Price, Adjusted For Stock Splits, Dividends And Return Of Capital Distributions" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#ExpectedCashFlows" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Expected Amount Of Cash And Cash-Equivalents Moving Into And Out Of A Business" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Hedge" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "An Investment To Reduce The Risk Of Adverse Price Movements In An Asset" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#FinancialReportingDate" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Date In Which The Financial Statement Information Is Agreed Upon To Be Released" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#EstimatedFuturePrincipal" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Estiamted Princiapl Payment That Will Be Required In The Future For A Loan" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#CommercialProperty" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": " Buildings Or Land Intended To Generate A Profit, Either From Capital Gain Or Rental Income." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Guarantee" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Financial Reassurance Given By A Financial Entity To Its Consumers" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#ThirdParty" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Person Or Group Besides The Two Primarily Involved In A Situation, Especially A Dispute." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#TradeAccounts" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Account Is Held At A Financial Institution And Administered By An Investment Dealer That The Account Holder Uses To Employ A Trading Strategy Rather Than A Buy-And-Hold Investment Strategy." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Credit-Rating_AgencyRatings" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Credit Ratings Provided By Rating Agencies" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#VacancyRates" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Percentage Of All Available Units In A Rental Property, Such As A Hotel Or Apartment Complex, That Are Vacant Or Unoccupied At A Particular Time" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#DeterioratedCreditQuality" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Creditworthiness Which Has Eroded Overtime Due To Irresponsible Credit Maintenance" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#DebtInstrument" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Paper Or Electronic Obligation That Enables The Issuing Party To Raise Funds By Promising To Repay A Lender In Accordance With Terms Of A Contract. Types Of Debt Instruments Include Notes, Bonds, Debentures, Certificates, Mortgages, Leases Or Other Agreements Between A Lender And A Borrower." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#CreditLoss" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Loss Of Credit" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#VariableInterestRate" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Loan In Which The Interest Rate Charged On The Outstanding Balance Varies As Market Interest Rates Change" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#CommonRiskCharacteristics" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Risk Characteristics That Are Shared Across A Broad Range Of Assets" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#BasisPoint" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "One Hundredth Of One Percent, Used Chiefly In Expressing Differences Of Interest Rates." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#FinancingTransaction" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "An Agreement, Communication, Or Movement Carried Out Between A Buyer And A Seller To Exchange An Asset For Payment" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#EquityMethodLoss" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Loss Of Profits Earned By A Company'S Investments In Other Companies" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#NominalInterestRate" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Rate Of Interest Before Adjustment For Inflation " }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#InternationalDistribution" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "International Distribution Of Products" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#SalesProceeds" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Revenue Realized As A Result Of Sales" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#CreditRecoveries" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Recovery Of Credit" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#CashBasisMethod" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Major Accounting Method That Recognizes Revenues And Expenses At The Time Physical Cash Is Actually Received Or Paid Out" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#EffectiveInterestRate" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Interest Rate That Is Actually Earned Or Paid On An Investment, Loan Or Other Financial Product Due To The Result Of Compounding Over A Given Time Period" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#RelatedPartyBorrowers" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Party Which Is Related To A Financial Entity By Some Specialo Circumstance" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#TranslationAdjustment" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Translation That Must Be Employed When Differing Currencies Are Utilized" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#UnemploymentRates" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Percentage Of The Total Labor Force That Is Unemployed But Actively Seeking Employment And Willing To Work." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#InvestmentCompanies" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Corporation Or Trust Engaged In The Business Of Investing The Pooled Capital Of Investors In Financial Securities" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Sales-TypeLease" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Lease Is Classified As A Sales-Type Lease By The Lessor When The Fair Value Of The Leased Property At The Start Of A Lease Varies From Its Carrying Amount, It Involves Real Estate, And There Is A Transfer Of Ownership To The Lessee By The End Of The Lease Term" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#ForeignCurrencyTranscations" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Transactions Which Are Made Through Foreign Currency" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#TradingDebtSecurity" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Debt Instrument, Such As A Government Bond, Corporate Bond, Certificate Of Deposit (Cd), Municipal Bond Or Preferred Stock, That Can Be Bought Or Sold Between Two Parties And Has Basic Terms Defined, Such As Notional Amount (Amount Borrowed), Interest Rate, And Maturity And Renewal Date" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#FairValueHedge" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Hedge Of The Exposure To Changes In Fair Value Of A Recognized Asset Or Liability Or Unrecognized Firm Commitment, Or A Component Of Any Such Item, That Is Attributable To A Particular Risk And Could Affect Profit Or Loss." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#ImmediateAssetDisposition" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Immediate Disposal Of An Asset" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#EmbeddedDerivative" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Component Of A Hybrid Security That Is Embedded In A Non-Derivative Instrument. An Embedded Derivative Can Modify The Cash Flows Of The Host Contract Because The Derivative Can Be Related To An Exchange Rate, Commodity Price Or Some Other Variable Which Frequently Changes." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#RecordedInvestment" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Amount Invested Into A Specific Financial Instrument" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#InitialInvestment" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Amount Required To Start A Business Or A Project" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#PreferredStock" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Stock That Entitles The Holder To A Fixed Dividend, Whose Payment Takes Priority Over That Of Common-Stock Dividends." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#AccountingAdjustment" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": " A Business Transaction That Has Not Yet Been Included In The Accounting Records Of A Business As Of A Specific Date" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Interim-PeriodDisclosures" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Financial Disclosure At Some Point During The Financial Period" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#EndingAmortizedCost" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Ending Accumulated Portion Of The Recorded Cost Of A Fixed Asset That Has Been Charged To Expense Through Either Depreciation Or Amortization" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#DividendsReceived" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Dividends Which Are Received From A Financial Entity" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#DiscountRate" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Interest Rate Charged To Commercial Banks And Other Depository Institutions For Loans Received From The Federal Reserve Bank\u2019S Discount Window" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#AllowanceEndingBalance" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Ending Balance Of A Specific Allowance Decreed By A Bank" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Pension" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Regular Payment Made During A Person'S Retirement From An Investment Fund To Which That Person Or Their Employer Has Contributed During Their Working Life." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#IncomeRecognition" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "An Accounting Principle Under Generally Accepted Accounting Principles (Gaap) That Determines The Specific Conditions Under Which Revenue Is Recognized Or Accounted For" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#AccumulatedOtherComprehensiveIncomeBalances" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "General Ledger Accounts That Are Classified Within The Equity Section Of The Balance Sheet. They Are Used To Accumulate Unrealized Gains And Unrealized Losses On Those Line Items In The Income Statement That Are Classified Within The Other Comprehensive Income Category" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#VariableLeasePayments" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Payments That Depend On An Index Or A Rate" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#AFSDebtSecurities" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Debt Or Equity Security Purchased With The Intent Of Selling Before It Reaches Maturity, Or Selling Prior To A Lengthy Time Period In The Event The Security Does Not Have A Maturity" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#HistoricalCreditLossInformation" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Historical Record Of A Financial Institution'S Credit Loss Track Record" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#FederalNationalMortgageAssociation" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Government-Sponsored Enterprise(Gse) And, Since 1968, A Publicly Traded Company. Founded In 1938 During The Great Depression As Part Of The New Deal,[2] The Corporation'S Purpose Is To Expand The Secondary Mortgage Market By Securitizing Mortgages In The Form Of Mortgage-Backed Securities (Mbs)" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#InterestIncomeRecognition" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Term That Companies Use On Their Income Statement For Reporting The Interest Earned On Cash Temporarily Held In Savings Accounts, Certificates Of Deposits, Or Other Investments" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#InterestIncome" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Recognizing The Interest Earned On Cash Temporarily Held In Savings Accounts, Certificates Of Deposits, Or Other Investments" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#HedgingInstrument" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "An Instrument Used To Reduce The Amount Of Financial Risk" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#CollateralMaintenanceProvisions" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Provisions To Maintain The Collateral A Financial Entity Could Be Holding In Place Of Loan Repayment" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#OriginalContractualRate" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Interest Rate Specified Or Stated In A Note Payable Or In A Bond Payable. Often This Rate Is Fixed And Will Not Change During The Life Of The Note Or Bond." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#CreditEnhancement" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Method Whereby A Company Attempts To Improve Its Debt Or Credit Worthiness. Through Credit Enhancement, The Lender Is Provided With Reassurance That The Borrower Will Honor The Obligation Through Additional Collateral, Insurance, Or A Third Party Guarantee." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Agreed-UponDate" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Final Date By Which The Underlying Commodity For A Futures Contract Must Be Delivered In Order For The Terms Of The Contract To Be Fulfilled." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#SeedMoney" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Money Allocated To Initiate A Project." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#HedgedAsset" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Assets Which Have Been Accured In Order To Reduce Business Risk" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#GovernmentNationalMortgageAssociation" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Wholly Owned Government Corporation Within The Department Of Housing And Urban Development(Hud) Whose Mission Is To Expand Affordable Housing Finance In America By Linking Domestic And Global Capital To The Nation'S Housing Finance Markets, Providing Market Liquidity To Federally Sponsored Mortgage Lending Programs" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Employment-RelatedAgreements" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Formal Agreement That Specifies The Conditions Of The Relationship Between An Employee And An Employer Including Compensation And Expectations. Also Referred To As Employment Contracts, They Are Often Executed For A Specified Period Of Time, Such As One Year." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Receivable" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Debt To Be Paid Back To A Financial Entity" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#CurrentDirection" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Current Trajectory A Financial Entity Is On" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#NegativeEffectiveYield" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Negative Total Yield An Investor Receives In Relation To The Nominal Yieldor Coupon Of A Bond" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#RestructuredLoan" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "New Loan That Replaces The Outstanding Balance On An Older Loan, And Is Paid Over A Longer Period, Usually With A Lower Installment Amount." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#EstimationTechniques" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Techniques Used By A Financal Entity To Forecast Cash Flows" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#PremiumAmortization" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Liability Account That Must Be Reduced To $0 By The Time The Bonds Mature" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#BookkeepingMethod" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Recording Of Financial Transactions, And Is Part Of The Process Of Accounting In Business.[1] Transactions Include Purchases, Sales, Receipts, And Payments By An Individual Person Or An Organization/Corporation. There Are Several Standard Methods Of Bookkeeping, Such As The Single-Entry Bookkeeping System And The Double-Entry Bookkeeping System" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#AssessmentofExpectedCreditLosses" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "An Evaluation Of The Expected Credit Losses For A Fiscal Period" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#PensionPlans" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Retirement Plan That Requires An Employer To Make Contributions Into A Pool Of Funds Set Aside For A Worker'S Future Benefit" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#CostofSales" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "This Amount Includes The Cost Of The Materials Used In Creating The Good Along With The Direct Labor Costsused To Produce The Good. It Excludes Indirect Expenses Such As Distribution Costs And Sales Forcecosts." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#ReinsuranceContracts" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Practice Of Insurers Transferring Portions Of Risk Portfolios To Other Parties By Some Form Of Agreement To Reduce The Likelihood Of Having To Pay A Large Obligation Resulting From An Insurance Claim" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#CommitmentFee" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Fee Charged By A Lender To A Borrower For An Unused Credit Line Or Undisbursed Loan" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#TroubledDebtRestructuring" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Debt Restructuring In Which A Creditor, For Economic Or Legal Reasons Related To A Debtor'S Financial Difficulties, Grants A Concession To The Debtor That It Would Not Otherwise Consider." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#ValuationAccount" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Balance Sheet Account That Is Used In Combination With Another Balance Sheet Account In Order To Report The Carrying Amount Of An Asset Or Liability" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Held-To-MaturitySecurity" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Purchased With The Intention Of Holding The Investment To Maturity. This Type Of Security Is Reported At Amortized Cost On A Company'S Financial Statements And Is Usually In The Form Of A Debt Security With A Specific Maturity Date" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#NonaccrualStatus" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Nonperforming Loan That Is Not Generating Its Stated Interest Rate Because Of Nonpayment From The Borrower" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#ScheduledPaymnets" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Loan Payments Which Are Scheduled To Occur At A Periodic Rate" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#SECFiler" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Financial Statement Or Other Formal Document Submitted To The U.S. Securities And Exchange Commission" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#Roll-RateMethod" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Percentage Of Credit Card Users Who Become Increasingly Delinquent On Their Accounts" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#TradingAccounts" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Account Is Held At A Financial Institution And Administered By An Investment Dealer That The Account Holder Uses To Employ A Trading Strategy Rather Than A Buy-And-Hold Investment Strategy." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#MarketableDebt" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Unrestricted Financial Instruments Which Can Be Readily Sold On A Stock Exchange Or Bond Exchange" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#MaturityDate" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "The Final Payment Date Of A Loan Or Other Financial Instrument, At Which Point The Principal (And All Remaining Interest) Is Due To Be Paid" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#CreditCard" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Card Issued By A Financial Company Giving The Holder An Option To Borrow Funds, Usually At Point Of Sale" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#PostretirementBenefits" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Benefits, Other Than Pension Distributions, Paid To Employees During Their Retirement Years." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#AnnualReportingPeriod" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "An Established Range Of Time In Which Accounting Functions Are Performed, Aggregated And Analyzed Including A Calendar Year Or Fiscal Year" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#IntraEntity" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Of Or Relating To Activites Within A Financial Entity" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#RecordedLosses" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Losses Experienced By A Company" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#AmortizedCost" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Accumulated Portion Of The Recorded Cost Of A Fixed Asset That Has Been Charged To Expense Through Either Depreciation Or Amortization" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#LoanRestructuring" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Replacement Of An Existing Debt Obligation With Another Debt Obligation Under Different Terms" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#CedingEntity" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "An Insurance Company That Passes The Part Or All Of Its Risks From Its Insurance Policy Portfolio To A Reinsurance Firm" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#OrderlyTransaction" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A Transaction That Assumes Exposure To The Market For A Period Before The Measurement Date To Allow For Marketing Activities That Are Usual And Customary For Transactionsinvolving Such Assets Or Liabilities; It Is Not A Forced Transaction (Eg A Forced Liquidation Or Distress Sale)." }
+      },
+       {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#NonAccrual" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "A nonaccrual relates to a nonperforming loan that is not generating its stated interest rate because of nonpayment from the borrower. Nonaccrual loans are more likely to default, meaning that the lender will not receive its principal and interest unless the lender has adequate collateral to cover the loan. Because these loans can have interest credited only when the borrower makes a payment, the interest on a nonaccrual loan is recorded as earned income." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#PatentUsage" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Usage of a patent by a franchisee for a limited or specific time" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#PurchasedFinancialAssets" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Financial assets that are purchased by a company rather than originated" }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#RealEstateProperty" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Real Estate Held By A Financial Entity; Property consisting of land and the buildings on it, along with its natural resources such as crops, minerals or water; or immovable property of this nature; or an interest vested in this; buildings or housing in general." }
+      } ,
+      {
+        "para": { "type": "uri" , "value": "http://mindparabole.com/finance/fasb_concepts#UncertainCashFlows" } ,
+        "definition": { "datatype": "http://www.w3.org/2001/XMLSchema#string" , "type": "typed-literal" , "value": "Cash flows relating to a project that are uncertain or that cannot be defined with certainty" }
       }
     ]
   }

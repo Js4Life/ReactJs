@@ -4,7 +4,6 @@ import com.google.inject.Inject;
 import com.parabole.ccar.application.global.CCAppConstants;
 import com.parabole.ccar.application.services.CoralConfigurationService;
 import com.parabole.ccar.application.services.CoralUserService;
-import com.parabole.ccar.platform.authorizations.models.UserModel;
 import com.parabole.ccar.platform.exceptions.AppException;
 import com.parabole.ccar.platform.securities.AuthenticationManager;
 import com.parabole.ccar.platform.utils.AppUtils;
@@ -52,7 +51,7 @@ public class BaseController extends Controller {
     }
 
     public Result dologin() throws AppException {
-        final DynamicForm requestData = Form.form().bindFromRequest();
+/*        final DynamicForm requestData = Form.form().bindFromRequest();
         //final String userId = requestData.get("userid");
         final String userId = "root";
         //final String password = requestData.get("password");
@@ -65,7 +64,13 @@ public class BaseController extends Controller {
             return index();
         } else {
             return login();
-        }
+        }*/
+
+
+        if(session().get(CCAppConstants.ROLE) != null)
+            return index();
+        else
+            return ok("Please Login First");
     }
 
     public Result logout() {
@@ -85,7 +90,6 @@ public class BaseController extends Controller {
         final String userRole = session().get(CCAppConstants.ROLE);
         Logger.info("userName", userName);
         Logger.info("userRole", userRole);
-        UserModel.findByUserName(userName);
         return ok(com.parabole.ccar.application.views.html.main.render(userName, userRole));
         //.map(user -> ok(index.render(user)));
 

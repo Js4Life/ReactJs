@@ -14,18 +14,22 @@
 package com.parabole.rda.application.controllers;
 
 import com.google.inject.Inject;
+import com.parabole.auth.global.AuthConstants;
 import com.parabole.rda.application.global.RdaAppConstants;
 import com.parabole.rda.application.services.*;
 import com.parabole.rda.platform.exceptions.AppException;
 import com.parabole.rda.platform.securities.AuthenticationManager;
 import com.parabole.rda.platform.utils.AppUtils;
 import org.json.JSONObject;
+import play.libs.F;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
 
 import java.util.List;
 import java.util.Map;
+
+import static com.parabole.auth.controllers.AuthController.getLoginD;
 
 /**
  * Play Framework Base Action Controller.
@@ -56,6 +60,7 @@ public class BaseAction extends Controller {
     @Inject
     protected AuthenticationManager authenticationManager;
 
+
     public Result login() {
         return ok(com.parabole.rda.application.views.html.login.render());
     }
@@ -63,17 +68,25 @@ public class BaseAction extends Controller {
     public Result dologin() throws AppException {
         //final DynamicForm requestData = Form.form().bindFromRequest();
         // final String userId = requestData.get("userid");
-        final String userId = "root";
+//        final String userId = "root";
         // final String password = requestData.get("password");
-        final String password = "admin";
-        if (authenticationManager.authenticate(userId, password)) {
-            session().put(RdaAppConstants.USER_ID, userId);
-            session().put(RdaAppConstants.USER_NAME, coralUserService.getSpecificDocumentUsingIdAndColumnName(userId, RdaAppConstants.ATTR_DATABASE_USER_NAME_COLUMN_NAME));
+//        final String password = "admin";
+
+
+
+        //if (authenticationManager.authenticate(userId, password)) {
+            //session().put(RdaAppConstants.ROLE, "ADMIN");
+            //session().put(RdaAppConstants.USER_ID, userId);
+            //session().put(RdaAppConstants.USER_NAME, coralUserService.getSpecificDocumentUsingIdAndColumnName(userId, RdaAppConstants.ATTR_DATABASE_USER_NAME_COLUMN_NAME));
+            System.out.println(" = " + getLoginD());
+        if(session().get(AuthConstants.ROLE) != null)
             return index();
-        } else {
+        else
+            return ok("Please Login First");
+       /* } else {
             System.out.println("password = " + userId + password);
             return login();
-        }
+        }*/
     }
 
     public Result logout() {
@@ -107,6 +120,7 @@ public class BaseAction extends Controller {
 
     protected Result index() {
         final String userName = session().get(RdaAppConstants.USER_NAME);
+       // UserModel.findByUserName(userName);
         return ok(com.parabole.rda.application.views.html.main.render(userName));
     }
 
