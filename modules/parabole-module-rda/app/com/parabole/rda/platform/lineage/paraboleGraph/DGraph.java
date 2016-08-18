@@ -14,7 +14,7 @@ public class DGraph {
 		private int	V; //number of vertices
 		private	int E; //number of edges
 		private	List<node>	ListNode;	//List containing nodes
-		private List<adjedge>[]	AdjList; //Adjacency List
+		public List<adjedge>[]	AdjList; //Adjacency List
 		
 		//node class definition
 		private class node {
@@ -45,10 +45,10 @@ public class DGraph {
 		}
 		
 		//adjacency list element class
-		private class adjedge {
-			int		dest_ID;
+		public class adjedge {
+			public int		dest_ID;
 			double	edge_weight;
-			private adjedge (int dest_id, double weight){
+			public adjedge (int dest_id, double weight){
 				dest_ID = dest_id;
 				edge_weight = weight;
 			}

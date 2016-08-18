@@ -10,6 +10,7 @@ import com.parabole.rda.platform.lineage.businessRuleReader.RuleReader;
 import com.parabole.rda.platform.lineage.businessUCReader.UCDef;
 import com.parabole.rda.platform.lineage.businessUCReader.UCReader;
 import com.parabole.rda.platform.lineage.dataSchematoGraph.DataSchemaParser;
+import com.parabole.rda.platform.lineage.paraboleGraph.DGraph;
 import net.sf.jsqlparser.JSQLParserException;
 
 import java.util.List;
@@ -162,13 +163,30 @@ public class HyperGraphUtil {
 		
 		//Read Rule info and print it 
 		UCReader	pUCReader = new UCReader();
-		pUCList = pUCReader.GenerateSpecificUC(pUCReader.getUCListFromExcel(FILE_PATH), UseCaseId);
+		pUCList = pUCReader.GenerateSpecificUC(pUCReader.getUCListFromExcel(FILE_PATH, pHGraph.DGraph_list.get(0)), UseCaseId);
 
 		System.out.println("  ReadSpecificUCfromXLS END ");
 	
 		return pUCList;
 	}
+	
+	public	DGraph	getConceptGraph(){
+		return (pHGraph.DGraph_list.get(0));
+	}
 
+	public List<UCDef>	ReadSpecificUCfromXLSspecificNodeId(final String FILE_PATH, int UseCaseId, int nodeId){
+		
+		System.out.println("  ReadSpecificUCfromXLS START UseCaseId" + UseCaseId);
+		
+		//Read Rule info and print it 
+		UCReader	pUCReader = new UCReader();
+		pUCList = pUCReader.GenerateSpecificUC(pUCReader.getUCListFromExcelSpecificNodeId(FILE_PATH, pHGraph.DGraph_list.get(0), nodeId), UseCaseId);
+
+		System.out.println("  ReadSpecificUCfromXLS END ");
+	
+		return pUCList;
+	}	
+	
 	public VisualDef	 GetLineageGraph (List<RuleDef> pRule){
 			VisualDef pVDef = new VisualDef();
 			System.out.println("Size :::::::::::::::::::::::::::::"+pRule.size());

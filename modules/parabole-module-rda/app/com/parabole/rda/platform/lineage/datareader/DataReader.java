@@ -34,6 +34,7 @@ public class DataReader {
 			int		indx = 0;
 			int 	date_col = 0;
 			int		current_year = 0;
+			int col_indx = 0;
 	        
 			try {
 	            fis = new FileInputStream(FILE_PATH);
@@ -139,13 +140,14 @@ public class DataReader {
 						}		
 					}		
 
-					//System.out.println("Y[] reading END");					
-	                
+					System.out.println("Y[] reading END");					
+	                col_indx = 0;
 					//Now read each parameter one by one
 					for(int j = 0 ; j < (pDataArray.size()-1); j++){
 							rowIterator = sheet.iterator();
 							//Chcek what is the name of column at 0 Key of hashmap
 							lLineageList = pDataArray.get(j+1);
+							if(lLineageList.size() < 2) {continue;} 
 							//check which column name matches with rule name
 							//Read the first row which is header
 							if(!rowIterator.hasNext()) { break;}
@@ -195,7 +197,7 @@ public class DataReader {
 									while(cellIterator.hasNext())
 									{
 										if(temp_target_col == target_col){
-											x[indx][j] = (double)(((Cell) cellIterator.next()).getNumericCellValue());
+											x[indx][col_indx] = (double)(((Cell) cellIterator.next()).getNumericCellValue());
 											//System.out.println("j " + j + " indx " + indx + " x[indx][j] " + x[indx][j]);
 											indx = indx + 1;
 											break;
@@ -204,7 +206,8 @@ public class DataReader {
 										temp_target_col = temp_target_col + 1;
 									}	
 								}	
-							}		
+							}
+							col_indx = col_indx + 1;		
 							//System.out.println("Reading of x[][] END");
 
 					}
