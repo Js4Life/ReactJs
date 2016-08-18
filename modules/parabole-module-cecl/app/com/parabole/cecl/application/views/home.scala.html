@@ -24,15 +24,15 @@
       <div class="panel-body" style="padding:0;">
         <div ng-class="collapseClasses.left" style="overflow-y:auto;height:80vh;">
           <ul class="list-group">
-            <li class="list-group-item pointer puff" ng-repeat="node in nodes" ng-click="exploreNode(node , $event)">
+            <li class="list-group-item pointer puff" ng-class="{'active-nav': node.name === 'Concept'}" ng-repeat="node in nodes" ng-click="exploreNode(node , $event)">
               {{node.name}}
             </li>
           </ul>
         </div>
         <div class="zero-padding" ng-class="collapseClasses.center" style="cursor:hand;height:80vh;border:1px solid #ddd;overflow: auto;">
-            <ol class="breadcrumb" ng-if="breads.length > 0" style="height:45px;">
+            <ol class="breadcrumb" ng-if="breads.length > 0">
                 <li ng-repeat="bread in breads">{{bread.name}}</li>
-                <div class="btn-group btn-group-sm pull-right" data-toggle="buttons">
+                <div class="btn-group btn-group-xs pull-right" data-toggle="buttons">
                   <label class="btn btn-primary" ng-click="setColorCode('all')">
                     <input type="radio" name="options" id="option1" autocomplete="off"> All
                   </label>

@@ -12,8 +12,11 @@
     <b>{{heading.title}} ({{currentConcept.name}})</b>
   </div>
   <div class="panel-body" style="height:81vh;overflow: hidden;">
-    <div class="col-xs-6 max-height" style="overflow: auto;padding-left: 0;">
-      <p ng-repeat="para in paragraphs" class="pointer" ng-class="{'text-danger': para.willIgnore}" read-more="" content="{{para.bodyText}}" ng-click="selectParagraph(para, $event)"></p>
+    <div class="col-xs-6 max-height" style="overflow: auto;">
+      <div ng-repeat="para in paragraphs" style="position: relative;">
+        <i class="fa fa-check-circle fa-2x" ng-class="{'text-gray':!para.isSelected, 'text-green':para.isSelected}" aria-hidden="true" ng-click="selectParagraph(para)" style="position:absolute;top:-2px;left:-13px;"></i>
+        <p ng-class="{'text-danger': para.willIgnore}" read-more="" content="{{para.bodyText}}"></p>
+      </div>
     </div>
     <div class="col-xs-6 max-height" style="overflow: hidden;padding-right: 0;">
       <div class="container-fluid zero-padding">
@@ -23,7 +26,7 @@
           </div>
           <div class="form-group col-xs-3">
             <div class="row">
-              <div ng-hide="!currentParagraph || !question.text" class="max-width" ng-dropdown-multiselect="" options="currentConcept.components" selected-model="question.components" extra-settings="multiSelectCfg" group-by="type"></div>
+              <div ng-hide="currentParagraphs.length < 1 || !question.text" class="max-width" ng-dropdown-multiselect="" options="currentConcept.components" selected-model="question.components" extra-settings="multiSelectCfg" group-by="type"></div>
             </div>
             <div class="row" style="margin-top: 5px;">
               <button ng-disabled="!question.text || question.components.length < 1" type="submit" class="btn btn-default max-width" ng-click="addQuestion()">Add</button>
@@ -36,16 +39,29 @@
       </div><br>
       <div class="container-fluid zero-padding">
         <div class="panel panel-default">
-          <div class="panel-heading">{{currentParagraph.id || "No Paragraph Selected!!!"}}</div>
+          <div class="panel-heading">{{currentParagraphs.length + " Paragraphs selected"}}</div>
           <div class="panel-body zero-padding" style="height:52vh;overflow: hidden;">
-            <div class="list-group">
-              <a href="" class="list-group-item" ng-repeat="q in questions">
-                <h5 class="list-group-item-heading">{{q.text}}</h5>
-                <div class="list-group-item-text">
-                  <div class="badge margin-right-5" ng-repeat="comp in q.components">{{comp.name}}</div>
-                </div>
-              </a>
-            </div>
+            <table class="table table-striped table-bordered">
+              <tbody>
+                <tr ng-repeat="q in questions">
+                  <td>
+                    <div>{{q.text}}</div>
+                    <div><div class="badge margin-right-5" ng-repeat="comp in q.components">{{comp.name}}</div></div>
+                    <div class="btn-toolbar pull-right" role="toolbar" aria-label="Config Tools">
+                      <div class="btn-group btn-group-xs" role="group" aria-label="Priority">
+                        <button type="button" class="btn btn-success">High</button>
+                        <button type="button" class="btn btn-warning">Med</button>
+                        <button type="button" class="btn btn-danger">Low</button>
+                      </div>
+                      <div class="btn-group btn-group-xs" role="group" aria-label="Settings">
+                        <button type="button" class="btn btn-default"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                        <button type="button" class="btn btn-default"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

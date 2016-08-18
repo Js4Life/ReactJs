@@ -85,16 +85,16 @@
 	},
 	"ceclConceptNodeDetails" : {
 		"outputFormat":"table",
-		"source":"195",
-		"groupByField" : "connections",
+		"source":"207",
+		"groupByField" : "Typename",
 		"columns" :  [{
-			"name" : "connections",
+			"name" : "Typename",
 			"label" : "name"
 		},{
 			"name" : "Area",
 			"label" : "type"
 		},{
-			"name" : "mprp",
+			"name" : "Type",
 			"label" : "link"
 		}]
 	},

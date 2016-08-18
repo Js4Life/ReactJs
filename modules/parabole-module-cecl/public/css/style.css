@@ -1496,7 +1496,7 @@ div.network-tooltip {
 
 .active-nav{
 	border-right: 5px solid #455962;
-	background: #FFFFFF;
+	background: #FFFFFF !important;
 }
 
 
@@ -1547,17 +1547,18 @@ div.network-tooltip {
 }*/
 
 .puff{
-	background: #EAEAEA !important;
+	background: #EAEAEA;
 	color:#000 !important;
 	border-bottom: #CBCBCB !important;
+    border-radius: 0 !important;
 }
 
-.active{
+/*.active{
 	background: #FFF !important;
 	color:#000 !important;
 	text-shadow: none !important;
 	border: transparent;
-}
+}*/
 
 .well, .navbar-default, .panel-heading{
 	background-image: none !important;
@@ -2372,6 +2373,10 @@ li.list-group-item.puff{
 
   .text-green{
       color: #4DD44D;
+  }
+
+  .text-gray{
+      color: #d2d2d2;
   }
 
   .bubble-icon{

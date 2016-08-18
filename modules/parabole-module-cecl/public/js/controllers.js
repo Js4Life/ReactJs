@@ -183,6 +183,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		};
 		$scope.answers = {};
 		$scope.currentColorCode = 'all';
+		$scope.exploreNode($scope.nodes[$scope.nodes.length - 1]);
 	}
 	
 	$scope.exploreNode = function (node, e) {
@@ -195,8 +196,10 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		SharedService.getFilteredDataByCompName("ceclBaseNodeDetails", node.id).then(function (data) {
 			$scope.childNodes = data.data;
 		});
-		$(e.currentTarget).parent().children().removeClass('active');
-		$(e.currentTarget).addClass('active');
+		if(e) {
+			$(e.currentTarget).parent().children().removeClass('active-nav');
+			$(e.currentTarget).addClass('active-nav');
+		}
 	}
 
 	$scope.leftSlideToggle = function(){
@@ -590,7 +593,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 .controller('checklistBuilderCtrl', function($scope, $state, $stateParams, SharedService) {
 	$scope.initialize = function () {
-		toastr.info('Select a paragraph..', '', {"positionClass" : "toast-top-right"});
+		toastr.info('Select one or more paragraph..', '', {"positionClass" : "toast-top-right"});
 		$scope.heading = {title: "Checklist Builder"};
 		$scope.question = {components: []};
 		$scope.questions = [];
@@ -601,23 +604,36 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			externalIdProp : ""
 		}
 		$scope.currentConcept = SharedService.currentConcept;
+		$scope.currentParagraphs = [];
 		SharedService.getParagraphsByConcept($scope.currentConcept.name).then(function (data) {
 			$scope.paragraphs = angular.fromJson(data.data);
 		});
 	}
 
-	$scope.selectParagraph = function (para, e) {
-		$(e.currentTarget).parent().children().removeClass('bg-info');
-		$(e.currentTarget).addClass('bg-info');
+	$scope.selectParagraph = function (para) {
+		//$(e.currentTarget).parent().children().removeClass('bg-info');
+		/*if($(e.currentTarget).hasClass('bg-info')){
+			$(e.currentTarget).removeClass('bg-info');
+		} else {
+			$(e.currentTarget).addClass('bg-info');
+		}
 		if($scope.currentParagraph) {
-			if ($scope.currentParagraph.id != para.id) {
-				toastr.info('Type a question and select related components from dropdown..', '', {"positionClass" : "toast-top-right"});
-				$scope.currentParagraph = para;
-				$scope.questions = [];
-			}
-		} else{
-			toastr.info('Type a question and select related components from dropdown..', '', {"positionClass" : "toast-top-right"});
-			$scope.currentParagraph = para;
+		 if ($scope.currentParagraph.id != para.id) {
+		 toastr.info('Type a question and select related components from dropdown..', '', {"positionClass" : "toast-top-right"});
+		 $scope.currentParagraph = para;
+		 $scope.questions = [];
+		 }
+		 } else{
+		 toastr.info('Type a question and select related components from dropdown..', '', {"positionClass" : "toast-top-right"});
+		 $scope.currentParagraph = para;
+		 }*/
+
+		para.isSelected = !para.isSelected;
+		var hasPara = _.find($scope.currentParagraphs, function (p) { return p === para.id; });
+		if(hasPara){
+			$scope.currentParagraphs =  _.reject($scope.currentParagraphs, function(p){ return p === para.id; });
+		} else {
+			$scope.currentParagraphs.push(para.id);
 		}
 	}
 
@@ -628,20 +644,20 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}
 
 	$scope.saveQuestions = function () {
-		$scope.currentQuestionCfg.paragraphId = $scope.currentParagraph.id;
+		$scope.currentQuestionCfg.paragraphId = $scope.currentParagraphs;
 		$scope.currentQuestionCfg.conceptName = $scope.currentConcept.name;
 		$scope.currentQuestionCfg.questions = $scope.questions;
-		SharedService.addChecklist($scope.currentQuestionCfg).then(function (data) {
+		/*SharedService.addChecklist($scope.currentQuestionCfg).then(function (data) {
 			console.log(data.data);
 			if(data.status){
 				toastr.success('Saved Successfully..', '', {"positionClass" : "toast-top-right"});
 				$scope.cleanQuestionEditor();
 			}
-		});
+		});*/
 	}
 
 	$scope.cleanQuestionEditor = function () {
-		$scope.currentParagraph = undefined;
+		$scope.currentParagraphs = [];
 		$scope.questions = [];
 		$scope.question = {components:[]};
 	}
