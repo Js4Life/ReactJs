@@ -63,7 +63,6 @@ public class BaseAction extends Controller {
     }
 
     public Result dologin() throws AppException {
-        System.out.println(" = " + getLoginD());
         if(session().get(AuthConstants.ROLE) != null)
             return index();
         else
