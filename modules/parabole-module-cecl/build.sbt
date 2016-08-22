@@ -13,9 +13,10 @@ libraryDependencies ++= Common.commonDependencies ++: Seq(
 )
 
 val feed = RootProject(file("./modules/parabole-module-feed"))
+val auth = RootProject(file("./modules/parabole-module-auth"))
 
 
 lazy val cecl = (project in file(".")).enablePlugins(PlayJava)
-  .aggregate(feed)
-  .dependsOn(feed)
+  .aggregate(feed, auth)
+  .dependsOn(feed, auth)
 
