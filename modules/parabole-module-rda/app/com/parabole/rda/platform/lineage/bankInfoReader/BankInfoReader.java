@@ -1,11 +1,15 @@
 package com.parabole.rda.platform.lineage.bankInfoReader;
 
+import com.parabole.rda.platform.graphdb.Octopus;
+import com.parabole.rda.platform.graphdb.OctopusIdMapper;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
- 
+import play.Play;
+
+import javax.inject.Inject;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -14,8 +18,15 @@ import java.util.Iterator;
 import java.util.List;
 
 
-
+//@InjectSupport
 public class BankInfoReader {
+
+    @Inject
+    protected Octopus octopus;
+	
+	//@Inject
+    //protected OctopusIdMapper octopusIdMapper;
+	protected OctopusIdMapper octopusIdMapper = Play.application().injector().instanceOf(OctopusIdMapper.class);
 	
 	public BankInfoReader() {}
 
@@ -139,7 +150,9 @@ public class BankInfoReader {
                     
                     //fifth one is the Mapped concept id
                     Cell cell5 = (Cell) cellIterator.next();
-                    pGlossary_elem.setGlossaryConcept_ID((int)cell5.getNumericCellValue());
+					String url = cell5.getStringCellValue();
+					int id = octopusIdMapper.getId(url);
+                    pGlossary_elem.setGlossaryConcept_ID((id));
          
                     
                     //sixth one is the Generator person name

@@ -8,22 +8,28 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.parabole.rda.platform.graphdb.OctopusIdMapper;
+import com.parabole.rda.platform.lineage.paraboleGraph.DGraph;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
+import play.Play;
 
 
 public class UCReader {
 
+	protected OctopusIdMapper octopusIdMapper = Play.application().injector().instanceOf(OctopusIdMapper.class);
+
 	//define class constructor
 	public UCReader(){}
 
-	   public List<uc_concept_map> getUCListFromExcel(String FILE_PATH) {
+	   public List<uc_concept_map> getUCListFromExcel(String FILE_PATH, DGraph pDGraph) {
 	        String CellVal4;
 	        String CellArray[];
+		    int	   Concept_ID;
+		    int	   Relation_ID;
 	        int	   CellInt[] = new int[100];
 	        List<uc_concept_map> uc_concept_list = new ArrayList<uc_concept_map>();
 	        FileInputStream fis = null;
@@ -52,31 +58,29 @@ public class UCReader {
 	                    //First one is the UC ID (Type NUMERIC)
 	                    Cell cell1 = (Cell) cellIterator.next();
 	                    pUCConceptMap.setUC_ID((int) cell1.getNumericCellValue());
-	                    
-	                    //Second one is the UC name (Type STRING)
-	                    Cell cell2 = (Cell) cellIterator.next();
-	                    pUCConceptMap.setUC_Name(cell2.getStringCellValue());
-	                    
-	                    //third one is the UC description (Type STRING)
-	                    Cell cell3 = (Cell) cellIterator.next();
-	                    pUCConceptMap.setUC_Description(cell3.getStringCellValue());
-	                    
-	                    //fourth one is the concept ID (Type NUMERIC[])
-	                    Cell cell4 = (Cell) cellIterator.next();
-	                    CellVal4 = cell4.getStringCellValue();
-	                    CellArray = CellVal4.split(";");
-	                    //Initialize CellInt values to "-1" (Invalid)
-	                    for(int k = 0; k < 100 ; k++)
-	                    	CellInt[k] = -1;
-	                    //Assign CellInt from CellArray read
-						System.out.println("  UC Cell Concept Array LEngth = " + CellArray.length);
-	                    for(int k = 0; k < CellArray.length ; k++) {
 
-							CellInt[k] = Integer.parseInt(CellArray[k]);
-	                    }	                    	
+						//Second one is the UC name (Type STRING)
+						Cell cell2 = (Cell) cellIterator.next();
+						pUCConceptMap.setUC_Name(cell2.getStringCellValue());
+
+						//Third one is the UC URL
+						Cell cell3 = (Cell) cellIterator.next();
+						String url = cell3.getStringCellValue();
+						Concept_ID = octopusIdMapper.getId(url);
+						Relation_ID = 0;
+
+						//Now go through the all relation paths for this ID
+						for(int j = 0 ; j < pDGraph.AdjList[Concept_ID].size() ; j++){
+							//First get the relation node
+							Relation_ID = (pDGraph.AdjList[Concept_ID].get(j)).dest_ID;
+							//Then find the other edge of the relation node
+							CellInt[j] = pDGraph.AdjList[Relation_ID].get(0).dest_ID;
+							System.out.println("CellInt[j] +++++++++ " + CellInt[j]);
+						}
+
 	                    pUCConceptMap.setConcept_ID((int[]) CellInt);
 	                    
-						pUCConceptMap.setConcept_length(CellArray.length);	
+						pUCConceptMap.setConcept_length(pDGraph.AdjList[Concept_ID].size());
 	                    //end iterating a row, add all the elements of a row in list
 	                    uc_concept_list.add(pUCConceptMap);                    
 	                	}
@@ -92,6 +96,79 @@ public class UCReader {
 	        return uc_concept_list;
 	   }
 	   
+	   public List<uc_concept_map> getUCListFromExcelSpecificNodeId(String FILE_PATH, DGraph pDGraph, int NodeId) {
+	        String CellVal4;
+	        String CellArray[];
+		    int	   Concept_ID;
+		    int	   Relation_ID;
+	        int	   CellInt[] = new int[100];
+	        List<uc_concept_map> uc_concept_list = new ArrayList<uc_concept_map>();
+	        FileInputStream fis = null;
+	        try {
+	            fis = new FileInputStream(FILE_PATH);
+	            // Using XSSF for xlsx format, for xls use HSSF
+	            Workbook workbook = new XSSFWorkbook(fis);
+	            int numberOfSheets = workbook.getNumberOfSheets();
+	 
+	            //looping over each workbook sheet
+	            for (int i = 0; i < numberOfSheets; i++) {
+	                Sheet sheet = workbook.getSheetAt(i);
+	                Iterator<Row> rowIterator = sheet.iterator();
+	                
+	                //Skip the first row which is header
+					if(!rowIterator.hasNext()) { break;}
+	                Row row = (Row) rowIterator.next();
+	                
+	                //iterating over each row
+	                while (rowIterator.hasNext()) {
+	                	uc_concept_map pUCConceptMap = new uc_concept_map();
+	                    row = (Row) rowIterator.next();
+						System.out.println("  Reading rows of UC data ");	                    
+	                    Iterator<Cell> cellIterator = row.cellIterator();
+	                    //Iterating over each cell (column wise)  in a particular row.
+	                    //First one is the UC ID (Type NUMERIC)
+	                    Cell cell1 = (Cell) cellIterator.next();
+	                    pUCConceptMap.setUC_ID((int) cell1.getNumericCellValue());
+
+						//Second one is the UC name (Type STRING)
+						Cell cell2 = (Cell) cellIterator.next();
+						pUCConceptMap.setUC_Name(cell2.getStringCellValue());
+
+						//Third one is the UC URL
+						Cell cell3 = (Cell) cellIterator.next();
+						String url = cell3.getStringCellValue();
+						Concept_ID = octopusIdMapper.getId(url);
+						Relation_ID = 0;
+
+						//Now go through the all relation paths for this ID
+						for(int j = 0 ; j < pDGraph.AdjList[Concept_ID].size() ; j++){
+							//First get the relation node
+							Relation_ID = (pDGraph.AdjList[Concept_ID].get(j)).dest_ID;
+							//Then find the other edge of the relation node
+							CellInt[j] = pDGraph.AdjList[Relation_ID].get(0).dest_ID;
+							System.out.println("CellInt[j] +++++++++ " + CellInt[j]);
+							System.out.println("Adjcency List Size() " + pDGraph.AdjList[CellInt[j]].size());
+						}
+
+	                    pUCConceptMap.setConcept_ID((int[]) CellInt);
+	                    
+						pUCConceptMap.setConcept_length(pDGraph.AdjList[Concept_ID].size());
+	                    //end iterating a row, add all the elements of a row in list
+	                    uc_concept_list.add(pUCConceptMap);                    
+	                	}
+
+	                }
+	            fis.close();
+	        } catch (FileNotFoundException e) {
+				System.out.println("  Cannot open UC file");
+	            e.printStackTrace();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	        return uc_concept_list;
+	   }
+
+
 	   public List<UCDef> GenerateUC(List<uc_concept_map> uc_list){
 		   uc_concept_map pUC_elem;
 		   List<UCDef>	pUCList = (List<UCDef>) new LinkedList<UCDef>();
