@@ -3,6 +3,7 @@ package com.parabole.feed.application.services;
 import com.google.inject.Inject;
 import com.parabole.feed.application.exceptions.AppException;
 import com.parabole.feed.application.utils.AppUtils;
+import com.parabole.feed.platform.graphdb.StarFish;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import play.Environment;
@@ -18,6 +19,9 @@ public class CheckListServices {
 
     @Inject
     private Environment environment;
+
+    @Inject
+    private StarFish starFish;
 
 
 
@@ -120,6 +124,19 @@ public class CheckListServices {
         JSONObject jsonObject = new JSONObject(sampleIncomingQuestion);
 
         return addQuestion(jsonObject);
+    }
+
+
+    public String saveQuestion() throws AppException, IOException {
+
+        Integer sampleIncomingQuestion = null;
+        try {
+            sampleIncomingQuestion = starFish.saveQuestion();
+        } catch (com.parabole.feed.platform.exceptions.AppException e) {
+            e.printStackTrace();
+        }
+
+        return sampleIncomingQuestion.toString();
     }
 
     public String findAndAddAnswer() throws AppException, IOException {

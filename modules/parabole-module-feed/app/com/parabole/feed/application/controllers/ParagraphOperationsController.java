@@ -29,6 +29,15 @@ public class ParagraphOperationsController extends BaseController{
     }
 
 
+    public Result saveQuestion() throws AppException, IOException {
+
+        String savedQuestions = checkListServices.saveQuestion();
+
+        return ok(savedQuestions);
+
+    }
+
+
     public Result addAnswer() throws AppException, IOException {
 
         String mappedQuestions = checkListServices.findAndAddAnswer();
