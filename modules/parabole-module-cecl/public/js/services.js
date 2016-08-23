@@ -80,6 +80,7 @@ angular.module('RDAApp.services', [])
         'GetChecklistByConceptAndComponent' : 'getChecklistByConceptAndComponent',
         'GetChecklistByNode' : 'getChecklistByNode',
         'GetChecklistByParagraphId' : 'getChecklistByParagraphId',
+        'GetChecklistByMultiParagraphId' : 'getChecklistByMultiParagraphId',
         'AddAnswer' : 'addAnswer'
     };
     SharedService.chartDataMap = {
@@ -634,6 +635,11 @@ angular.module('RDAApp.services', [])
     SharedService.addAnswer = function (answers) {
         var sendObj = {"answers": answers};
         return SharedService.invokeService('AddAnswer', sendObj, 'post');
+    }
+
+    SharedService.getChecklistByMultiParagraphId = function (paragraphIds) {
+        var sendObj = {"paragraphIds": paragraphIds};
+        return SharedService.invokeService('getChecklistByMultiParagraphId', sendObj, 'post');
     }
 
     return SharedService;

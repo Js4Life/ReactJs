@@ -83,7 +83,7 @@
 			"label" : "link"
 		}]
 	},
-	"ceclConceptNodeDetails" : {
+	"ceclGenericComponentsByConcept" : {
 		"outputFormat":"table",
 		"source":"207",
 		"groupByField" : "Typename",
@@ -95,6 +95,21 @@
 			"label" : "type"
 		},{
 			"name" : "Type",
+			"label" : "link"
+		}]
+	},
+	"ceclComponentsByConcept" : {
+		"outputFormat":"table",
+		"source":"195",
+		"groupByField" : "connections",
+		"columns" :  [{
+			"name" : "connections",
+			"label" : "name"
+		},{
+			"name" : "Area",
+			"label" : "type"
+		},{
+			"name" : "mprp",
 			"label" : "link"
 		}]
 	},

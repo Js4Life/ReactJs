@@ -67,6 +67,7 @@ POST /addChecklist              com.parabole.cecl.application.controllers.CeclCo
 POST /getChecklistByConceptAndComponent    com.parabole.cecl.application.controllers.CeclController.getChecklistByConceptAndComponent()
 POST /getChecklistByNode        com.parabole.cecl.application.controllers.CeclController.getChecklistByNode()
 POST /getChecklistByParagraphId com.parabole.cecl.application.controllers.CeclController.getChecklistByParagraphId()
+POST /getChecklistByMultiParagraphId com.parabole.cecl.application.controllers.CeclController.getChecklistByMultiParagraphId()
 POST /addAnswer                 com.parabole.cecl.application.controllers.CeclController.addAnswer()
 GET /startContentParser                    com.parabole.cecl.application.controllers.CeclController.startContentParser()
 GET /startOntologyParser                   com.parabole.cecl.application.controllers.CeclController.parseDocumentHierarchy()

@@ -190,9 +190,6 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$scope.breads = [];
 		$scope.breads.push(node);
 		$scope.searchText = "";
-		/*graphService.getRelatedNodes(node.id).then( function( nodeDef ){
-			$scope.childNodes = nodeDef.vertices;
-		});*/
 		SharedService.getFilteredDataByCompName("ceclBaseNodeDetails", node.id).then(function (data) {
 			$scope.childNodes = data.data;
 		});
@@ -250,10 +247,9 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				});
 				break;
 			case "FASB Concept":
-				compName = "ceclConceptNodeDetails";
+				compName = "ceclComponentsByConcept";
 				SharedService.getFilteredDataByCompName(compName, nodeName).then(function (data) {
 					var nodes = data.data;
-					$scope.rawNodeDetails = nodes;
 					$scope.nodeDetails = _.groupBy(nodes, "type");
 					getGraphByConceptUri();
 					SharedService.getDescriptionByUri($scope.currentNode.link).then(function (description) {
@@ -327,13 +323,15 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	
 	$scope.goChecklistBuilder = function () {
 		$('#dsViewer').modal('hide');
-		$timeout(function () {
+		var compName = "ceclGenericComponentsByConcept";
+		SharedService.getFilteredDataByCompName(compName, $scope.currentNode.name).then(function (data) {
+			var nodes = data.data;
 			var currentConcept = angular.copy($scope.currentNode);
-			var rawNodeDetails = _.reject($scope.rawNodeDetails, function (n) { return n.type === 'Related Concept'	});
+			var rawNodeDetails = _.reject(nodes, function (n) { return n.type === 'Related Concept'	});
 			currentConcept.components = angular.copy(rawNodeDetails);
 			SharedService.currentConcept = currentConcept;
 			$state.go('landing.checklistBuilder');
-		}, 200);
+		});
 	}
 
 	$scope.getCheckList = function (conceptName, componentType, componentName) {
@@ -404,14 +402,6 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}
 	
 	$scope.getComplianceColorcode = function (obj) {
-		/*if(val > 99)
-			return 'compliance-green';
-		else if(val >= 90 && val <=99)
-			return 'compliance-amber';
-		else if(val >= 75 && val <=89)
-			return 'compliance-red';
-		else
-			return 'compliance-gray';*/
 		var val = obj.compliance;
 		if(val > 81) {
 			obj.colorCode = "green";
@@ -595,7 +585,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.initialize = function () {
 		toastr.info('Select one or more paragraph..', '', {"positionClass" : "toast-top-right"});
 		$scope.heading = {title: "Checklist Builder"};
-		$scope.question = {components: []};
+		$scope.question = {components: [], isMandatory: true};
 		$scope.questions = [];
 		$scope.currentQuestionCfg = {};
 		$scope.multiSelectCfg = {
@@ -605,6 +595,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		}
 		$scope.currentConcept = SharedService.currentConcept;
 		$scope.currentParagraphs = [];
+		$scope.paraTag = {};
 		SharedService.getParagraphsByConcept($scope.currentConcept.name).then(function (data) {
 			$scope.paragraphs = angular.fromJson(data.data);
 		});
@@ -640,7 +631,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.addQuestion = function () {
 		toastr.info('Save or Add another question..', '', {"positionClass" : "toast-top-right"});
 		$scope.questions.push($scope.question);
-		$scope.question = {components:[]};
+		$scope.question = {components:[], isMandatory: true};
 	}
 
 	$scope.saveQuestions = function () {
@@ -659,9 +650,17 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.cleanQuestionEditor = function () {
 		$scope.currentParagraphs = [];
 		$scope.questions = [];
-		$scope.question = {components:[]};
+		$scope.question = {components:[], isMandatory:true};
 	}
 
+	$scope.tagParagraph = function () {
+		$('#paraTagModal').modal('show');
+	}
+
+	$scope.saveParaTag = function () {
+		$('#paraTagModal').modal('hide');
+	}
+	
 	$scope.goPreviousScreen = function () {
 		$state.go('landing.home');
 	}

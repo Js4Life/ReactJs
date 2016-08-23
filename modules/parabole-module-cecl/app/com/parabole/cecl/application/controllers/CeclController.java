@@ -176,6 +176,40 @@ public class CeclController extends Controller{
     }
 
     @BodyParser.Of(BodyParser.Json.class)
+    public Result getChecklistByMultiParagraphId() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final JSONArray paraIds = request.getJSONArray("paragraphIds");
+        JSONObject finalJson = new JSONObject();
+        JSONObject finalQuestions = new JSONObject();
+        JSONObject finalAnswers = new JSONObject();
+        JSONObject finalStatus = new JSONObject();
+        Boolean haveData = false;
+        for(int i=0; i<paraIds.length(); i++){
+            JSONObject result = jenaTdbService.getChecklistByParagraphId(paraIds.getString(i));
+            if(result.getJSONObject("status").getBoolean("haveData")){
+                haveData = true;
+                JSONObject questions = result.getJSONObject("questions");
+                JSONObject answers = result.getJSONObject("answers");
+                Iterator<String> qKeys = questions.keys();
+                while (qKeys.hasNext()){
+                    String key = qKeys.next();
+                    finalQuestions.put(key, questions.getString(key));
+                }
+                Iterator<String> aKeys = answers.keys();
+                while (aKeys.hasNext()){
+                    String key = aKeys.next();
+                    finalAnswers.put(key, answers.getString(key));
+                }
+            }
+
+        }
+        finalStatus.put("haveData", haveData);
+        finalJson.put("questions", finalQuestions).put("answers", finalAnswers).put("status", finalStatus);
+        return ok(finalJson.toString());
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
     public Result getChecklistByNode() throws AppException, JSONException {
         final String jsonText = request().body().asJson().toString();
         final JSONObject json = new JSONObject(jsonText);
