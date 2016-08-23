@@ -14,6 +14,7 @@
 package com.parabole.cecl.application.controllers;
 
 import com.google.inject.Inject;
+import com.parabole.auth.global.AuthConstants;
 import com.parabole.cecl.application.global.RdaAppConstants;
 import com.parabole.cecl.application.services.BiotaServices;
 import com.parabole.cecl.application.services.CoralUserService;
@@ -28,6 +29,8 @@ import play.mvc.Results;
 
 import java.util.List;
 import java.util.Map;
+
+import static com.parabole.auth.controllers.AuthController.getLoginD;
 
 //import com.parabole.feed.services.ApplicationTimer;
 
@@ -48,10 +51,8 @@ public class BaseAction extends Controller {
     @Inject
     protected OctopusSemanticService octopusSemanticService;
 
-
     @Inject
     protected BiotaServices biotaServices;
-
 
     @Inject
     protected AuthenticationManager authenticationManager;
@@ -62,19 +63,10 @@ public class BaseAction extends Controller {
     }
 
     public Result dologin() throws AppException {
-        //final DynamicForm requestData = Form.form().bindFromRequest();
-        // final String userId = requestData.get("userid");
-        final String userId = "root";
-        // final String password = requestData.get("password");
-        final String password = "admin";
-        if (authenticationManager.authenticate(userId, password)) {
-            session().put(RdaAppConstants.USER_ID, userId);
-            session().put(RdaAppConstants.USER_NAME, coralUserService.getSpecificDocumentUsingIdAndColumnName(userId, RdaAppConstants.ATTR_DATABASE_USER_NAME_COLUMN_NAME));
+        if(session().get(AuthConstants.ROLE) != null)
             return index();
-        } else {
-            System.out.println("password = " + userId + password);
-            return login();
-        }
+        else
+            return ok("Please Login First");
     }
 
     public Result logout() {
@@ -107,7 +99,7 @@ public class BaseAction extends Controller {
     }
 
     protected Result index() {
-        final String userName = session().get(RdaAppConstants.USER_NAME);
+        final String userName = session().get(AuthConstants.ROLE);
         return ok(com.parabole.cecl.application.views.html.main.render(userName));
     }
 
