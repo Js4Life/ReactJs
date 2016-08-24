@@ -1,6 +1,7 @@
 package com.parabole.feed.application.services;
 
 import com.google.inject.Inject;
+import com.orientechnologies.orient.core.record.impl.ODocument;
 import com.parabole.feed.application.exceptions.AppException;
 import com.parabole.feed.application.utils.AppUtils;
 import com.parabole.feed.platform.graphdb.StarFish;
@@ -10,6 +11,8 @@ import play.Environment;
 
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -129,9 +132,43 @@ public class CheckListServices {
 
     public String saveQuestion() throws AppException, IOException {
 
-        Integer sampleIncomingQuestion = null;
+        String sampleIncomingQuestion = null;
         try {
             sampleIncomingQuestion = starFish.saveQuestion();
+        } catch (com.parabole.feed.platform.exceptions.AppException e) {
+            e.printStackTrace();
+        }
+
+        return sampleIncomingQuestion;
+    }
+
+    public String savetagsToParagraphs(JSONObject tagsObject) throws AppException, IOException {
+
+        String sampleIncomingQuestion = AppUtils.getFileContent("feedJson\\taggedParagraphsType1.json");
+        JSONObject fullJson = new JSONObject(sampleIncomingQuestion);
+
+        Iterator<?> keys = tagsObject.keys();
+        while( keys.hasNext() ) {
+            String key = (String)keys.next();
+            if ( tagsObject.get(key) instanceof JSONObject ) {
+                if(!fullJson.has(key))
+                    fullJson.put(key, tagsObject.get(key));
+            }
+        }
+
+        // Saving ------------------------------------>
+        AppUtils.writeFile(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedJson\\taggedParagraphsType1.json", fullJson.toString());
+        return fullJson.toString();
+
+    }
+
+
+
+    public String getQuestion() throws AppException, IOException {
+
+        Map<String, String> sampleIncomingQuestion = null;
+        try {
+            sampleIncomingQuestion = starFish.getAllQuestions();
         } catch (com.parabole.feed.platform.exceptions.AppException e) {
             e.printStackTrace();
         }

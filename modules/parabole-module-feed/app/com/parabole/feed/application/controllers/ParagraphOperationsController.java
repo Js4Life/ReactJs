@@ -38,6 +38,26 @@ public class ParagraphOperationsController extends BaseController{
     }
 
 
+    public Result savetagsToParagraphs() throws AppException, IOException {
+
+
+        JSONObject tagsObject = new JSONObject();
+        String savedParagraphTags = checkListServices.savetagsToParagraphs(tagsObject);
+
+        return ok(savedParagraphTags);
+
+    }
+
+
+    public Result getQuestion() throws AppException, IOException {
+
+        String getQuestions = checkListServices.getQuestion();
+
+        return ok(getQuestions);
+
+    }
+
+
     public Result addAnswer() throws AppException, IOException {
 
         String mappedQuestions = checkListServices.findAndAddAnswer();
