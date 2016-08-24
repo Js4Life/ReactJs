@@ -38,7 +38,7 @@ public class ParagraphOperationsController extends BaseController{
     }
 
 
-    public Result savetagsToParagraphs() throws AppException, IOException {
+    public Result saveTagsToParagraphs() throws AppException, IOException {
 
 
         JSONObject tagsObject = new JSONObject();
