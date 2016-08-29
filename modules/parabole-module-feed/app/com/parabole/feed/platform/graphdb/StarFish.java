@@ -162,6 +162,34 @@ public class StarFish extends GraphDb {
         }
     }
 
+        public Map<String, String> getParagraphTagByParagraphid(String paragraphID) throws AppException {
+        final List<Map<String, String>> outputList = new ArrayList<Map<String, String>>();
+        final ODatabaseDocumentTx dbNoTx = getDocDBConnectionTx();
+        final Map<String, String> outputMap = new HashMap<String, String>();
+        try {
+            final OSQLSynchQuery<ODocument> query = new OSQLSynchQuery<ODocument>("SELECT DATA_ID, TEXT, TAG FROM APP_PARAGRAPHS WHERE DATA_ID = '" + paragraphID + "'");
+            final List<ODocument> results = dbNoTx.command(query).execute();
+            for (final ODocument result : results) {
+
+                final String data_id = result.field("DATA_ID");
+                final String text = result.field("TEXT");
+                final String tag = result.field("TAG");
+
+                outputMap.put("data_id", data_id);
+                outputMap.put("text", text);
+                outputMap.put("tag", tag);
+
+             //   outputList.add(outputMap);
+            }
+            return outputMap;
+        } catch (final Exception ex) {
+            Logger.error("Could not retrieve All Users", ex);
+            throw new AppException(AppErrorCode.GRAPH_DB_OPERATION_EXCEPTION);
+        } finally {
+            closeDocDBConnection(dbNoTx);
+        }
+    }
+
 
 
 }

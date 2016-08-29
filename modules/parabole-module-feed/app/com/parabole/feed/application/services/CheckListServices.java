@@ -4,17 +4,14 @@ import com.google.inject.Inject;
 import com.orientechnologies.orient.core.record.impl.ODocument;
 import com.parabole.feed.application.exceptions.AppException;
 import com.parabole.feed.application.utils.AppUtils;
-//import com.parabole.feed.platform.graphdb.LightHouse;
+import com.parabole.feed.platform.graphdb.LightHouse;
 import com.parabole.feed.platform.graphdb.StarFish;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import play.Environment;
 
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by Sagir on 02-08-2016.
@@ -27,9 +24,9 @@ public class CheckListServices {
     @Inject
     private StarFish starFish;
 
- /*   @Inject
+    @Inject
     private LightHouse lightHouse;
-*/
+
 
 
     private String getUniqueID() {
@@ -204,6 +201,22 @@ public class CheckListServices {
 
         List<Map<String, String>> paragraphs = starFish.getAllParagraphsByTag(tagInput);
         return paragraphs.toString();
+    }
+
+    public String getParagraphsByParagraphid() throws AppException, IOException, com.parabole.feed.platform.exceptions.AppException {
+
+        List<String> paragraphIds = new ArrayList<String>();
+        paragraphIds.add("12342");
+        paragraphIds.add("12345");
+        paragraphIds.add("12341");
+
+        JSONObject toreturn = new JSONObject();
+        for(String paragraphId  : paragraphIds){
+            Map<String, String> paragraphs = starFish.getParagraphTagByParagraphid(paragraphId);
+            toreturn.put(paragraphId, paragraphs.get("tag"));
+        }
+
+        return toreturn.toString();
     }
 
     public String findAndAddAnswer() throws AppException, IOException {
@@ -381,7 +394,7 @@ public class CheckListServices {
         return finalReturn;
     }
 
-/*
+
     public String createLightHouse(){
         try {
             lightHouse.createLightHouse();
@@ -389,7 +402,7 @@ public class CheckListServices {
             e.printStackTrace();
         }
         return "Saved";
-    }*/
+    }
 
 
 }

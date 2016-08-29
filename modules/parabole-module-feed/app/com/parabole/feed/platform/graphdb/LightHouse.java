@@ -1,4 +1,3 @@
-/*
 package com.parabole.feed.platform.graphdb;
 
 import com.orientechnologies.orient.client.remote.OServerAdmin;
@@ -17,14 +16,12 @@ import org.apache.commons.lang3.Validate;
 
 import java.io.IOException;
 
-*/
 /**
  * This is a graph database for all the paragraph related operations.
  *
  * Created by Sagir on 24-08-2016.
  *
- *//*
-
+ */
 public class LightHouse extends GraphDb {
 
     public static final boolean filterEdge = CollectionUtils.isNotEmpty(CCAppConstants.RDA_RELATIONSHIPS);
@@ -39,11 +36,9 @@ public class LightHouse extends GraphDb {
     }
 
 
-    */
-/*******************************************************************
+    /*******************************************************************
     // Everytime you need a graph instance
-    */
-/*******************************************************************
+    /*******************************************************************
 
      OrientGraph graph = this.orientGraphFactory.getTx();
         try {
@@ -52,8 +47,7 @@ public class LightHouse extends GraphDb {
         graph.shutdown();
     }
 
-     ******************************************************************//*
-
+     ******************************************************************/
 
 
     public boolean createLightHouse() throws IOException {
@@ -75,4 +69,3 @@ public class LightHouse extends GraphDb {
     }
 
 }
-*/

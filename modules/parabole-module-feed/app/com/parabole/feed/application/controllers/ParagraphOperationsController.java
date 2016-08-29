@@ -41,9 +41,9 @@ public class ParagraphOperationsController extends BaseController{
     public Result saveParagraph() throws AppException, IOException {
 
 
-        String paragraphId = "1234455";
+        String paragraphId = "12345";
         String paragraphText = "This is a paragraph";
-        String tag = "tag1";
+        String tag = "tag3";
         String savedParagraph = checkListServices.saveParagraph(paragraphId, paragraphText, tag);
 
         return ok(savedParagraph);
@@ -87,6 +87,14 @@ public class ParagraphOperationsController extends BaseController{
 
     }
 
+    public Result getParagraphsByParagraphid() throws Exception, IOException {
+
+        String getParagraphs = checkListServices.getParagraphsByParagraphid();
+
+        return ok(getParagraphs);
+
+    }
+
 
     public Result addAnswer() throws AppException, IOException {
 
@@ -116,11 +124,11 @@ public class ParagraphOperationsController extends BaseController{
 
 
 
-/*    public Result createLightHouse() throws AppException {
+    public Result createLightHouse() throws AppException {
 
         return ok(checkListServices.createLightHouse());
 
-    }*/
+    }
 
 
 }
