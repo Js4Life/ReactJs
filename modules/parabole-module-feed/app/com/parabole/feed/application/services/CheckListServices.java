@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import com.orientechnologies.orient.core.record.impl.ODocument;
 import com.parabole.feed.application.exceptions.AppException;
 import com.parabole.feed.application.utils.AppUtils;
-import com.parabole.feed.platform.graphdb.LightHouse;
+//import com.parabole.feed.platform.graphdb.LightHouse;
 import com.parabole.feed.platform.graphdb.StarFish;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -146,11 +146,11 @@ public class CheckListServices {
         return sampleIncomingQuestion;
     }
 
-    public String saveParagraph() throws AppException, IOException {
+    public String saveParagraph(String paragraphId, String paragraphText, String tag) throws AppException, IOException {
 
         String sampleIncomingParagraph = null;
         try {
-            sampleIncomingParagraph = starFish.saveParagraph();
+            sampleIncomingParagraph = starFish.saveParagraph(paragraphId, paragraphText, tag);
         } catch (com.parabole.feed.platform.exceptions.AppException e) {
             e.printStackTrace();
         }
@@ -194,10 +194,15 @@ public class CheckListServices {
 
 
 
-    public String getPararaphs() throws AppException, IOException {
+    public String getPararaphs() throws AppException, IOException, com.parabole.feed.platform.exceptions.AppException {
 
-        Map<String, String> paragraphs = null;
+        List<Map<String, String>> paragraphs = starFish.getAllParagraphs();
+        return paragraphs.toString();
+    }
 
+    public String getAllParagraphsByTag(String tagInput) throws AppException, IOException, com.parabole.feed.platform.exceptions.AppException {
+
+        List<Map<String, String>> paragraphs = starFish.getAllParagraphsByTag(tagInput);
         return paragraphs.toString();
     }
 

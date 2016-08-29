@@ -11,6 +11,7 @@ import com.tinkerpop.blueprints.impls.orient.OrientGraphFactory;
 import org.apache.commons.lang3.Validate;
 import play.Logger;
 
+import java.sql.Timestamp;
 import java.util.*;
 
 /**
@@ -45,13 +46,13 @@ public class StarFish extends GraphDb {
         return saveAnything(CCAppConstants.QUESTION_DOCUMENT, dataMap);
     }
 
-    public String saveParagraph() throws AppException {
+    public String saveParagraph(String paragraphId, String paragraphText, String tag) throws AppException {
         //final Integer configurationId = generateId(CCAppConstants.RDA_USER_CONFIGS);
 
         final Map<String, Object> dataMapForParagraph = new HashMap<String, Object>();
-        dataMapForParagraph.put("DATA_ID", "12345678");
-        dataMapForParagraph.put("TEXT", "This is a text of the paragraph");
-        dataMapForParagraph.put("TAG", "tag1");
+        dataMapForParagraph.put("DATA_ID", paragraphId);
+        dataMapForParagraph.put("TEXT", paragraphText);
+        dataMapForParagraph.put("TAG", tag);
         return saveAnything(CCAppConstants.PARAGRAPH_DOCUMENT, dataMapForParagraph);
 
      /*   final Map<String, Object> dataMap = new HashMap<String, Object>();
@@ -105,6 +106,62 @@ public class StarFish extends GraphDb {
 
         return rid;
     }
+
+
+    public List<Map<String, String>> getAllParagraphs() throws AppException {
+        final List<Map<String, String>> outputList = new ArrayList<Map<String, String>>();
+        final ODatabaseDocumentTx dbNoTx = getDocDBConnectionTx();
+        try {
+            final OSQLSynchQuery<ODocument> query = new OSQLSynchQuery<ODocument>("SELECT DATA_ID, TEXT, TAG FROM APP_PARAGRAPHS");
+            final List<ODocument> results = dbNoTx.command(query).execute();
+            for (final ODocument result : results) {
+                final Map<String, String> outputMap = new HashMap<String, String>();
+                final String data_id = result.field("DATA_ID");
+                final String text = result.field("TEXT");
+                final String tag = result.field("TAG");
+
+                outputMap.put("data_id", data_id);
+                outputMap.put("text", text);
+                outputMap.put("tag", tag);
+
+                outputList.add(outputMap);
+            }
+            return outputList;
+        } catch (final Exception ex) {
+            Logger.error("Could not retrieve All Users", ex);
+            throw new AppException(AppErrorCode.GRAPH_DB_OPERATION_EXCEPTION);
+        } finally {
+            closeDocDBConnection(dbNoTx);
+        }
+    }
+
+    public List<Map<String, String>> getAllParagraphsByTag(String tagInput) throws AppException {
+        final List<Map<String, String>> outputList = new ArrayList<Map<String, String>>();
+        final ODatabaseDocumentTx dbNoTx = getDocDBConnectionTx();
+        try {
+            final OSQLSynchQuery<ODocument> query = new OSQLSynchQuery<ODocument>("SELECT DATA_ID, TEXT, TAG FROM APP_PARAGRAPHS WHERE TAG = '" + tagInput + "'");
+            final List<ODocument> results = dbNoTx.command(query).execute();
+            for (final ODocument result : results) {
+                final Map<String, String> outputMap = new HashMap<String, String>();
+                final String data_id = result.field("DATA_ID");
+                final String text = result.field("TEXT");
+                final String tag = result.field("TAG");
+
+                outputMap.put("data_id", data_id);
+                outputMap.put("text", text);
+                outputMap.put("tag", tag);
+
+                outputList.add(outputMap);
+            }
+            return outputList;
+        } catch (final Exception ex) {
+            Logger.error("Could not retrieve All Users", ex);
+            throw new AppException(AppErrorCode.GRAPH_DB_OPERATION_EXCEPTION);
+        } finally {
+            closeDocDBConnection(dbNoTx);
+        }
+    }
+
 
 
 }

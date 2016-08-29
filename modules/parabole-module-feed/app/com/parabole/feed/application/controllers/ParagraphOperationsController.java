@@ -40,7 +40,11 @@ public class ParagraphOperationsController extends BaseController{
 
     public Result saveParagraph() throws AppException, IOException {
 
-        String savedParagraph = checkListServices.saveParagraph();
+
+        String paragraphId = "1234455";
+        String paragraphText = "This is a paragraph";
+        String tag = "tag1";
+        String savedParagraph = checkListServices.saveParagraph(paragraphId, paragraphText, tag);
 
         return ok(savedParagraph);
 
@@ -48,7 +52,6 @@ public class ParagraphOperationsController extends BaseController{
 
 
     public Result savetagsToParagraphs() throws AppException, IOException {
-
 
         JSONObject tagsObject = new JSONObject();
         String savedParagraphTags = checkListServices.savetagsToParagraphs(tagsObject);
@@ -67,9 +70,18 @@ public class ParagraphOperationsController extends BaseController{
     }
 
 
-    public Result getParagraph() throws AppException, IOException {
+    public Result getParagraph() throws Exception, IOException {
 
         String getParagraphs = checkListServices.getPararaphs();
+
+        return ok(getParagraphs);
+
+    }
+
+
+    public Result getAllParagraphsByTag(String tagName) throws Exception, IOException {
+
+        String getParagraphs = checkListServices.getAllParagraphsByTag(tagName);
 
         return ok(getParagraphs);
 

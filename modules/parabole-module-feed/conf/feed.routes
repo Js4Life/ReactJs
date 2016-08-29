@@ -12,11 +12,14 @@ GET /getParagraphsByContent/:fileName                     com.parabole.feed.appl
 
 ### --------------------------------------------------------------------    TEST    --------------------------------------------------------
 
-GET /addQuestion                     com.parabole.feed.application.controllers.ParagraphOperationsController.addQuestion()
+GET /addQuestion                      com.parabole.feed.application.controllers.ParagraphOperationsController.addQuestion()
 GET /saveQuestion                     com.parabole.feed.application.controllers.ParagraphOperationsController.saveQuestion()
-GET /getQuestion                     com.parabole.feed.application.controllers.ParagraphOperationsController.getQuestion()
-GET /addAnswer                       com.parabole.feed.application.controllers.ParagraphOperationsController.addAnswer()
-GET /questionAgainstParagraphId/:pid                     com.parabole.feed.application.controllers.ParagraphOperationsController.questionAgainstParagraphId(pid: String)
+GET /saveParagraph                    com.parabole.feed.application.controllers.ParagraphOperationsController.saveParagraph()
+GET /getQuestion                      com.parabole.feed.application.controllers.ParagraphOperationsController.getQuestion()
+GET /getParagraph                     com.parabole.feed.application.controllers.ParagraphOperationsController.getParagraph()
+GET /getAllParagraphsByTag/:tagInput   com.parabole.feed.application.controllers.ParagraphOperationsController.getAllParagraphsByTag(tagInput: String)
+GET /addAnswer                        com.parabole.feed.application.controllers.ParagraphOperationsController.addAnswer()
+GET /questionAgainstParagraphId/:pid  com.parabole.feed.application.controllers.ParagraphOperationsController.questionAgainstParagraphId(pid: String)
 GET /questionAgainstConceptNameComponentTypeComponentName/:conceptName/:componentType/:componentName                     com.parabole.feed.application.controllers.ParagraphOperationsController.questionAgainstConceptNameComponentTypeComponentName(conceptName: String, componentType: String, componentName: String)
 
 
