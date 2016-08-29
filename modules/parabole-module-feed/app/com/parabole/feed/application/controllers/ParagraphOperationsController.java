@@ -7,6 +7,8 @@ import org.json.JSONObject;
 import play.mvc.Result;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Sagir on 02-08-2016.
@@ -89,7 +91,14 @@ public class ParagraphOperationsController extends BaseController{
 
     public Result getParagraphsByParagraphid() throws Exception, IOException {
 
-        String getParagraphs = checkListServices.getParagraphsByParagraphid();
+
+
+        List<String> paragraphIds = new ArrayList<String>();
+        paragraphIds.add("12342");
+        paragraphIds.add("12345");
+        paragraphIds.add("12341");
+
+        String getParagraphs = checkListServices.getParagraphsByParagraphid(paragraphIds);
 
         return ok(getParagraphs);
 

@@ -203,12 +203,8 @@ public class CheckListServices {
         return paragraphs.toString();
     }
 
-    public String getParagraphsByParagraphid() throws AppException, IOException, com.parabole.feed.platform.exceptions.AppException {
+    public String getParagraphsByParagraphid(List<String> paragraphIds) throws AppException, IOException, com.parabole.feed.platform.exceptions.AppException {
 
-        List<String> paragraphIds = new ArrayList<String>();
-        paragraphIds.add("12342");
-        paragraphIds.add("12345");
-        paragraphIds.add("12341");
 
         JSONObject toreturn = new JSONObject();
         for(String paragraphId  : paragraphIds){
