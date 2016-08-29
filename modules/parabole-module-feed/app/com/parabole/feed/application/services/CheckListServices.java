@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.orientechnologies.orient.core.record.impl.ODocument;
 import com.parabole.feed.application.exceptions.AppException;
 import com.parabole.feed.application.utils.AppUtils;
+import com.parabole.feed.platform.graphdb.LightHouse;
 import com.parabole.feed.platform.graphdb.StarFish;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -26,6 +27,9 @@ public class CheckListServices {
     @Inject
     private StarFish starFish;
 
+ /*   @Inject
+    private LightHouse lightHouse;
+*/
 
 
     private String getUniqueID() {
@@ -142,6 +146,18 @@ public class CheckListServices {
         return sampleIncomingQuestion;
     }
 
+    public String saveParagraph() throws AppException, IOException {
+
+        String sampleIncomingParagraph = null;
+        try {
+            sampleIncomingParagraph = starFish.saveParagraph();
+        } catch (com.parabole.feed.platform.exceptions.AppException e) {
+            e.printStackTrace();
+        }
+
+        return sampleIncomingParagraph;
+    }
+
     public String savetagsToParagraphs(JSONObject tagsObject) throws AppException, IOException {
 
         String sampleIncomingQuestion = AppUtils.getFileContent("feedJson\\taggedParagraphsType1.json");
@@ -167,13 +183,22 @@ public class CheckListServices {
     public String getQuestion() throws AppException, IOException {
 
         Map<String, String> sampleIncomingQuestion = null;
-        try {
-            sampleIncomingQuestion = starFish.getAllQuestions();
-        } catch (com.parabole.feed.platform.exceptions.AppException e) {
+/*        try {
+          //  sampleIncomingQuestion = starFish.getAllQuestions();
+        } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
 
         return sampleIncomingQuestion.toString();
+    }
+
+
+
+    public String getPararaphs() throws AppException, IOException {
+
+        Map<String, String> paragraphs = null;
+
+        return paragraphs.toString();
     }
 
     public String findAndAddAnswer() throws AppException, IOException {
@@ -350,6 +375,16 @@ public class CheckListServices {
         finalReturn.put("answers", answers);
         return finalReturn;
     }
+
+/*
+    public String createLightHouse(){
+        try {
+            lightHouse.createLightHouse();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "Saved";
+    }*/
 
 
 }

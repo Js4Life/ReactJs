@@ -18,6 +18,7 @@ import java.util.*;
  */
 public class StarFish extends GraphDb {
 
+
     public StarFish() {
         final String graphDbUrl = AppUtils.getApplicationProperty(CCAppConstants.INDUSTRY + ".starfish.graphdb.url");
         final String graphDbUser = AppUtils.getApplicationProperty(CCAppConstants.INDUSTRY + ".starfish.graphdb.user");
@@ -36,13 +37,29 @@ public class StarFish extends GraphDb {
         dataMapForParagraph.put("TEXT", "This is a text of the paragraph");
         String rids = saveAnything(CCAppConstants.PARAGRAPH_DOCUMENT, dataMapForParagraph);
 
-
         final Map<String, Object> dataMap = new HashMap<String, Object>();
         dataMap.put("DATA_ID", "12345678");
         dataMap.put("TEXT", "This is a text of the paragraph");
         dataMap.put("IS_MANDATORY", true);
         dataMap.put("PARAGRAPH_ID", rids);
         return saveAnything(CCAppConstants.QUESTION_DOCUMENT, dataMap);
+    }
+
+    public String saveParagraph() throws AppException {
+        //final Integer configurationId = generateId(CCAppConstants.RDA_USER_CONFIGS);
+
+        final Map<String, Object> dataMapForParagraph = new HashMap<String, Object>();
+        dataMapForParagraph.put("DATA_ID", "12345678");
+        dataMapForParagraph.put("TEXT", "This is a text of the paragraph");
+        dataMapForParagraph.put("TAG", "tag1");
+        return saveAnything(CCAppConstants.PARAGRAPH_DOCUMENT, dataMapForParagraph);
+
+     /*   final Map<String, Object> dataMap = new HashMap<String, Object>();
+        dataMap.put("DATA_ID", "12345678");
+        dataMap.put("TEXT", "This is a text of the paragraph");
+        dataMap.put("IS_MANDATORY", true);
+        dataMap.put("PARAGRAPH_ID", rids);
+        return saveAnything(CCAppConstants.QUESTION_DOCUMENT, dataMap);*/
     }
 
 
@@ -88,4 +105,6 @@ public class StarFish extends GraphDb {
 
         return rid;
     }
+
+
 }

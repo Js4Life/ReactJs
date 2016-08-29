@@ -19,7 +19,20 @@ GET /addAnswer                       com.parabole.feed.application.controllers.P
 GET /questionAgainstParagraphId/:pid                     com.parabole.feed.application.controllers.ParagraphOperationsController.questionAgainstParagraphId(pid: String)
 GET /questionAgainstConceptNameComponentTypeComponentName/:conceptName/:componentType/:componentName                     com.parabole.feed.application.controllers.ParagraphOperationsController.questionAgainstConceptNameComponentTypeComponentName(conceptName: String, componentType: String, componentName: String)
 
+
+
+#============================= graph DB test ============================
+
+#GET /createLightHouse                       com.parabole.feed.application.controllers.ParagraphOperationsController.createLightHouse()
+
+#============================= graph db test end ========================
+
+
+
+
 ### -------------------------------------------------------------------- END TEST ----------------------------------------------------------
+
+
 
 
 
