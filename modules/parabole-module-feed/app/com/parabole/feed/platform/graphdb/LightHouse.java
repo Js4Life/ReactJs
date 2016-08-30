@@ -10,11 +10,14 @@ import com.tinkerpop.blueprints.Vertex;
 import com.tinkerpop.blueprints.impls.orient.OrientGraph;
 import com.tinkerpop.blueprints.impls.orient.OrientGraphFactory;
 import com.tinkerpop.blueprints.impls.orient.OrientGraphNoTx;
+import com.tinkerpop.blueprints.impls.orient.OrientVertex;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.Validate;
 
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This is a graph database for all the paragraph related operations.
@@ -52,14 +55,51 @@ public class LightHouse extends GraphDb {
 
     public boolean createLightHouse() throws IOException {
 
+
+        //Vertex v = new OrientVertex();
+
         OrientGraph graph = this.orientGraphFactory.getTx();
+
+        Vertex luca = graph.addVertex(null);
+        luca.setProperty( "dataId", "Topic" );
+        luca.setProperty( "name", "Topic" );
+        luca.setProperty( "type", "Topic" );
+        Vertex marko = graph.addVertex(null);
+        marko.setProperty( "name", "subTopic" );
+        luca.setProperty( "name", "subTopic" );
+        luca.setProperty( "type", "subTopic" );
+        String edgeName = "anEdge";
+        Map<String, String> edgeProperty = new HashMap<String, String>();
+        edgeProperty.put("color", "Red");
+        return saveGraphInstance(graph, luca, marko, edgeName, edgeProperty);
+
+    }
+
+
+    /*******************************************************************
+     // Generic Method to save a graph component
+     /*******************************************************************
+
+     This method will dynamically collect two vertices and name of the
+     edge and all the edge properties
+
+     ******************************************************************/
+
+
+
+
+    public boolean saveGraphInstance(OrientGraph graph, Vertex vertexOne, Vertex vertexTwo, String edgeName, Map<String, String> edgeProperties) throws  IOException{
+
+
         try {
-            Vertex luca = graph.addVertex(null);
-            luca.setProperty( "name", "Topic" );
-            Vertex marko = graph.addVertex(null);
-            marko.setProperty( "name", "Sub-topic" );
-            Edge lucaKnowsMarko = graph.addEdge(null, luca, marko, "knows");
+            Edge edge = graph.addEdge(null, vertexOne, vertexTwo, edgeName);
+            if(edgeProperties != null)
+                edgeProperties.forEach((key, value)->{
+                    edge.setProperty(key, value);
+                });
             graph.commit();
+        }catch( Exception e ) {
+            graph.rollback();
         } finally {
             graph.rollback();
             graph.shutdown();
@@ -67,5 +107,8 @@ public class LightHouse extends GraphDb {
 
         return true;
     }
+
+
+
 
 }
