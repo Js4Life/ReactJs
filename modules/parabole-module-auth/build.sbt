@@ -19,6 +19,7 @@ PlayKeys.devSettings += ("play.http.router", "auth.Routes")
 
 lazy val auth = (project in file(".")).enablePlugins(PlayJava)
 
+
 scalaVersion := "2.11.7"
 
 libraryDependencies ++= Seq(

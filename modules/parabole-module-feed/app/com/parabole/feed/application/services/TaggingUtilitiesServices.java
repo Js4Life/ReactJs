@@ -201,15 +201,25 @@ public class TaggingUtilitiesServices {
 
 
     public String getParagraphsByContent(String concept) throws AppException {
+
+        String sampleIncomingQuestion = AppUtils.getFileContent("feedJson\\taggedParagraphsType1.json");
+        JSONObject fullJson = new JSONObject(sampleIncomingQuestion);
         
         String jsonFileContent = AppUtils.getFileContent("feedJson/paragraphs.json");
         JSONObject jsonObject = new JSONObject(jsonFileContent);
+        JSONObject finalContentObject = new JSONObject();
 
         JSONArray jsonArray =  jsonObject.getJSONObject("conceptIndex").getJSONArray(concept);
         JSONArray jsonArrayOfParagraphs = new JSONArray();
 
         for (int i=0; i<jsonArray.length(); i ++){
-            jsonArrayOfParagraphs.put(jsonObject.getJSONObject("paragraphs").getJSONObject(jsonArray.getString(i)));
+
+            if(fullJson.get(jsonArray.getString(i)) != null)
+                finalContentObject.put(jsonArray.getString(i), fullJson.get(jsonArray.getString(i)));
+
+            finalContentObject.put("paragraphText", jsonObject.getJSONObject("paragraphs").getJSONObject(jsonArray.getString(i)));
+            jsonArrayOfParagraphs.put(finalContentObject);
+
         }
 
         return jsonArrayOfParagraphs.toString();

@@ -13,6 +13,7 @@
 // =============================================================================
 package com.parabole.cecl.application.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Inject;
 import com.parabole.auth.global.AuthConstants;
 import com.parabole.cecl.application.global.RdaAppConstants;
@@ -23,6 +24,7 @@ import com.parabole.cecl.platform.securities.AuthenticationManager;
 import com.parabole.cecl.platform.utils.AppUtils;
 import com.parabole.feed.application.services.*;
 import org.json.JSONObject;
+import play.Configuration;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
@@ -57,12 +59,18 @@ public class BaseAction extends Controller {
     @Inject
     protected AuthenticationManager authenticationManager;
 
+    @Inject
+    protected CommonService commonService;
+
+    @Inject
+    protected Configuration configuration;
+
 
     public Result login() {
         return ok(com.parabole.cecl.application.views.html.login.render());
     }
 
-    public Result dologin() throws AppException {
+    public Result dologin() throws Exception {
         if(session().get(AuthConstants.ROLE) != null)
             return index();
         else
@@ -98,9 +106,11 @@ public class BaseAction extends Controller {
         return Results.ok("");
     }
 
-    protected Result index() {
+    protected Result index() throws Exception {
         final String userName = session().get(AuthConstants.ROLE);
-        return ok(com.parabole.cecl.application.views.html.main.render(userName));
+        String baseUrl = configuration.getString("application.baseUrl");
+        System.out.println("baseUrl = " + configuration.toString());
+        return ok(com.parabole.cecl.application.views.html.main.render(userName, baseUrl));
     }
 
     protected boolean isAdmin() {

@@ -1,5 +1,6 @@
 package com.parabole.ccar.application.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Inject;
 import com.parabole.ccar.application.global.CCAppConstants;
 import com.parabole.ccar.application.services.CoralConfigurationService;
@@ -7,6 +8,7 @@ import com.parabole.ccar.application.services.CoralUserService;
 import com.parabole.ccar.platform.exceptions.AppException;
 import com.parabole.ccar.platform.securities.AuthenticationManager;
 import com.parabole.ccar.platform.utils.AppUtils;
+import play.Configuration;
 import play.Logger;
 import play.data.DynamicForm;
 import play.data.Form;
@@ -34,7 +36,10 @@ public class BaseController extends Controller {
     protected CoralConfigurationService coralConfigurationService;
 
 
-    public Result login() throws AppException {
+    @Inject
+    Configuration configuration;
+
+    public Result login() throws Exception {
         // return ok(com.parabole.ccar.application.views.html.login.render());
         // final DynamicForm requestData = Form.form().bindFromRequest();
         final String userId = "root";
@@ -50,7 +55,7 @@ public class BaseController extends Controller {
         }
     }
 
-    public Result dologin() throws AppException {
+    public Result dologin() throws Exception {
 /*        final DynamicForm requestData = Form.form().bindFromRequest();
         //final String userId = requestData.get("userid");
         final String userId = "root";
@@ -84,12 +89,14 @@ public class BaseController extends Controller {
         return Results.ok(jsonFileContent);
     }
 
-    protected Result index()
-    {
+    protected Result index() throws Exception    {
         final String userName = session().get(CCAppConstants.USER_NAME);
         final String userRole = session().get(CCAppConstants.ROLE);
         Logger.info("userName", userName);
         Logger.info("userRole", userRole);
+        ObjectMapper objectM = new ObjectMapper();
+        System.out.println(" = ---------------> " + request().path());
+       // System.out.println("baseUrl = " + baseUrl);
         return ok(com.parabole.ccar.application.views.html.main.render(userName, userRole));
         //.map(user -> ok(index.render(user)));
 

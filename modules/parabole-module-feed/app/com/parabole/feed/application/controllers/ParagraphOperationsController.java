@@ -7,6 +7,8 @@ import org.json.JSONObject;
 import play.mvc.Result;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Sagir on 02-08-2016.
@@ -25,6 +27,80 @@ public class ParagraphOperationsController extends BaseController{
         String mappedQuestions = checkListServices.findAndAddQuestion();
 
         return ok(mappedQuestions);
+
+    }
+
+
+    public Result saveQuestion() throws AppException, IOException {
+
+        String savedQuestions = checkListServices.saveQuestion();
+
+        return ok(savedQuestions);
+
+    }
+
+
+    public Result saveParagraph() throws AppException, IOException {
+
+
+        String paragraphId = "12345";
+        String paragraphText = "This is a paragraph";
+        String tag = "tag3";
+        String savedParagraph = checkListServices.saveParagraph(paragraphId, paragraphText, tag);
+
+        return ok(savedParagraph);
+
+    }
+
+
+    public Result savetagsToParagraphs() throws AppException, IOException {
+
+        JSONObject tagsObject = new JSONObject();
+        String savedParagraphTags = checkListServices.savetagsToParagraphs(tagsObject);
+
+        return ok(savedParagraphTags);
+
+    }
+
+
+    public Result getQuestion() throws AppException, IOException {
+
+        String getQuestions = checkListServices.getQuestion();
+
+        return ok(getQuestions);
+
+    }
+
+
+    public Result getParagraph() throws Exception, IOException {
+
+        String getParagraphs = checkListServices.getPararaphs();
+
+        return ok(getParagraphs);
+
+    }
+
+
+    public Result getAllParagraphsByTag(String tagName) throws Exception, IOException {
+
+        String getParagraphs = checkListServices.getAllParagraphsByTag(tagName);
+
+        return ok(getParagraphs);
+
+    }
+
+    public Result getParagraphsByParagraphid() throws Exception, IOException {
+
+
+
+        List<String> paragraphIds = new ArrayList<String>();
+        paragraphIds.add("12342");
+        paragraphIds.add("12345");
+        paragraphIds.add("12341");
+
+        String getParagraphs = checkListServices.getParagraphsByParagraphid(paragraphIds);
+
+        return ok(getParagraphs);
 
     }
 
@@ -57,6 +133,11 @@ public class ParagraphOperationsController extends BaseController{
 
 
 
+    public Result createLightHouse() throws AppException {
+
+        return ok(checkListServices.createLightHouse());
+
+    }
 
 
 }

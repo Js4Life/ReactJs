@@ -5,6 +5,7 @@ import com.parabole.feed.application.exceptions.AppException;
 import com.parabole.feed.application.global.CCAppConstants;
 import com.parabole.feed.application.services.*;
 import com.parabole.feed.platform.securities.AuthenticationManager;
+import play.Configuration;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -38,6 +39,10 @@ public class BaseController extends Controller {
 
 
 
+    @Inject
+    Configuration configuration;
+
+
     public String login(String username, String password) throws AppException, com.parabole.feed.platform.exceptions.AppException {
         // return ok(com.parabole.ccar.application.views.html.login.render());
         // final DynamicForm requestData = Form.form().bindFromRequest();
@@ -50,6 +55,8 @@ public class BaseController extends Controller {
 
            // findByUserName
 
+            String baseURLforFeed = configuration.getString("application.baseUrl");
+            System.out.println("baseURLforFeed ========>>> " + baseURLforFeed);
             return session().get(CCAppConstants.USER_NAME);
         } else {
             return "not authorised";

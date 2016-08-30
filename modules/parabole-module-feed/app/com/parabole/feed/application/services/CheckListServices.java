@@ -1,15 +1,17 @@
 package com.parabole.feed.application.services;
 
 import com.google.inject.Inject;
+import com.orientechnologies.orient.core.record.impl.ODocument;
 import com.parabole.feed.application.exceptions.AppException;
 import com.parabole.feed.application.utils.AppUtils;
+import com.parabole.feed.platform.graphdb.LightHouse;
+import com.parabole.feed.platform.graphdb.StarFish;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import play.Environment;
 
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by Sagir on 02-08-2016.
@@ -18,6 +20,12 @@ public class CheckListServices {
 
     @Inject
     private Environment environment;
+
+    @Inject
+    private StarFish starFish;
+
+    @Inject
+    private LightHouse lightHouse;
 
 
 
@@ -120,6 +128,91 @@ public class CheckListServices {
         JSONObject jsonObject = new JSONObject(sampleIncomingQuestion);
 
         return addQuestion(jsonObject);
+    }
+
+
+    public String saveQuestion() throws AppException, IOException {
+
+        String sampleIncomingQuestion = null;
+        try {
+            sampleIncomingQuestion = starFish.saveQuestion();
+        } catch (com.parabole.feed.platform.exceptions.AppException e) {
+            e.printStackTrace();
+        }
+
+        return sampleIncomingQuestion;
+    }
+
+    public String saveParagraph(String paragraphId, String paragraphText, String tag) throws AppException, IOException {
+
+        String sampleIncomingParagraph = null;
+        try {
+            sampleIncomingParagraph = starFish.saveParagraph(paragraphId, paragraphText, tag);
+        } catch (com.parabole.feed.platform.exceptions.AppException e) {
+            e.printStackTrace();
+        }
+
+        return sampleIncomingParagraph;
+    }
+
+    public String savetagsToParagraphs(JSONObject tagsObject) throws AppException, IOException {
+
+        String sampleIncomingQuestion = AppUtils.getFileContent("feedJson\\taggedParagraphsType1.json");
+        JSONObject fullJson = new JSONObject(sampleIncomingQuestion);
+
+        Iterator<?> keys = tagsObject.keys();
+        while( keys.hasNext() ) {
+            String key = (String)keys.next();
+            if ( tagsObject.get(key) instanceof JSONObject ) {
+                if(!fullJson.has(key))
+                    fullJson.put(key, tagsObject.get(key));
+            }
+        }
+
+        // Saving ------------------------------------>
+        AppUtils.writeFile(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedJson\\taggedParagraphsType1.json", fullJson.toString());
+        return fullJson.toString();
+
+    }
+
+
+
+    public String getQuestion() throws AppException, IOException {
+
+        Map<String, String> sampleIncomingQuestion = null;
+/*        try {
+          //  sampleIncomingQuestion = starFish.getAllQuestions();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
+
+        return sampleIncomingQuestion.toString();
+    }
+
+
+
+    public String getPararaphs() throws AppException, IOException, com.parabole.feed.platform.exceptions.AppException {
+
+        List<Map<String, String>> paragraphs = starFish.getAllParagraphs();
+        return paragraphs.toString();
+    }
+
+    public String getAllParagraphsByTag(String tagInput) throws AppException, IOException, com.parabole.feed.platform.exceptions.AppException {
+
+        List<Map<String, String>> paragraphs = starFish.getAllParagraphsByTag(tagInput);
+        return paragraphs.toString();
+    }
+
+    public String getParagraphsByParagraphid(List<String> paragraphIds) throws AppException, IOException, com.parabole.feed.platform.exceptions.AppException {
+
+
+        JSONObject toreturn = new JSONObject();
+        for(String paragraphId  : paragraphIds){
+            Map<String, String> paragraphs = starFish.getParagraphTagByParagraphid(paragraphId);
+            toreturn.put(paragraphId, paragraphs.get("tag"));
+        }
+
+        return toreturn.toString();
     }
 
     public String findAndAddAnswer() throws AppException, IOException {
@@ -295,6 +388,16 @@ public class CheckListServices {
         finalReturn.put("status", status);
         finalReturn.put("answers", answers);
         return finalReturn;
+    }
+
+
+    public String createLightHouse(){
+        try {
+            lightHouse.createLightHouse();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "Saved";
     }
 
 
