@@ -132,6 +132,23 @@ public class CeclController extends Controller{
     }
 
     @BodyParser.Of(BodyParser.Json.class)
+    public Result getParagraphsBySubsection() {
+        final JsonNode json = request().body().asJson();
+        final String subSectionId = json.findPath("subSectionId").textValue();
+        JSONObject finalJson = new JSONObject();
+        Boolean status = false;
+        try {
+            JSONArray result = taggingUtilitiesServices.getParagraphsBySubsection(subSectionId);
+            status = true;
+            finalJson.put("status", status);
+            finalJson.put("data", result);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return ok(finalJson.toString());
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
     public Result addChecklist() {
         final String json = request().body().asJson().toString();
         final JSONObject request = new JSONObject(json);

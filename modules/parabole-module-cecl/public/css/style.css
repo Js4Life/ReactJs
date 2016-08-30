@@ -2482,4 +2482,18 @@ li.list-group-item.puff{
       top: 150px;
       right: 330px;
   }
+
+  .paragraph-tag{
+      position: absolute;
+      top: 0px;
+      right: -10px;
+      border: 1px solid #888;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      text-align: center;
+      background: #888;
+      color: white;
+      font-size: 18px;
+  }
   /*End*/

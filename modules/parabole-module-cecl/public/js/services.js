@@ -74,6 +74,7 @@ angular.module('RDAApp.services', [])
         'GetGraphByConceptUri' : 'getRelatedVerticesByUri',
         'GetDescriptionByUri' : 'getDescriptionByUri',
         'GetParagraphsByConcept' : 'getParagraphsByConcept',
+        'GetParagraphsBySubsection' : 'getParagraphsBySubsection',
         'StartContentParser' : 'startContentParser',
         'StartOntologyParser' : 'startOntologyParser',
         'AddChecklist' : 'addChecklist',
@@ -610,6 +611,11 @@ angular.module('RDAApp.services', [])
     SharedService.getParagraphsByConcept = function (concept) {
         var sendObj = {"concept": concept};
         return SharedService.invokeService('GetParagraphsByConcept', sendObj, 'post');
+    }
+
+    SharedService.getParagraphsBySubsection = function (subSectionId) {
+        var sendObj = {"subSectionId": subSectionId};
+        return SharedService.invokeService('GetParagraphsBySubsection', sendObj, 'post');
     }
 
     SharedService.addChecklist = function (checkList) {
@@ -1533,8 +1539,10 @@ angular.module('RDAApp.services', [])
     }
 
     MockService.CeclBaseNodes = [
-        {"name": "Topic", "id": "Topic", "idx": 0},{"name": "Sub-Topic", "id": "Sub-Topic", "idx": 1},{"name": "Section", "id": "Section", "idx": 2},{"name": "Paragraph", "id": "Paragraph", "idx": 3},{"name": "Concept", "id": "FASB Concept", "idx": 4}
+        {"name": "Topic", "id": "Topic", "idx": 0, "data":{}},{"name": "Sub-Topic", "id": "Sub-Topic", "idx": 1, "data":{}},{"name": "Section", "id": "Section", "idx": 2, "data":{}},{"name": "Paragraph", "id": "Paragraph", "idx": 3, "data":{}},{"name": "Concept", "id": "FASB Concept", "idx": 4, "data":{}}
     ];
+
+    MockService.ParaTagOptions = ["Rule", "Information", "Explanation"];
 
     MockService.CeclChildNodeDetails = {
         "Amortized Cost Basis" : "The amortized cost basis is the amount at which a financing receivable or investment is originated or acquired, adjusted for applicable accrued interest, accretion, or amortization of premium, discount, and net deferred fees or costs, collection of cash,  writeoffs, foreign exchange, and fair value hedge accounting adjustments",

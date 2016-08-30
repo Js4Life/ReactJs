@@ -63,6 +63,7 @@ POST /getMultiFilteredDataByCompName	com.parabole.cecl.application.controllers.C
 POST /getFunctionalAreasByProducts	com.parabole.cecl.application.controllers.CeclController.getFunctionalAreasByProducts()
 POST /getDescriptionByUri       com.parabole.cecl.application.controllers.CeclController.getDescriptionByUri
 POST /getParagraphsByConcept    com.parabole.cecl.application.controllers.CeclController.getParagraphsByConcept()
+POST /getParagraphsBySubsection com.parabole.cecl.application.controllers.CeclController.getParagraphsBySubsection()
 POST /addChecklist              com.parabole.cecl.application.controllers.CeclController.addChecklist()
 POST /getChecklistByConceptAndComponent    com.parabole.cecl.application.controllers.CeclController.getChecklistByConceptAndComponent()
 POST /getChecklistByNode        com.parabole.cecl.application.controllers.CeclController.getChecklistByNode()

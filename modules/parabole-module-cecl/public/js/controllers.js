@@ -92,7 +92,31 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 })
 
 .controller('landingCtrl', function($scope, $state, $stateParams, SharedService) {
+	$scope.initialize = function(){
 
+	}
+
+	$scope.goToStatusChecklist = function () {
+		$state.go('landing.home');
+	}
+
+	$scope.goToAlerts = function () {
+		alert("alert");
+	}
+
+	$scope.goToInbox = function () {
+		alert("Inbox");
+	}
+
+	$scope.goCompletion = function () {
+
+	}
+
+	$scope.goCompliance = function () {
+
+	}
+
+	$scope.initialize();
 })
 
 .controller('riskCtrl', function($scope, $state, $stateParams, SharedService, RiskAggregateService) {
@@ -183,7 +207,8 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		};
 		$scope.answers = {};
 		$scope.currentColorCode = 'all';
-		$scope.exploreNode($scope.nodes[$scope.nodes.length - 1]);
+		$scope.leftSlideToggle();
+		$scope.exploreNode($scope.nodes[0]);
 	}
 	
 	$scope.exploreNode = function (node, e) {
@@ -197,6 +222,15 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			$(e.currentTarget).parent().children().removeClass('active-nav');
 			$(e.currentTarget).addClass('active-nav');
 		}
+	}
+
+	$scope.onBreadClick = function (bread) {
+		if(bread.idx === 0){
+			$scope.exploreNode(bread);
+			return;
+		}
+		$scope.breadClicked = true;
+		$scope.getFilteredDataByCompName(bread.data.name, bread.data);
 	}
 
 	$scope.leftSlideToggle = function(){
@@ -222,28 +256,35 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				compName = "ceclTopicNodeDetails";
 				SharedService.getFilteredDataByCompName(compName, nodeName).then(function (data) {
 					$scope.childNodes = data.data;
-					addBread();
+					manageBreads(currentNode);
 				});
 				break;
 			case "Sub-Topic":
 				compName = "ceclSubTopicNodeDetails";
 				SharedService.getFilteredDataByCompName(compName, nodeName).then(function (data) {
 					$scope.childNodes = data.data;
-					addBread();
+					manageBreads(currentNode);
 				});
 				break;
 			case "Section":
 				compName = "ceclSectionNodeDetails";
 				SharedService.getFilteredDataByCompName(compName, nodeName).then(function (data) {
 					$scope.childNodes = data.data;
-					addBread();
+					manageBreads(currentNode);
 				});
 				break;
 			case "Paragraph":
-				compName = "ceclParagraphNodeDetails";
+				/*compName = "ceclParagraphNodeDetails";
 				SharedService.getFilteredDataByCompName(compName, nodeName).then(function (data) {
 					$scope.childNodes = data.data;
-					addBread();
+					manageBreads(currentNode);
+				});*/
+				var subSectionId = nodeName.substring(0, nodeName.lastIndexOf('-'));
+				SharedService.getParagraphsBySubsection(subSectionId).then(function (data) {
+					if(data.status){
+						SharedService.paragraphs = data.data;
+						$state.go('landing.checklistBuilder');
+					}
 				});
 				break;
 			case "FASB Concept":
@@ -300,10 +341,18 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		});
 	}
 
-	function addBread() {
-		var currentBread = $scope.breads[$scope.breads.length-1];
-		if(currentBread.idx === 4) return;
-		$scope.breads.push(_.findWhere(MockService.CeclBaseNodes, {"idx": currentBread.idx+1}));
+	function manageBreads(currentNode) {
+		if(!$scope.breadClicked){
+			var currentBread = $scope.breads[$scope.breads.length-1];
+			if(currentBread.idx === 4) return;
+			var aBread = _.findWhere(MockService.CeclBaseNodes, {"idx": currentBread.idx+1});
+			aBread.data = currentNode;
+			$scope.breads.push(aBread);
+		} else {
+			var index = _.findIndex($scope.breads, function (b) {	return b.data.name === currentNode.name; });
+			$scope.breads.splice(index+1, $scope.breads.length - (index+1));
+			$scope.breadClicked = false;
+		}
 	}
 
 	function scaleSlides(){
@@ -581,7 +630,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.initialize();
 })
 
-.controller('checklistBuilderCtrl', function($scope, $state, $stateParams, SharedService) {
+.controller('checklistBuilderCtrl', function($scope, $state, $stateParams, SharedService, MockService) {
 	$scope.initialize = function () {
 		toastr.info('Select one or more paragraph..', '', {"positionClass" : "toast-top-right"});
 		$scope.heading = {title: "Checklist Builder"};
@@ -593,11 +642,26 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			displayProp : "name",
 			externalIdProp : ""
 		}
-		$scope.currentConcept = SharedService.currentConcept;
+		//$scope.currentConcept = SharedService.currentConcept;
+		$scope.currentConcept = {components: {}}
 		$scope.currentParagraphs = [];
-		$scope.paraTag = {};
-		SharedService.getParagraphsByConcept($scope.currentConcept.name).then(function (data) {
+		$scope.paraTagOptions = MockService.ParaTagOptions;
+		$scope.doParaTag = false;
+		$scope.paraTags = {};
+		/*SharedService.getParagraphsByConcept($scope.currentConcept.name).then(function (data) {
 			$scope.paragraphs = angular.fromJson(data.data);
+		});*/
+		$scope.paragraphs = SharedService.paragraphs;
+		setParagraphTags();
+	}
+
+	function setParagraphTags() {
+		angular.forEach($scope.paragraphs, function (para) {
+			if(para.type){
+				$scope.paraTags[para.id] = para.type;
+			} else {
+				$scope.doParaTag = true;
+			}
 		});
 	}
 
@@ -653,12 +717,8 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$scope.question = {components:[], isMandatory:true};
 	}
 
-	$scope.tagParagraph = function () {
-		$('#paraTagModal').modal('show');
-	}
-
-	$scope.saveParaTag = function () {
-		$('#paraTagModal').modal('hide');
+	$scope.saveParaTags = function () {
+		console.log($scope.paraTags);
 	}
 	
 	$scope.goPreviousScreen = function () {

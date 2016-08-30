@@ -6,8 +6,8 @@
       <input type="search" class="form-control" placeholder="Search from {{childNodes.length}} items..." ng-model="searchText" />
     </div>
     <div class="pull-right">
-      <span ng-click="leftSlideToggle()" class="fa fa-expand pull-right" tooltip='"title":"Fullscreen"'></span>
-      <div class="dropdown pull-right margin-right-10" style="top: -6px;">
+      @*<span ng-click="leftSlideToggle()" class="fa fa-expand pull-right" tooltip='"title":"Fullscreen"'></span>*@
+      <div class="dropdown pull-right" style="top: -6px;">
         <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
           <i class="fa fa-cog" aria-hidden="true"></i>
           <span class="caret"></span>
@@ -31,7 +31,7 @@
         </div>
         <div class="zero-padding" ng-class="collapseClasses.center" style="cursor:hand;height:80vh;border:1px solid #ddd;overflow: auto;">
             <ol class="breadcrumb" ng-if="breads.length > 0">
-                <li ng-repeat="bread in breads">{{bread.name}}</li>
+                <li class="pointer" ng-repeat="bread in breads" ng-click="onBreadClick(bread)" onmouseover='this.style.color="blue"' onmouseout='this.style.color="black"'>{{bread.name}}</li>
                 <div class="btn-group btn-group-xs pull-right" data-toggle="buttons">
                   <label class="btn btn-primary" ng-click="setColorCode('all')">
                     <input type="radio" name="options" id="option1" autocomplete="off"> All

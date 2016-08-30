@@ -39,7 +39,7 @@ angular
               url : '/checklist-builder',
               templateUrl : 'checklistBuilder',
               controller : 'checklistBuilderCtrl'
-          });
+          })
 
           $urlRouterProvider.otherwise('/landing/home');
   });

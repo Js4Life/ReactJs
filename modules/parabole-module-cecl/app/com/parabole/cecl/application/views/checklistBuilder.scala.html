@@ -9,20 +9,16 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <span class="glyphicon glyphicon-chevron-left pull-left" style="margin-right:10px;" ng-click="goPreviousScreen()"></span>
-    <b>{{heading.title}} ({{currentConcept.name}})</b>
+    <b>{{heading.title}}</b>
+    <span class="glyphicon glyphicon-floppy-disk pull-right" style="margin-right:10px;" ng-click="saveParaTags()"></span>
   </div>
   <div class="panel-body" style="height:81vh;overflow: hidden;">
-    <div class="col-xs-6 max-height zero-padding">
-      <div class="container-fluid" style="height:70vh;overflow: auto;">
+    @*<div class="col-xs-6 max-height zero-padding">
+      <div class="container-fluid max-height" style="overflow: auto;">
         <div ng-repeat="para in paragraphs" style="position: relative;">
           <i class="fa fa-check-circle fa-2x" ng-class="{'text-gray':!para.isSelected, 'text-green':para.isSelected}" aria-hidden="true" ng-click="selectParagraph(para)" style="position:absolute;top:-2px;left:-13px;"></i>
           <p ng-class="{'text-danger': para.willIgnore}" read-more="" content="{{para.bodyText}}"></p>
         </div>
-      </div>
-      <div class="container-fluid">
-        <form class="form-inline">
-          <button type="button" class="btn btn-default pull-right" ng-click="tagParagraph()" style="margin-top: 5px;">Tag</button>
-        </form>
       </div>
     </div>
     <div class="col-xs-6 max-height" style="overflow: hidden;padding-right: 0;">
@@ -68,32 +64,18 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
+    </div>*@
 
-<div class="modal fade bs-example-modal-sm" id="paraTagModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title" id="myModalLabel">Tag Paragraph</h4>
-      </div>
-      <div class="modal-body zero-padding-bottom">
-        <ul class="list-group">
-          <li class="list-group-item">
-            <input type="radio" name="paraTag" ng-model="paraTag.tagValue" value="rule" style="position: relative;top: 2px;"/>&nbsp;Rule
-          </li>
-          <li class="list-group-item">
-            <input type="radio" name="paraTag" ng-model="paraTag.tagValue" value="information" style="position: relative;top: 2px;"/>&nbsp;Information
-          </li>
-          <li class="list-group-item">
-            <input type="radio" name="paraTag" ng-model="paraTag.tagValue" value="reference" style="position: relative;top: 2px;"/>&nbsp;Reference
-          </li>
-        </ul>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" ng-click="saveParaTag()">Save</button>
+    <div ng-if="doParaTag" class="col-xs-12 max-height zero-padding">
+      <div class="container-fluid max-height" style="overflow: auto;">
+        <div ng-repeat="para in paragraphs | orderBy: 'id'" style="position: relative;">
+          <i class="fa fa-check-circle fa-2x" ng-class="{'text-gray':!para.isSelected, 'text-green':para.isSelected}" aria-hidden="true" ng-click="selectParagraph(para)" style="position:absolute;top:-2px;left:-13px;"></i>
+          <p ng-class="{'text-danger': para.willIgnore}" read-more="" content="{{para.bodyText}}"></p>
+          <i ng-if="paraTags[para.id]" class="paragraph-tag">{{paraTags[para.id].charAt(0)}}</i>
+          <select class="form-control" style="position: absolute;top: 10px;right: 30px;width: 20%;" ng-options="op for op in paraTagOptions" ng-model="paraTags[para.id]"></select>
+        </div>
       </div>
     </div>
+
   </div>
 </div>

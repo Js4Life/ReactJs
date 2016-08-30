@@ -19,6 +19,7 @@ import play.Play;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -212,6 +213,21 @@ public class TaggingUtilitiesServices {
         }
 
         return jsonArrayOfParagraphs.toString();
+    }
+
+    public JSONArray getParagraphsBySubsection(String subSectionId) throws  AppException {
+        JSONArray finalJson = new JSONArray();
+        String jsonFileContent = AppUtils.getFileContent("feedJson/paragraphs.json");
+        JSONObject jsonObject = new JSONObject(jsonFileContent);
+        JSONObject paragraphs = jsonObject.getJSONObject("paragraphs");
+        Iterator<String> keys = paragraphs.keySet().iterator();
+        while (keys.hasNext()){
+            String key = keys.next();
+            if(key.startsWith(subSectionId)){
+                finalJson.put(paragraphs.getJSONObject(key));
+            }
+        }
+        return finalJson;
     }
 
     public  JSONArray getParagraphIdsByConcept(String concept) throws AppException{
