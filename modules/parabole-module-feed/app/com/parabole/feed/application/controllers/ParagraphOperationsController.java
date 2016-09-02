@@ -132,7 +132,6 @@ public class ParagraphOperationsController extends BaseController{
     }
 
 
-
     public Result createLightHouse() throws AppException {
 
         return ok(checkListServices.createLightHouse());

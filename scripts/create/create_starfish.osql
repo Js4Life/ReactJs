@@ -53,7 +53,7 @@ CREATE CLASS APP_TAG_ELEMENTS;
 CREATE PROPERTY APP_TAG_ELEMENTS.DATA_ID STRING;
 CREATE PROPERTY APP_TAG_ELEMENTS.QUESTION_ID STRING;
 CREATE PROPERTY APP_TAG_ELEMENTS.TEXT STRING;
---------------------------------------------4--------------
+----------------------------------------------------------
 ALTER PROPERTY APP_TAG_ELEMENTS.DATA_ID MANDATORY true;
 ALTER PROPERTY APP_TAG_ELEMENTS.TEXT MANDATORY true;
 ----------------------------------------------------------

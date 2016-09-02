@@ -25,17 +25,15 @@ GET /questionAgainstConceptNameComponentTypeComponentName/:conceptName/:componen
 
 
 
-#============================= graph DB test ============================
-
+## Graph Db Test
+#---------------------------------------
 GET /createLightHouse                       com.parabole.feed.application.controllers.ParagraphOperationsController.createLightHouse()
 
-#============================= graph db test end ========================
 
-
-
-
-### -------------------------------------------------------------------- END TEST ----------------------------------------------------------
-
+## Document parsing operation
+#---------------------------------------
+GET /documentParsing/:fileName                          com.parabole.feed.application.controllers.DocumentController.documentParsing(fileName : String)
+GET /getNodesFromParagraphJSon                                   com.parabole.feed.application.controllers.DocumentController.getNodesFromParagraphJSon()
 
 
 

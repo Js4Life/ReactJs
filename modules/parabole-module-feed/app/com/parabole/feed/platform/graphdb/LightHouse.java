@@ -16,7 +16,9 @@ import org.apache.commons.lang3.Validate;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -76,6 +78,45 @@ public class LightHouse extends GraphDb {
     }
 
 
+
+    public boolean saveListOfVertices(List<String> listOfvertices) throws IOException {
+        OrientGraph graph = this.orientGraphFactory.getTx();
+
+        try {
+            listOfvertices.forEach((k)->{
+                if(graph.getVertices("elementId",k) == null) {
+                    System.out.println(" = Already exists !");
+                }else{
+                    Vertex vAddress = graph.addVertex("class:Address");
+                    vAddress.setProperty("elementID", k);
+                    vAddress.setProperty("type", "Topic");
+                    System.out.println("k =================================================>>> " + k);
+                }
+
+                /*if(graph.getVertices("elementId",k) == null) {
+                    Vertex v = graph.addVertex(null);
+                    v.setProperty("elementId",k);
+                    graph.addVertex(v);
+                }else{
+                    Iterable<Vertex> vertices = graph.getVertices("elementId",k);
+                    for (Vertex vertex: vertices) {
+                        vertex.setProperty("elementId",k);
+                        graph.addVertex(vertex);
+                    }
+                }*/
+            });
+            //graph.commit();
+        }catch( Exception e ) {
+            graph.rollback();
+        } finally {
+            graph.shutdown();
+        }
+
+        return true;
+
+    }
+
+
     /*******************************************************************
      // Generic Method to save a graph component
      /*******************************************************************
@@ -90,7 +131,6 @@ public class LightHouse extends GraphDb {
 
     public boolean saveGraphInstance(OrientGraph graph, Vertex vertexOne, Vertex vertexTwo, String edgeName, Map<String, String> edgeProperties) throws  IOException{
 
-
         try {
             Edge edge = graph.addEdge(null, vertexOne, vertexTwo, edgeName);
             if(edgeProperties != null)
@@ -101,7 +141,6 @@ public class LightHouse extends GraphDb {
         }catch( Exception e ) {
             graph.rollback();
         } finally {
-            graph.rollback();
             graph.shutdown();
         }
 
