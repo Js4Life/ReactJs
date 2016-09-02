@@ -5,17 +5,23 @@
       <i class="glyphicon glyphicon-search"></i>
       <input type="search" class="form-control" placeholder="Search from {{childNodes.length}} items..." ng-model="searchText" />
     </div>
-    <div class="pull-right">
+    <div class="btn-group pull-right" role="group">
       @*<span ng-click="leftSlideToggle()" class="fa fa-expand pull-right" tooltip='"title":"Fullscreen"'></span>*@
-      <div class="dropdown pull-right" style="top: -6px;">
-        <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
-          <i class="fa fa-cog" aria-hidden="true"></i>
-          <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="dLabel">
-          <li class="pointer" ng-click="startContentParser()"><a><i class="fa fa-file-pdf-o"></i> Document Parser</a></li>
-          <li class="pointer" ng-click="startOntologyParser()"><a><i class="fa fa-share-alt"></i> Ontology Parser</a></li>
-        </ul>
+      <button ng-if="isGridView" type="button" class="btn btn-xs" ng-click="toggleView()">
+          <i class="fa fa-th-list" aria-hidden="true"></i>
+      </button>
+      <button ng-if="!isGridView" type="button" class="btn btn-xs" ng-click="toggleView()">
+          <i class="fa fa-th-large" aria-hidden="true"></i>
+      </button>
+      <div class="btn-group pull-right" role="group">
+          <button class="btn btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
+              <i class="fa fa-cog" aria-hidden="true"></i>
+              <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dLabel">
+              <li class="pointer" ng-click="startContentParser()"><a><i class="fa fa-file-pdf-o"></i> Document Parser</a></li>
+              <li class="pointer" ng-click="startOntologyParser()"><a><i class="fa fa-share-alt"></i> Ontology Parser</a></li>
+          </ul>
       </div>
     </div>
   </div>
@@ -50,15 +56,30 @@
                   </label>
                 </div>
             </ol>
-            <div ng-if="currentColorCode === child.colorCode || currentColorCode === 'all'" class="col-md-2" ng-repeat="child in childNodes | orderBy : 'name' | filter: searchText" index="{{$index}}">
-              <div class="panel panel-default" style="box-shadow: 1px 2px 7px #d8d8d8;">
-                <div class="panel-body text-center zero-padding" ng-class="getComplianceColorcode(child)">
-                    <div style="font-weight: bold;font-size: 2.5em;opacity:0.4;">{{child.name.charAt(0)}}</div>
-                    <div class="pointer" style="position:absolute;right:20px;top:5px;font-weight: bold;" ng-click="getChecklistByNode(child)">{{child.compliance}}%</div>
+            <div ng-if="isGridView">
+                <div ng-if="currentColorCode === child.colorCode || currentColorCode === 'all'" class="col-md-2" ng-repeat="child in childNodes | orderBy : 'name' | filter: searchText" index="{{$index}}">
+                  <div class="panel panel-default" style="box-shadow: 1px 2px 7px #d8d8d8;">
+                    <div class="panel-body text-center zero-padding" ng-class="getComplianceColorcode(child)">
+                        <div style="font-weight: bold;font-size: 2.5em;opacity:0.4;">{{child.name.charAt(0)}}</div>
+                        <div class="pointer" style="position:absolute;right:20px;top:5px;font-weight: bold;" ng-click="getChecklistByNode(child)">{{child.compliance}}%</div>
+                    </div>
+                    <div ng-click="getNodeDetails(child, $index)" class="panel-footer ellipsis-text pointer" tooltip='"title":"{{child.name}}"'>{{child.name}}</div>
+                  </div>
                 </div>
-                <div ng-click="getNodeDetails(child, $index)" class="panel-footer ellipsis-text pointer" tooltip='"title":"{{child.name}}"'>{{child.name}}</div>
-              </div>
             </div>
+            <table ng-if="!isGridView" class="table table-condensed">
+                <thead>
+                    <th>Status</th><th>{{breads[breads.length-1].name}}</th><th>Compliance</th><th></th>
+                </thead>
+                <tbody>
+                    <tr ng-if="currentColorCode === child.colorCode || currentColorCode === 'all'" ng-repeat="child in childNodes | orderBy : 'name' | filter: searchText" index="{{$index}}">
+                        <td><i class="fa fa-circle" aria-hidden="true" ng-class="getComplianceColorcode(child)"></i></td>
+                        <td>{{child.name}}</td>
+                        <td class="pointer" ng-click="getChecklistByNode(child)">{{child.compliance}}%</td>
+                        <td><i class="fa fa-eye" aria-hidden="true" ng-click="getNodeDetails(child, $index)"></i></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
       </div>
     </div>

@@ -195,7 +195,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$scope.collapseSlide = {left: false};
 		$scope.collapseClasses = {left: "col-xs-2 menu-back slide-container", center: "col-xs-10"};
 		$scope.nodes = MockService.CeclBaseNodes;
-		$scope.breads = [];
+		$scope.breads = SharedService.homeBreads || [];
 		$scope.showGraph = false;
 		$scope.visOptions = {
 			labelField:'name',
@@ -207,8 +207,13 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		};
 		$scope.answers = {};
 		$scope.currentColorCode = 'all';
+        $scope.isGridView = true;
 		$scope.leftSlideToggle();
-		$scope.exploreNode($scope.nodes[0]);
+        if($scope.breads.length > 0){
+            $scope.onBreadClick($scope.breads[$scope.breads.length - 1]);
+        } else {
+            $scope.exploreNode($scope.nodes[0]);
+        }
 	}
 	
 	$scope.exploreNode = function (node, e) {
@@ -294,6 +299,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
                                 });
                                 currentConcept.components = angular.copy(rawNodeDetails);
                                 SharedService.currentConcept = currentConcept;
+                                SharedService.homeBreads = $scope.breads;
                                 $state.go('landing.checklistBuilder');
                             });
                         } else {
@@ -469,17 +475,14 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		var val = obj.compliance;
 		if(val > 81) {
 			obj.colorCode = "green";
-			return 'compliance-green';
-		}else if(val >= 51 && val <=80) {
+		} else if(val >= 51 && val <=80) {
 			obj.colorCode = "amber";
-			return 'compliance-amber';
-		}else if(val > 0 && val <=50) {
+		} else if(val > 0 && val <=50) {
 			obj.colorCode = "red";
-			return 'compliance-red';
-		}else {
+		} else {
 			obj.colorCode = "gray";
-			return 'compliance-gray';
 		}
+		return $scope.isGridView ? ('bg-' + obj.colorCode) : ('text-' + obj.colorCode);
 	}
 
 	function clearAnswers() {
@@ -505,6 +508,10 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.setColorCode = function (colorCode) {
 		$scope.currentColorCode = colorCode;
 	}
+
+	$scope.toggleView = function () {
+        $scope.isGridView = !$scope.isGridView;
+    }
 })
 
 .controller('impactCtrl', function($scope, $state, $stateParams, SharedService) {
@@ -662,6 +669,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$scope.currentParagraphs = [];
 		$scope.paraTagOptions = MockService.ParaTagOptions;
 		$scope.doParaTag = true;
+        $scope.currentTag = 'all';
 		$scope.paraTags = {};
 		/*SharedService.getParagraphsByConcept($scope.currentConcept.name).then(function (data) {
 			$scope.paragraphs = angular.fromJson(data.data);
@@ -769,6 +777,10 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
                 return 'bg-amber';
                 break;
         }
+    }
+
+    $scope.setColorCode = function (tag) {
+        $scope.currentTag = tag;
     }
 	
 	$scope.goPreviousScreen = function () {

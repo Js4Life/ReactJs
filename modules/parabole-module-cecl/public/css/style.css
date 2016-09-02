@@ -1564,10 +1564,6 @@ div.network-tooltip {
 	background-image: none !important;
 }
 
-.text-red{
-	color:red;
-}
-
 .menu-back{
 	padding:0;
 	height:72vh;
@@ -2371,14 +2367,6 @@ li.list-group-item.puff{
       border-radius: 5px;
   }
 
-  .text-green{
-      color: #4DD44D;
-  }
-
-  .text-gray{
-      color: #d2d2d2;
-  }
-
   .bubble-icon{
       height: 36px;
       width: 36px;
@@ -2461,17 +2449,36 @@ li.list-group-item.puff{
       float: left;
   }
 
-  .compliance-gray{
-      background: #cccccc;
+  .bg-gray{
+      background: #d2d2d2;
   }
-  .compliance-red{
+  .bg-red{
       background: #ff4a46;
   }
-  .compliance-amber{
+  .bg-amber{
       background: #ffb935;
   }
-  .compliance-green{
+  .bg-green{
       background: #04de72;
+  }
+  .bg-blue{
+      background: deepskyblue;
+  }
+
+  .text-gray{
+      color: #d2d2d2;
+  }
+  .text-red{
+      color: #ff4a46;
+  }
+  .text-amber{
+      color: #ffb935;
+  }
+  .text-green{
+      color: #04de72;
+  }
+  .text-blue{
+      color: deepskyblue;
   }
 
   .custom-toast-top-left {
@@ -2494,17 +2501,6 @@ li.list-group-item.puff{
       text-align: center;
       color: white;
       font-size: 18px;
-  }
-
-  .bg-green{
-      background: #4DD44D;
-  }
-
-  .bg-amber{
-      background: #ff8c11;
-  }
-
-  .bg-blue{
-      background: deepskyblue;
+      cursor: help;
   }
   /*End*/

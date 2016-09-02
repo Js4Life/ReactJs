@@ -12,15 +12,29 @@
     <b>{{heading.title}}</b>
     <span ng-if="doParaTag" class="glyphicon glyphicon-play pull-right" ng-click="enableChecklistBuilder()"></span>
     <span ng-if="doParaTag" class="glyphicon glyphicon-floppy-disk pull-right" style="margin-right:10px;" ng-click="saveParaTags()"></span>
+    <div ng-if="!doParaTag" class="btn-group btn-group-xs pull-right" data-toggle="buttons">
+      <label class="btn btn-primary" ng-click="setColorCode('all')">
+          <input type="radio" name="options" id="option1" autocomplete="off"> All
+      </label>
+      <label class="btn btn-success" ng-click="setColorCode('Rule')">
+          <input type="radio" name="options" id="option1" autocomplete="off"> Rule
+      </label>
+      <label class="btn btn-info" ng-click="setColorCode('Information')">
+          <input type="radio" name="options" id="option1" autocomplete="off"> Information
+      </label>
+      <label class="btn btn-warning" ng-click="setColorCode('Explanation')">
+          <input type="radio" name="options" id="option2" autocomplete="off"> Explanation
+      </label>
+     </div>
   </div>
   <div class="panel-body" style="height:81vh;overflow: hidden;">
     <div ng-if="!doParaTag" class="max-height">
         <div class="col-xs-6 max-height zero-padding">
           <div class="container-fluid max-height" style="overflow: auto;">
-            <div ng-repeat="para in paragraphs" style="position: relative;">
+            <div ng-repeat="para in paragraphs" ng-if="currentTag === paraTags[para.id] || currentTag === 'all'" style="position: relative;">
               <i class="fa fa-check-circle fa-2x" ng-class="{'text-gray':!para.isSelected, 'text-green':para.isSelected}" aria-hidden="true" ng-click="selectParagraph(para)" style="position:absolute;top:-2px;left:-13px;"></i>
               <p ng-class="{'text-danger': para.willIgnore}" read-more="" content="{{para.bodyText}}"></p>
-              <i ng-if="paraTags[para.id]" ng-class="getParaTagClass(paraTags[para.id])" class="paragraph-tag">{{paraTags[para.id].charAt(0)}}</i>
+              <i ng-if="paraTags[para.id]" ng-class="getParaTagClass(paraTags[para.id])" class="paragraph-tag" tooltip='"title":"{{paraTags[para.id]}}","placement":"right"'>{{paraTags[para.id].charAt(0)}}</i>
             </div>
           </div>
         </div>
