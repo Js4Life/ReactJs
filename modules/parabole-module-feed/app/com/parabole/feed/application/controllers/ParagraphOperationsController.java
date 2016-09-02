@@ -139,4 +139,37 @@ public class ParagraphOperationsController extends BaseController{
     }
 
 
+    // -----------------------------------------------------------------------------
+    //   Check List Operation Test
+    // -----------------------------------------------------------------------------
+
+    public Result saveOrUpdateCheckList() {
+
+        String checkListId = "1234567890";
+        String checklistText = "This is a sample checklist Text";
+
+        return ok(checkListServices.saveOrUpdateCheckList(checkListId, checklistText));
+
+    }
+
+
+    public Result getCheckListById() {
+
+        String checkListId = "1234567890";
+
+        return ok(checkListServices.getCheckListById(checkListId));
+
+    }
+
+    public Result removeCheckList() {
+
+        String checkListId = "1234567890";
+
+        return ok(checkListServices.removeCheckList(checkListId));
+
+    }
+
+
+
+
 }

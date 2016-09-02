@@ -17,6 +17,7 @@ public class CCAppConstants extends AppConstants {
     public static final String RDA_USER_CONFIGS = "APP_USER_CONFIGS";
     public static final String QUESTION_DOCUMENT = "APP_QUESTIONS";
     public static final String PARAGRAPH_DOCUMENT = "APP_PARAGRAPHS";
+    public static final String APP_CHECKLIST = "APP_CHECKLIST";
     public static final String APP_CONCEPTS_INFO = "APP_CONCEPTS_INFO";
     public static final String RDA_CONCEPT_TAGS = "APP_CONCEPT_TAGS";
     public static final String RDA_GLOSSARY_CONFIGS = "GLOSSARY_CONFIGS";

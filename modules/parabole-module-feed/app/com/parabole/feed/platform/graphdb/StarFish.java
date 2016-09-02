@@ -9,6 +9,7 @@ import com.parabole.feed.platform.exceptions.AppException;
 import com.parabole.feed.platform.utils.AppUtils;
 import com.tinkerpop.blueprints.impls.orient.OrientGraphFactory;
 import org.apache.commons.lang3.Validate;
+import org.json.JSONObject;
 import play.Logger;
 
 import java.sql.Timestamp;
@@ -46,6 +47,54 @@ public class StarFish extends GraphDb {
         return saveAnything(CCAppConstants.QUESTION_DOCUMENT, dataMap);
     }
 
+    public String saveOrUpdateCheckList(String checkListId, String checklistText) throws AppException {
+        final Map<String, Object> dataMapForCheckList = new HashMap<String, Object>();
+        dataMapForCheckList.put("DATA_ID", checkListId);
+        dataMapForCheckList.put("TEXT", checklistText);
+        String rids = saveAnything(CCAppConstants.APP_CHECKLIST, dataMapForCheckList);
+        return  rids;
+    }
+
+
+    public String removeCheckList( String checkListId) throws AppException {
+        final Map<String, Object> dataMapForCheckList = new HashMap<String, Object>();
+        dataMapForCheckList.put("DATA_ID", checkListId);
+        String rids = removeByProperty(CCAppConstants.APP_CHECKLIST, checkListId);
+        return  rids;
+    }
+
+
+    public String getCheckListById(String checkListId) throws AppException {
+        final Map<String, Object> dataMapForCheckList = new HashMap<String, Object>();
+        List<Map<String, String>> rids = getByProperty(CCAppConstants.APP_CHECKLIST, checkListId);
+        return  rids.toString();
+    }
+
+    public List<Map<String, String>> getByProperty(final String configurationObjectClass, final String checkListId) throws AppException {
+        Validate.notBlank(checkListId, "'checkListId' cannot be empty!");
+        final List<Map<String, String>> outputList = new ArrayList<Map<String, String>>();
+        JSONObject jsonObject = null;
+        final ODatabaseDocumentTx dbNoTx = getDocDBConnectionNoTx();
+        try {
+            final OSQLSynchQuery<ODocument> query = new OSQLSynchQuery<ODocument>("SELECT DATA_ID, TEXT  FROM " + configurationObjectClass + " WHERE DATA_ID = '" + checkListId + "'");
+            final List<ODocument> results = dbNoTx.command(query).execute();
+            results.forEach((final ODocument result) -> {
+                final Map<String, String> outputMap = new HashMap<String, String>();
+                final String configurationNameCollected = result.field("DATA_ID");
+                final String configurationDetails = result.field("TEXT");
+                outputMap.put("name", configurationNameCollected);
+                outputMap.put("details", configurationDetails);
+                outputList.add(outputMap);
+            });
+            return (outputList);
+        } catch (final Exception ex) {
+            Logger.error("Could not retrieve configuration", ex);
+            throw new AppException(AppErrorCode.GRAPH_DB_OPERATION_EXCEPTION);
+        } finally {
+            closeDocDBConnection(dbNoTx);
+        }
+    }
+
     public String saveParagraph(String paragraphId, String paragraphText, String tag) throws AppException {
         //final Integer configurationId = generateId(CCAppConstants.RDA_USER_CONFIGS);
 
@@ -61,6 +110,14 @@ public class StarFish extends GraphDb {
         dataMap.put("IS_MANDATORY", true);
         dataMap.put("PARAGRAPH_ID", rids);
         return saveAnything(CCAppConstants.QUESTION_DOCUMENT, dataMap);*/
+    }
+
+    public String removeByProperty(final String configurationObjectClass, final String checkListId) throws AppException {
+            Validate.notNull(checkListId, "'configurationId' cannot be null!");
+            executeUpdate("DELETE FROM " + configurationObjectClass + " WHERE DATA_ID = " + checkListId);
+
+            return "Success !";
+
     }
 
 

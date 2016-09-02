@@ -61,7 +61,6 @@ public class LightHouse extends GraphDb {
         //Vertex v = new OrientVertex();
 
         OrientGraph graph = this.orientGraphFactory.getTx();
-
         Vertex luca = graph.addVertex(null);
         luca.setProperty( "dataId", "Topic" );
         luca.setProperty( "name", "Topic" );
@@ -81,8 +80,6 @@ public class LightHouse extends GraphDb {
 
     public boolean saveListOfVertices(List<String> listOfvertices) throws IOException {
         OrientGraph graph = this.orientGraphFactory.getTx();
-
-
 
         try {
             listOfvertices.forEach((k)-> {
