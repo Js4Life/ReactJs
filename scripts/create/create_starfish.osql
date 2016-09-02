@@ -41,13 +41,27 @@ ALTER PROPERTY APP_PARAGRAPHS.DATA_ID MANDATORY true;
 ALTER PROPERTY APP_PARAGRAPHS.TEXT MANDATORY true;
 ----------------------------------------------------------
 CREATE INDEX APP_PARAGRAPHS.DATA_ID UNIQUE;
-CREATE LINK PARAGRAPHS TYPE LINKSET FROM APP_PARAGRAPHS.DATA_ID TO APP_QUESTIONS.DATA_ID INVERSE
 
 
 
 
 -------------------------------------------------------------------
--- SCHEMA: APP_TAG_ELEMENTS
+-- SCHEMA: APP_CHECKLIST
+-------------------------------------------------------------------
+CREATE CLASS APP_CHECKLIST;
+CREATE PROPERTY APP_CHECKLIST.DATA_ID STRING;
+CREATE PROPERTY APP_CHECKLIST.TEXT STRING;
+----------------------------------------------------------
+ALTER PROPERTY APP_CHECKLIST.DATA_ID MANDATORY true;
+ALTER PROPERTY APP_CHECKLIST.TEXT MANDATORY true;
+----------------------------------------------------------
+CREATE INDEX APP_CHECKLIST.DATA_ID UNIQUE;
+
+
+
+
+-------------------------------------------------------------------
+-- SCHEMA: APP_TAG_ELEMENTS (Depricated)
 -------------------------------------------------------------------
 CREATE CLASS APP_TAG_ELEMENTS;
 CREATE PROPERTY APP_TAG_ELEMENTS.DATA_ID STRING;
@@ -58,12 +72,11 @@ ALTER PROPERTY APP_TAG_ELEMENTS.DATA_ID MANDATORY true;
 ALTER PROPERTY APP_TAG_ELEMENTS.TEXT MANDATORY true;
 ----------------------------------------------------------
 CREATE INDEX APP_TAG_ELEMENTS.DATA_ID UNIQUE;
-CREATE LINK TAGS TYPE LINKSET FROM APP_TAG_ELEMENTS.DATA_ID TO APP_QUESTIONS.DATA_ID INVERSE
 
 
 
 -------------------------------------------------------------------
--- SCHEMA: APP_COMPONENTS
+-- SCHEMA: APP_COMPONENTS (depricated)
 -------------------------------------------------------------------
 CREATE CLASS APP_COMPONENTS;
 CREATE PROPERTY APP_COMPONENTS.DATA_ID STRING;
@@ -77,7 +90,6 @@ ALTER PROPERTY APP_COMPONENTS.CONCEPTS MANDATORY true;
 ----------------------------------------------------------
 CREATE INDEX APP_COMPONENTS.DATA_ID UNIQUE;
 ----------------------------------------------------------
-CREATE LINK APP_COMPONENTS TYPE LINKSET FROM APP_COMPONENTS.DATA_ID TO APP_PARAGRAPHS.DATA_ID INVERSE
 
 
 

@@ -6,6 +6,7 @@ import com.parabole.feed.application.global.CCAppConstants;
 import com.parabole.feed.platform.AppConstants;
 import com.parabole.feed.platform.utils.AppUtils;
 import com.tinkerpop.blueprints.Edge;
+import com.tinkerpop.blueprints.Parameter;
 import com.tinkerpop.blueprints.Vertex;
 import com.tinkerpop.blueprints.impls.orient.OrientGraph;
 import com.tinkerpop.blueprints.impls.orient.OrientGraphFactory;
@@ -84,30 +85,50 @@ public class LightHouse extends GraphDb {
 
         try {
             listOfvertices.forEach((k)->{
-                if(graph.getVertices("elementId",k) == null) {
-                    System.out.println(" = Already exists !");
+
+
+
+                if(graph.getVertices("elementID", k) != null) {
+                    for (Vertex v : graph.getVertices("elementID", k)) {
+                        if(v.getProperty("elementID") == k && v.getProperty("type") == "Topic"){
+                            System.out.println("already exists = " + v);
+                        }else{
+                            Vertex newV = graph.addVertex(null);
+                            System.out.println("Created vertex: " + v.getId());
+                            newV.setProperty("elementID", k);
+                            newV.setProperty("type", "Topic");
+                            newV.setProperty("name", k);
+                            System.out.println("new Vertex added :: " + k);
+                        }
+
+                    }
                 }else{
-                    Vertex vAddress = graph.addVertex("class:Address");
-                    vAddress.setProperty("elementID", k);
-                    vAddress.setProperty("type", "Topic");
-                    System.out.println("k =================================================>>> " + k);
+                    Vertex v = graph.addVertex(null);
+                    System.out.println("Created vertex: " + v.getId());
+                    v.setProperty("elementID", k);
+                    v.setProperty("type", "Topic");
+                    v.setProperty("name", k);
+                    System.out.println("Vertex added :: " + k);
                 }
 
-                /*if(graph.getVertices("elementId",k) == null) {
-                    Vertex v = graph.addVertex(null);
-                    v.setProperty("elementId",k);
-                    graph.addVertex(v);
+
+             /*   if(graph.getVertices("elementId",k) == null) {
+                    System.out.println(" = Already exists !");
                 }else{
-                    Iterable<Vertex> vertices = graph.getVertices("elementId",k);
-                    for (Vertex vertex: vertices) {
-                        vertex.setProperty("elementId",k);
-                        graph.addVertex(vertex);
-                    }
+                    // graph.getVertices("elementID",k);
+
+                    Vertex v = (Vertex) graph.createVertexType("Topic");
+                    System.out.println("Created vertex: " + v.getId());
+                    v.setProperty("elementID", k);
+                    v.setProperty("type", "Topic");
+                    System.out.println("k =================================================>>> " + k);
                 }*/
+
             });
-            //graph.commit();
+            graph.commit();
         }catch( Exception e ) {
             graph.rollback();
+            System.out.println("e = " + e);
         } finally {
             graph.shutdown();
         }
