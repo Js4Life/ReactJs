@@ -49,4 +49,9 @@ public class HomeController extends Controller {
             return index();
     }
 
+    public Result logout() {
+        session().clear();
+        return index();
+    }
+
 }

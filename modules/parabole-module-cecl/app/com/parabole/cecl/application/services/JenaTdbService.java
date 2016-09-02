@@ -1679,6 +1679,7 @@ public class JenaTdbService {
         Boolean haveData = false;
         try{
             JSONArray paraIds = taggingUtilitiesServices.getParagraphIdsByConcept(concept);
+            //System.out.println("concept_paraIds = " + paraIds);
             for (int i = 0; i < paraIds.length(); i++) {
                 String aParaId = paraIds.getString(i);
                 JSONObject checkListObj = checkListServices.questionAgainstParagraphId(aParaId);

@@ -26,13 +26,43 @@ PREFIX cst:<http://mindparabole.com/finance/cecl_structure#>
 PREFIX owl:<http://www.w3.org/2002/07/owl#>
 
 
-select  ?section ?type ?name
+select  ?concept ?Area ?Type ?Typename
 where {
-?sec rdf:type ?tclass .
-?sec rdfs:label ?section .
-?sec cst:sechasPara ?para .
-?para rdf:type ?paraType .
-?para rdfs:label ?name .
-?paraType rdfs:label ?type .
-filter (?section = $$FILTERS$$)
+{select *
+where {
+{?a rdf:type ?conclass .
+?conclass rdfs:subClassOf cst:FASBConcept .
+?a pb:hasModel ?mprp .
+?mprp rdf:type ?Type.
+BIND(xsd:string("Model") as ?Area)}
+union
+{?a rdf:type ?conclass .
+?conclass rdfs:subClassOf cst:FASBConcept .
+?a pb:hasReport ?mprp .
+?mprp rdf:type ?Type.
+BIND(xsd:string("Report") AS ?Area)
+}
+union
+{?a rdf:type ?conclass .
+?conclass rdfs:subClassOf cst:FASBConcept .
+?a pb:hasProcedure ?mprp .
+?mprp rdf:type ?Type.
+bind(xsd:string ("Procedure") as ?Area)}
+union
+{?a rdf:type ?conclass .
+?conclass rdfs:subClassOf cst:FASBConcept .
+?a pb:hasPolicy ?mprp .
+?mprp rdf:type ?Type.
+bind(xsd:string ("Policy") as ?Area)}
+union
+{?a rdf:type ?conclass .
+?conclass rdfs:subClassOf cst:FASBConcept .
+?a pb:hasRelatedConcept ?mprp.
+?mprp rdf:type ?Type.
+bind(xsd:string ("Related Concept") as ?Area)}}}
+?a rdfs:label ?concept .
+?mprp rdfs:label ?connections .
+#filter (?concept = "Accounting Adjustment")
+filter (?concept = $$FILTERS$$)
+?Type rdfs:label ?Typename.
 }

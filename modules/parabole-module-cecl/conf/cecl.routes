@@ -63,13 +63,17 @@ POST /getMultiFilteredDataByCompName	com.parabole.cecl.application.controllers.C
 POST /getFunctionalAreasByProducts	com.parabole.cecl.application.controllers.CeclController.getFunctionalAreasByProducts()
 POST /getDescriptionByUri       com.parabole.cecl.application.controllers.CeclController.getDescriptionByUri
 POST /getParagraphsByConcept    com.parabole.cecl.application.controllers.CeclController.getParagraphsByConcept()
+POST /getParagraphsBySubsection com.parabole.cecl.application.controllers.CeclController.getParagraphsBySubsection()
 POST /addChecklist              com.parabole.cecl.application.controllers.CeclController.addChecklist()
 POST /getChecklistByConceptAndComponent    com.parabole.cecl.application.controllers.CeclController.getChecklistByConceptAndComponent()
 POST /getChecklistByNode        com.parabole.cecl.application.controllers.CeclController.getChecklistByNode()
 POST /getChecklistByParagraphId com.parabole.cecl.application.controllers.CeclController.getChecklistByParagraphId()
+POST /getChecklistByMultiParagraphId com.parabole.cecl.application.controllers.CeclController.getChecklistByMultiParagraphId()
 POST /addAnswer                 com.parabole.cecl.application.controllers.CeclController.addAnswer()
-GET /startContentParser                    com.parabole.cecl.application.controllers.CeclController.startContentParser()
-GET /startOntologyParser                   com.parabole.cecl.application.controllers.CeclController.parseDocumentHierarchy()
+GET /startContentParser         com.parabole.cecl.application.controllers.CeclController.startContentParser()
+GET /startOntologyParser        com.parabole.cecl.application.controllers.CeclController.parseDocumentHierarchy()
+POST /saveParagraphTags         com.parabole.cecl.application.controllers.CeclController.saveParagraphTags()
+POST /getParagraphTags          com.parabole.cecl.application.controllers.CeclController.getParagraphTags()
 
 # ---------------------------------------------------------------------------------
 # Jena TDB operation {TEST}

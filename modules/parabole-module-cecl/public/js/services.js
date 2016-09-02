@@ -74,13 +74,17 @@ angular.module('RDAApp.services', [])
         'GetGraphByConceptUri' : 'getRelatedVerticesByUri',
         'GetDescriptionByUri' : 'getDescriptionByUri',
         'GetParagraphsByConcept' : 'getParagraphsByConcept',
+        'GetParagraphsBySubsection' : 'getParagraphsBySubsection',
         'StartContentParser' : 'startContentParser',
         'StartOntologyParser' : 'startOntologyParser',
         'AddChecklist' : 'addChecklist',
         'GetChecklistByConceptAndComponent' : 'getChecklistByConceptAndComponent',
         'GetChecklistByNode' : 'getChecklistByNode',
         'GetChecklistByParagraphId' : 'getChecklistByParagraphId',
-        'AddAnswer' : 'addAnswer'
+        'GetChecklistByMultiParagraphId' : 'getChecklistByMultiParagraphId',
+        'AddAnswer' : 'addAnswer',
+        'SaveParagraphTags' : 'saveParagraphTags',
+        'GetParagraphTags' : 'getParagraphTags'
     };
     SharedService.chartDataMap = {
         '0' : 'getHardCodedResponse/chartData1',
@@ -611,6 +615,11 @@ angular.module('RDAApp.services', [])
         return SharedService.invokeService('GetParagraphsByConcept', sendObj, 'post');
     }
 
+    SharedService.getParagraphsBySubsection = function (subSectionId) {
+        var sendObj = {"subSectionId": subSectionId};
+        return SharedService.invokeService('GetParagraphsBySubsection', sendObj, 'post');
+    }
+
     SharedService.addChecklist = function (checkList) {
         var sendObj = {"checkList": checkList};
         return SharedService.invokeService('AddChecklist', sendObj, 'post');
@@ -634,6 +643,26 @@ angular.module('RDAApp.services', [])
     SharedService.addAnswer = function (answers) {
         var sendObj = {"answers": answers};
         return SharedService.invokeService('AddAnswer', sendObj, 'post');
+    }
+
+    SharedService.getChecklistByMultiParagraphId = function (paragraphIds) {
+        var sendObj = {"paragraphIds": paragraphIds};
+        return SharedService.invokeService('getChecklistByMultiParagraphId', sendObj, 'post');
+    }
+
+    SharedService.saveParagraphTags = function (paraTags) {
+        var sendObj = {"paraTags": paraTags};
+        return SharedService.invokeService('SaveParagraphTags', sendObj, 'post');
+    }
+
+    SharedService.saveParagraphTags = function (paraTags) {
+        var sendObj = {"paraTags": paraTags};
+        return SharedService.invokeService('SaveParagraphTags', sendObj, 'post');
+    }
+
+    SharedService.getParagraphTags = function (paraIds) {
+        var sendObj = {"paraIds": paraIds};
+        return SharedService.invokeService('GetParagraphTags', sendObj, 'post');
     }
 
     return SharedService;
@@ -1527,8 +1556,10 @@ angular.module('RDAApp.services', [])
     }
 
     MockService.CeclBaseNodes = [
-        {"name": "Topic", "id": "Topic", "idx": 0},{"name": "Sub-Topic", "id": "Sub-Topic", "idx": 1},{"name": "Section", "id": "Section", "idx": 2},{"name": "Paragraph", "id": "Paragraph", "idx": 3},{"name": "Concept", "id": "FASB Concept", "idx": 4}
+        {"name": "Topic", "id": "Topic", "idx": 0, "data":{}},{"name": "Sub-Topic", "id": "Sub-Topic", "idx": 1, "data":{}},{"name": "Section", "id": "Section", "idx": 2, "data":{}},{"name": "Paragraph", "id": "Paragraph", "idx": 3, "data":{}},{"name": "Concept", "id": "FASB Concept", "idx": 4, "data":{}}
     ];
+
+    MockService.ParaTagOptions = ["Rule", "Information", "Explanation"];
 
     MockService.CeclChildNodeDetails = {
         "Amortized Cost Basis" : "The amortized cost basis is the amount at which a financing receivable or investment is originated or acquired, adjusted for applicable accrued interest, accretion, or amortization of premium, discount, and net deferred fees or costs, collection of cash,  writeoffs, foreign exchange, and fair value hedge accounting adjustments",

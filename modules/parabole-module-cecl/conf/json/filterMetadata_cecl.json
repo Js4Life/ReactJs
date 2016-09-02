@@ -83,7 +83,37 @@
 			"label" : "link"
 		}]
 	},
-	"ceclConceptNodeDetails" : {
+	"ceclGenericComponentsByConcept" : {
+		"outputFormat":"table",
+		"source":"207",
+		"groupByField" : "Typename",
+		"columns" :  [{
+			"name" : "Typename",
+			"label" : "name"
+		},{
+			"name" : "Area",
+			"label" : "type"
+		},{
+			"name" : "Type",
+			"label" : "link"
+		}]
+	},
+	"ceclGenericComponentsByParagraph" : {
+		"outputFormat":"table",
+		"source":"208",
+		"groupByField" : "Typename",
+		"columns" :  [{
+			"name" : "Typename",
+			"label" : "name"
+		},{
+			"name" : "Area",
+			"label" : "type"
+		},{
+			"name" : "Type",
+			"label" : "link"
+		}]
+	},
+	"ceclComponentsByConcept" : {
 		"outputFormat":"table",
 		"source":"195",
 		"groupByField" : "connections",

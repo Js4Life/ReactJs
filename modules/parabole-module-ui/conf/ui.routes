@@ -4,6 +4,7 @@
 
 # An example controller showing a sample home page
 GET     /                           com.parabole.ui.controllers.HomeController.index
+GET     /logout                     com.parabole.ui.controllers.HomeController.logout
 # An example controller showing how to use dependency injection
 GET     /count                      com.parabole.ui.controllers.CountController.count
 # An example controller showing how to write asynchronous code

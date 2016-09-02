@@ -132,6 +132,23 @@ public class CeclController extends Controller{
     }
 
     @BodyParser.Of(BodyParser.Json.class)
+    public Result getParagraphsBySubsection() {
+        final JsonNode json = request().body().asJson();
+        final String subSectionId = json.findPath("subSectionId").textValue();
+        JSONObject finalJson = new JSONObject();
+        Boolean status = false;
+        try {
+            JSONArray result = taggingUtilitiesServices.getParagraphsBySubsection(subSectionId);
+            status = true;
+            finalJson.put("status", status);
+            finalJson.put("data", result);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return ok(finalJson.toString());
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
     public Result addChecklist() {
         final String json = request().body().asJson().toString();
         final JSONObject request = new JSONObject(json);
@@ -173,6 +190,40 @@ public class CeclController extends Controller{
         final String paraId = request.getString("paragraphId");
         JSONObject result = jenaTdbService.getChecklistByParagraphId(paraId);
         return ok(result.toString());
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result getChecklistByMultiParagraphId() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final JSONArray paraIds = request.getJSONArray("paragraphIds");
+        JSONObject finalJson = new JSONObject();
+        JSONObject finalQuestions = new JSONObject();
+        JSONObject finalAnswers = new JSONObject();
+        JSONObject finalStatus = new JSONObject();
+        Boolean haveData = false;
+        for(int i=0; i<paraIds.length(); i++){
+            JSONObject result = jenaTdbService.getChecklistByParagraphId(paraIds.getString(i));
+            if(result.getJSONObject("status").getBoolean("haveData")){
+                haveData = true;
+                JSONObject questions = result.getJSONObject("questions");
+                JSONObject answers = result.getJSONObject("answers");
+                Iterator<String> qKeys = questions.keys();
+                while (qKeys.hasNext()){
+                    String key = qKeys.next();
+                    finalQuestions.put(key, questions.getString(key));
+                }
+                Iterator<String> aKeys = answers.keys();
+                while (aKeys.hasNext()){
+                    String key = aKeys.next();
+                    finalAnswers.put(key, answers.getString(key));
+                }
+            }
+
+        }
+        finalStatus.put("haveData", haveData);
+        finalJson.put("questions", finalQuestions).put("answers", finalAnswers).put("status", finalStatus);
+        return ok(finalJson.toString());
     }
 
     @BodyParser.Of(BodyParser.Json.class)
@@ -226,5 +277,49 @@ public class CeclController extends Controller{
         JSONObject res = new JSONObject();
         res.put("status", status);
         return ok(res.toString());
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result saveParagraphTags() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final JSONObject paraTags = request.getJSONObject("paraTags");
+        JSONObject finalJson = new JSONObject();
+        Boolean status = false;
+        try {
+            Iterator<String> keys = paraTags.keys();
+            while (keys.hasNext()){
+                String paraId = keys.next();
+                String tag = paraTags.getString(paraId);
+                checkListServices.saveParagraph(paraId, "", tag);
+            }
+            status = true;
+            finalJson.put("status", status);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return ok(finalJson.toString());
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result getParagraphTags() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final JSONArray paraIds = request.getJSONArray("paraIds");
+        JSONObject finalJson = new JSONObject();
+        Boolean status = false;
+        List<String> paraIdList = new ArrayList<String>();
+        try {
+            for (int i=0; i<paraIds.length(); i++){
+                paraIdList.add(paraIds.getString(i));
+            }
+            String data = checkListServices.getParagraphsByParagraphid(paraIdList);
+            status = true;
+            finalJson.put("status", status);
+            finalJson.put("data", new JSONObject(data));
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return ok(finalJson.toString());
     }
 }

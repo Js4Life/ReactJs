@@ -1496,7 +1496,7 @@ div.network-tooltip {
 
 .active-nav{
 	border-right: 5px solid #455962;
-	background: #FFFFFF;
+	background: #FFFFFF !important;
 }
 
 
@@ -1547,24 +1547,21 @@ div.network-tooltip {
 }*/
 
 .puff{
-	background: #EAEAEA !important;
+	background: #EAEAEA;
 	color:#000 !important;
 	border-bottom: #CBCBCB !important;
+    border-radius: 0 !important;
 }
 
-.active{
+/*.active{
 	background: #FFF !important;
 	color:#000 !important;
 	text-shadow: none !important;
 	border: transparent;
-}
+}*/
 
 .well, .navbar-default, .panel-heading{
 	background-image: none !important;
-}
-
-.text-red{
-	color:red;
 }
 
 .menu-back{
@@ -2370,10 +2367,6 @@ li.list-group-item.puff{
       border-radius: 5px;
   }
 
-  .text-green{
-      color: #4DD44D;
-  }
-
   .bubble-icon{
       height: 36px;
       width: 36px;
@@ -2456,17 +2449,36 @@ li.list-group-item.puff{
       float: left;
   }
 
-  .compliance-gray{
-      background: #cccccc;
+  .bg-gray{
+      background: #d2d2d2;
   }
-  .compliance-red{
+  .bg-red{
       background: #ff4a46;
   }
-  .compliance-amber{
+  .bg-amber{
       background: #ffb935;
   }
-  .compliance-green{
+  .bg-green{
       background: #04de72;
+  }
+  .bg-blue{
+      background: deepskyblue;
+  }
+
+  .text-gray{
+      color: #d2d2d2;
+  }
+  .text-red{
+      color: #ff4a46;
+  }
+  .text-amber{
+      color: #ffb935;
+  }
+  .text-green{
+      color: #04de72;
+  }
+  .text-blue{
+      color: deepskyblue;
   }
 
   .custom-toast-top-left {
@@ -2476,5 +2488,19 @@ li.list-group-item.puff{
   .custom-toast-top-right {
       top: 150px;
       right: 330px;
+  }
+
+  .paragraph-tag{
+      position: absolute;
+      top: 0px;
+      right: -10px;
+      border: 1px solid #888;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      text-align: center;
+      color: white;
+      font-size: 18px;
+      cursor: help;
   }
   /*End*/
