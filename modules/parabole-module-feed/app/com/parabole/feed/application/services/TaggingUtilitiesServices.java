@@ -7,20 +7,18 @@ import com.parabole.feed.application.global.CCAppConstants;
 import com.parabole.feed.application.utils.AppUtils;
 import com.parabole.feed.contentparser.TaggerTest;
 import com.parabole.feed.platform.graphdb.Anchor;
+import com.parabole.feed.platform.graphdb.LightHouse;
 import edu.stanford.nlp.ling.HasWord;
 import edu.stanford.nlp.ling.TaggedWord;
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
+import org.apache.commons.collections.MultiHashMap;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import play.Environment;
 import play.Play;
-
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -40,10 +38,13 @@ public class TaggingUtilitiesServices {
     @Inject
     private Environment environment;
 
+    @Inject
+    LightHouse lightHouse;
+
     public String startContentParser(String file) throws IOException {
         String result= null;
         try {
-            result = taggerTest.startExtraction(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\FASBAccntStandards.pdf");
+            result = taggerTest.startExtraction(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\" + file);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -245,5 +246,63 @@ public class TaggingUtilitiesServices {
         JSONObject jsonObject = new JSONObject(jsonFileContent);
         JSONArray jsonArray =  jsonObject.getJSONObject("conceptIndex").getJSONArray(concept);
         return jsonArray;
+    }
+
+    public String getNodesFromParagraphJSon() throws Exception {
+
+        String jsonFileContent = AppUtils.getFileContent("feedJson/paragraphs.json");
+        JSONObject jsonObject = new JSONObject(jsonFileContent);
+        JSONObject finalObj = new JSONObject();
+        JSONObject paragraphJSON = jsonObject.getJSONObject("paragraphs");
+        //JSONObject topicToSubTopic = new JSONObject();
+        List<String> arrayOfTopics = new ArrayList<>();
+        Iterator<?> keys = paragraphJSON.keys();
+
+        HashMap<String, String> topicToSubTopic = new HashMap<String, String>();
+
+        while( keys.hasNext() ) {
+            String key = (String)keys.next();
+
+            if ( paragraphJSON.get(key) instanceof JSONObject ) {
+                List<String> elephantList = Arrays.asList(key.split("-"));
+                arrayOfTopics.add( elephantList.get(0));
+                topicToSubTopic.put(elephantList.get(0), elephantList.get(1));
+                //     System.out.println("elephantList = " + elephantList.get(0));
+
+            }
+        }
+
+        finalObj.put("topicToSubTopic", topicToSubTopic);
+        lightHouse.saveListOfVertices(arrayOfTopics);
+        return finalObj.toString();
+    }
+
+    public String getTopicNodesFromParagraphJSon() throws Exception {
+
+        String jsonFileContent = AppUtils.getFileContent("feedJson/paragraphs.json");
+        JSONObject jsonObject = new JSONObject(jsonFileContent);
+        JSONObject finalObj = new JSONObject();
+        JSONObject paragraphJSON = jsonObject.getJSONObject("paragraphs");
+        //JSONObject topicToSubTopic = new JSONObject();
+        List<String> arrayOfTopics = new ArrayList<>();
+        Iterator<?> keys = paragraphJSON.keys();
+
+        HashMap<String, String> topicToSubTopic = new HashMap<String, String>();
+
+        while( keys.hasNext() ) {
+            String key = (String)keys.next();
+
+            if ( paragraphJSON.get(key) instanceof JSONObject ) {
+                List<String> elephantList = Arrays.asList(key.split("-"));
+                arrayOfTopics.add( elephantList.get(0));
+                topicToSubTopic.put(elephantList.get(0), elephantList.get(1));
+                //     System.out.println("elephantList = " + elephantList.get(0));
+
+            }
+        }
+
+        finalObj.put("topicToSubTopic", topicToSubTopic);
+        lightHouse.saveListOfVertices(arrayOfTopics);
+        return arrayOfTopics.toString();
     }
 }
