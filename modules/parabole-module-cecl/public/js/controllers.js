@@ -282,8 +282,23 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				var subSectionId = nodeName.substring(0, nodeName.lastIndexOf('-'));
 				SharedService.getParagraphsBySubsection(subSectionId).then(function (data) {
 					if(data.status){
-						SharedService.paragraphs = data.data;
-						$state.go('landing.checklistBuilder');
+					    var paras = data.data;
+                        if(paras.length > 0) {
+                            SharedService.paragraphs = paras;
+                            var compName = "ceclGenericComponentsByParagraph";
+                            SharedService.getFilteredDataByCompName(compName, subSectionId).then(function (comp) {
+                                var nodes = comp.data;
+                                var currentConcept = angular.copy($scope.currentNode);
+                                var rawNodeDetails = _.reject(nodes, function (n) {
+                                    return n.type === 'Related Concept'
+                                });
+                                currentConcept.components = angular.copy(rawNodeDetails);
+                                SharedService.currentConcept = currentConcept;
+                                $state.go('landing.checklistBuilder');
+                            });
+                        } else {
+                            toastr.warning('No related paragraphs found..', '', {"positionClass" : "toast-top-right"});
+                        }
 					}
 				});
 				break;
@@ -632,7 +647,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 .controller('checklistBuilderCtrl', function($scope, $state, $stateParams, SharedService, MockService) {
 	$scope.initialize = function () {
-		toastr.info('Select one or more paragraph..', '', {"positionClass" : "toast-top-right"});
+		toastr.info('Tag paragraphs..', '', {"positionClass" : "toast-top-right"});
 		$scope.heading = {title: "Checklist Builder"};
 		$scope.question = {components: [], isMandatory: true};
 		$scope.questions = [];
@@ -642,11 +657,11 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			displayProp : "name",
 			externalIdProp : ""
 		}
-		//$scope.currentConcept = SharedService.currentConcept;
-		$scope.currentConcept = {components: {}}
+		$scope.currentConcept = SharedService.currentConcept;
+		//$scope.currentConcept = {components: {}}
 		$scope.currentParagraphs = [];
 		$scope.paraTagOptions = MockService.ParaTagOptions;
-		$scope.doParaTag = false;
+		$scope.doParaTag = true;
 		$scope.paraTags = {};
 		/*SharedService.getParagraphsByConcept($scope.currentConcept.name).then(function (data) {
 			$scope.paragraphs = angular.fromJson(data.data);
@@ -656,14 +671,28 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}
 
 	function setParagraphTags() {
-		angular.forEach($scope.paragraphs, function (para) {
-			if(para.type){
-				$scope.paraTags[para.id] = para.type;
-			} else {
-				$scope.doParaTag = true;
-			}
-		});
+        var paraIds = _.pluck($scope.paragraphs, 'id');
+        SharedService.getParagraphTags(paraIds).then(function (data) {
+           if(data.status){
+               $scope.paraTags = data.data;
+               if(Object.keys($scope.paraTags).length != $scope.paragraphs.length){
+                   $scope.doParaTag = true;
+               } else {
+                   $scope.enableChecklistBuilder();
+               }
+           }
+        });
 	}
+	
+	$scope.enableChecklistBuilder = function() {
+        toastr.info('Select one or more paragraph..', '', {"positionClass" : "toast-top-right"});
+        var tempParagraphs = [];
+        angular.forEach($scope.paraTags, function (tag, id) {
+            tempParagraphs.push(_.findWhere($scope.paragraphs, {"id":id}));
+        });
+        $scope.paragraphs = tempParagraphs;
+        $scope.doParaTag = false;
+    }
 
 	$scope.selectParagraph = function (para) {
 		//$(e.currentTarget).parent().children().removeClass('bg-info');
@@ -719,7 +748,28 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 	$scope.saveParaTags = function () {
 		console.log($scope.paraTags);
+        SharedService.saveParagraphTags($scope.paraTags).then(function (data) {
+           if(data.status){
+               toastr.success('Saved Successfully..', '', {"positionClass" : "toast-top-right"});
+           } else {
+               toastr.error('Error during Saving..', '', {"positionClass" : "toast-top-right"});
+           }
+        });
 	}
+
+	$scope.getParaTagClass = function (tag) {
+        switch (tag) {
+            case 'Rule':
+                return 'bg-green';
+                break;
+            case 'Information':
+                return 'bg-blue';
+                break;
+            case 'Explanation':
+                return 'bg-amber';
+                break;
+        }
+    }
 	
 	$scope.goPreviousScreen = function () {
 		$state.go('landing.home');

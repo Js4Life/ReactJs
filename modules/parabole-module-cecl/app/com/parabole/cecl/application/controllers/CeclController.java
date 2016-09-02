@@ -278,4 +278,48 @@ public class CeclController extends Controller{
         res.put("status", status);
         return ok(res.toString());
     }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result saveParagraphTags() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final JSONObject paraTags = request.getJSONObject("paraTags");
+        JSONObject finalJson = new JSONObject();
+        Boolean status = false;
+        try {
+            Iterator<String> keys = paraTags.keys();
+            while (keys.hasNext()){
+                String paraId = keys.next();
+                String tag = paraTags.getString(paraId);
+                checkListServices.saveParagraph(paraId, "", tag);
+            }
+            status = true;
+            finalJson.put("status", status);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return ok(finalJson.toString());
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result getParagraphTags() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final JSONArray paraIds = request.getJSONArray("paraIds");
+        JSONObject finalJson = new JSONObject();
+        Boolean status = false;
+        List<String> paraIdList = new ArrayList<String>();
+        try {
+            for (int i=0; i<paraIds.length(); i++){
+                paraIdList.add(paraIds.getString(i));
+            }
+            String data = checkListServices.getParagraphsByParagraphid(paraIdList);
+            status = true;
+            finalJson.put("status", status);
+            finalJson.put("data", new JSONObject(data));
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return ok(finalJson.toString());
+    }
 }

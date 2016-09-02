@@ -10,68 +10,70 @@
   <div class="panel-heading">
     <span class="glyphicon glyphicon-chevron-left pull-left" style="margin-right:10px;" ng-click="goPreviousScreen()"></span>
     <b>{{heading.title}}</b>
-    <span class="glyphicon glyphicon-floppy-disk pull-right" style="margin-right:10px;" ng-click="saveParaTags()"></span>
+    <span ng-if="doParaTag" class="glyphicon glyphicon-play pull-right" ng-click="enableChecklistBuilder()"></span>
+    <span ng-if="doParaTag" class="glyphicon glyphicon-floppy-disk pull-right" style="margin-right:10px;" ng-click="saveParaTags()"></span>
   </div>
   <div class="panel-body" style="height:81vh;overflow: hidden;">
-    @*<div class="col-xs-6 max-height zero-padding">
-      <div class="container-fluid max-height" style="overflow: auto;">
-        <div ng-repeat="para in paragraphs" style="position: relative;">
-          <i class="fa fa-check-circle fa-2x" ng-class="{'text-gray':!para.isSelected, 'text-green':para.isSelected}" aria-hidden="true" ng-click="selectParagraph(para)" style="position:absolute;top:-2px;left:-13px;"></i>
-          <p ng-class="{'text-danger': para.willIgnore}" read-more="" content="{{para.bodyText}}"></p>
+    <div ng-if="!doParaTag" class="max-height">
+        <div class="col-xs-6 max-height zero-padding">
+          <div class="container-fluid max-height" style="overflow: auto;">
+            <div ng-repeat="para in paragraphs" style="position: relative;">
+              <i class="fa fa-check-circle fa-2x" ng-class="{'text-gray':!para.isSelected, 'text-green':para.isSelected}" aria-hidden="true" ng-click="selectParagraph(para)" style="position:absolute;top:-2px;left:-13px;"></i>
+              <p ng-class="{'text-danger': para.willIgnore}" read-more="" content="{{para.bodyText}}"></p>
+              <i ng-if="paraTags[para.id]" ng-class="getParaTagClass(paraTags[para.id])" class="paragraph-tag">{{paraTags[para.id].charAt(0)}}</i>
+            </div>
+          </div>
         </div>
-      </div>
+        <div class="col-xs-6 max-height" style="overflow: hidden;padding-right: 0;">
+          <div class="container-fluid zero-padding">
+            <form class="form-inline">
+              <div class="form-group col-xs-9" style="padding-left: 0;">
+                <textarea class="form-control max-width" ng-model="question.text" rows="5"></textarea>
+              </div>
+              <div class="form-group col-xs-3">
+                <div class="row">
+                  <div ng-hide="currentParagraphs.length < 1 || !question.text" class="max-width" ng-dropdown-multiselect="" options="currentConcept.components" selected-model="question.components" extra-settings="multiSelectCfg" group-by="type"></div>
+                </div>
+                <div class="row" style="margin-top: 5px;">
+                  <button ng-disabled="!question.text || question.components.length < 1" type="submit" class="btn btn-default max-width" ng-click="addQuestion()">Add</button>
+                </div>
+                <div class="row" style="margin-top: 5px;">
+                  <button ng-disabled="questions.length < 1" type="submit" class="btn btn-default max-width" ng-click="saveQuestions()">Save</button>
+                </div>
+              </div>
+            </form>
+          </div><br>
+          <div class="container-fluid zero-padding">
+            <div class="panel panel-default">
+              <div class="panel-heading">{{currentParagraphs.length + " Paragraphs selected"}}</div>
+              <div class="panel-body zero-padding" style="height:52vh;overflow: auto;">
+                <table class="table table-striped table-bordered zero-margin">
+                  <tbody>
+                    <tr ng-repeat="q in questions">
+                      <td>
+                        <div>{{q.text}}</div>
+                        <div><div class="badge margin-right-5" ng-repeat="comp in q.components">{{comp.name}}</div></div>
+                        <div class="btn-toolbar pull-right" role="toolbar" aria-label="Config Tools">
+                          <input type="checkbox" ng-model="q.isMandatory"> Mandatory
+                          <div class="btn-group btn-group-xs pull-right" role="group" aria-label="Settings">
+                            <button type="button" class="btn btn-default"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                            <button type="button" class="btn btn-default"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
     </div>
-    <div class="col-xs-6 max-height" style="overflow: hidden;padding-right: 0;">
-      <div class="container-fluid zero-padding">
-        <form class="form-inline">
-          <div class="form-group col-xs-9" style="padding-left: 0;">
-            <textarea class="form-control max-width" ng-model="question.text" rows="5"></textarea>
-          </div>
-          <div class="form-group col-xs-3">
-            <div class="row">
-              <div ng-hide="currentParagraphs.length < 1 || !question.text" class="max-width" ng-dropdown-multiselect="" options="currentConcept.components" selected-model="question.components" extra-settings="multiSelectCfg" group-by="type"></div>
-            </div>
-            <div class="row" style="margin-top: 5px;">
-              <button ng-disabled="!question.text || question.components.length < 1" type="submit" class="btn btn-default max-width" ng-click="addQuestion()">Add</button>
-            </div>
-            <div class="row" style="margin-top: 5px;">
-              <button ng-disabled="questions.length < 1" type="submit" class="btn btn-default max-width" ng-click="saveQuestions()">Save</button>
-            </div>
-          </div>
-        </form>
-      </div><br>
-      <div class="container-fluid zero-padding">
-        <div class="panel panel-default">
-          <div class="panel-heading">{{currentParagraphs.length + " Paragraphs selected"}}</div>
-          <div class="panel-body zero-padding" style="height:52vh;overflow: auto;">
-            <table class="table table-striped table-bordered zero-margin">
-              <tbody>
-                <tr ng-repeat="q in questions">
-                  <td>
-                    <div>{{q.text}}</div>
-                    <div><div class="badge margin-right-5" ng-repeat="comp in q.components">{{comp.name}}</div></div>
-                    <div class="btn-toolbar pull-right" role="toolbar" aria-label="Config Tools">
-                      <input type="checkbox" ng-model="q.isMandatory"> Mandatory
-                      <div class="btn-group btn-group-xs pull-right" role="group" aria-label="Settings">
-                        <button type="button" class="btn btn-default"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-                        <button type="button" class="btn btn-default"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>*@
 
     <div ng-if="doParaTag" class="col-xs-12 max-height zero-padding">
       <div class="container-fluid max-height" style="overflow: auto;">
         <div ng-repeat="para in paragraphs | orderBy: 'id'" style="position: relative;">
-          <i class="fa fa-check-circle fa-2x" ng-class="{'text-gray':!para.isSelected, 'text-green':para.isSelected}" aria-hidden="true" ng-click="selectParagraph(para)" style="position:absolute;top:-2px;left:-13px;"></i>
           <p ng-class="{'text-danger': para.willIgnore}" read-more="" content="{{para.bodyText}}"></p>
-          <i ng-if="paraTags[para.id]" class="paragraph-tag">{{paraTags[para.id].charAt(0)}}</i>
           <select class="form-control" style="position: absolute;top: 10px;right: 30px;width: 20%;" ng-options="op for op in paraTagOptions" ng-model="paraTags[para.id]"></select>
         </div>
       </div>

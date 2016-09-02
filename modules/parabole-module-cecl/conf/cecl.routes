@@ -70,8 +70,10 @@ POST /getChecklistByNode        com.parabole.cecl.application.controllers.CeclCo
 POST /getChecklistByParagraphId com.parabole.cecl.application.controllers.CeclController.getChecklistByParagraphId()
 POST /getChecklistByMultiParagraphId com.parabole.cecl.application.controllers.CeclController.getChecklistByMultiParagraphId()
 POST /addAnswer                 com.parabole.cecl.application.controllers.CeclController.addAnswer()
-GET /startContentParser                    com.parabole.cecl.application.controllers.CeclController.startContentParser()
-GET /startOntologyParser                   com.parabole.cecl.application.controllers.CeclController.parseDocumentHierarchy()
+GET /startContentParser         com.parabole.cecl.application.controllers.CeclController.startContentParser()
+GET /startOntologyParser        com.parabole.cecl.application.controllers.CeclController.parseDocumentHierarchy()
+POST /saveParagraphTags         com.parabole.cecl.application.controllers.CeclController.saveParagraphTags()
+POST /getParagraphTags          com.parabole.cecl.application.controllers.CeclController.getParagraphTags()
 
 # ---------------------------------------------------------------------------------
 # Jena TDB operation {TEST}

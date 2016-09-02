@@ -82,7 +82,9 @@ angular.module('RDAApp.services', [])
         'GetChecklistByNode' : 'getChecklistByNode',
         'GetChecklistByParagraphId' : 'getChecklistByParagraphId',
         'GetChecklistByMultiParagraphId' : 'getChecklistByMultiParagraphId',
-        'AddAnswer' : 'addAnswer'
+        'AddAnswer' : 'addAnswer',
+        'SaveParagraphTags' : 'saveParagraphTags',
+        'GetParagraphTags' : 'getParagraphTags'
     };
     SharedService.chartDataMap = {
         '0' : 'getHardCodedResponse/chartData1',
@@ -646,6 +648,21 @@ angular.module('RDAApp.services', [])
     SharedService.getChecklistByMultiParagraphId = function (paragraphIds) {
         var sendObj = {"paragraphIds": paragraphIds};
         return SharedService.invokeService('getChecklistByMultiParagraphId', sendObj, 'post');
+    }
+
+    SharedService.saveParagraphTags = function (paraTags) {
+        var sendObj = {"paraTags": paraTags};
+        return SharedService.invokeService('SaveParagraphTags', sendObj, 'post');
+    }
+
+    SharedService.saveParagraphTags = function (paraTags) {
+        var sendObj = {"paraTags": paraTags};
+        return SharedService.invokeService('SaveParagraphTags', sendObj, 'post');
+    }
+
+    SharedService.getParagraphTags = function (paraIds) {
+        var sendObj = {"paraIds": paraIds};
+        return SharedService.invokeService('GetParagraphTags', sendObj, 'post');
     }
 
     return SharedService;

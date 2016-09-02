@@ -34,5 +34,5 @@ where {
 ?para rdf:type ?paraType .
 ?para rdfs:label ?name .
 ?paraType rdfs:label ?type .
-filter (?section = "310-10-35 : Assets : Overall : Subsequent Measurement")
+filter (?section = $$FILTERS$$)
 }

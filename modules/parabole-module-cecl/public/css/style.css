@@ -2492,8 +2492,19 @@ li.list-group-item.puff{
       width: 24px;
       height: 24px;
       text-align: center;
-      background: #888;
       color: white;
       font-size: 18px;
+  }
+
+  .bg-green{
+      background: #4DD44D;
+  }
+
+  .bg-amber{
+      background: #ff8c11;
+  }
+
+  .bg-blue{
+      background: deepskyblue;
   }
   /*End*/
