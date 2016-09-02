@@ -1,5 +1,7 @@
 package com.parabole.feed.platform.graphdb;
 
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Iterators;
 import com.orientechnologies.orient.client.remote.OServerAdmin;
 import com.orientechnologies.orient.core.intent.OIntentMassiveInsert;
 import com.parabole.feed.application.global.CCAppConstants;
@@ -17,10 +19,7 @@ import org.apache.commons.lang3.Validate;
 
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * This is a graph database for all the paragraph related operations.
@@ -83,24 +82,28 @@ public class LightHouse extends GraphDb {
     public boolean saveListOfVertices(List<String> listOfvertices) throws IOException {
         OrientGraph graph = this.orientGraphFactory.getTx();
 
+
+
         try {
-            listOfvertices.forEach((k)->{
+            listOfvertices.forEach((k)-> {
 
+                Iterable<Vertex> abc = graph.getVertices("elementID", k);
+                int size = Iterables.size(abc);
+                System.out.println("size = " + size);
 
-
-                if(graph.getVertices("elementID", k) != null) {
+                if(size>0){
                     for (Vertex v : graph.getVertices("elementID", k)) {
-                        if(v.getProperty("elementID") == k && v.getProperty("type") == "Topic"){
+                        System.out.println("already exists = " + v);
+                        if (v.getProperty("elementID") == k && v.getProperty("type") == "Topic") {
                             System.out.println("already exists = " + v);
-                        }else{
+                        } /*else {
                             Vertex newV = graph.addVertex(null);
                             System.out.println("Created vertex: " + v.getId());
                             newV.setProperty("elementID", k);
                             newV.setProperty("type", "Topic");
                             newV.setProperty("name", k);
                             System.out.println("new Vertex added :: " + k);
-                        }
-
+                        }*/
                     }
                 }else{
                     Vertex v = graph.addVertex(null);
