@@ -128,6 +128,7 @@ public class StarFish extends GraphDb {
         List<ODocument> results = null;
         String rid = null;
         final String data_id = (String) configurationDataMap.get("DATA_ID");
+        System.out.println("data_id = " + data_id);
         final ODatabaseDocumentTx dbTx = getDocDBConnectionTx();
         ODocument document = null;
         try {

@@ -3,6 +3,7 @@ package com.parabole.feed.application.controllers;
 import com.google.inject.Inject;
 import com.parabole.feed.application.exceptions.AppException;
 import com.parabole.feed.application.services.CheckListServices;
+import com.parabole.feed.application.services.LightHouseService;
 import org.json.JSONObject;
 import play.mvc.Result;
 
@@ -19,6 +20,9 @@ public class ParagraphOperationsController extends BaseController{
 
     @Inject
     private CheckListServices checkListServices;
+
+    @Inject
+    private LightHouseService lightHouseService;
 
 
 
@@ -169,6 +173,46 @@ public class ParagraphOperationsController extends BaseController{
 
     }
 
+
+
+    // -----------------------------------------------------------------------------
+    //   testing creation of Topic, subtopic, section and their relationships
+    // -----------------------------------------------------------------------------
+
+
+
+    public Result createNewTopic() {
+
+        return ok(lightHouseService.createNewTopic());
+    }
+
+
+    public Result createNewSubtopic() {
+
+        return ok(lightHouseService.createNewSubtopic());
+    }
+
+
+    public Result createNewSection() {
+
+        return ok(lightHouseService.createNewSection());
+    }
+
+
+    public Result createRelationBetweenTwoNodes() {
+
+        return ok(lightHouseService.createRelationBetweenTwoNodes());
+    }
+
+    public Result getAlltopic() {
+
+        return ok(lightHouseService.getAlltopic());
+    }
+
+    public Result getSubtopicsByTopicId(String topicId) {
+
+        return ok(lightHouseService.getSubtopicsByTopicId(topicId));
+    }
 
 
 

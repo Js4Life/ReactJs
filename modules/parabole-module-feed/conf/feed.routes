@@ -24,7 +24,6 @@ GET /questionAgainstParagraphId/:pid  com.parabole.feed.application.controllers.
 GET /questionAgainstConceptNameComponentTypeComponentName/:conceptName/:componentType/:componentName                     com.parabole.feed.application.controllers.ParagraphOperationsController.questionAgainstConceptNameComponentTypeComponentName(conceptName: String, componentType: String, componentName: String)
 
 
-
 ## Graph Db Test
 #---------------------------------------
 GET /createLightHouse                       com.parabole.feed.application.controllers.ParagraphOperationsController.createLightHouse()
@@ -41,6 +40,20 @@ GET /getNodesFromParagraphJSon                                   com.parabole.fe
 GET /saveOrUpdateCheckList                                   com.parabole.feed.application.controllers.ParagraphOperationsController.saveOrUpdateCheckList()
 GET /getCheckListById                                   com.parabole.feed.application.controllers.ParagraphOperationsController.getCheckListById()
 GET /removeCheckList                                   com.parabole.feed.application.controllers.ParagraphOperationsController.removeCheckList()
+#---------------------------------------
+
+
+
+## Topic Sub Topic creation Test
+#---------------------------------------
+GET /createNewTopic                                     com.parabole.feed.application.controllers.ParagraphOperationsController.createNewTopic()
+GET /createNewSubtopic                                  com.parabole.feed.application.controllers.ParagraphOperationsController.createNewSubtopic()
+GET /createNewSection                                   com.parabole.feed.application.controllers.ParagraphOperationsController.createNewSection()
+GET /createRelationBetweenTwoNodes                      com.parabole.feed.application.controllers.ParagraphOperationsController.createRelationBetweenTwoNodes()
+#-----
+GET /getAlltopic                                        com.parabole.feed.application.controllers.ParagraphOperationsController.getAlltopic()
+GET /getSubtopicsByTopicId/:topicId                              com.parabole.feed.application.controllers.ParagraphOperationsController.getSubtopicsByTopicId(topicId: String)
+#---------------------------------------
 
 
 # Map static resources from the /public folder to the /assets URL path

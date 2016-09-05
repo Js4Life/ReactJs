@@ -4,16 +4,16 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Iterators;
 import com.orientechnologies.orient.client.remote.OServerAdmin;
 import com.orientechnologies.orient.core.intent.OIntentMassiveInsert;
+import com.orientechnologies.orient.core.metadata.schema.OClass;
+import com.orientechnologies.orient.core.metadata.schema.OType;
 import com.parabole.feed.application.global.CCAppConstants;
 import com.parabole.feed.platform.AppConstants;
 import com.parabole.feed.platform.utils.AppUtils;
+import com.tinkerpop.blueprints.Direction;
 import com.tinkerpop.blueprints.Edge;
 import com.tinkerpop.blueprints.Parameter;
 import com.tinkerpop.blueprints.Vertex;
-import com.tinkerpop.blueprints.impls.orient.OrientGraph;
-import com.tinkerpop.blueprints.impls.orient.OrientGraphFactory;
-import com.tinkerpop.blueprints.impls.orient.OrientGraphNoTx;
-import com.tinkerpop.blueprints.impls.orient.OrientVertex;
+import com.tinkerpop.blueprints.impls.orient.*;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.Validate;
 
@@ -57,7 +57,6 @@ public class LightHouse extends GraphDb {
 
     public boolean createLightHouse() throws IOException {
 
-
         //Vertex v = new OrientVertex();
 
         OrientGraph graph = this.orientGraphFactory.getTx();
@@ -75,6 +74,55 @@ public class LightHouse extends GraphDb {
         return saveGraphInstance(graph, luca, marko, edgeName, edgeProperty);
 
     }
+
+    public boolean createNewVertex( Map<String, String> dataToSave) throws IOException {
+        OrientGraph graph = this.orientGraphFactory.getTx();
+        try {
+            String id = dataToSave.get("elementID");
+            System.out.println("id = " + id);
+            Iterable<Vertex> particularNode = graph.getVertices("elementID", id);
+            int size = Iterables.size(particularNode);
+            System.out.println("size = " + size);
+            if(size > 0){
+                System.out.println("Already exists = ");
+            }else{
+                Vertex v = graph.addVertex(null);
+                v.setProperty("elementID", dataToSave.get("elementID"));
+                v.setProperty("name", dataToSave.get("name"));
+                v.setProperty("type", dataToSave.get("type"));
+            }
+
+        }catch( Exception e ) {
+            graph.rollback();
+            System.out.println("e = " + e);
+        } finally {
+            graph.shutdown();
+        }
+        return true;
+    }
+
+
+    public boolean establishEdgeByVertexIDs(String vertexIDOne, String vertexIDTwo, String edgeName, String edgeType) throws IOException {
+
+        OrientGraph graph = this.orientGraphFactory.getTx();
+        Iterable<Vertex> vs = graph.getVertices("elementID", vertexIDOne);
+        Vertex one = null;
+        Vertex two = null;
+
+        for (Vertex v : graph.getVertices("elementID", vertexIDOne)) {
+            one = v;
+        }
+
+        for (Vertex v : graph.getVertices("elementID", vertexIDTwo)) {
+            two = v;
+        }
+
+        Map<String, String> edgeProperty = new HashMap<String, String>();
+        edgeProperty.put("type", edgeType);
+        return saveGraphInstance(graph, one, two, edgeName, edgeProperty);
+
+    }
+
 
 
 
@@ -166,6 +214,76 @@ public class LightHouse extends GraphDb {
         }
 
         return true;
+    }
+
+
+    public boolean getParagraphBySectionId(String sectionId) throws  IOException{
+
+        OrientGraph graph = this.orientGraphFactory.getTx();
+        try {
+            graph.getVertices("elementID", sectionId);
+        }catch( Exception e ) {
+            graph.rollback();
+        } finally {
+            graph.shutdown();
+        }
+
+        return true;
+    }
+
+    public String getAlltopic() throws  IOException{
+
+        Iterable<Vertex> verticesData = null;
+        ArrayList<HashMap<String, String>> listOfFinalData = new ArrayList<HashMap<String, String>>();
+
+        OrientGraph graph = this.orientGraphFactory.getTx();
+        try {
+            verticesData = graph.getVertices("type", "topic");
+
+            for (Vertex v : verticesData) {
+                HashMap<String, String> finalData = new HashMap<>();
+                finalData.put("elementID", v.getProperty("elementID"));
+                finalData.put("name", v.getProperty("name"));
+                listOfFinalData.add(finalData);
+            }
+
+        }catch( Exception e ) {
+            graph.rollback();
+        } finally {
+            graph.shutdown();
+        }
+
+        return listOfFinalData.toString();
+    }
+
+
+
+    public String getSubtopicsByTopicId(String topicid) throws  IOException{
+
+        Iterable<Vertex> verticesData = null;
+        ArrayList<HashMap<String, String>> listOfFinalData = new ArrayList<HashMap<String, String>>();
+
+        OrientGraph graph = this.orientGraphFactory.getTx();
+        try {
+            for (Vertex v : verticesData) {
+                final Set<Vertex> outputSet = new HashSet<Vertex>();
+                if (null != v) {
+                    v.getEdges(Direction.OUT).forEach((final Edge edge) -> {
+                            HashMap<String, String> finalData = new HashMap<>();
+                            outputSet.add(edge.getVertex(Direction.IN));
+                            finalData.put("elementId", v.getProperty("elementId"));
+                            finalData.put("name", v.getProperty("name"));
+                            listOfFinalData.add(finalData);
+                    });
+                }
+            }
+        }catch( Exception e ) {
+            graph.rollback();
+        } finally {
+            graph.shutdown();
+        }
+
+        return listOfFinalData.toString();
     }
 
 
