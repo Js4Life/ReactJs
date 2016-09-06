@@ -6,6 +6,8 @@ import com.parabole.feed.application.exceptions.AppException;
 import com.parabole.feed.application.global.CCAppConstants;
 import com.parabole.feed.application.utils.AppUtils;
 import com.parabole.feed.contentparser.TaggerTest;
+import com.parabole.feed.contentparser.models.fasb.DocumentData;
+import com.parabole.feed.contentparser.models.fasb.DocumentElement;
 import com.parabole.feed.platform.graphdb.Anchor;
 import com.parabole.feed.platform.graphdb.LightHouse;
 import edu.stanford.nlp.ling.HasWord;
@@ -18,6 +20,7 @@ import org.json.JSONObject;
 import play.Environment;
 import play.Play;
 import java.io.*;
+import java.lang.annotation.ElementType;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -53,6 +56,73 @@ public class TaggingUtilitiesServices {
 
         return result;
     }
+
+    public String getAllTopicsSubTopics(String file) throws IOException {
+        DocumentData result= null;
+        try {
+            result = taggerTest.getAllTopicsSubTopics(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\" + file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Set<DocumentElement> topics = result.getTopics();
+
+        topics.forEach((t)->{
+
+            try {
+                createNodeFromJSONObject(t);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+                // Creating sub Topics
+
+                t.getChildren().forEach((st)->{
+                    String subtopicId =  t.getId()+"-"+st.getId();
+                    String subtopicName =  st.getName();
+
+                    try {
+                        Map<String, String> nodeData = new HashMap<>();
+                        nodeData.put("name", subtopicName);
+                        nodeData.put("type", st.getElementType().name());
+                        nodeData.put("elementID", subtopicId);
+                        lightHouse.createNewVertex(nodeData);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+
+                    try {
+                        System.out.println("t.getId() + subtopicId = " + t.getId() + subtopicId);
+                        lightHouse.establishEdgeByVertexIDs(t.getId(), subtopicId, "topicToSubTopic", "topic-subTopic");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                });
+
+
+        });
+
+        return "ok";
+    }
+
+
+
+    public Boolean createEdge(DocumentElement documentElement) throws IOException {
+
+        return true;
+    }
+
+
+    public Boolean createNodeFromJSONObject(DocumentElement documentElement) throws IOException {
+
+        Map<String, String> nodeData = new HashMap<>();
+        nodeData.put("name", documentElement.getName());
+        nodeData.put("type", documentElement.getElementType().name());
+        nodeData.put("elementID", documentElement.getId());
+            lightHouse.createNewVertex(nodeData);
+        return true;
+    }
+
 
     public String getParagraphsAgainstConceptNames(String conceptName){
         String result= null;
@@ -217,7 +287,6 @@ public class TaggingUtilitiesServices {
 
             if(fullJson.get(jsonArray.getString(i)) != null)
                 finalContentObject.put(jsonArray.getString(i), fullJson.get(jsonArray.getString(i)));
-
             finalContentObject.put("paragraphText", jsonObject.getJSONObject("paragraphs").getJSONObject(jsonArray.getString(i)));
             jsonArrayOfParagraphs.put(finalContentObject);
 
@@ -304,5 +373,62 @@ public class TaggingUtilitiesServices {
         finalObj.put("topicToSubTopic", topicToSubTopic);
         lightHouse.saveListOfVertices(arrayOfTopics);
         return arrayOfTopics.toString();
+    }
+
+
+    public String saveSectionsFromParagraphJSon() throws Exception {
+
+        String jsonFileContent = AppUtils.getFileContent("feedJson/paragraphs.json");
+        JSONObject jsonObject = new JSONObject(jsonFileContent);
+        JSONObject finalObj = new JSONObject();
+        JSONObject paragraphJSON = jsonObject.getJSONObject("paragraphs");
+        //JSONObject topicToSubTopic = new JSONObject();
+        List<String> arrayOfTopics = new ArrayList<>();
+        Iterator<?> keys = paragraphJSON.keys();
+
+        HashMap<String, String> topicToSubTopic = new HashMap<String, String>();
+
+        while( keys.hasNext() ) {
+            String key = (String)keys.next();
+
+            if ( paragraphJSON.get(key) instanceof JSONObject ) {
+                List<String> elephantList = Arrays.asList(key.split("-"));
+                String topicID = elephantList.get(0);
+                String subTopicID = elephantList.get(0)+"-"+elephantList.get(1);
+                String sectionID = subTopicID+"-"+elephantList.get(2);
+                String secIdForFindingName = elephantList.get(2);
+                String paragraphId = key;
+
+                Map<String, String> nodeData = new HashMap<>();
+                nodeData.put("name", getSectionNameBySectionId(secIdForFindingName));
+                nodeData.put("type", "SECTION");
+                nodeData.put("elementID", sectionID);
+                lightHouse.createNewVertex(nodeData);
+
+                lightHouse.establishEdgeByVertexIDs(subTopicID, sectionID, "subTopicSection", "subTopicSection");
+
+                Map<String, String> nodeDataTwo = new HashMap<>();
+                nodeDataTwo.put("name", paragraphId);
+                nodeDataTwo.put("type", "PARAGRAPH");
+                nodeDataTwo.put("bodyText", paragraphJSON.getJSONObject(key).getString("bodyText"));
+                nodeDataTwo.put("firstLine", paragraphJSON.getJSONObject(key).getString("firstLine"));
+                nodeDataTwo.put("startPage", paragraphJSON.getJSONObject(key).getBigInteger("startPage").toString());
+                nodeDataTwo.put("endPage", paragraphJSON.getJSONObject(key).getBigInteger("endPage").toString());
+                nodeDataTwo.put("elementID", paragraphId);
+                lightHouse.createNewVertex(nodeDataTwo);
+
+                lightHouse.establishEdgeByVertexIDs(sectionID, paragraphId, "sectionParagraph", "sectionParagraph");
+            }
+        }
+
+        return "Ok";
+    }
+
+    public String getSectionNameBySectionId(String sectionId) throws Exception {
+
+        String jsonFileContent = AppUtils.getFileContent("feedJson/sectionNames.json");
+        JSONObject jsobject = new JSONObject(jsonFileContent);
+        String sectionName = jsobject.getString(sectionId);
+        return sectionName;
     }
 }

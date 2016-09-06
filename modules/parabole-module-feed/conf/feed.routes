@@ -8,8 +8,6 @@ GET /saveListOfSentenceLocationsAgainstAllConcepts        com.parabole.feed.appl
 GET /startContentParser/:fileName                         com.parabole.feed.application.controllers.FeedController.startContentParser(fileName: String)
 GET /getParagraphsByContent/:fileName                     com.parabole.feed.application.controllers.FeedController.getParagraphsByContent(fileName: String)
 
-
-
 ### --------------------------------------------------------------------    TEST    --------------------------------------------------------
 
 GET /addQuestion                      com.parabole.feed.application.controllers.ParagraphOperationsController.addQuestion()
@@ -53,6 +51,11 @@ GET /createRelationBetweenTwoNodes                      com.parabole.feed.applic
 #-----
 GET /getAlltopic                                        com.parabole.feed.application.controllers.ParagraphOperationsController.getAlltopic()
 GET /getSubtopicsByTopicId/:topicId                              com.parabole.feed.application.controllers.ParagraphOperationsController.getSubtopicsByTopicId(topicId: String)
+
+
+GET /getAllTopicsSubTopics/:fileName                      com.parabole.feed.application.controllers.FeedController.getAllTopicsSubTopics(fileName: String)
+GET /saveSectionsFromParagraphJSon                      com.parabole.feed.application.controllers.FeedController.saveSectionsFromParagraphJSon()
+
 #---------------------------------------
 
 

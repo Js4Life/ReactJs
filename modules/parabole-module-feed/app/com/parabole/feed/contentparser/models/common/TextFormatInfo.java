@@ -1,4 +1,8 @@
-package com.parabole.feed.contentparser.models;
+package com.parabole.feed.contentparser.models.common;
+
+import org.apache.pdfbox.text.TextPosition;
+
+import java.util.List;
 
 /**
  * Created by anish on 7/26/2016.
@@ -8,6 +12,16 @@ public class TextFormatInfo {
     private boolean isBold;
     private boolean isItalics;
     private float averageTextHeight;
+    private List<TextPosition> textPositions;
+    private List<CharacterFormatInfo> characterFormatInfos;
+
+    public List<CharacterFormatInfo> getCharacterFormatInfos() {
+        return characterFormatInfos;
+    }
+
+    public void setCharacterFormatInfos(List<CharacterFormatInfo> characterFormatInfos) {
+        this.characterFormatInfos = characterFormatInfos;
+    }
 
     public float getAverageTextHeight() {
         return averageTextHeight;
@@ -16,7 +30,6 @@ public class TextFormatInfo {
     public void setAverageTextHeight(float averageTextHeight) {
         this.averageTextHeight = averageTextHeight;
     }
-
 
     public int getPageNum() {
         return pageNum;
@@ -42,4 +55,11 @@ public class TextFormatInfo {
         this.isItalics = isItalics;
     }
 
+    public List<TextPosition> getTextPositions() {
+        return textPositions;
+    }
+
+    public void setTextPositions(List<TextPosition> textPositions) {
+        this.textPositions = textPositions;
+    }
 }

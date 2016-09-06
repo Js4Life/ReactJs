@@ -1,12 +1,14 @@
 package com.parabole.feed.contentparser;
 
-import com.parabole.feed.contentparser.models.TextFormatInfo;
+import com.parabole.feed.contentparser.models.common.CharacterFormatInfo;
+import com.parabole.feed.contentparser.models.common.TextFormatInfo;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.font.PDFontDescriptor;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.apache.pdfbox.text.TextPosition;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -118,13 +120,16 @@ public class PDFContentTagger extends PDFTextStripper {
     @Override
     protected void writeString(String text, List<TextPosition> textPositions) throws IOException
     {
-        System.out.println("Text :: " + text);
+        //System.out.println("Text :: " + text);
         TextFormatInfo formatInfo = new TextFormatInfo();
         formatInfo.setPageNum(this.getCurrentPageNo());
+        formatInfo.setTextPositions(textPositions);
         if(!text.isEmpty() && text.length()>0) {
             populateTextFormattingInfo(text, textPositions, formatInfo);
             docIndexBuilder.addChunk(text, formatInfo, isParaStart);
         }
+        if( isParaStart )
+            isParaStart = false;
     }
 
     private void populateTextFormattingInfo(String text,  List<TextPosition> textPositions, TextFormatInfo formatInfo) {
@@ -133,22 +138,31 @@ public class PDFContentTagger extends PDFTextStripper {
         int normalChars = 0;
         int charsToCheck = text.length() == textPositions.size() ? text.length() : textPositions.size();
         float totXHeight = 0;
+        List<CharacterFormatInfo> formatInfos = new ArrayList<>();
         for(int i = 0; i < charsToCheck;i++)
         {
+            CharacterFormatInfo characterFormatInfo = new CharacterFormatInfo();
+            formatInfos.add(characterFormatInfo);
             TextPosition textPosition = textPositions.get(i);
             PDFontDescriptor descriptor = textPosition.getFont().getFontDescriptor();
 
-            float xHeight = descriptor.getXHeight();
+            float xHeight = textPosition.getFontSizeInPt();//descriptor.getXHeight();
+            characterFormatInfo.setHeight(xHeight);
             totXHeight += xHeight;
-            if( isBold(descriptor))
+            if( isBold(descriptor)) {
                 numBoldChars++;
+                characterFormatInfo.setIsBold(true);
+            }
             else{
-                if(isItalic(descriptor))
+                if(isItalic(descriptor)) {
                     numItalicChars++;
+                    characterFormatInfo.setIsItalics(true);
+                }
                 else
                     normalChars++;
             }
         }
+        formatInfo.setCharacterFormatInfos(formatInfos);
         if( numBoldChars > normalChars)
             formatInfo.setIsBold(true);
         else
@@ -160,7 +174,7 @@ public class PDFContentTagger extends PDFTextStripper {
             formatInfo.setIsItalics(false);
 
         formatInfo.setAverageTextHeight(totXHeight/text.length());
-    }
+    } ///////////// DEBUG POINT WAS HREEE
     /**
      * Write a string to the output stream and escape some HTML characters.
      *

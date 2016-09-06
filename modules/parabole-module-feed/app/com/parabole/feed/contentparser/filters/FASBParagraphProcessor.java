@@ -1,8 +1,8 @@
 package com.parabole.feed.contentparser.filters;
 
-import com.parabole.feed.contentparser.models.FASBDocMeta;
-import com.parabole.feed.contentparser.models.ParagraphElement;
-import com.parabole.feed.contentparser.models.TextFormatInfo;
+import com.parabole.feed.contentparser.models.fasb.FASBDocMeta;
+import com.parabole.feed.contentparser.models.common.ParagraphElement;
+import com.parabole.feed.contentparser.models.common.TextFormatInfo;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

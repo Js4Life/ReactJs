@@ -91,7 +91,6 @@ public class LightHouse extends GraphDb {
                 v.setProperty("name", dataToSave.get("name"));
                 v.setProperty("type", dataToSave.get("type"));
             }
-
         }catch( Exception e ) {
             graph.rollback();
             System.out.println("e = " + e);
@@ -262,17 +261,21 @@ public class LightHouse extends GraphDb {
 
         Iterable<Vertex> verticesData = null;
         ArrayList<HashMap<String, String>> listOfFinalData = new ArrayList<HashMap<String, String>>();
-
         OrientGraph graph = this.orientGraphFactory.getTx();
+        System.out.println("topicid = " + topicid);
+        verticesData = graph.getVertices("elementID", topicid);
+        System.out.println("verticesData.toString() = " + verticesData.toString());
         try {
             for (Vertex v : verticesData) {
                 final Set<Vertex> outputSet = new HashSet<Vertex>();
+                System.out.println("v.getProperty(\"name\") = " + v.getProperty("name"));
                 if (null != v) {
                     v.getEdges(Direction.OUT).forEach((final Edge edge) -> {
+                            System.out.println((String) edge.getVertex(Direction.IN).getProperty("elementID"));
                             HashMap<String, String> finalData = new HashMap<>();
-                            outputSet.add(edge.getVertex(Direction.IN));
-                            finalData.put("elementId", v.getProperty("elementId"));
-                            finalData.put("name", v.getProperty("name"));
+                            //outputSet.add(edge.getVertex(Direction.IN));
+                            finalData.put("elementID", edge.getVertex(Direction.IN).getProperty("elementID"));
+                            finalData.put("name", edge.getVertex(Direction.IN).getProperty("name"));
                             listOfFinalData.add(finalData);
                     });
                 }
@@ -285,8 +288,6 @@ public class LightHouse extends GraphDb {
 
         return listOfFinalData.toString();
     }
-
-
 
 
 }
