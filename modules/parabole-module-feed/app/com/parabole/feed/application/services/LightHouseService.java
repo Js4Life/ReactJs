@@ -112,7 +112,7 @@ public class LightHouseService {
 
         String result=null;
         try {
-            result = lightHouse.getSubtopicsByTopicId(topicId);
+            result = lightHouse.getSubtopicsByTopicId(topicId).toString();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -124,7 +124,7 @@ public class LightHouseService {
 
         String result=null;
         try {
-            result = lightHouse.getParagraphBySectionId(nodeId);
+            result = lightHouse.getParagraphBySectionId(nodeId).toString();
         } catch (IOException e) {
             e.printStackTrace();
         }
