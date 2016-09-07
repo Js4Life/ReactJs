@@ -98,3 +98,11 @@ GET /loadAllFromBatch                      com.parabole.cecl.application.control
 GET /getRelatedVerticesByURI/:uri           com.parabole.cecl.application.controllers.GraphDBController.getRelatedVerticesByURI(uri: String)
 POST /getRelatedVerticesByUri               com.parabole.cecl.application.controllers.GraphDBController.getRelatedVerticesByUri
 
+# ---------------------------------------------------------------------------------
+# DOCUMENT RELATED OPERATIONS
+# ---------------------------------------------------------------------------------
+
+GET /getAllTopics                           com.parabole.cecl.application.controllers.CeclController.getAllTopics()
+POST /getSubtopicsByTopicId                 com.parabole.cecl.application.controllers.CeclController.getSubtopicsByTopicId()
+POST /getSectionsBySubtopicId               com.parabole.cecl.application.controllers.CeclController.getSectionsBySubtopicId()
+POST /getParagraphsBySectionId              com.parabole.cecl.application.controllers.CeclController.getParagraphsBySectionId()
