@@ -13,6 +13,8 @@
 // =============================================================================
 package com.parabole.cecl.application.controllers;
 
+import be.objectify.deadbolt.java.actions.Group;
+import be.objectify.deadbolt.java.actions.Restrict;
 import play.mvc.Result;
 import play.mvc.Security;
 
@@ -48,5 +50,21 @@ public class DispatcherAction extends BaseAction {
 
     public Result checklistBuilder() {
         return ok(com.parabole.cecl.application.views.html.checklistBuilder.render());
+    }
+
+    public Result homeContainer() {
+        return ok(com.parabole.cecl.application.views.html.homeContainer.render());
+    }
+
+    public Result summery() {
+        return ok(com.parabole.cecl.application.views.html.summery.render());
+    }
+
+    public Result complianceDashboard() {
+        return ok(com.parabole.cecl.application.views.html.complianceDashboard.render());
+    }
+
+    public Result checklistViewer() {
+        return ok(com.parabole.cecl.application.views.html.checklistViewer.render());
     }
 }

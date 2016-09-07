@@ -1,9 +1,10 @@
-<div class="panel panel-default">
+
+<div class="panel panel-default" ng-controller="homeCtrl">
   <div class="panel-heading" style="padding-bottom:9px" >
     <b>{{heading.title}}</b>
     <div ng-show="childNodes.length > 0" class="right-inner-addon" style="display:inline-block;width:25%;margin-left:20px;">
       <i class="glyphicon glyphicon-search"></i>
-      <input type="search" class="form-control" placeholder="Search from {{childNodes.length}} items..." ng-model="searchText" />
+      <input type="search" class="form-control input-sm" placeholder="Search from {{childNodes.length}} items..." ng-model="searchText" />
     </div>
     <div class="btn-group pull-right" role="group">
       @*<span ng-click="leftSlideToggle()" class="fa fa-expand pull-right" tooltip='"title":"Fullscreen"'></span>*@
@@ -35,7 +36,7 @@
             </li>
           </ul>
         </div>
-        <div class="zero-padding" ng-class="collapseClasses.center" style="cursor:hand;height:80vh;border:1px solid #ddd;overflow: auto;">
+        <div class="zero-padding" ng-class="collapseClasses.center" style="cursor:hand;height:81vh;overflow: auto;">
             <ol class="breadcrumb" ng-if="breads.length > 0">
                 <li class="pointer" ng-repeat="bread in breads" ng-click="onBreadClick(bread)" onmouseover='this.style.color="blue"' onmouseout='this.style.color="black"'>{{bread.name}}</li>
                 <div class="btn-group btn-group-xs pull-right" data-toggle="buttons">

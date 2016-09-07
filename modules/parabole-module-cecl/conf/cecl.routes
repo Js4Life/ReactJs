@@ -20,6 +20,10 @@ GET         /riskAggregation                                                    
 GET         /impact                                                                    com.parabole.cecl.application.controllers.DispatcherAction.impact()
 GET         /regulation                                                                com.parabole.cecl.application.controllers.DispatcherAction.regulation()
 GET         /checklistBuilder                                                          com.parabole.cecl.application.controllers.DispatcherAction.checklistBuilder()
+GET         /homeContainer                                                             com.parabole.cecl.application.controllers.DispatcherAction.homeContainer()
+GET         /summery                                                                   com.parabole.cecl.application.controllers.DispatcherAction.summery()
+GET         /complianceDashboard                                                       com.parabole.cecl.application.controllers.DispatcherAction.complianceDashboard()
+GET         /checklistViewer                                                           com.parabole.cecl.application.controllers.DispatcherAction.checklistViewer()
 
 # ---------------------------------------------------------------------------------
 # Server Side Calls (All Authenticated)

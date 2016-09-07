@@ -1964,6 +1964,7 @@ li.list-group-item.puff{
     right: 0px;
     padding: 7px 12px;
     pointer-events: none;
+    font-size: 14px;
 }
 .simulate-dropdown{
 	display: inline-block;
@@ -2462,7 +2463,7 @@ li.list-group-item.puff{
       background: #04de72;
   }
   .bg-blue{
-      background: deepskyblue;
+      background: #00BFFF;
   }
 
   .text-gray{
@@ -2478,7 +2479,7 @@ li.list-group-item.puff{
       color: #04de72;
   }
   .text-blue{
-      color: deepskyblue;
+      color: #00BFFF;
   }
 
   .custom-toast-top-left {

@@ -1569,6 +1569,49 @@ angular.module('RDAApp.services', [])
         "Accretion" : "Accretion is asset and earnings growth due to business expansion, and it can occur through a company's internal growth or by way of mergers and acquisitions. Accretion is also used to account for a capital gain when an investor buys a bond at a discount and holds the bond until maturity",
         "Collectibility Of Receivables" : "The Company maintains allowances for doubtful accounts for estimated losses resulting from the inability of its customers to make required payments. The Company reviews a customer’s credit history before extending credit as deemed necessary, after considering the client and the size and duration of the assignment. The Company establishes an allowance for doubtful accounts based upon factors surrounding the credit risk of specified customers, historical trends, past due balances and other information. The Company considers an account past due based on the contractual payment terms. The Company has demonstrated the ability to make reasonable and reliable estimates; however, if the financial condition of the Company’s customers was to deteriorate, resulting in an impairment of their ability to make payments, additional allowances may be required."
 
+    };
+
+    MockService.ParagraphCategoryChartData = {
+        title : 'Paragraph Categories',
+        categories : ['Rule', 'Information', 'Explanation', 'Untagged'],
+        series: [{
+            colorByPoint: true,
+            data: [{
+                y: 56
+            }, {
+                y: 24
+            }, {
+                y: 48
+            }, {
+                y: 73
+            }]
+        }]
+    };
+
+    MockService.ChecklistComplianceChartData = {
+        title : 'Checklist Item Compliance',
+        categories : ['Complied', 'Not Complied'],
+        series: [{
+            colorByPoint: true,
+            data: [{
+                y: 20
+            }, {
+                y: 25
+            }]
+        }]
+    };
+
+    MockService.RuleChartData = {
+        title : 'Paragraphs with Checklist Created',
+        categories : ['Created', 'Not Created'],
+        series: [{
+            colorByPoint: true,
+            data: [{
+                y: 20
+            }, {
+                y: 36
+            }]
+        }]
     }
 
     return MockService;

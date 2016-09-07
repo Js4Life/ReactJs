@@ -96,24 +96,31 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 	}
 
-	$scope.goToStatusChecklist = function () {
-		$state.go('landing.home');
+	$scope.goToStatusChecklist = function (e) {
+		activeCurrentNav(e);
 	}
 
-	$scope.goToAlerts = function () {
-		alert("alert");
+	$scope.goToAlerts = function (e) {
+		activeCurrentNav(e);
 	}
 
-	$scope.goToInbox = function () {
-		alert("Inbox");
+	$scope.goToInbox = function (e) {
+		activeCurrentNav(e);
 	}
 
-	$scope.goCompletion = function () {
-
+	$scope.goCompletion = function (e) {
+		activeCurrentNav(e);
+		$state.go('landing.summery');
 	}
 
-	$scope.goCompliance = function () {
+	$scope.goCompliance = function (e) {
+		activeCurrentNav(e);
+		$state.go('landing.complianceDashboard');
+	}
 
+	function activeCurrentNav(e) {
+		$(e.currentTarget).parent().parent().children().removeClass('active');
+		$(e.currentTarget).parent().addClass('active');
 	}
 
 	$scope.initialize();
@@ -785,6 +792,104 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	
 	$scope.goPreviousScreen = function () {
 		$state.go('landing.home');
+	}
+
+	$scope.initialize();
+})
+
+.controller('summeryCtrl', function($scope, $state, $stateParams, SharedService, MockService) {
+    $scope.initialize = function () {
+        $scope.heading = {"title": "Completion Dashboard"};
+        $scope.options = {
+            handlerData : {columnClick: "onColumnClick", scope: $scope},
+            colors : ['#04de72', '#00bfff', '#ffb935', '#d2d2d2'],
+            dataLabels : {enabled: true},
+			legend : {enabled: false}
+        }
+		setData(MockService.ParagraphCategoryChartData);
+    }
+
+    function setData(data) {
+		$scope.options.Title = data.title;
+		$scope.data = data;
+	}
+    
+    $scope.onColumnClick = function (obj) {
+        var tagType = obj.currentTarget.category;
+		var value = obj.currentTarget.y;
+
+		switch (tagType){
+			case 'Rule' :
+				setData(MockService.RuleChartData);
+				break;
+			case 'Not Created' :
+				getParagraphs();
+				break;
+			case('Created') :
+				toastr.info('Feature coming soon..', '', {"positionClass" : "toast-top-right"});
+				break;
+		}
+    }
+
+    function getParagraphs() {
+    	//method definition would be change
+		SharedService.getParagraphsBySubsection('310-10-35-1').then(function (data) {
+			if(data.status){
+				var paras = data.data;
+				if(paras.length > 0) {
+					SharedService.paragraphs = paras;
+					var compName = "ceclGenericComponentsByParagraph";
+					SharedService.getFilteredDataByCompName(compName, '310-10-35-1').then(function (comp) {
+						var nodes = comp.data;
+						var currentConcept = {};
+						var rawNodeDetails = _.reject(nodes, function (n) {
+							return n.type === 'Related Concept'
+						});
+						currentConcept.components = angular.copy(rawNodeDetails);
+						SharedService.currentConcept = currentConcept;
+						$state.go('landing.checklistBuilder');
+					});
+				}
+			}
+		});
+	}
+    
+    $scope.initialize();  
+})
+
+.controller('complianceDashboardCtrl', function($scope, $state, $stateParams, SharedService, MockService) {
+	$scope.initialize = function () {
+		$scope.heading = {"title": "Compliance Dashboard"};
+		$scope.options = {
+			handlerData : {columnClick: "onColumnClick", scope: $scope},
+			colors : ['#04de72', '#00bfff', '#ffb935', '#d2d2d2'],
+			dataLabels : {enabled: true},
+			legend : {enabled: false}
+		}
+		setData(MockService.ChecklistComplianceChartData);
+	}
+
+	function setData(data) {
+		$scope.options.Title = data.title;
+		$scope.data = data;
+	}
+
+	$scope.onColumnClick = function (obj) {
+		var tagType = obj.currentTarget.category;
+		var value = obj.currentTarget.y;
+
+		switch (tagType){
+			case 'Not Complied' :
+				getParagraphs();
+				break;
+			case('Complied') :
+				toastr.info('Feature coming soon..', '', {"positionClass" : "toast-top-right"});
+				break;
+		}
+	}
+
+	$scope.goDocumentView = function () {
+		$state.go('landing.complianceDashboard.checklistViewer');
 	}
 
 	$scope.initialize();
