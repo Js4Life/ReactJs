@@ -3,6 +3,7 @@ package com.parabole.feed.application.services;
 import com.google.inject.Inject;
 import com.orientechnologies.orient.core.record.impl.ODocument;
 import com.parabole.feed.application.exceptions.AppException;
+import com.parabole.feed.application.global.CCAppConstants;
 import com.parabole.feed.application.utils.AppUtils;
 import com.parabole.feed.platform.graphdb.LightHouse;
 import com.parabole.feed.platform.graphdb.StarFish;
@@ -400,5 +401,44 @@ public class CheckListServices {
         return "Saved";
     }
 
+
+    public String saveOrUpdateCheckList(String checkListId, String checklistText) {
+
+        String result = null;
+        try {
+            result = starFish.saveOrUpdateCheckList(checkListId, checklistText);
+        } catch (com.parabole.feed.platform.exceptions.AppException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+
+    }
+
+
+
+    public String removeCheckList(String checkListId){
+        String result = null;
+        try {
+            result =  starFish.removeCheckList(checkListId);
+        } catch (com.parabole.feed.platform.exceptions.AppException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+
+
+    public String getCheckListById(String checkListId){
+        String result = null;
+
+        try {
+            result = starFish.getCheckListById(checkListId);
+        } catch (com.parabole.feed.platform.exceptions.AppException e) {
+            e.printStackTrace();
+        }
+        return result;
+
+    }
 
 }

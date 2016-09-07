@@ -1,4 +1,6 @@
-package com.parabole.feed.contentparser.models;
+package com.parabole.feed.contentparser.models.fasb;
+
+import com.parabole.feed.contentparser.models.common.ParagraphElement;
 
 import java.util.HashMap;
 import java.util.Map;

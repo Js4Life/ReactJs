@@ -8,8 +8,6 @@ GET /saveListOfSentenceLocationsAgainstAllConcepts        com.parabole.feed.appl
 GET /startContentParser/:fileName                         com.parabole.feed.application.controllers.FeedController.startContentParser(fileName: String)
 GET /getParagraphsByContent/:fileName                     com.parabole.feed.application.controllers.FeedController.getParagraphsByContent(fileName: String)
 
-
-
 ### --------------------------------------------------------------------    TEST    --------------------------------------------------------
 
 GET /addQuestion                      com.parabole.feed.application.controllers.ParagraphOperationsController.addQuestion()
@@ -17,12 +15,11 @@ GET /saveQuestion                     com.parabole.feed.application.controllers.
 GET /saveParagraph                    com.parabole.feed.application.controllers.ParagraphOperationsController.saveParagraph()
 GET /getQuestion                      com.parabole.feed.application.controllers.ParagraphOperationsController.getQuestion()
 GET /getParagraph                     com.parabole.feed.application.controllers.ParagraphOperationsController.getParagraph()
-GET /getAllParagraphsByTag/:tagInput   com.parabole.feed.application.controllers.ParagraphOperationsController.getAllParagraphsByTag(tagInput: String)
-GET /getParagraphsByParagraphid   com.parabole.feed.application.controllers.ParagraphOperationsController.getParagraphsByParagraphid()
+GET /getAllParagraphsByTag/:tagInput  com.parabole.feed.application.controllers.ParagraphOperationsController.getAllParagraphsByTag(tagInput: String)
+GET /getParagraphsByParagraphid       com.parabole.feed.application.controllers.ParagraphOperationsController.getParagraphsByParagraphid()
 GET /addAnswer                        com.parabole.feed.application.controllers.ParagraphOperationsController.addAnswer()
 GET /questionAgainstParagraphId/:pid  com.parabole.feed.application.controllers.ParagraphOperationsController.questionAgainstParagraphId(pid: String)
 GET /questionAgainstConceptNameComponentTypeComponentName/:conceptName/:componentType/:componentName                     com.parabole.feed.application.controllers.ParagraphOperationsController.questionAgainstConceptNameComponentTypeComponentName(conceptName: String, componentType: String, componentName: String)
-
 
 
 ## Graph Db Test
@@ -34,6 +31,34 @@ GET /createLightHouse                       com.parabole.feed.application.contro
 #---------------------------------------
 GET /documentParsing/:fileName                          com.parabole.feed.application.controllers.DocumentController.documentParsing(fileName : String)
 GET /getNodesFromParagraphJSon                                   com.parabole.feed.application.controllers.DocumentController.getNodesFromParagraphJSon()
+
+
+## Check List Operation Test
+#---------------------------------------
+GET /saveOrUpdateCheckList                                   com.parabole.feed.application.controllers.ParagraphOperationsController.saveOrUpdateCheckList()
+GET /getCheckListById                                   com.parabole.feed.application.controllers.ParagraphOperationsController.getCheckListById()
+GET /removeCheckList                                   com.parabole.feed.application.controllers.ParagraphOperationsController.removeCheckList()
+#---------------------------------------
+
+
+
+## Topic Sub Topic creation Test
+#---------------------------------------
+GET /createNewTopic                                     com.parabole.feed.application.controllers.ParagraphOperationsController.createNewTopic()
+GET /createNewSubtopic                                  com.parabole.feed.application.controllers.ParagraphOperationsController.createNewSubtopic()
+GET /createNewSection                                   com.parabole.feed.application.controllers.ParagraphOperationsController.createNewSection()
+GET /createRelationBetweenTwoNodes                      com.parabole.feed.application.controllers.ParagraphOperationsController.createRelationBetweenTwoNodes()
+#-----
+GET /getAlltopic                                        com.parabole.feed.application.controllers.ParagraphOperationsController.getAlltopic()
+GET /getSubtopicsByTopicId/:nodeId                      com.parabole.feed.application.controllers.ParagraphOperationsController.getSubtopicsByTopicId(nodeId: String)
+GET /getParagraphBySectionId/:nodeId                    com.parabole.feed.application.controllers.ParagraphOperationsController.getParagraphBySectionId(nodeId: String)
+#GET /getParagraphByParagraphId/:paragraphId             com.parabole.feed.application.controllers.ParagraphOperationsController.getParagraphBySectionId(nodeId: String)
+#-----
+
+GET /getAllTopicsSubTopics/:fileName                    com.parabole.feed.application.controllers.FeedController.getAllTopicsSubTopics(fileName: String)
+GET /saveSectionsFromParagraphJSon                      com.parabole.feed.application.controllers.FeedController.saveSectionsFromParagraphJSon()
+
+#---------------------------------------
 
 
 

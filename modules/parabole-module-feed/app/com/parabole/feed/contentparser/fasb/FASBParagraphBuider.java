@@ -1,9 +1,8 @@
-package com.parabole.feed.contentparser;
+package com.parabole.feed.contentparser.fasb;
 
 import com.parabole.feed.contentparser.filters.IParagraphProcessor;
-import com.parabole.feed.contentparser.models.ParagraphElement;
-import com.parabole.feed.contentparser.models.TextFormatInfo;
-import org.apache.pdfbox.pdmodel.font.encoding.DictionaryEncoding;
+import com.parabole.feed.contentparser.models.common.ParagraphElement;
+import com.parabole.feed.contentparser.models.common.TextFormatInfo;
 
 import java.util.Map;
 import java.util.TreeMap;

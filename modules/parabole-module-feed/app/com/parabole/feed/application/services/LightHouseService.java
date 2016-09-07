@@ -46,5 +46,92 @@ public class LightHouseService {
 
    // public String save
 
+    public String createNewTopic(){
+
+        Map<String, String> nodeDetailsToSave = new HashMap<String, String>();
+        nodeDetailsToSave.put("elementID", "5001");
+        nodeDetailsToSave.put("name", "TopicOne");
+        nodeDetailsToSave.put("type", "topic");
+        try {
+            lightHouse.createNewVertex(nodeDetailsToSave);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "ok";
+    }
+
+    public String createNewSubtopic(){
+
+        Map<String, String> nodeDetailsToSave = new HashMap<String, String>();
+        nodeDetailsToSave.put("elementID", "6001");
+        nodeDetailsToSave.put("name", "STOne");
+        nodeDetailsToSave.put("type", "subTopic");
+        try {
+            lightHouse.createNewVertex(nodeDetailsToSave);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "ok";
+    }
+
+    public String createNewSection(){
+        Map<String, String> nodeDetailsToSave = new HashMap<String, String>();
+        nodeDetailsToSave.put("elementID", "7001");
+        nodeDetailsToSave.put("name", "Section");
+        nodeDetailsToSave.put("type", "section");
+        try {
+            lightHouse.createNewVertex(nodeDetailsToSave);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "ok";
+    }
+
+
+    public String createRelationBetweenTwoNodes(){
+        try {
+            lightHouse.establishEdgeByVertexIDs("5001", "6001", "topicSubTopic", "topicSubTopic");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "ok";
+    }
+
+    public ArrayList<HashMap<String, String>> getAlltopic(){
+
+        ArrayList<HashMap<String, String>> result=null;
+        try {
+            result = lightHouse.getAlltopic();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public String getSubtopicsByTopicId(String topicId){
+
+        String result=null;
+        try {
+            result = lightHouse.getSubtopicsByTopicId(topicId);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+
+        public String getParagraphBySectionId(String nodeId){
+
+        String result=null;
+        try {
+            result = lightHouse.getParagraphBySectionId(nodeId);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+
+
 
 }

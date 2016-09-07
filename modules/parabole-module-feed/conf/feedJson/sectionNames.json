@@ -1,0 +1,18 @@
+{
+  "00" : "Status",
+  "05" : "Overview and Background",
+  "10" : "Objectives",
+  "15" : "Scope and Scope Exceptions",
+  "20" : "Glossary",
+  "25" : "Recognition",
+  "30" : "Initial Measurement",
+  "35" : "Subsequent Measurement",
+  "40" : "Derecognition",
+  "45" : "Other Presentation Matters",
+  "50" : "Disclosure",
+  "55" : "Implementation Guidance and Illustrations",
+  "60" : "Relationships",
+  "65" : "Transition and Open Effective Date Information",
+  "70" : "Grandfathered Guidance",
+  "75" : "XBRL Elements"
+}

@@ -39,7 +39,6 @@ object Common {
         "org.json" % "json" % "20160212",
         "com.google.code.gson" % "gson" % "2.6.2",
         "net.sf.jsqlparser" % "jsqlparser" % "0.8.0",
-        "be.objectify" % "deadbolt-java_2.11" % "2.5.1" exclude("javax.jms", "jms") exclude("com.sun.jdmk", "jmxtools") exclude("com.sun.jmx", "jmxri"),
-        "be.objectify" % "deadbolt-core_2.11" % "2.3.2"
+        "be.objectify" % "deadbolt-java_2.11" % "2.5.1" exclude("javax.jms", "jms") exclude("com.sun.jdmk", "jmxtools") exclude("com.sun.jmx", "jmxri")
     )    
 }

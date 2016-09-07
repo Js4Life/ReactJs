@@ -1,12 +1,14 @@
-package com.parabole.feed.contentparser;
+package com.parabole.feed.contentparser.fasb;
 
-import com.parabole.feed.application.global.CCAppConstants;
+import com.parabole.feed.contentparser.AbstractDocBuilder;
+import com.parabole.feed.contentparser.IDocIndexBuilder;
+import com.parabole.feed.contentparser.PDFContentTagger;
 import com.parabole.feed.contentparser.filters.FASBParagraphProcessor;
-import com.parabole.feed.contentparser.models.FASBDocMeta;
-import com.parabole.feed.contentparser.models.FASBIndexedDocument;
-import com.parabole.feed.contentparser.models.ParagraphElement;
-import com.parabole.feed.contentparser.models.TextFormatInfo;
-import com.parabole.feed.platform.utils.AppUtils;
+import com.parabole.feed.contentparser.models.common.DocMetaInfo;
+import com.parabole.feed.contentparser.models.fasb.FASBDocMeta;
+import com.parabole.feed.contentparser.models.fasb.FASBIndexedDocument;
+import com.parabole.feed.contentparser.models.common.ParagraphElement;
+import com.parabole.feed.contentparser.models.common.TextFormatInfo;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.encryption.AccessPermission;
 import org.apache.pdfbox.text.PDFTextStripper;
@@ -18,30 +20,29 @@ import java.util.*;
 /**
  * Created by anish on 7/26/2016.
  */
-
-public class FASBDocIndexBuilder implements IDocIndexBuilder {
+public class FASBDocIndexBuilder extends AbstractDocBuilder implements IDocIndexBuilder {
 
     public FASBDocIndexBuilder( String path , List<String> con) throws IOException {
-        document = PDDocument.load(new File( path ), "");
+        super(path);
         concepts = con;
-        AccessPermission ap = document.getCurrentAccessPermission();
-        if( ! ap.canExtractContent() )
-        {
-            throw new IOException( "You do not have permission to extract text" );
-        }
     }
 
     //Build the Document
     public FASBIndexedDocument buildFASBIndex() throws IOException {
         indexedDocument = new FASBIndexedDocument();
         docMeta = getFASBMetadata();
-        initializeParagraphBuilder(docMeta);
+        initializeParagraphBuilder((FASBDocMeta)docMeta);
         PDFTextStripper stripper = new PDFContentTagger(this);
         stripper.setStartPage( docMeta.getStartPage() );
         stripper.setEndPage( docMeta.getEndPage() );
         stripper.writeText(document,null);
         indexedDocument.setParagraphs(paragraphBuilder.getAllParagraphs());
         return indexedDocument;
+    }
+
+    @Override
+    public List<ParagraphElement> startProcessing(DocMetaInfo metaInfo) throws IOException {
+        return null;
     }
 
     @Override
@@ -84,7 +85,7 @@ public class FASBDocIndexBuilder implements IDocIndexBuilder {
         String firstLine = para.getFirstLine();
         String[] words = firstLine.split(" ");
         for(String word : words){
-            if( word.compareToIgnoreCase(docMeta.getParaIgnore()) == 0){
+            if( word.compareToIgnoreCase(((FASBDocMeta)docMeta).getParaIgnore()) == 0){
                 para.setWillIgnore(true);
                 return true;
             }
@@ -94,16 +95,14 @@ public class FASBDocIndexBuilder implements IDocIndexBuilder {
 
     private FASBDocMeta getFASBMetadata() {
         FASBDocMeta fasbDocMeta = new FASBDocMeta();
-        fasbDocMeta.setStartPage(AppUtils.getApplicationPropertyAsInteger(CCAppConstants.PARAGRAPH + ".setStartPage"));
-        fasbDocMeta.setEndPage(AppUtils.getApplicationPropertyAsInteger(CCAppConstants.PARAGRAPH + ".setEndPage"));
-        fasbDocMeta.setParaStartRegEx(AppUtils.getApplicationProperty(CCAppConstants.PARAGRAPH + ".setParaStartRegEx"));
-        fasbDocMeta.setParaIgnore(AppUtils.getApplicationProperty(CCAppConstants.PARAGRAPH + ".setParaIgnore"));
+        fasbDocMeta.setStartPage(16);
+        fasbDocMeta.setEndPage(Integer.MAX_VALUE);
+        fasbDocMeta.setParaStartRegEx("\\w{1,3}[-]\\w{1,3}[-]\\w{1,3}[-]\\w{1,3}");
+        fasbDocMeta.setParaIgnore("superseded");
         return fasbDocMeta;
     }
 
     FASBIndexedDocument indexedDocument;
     List<String> concepts;
     IParagraphBuilder paragraphBuilder;
-    PDDocument document = null;
-    FASBDocMeta docMeta = null;
 }

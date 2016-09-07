@@ -3,6 +3,7 @@ package com.parabole.feed.application.controllers;
 import com.google.inject.Inject;
 import com.parabole.feed.application.exceptions.AppException;
 import com.parabole.feed.application.services.CheckListServices;
+import com.parabole.feed.application.services.LightHouseService;
 import org.json.JSONObject;
 import play.mvc.Result;
 
@@ -19,6 +20,9 @@ public class ParagraphOperationsController extends BaseController{
 
     @Inject
     private CheckListServices checkListServices;
+
+    @Inject
+    private LightHouseService lightHouseService;
 
 
 
@@ -137,6 +141,84 @@ public class ParagraphOperationsController extends BaseController{
         return ok(checkListServices.createLightHouse());
 
     }
+
+
+    // -----------------------------------------------------------------------------
+    //   Check List Operation Test
+    // -----------------------------------------------------------------------------
+
+    public Result saveOrUpdateCheckList() {
+
+        String checkListId = "1234567890";
+        String checklistText = "This is a sample checklist Text";
+
+        return ok(checkListServices.saveOrUpdateCheckList(checkListId, checklistText));
+
+    }
+
+
+    public Result getCheckListById() {
+
+        String checkListId = "1234567890";
+
+        return ok(checkListServices.getCheckListById(checkListId));
+
+    }
+
+    public Result removeCheckList() {
+
+        String checkListId = "1234567890";
+
+        return ok(checkListServices.removeCheckList(checkListId));
+
+    }
+
+
+
+    // -----------------------------------------------------------------------------
+    //   testing creation of Topic, subtopic, section and their relationships
+    // -----------------------------------------------------------------------------
+
+
+
+    public Result createNewTopic() {
+
+        return ok(lightHouseService.createNewTopic());
+    }
+
+
+    public Result createNewSubtopic() {
+
+        return ok(lightHouseService.createNewSubtopic());
+    }
+
+
+    public Result createNewSection() {
+
+        return ok(lightHouseService.createNewSection());
+    }
+
+
+    public Result createRelationBetweenTwoNodes() {
+
+        return ok(lightHouseService.createRelationBetweenTwoNodes());
+    }
+
+    public Result getAlltopic() {
+
+        return ok(lightHouseService.getAlltopic().toString());
+    }
+
+    public Result getSubtopicsByTopicId(String topicId) {
+
+        return ok(lightHouseService.getSubtopicsByTopicId(topicId));
+    }
+
+    public Result getParagraphBySectionId(String nodeId) {
+
+        return ok(lightHouseService.getParagraphBySectionId(nodeId));
+    }
+
 
 
 }
