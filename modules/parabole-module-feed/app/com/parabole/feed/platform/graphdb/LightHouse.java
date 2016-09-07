@@ -87,10 +87,13 @@ public class LightHouse extends GraphDb {
                 System.out.println("Already exists = ");
             }else{
                 Vertex v = graph.addVertex(null);
-                v.setProperty("elementID", dataToSave.get("elementID"));
-                v.setProperty("name", dataToSave.get("name"));
-                v.setProperty("type", dataToSave.get("type"));
+                Iterator dts = dataToSave.entrySet().iterator();
+                while (dts.hasNext()) {
+                    Map.Entry oneDataToSave = (Map.Entry)dts.next();
+                    v.setProperty(oneDataToSave.getKey().toString(), oneDataToSave.getValue());
+                }
             }
+            graph.commit();
         }catch( Exception e ) {
             graph.rollback();
             System.out.println("e = " + e);

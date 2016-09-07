@@ -52,7 +52,8 @@ GET /createRelationBetweenTwoNodes                      com.parabole.feed.applic
 GET /getAlltopic                                        com.parabole.feed.application.controllers.ParagraphOperationsController.getAlltopic()
 GET /getSubtopicsByTopicId/:nodeId                      com.parabole.feed.application.controllers.ParagraphOperationsController.getSubtopicsByTopicId(nodeId: String)
 GET /getParagraphBySectionId/:nodeId                    com.parabole.feed.application.controllers.ParagraphOperationsController.getParagraphBySectionId(nodeId: String)
-
+#GET /getParagraphByParagraphId/:paragraphId             com.parabole.feed.application.controllers.ParagraphOperationsController.getParagraphBySectionId(nodeId: String)
+#-----
 
 GET /getAllTopicsSubTopics/:fileName                    com.parabole.feed.application.controllers.FeedController.getAllTopicsSubTopics(fileName: String)
 GET /saveSectionsFromParagraphJSon                      com.parabole.feed.application.controllers.FeedController.saveSectionsFromParagraphJSon()

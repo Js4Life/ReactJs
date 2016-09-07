@@ -411,6 +411,7 @@ public class TaggingUtilitiesServices {
                 nodeDataTwo.put("name", paragraphId);
                 nodeDataTwo.put("type", "PARAGRAPH");
                 nodeDataTwo.put("bodyText", paragraphJSON.getJSONObject(key).getString("bodyText"));
+                System.out.println("paragraphJSON.getJSONObject(key).getString(\"bodyText\") = " + paragraphJSON.getJSONObject(key).getString("bodyText"));
                 nodeDataTwo.put("firstLine", paragraphJSON.getJSONObject(key).getString("firstLine"));
                 nodeDataTwo.put("startPage", paragraphJSON.getJSONObject(key).getBigInteger("startPage").toString());
                 nodeDataTwo.put("endPage", paragraphJSON.getJSONObject(key).getBigInteger("endPage").toString());
