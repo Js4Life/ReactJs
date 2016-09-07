@@ -50,13 +50,16 @@ GET /createNewSection                                   com.parabole.feed.applic
 GET /createRelationBetweenTwoNodes                      com.parabole.feed.application.controllers.ParagraphOperationsController.createRelationBetweenTwoNodes()
 #-----
 GET /getAlltopic                                        com.parabole.feed.application.controllers.ParagraphOperationsController.getAlltopic()
-GET /getSubtopicsByTopicId/:topicId                              com.parabole.feed.application.controllers.ParagraphOperationsController.getSubtopicsByTopicId(topicId: String)
+GET /getSubtopicsByTopicId/:nodeId                      com.parabole.feed.application.controllers.ParagraphOperationsController.getSubtopicsByTopicId(nodeId: String)
+GET /getParagraphBySectionId/:nodeId                    com.parabole.feed.application.controllers.ParagraphOperationsController.getParagraphBySectionId(nodeId: String)
 
 
-GET /getAllTopicsSubTopics/:fileName                      com.parabole.feed.application.controllers.FeedController.getAllTopicsSubTopics(fileName: String)
+GET /getAllTopicsSubTopics/:fileName                    com.parabole.feed.application.controllers.FeedController.getAllTopicsSubTopics(fileName: String)
 GET /saveSectionsFromParagraphJSon                      com.parabole.feed.application.controllers.FeedController.saveSectionsFromParagraphJSon()
 
 #---------------------------------------
+
+
 
 
 # Map static resources from the /public folder to the /assets URL path

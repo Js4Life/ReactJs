@@ -97,9 +97,9 @@ public class LightHouseService {
         return "ok";
     }
 
-    public String getAlltopic(){
+    public ArrayList<HashMap<String, String>> getAlltopic(){
 
-        String result=null;
+        ArrayList<HashMap<String, String>> result=null;
         try {
             result = lightHouse.getAlltopic();
         } catch (IOException e) {
@@ -113,6 +113,18 @@ public class LightHouseService {
         String result=null;
         try {
             result = lightHouse.getSubtopicsByTopicId(topicId);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+
+        public String getParagraphBySectionId(String nodeId){
+
+        String result=null;
+        try {
+            result = lightHouse.getParagraphBySectionId(nodeId);
         } catch (IOException e) {
             e.printStackTrace();
         }

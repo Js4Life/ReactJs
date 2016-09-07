@@ -206,12 +206,17 @@ public class ParagraphOperationsController extends BaseController{
 
     public Result getAlltopic() {
 
-        return ok(lightHouseService.getAlltopic());
+        return ok(lightHouseService.getAlltopic().toString());
     }
 
     public Result getSubtopicsByTopicId(String topicId) {
 
         return ok(lightHouseService.getSubtopicsByTopicId(topicId));
+    }
+
+    public Result getParagraphBySectionId(String nodeId) {
+
+        return ok(lightHouseService.getParagraphBySectionId(nodeId));
     }
 
 

@@ -216,28 +216,14 @@ public class LightHouse extends GraphDb {
     }
 
 
-    public boolean getParagraphBySectionId(String sectionId) throws  IOException{
-
-        OrientGraph graph = this.orientGraphFactory.getTx();
-        try {
-            graph.getVertices("elementID", sectionId);
-        }catch( Exception e ) {
-            graph.rollback();
-        } finally {
-            graph.shutdown();
-        }
-
-        return true;
-    }
-
-    public String getAlltopic() throws  IOException{
+    public ArrayList<HashMap<String, String>> getAlltopic() throws  IOException{
 
         Iterable<Vertex> verticesData = null;
         ArrayList<HashMap<String, String>> listOfFinalData = new ArrayList<HashMap<String, String>>();
 
         OrientGraph graph = this.orientGraphFactory.getTx();
         try {
-            verticesData = graph.getVertices("type", "topic");
+            verticesData = graph.getVertices("type", "TOPIC");
 
             for (Vertex v : verticesData) {
                 HashMap<String, String> finalData = new HashMap<>();
@@ -252,7 +238,7 @@ public class LightHouse extends GraphDb {
             graph.shutdown();
         }
 
-        return listOfFinalData.toString();
+        return listOfFinalData;
     }
 
 
@@ -276,6 +262,40 @@ public class LightHouse extends GraphDb {
                             //outputSet.add(edge.getVertex(Direction.IN));
                             finalData.put("elementID", edge.getVertex(Direction.IN).getProperty("elementID"));
                             finalData.put("name", edge.getVertex(Direction.IN).getProperty("name"));
+                            listOfFinalData.add(finalData);
+                    });
+                }
+            }
+        }catch( Exception e ) {
+            graph.rollback();
+        } finally {
+            graph.shutdown();
+        }
+
+        return listOfFinalData.toString();
+    }
+
+
+    public String getParagraphBySectionId(String topicid) throws  IOException{
+
+        Iterable<Vertex> verticesData = null;
+        ArrayList<HashMap<String, String>> listOfFinalData = new ArrayList<HashMap<String, String>>();
+        OrientGraph graph = this.orientGraphFactory.getTx();
+        System.out.println("topicid = " + topicid);
+        verticesData = graph.getVertices("elementID", topicid);
+        System.out.println("verticesData.toString() = " + verticesData.toString());
+        try {
+            for (Vertex v : verticesData) {
+                final Set<Vertex> outputSet = new HashSet<Vertex>();
+                System.out.println("v.getProperty(\"name\") = " + v.getProperty("name"));
+                if (null != v) {
+                    v.getEdges(Direction.OUT).forEach((final Edge edge) -> {
+                            System.out.println((String) edge.getVertex(Direction.IN).getProperty("elementID"));
+                            HashMap<String, String> finalData = new HashMap<>();
+                            //outputSet.add(edge.getVertex(Direction.IN));
+                            finalData.put("elementID", edge.getVertex(Direction.IN).getProperty("elementID"));
+                            finalData.put("name", edge.getVertex(Direction.IN).getProperty("name"));
+                            finalData.put("bodyText", edge.getVertex(Direction.IN).getProperty("bodyText"));
                             listOfFinalData.add(finalData);
                     });
                 }
