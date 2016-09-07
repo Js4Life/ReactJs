@@ -64,4 +64,11 @@ public class FeedController extends BaseController{
 
     }
 
+    public Result createConceptComponent() throws Exception {
+
+        final String result = taggingUtilitiesServices.saveSectionsFromParagraphJSon();
+        return ok(result);
+
+    }
+
 }

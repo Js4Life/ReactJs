@@ -246,7 +246,7 @@ public class LightHouse extends GraphDb {
 
 
 
-    public String getSubtopicsByTopicId(String topicid) throws  IOException{
+    public ArrayList<HashMap<String, String>> getSubtopicsByTopicId(String topicid) throws  IOException{
 
         Iterable<Vertex> verticesData = null;
         ArrayList<HashMap<String, String>> listOfFinalData = new ArrayList<HashMap<String, String>>();
@@ -275,11 +275,11 @@ public class LightHouse extends GraphDb {
             graph.shutdown();
         }
 
-        return listOfFinalData.toString();
+        return listOfFinalData;
     }
 
 
-    public String getParagraphBySectionId(String topicid) throws  IOException{
+    public ArrayList<HashMap<String, String>> getParagraphBySectionId(String topicid) throws  IOException{
 
         Iterable<Vertex> verticesData = null;
         ArrayList<HashMap<String, String>> listOfFinalData = new ArrayList<HashMap<String, String>>();
@@ -309,7 +309,7 @@ public class LightHouse extends GraphDb {
             graph.shutdown();
         }
 
-        return listOfFinalData.toString();
+        return listOfFinalData;
     }
 
 

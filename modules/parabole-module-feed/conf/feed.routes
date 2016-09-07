@@ -54,9 +54,11 @@ GET /getSubtopicsByTopicId/:nodeId                      com.parabole.feed.applic
 GET /getParagraphBySectionId/:nodeId                    com.parabole.feed.application.controllers.ParagraphOperationsController.getParagraphBySectionId(nodeId: String)
 #GET /getParagraphByParagraphId/:paragraphId             com.parabole.feed.application.controllers.ParagraphOperationsController.getParagraphBySectionId(nodeId: String)
 #-----
+GET /saveAllTopicsSubTopics/:fileName                    com.parabole.feed.application.controllers.FeedController.getAllTopicsSubTopics(fileName: String)
+GET /saveSectionsFromParagraphJSon                       com.parabole.feed.application.controllers.FeedController.saveSectionsFromParagraphJSon()
+GET /createConceptComponent                              com.parabole.feed.application.controllers.FeedController.saveSectionsFromParagraphJSon()
+#-----
 
-GET /getAllTopicsSubTopics/:fileName                    com.parabole.feed.application.controllers.FeedController.getAllTopicsSubTopics(fileName: String)
-GET /saveSectionsFromParagraphJSon                      com.parabole.feed.application.controllers.FeedController.saveSectionsFromParagraphJSon()
 
 #---------------------------------------
 
