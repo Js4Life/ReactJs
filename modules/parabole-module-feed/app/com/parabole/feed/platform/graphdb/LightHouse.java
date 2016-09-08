@@ -232,6 +232,7 @@ public class LightHouse extends GraphDb {
                 HashMap<String, String> finalData = new HashMap<>();
                 finalData.put("elementID", v.getProperty("elementID"));
                 finalData.put("name", v.getProperty("name"));
+                finalData.put("type", v.getProperty("type"));
                 listOfFinalData.add(finalData);
             }
 
@@ -265,6 +266,7 @@ public class LightHouse extends GraphDb {
                             //outputSet.add(edge.getVertex(Direction.IN));
                             finalData.put("elementID", edge.getVertex(Direction.IN).getProperty("elementID"));
                             finalData.put("name", edge.getVertex(Direction.IN).getProperty("name"));
+                            finalData.put("type", edge.getVertex(Direction.IN).getProperty("type"));
                             listOfFinalData.add(finalData);
                     });
                 }
@@ -298,6 +300,10 @@ public class LightHouse extends GraphDb {
                             //outputSet.add(edge.getVertex(Direction.IN));
                             finalData.put("elementID", edge.getVertex(Direction.IN).getProperty("elementID"));
                             finalData.put("name", edge.getVertex(Direction.IN).getProperty("name"));
+                            finalData.put("type", edge.getVertex(Direction.IN).getProperty("type"));
+                            finalData.put("startPage", edge.getVertex(Direction.IN).getProperty("startPage"));
+                            finalData.put("endPage", edge.getVertex(Direction.IN).getProperty("endPage"));
+                            finalData.put("firstLine", edge.getVertex(Direction.IN).getProperty("firstLine"));
                             finalData.put("bodyText", edge.getVertex(Direction.IN).getProperty("bodyText"));
                             listOfFinalData.add(finalData);
                     });
