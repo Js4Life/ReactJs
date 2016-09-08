@@ -108,11 +108,11 @@ public class LightHouseService {
         return result;
     }
 
-    public String getSubtopicsByTopicId(String topicId){
+    public ArrayList<HashMap<String, String>> getSubtopicsByTopicId(String topicId){
 
-        String result=null;
+        ArrayList<HashMap<String, String>> result=null;
         try {
-            result = lightHouse.getSubtopicsByTopicId(topicId).toString();
+            result = lightHouse.getSubtopicsByTopicId(topicId);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -120,11 +120,11 @@ public class LightHouseService {
     }
 
 
-        public String getParagraphBySectionId(String nodeId){
+    public ArrayList<HashMap<String, String>> getParagraphBySectionId(String nodeId){
 
-        String result=null;
+        ArrayList<HashMap<String, String>> result=null;
         try {
-            result = lightHouse.getParagraphBySectionId(nodeId).toString();
+            result = lightHouse.getParagraphBySectionId(nodeId);
         } catch (IOException e) {
             e.printStackTrace();
         }

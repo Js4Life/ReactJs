@@ -349,12 +349,14 @@ public class CeclController extends Controller{
     public Result getSubtopicsByTopicId() {
         final String json = request().body().asJson().toString();
         final JSONObject request = new JSONObject(json);
-        final String topicId = request.getString("topicId");
+        final String id = request.getString("id");
         JSONObject finalJson = new JSONObject();
         Boolean status = true;
         String data = null;
         try {
-
+            ArrayList<HashMap<String, String>> res = lightHouseService.getSubtopicsByTopicId(id);
+            ObjectMapper mapper = new ObjectMapper();
+            data = mapper.writeValueAsString(res);
         } catch(Exception e) {
             status = false;
             e.printStackTrace();
@@ -367,12 +369,14 @@ public class CeclController extends Controller{
     public Result getSectionsBySubtopicId() {
         final String json = request().body().asJson().toString();
         final JSONObject request = new JSONObject(json);
-        final String subtopicId = request.getString("subtopicId");
+        final String id = request.getString("id");
         JSONObject finalJson = new JSONObject();
         Boolean status = true;
         String data = null;
         try {
-
+            ArrayList<HashMap<String, String>> res = lightHouseService.getSubtopicsByTopicId(id);
+            ObjectMapper mapper = new ObjectMapper();
+            data = mapper.writeValueAsString(res);
         } catch(Exception e) {
             status = false;
             e.printStackTrace();
@@ -385,12 +389,14 @@ public class CeclController extends Controller{
     public Result getParagraphsBySectionId() {
         final String json = request().body().asJson().toString();
         final JSONObject request = new JSONObject(json);
-        final String sectionId = request.getString("sectionId");
+        final String id = request.getString("id");
         JSONObject finalJson = new JSONObject();
         Boolean status = true;
         String data = null;
         try {
-
+            ArrayList<HashMap<String, String>> res = lightHouseService.getParagraphBySectionId(id);
+            ObjectMapper mapper = new ObjectMapper();
+            data = mapper.writeValueAsString(res);
         } catch(Exception e) {
             status = false;
             e.printStackTrace();

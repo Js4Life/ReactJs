@@ -84,7 +84,12 @@ angular.module('RDAApp.services', [])
         'GetChecklistByMultiParagraphId' : 'getChecklistByMultiParagraphId',
         'AddAnswer' : 'addAnswer',
         'SaveParagraphTags' : 'saveParagraphTags',
-        'GetParagraphTags' : 'getParagraphTags'
+        'GetParagraphTags' : 'getParagraphTags',
+
+        'GetAllTopics' : 'getAllTopics',
+        'GetSubtopicsByTopicId' : 'getSubtopicsByTopicId',
+        'GetSectionsBySubtopicId' : 'getSectionsBySubtopicId',
+        'GetParagraphsBySectionId' : 'getParagraphsBySectionId'
     };
     SharedService.chartDataMap = {
         '0' : 'getHardCodedResponse/chartData1',
@@ -663,6 +668,24 @@ angular.module('RDAApp.services', [])
     SharedService.getParagraphTags = function (paraIds) {
         var sendObj = {"paraIds": paraIds};
         return SharedService.invokeService('GetParagraphTags', sendObj, 'post');
+    }
+
+
+    //DDOCUMENT RELATED OPERATIONS
+    SharedService.getAllTopics = function () {
+        return SharedService.invokeService('GetAllTopics');
+    }
+    SharedService.getSubtopicsByTopicId = function (id) {
+        var sendObj = {"id": id};
+        return SharedService.invokeService('GetSubtopicsByTopicId', sendObj, 'post');
+    }
+    SharedService.getSectionsBySubtopicId = function (id) {
+        var sendObj = {"id": id};
+        return SharedService.invokeService('GetSectionsBySubtopicId', sendObj, 'post');
+    }
+    SharedService.getParagraphsBySectionId = function (id) {
+        var sendObj = {"id": id};
+        return SharedService.invokeService('GetParagraphsBySectionId', sendObj, 'post');
     }
 
     return SharedService;

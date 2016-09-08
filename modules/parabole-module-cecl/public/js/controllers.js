@@ -479,7 +479,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}
 	
 	$scope.getComplianceColorcode = function (obj) {
-		var val = obj.compliance;
+		var val = obj.compliance || 0;
 		if(val > 81) {
 			obj.colorCode = "green";
 		} else if(val >= 51 && val <=80) {
