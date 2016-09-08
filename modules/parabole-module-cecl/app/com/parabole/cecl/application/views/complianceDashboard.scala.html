@@ -11,8 +11,20 @@
     </ul>
 
     <div class="tab-content">
-      <div id="summery" class="tab-pane fade in active">
-        <div high-chart options="options" data="data" class="container-fluid" style="height: 76vh;"></div>
+      <div id="summery" class="tab-pane fade in active" style="height: 76vh;overflow-y: auto;padding:10px;">
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body pointer">
+              <div high-chart options="options" data="data" class="container-fluid"></div>
+            </div>
+            <div class="card-content margin-top-5">
+              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+            </div>
+            <div class="card-action">
+              <label>{{data.title}}</label>
+            </div>
+          </div>
+        </div>
       </div>
       <div id="concept" class="tab-pane fade">
         <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>

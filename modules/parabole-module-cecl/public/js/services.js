@@ -172,8 +172,8 @@ angular.module('RDAApp.services', [])
     };
     SharedService.primaryNav = [
         {"id": "1" , "label":"ceclassets/images/document-browser.png", "title" : Constant.DOCUMENT_BROWSER_TAB},
-        {"id": "2" , "label":"ceclassets/images/impact.png", "title" : Constant.IMPACT_TAB},
-        {"id": "3" , "label":"ceclassets/images/regulation.png", "title" : Constant.REGULATION_TAB}
+        /*{"id": "2" , "label":"ceclassets/images/impact.png", "title" : Constant.IMPACT_TAB},
+        {"id": "3" , "label":"ceclassets/images/regulation.png", "title" : Constant.REGULATION_TAB}*/
    ];
     SharedService.layoutGraphData = [
                                         ["Jan-13", 11],["Feb-13", 9], ["March-13", 15], ["July-13", 12]
@@ -1579,7 +1579,7 @@ angular.module('RDAApp.services', [])
     }
 
     MockService.CeclBaseNodes = [
-        {"name": "Topic", "id": "Topic", "idx": 0, "data":{}},{"name": "Sub-Topic", "id": "Sub-Topic", "idx": 1, "data":{}},{"name": "Section", "id": "Section", "idx": 2, "data":{}},{"name": "Paragraph", "id": "Paragraph", "idx": 3, "data":{}},{"name": "Concept", "id": "FASB Concept", "idx": 4, "data":{}}
+        {"name": "Topic", "id": "TOPIC", "idx": 0, "data":{}},{"name": "Sub-Topic", "id": "SUBTOPIC", "idx": 1, "data":{}},{"name": "Section", "id": "SECTION", "idx": 2, "data":{}},{"name": "Paragraph", "id": "PARAGRAPH", "idx": 3, "data":{}},{"name": "Concept", "id": "FASB Concept", "idx": 4, "data":{}}
     ];
 
     MockService.ParaTagOptions = ["Rule", "Information", "Explanation"];
