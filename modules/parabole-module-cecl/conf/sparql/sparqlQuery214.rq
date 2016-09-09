@@ -1,0 +1,23 @@
+PREFIX pb:<http://www.mindparabole.com/ontology/finance/Parabole-Model#>
+PREFIX pnc:<http://mindparabole.com/finance/pnc_cecl#>
+PREFIX cst:<http://mindparabole.com/finance/cecl_structure#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?Industry ?Wholesale_Finance ?CRE ?Equipment_Finance ?Credit_Card ?Auto_Loan
+WHERE {
+?Top cst:tophasInd ?Industry
+FILTER(?Top = cst:Topic310)
+?Industry pb:IndustryRelatedtoSegment ?Seg.
+?Top rdfs:label ?Topic.
+?Industry rdfs:label ?Indus .
+?Seg rdfs:label ?Segment.
+BIND(IF(?Seg = pb:WholesaleFinance,xsd:string("Yes")," ") AS ?Wholesale_Finance)
+BIND(IF(?Seg = pb:CommercialRealEstate,xsd:string("Yes")," ") AS ?CRE)
+BIND(IF(?Seg = pb:EquipmentFinance,xsd:string("Yes")," ") AS ?Equipment_Finance)
+BIND(IF(?Seg = pb:CreditCard,xsd:string("Yes")," ") AS ?Credit_Card)
+BIND(IF(?Seg = pb:AutoLoan,xsd:string("Yes")," ") AS ?Auto_Loan)
+
+}
