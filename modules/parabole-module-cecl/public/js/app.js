@@ -56,9 +56,14 @@ angular
               controller : 'complianceDashboardCtrl'
           })
 
-          .state('landing.complianceDashboard.checklistViewer', {
+          .state('landing.complianceDashboard.documentViewer', {
               templateUrl : 'checklistViewer',
               controller : 'homeCtrl'
+          })
+
+          .state('landing.complianceDashboard.checklistViewer', {
+              templateUrl : 'checklistViewer',
+              controller : 'checklistViewerCtrl'
           });
 
           $urlRouterProvider.otherwise('/landing/home-container');

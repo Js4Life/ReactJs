@@ -660,11 +660,6 @@ angular.module('RDAApp.services', [])
         return SharedService.invokeService('SaveParagraphTags', sendObj, 'post');
     }
 
-    SharedService.saveParagraphTags = function (paraTags) {
-        var sendObj = {"paraTags": paraTags};
-        return SharedService.invokeService('SaveParagraphTags', sendObj, 'post');
-    }
-
     SharedService.getParagraphTags = function (paraIds) {
         var sendObj = {"paraIds": paraIds};
         return SharedService.invokeService('GetParagraphTags', sendObj, 'post');

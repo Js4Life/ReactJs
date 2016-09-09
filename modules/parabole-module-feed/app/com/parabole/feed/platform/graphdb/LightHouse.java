@@ -84,6 +84,13 @@ public class LightHouse extends GraphDb {
             int size = Iterables.size(particularNode);
             System.out.println("size = " + size);
             if(size > 0){
+                for (Vertex v : particularNode) {
+                    Iterator dts = dataToSave.entrySet().iterator();
+                    while (dts.hasNext()) {
+                        Map.Entry oneDataToSave = (Map.Entry)dts.next();
+                        v.setProperty(oneDataToSave.getKey().toString(), oneDataToSave.getValue());
+                    }
+                }
                 System.out.println("Already exists = ");
             }else{
                 Vertex v = graph.addVertex(null);
@@ -305,6 +312,8 @@ public class LightHouse extends GraphDb {
                             finalData.put("endPage", edge.getVertex(Direction.IN).getProperty("endPage"));
                             finalData.put("firstLine", edge.getVertex(Direction.IN).getProperty("firstLine"));
                             finalData.put("bodyText", edge.getVertex(Direction.IN).getProperty("bodyText"));
+                            finalData.put("tag", edge.getVertex(Direction.IN).getProperty("tag"));
+                            finalData.put("willIgnore", edge.getVertex(Direction.IN).getProperty("willIgnore"));
                             listOfFinalData.add(finalData);
                     });
                 }

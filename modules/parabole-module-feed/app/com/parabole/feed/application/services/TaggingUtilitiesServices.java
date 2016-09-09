@@ -24,6 +24,7 @@ import java.lang.annotation.ElementType;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static play.mvc.Controller.response;
 
@@ -414,6 +415,7 @@ public class TaggingUtilitiesServices {
                 System.out.println("paragraphJSON.getJSONObject(key).getString(\"bodyText\") = " + paragraphJSON.getJSONObject(key).getString("bodyText"));
                 nodeDataTwo.put("firstLine", paragraphJSON.getJSONObject(key).getString("firstLine"));
                 nodeDataTwo.put("startPage", paragraphJSON.getJSONObject(key).getBigInteger("startPage").toString());
+                nodeDataTwo.put("willIgnore", String.valueOf(paragraphJSON.getJSONObject(key).getBoolean("willIgnore")));
                 nodeDataTwo.put("endPage", paragraphJSON.getJSONObject(key).getBigInteger("endPage").toString());
                 nodeDataTwo.put("elementID", paragraphId);
                 lightHouse.createNewVertex(nodeDataTwo);

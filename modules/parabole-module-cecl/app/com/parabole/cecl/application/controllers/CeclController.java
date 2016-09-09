@@ -295,7 +295,9 @@ public class CeclController extends Controller{
             while (keys.hasNext()){
                 String paraId = keys.next();
                 String tag = paraTags.getString(paraId);
-                checkListServices.saveParagraph(paraId, "", tag);
+                HashMap<String, String> aParaMap = new HashMap<>();
+                aParaMap.put("tag", tag);
+                lightHouseService.addAnewVertexproperty(paraId, aParaMap);
             }
             status = true;
             finalJson.put("status", status);
