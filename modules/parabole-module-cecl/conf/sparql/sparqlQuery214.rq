@@ -7,6 +7,9 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
 SELECT ?Industry ?Wholesale_Finance ?CRE ?Equipment_Finance ?Credit_Card ?Auto_Loan
+WHERE{
+
+{SELECT ?Industry (SUM(?1) AS ?11)( SUM(?2) AS ?22)(SUM(?3) AS ?33) (SUM(?4) AS ?44) (SUM(?5) AS ?55)
 WHERE {
 ?Top cst:tophasInd ?Industry
 FILTER(?Top = cst:Topic310)
@@ -14,10 +17,17 @@ FILTER(?Top = cst:Topic310)
 ?Top rdfs:label ?Topic.
 ?Industry rdfs:label ?Indus .
 ?Seg rdfs:label ?Segment.
-BIND(IF(?Seg = pb:WholesaleFinance,xsd:string("Yes")," ") AS ?Wholesale_Finance)
-BIND(IF(?Seg = pb:CommercialRealEstate,xsd:string("Yes")," ") AS ?CRE)
-BIND(IF(?Seg = pb:EquipmentFinance,xsd:string("Yes")," ") AS ?Equipment_Finance)
-BIND(IF(?Seg = pb:CreditCard,xsd:string("Yes")," ") AS ?Credit_Card)
-BIND(IF(?Seg = pb:AutoLoan,xsd:string("Yes")," ") AS ?Auto_Loan)
+BIND(IF(?Seg = pb:WholesaleFinance,1,0) AS ?1)
+BIND(IF(?Seg = pb:CommercialRealEstate,1,0) AS ?2)
+BIND(IF(?Seg = pb:EquipmentFinance,1,0) AS ?3)
+BIND(IF(?Seg = pb:CreditCard,1,0) AS ?4)
+BIND(IF(?Seg = pb:AutoLoan,1,0) AS ?5)
 
 }
+GROUP BY ?Industry
+}
+BIND(IF(?11 = 1,xsd:string("Yes"),xsd:string("No ")) AS ?Wholesale_Finance)
+BIND(IF(?22 = 1,xsd:string("Yes"),xsd:string("No ")) AS ?CRE)
+BIND(IF(?33 = 1,xsd:string("Yes"),xsd:string("No")) AS ?Equipment_Finance)
+BIND(IF(?44 = 1,xsd:string("Yes"),xsd:string("No ")) AS ?Credit_Card)
+BIND(IF(?55 = 1,xsd:string("Yes"),xsd:string("No ")) AS ?Auto_Loan)}
