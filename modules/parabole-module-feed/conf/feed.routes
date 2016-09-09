@@ -57,6 +57,7 @@ GET /getAlltopic                                        com.parabole.feed.applic
 GET /getAllConcepts                                        com.parabole.feed.application.controllers.ParagraphOperationsController.getAllConcepts()
 GET /getSubtopicsByTopicId/:nodeId                      com.parabole.feed.application.controllers.ParagraphOperationsController.getSubtopicsByTopicId(nodeId: String)
 GET /getParagraphBySectionId/:nodeId                    com.parabole.feed.application.controllers.ParagraphOperationsController.getParagraphBySectionId(nodeId: String)
+GET /getParagraphByParagraphId/:nodeId                    com.parabole.feed.application.controllers.ParagraphOperationsController.getParagraphBySectionId(nodeId: String)
 #-----
 GET /addAnewVertexproperty                             com.parabole.feed.application.controllers.ParagraphOperationsController.addAnewVertexproperty()
 #-----
