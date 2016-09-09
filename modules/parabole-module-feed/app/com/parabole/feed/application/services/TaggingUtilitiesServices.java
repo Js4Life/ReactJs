@@ -428,41 +428,45 @@ public class TaggingUtilitiesServices {
     }
 
 
-
     public String createConceptNodesFromParagraph() throws Exception {
 
         String jsonFileContent = AppUtils.getFileContent("feedJson/paragraphs.json");
         JSONObject jsonObject = new JSONObject(jsonFileContent);
         JSONObject finalObj = new JSONObject();
         JSONObject conceptIndex = jsonObject.getJSONObject("conceptIndex");
+        JSONObject allConceptNodesDetails = jenaTdbService.getFilteredDataByCompName("ceclBaseNodeDetails","FASB Concept");
+        JSONArray jsonArray = allConceptNodesDetails.getJSONArray("data");
+        Map<String, String> mapofNameURI = new HashMap<String, String>();
+        for (int i=0; i< jsonArray.length(); i++){
+            mapofNameURI.put(jsonArray.getJSONObject(i).getString("name"), jsonArray.getJSONObject(i).getString("link"));
+        }
 
+        List<String> conceptList = new ArrayList<>();
         JSONObject testJSON = new JSONObject();
+        testJSON.put("JSONForURI", allConceptNodesDetails);
 
         Iterator<?> keys = conceptIndex.keys();
-        Integer count = 0;
-
         while( keys.hasNext() ) {
-
-            System.out.println("count = " + count);
-            
             String key = (String)keys.next();
+            if(key != null) {
+                Map<String, String> nodeData = new HashMap<>();
+                nodeData.put("name", key);
+                nodeData.put("type", "CONCEPT");
+                nodeData.put("subtype", "FASB");
+                nodeData.put("elementID", mapofNameURI.get(key));
 
-            System.out.println("key = " + key);
+                System.out.println("Created : " + mapofNameURI.get(key));
 
-
-         /*   Map<String, String> nodeData = new HashMap<>();
-            nodeData.put("name", getSectionNameBySectionId(secIdForFindingName));
-            nodeData.put("type", "SECTION");
-            nodeData.put("elementID", sectionID);
-            lightHouse.createNewVertex(nodeData);
-
-            lightHouse.establishEdgeByVertexIDs(subTopicID, sectionID, "subTopicSection", "subTopicSection");*/
-
-                testJSON.put(key, conceptIndex.getJSONArray(key).toString());
-                testJSON.put("count", count++);
+                lightHouse.createNewVertex(nodeData);
+                JSONArray listOfParagraphVertexIDs = conceptIndex.getJSONArray(key);
+                for (int i = 0; i < listOfParagraphVertexIDs.length(); i++) {
+                    lightHouse.establishEdgeByVertexIDs(mapofNameURI.get(key), listOfParagraphVertexIDs.getString(i), "conceptToParagraph", "conceptToParagraph");
+                    System.out.println("Created : " + mapofNameURI.get(key) + " ------>" + listOfParagraphVertexIDs.getString(i));
+                }
+            }
         }
-        
-        return testJSON.toString();
+
+        return "{status: Saved}";
     }
 
     public String getSectionNameBySectionId(String sectionId) throws Exception {

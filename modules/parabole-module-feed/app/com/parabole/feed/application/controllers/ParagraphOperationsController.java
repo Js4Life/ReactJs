@@ -210,13 +210,17 @@ public class ParagraphOperationsController extends BaseController{
         return ok(lightHouseService.getAlltopic().toString());
     }
 
+    public Result getAllConcepts() {
+
+        return ok(lightHouseService.getAllConcepts().toString());
+    }
+
     public Result getSubtopicsByTopicId(String topicId) {
 
         return ok(lightHouseService.getSubtopicsByTopicId(topicId).toString());
     }
 
     public Result getParagraphBySectionId(String nodeId) {
-
         return ok(lightHouseService.getParagraphBySectionId(nodeId).toString());
     }
 
@@ -228,6 +232,13 @@ public class ParagraphOperationsController extends BaseController{
         mapOfProperties.put("anotherTestTag", "Another TestData");
 
         return ok(lightHouseService.addAnewVertexproperty(vertexID, mapOfProperties));
+    }
+
+    public Result getVertexProperties() {
+
+        String vertexID = "320-10-35-34B";
+        ArrayList<String>  listOfPropertyNames = new ArrayList<String>();
+        return ok(lightHouseService.getVertexProperties(vertexID, listOfPropertyNames));
     }
 
 
