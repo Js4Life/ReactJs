@@ -319,4 +319,31 @@ public class LightHouse extends GraphDb {
     }
 
 
+    public String addAnewVertexproperty(String vertexID, HashMap<String, String> mapOfProperties) throws  IOException{
+
+        OrientGraph graph = this.orientGraphFactory.getTx();
+        Iterable<Vertex> verticesData = null;
+        verticesData = graph.getVertices("elementID", vertexID);
+        try {
+            for (Vertex v : verticesData) {
+                final Set<Vertex> outputSet = new HashSet<Vertex>();
+                if (null != v) {
+                    for (Map.Entry<String, String> entry : mapOfProperties.entrySet())
+                    {
+                        v.setProperty(entry.getKey(), entry.getValue());
+                    }
+
+                }
+            }
+            graph.commit();
+        }catch( Exception e ) {
+            graph.rollback();
+        } finally {
+            graph.shutdown();
+        }
+
+        return "{ status: saved } ";
+    }
+
+
 }

@@ -425,6 +425,44 @@ public class TaggingUtilitiesServices {
         return "Ok";
     }
 
+
+
+    public String createConceptNodesFromParagraph() throws Exception {
+
+        String jsonFileContent = AppUtils.getFileContent("feedJson/paragraphs.json");
+        JSONObject jsonObject = new JSONObject(jsonFileContent);
+        JSONObject finalObj = new JSONObject();
+        JSONObject conceptIndex = jsonObject.getJSONObject("conceptIndex");
+
+        JSONObject testJSON = new JSONObject();
+
+        Iterator<?> keys = conceptIndex.keys();
+        Integer count = 0;
+
+        while( keys.hasNext() ) {
+
+            System.out.println("count = " + count);
+            
+            String key = (String)keys.next();
+
+            System.out.println("key = " + key);
+
+
+         /*   Map<String, String> nodeData = new HashMap<>();
+            nodeData.put("name", getSectionNameBySectionId(secIdForFindingName));
+            nodeData.put("type", "SECTION");
+            nodeData.put("elementID", sectionID);
+            lightHouse.createNewVertex(nodeData);
+
+            lightHouse.establishEdgeByVertexIDs(subTopicID, sectionID, "subTopicSection", "subTopicSection");*/
+
+                testJSON.put(key, conceptIndex.getJSONArray(key).toString());
+                testJSON.put("count", count++);
+        }
+        
+        return testJSON.toString();
+    }
+
     public String getSectionNameBySectionId(String sectionId) throws Exception {
 
         String jsonFileContent = AppUtils.getFileContent("feedJson/sectionNames.json");

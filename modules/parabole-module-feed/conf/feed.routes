@@ -22,6 +22,10 @@ GET /questionAgainstParagraphId/:pid  com.parabole.feed.application.controllers.
 GET /questionAgainstConceptNameComponentTypeComponentName/:conceptName/:componentType/:componentName                     com.parabole.feed.application.controllers.ParagraphOperationsController.questionAgainstConceptNameComponentTypeComponentName(conceptName: String, componentType: String, componentName: String)
 
 
+##------ TDB
+GET /jenaTdbFetching/:fileIdentification   com.parabole.feed.application.controllers.JenaTdbController.jenaTdbFetching(fileIdentification: String)
+
+
 ## Graph Db Test
 #---------------------------------------
 GET /createLightHouse                       com.parabole.feed.application.controllers.ParagraphOperationsController.createLightHouse()
@@ -52,11 +56,13 @@ GET /createRelationBetweenTwoNodes                      com.parabole.feed.applic
 GET /getAlltopic                                        com.parabole.feed.application.controllers.ParagraphOperationsController.getAlltopic()
 GET /getSubtopicsByTopicId/:nodeId                      com.parabole.feed.application.controllers.ParagraphOperationsController.getSubtopicsByTopicId(nodeId: String)
 GET /getParagraphBySectionId/:nodeId                    com.parabole.feed.application.controllers.ParagraphOperationsController.getParagraphBySectionId(nodeId: String)
-#GET /getParagraphByParagraphId/:paragraphId             com.parabole.feed.application.controllers.ParagraphOperationsController.getParagraphBySectionId(nodeId: String)
 #-----
-GET /saveAllTopicsSubTopics/:fileName                    com.parabole.feed.application.controllers.FeedController.getAllTopicsSubTopics(fileName: String)
-GET /saveSectionsFromParagraphJSon                       com.parabole.feed.application.controllers.FeedController.saveSectionsFromParagraphJSon()
-GET /createConceptComponent                              com.parabole.feed.application.controllers.FeedController.saveSectionsFromParagraphJSon()
+GET /addAnewVertexproperty                             com.parabole.feed.application.controllers.ParagraphOperationsController.addAnewVertexproperty()
+
+#-----
+GET /saveAllTopicsSubTopics/:fileName                   com.parabole.feed.application.controllers.FeedController.getAllTopicsSubTopics(fileName: String)
+GET /saveSectionsFromParagraphJSon                      com.parabole.feed.application.controllers.FeedController.saveSectionsFromParagraphJSon()
+GET /createConceptNodesFromParagraph                    com.parabole.feed.application.controllers.FeedController.createConceptNodesFromParagraph()
 #-----
 
 

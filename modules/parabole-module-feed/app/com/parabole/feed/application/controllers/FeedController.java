@@ -58,10 +58,13 @@ public class FeedController extends BaseController{
     }
 
     public Result saveSectionsFromParagraphJSon() throws Exception {
-
         final String result = taggingUtilitiesServices.saveSectionsFromParagraphJSon();
         return ok(result);
+    }
 
+    public Result createConceptNodesFromParagraph() throws Exception {
+        final String result = taggingUtilitiesServices.createConceptNodesFromParagraph();
+        return ok(result);
     }
 
     public Result createConceptComponent() throws Exception {

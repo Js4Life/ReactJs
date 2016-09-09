@@ -58,6 +58,7 @@ FILTER(?a = ?name)
 ?item rdfs:label ?itemname.
 }}
 FILTER(?name =$$FILTERS$$)
+#FILTER(?name ="FASB Concept")
 }
  
 

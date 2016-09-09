@@ -120,11 +120,20 @@ public class LightHouseService {
     }
 
 
-        public String getParagraphBySectionId(String nodeId){
-
+    public String getParagraphBySectionId(String nodeId){
         String result=null;
         try {
             result = lightHouse.getParagraphBySectionId(nodeId).toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public String addAnewVertexproperty(String vertexID, HashMap<String, String> mapOfProperties){
+        String result=null;
+        try {
+            result = lightHouse.addAnewVertexproperty(vertexID, mapOfProperties);
         } catch (IOException e) {
             e.printStackTrace();
         }

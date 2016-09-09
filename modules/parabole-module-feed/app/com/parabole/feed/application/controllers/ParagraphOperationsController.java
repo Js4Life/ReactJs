@@ -9,6 +9,7 @@ import play.mvc.Result;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -217,6 +218,16 @@ public class ParagraphOperationsController extends BaseController{
     public Result getParagraphBySectionId(String nodeId) {
 
         return ok(lightHouseService.getParagraphBySectionId(nodeId));
+    }
+
+    public Result addAnewVertexproperty() {
+
+        String vertexID = "320-10-35-34B";
+        HashMap<String, String> mapOfProperties = new HashMap<>();
+        mapOfProperties.put("testTag", "TestData");
+        mapOfProperties.put("anotherTestTag", "Another TestData");
+
+        return ok(lightHouseService.addAnewVertexproperty(vertexID, mapOfProperties));
     }
 
 
