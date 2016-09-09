@@ -212,12 +212,12 @@ public class ParagraphOperationsController extends BaseController{
 
     public Result getSubtopicsByTopicId(String topicId) {
 
-        return ok(lightHouseService.getSubtopicsByTopicId(topicId));
+        return ok(lightHouseService.getSubtopicsByTopicId(topicId).toString());
     }
 
     public Result getParagraphBySectionId(String nodeId) {
 
-        return ok(lightHouseService.getParagraphBySectionId(nodeId));
+        return ok(lightHouseService.getParagraphBySectionId(nodeId).toString());
     }
 
     public Result addAnewVertexproperty() {

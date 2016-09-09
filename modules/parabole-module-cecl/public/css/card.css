@@ -1,0 +1,149 @@
+.card {
+    margin-top: 20px;
+    box-sizing: border-box;
+    background-clip: padding-box;
+    background: #ffffff;
+    box-shadow: 1px 1px 10px #888;
+}
+.card span.card-title {
+    color: #fff;
+    font-size: 24px;
+    font-weight: 300;
+    text-transform: uppercase;
+}
+
+.card .card-image {
+    position: relative;
+    overflow: hidden;
+    padding-top: 15px;
+}
+.card .card-image img {
+    background-clip: padding-box;
+    position: relative;
+}
+.card .card-image span.card-title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 15px;
+}
+.card .card-content {
+    padding: 0 15px 15px 15px;
+    background-clip: padding-box;
+    box-sizing: border-box;
+}
+.card .card-content p {
+    margin: 0;
+    color: inherit;
+    font-style: italic;
+}
+.card .card-content span.card-title {
+    line-height: 48px;
+}
+.card .card-action {
+    border-top: 1px solid rgba(160, 160, 160, 0.2);
+    padding: 15px;
+    background: #646464;
+}
+.card .card-action label, .card .card-action i{
+    color:  #ffffff;
+}
+
+.card .close{
+    position: absolute;
+    right: 15px;
+    top: 8px;
+    z-index: 1;
+}
+
+.card .close:hover{
+    opacity: 0.6 !important;
+}
+
+/*
+.card .card-action a {
+    color: #455962 !important;
+    margin-right: 16px;
+    transition: color 0.3s ease;
+    text-transform: uppercase;
+}
+.card .card-action a:hover {
+    color: rgba(69, 89, 98, 0.50) !important;
+    text-decoration: none;
+}*/
+
+
+
+/*card-panel*/
+.card-panel{
+    box-shadow: 3px 3px 10px #888;
+}
+
+.card-panel .panel-body{
+    height: 30vh;
+    overflow-y: auto;
+}
+
+.card-add{
+    height: 334px;
+    width : 100%;
+    background: #ffffff;
+    opacity: 0.6;
+    display: table;
+    margin-top: 10px;
+    box-shadow: 1px 1px 3px #ccc;
+}
+
+.card-add span{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 2em;
+}
+
+.card-unpartition{
+    opacity: 0.6;
+}
+
+.card-add-md{
+    height: 161px !important;
+}
+
+.card-add-sm{
+    height: 140px !important;
+}
+
+
+.chip{
+    margin-top: 10px;
+    box-sizing: border-box;
+    background-clip: padding-box;
+    background: #ffffff;
+    box-shadow: 1px 1px 3px #ccc;
+}
+
+.chip .close{
+    position: absolute;
+    right: 15px;
+    top: 8px;
+    z-index: 1;
+}
+
+.chip .chip-image{
+    background: #455962;
+    display: table-cell;
+    color: #fff !important;
+    vertical-align: middle;
+    text-align: center;
+    padding: 10px;
+}
+
+.chip .chip-image i{
+    color: #fff !important;
+}
+
+.chip .chip-content{
+    padding: 15px;
+    display: table-cell;
+    max-width: 13vw;
+}

@@ -1,0 +1,40 @@
+<div class="panel panel-default">
+  <div class="panel-heading" style="padding-bottom:9px" >
+    <b>{{heading.title}}</b>
+  </div>
+  <div class="panel-body zero-padding">
+    <ul class="nav nav-tabs">
+      <li class="active"><a class="pointer" data-toggle="tab" data-target="#summery">Summery View</a></li>
+      <li><a class="pointer" data-toggle="tab" data-target="#concept">Concept View</a></li>
+      <li><a class="pointer" data-toggle="tab" data-target="#component">Component View</a></li>
+      <li><a class="pointer" data-toggle="tab" data-target="#document" ng-click="goDocumentView()">Document View</a></li>
+    </ul>
+
+    <div class="tab-content">
+      <div id="summery" class="tab-pane fade in active" style="height: 76vh;overflow-y: auto;padding:10px;">
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body pointer">
+              <div high-chart options="options" data="data" class="container-fluid"></div>
+            </div>
+            <div class="card-content margin-top-5">
+              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+            </div>
+            <div class="card-action">
+              <label>{{data.title}}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="concept" class="tab-pane fade">
+        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      </div>
+      <div id="component" class="tab-pane fade">
+        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+      </div>
+      <div id="document" class="tab-pane fade">
+        <ui-view></ui-view>
+      </div>
+    </div>
+  </div>
+</div>

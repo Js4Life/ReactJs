@@ -1,0 +1,47 @@
+PREFIX pb:<http://www.mindparabole.com/ontology/finance/Parabole-Model#>
+PREFIX pnc:<http://mindparabole.com/finance/pnc_cecl#>
+PREFIX cst:<http://mindparabole.com/finance/cecl_structure#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+select  ?concept ?Area ?Type ?Typename
+where {
+{select *
+where {
+{?a rdf:type ?conclass .
+?conclass rdfs:subClassOf cst:FASBConcept .
+?a pb:hasModel ?mprp .
+?mprp rdf:type ?Type.
+BIND(xsd:string("Model Type") as ?Area)}
+union
+{?a rdf:type ?conclass .
+?conclass rdfs:subClassOf cst:FASBConcept .
+?a pb:hasReport ?mprp .
+?mprp rdf:type ?Type.
+BIND(xsd:string("Report Type") AS ?Area)
+}
+union
+{?a rdf:type ?conclass .
+?conclass rdfs:subClassOf cst:FASBConcept .
+?a pb:hasProcedure ?mprp .
+?mprp rdf:type ?Type.
+bind(xsd:string ("Procedure Type") as ?Area)}
+union
+{?a rdf:type ?conclass .
+?conclass rdfs:subClassOf cst:FASBConcept .
+?a pb:hasPolicy ?mprp .
+?mprp rdf:type ?Type.
+bind(xsd:string ("Policy Type") as ?Area)}
+union
+{?a rdf:type ?conclass .
+?conclass rdfs:subClassOf cst:FASBConcept .
+?a pb:hasRelatedConcept ?mprp.
+?mprp rdf:type ?Type.
+bind(xsd:string ("Related Concept Type") as ?Area)}}}
+?a rdfs:label ?concept .
+?mprp rdfs:label ?connections .
+filter (?concept = "Accounting Adjustment")
+?Type rdfs:label ?Typename.
+}

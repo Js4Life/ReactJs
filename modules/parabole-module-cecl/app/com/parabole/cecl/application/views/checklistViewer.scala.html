@@ -1,0 +1,67 @@
+<div class="zero-padding" ng-class="collapseClasses.center" style="cursor:hand;height:76vh;overflow: auto;">
+  <ol class="breadcrumb" ng-if="breads.length > 0">
+    <li class="pointer" ng-repeat="bread in breads" ng-click="onBreadClick(bread)" onmouseover='this.style.color="blue"' onmouseout='this.style.color="black"'>{{bread.name}}</li>
+    <div class="btn-group btn-group-xs pull-right" data-toggle="buttons">
+      <label class="btn btn-primary" ng-click="setColorCode('all')">
+        <input type="radio" name="options" id="option1" autocomplete="off"> All
+      </label>
+      <label class="btn btn-danger" ng-click="setColorCode('red')">
+        <input type="radio" name="options" id="option1" autocomplete="off"> <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+      </label>
+      <label class="btn btn-warning" ng-click="setColorCode('amber')">
+        <input type="radio" name="options" id="option2" autocomplete="off"> <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+      </label>
+      <label class="btn btn-success" ng-click="setColorCode('green')">
+        <input type="radio" name="options" id="option3" autocomplete="off"> <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+      </label>
+      <label class="btn btn-default" ng-click="setColorCode('gray')">
+        <input type="radio" name="options" id="option3" autocomplete="off"> <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+      </label>
+    </div>
+  </ol>
+  <div ng-if="isGridView">
+    <div ng-if="currentColorCode === child.colorCode || currentColorCode === 'all'" class="col-md-2" ng-repeat="child in childNodes | orderBy : 'name' | filter: searchText" index="{{$index}}">
+      <div class="panel panel-default" style="box-shadow: 1px 2px 7px #d8d8d8;">
+        <div class="panel-body text-center zero-padding" ng-class="getComplianceColorcode(child)">
+          <div style="font-weight: bold;font-size: 2.5em;opacity:0.4;">{{child.name.charAt(0)}}</div>
+          <div class="pointer" style="position:absolute;right:20px;top:5px;font-weight: bold;" ng-click="getChecklistByNode(child)">{{child.compliance || 0}}%</div>
+        </div>
+        <div ng-click="exploreNode(child.type, child.elementID)" class="panel-footer ellipsis-text pointer" tooltip='"title":"{{child.name}}"'>{{child.name}}</div>
+      </div>
+    </div>
+  </div>
+  <table ng-if="!isGridView" class="table table-condensed">
+    <thead>
+      <th>Status</th><th>{{breads[breads.length-1].name}}</th><th>Compliance</th><th></th>
+    </thead>
+    <tbody>
+      <tr ng-if="currentColorCode === child.colorCode || currentColorCode === 'all'" ng-repeat="child in childNodes | orderBy : 'name' | filter: searchText" index="{{$index}}">
+        <td><i class="fa fa-circle" aria-hidden="true" ng-class="getComplianceColorcode(child)"></i></td>
+        <td>{{child.name}}</td>
+        <td class="pointer" ng-click="getChecklistByNode(child)">{{child.compliance || 0}}%</td>
+        <td><i class="fa fa-eye" aria-hidden="true" ng-click="exploreNode(child.type, child.elementID)"></i></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="modal fade" id="checklistModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Checklist</h4>
+      </div>
+      <div class="modal-body zero-padding-bottom" style="height: 66vh; overflow: auto;">
+        <ul class="list-group">
+          <li class="list-group-item" ng-repeat="(k, v) in checkList">
+            <input type="checkbox" ng-model="answers[k]" style="position: relative;top: 2px;"/>&nbsp;{{v}}
+          </li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-default" ng-click="saveAnswers()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

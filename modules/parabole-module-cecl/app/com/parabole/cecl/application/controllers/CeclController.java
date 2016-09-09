@@ -7,6 +7,7 @@ import com.parabole.cecl.application.exceptions.AppException;
 import com.parabole.cecl.application.global.CCAppConstants;
 import com.parabole.cecl.application.services.JenaTdbService;
 import com.parabole.feed.application.services.CheckListServices;
+import com.parabole.feed.application.services.LightHouseService;
 import com.parabole.feed.application.services.OctopusSemanticService;
 import com.parabole.feed.application.services.TaggingUtilitiesServices;
 import play.mvc.BodyParser;
@@ -33,6 +34,9 @@ public class CeclController extends Controller{
 
     @Inject
     OctopusSemanticService octopusSemanticService;
+
+    @Inject
+    LightHouseService lightHouseService;
 
     @BodyParser.Of(BodyParser.Json.class)
     public Result getFilteredDataByCompName() throws AppException, JSONException {
@@ -320,6 +324,84 @@ public class CeclController extends Controller{
         } catch (Exception e){
             e.printStackTrace();
         }
+        return ok(finalJson.toString());
+    }
+
+
+    //DOCUMENT RELATED OPERATIONS
+    public Result getAllTopics() {
+        JSONObject finalJson = new JSONObject();
+        Boolean status = true;
+        String data = null;
+        try {
+            ArrayList<HashMap<String, String>> res = lightHouseService.getAlltopic();
+            ObjectMapper mapper = new ObjectMapper();
+            data = mapper.writeValueAsString(res);
+        } catch(Exception e) {
+            status = false;
+            e.printStackTrace();
+        }
+        finalJson.put("status", status).put("data", data);
+        return ok(finalJson.toString());
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result getSubtopicsByTopicId() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final String id = request.getString("id");
+        JSONObject finalJson = new JSONObject();
+        Boolean status = true;
+        String data = null;
+        try {
+            ArrayList<HashMap<String, String>> res = lightHouseService.getSubtopicsByTopicId(id);
+            ObjectMapper mapper = new ObjectMapper();
+            data = mapper.writeValueAsString(res);
+        } catch(Exception e) {
+            status = false;
+            e.printStackTrace();
+        }
+        finalJson.put("status", status).put("data", data);
+        return ok(finalJson.toString());
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result getSectionsBySubtopicId() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final String id = request.getString("id");
+        JSONObject finalJson = new JSONObject();
+        Boolean status = true;
+        String data = null;
+        try {
+            ArrayList<HashMap<String, String>> res = lightHouseService.getSubtopicsByTopicId(id);
+            ObjectMapper mapper = new ObjectMapper();
+            data = mapper.writeValueAsString(res);
+        } catch(Exception e) {
+            status = false;
+            e.printStackTrace();
+        }
+        finalJson.put("status", status).put("data", data);
+        return ok(finalJson.toString());
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result getParagraphsBySectionId() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final String id = request.getString("id");
+        JSONObject finalJson = new JSONObject();
+        Boolean status = true;
+        String data = null;
+        try {
+            ArrayList<HashMap<String, String>> res = lightHouseService.getParagraphBySectionId(id);
+            ObjectMapper mapper = new ObjectMapper();
+            data = mapper.writeValueAsString(res);
+        } catch(Exception e) {
+            status = false;
+            e.printStackTrace();
+        }
+        finalJson.put("status", status).put("data", data);
         return ok(finalJson.toString());
     }
 }

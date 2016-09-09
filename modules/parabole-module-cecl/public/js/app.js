@@ -19,8 +19,7 @@ angular
 
           .state('landing.home', {
               url : '/home',
-              templateUrl : 'home',
-              controller : 'homeCtrl'
+              templateUrl : 'home'
           })
 
           .state('landing.impact', {
@@ -41,5 +40,26 @@ angular
               controller : 'checklistBuilderCtrl'
           })
 
-          $urlRouterProvider.otherwise('/landing/home');
+          .state('landing.homeContainer', {
+              url : '/home-container',
+              templateUrl : 'homeContainer'
+          })
+
+          .state('landing.summery', {
+              url : '/summery',
+              templateUrl : 'summery'
+          })
+
+          .state('landing.complianceDashboard', {
+              url : '/compliance-dashboard',
+              templateUrl : 'complianceDashboard',
+              controller : 'complianceDashboardCtrl'
+          })
+
+          .state('landing.complianceDashboard.checklistViewer', {
+              templateUrl : 'checklistViewer',
+              controller : 'homeCtrl'
+          });
+
+          $urlRouterProvider.otherwise('/landing/home-container');
   });

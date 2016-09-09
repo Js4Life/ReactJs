@@ -24,17 +24,17 @@
           <li><a href="http://localhost:9000/ccar/doLogin"><span style="font-size: 14px;" class="glyphicon glyphicon-globe" aria-hidden="true"></span>&nbsp;<b>CCAR</b></a></li>*@
 
           @restrict(roles = la(as("EXTSME"), as("ADMIN"))) {
-              <li><a href="" ng-click="goToStatusChecklist()"><span style="font-size: 14px;" class="glyphicon glyphicon-th-list" aria-hidden="true"></span>&nbsp;<b>
+              <li class="active"><a href="" ng-click="goToStatusChecklist($event)"><span style="font-size: 14px;" class="glyphicon glyphicon-th-list" aria-hidden="true"></span>&nbsp;<b>
                   Status Checklist</b></a></li>
-              <li><a href="" ng-click="goToAlerts()"><span style="font-size: 14px;" class="glyphicon glyphicon-bell" aria-hidden="true"></span>&nbsp;<b>
+              <li><a href="" ng-click="goToAlerts($event)"><span style="font-size: 14px;" class="glyphicon glyphicon-bell" aria-hidden="true"></span>&nbsp;<b>
                   Alerts</b></a></li>
-              <li><a href="" ng-click="goToInbox()"><span style="font-size: 14px;" class="glyphicon glyphicon-envelope" aria-hidden="true"></span>&nbsp;<b>
+              <li><a href="" ng-click="goToInbox($event)"><span style="font-size: 14px;" class="glyphicon glyphicon-envelope" aria-hidden="true"></span>&nbsp;<b>
                   Inbox</b></a></li>
           }
           @restrict(roles = la(as("CCO"))) {
-              <li><a href="" ng-click="goCompletion()"><span style="font-size: 14px;" class="glyphicon glyphicon-dashboard" aria-hidden="true"></span>&nbsp;<b>
+              <li class="active"><a href="" ng-click="goCompletion($event)"><span style="font-size: 14px;" class="glyphicon glyphicon-dashboard" aria-hidden="true"></span>&nbsp;<b>
                   Completion Dashboard</b></a></li>
-              <li><a href="" ng-click="goCompliance()"><span style="font-size: 14px;" class="glyphicon glyphicon-dashboard" aria-hidden="true"></span>&nbsp;<b>
+              <li><a href="" ng-click="goCompliance($event)"><span style="font-size: 14px;" class="glyphicon glyphicon-dashboard" aria-hidden="true"></span>&nbsp;<b>
                   Compliance Dashboard</b></a></li>
           }
         <li style="height:32px;margin-right:10px;" class="dropdown">

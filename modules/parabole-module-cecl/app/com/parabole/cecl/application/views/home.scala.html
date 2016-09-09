@@ -1,9 +1,10 @@
-<div class="panel panel-default">
+
+<div class="panel panel-default" ng-controller="homeCtrl">
   <div class="panel-heading" style="padding-bottom:9px" >
     <b>{{heading.title}}</b>
     <div ng-show="childNodes.length > 0" class="right-inner-addon" style="display:inline-block;width:25%;margin-left:20px;">
       <i class="glyphicon glyphicon-search"></i>
-      <input type="search" class="form-control" placeholder="Search from {{childNodes.length}} items..." ng-model="searchText" />
+      <input type="search" class="form-control input-sm" placeholder="Search from {{childNodes.length}} items..." ng-model="searchText" />
     </div>
     <div class="btn-group pull-right" role="group">
       @*<span ng-click="leftSlideToggle()" class="fa fa-expand pull-right" tooltip='"title":"Fullscreen"'></span>*@
@@ -35,7 +36,7 @@
             </li>
           </ul>
         </div>
-        <div class="zero-padding" ng-class="collapseClasses.center" style="cursor:hand;height:80vh;border:1px solid #ddd;overflow: auto;">
+        <div class="zero-padding" ng-class="collapseClasses.center" style="cursor:hand;height:81vh;overflow: auto;">
             <ol class="breadcrumb" ng-if="breads.length > 0">
                 <li class="pointer" ng-repeat="bread in breads" ng-click="onBreadClick(bread)" onmouseover='this.style.color="blue"' onmouseout='this.style.color="black"'>{{bread.name}}</li>
                 <div class="btn-group btn-group-xs pull-right" data-toggle="buttons">
@@ -61,9 +62,9 @@
                   <div class="panel panel-default" style="box-shadow: 1px 2px 7px #d8d8d8;">
                     <div class="panel-body text-center zero-padding" ng-class="getComplianceColorcode(child)">
                         <div style="font-weight: bold;font-size: 2.5em;opacity:0.4;">{{child.name.charAt(0)}}</div>
-                        <div class="pointer" style="position:absolute;right:20px;top:5px;font-weight: bold;" ng-click="getChecklistByNode(child)">{{child.compliance}}%</div>
+                        <div class="pointer" style="position:absolute;right:20px;top:5px;font-weight: bold;" ng-click="getChecklistByNode(child)">{{child.compliance || 0}}%</div>
                     </div>
-                    <div ng-click="getNodeDetails(child, $index)" class="panel-footer ellipsis-text pointer" tooltip='"title":"{{child.name}}"'>{{child.name}}</div>
+                    <div ng-click="exploreNode(child.type, child.elementID)" class="panel-footer ellipsis-text pointer" tooltip='"title":"{{child.name}}"'>{{child.name}}</div>
                   </div>
                 </div>
             </div>
@@ -75,8 +76,8 @@
                     <tr ng-if="currentColorCode === child.colorCode || currentColorCode === 'all'" ng-repeat="child in childNodes | orderBy : 'name' | filter: searchText" index="{{$index}}">
                         <td><i class="fa fa-circle" aria-hidden="true" ng-class="getComplianceColorcode(child)"></i></td>
                         <td>{{child.name}}</td>
-                        <td class="pointer" ng-click="getChecklistByNode(child)">{{child.compliance}}%</td>
-                        <td><i class="fa fa-eye" aria-hidden="true" ng-click="getNodeDetails(child, $index)"></i></td>
+                        <td class="pointer" ng-click="getChecklistByNode(child)">{{child.compliance || 0}}%</td>
+                        <td><i class="fa fa-eye" aria-hidden="true" ng-click="exploreNode(child.type, child.elementID)"></i></td>
                     </tr>
                 </tbody>
             </table>

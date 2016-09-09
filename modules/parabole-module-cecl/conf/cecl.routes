@@ -20,6 +20,10 @@ GET         /riskAggregation                                                    
 GET         /impact                                                                    com.parabole.cecl.application.controllers.DispatcherAction.impact()
 GET         /regulation                                                                com.parabole.cecl.application.controllers.DispatcherAction.regulation()
 GET         /checklistBuilder                                                          com.parabole.cecl.application.controllers.DispatcherAction.checklistBuilder()
+GET         /homeContainer                                                             com.parabole.cecl.application.controllers.DispatcherAction.homeContainer()
+GET         /summery                                                                   com.parabole.cecl.application.controllers.DispatcherAction.summery()
+GET         /complianceDashboard                                                       com.parabole.cecl.application.controllers.DispatcherAction.complianceDashboard()
+GET         /checklistViewer                                                           com.parabole.cecl.application.controllers.DispatcherAction.checklistViewer()
 
 # ---------------------------------------------------------------------------------
 # Server Side Calls (All Authenticated)
@@ -94,3 +98,11 @@ GET /loadAllFromBatch                      com.parabole.cecl.application.control
 GET /getRelatedVerticesByURI/:uri           com.parabole.cecl.application.controllers.GraphDBController.getRelatedVerticesByURI(uri: String)
 POST /getRelatedVerticesByUri               com.parabole.cecl.application.controllers.GraphDBController.getRelatedVerticesByUri
 
+# ---------------------------------------------------------------------------------
+# DOCUMENT RELATED OPERATIONS
+# ---------------------------------------------------------------------------------
+
+GET /getAllTopics                           com.parabole.cecl.application.controllers.CeclController.getAllTopics()
+POST /getSubtopicsByTopicId                 com.parabole.cecl.application.controllers.CeclController.getSubtopicsByTopicId()
+POST /getSectionsBySubtopicId               com.parabole.cecl.application.controllers.CeclController.getSectionsBySubtopicId()
+POST /getParagraphsBySectionId              com.parabole.cecl.application.controllers.CeclController.getParagraphsBySectionId()

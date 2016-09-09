@@ -84,7 +84,12 @@ angular.module('RDAApp.services', [])
         'GetChecklistByMultiParagraphId' : 'getChecklistByMultiParagraphId',
         'AddAnswer' : 'addAnswer',
         'SaveParagraphTags' : 'saveParagraphTags',
-        'GetParagraphTags' : 'getParagraphTags'
+        'GetParagraphTags' : 'getParagraphTags',
+
+        'GetAllTopics' : 'getAllTopics',
+        'GetSubtopicsByTopicId' : 'getSubtopicsByTopicId',
+        'GetSectionsBySubtopicId' : 'getSectionsBySubtopicId',
+        'GetParagraphsBySectionId' : 'getParagraphsBySectionId'
     };
     SharedService.chartDataMap = {
         '0' : 'getHardCodedResponse/chartData1',
@@ -167,8 +172,8 @@ angular.module('RDAApp.services', [])
     };
     SharedService.primaryNav = [
         {"id": "1" , "label":"ceclassets/images/document-browser.png", "title" : Constant.DOCUMENT_BROWSER_TAB},
-        {"id": "2" , "label":"ceclassets/images/impact.png", "title" : Constant.IMPACT_TAB},
-        {"id": "3" , "label":"ceclassets/images/regulation.png", "title" : Constant.REGULATION_TAB}
+        /*{"id": "2" , "label":"ceclassets/images/impact.png", "title" : Constant.IMPACT_TAB},
+        {"id": "3" , "label":"ceclassets/images/regulation.png", "title" : Constant.REGULATION_TAB}*/
    ];
     SharedService.layoutGraphData = [
                                         ["Jan-13", 11],["Feb-13", 9], ["March-13", 15], ["July-13", 12]
@@ -663,6 +668,24 @@ angular.module('RDAApp.services', [])
     SharedService.getParagraphTags = function (paraIds) {
         var sendObj = {"paraIds": paraIds};
         return SharedService.invokeService('GetParagraphTags', sendObj, 'post');
+    }
+
+
+    //DDOCUMENT RELATED OPERATIONS
+    SharedService.getAllTopics = function () {
+        return SharedService.invokeService('GetAllTopics');
+    }
+    SharedService.getSubtopicsByTopicId = function (id) {
+        var sendObj = {"id": id};
+        return SharedService.invokeService('GetSubtopicsByTopicId', sendObj, 'post');
+    }
+    SharedService.getSectionsBySubtopicId = function (id) {
+        var sendObj = {"id": id};
+        return SharedService.invokeService('GetSectionsBySubtopicId', sendObj, 'post');
+    }
+    SharedService.getParagraphsBySectionId = function (id) {
+        var sendObj = {"id": id};
+        return SharedService.invokeService('GetParagraphsBySectionId', sendObj, 'post');
     }
 
     return SharedService;
@@ -1556,7 +1579,7 @@ angular.module('RDAApp.services', [])
     }
 
     MockService.CeclBaseNodes = [
-        {"name": "Topic", "id": "Topic", "idx": 0, "data":{}},{"name": "Sub-Topic", "id": "Sub-Topic", "idx": 1, "data":{}},{"name": "Section", "id": "Section", "idx": 2, "data":{}},{"name": "Paragraph", "id": "Paragraph", "idx": 3, "data":{}},{"name": "Concept", "id": "FASB Concept", "idx": 4, "data":{}}
+        {"name": "Topic", "id": "TOPIC", "idx": 0, "data":{}},{"name": "Sub-Topic", "id": "SUBTOPIC", "idx": 1, "data":{}},{"name": "Section", "id": "SECTION", "idx": 2, "data":{}},{"name": "Paragraph", "id": "PARAGRAPH", "idx": 3, "data":{}},{"name": "Concept", "id": "FASB Concept", "idx": 4, "data":{}}
     ];
 
     MockService.ParaTagOptions = ["Rule", "Information", "Explanation"];
@@ -1569,6 +1592,49 @@ angular.module('RDAApp.services', [])
         "Accretion" : "Accretion is asset and earnings growth due to business expansion, and it can occur through a company's internal growth or by way of mergers and acquisitions. Accretion is also used to account for a capital gain when an investor buys a bond at a discount and holds the bond until maturity",
         "Collectibility Of Receivables" : "The Company maintains allowances for doubtful accounts for estimated losses resulting from the inability of its customers to make required payments. The Company reviews a customer’s credit history before extending credit as deemed necessary, after considering the client and the size and duration of the assignment. The Company establishes an allowance for doubtful accounts based upon factors surrounding the credit risk of specified customers, historical trends, past due balances and other information. The Company considers an account past due based on the contractual payment terms. The Company has demonstrated the ability to make reasonable and reliable estimates; however, if the financial condition of the Company’s customers was to deteriorate, resulting in an impairment of their ability to make payments, additional allowances may be required."
 
+    };
+
+    MockService.ParagraphCategoryChartData = {
+        title : 'Paragraph Categories',
+        categories : ['Rule', 'Information', 'Explanation', 'Untagged'],
+        series: [{
+            colorByPoint: true,
+            data: [{
+                y: 56
+            }, {
+                y: 24
+            }, {
+                y: 48
+            }, {
+                y: 73
+            }]
+        }]
+    };
+
+    MockService.ChecklistComplianceChartData = {
+        title : 'Checklist Item Compliance',
+        categories : ['Complied', 'Not Complied'],
+        series: [{
+            colorByPoint: true,
+            data: [{
+                y: 20
+            }, {
+                y: 25
+            }]
+        }]
+    };
+
+    MockService.RuleChartData = {
+        title : 'Paragraphs with Checklist Created',
+        categories : ['Created', 'Not Created'],
+        series: [{
+            colorByPoint: true,
+            data: [{
+                y: 20
+            }, {
+                y: 36
+            }]
+        }]
     }
 
     return MockService;

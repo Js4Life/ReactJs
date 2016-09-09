@@ -869,4 +869,27 @@ angular.module('RDAApp.directives', [])
             }
         }
     };
+})
+
+.directive('highChart', function () {
+    'use strict';
+    return {
+        restrict: 'EA',
+        transclude: false,
+        scope: {
+            data: '=',
+            options: '='
+        },
+        link: function (scope, element, attr) {
+            var chart = null;
+
+            scope.$watch('data', function () {
+                if (scope.data == null) {
+                    return;
+                }
+                chart = new GRAPH.PlotWrapper(element[0], scope.options);
+                chart.draw(scope.data);
+            });
+        }
+    };
 });

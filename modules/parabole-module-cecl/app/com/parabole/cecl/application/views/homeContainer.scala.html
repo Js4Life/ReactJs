@@ -1,0 +1,12 @@
+@import be.objectify.deadbolt.java.views.html.{restrict, restrictOr}
+@import be.objectify.deadbolt.java.views.html.{subjectPresent, subjectPresentOr}
+@import be.objectify.deadbolt.java.views.html.{subjectNotPresent, subjectNotPresentOr}
+@import be.objectify.deadbolt.core.utils.TemplateUtils.{la, as}
+
+@restrict(roles = la(as("EXTSME"), as("ADMIN"))) {
+  @home()
+}
+
+@restrict(roles = la(as("CCO"))) {
+  @summery()
+}
