@@ -24,6 +24,7 @@ import java.lang.annotation.ElementType;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static play.mvc.Controller.response;
 
@@ -414,6 +415,7 @@ public class TaggingUtilitiesServices {
                 System.out.println("paragraphJSON.getJSONObject(key).getString(\"bodyText\") = " + paragraphJSON.getJSONObject(key).getString("bodyText"));
                 nodeDataTwo.put("firstLine", paragraphJSON.getJSONObject(key).getString("firstLine"));
                 nodeDataTwo.put("startPage", paragraphJSON.getJSONObject(key).getBigInteger("startPage").toString());
+                nodeDataTwo.put("willIgnore", String.valueOf(paragraphJSON.getJSONObject(key).getBoolean("willIgnore")));
                 nodeDataTwo.put("endPage", paragraphJSON.getJSONObject(key).getBigInteger("endPage").toString());
                 nodeDataTwo.put("elementID", paragraphId);
                 lightHouse.createNewVertex(nodeDataTwo);
@@ -423,6 +425,48 @@ public class TaggingUtilitiesServices {
         }
 
         return "Ok";
+    }
+
+
+    public String createConceptNodesFromParagraph() throws Exception {
+
+        String jsonFileContent = AppUtils.getFileContent("feedJson/paragraphs.json");
+        JSONObject jsonObject = new JSONObject(jsonFileContent);
+        JSONObject finalObj = new JSONObject();
+        JSONObject conceptIndex = jsonObject.getJSONObject("conceptIndex");
+        JSONObject allConceptNodesDetails = jenaTdbService.getFilteredDataByCompName("ceclBaseNodeDetails","FASB Concept");
+        JSONArray jsonArray = allConceptNodesDetails.getJSONArray("data");
+        Map<String, String> mapofNameURI = new HashMap<String, String>();
+        for (int i=0; i< jsonArray.length(); i++){
+            mapofNameURI.put(jsonArray.getJSONObject(i).getString("name"), jsonArray.getJSONObject(i).getString("link"));
+        }
+
+        List<String> conceptList = new ArrayList<>();
+        JSONObject testJSON = new JSONObject();
+        testJSON.put("JSONForURI", allConceptNodesDetails);
+
+        Iterator<?> keys = conceptIndex.keys();
+        while( keys.hasNext() ) {
+            String key = (String)keys.next();
+            if(mapofNameURI.get(key) != null) {
+                Map<String, String> nodeData = new HashMap<>();
+                nodeData.put("name", key);
+                nodeData.put("type", "CONCEPT");
+                nodeData.put("subtype", "FASB");
+                nodeData.put("elementID", mapofNameURI.get(key));
+
+                System.out.println("Created : " + mapofNameURI.get(key));
+
+                lightHouse.createNewVertex(nodeData);
+                JSONArray listOfParagraphVertexIDs = conceptIndex.getJSONArray(key);
+                for (int i = 0; i < listOfParagraphVertexIDs.length(); i++) {
+                    lightHouse.establishEdgeByVertexIDs(mapofNameURI.get(key), listOfParagraphVertexIDs.getString(i), "conceptToParagraph", "conceptToParagraph");
+                    System.out.println("Created : " + mapofNameURI.get(key) + " ------>" + listOfParagraphVertexIDs.getString(i));
+                }
+            }
+        }
+
+        return "{status: Saved}";
     }
 
     public String getSectionNameBySectionId(String sectionId) throws Exception {

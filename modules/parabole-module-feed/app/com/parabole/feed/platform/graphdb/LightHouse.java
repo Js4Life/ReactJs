@@ -84,6 +84,13 @@ public class LightHouse extends GraphDb {
             int size = Iterables.size(particularNode);
             System.out.println("size = " + size);
             if(size > 0){
+                for (Vertex v : particularNode) {
+                    Iterator dts = dataToSave.entrySet().iterator();
+                    while (dts.hasNext()) {
+                        Map.Entry oneDataToSave = (Map.Entry)dts.next();
+                        v.setProperty(oneDataToSave.getKey().toString(), oneDataToSave.getValue());
+                    }
+                }
                 System.out.println("Already exists = ");
             }else{
                 Vertex v = graph.addVertex(null);
@@ -245,6 +252,32 @@ public class LightHouse extends GraphDb {
         return listOfFinalData;
     }
 
+    public ArrayList<HashMap<String, String>> getAllvertex(String vertexType) throws  IOException{
+
+        Iterable<Vertex> verticesData = null;
+        ArrayList<HashMap<String, String>> listOfFinalData = new ArrayList<HashMap<String, String>>();
+
+        OrientGraph graph = this.orientGraphFactory.getTx();
+        try {
+            verticesData = graph.getVertices("type", vertexType);
+
+            for (Vertex v : verticesData) {
+                HashMap<String, String> finalData = new HashMap<>();
+                finalData.put("elementID", v.getProperty("elementID"));
+                finalData.put("name", v.getProperty("name"));
+                finalData.put("type", v.getProperty("type"));
+                listOfFinalData.add(finalData);
+            }
+
+        }catch( Exception e ) {
+            graph.rollback();
+        } finally {
+            graph.shutdown();
+        }
+
+        return listOfFinalData;
+    }
+
 
 
     public ArrayList<HashMap<String, String>> getSubtopicsByTopicId(String topicid) throws  IOException{
@@ -305,6 +338,8 @@ public class LightHouse extends GraphDb {
                             finalData.put("endPage", edge.getVertex(Direction.IN).getProperty("endPage"));
                             finalData.put("firstLine", edge.getVertex(Direction.IN).getProperty("firstLine"));
                             finalData.put("bodyText", edge.getVertex(Direction.IN).getProperty("bodyText"));
+                            finalData.put("tag", edge.getVertex(Direction.IN).getProperty("tag"));
+                            finalData.put("willIgnore", edge.getVertex(Direction.IN).getProperty("willIgnore"));
                             listOfFinalData.add(finalData);
                     });
                 }
@@ -316,6 +351,33 @@ public class LightHouse extends GraphDb {
         }
 
         return listOfFinalData;
+    }
+
+
+    public String addAnewVertexproperty(String vertexID, HashMap<String, String> mapOfProperties) throws  IOException{
+
+        OrientGraph graph = this.orientGraphFactory.getTx();
+        Iterable<Vertex> verticesData = null;
+        verticesData = graph.getVertices("elementID", vertexID);
+        try {
+            for (Vertex v : verticesData) {
+                final Set<Vertex> outputSet = new HashSet<Vertex>();
+                if (null != v) {
+                    for (Map.Entry<String, String> entry : mapOfProperties.entrySet())
+                    {
+                        v.setProperty(entry.getKey(), entry.getValue());
+                    }
+
+                }
+            }
+            graph.commit();
+        }catch( Exception e ) {
+            graph.rollback();
+        } finally {
+            graph.shutdown();
+        }
+
+        return "{ status: saved } ";
     }
 
 

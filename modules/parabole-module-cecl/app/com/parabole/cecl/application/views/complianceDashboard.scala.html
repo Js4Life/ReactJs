@@ -5,9 +5,9 @@
   <div class="panel-body zero-padding">
     <ul class="nav nav-tabs">
       <li class="active"><a class="pointer" data-toggle="tab" data-target="#summery">Summery View</a></li>
-      <li><a class="pointer" data-toggle="tab" data-target="#concept">Concept View</a></li>
+      <li ng-click="goConceptView()"><a class="pointer" data-toggle="tab" data-target="#concept">Glossary View</a></li>
       <li><a class="pointer" data-toggle="tab" data-target="#component">Component View</a></li>
-      <li><a class="pointer" data-toggle="tab" data-target="#document" ng-click="goDocumentView()">Document View</a></li>
+      <li ng-click="goDocumentView()"><a class="pointer" data-toggle="tab" data-target="#document">Regulatory Content View</a></li>
     </ul>
 
     <div class="tab-content">
@@ -26,10 +26,10 @@
           </div>
         </div>
       </div>
-      <div id="concept" class="tab-pane fade">
-        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      <div id="concept" class="tab-pane fade" style="padding-top:15px;">
+        <ui-view></ui-view>
       </div>
-      <div id="component" class="tab-pane fade">
+      <div id="component" class="tab-pane fade" style="padding-top:15px;">
         <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
       </div>
       <div id="document" class="tab-pane fade">

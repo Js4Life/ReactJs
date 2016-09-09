@@ -9,6 +9,7 @@ import play.mvc.Result;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -209,14 +210,35 @@ public class ParagraphOperationsController extends BaseController{
         return ok(lightHouseService.getAlltopic().toString());
     }
 
+    public Result getAllConcepts() {
+
+        return ok(lightHouseService.getAllConcepts().toString());
+    }
+
     public Result getSubtopicsByTopicId(String topicId) {
 
         return ok(lightHouseService.getSubtopicsByTopicId(topicId).toString());
     }
 
     public Result getParagraphBySectionId(String nodeId) {
-
         return ok(lightHouseService.getParagraphBySectionId(nodeId).toString());
+    }
+
+    public Result addAnewVertexproperty() {
+
+        String vertexID = "320-10-35-34B";
+        HashMap<String, String> mapOfProperties = new HashMap<>();
+        mapOfProperties.put("testTag", "TestData");
+        mapOfProperties.put("anotherTestTag", "Another TestData");
+
+        return ok(lightHouseService.addAnewVertexproperty(vertexID, mapOfProperties));
+    }
+
+    public Result getVertexProperties() {
+
+        String vertexID = "320-10-35-34B";
+        ArrayList<String>  listOfPropertyNames = new ArrayList<String>();
+        return ok(lightHouseService.getVertexProperties(vertexID, listOfPropertyNames));
     }
 
 

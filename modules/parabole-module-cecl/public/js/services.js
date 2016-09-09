@@ -89,7 +89,9 @@ angular.module('RDAApp.services', [])
         'GetAllTopics' : 'getAllTopics',
         'GetSubtopicsByTopicId' : 'getSubtopicsByTopicId',
         'GetSectionsBySubtopicId' : 'getSectionsBySubtopicId',
-        'GetParagraphsBySectionId' : 'getParagraphsBySectionId'
+        'GetParagraphsBySectionId' : 'getParagraphsBySectionId',
+        'GetParagraphsByConceptId' : 'getParagraphsByConceptId',
+        'GetAllConcepts' : 'getAllConcepts'
     };
     SharedService.chartDataMap = {
         '0' : 'getHardCodedResponse/chartData1',
@@ -660,11 +662,6 @@ angular.module('RDAApp.services', [])
         return SharedService.invokeService('SaveParagraphTags', sendObj, 'post');
     }
 
-    SharedService.saveParagraphTags = function (paraTags) {
-        var sendObj = {"paraTags": paraTags};
-        return SharedService.invokeService('SaveParagraphTags', sendObj, 'post');
-    }
-
     SharedService.getParagraphTags = function (paraIds) {
         var sendObj = {"paraIds": paraIds};
         return SharedService.invokeService('GetParagraphTags', sendObj, 'post');
@@ -686,6 +683,13 @@ angular.module('RDAApp.services', [])
     SharedService.getParagraphsBySectionId = function (id) {
         var sendObj = {"id": id};
         return SharedService.invokeService('GetParagraphsBySectionId', sendObj, 'post');
+    }
+    SharedService.getParagraphsByConceptId = function (id) {
+        var sendObj = {"id": id};
+        return SharedService.invokeService('GetParagraphsByConceptId', sendObj, 'post');
+    }
+    SharedService.getAllConcepts = function () {
+        return SharedService.invokeService('GetAllConcepts');
     }
 
     return SharedService;
@@ -1580,6 +1584,10 @@ angular.module('RDAApp.services', [])
 
     MockService.CeclBaseNodes = [
         {"name": "Topic", "id": "TOPIC", "idx": 0, "data":{}},{"name": "Sub-Topic", "id": "SUBTOPIC", "idx": 1, "data":{}},{"name": "Section", "id": "SECTION", "idx": 2, "data":{}},{"name": "Paragraph", "id": "PARAGRAPH", "idx": 3, "data":{}},{"name": "Concept", "id": "FASB Concept", "idx": 4, "data":{}}
+    ];
+
+    MockService.CeclBaseNodes2 = [
+        {"name": "Concept", "id": "CONCEPT", "idx": 0, "data":{}},{"name": "Paragraph", "id": "PARAGRAPH", "idx": 1, "data":{}}
     ];
 
     MockService.ParaTagOptions = ["Rule", "Information", "Explanation"];

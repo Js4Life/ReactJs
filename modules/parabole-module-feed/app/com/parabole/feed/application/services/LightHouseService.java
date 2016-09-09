@@ -43,7 +43,6 @@ public class LightHouseService {
     @Inject
     private LightHouse lightHouse;
 
-
    // public String save
 
     public String createNewTopic(){
@@ -108,6 +107,19 @@ public class LightHouseService {
         return result;
     }
 
+    public ArrayList<HashMap<String, String>> getAllConcepts(){
+
+        String vertexType = "CONCEPT";
+
+        ArrayList<HashMap<String, String>> result=null;
+        try {
+            result = lightHouse.getAllvertex(vertexType);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
     public ArrayList<HashMap<String, String>> getSubtopicsByTopicId(String topicId){
 
         ArrayList<HashMap<String, String>> result=null;
@@ -119,9 +131,7 @@ public class LightHouseService {
         return result;
     }
 
-
     public ArrayList<HashMap<String, String>> getParagraphBySectionId(String nodeId){
-
         ArrayList<HashMap<String, String>> result=null;
         try {
             result = lightHouse.getParagraphBySectionId(nodeId);
@@ -131,5 +141,19 @@ public class LightHouseService {
         return result;
     }
 
+    public String addAnewVertexproperty(String vertexID, HashMap<String, String> mapOfProperties){
+        String result=null;
+        try {
+            result = lightHouse.addAnewVertexproperty(vertexID, mapOfProperties);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public String getVertexProperties(String vertexID, ArrayList<String> listOfKeys){
+        String result=null;
+        return result;
+    }
 
 }

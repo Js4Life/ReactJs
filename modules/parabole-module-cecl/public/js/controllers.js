@@ -250,29 +250,19 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				});
 				break;
 			case "PARAGRAPH" :
-				/*to be removed*/
+				SharedService.paragraphs = $scope.childNodes;
+				SharedService.homeBreads = $scope.breads;
 				var subSectionId = nodeId.substring(0, nodeId.lastIndexOf('-'));
-				SharedService.getParagraphsBySubsection(subSectionId).then(function (data) {
-					if(data.status){
-						var paras = data.data;
-						if(paras.length > 0) {
-							SharedService.paragraphs = paras;
-							var compName = "ceclGenericComponentsByParagraph";
-							SharedService.getFilteredDataByCompName(compName, subSectionId).then(function (comp) {
-								var nodes = comp.data;
-								var currentConcept = {};
-								var rawNodeDetails = _.reject(nodes, function (n) {
-									return n.type === 'Related Concept'
-								});
-								currentConcept.components = angular.copy(rawNodeDetails);
-								SharedService.currentConcept = currentConcept;
-								SharedService.homeBreads = $scope.breads;
-								$state.go('landing.checklistBuilder');
-							});
-						} else {
-							toastr.warning('No related paragraphs found..', '', {"positionClass" : "toast-top-right"});
-						}
-					}
+				var compName = "ceclGenericComponentsByParagraph";
+				SharedService.getFilteredDataByCompName(compName, subSectionId).then(function (comp) {
+					var nodes = comp.data;
+					var currentConcept = {};
+					var rawNodeDetails = _.reject(nodes, function (n) {
+						return n.type === 'Related Concept'
+					});
+					currentConcept.components = angular.copy(rawNodeDetails);
+					SharedService.currentConcept = currentConcept;
+					$state.go('landing.checklistBuilder');
 				});
 				break;
 			default :
@@ -725,24 +715,23 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}
 
 	function setParagraphTags() {
-        var paraIds = _.pluck($scope.paragraphs, 'id');
-        SharedService.getParagraphTags(paraIds).then(function (data) {
-           if(data.status){
-               $scope.paraTags = data.data;
-               if(Object.keys($scope.paraTags).length != $scope.paragraphs.length){
-                   $scope.doParaTag = true;
-               } else {
-                   $scope.enableChecklistBuilder();
-               }
-           }
-        });
+		angular.forEach($scope.paragraphs, function (para) {
+			if(para.tag){
+				$scope.paraTags[para.elementID] = para.tag;
+			}
+		});
+		if(Object.keys($scope.paraTags).length != $scope.paragraphs.length){
+			$scope.doParaTag = true;
+		} else {
+			$scope.enableChecklistBuilder();
+		}
 	}
 	
 	$scope.enableChecklistBuilder = function() {
         toastr.info('Select one or more paragraph..', '', {"positionClass" : "toast-top-right"});
         var tempParagraphs = [];
-        angular.forEach($scope.paraTags, function (tag, id) {
-            tempParagraphs.push(_.findWhere($scope.paragraphs, {"id":id}));
+        angular.forEach($scope.paraTags, function (tag, elementID) {
+            tempParagraphs.push(_.findWhere($scope.paragraphs, {"elementID":elementID}));
         });
         $scope.paragraphs = tempParagraphs;
         $scope.doParaTag = false;
@@ -767,11 +756,11 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		 }*/
 
 		para.isSelected = !para.isSelected;
-		var hasPara = _.find($scope.currentParagraphs, function (p) { return p === para.id; });
+		var hasPara = _.find($scope.currentParagraphs, function (p) { return p === para.elementID; });
 		if(hasPara){
-			$scope.currentParagraphs =  _.reject($scope.currentParagraphs, function(p){ return p === para.id; });
+			$scope.currentParagraphs =  _.reject($scope.currentParagraphs, function(p){ return p === para.elementID; });
 		} else {
-			$scope.currentParagraphs.push(para.id);
+			$scope.currentParagraphs.push(para.elementID);
 		}
 	}
 
@@ -928,7 +917,74 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}
 
 	$scope.goDocumentView = function () {
+		$state.go('landing.complianceDashboard.documentViewer');
+	}
+
+	$scope.goConceptView = function () {
+		SharedService.currentView = 'ALL_CONCEPT';
 		$state.go('landing.complianceDashboard.checklistViewer');
+	}
+
+	$scope.initialize();
+})
+
+.controller('checklistViewerCtrl', function($scope, $state, $stateParams, SharedService, MockService){
+	$scope.initialize = function () {
+		$scope.isGridView = true;
+		$scope.currentColorCode = 'all';
+		$scope.breads = [];
+		$scope.exploreNode(SharedService.currentView);
+	}
+
+	$scope.exploreNode = function (nodeType, nodeId) {
+		$scope.searchText = "";
+		switch (nodeType) {
+			case "ALL_CONCEPT":
+				var compName = "ceclBaseNodeDetails";
+				SharedService.getAllConcepts().then(function (data) {
+					if(data.status) {
+						$scope.childNodes = angular.fromJson(data.data);
+					}
+				});
+				break;
+			case "CONCEPT" :
+				SharedService.getParagraphsByConceptId(nodeId).then(function (data) {
+					if(data.status) {
+						$scope.childNodes = angular.fromJson(data.data);
+					}
+				});
+				break;
+		}
+	}
+
+	function insertBread(nodeType, nodeId){
+		if(!nodeType) {
+			$scope.breads = [];
+			var aBread = $scope.nodes[0];
+			aBread.data = {type: "", id: ""};
+			$scope.breads.push(aBread);
+			return;
+		} else if (nodeType === 'PARAGRAPH'){
+			return;
+		}
+		var idx = _.findIndex($scope.nodes, function (n) {return n.id === nodeType});
+		var aBread = $scope.nodes[idx+1];
+		aBread.data = {type: nodeType, id: nodeId};
+		$scope.breads.push(aBread);
+	}
+
+	$scope.getComplianceColorcode = function (obj) {
+		var val = obj.compliance || 0;
+		if(val > 81) {
+			obj.colorCode = "green";
+		} else if(val >= 51 && val <=80) {
+			obj.colorCode = "amber";
+		} else if(val > 0 && val <=50) {
+			obj.colorCode = "red";
+		} else {
+			obj.colorCode = "gray";
+		}
+		return $scope.isGridView ? ('bg-' + obj.colorCode) : ('text-' + obj.colorCode);
 	}
 
 	$scope.initialize();
