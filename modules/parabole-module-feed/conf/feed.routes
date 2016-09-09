@@ -54,15 +54,15 @@ GET /createNewSection                                   com.parabole.feed.applic
 GET /createRelationBetweenTwoNodes                      com.parabole.feed.application.controllers.ParagraphOperationsController.createRelationBetweenTwoNodes()
 #-----
 GET /getAlltopic                                        com.parabole.feed.application.controllers.ParagraphOperationsController.getAlltopic()
+GET /getAllConcepts                                        com.parabole.feed.application.controllers.ParagraphOperationsController.getAllConcepts()
 GET /getSubtopicsByTopicId/:nodeId                      com.parabole.feed.application.controllers.ParagraphOperationsController.getSubtopicsByTopicId(nodeId: String)
 GET /getParagraphBySectionId/:nodeId                    com.parabole.feed.application.controllers.ParagraphOperationsController.getParagraphBySectionId(nodeId: String)
 #-----
 GET /addAnewVertexproperty                             com.parabole.feed.application.controllers.ParagraphOperationsController.addAnewVertexproperty()
-
 #-----
 GET /saveAllTopicsSubTopics/:fileName                   com.parabole.feed.application.controllers.FeedController.getAllTopicsSubTopics(fileName: String)
 GET /saveSectionsFromParagraphJSon                      com.parabole.feed.application.controllers.FeedController.saveSectionsFromParagraphJSon()
-GET /createConceptNodesFromParagraph                    com.parabole.feed.application.controllers.FeedController.createConceptNodesFromParagraph()
+GET /createConceptNodesAndAssignParagraph                    com.parabole.feed.application.controllers.FeedController.createConceptNodesFromParagraph()
 #-----
 
 

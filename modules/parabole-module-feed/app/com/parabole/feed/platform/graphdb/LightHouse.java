@@ -245,6 +245,32 @@ public class LightHouse extends GraphDb {
         return listOfFinalData;
     }
 
+    public ArrayList<HashMap<String, String>> getAllvertex(String vertexType) throws  IOException{
+
+        Iterable<Vertex> verticesData = null;
+        ArrayList<HashMap<String, String>> listOfFinalData = new ArrayList<HashMap<String, String>>();
+
+        OrientGraph graph = this.orientGraphFactory.getTx();
+        try {
+            verticesData = graph.getVertices("type", vertexType);
+
+            for (Vertex v : verticesData) {
+                HashMap<String, String> finalData = new HashMap<>();
+                finalData.put("elementID", v.getProperty("elementID"));
+                finalData.put("name", v.getProperty("name"));
+                finalData.put("type", v.getProperty("type"));
+                listOfFinalData.add(finalData);
+            }
+
+        }catch( Exception e ) {
+            graph.rollback();
+        } finally {
+            graph.shutdown();
+        }
+
+        return listOfFinalData;
+    }
+
 
 
     public ArrayList<HashMap<String, String>> getSubtopicsByTopicId(String topicid) throws  IOException{
