@@ -446,7 +446,7 @@ public class TaggingUtilitiesServices {
         Iterator<?> keys = conceptIndex.keys();
         while( keys.hasNext() ) {
             String key = (String)keys.next();
-            if(key != null) {
+            if(mapofNameURI.get(key) != null) {
                 Map<String, String> nodeData = new HashMap<>();
                 nodeData.put("name", key);
                 nodeData.put("type", "CONCEPT");
