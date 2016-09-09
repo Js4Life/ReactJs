@@ -921,7 +921,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}
 
 	$scope.goConceptView = function () {
-		SharedService.currentView = 'CONCEPT';
+		SharedService.currentView = 'ALL_CONCEPT';
 		$state.go('landing.complianceDashboard.checklistViewer');
 	}
 
@@ -932,29 +932,45 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.initialize = function () {
 		$scope.isGridView = true;
 		$scope.currentColorCode = 'all';
+		$scope.breads = [];
 		$scope.exploreNode(SharedService.currentView);
 	}
 
 	$scope.exploreNode = function (nodeType, nodeId) {
 		$scope.searchText = "";
 		switch (nodeType) {
-			case "CONCEPT":
+			case "ALL_CONCEPT":
 				var compName = "ceclBaseNodeDetails";
-				SharedService.getFilteredDataByCompName(compName, 'FASB Concept').then(function (data) {
-					$scope.childNodes = data.data;
+				SharedService.getAllConcepts().then(function (data) {
+					if(data.status) {
+						$scope.childNodes = angular.fromJson(data.data);
+					}
 				});
 				break;
-			case "PARAGRAPH" :
-
-				break;
-			default :
-				SharedService.getAllTopics().then(function (data) {
-					if(data.status){
+			case "CONCEPT" :
+				SharedService.getParagraphsByConceptId(nodeId).then(function (data) {
+					if(data.status) {
 						$scope.childNodes = angular.fromJson(data.data);
 					}
 				});
 				break;
 		}
+	}
+
+	function insertBread(nodeType, nodeId){
+		if(!nodeType) {
+			$scope.breads = [];
+			var aBread = $scope.nodes[0];
+			aBread.data = {type: "", id: ""};
+			$scope.breads.push(aBread);
+			return;
+		} else if (nodeType === 'PARAGRAPH'){
+			return;
+		}
+		var idx = _.findIndex($scope.nodes, function (n) {return n.id === nodeType});
+		var aBread = $scope.nodes[idx+1];
+		aBread.data = {type: nodeType, id: nodeId};
+		$scope.breads.push(aBread);
 	}
 
 	$scope.getComplianceColorcode = function (obj) {

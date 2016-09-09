@@ -406,4 +406,40 @@ public class CeclController extends Controller{
         finalJson.put("status", status).put("data", data);
         return ok(finalJson.toString());
     }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result getParagraphsByConceptId() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final String id = request.getString("id");
+        JSONObject finalJson = new JSONObject();
+        Boolean status = true;
+        String data = null;
+        try {
+            ArrayList<HashMap<String, String>> res = lightHouseService.getParagraphBySectionId(id);
+            ObjectMapper mapper = new ObjectMapper();
+            data = mapper.writeValueAsString(res);
+        } catch(Exception e) {
+            status = false;
+            e.printStackTrace();
+        }
+        finalJson.put("status", status).put("data", data);
+        return ok(finalJson.toString());
+    }
+
+    public Result getAllConcepts() {
+        JSONObject finalJson = new JSONObject();
+        Boolean status = true;
+        String data = null;
+        try {
+            ArrayList<HashMap<String, String>> res = lightHouseService.getAllConcepts();
+            ObjectMapper mapper = new ObjectMapper();
+            data = mapper.writeValueAsString(res);
+        } catch(Exception e) {
+            status = false;
+            e.printStackTrace();
+        }
+        finalJson.put("status", status).put("data", data);
+        return ok(finalJson.toString());
+    }
 }

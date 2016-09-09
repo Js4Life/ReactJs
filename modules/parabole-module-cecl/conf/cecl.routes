@@ -103,6 +103,8 @@ POST /getRelatedVerticesByUri               com.parabole.cecl.application.contro
 # ---------------------------------------------------------------------------------
 
 GET /getAllTopics                           com.parabole.cecl.application.controllers.CeclController.getAllTopics()
+GET /getAllConcepts                         com.parabole.cecl.application.controllers.CeclController.getAllConcepts()
 POST /getSubtopicsByTopicId                 com.parabole.cecl.application.controllers.CeclController.getSubtopicsByTopicId()
 POST /getSectionsBySubtopicId               com.parabole.cecl.application.controllers.CeclController.getSectionsBySubtopicId()
 POST /getParagraphsBySectionId              com.parabole.cecl.application.controllers.CeclController.getParagraphsBySectionId()
+POST /getParagraphsByConceptId              com.parabole.cecl.application.controllers.CeclController.getParagraphsByConceptId()
