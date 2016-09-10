@@ -1,12 +1,24 @@
 <div class="panel panel-default">
   <div class="panel-heading" style="padding-bottom:9px" >
     <b>{{heading.title}}</b>
+    <div ng-show="currentView != 'SUMMERY'" class="right-inner-addon" style="display:inline-block;width:25%;margin-left:20px;">
+      <i class="glyphicon glyphicon-search"></i>
+      <input type="search" class="form-control input-sm" placeholder="Search from {{$$childTail.childNodes.length || 'following'}} items..." ng-model="parentSearchText" />
+    </div>
+    <div ng-show="currentView != 'SUMMERY'" class="btn-group pull-right" role="group">
+      <button ng-if="isGridView" type="button" class="btn btn-xs" ng-click="toggleView()">
+        <i class="fa fa-th-list" aria-hidden="true"></i>
+      </button>
+      <button ng-if="!isGridView" type="button" class="btn btn-xs" ng-click="toggleView()">
+        <i class="fa fa-th-large" aria-hidden="true"></i>
+      </button>
+    </div>
   </div>
   <div class="panel-body zero-padding">
     <ul class="nav nav-tabs">
-      <li class="active"><a class="pointer" data-toggle="tab" data-target="#summery">Summery View</a></li>
+      <li ng-click="goSummeryView()" class="active"><a class="pointer" data-toggle="tab" data-target="#summery">Summery View</a></li>
       <li ng-click="goConceptView()"><a class="pointer" data-toggle="tab" data-target="#concept">Glossary View</a></li>
-      <li><a class="pointer" data-toggle="tab" data-target="#component">Component View</a></li>
+      <li ng-click="goComponetView()"><a class="pointer" data-toggle="tab" data-target="#component">Component View</a></li>
       <li ng-click="goDocumentView()"><a class="pointer" data-toggle="tab" data-target="#document">Regulatory Content View</a></li>
     </ul>
 
@@ -26,11 +38,11 @@
           </div>
         </div>
       </div>
-      <div id="concept" class="tab-pane fade" style="padding-top:15px;">
+      <div id="concept" class="tab-pane fade">
         <ui-view></ui-view>
       </div>
-      <div id="component" class="tab-pane fade" style="padding-top:15px;">
-        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+      <div id="component" class="tab-pane fade">
+        <ui-view></ui-view>
       </div>
       <div id="document" class="tab-pane fade">
         <ui-view></ui-view>

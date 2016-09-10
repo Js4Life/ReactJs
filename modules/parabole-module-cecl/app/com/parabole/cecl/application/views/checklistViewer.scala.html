@@ -20,7 +20,7 @@
     </div>
   </ol>
   <div ng-if="isGridView">
-    <div ng-if="currentColorCode === child.colorCode || currentColorCode === 'all'" class="col-md-2" ng-repeat="child in childNodes track by $index" index="{{$index}}">
+    <div ng-if="currentColorCode === child.colorCode || currentColorCode === 'all'" class="col-md-2" ng-repeat="child in childNodes | orderBy : 'name' | filter: searchText" index="{{$index}}">
       <div class="panel panel-default" style="box-shadow: 1px 2px 7px #d8d8d8;">
         <div class="panel-body text-center zero-padding" ng-class="getComplianceColorcode(child)">
           <div style="font-weight: bold;font-size: 2.5em;opacity:0.4;">{{child.name.charAt(0)}}</div>
@@ -35,7 +35,7 @@
       <th>Status</th><th>{{breads[breads.length-1].name}}</th><th>Compliance</th><th></th>
     </thead>
     <tbody>
-      <tr ng-if="currentColorCode === child.colorCode || currentColorCode === 'all'" ng-repeat="child in childNodes track by $index" index="{{$index}}">
+      <tr ng-if="currentColorCode === child.colorCode || currentColorCode === 'all'" ng-repeat="child in childNodes | orderBy : 'name' | filter: searchText" index="{{$index}}">
         <td><i class="fa fa-circle" aria-hidden="true" ng-class="getComplianceColorcode(child)"></i></td>
         <td>{{child.name}}</td>
         <td class="pointer" ng-click="getChecklistByNode(child)">{{child.compliance || 0}}%</td>

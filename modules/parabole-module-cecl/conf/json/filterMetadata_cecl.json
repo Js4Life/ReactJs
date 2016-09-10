@@ -263,5 +263,17 @@
 		"groupByField" : "id",
 		"columns" :  ["id", "Topic", "SubTopic", "Section", "Paragraphid"],
 		"tagColumns" : ["Topic", "SubTopic", "Section"]
+	},
+	"allComponents" : {
+		"outputFormat":"table",
+		"source":"213",
+		"groupByField" : "component",
+		"columns" :  [{
+			"name" : "component",
+			"label" : "name"
+		},{
+			"name" : "Type",
+			"label" : "type"
+		}]
 	}
 }

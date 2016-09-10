@@ -196,7 +196,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.iniitialize();
 })
 
-.controller('homeCtrl', function($scope, $state, $timeout, $stateParams, SharedService, RiskAggregateService, graphService, MockService) {
+.controller('homeCtrl', function($scope, $state, $rootScope, $timeout, $stateParams, SharedService, RiskAggregateService, graphService, MockService) {
 	$scope.iniitialize = function( ){
 		$scope.heading = SharedService.primaryNav[0];
 		$scope.collapseSlide = {left: false};
@@ -223,6 +223,14 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
         }
 
 	}
+
+	$rootScope.$on('PARENTSEARCHTEXT', function (event, data) {
+		$scope.searchText = data;
+	});
+
+	$rootScope.$on('PARENTISGRIDVIEW', function (event, data) {
+		$scope.isGridView = data;
+	});
 
 	$scope.exploreNode = function (nodeType, nodeId) {
 		$scope.searchText = "";
@@ -885,9 +893,11 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
     $scope.initialize();  
 })
 
-.controller('complianceDashboardCtrl', function($scope, $state, $stateParams, SharedService, MockService) {
+.controller('complianceDashboardCtrl', function($scope, $rootScope, $state, $stateParams, SharedService, MockService) {
 	$scope.initialize = function () {
 		$scope.heading = {"title": "Compliance Dashboard"};
+		$scope.isGridView = true;
+		$scope.currentView = 'SUMMERY';
 		$scope.options = {
 			handlerData : {columnClick: "onColumnClick", scope: $scope},
 			colors : ['#04de72', '#00bfff', '#ffb935', '#d2d2d2'],
@@ -916,25 +926,52 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		}
 	}
 
+	$scope.goSummeryView = function () {
+		$scope.currentView = 'SUMMERY';
+	}
+
 	$scope.goDocumentView = function () {
+		$scope.currentView = 'DOCUMENT';
 		$state.go('landing.complianceDashboard.documentViewer');
 	}
 
 	$scope.goConceptView = function () {
-		SharedService.currentView = 'ALL_CONCEPT';
-		$state.go('landing.complianceDashboard.checklistViewer');
+		$scope.currentView = SharedService.currentView = 'ALL_CONCEPT';
+		$state.go('landing.complianceDashboard.checklistViewer', {currentView: $scope.currentView});
+	}
+
+	$scope.goComponetView = function () {
+		$scope.currentView = SharedService.currentView = 'COMPONENT';
+		$state.go('landing.complianceDashboard.checklistViewer', {currentView: $scope.currentView});
+	}
+
+	$scope.$watch('parentSearchText',function(newVal){
+		$rootScope.$emit('PARENTSEARCHTEXT', newVal);
+	});
+
+	$scope.toggleView = function () {
+		$scope.isGridView = !$scope.isGridView;
+		$rootScope.$emit('PARENTISGRIDVIEW', $scope.isGridView);
 	}
 
 	$scope.initialize();
 })
 
-.controller('checklistViewerCtrl', function($scope, $state, $stateParams, SharedService, MockService){
+.controller('checklistViewerCtrl', function($scope, $rootScope, $state, $stateParams, SharedService, MockService){
 	$scope.initialize = function () {
 		$scope.isGridView = true;
 		$scope.currentColorCode = 'all';
-		$scope.breads = [];
+		$scope.breads = [" "];
 		$scope.exploreNode(SharedService.currentView);
 	}
+
+	$rootScope.$on('PARENTSEARCHTEXT', function (event, data) {
+		$scope.searchText = data;
+	});
+
+	$rootScope.$on('PARENTISGRIDVIEW', function (event, data) {
+		$scope.isGridView = data;
+	});
 
 	$scope.exploreNode = function (nodeType, nodeId) {
 		$scope.searchText = "";
@@ -954,23 +991,12 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 					}
 				});
 				break;
+			case "COMPONENT" :
+				SharedService.getFilteredDataByCompName('allComponents').then(function (data) {
+					$scope.childNodes = data.data;
+				});
+				break;
 		}
-	}
-
-	function insertBread(nodeType, nodeId){
-		if(!nodeType) {
-			$scope.breads = [];
-			var aBread = $scope.nodes[0];
-			aBread.data = {type: "", id: ""};
-			$scope.breads.push(aBread);
-			return;
-		} else if (nodeType === 'PARAGRAPH'){
-			return;
-		}
-		var idx = _.findIndex($scope.nodes, function (n) {return n.id === nodeType});
-		var aBread = $scope.nodes[idx+1];
-		aBread.data = {type: nodeType, id: nodeId};
-		$scope.breads.push(aBread);
 	}
 
 	$scope.getComplianceColorcode = function (obj) {
@@ -985,6 +1011,10 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			obj.colorCode = "gray";
 		}
 		return $scope.isGridView ? ('bg-' + obj.colorCode) : ('text-' + obj.colorCode);
+	}
+
+	$scope.setColorCode = function (colorCode) {
+		$scope.currentColorCode = colorCode;
 	}
 
 	$scope.initialize();
