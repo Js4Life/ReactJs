@@ -2,45 +2,45 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-GET /getRawBindingDataValues/:fileName                    com.parabole.feed.application.controllers.FeedController.getRawBindingDataValues(fileName: String)
-GET /getTheassignments                                    com.parabole.feed.application.controllers.FeedController.getTheassignments()
-GET /saveListOfSentenceLocationsAgainstAllConcepts        com.parabole.feed.application.controllers.FeedController.saveListOfSentenceLocationsAgainstAllConcepts()
-GET /startContentParser/:fileName                         com.parabole.feed.application.controllers.FeedController.startContentParser(fileName: String)
-GET /getParagraphsByContent/:fileName                     com.parabole.feed.application.controllers.FeedController.getParagraphsByContent(fileName: String)
+GET /getRawBindingDataValues/:fileName                 com.parabole.feed.application.controllers.FeedController.getRawBindingDataValues(fileName: String)
+GET /getTheassignments                                 com.parabole.feed.application.controllers.FeedController.getTheassignments()
+GET /saveListOfSentenceLocationsAgainstAllConcepts     com.parabole.feed.application.controllers.FeedController.saveListOfSentenceLocationsAgainstAllConcepts()
+GET /startContentParser/:fileName                      com.parabole.feed.application.controllers.FeedController.startContentParser(fileName: String)
+GET /getParagraphsByContent/:fileName                  com.parabole.feed.application.controllers.FeedController.getParagraphsByContent(fileName: String)
 
 ### --------------------------------------------------------------------    TEST    --------------------------------------------------------
 
-GET /addQuestion                      com.parabole.feed.application.controllers.ParagraphOperationsController.addQuestion()
-GET /saveQuestion                     com.parabole.feed.application.controllers.ParagraphOperationsController.saveQuestion()
-GET /saveParagraph                    com.parabole.feed.application.controllers.ParagraphOperationsController.saveParagraph()
-GET /getQuestion                      com.parabole.feed.application.controllers.ParagraphOperationsController.getQuestion()
-GET /getParagraph                     com.parabole.feed.application.controllers.ParagraphOperationsController.getParagraph()
-GET /getAllParagraphsByTag/:tagInput  com.parabole.feed.application.controllers.ParagraphOperationsController.getAllParagraphsByTag(tagInput: String)
-GET /getParagraphsByParagraphid       com.parabole.feed.application.controllers.ParagraphOperationsController.getParagraphsByParagraphid()
-GET /addAnswer                        com.parabole.feed.application.controllers.ParagraphOperationsController.addAnswer()
-GET /questionAgainstParagraphId/:pid  com.parabole.feed.application.controllers.ParagraphOperationsController.questionAgainstParagraphId(pid: String)
+GET /addQuestion                                       com.parabole.feed.application.controllers.ParagraphOperationsController.addQuestion()
+GET /saveQuestion                                      com.parabole.feed.application.controllers.ParagraphOperationsController.saveQuestion()
+GET /saveParagraph                                     com.parabole.feed.application.controllers.ParagraphOperationsController.saveParagraph()
+GET /getQuestion                                       com.parabole.feed.application.controllers.ParagraphOperationsController.getQuestion()
+GET /getParagraph                                      com.parabole.feed.application.controllers.ParagraphOperationsController.getParagraph()
+GET /getAllParagraphsByTag/:tagInput                   com.parabole.feed.application.controllers.ParagraphOperationsController.getAllParagraphsByTag(tagInput: String)
+GET /getParagraphsByParagraphid                        com.parabole.feed.application.controllers.ParagraphOperationsController.getParagraphsByParagraphid()
+GET /addAnswer                                         com.parabole.feed.application.controllers.ParagraphOperationsController.addAnswer()
+GET /questionAgainstParagraphId/:pid                   com.parabole.feed.application.controllers.ParagraphOperationsController.questionAgainstParagraphId(pid: String)
 GET /questionAgainstConceptNameComponentTypeComponentName/:conceptName/:componentType/:componentName                     com.parabole.feed.application.controllers.ParagraphOperationsController.questionAgainstConceptNameComponentTypeComponentName(conceptName: String, componentType: String, componentName: String)
 
 
 ##------ TDB
-GET /jenaTdbFetching/:fileIdentification   com.parabole.feed.application.controllers.JenaTdbController.jenaTdbFetching(fileIdentification: String)
+GET /jenaTdbFetching/:fileIdentification               com.parabole.feed.application.controllers.JenaTdbController.jenaTdbFetching(fileIdentification: String)
 
 
 ## Graph Db Test
 #---------------------------------------
-GET /createLightHouse                       com.parabole.feed.application.controllers.ParagraphOperationsController.createLightHouse()
+GET /createLightHouse                                  com.parabole.feed.application.controllers.ParagraphOperationsController.createLightHouse()
 
 
 ## Document parsing operation
 #---------------------------------------
-GET /documentParsing/:fileName                          com.parabole.feed.application.controllers.DocumentController.documentParsing(fileName : String)
-GET /getNodesFromParagraphJSon                                   com.parabole.feed.application.controllers.DocumentController.getNodesFromParagraphJSon()
+GET /documentParsing/:fileName                         com.parabole.feed.application.controllers.DocumentController.documentParsing(fileName : String)
+GET /getNodesFromParagraphJSon                         com.parabole.feed.application.controllers.DocumentController.getNodesFromParagraphJSon()
 
 
 ## Check List Operation Test
 #---------------------------------------
-GET /saveOrUpdateCheckList                                   com.parabole.feed.application.controllers.ParagraphOperationsController.saveOrUpdateCheckList()
-GET /getCheckListById                                   com.parabole.feed.application.controllers.ParagraphOperationsController.getCheckListById()
+GET /saveOrUpdateCheckList                             com.parabole.feed.application.controllers.ParagraphOperationsController.saveOrUpdateCheckList()
+GET /getCheckListById                                  com.parabole.feed.application.controllers.ParagraphOperationsController.getCheckListById()
 GET /removeCheckList                                   com.parabole.feed.application.controllers.ParagraphOperationsController.removeCheckList()
 #---------------------------------------
 
@@ -54,16 +54,16 @@ GET /createNewSection                                   com.parabole.feed.applic
 GET /createRelationBetweenTwoNodes                      com.parabole.feed.application.controllers.ParagraphOperationsController.createRelationBetweenTwoNodes()
 #-----
 GET /getAlltopic                                        com.parabole.feed.application.controllers.ParagraphOperationsController.getAlltopic()
-GET /getAllConcepts                                        com.parabole.feed.application.controllers.ParagraphOperationsController.getAllConcepts()
+GET /getAllConcepts                                     com.parabole.feed.application.controllers.ParagraphOperationsController.getAllConcepts()
 GET /getSubtopicsByTopicId/:nodeId                      com.parabole.feed.application.controllers.ParagraphOperationsController.getSubtopicsByTopicId(nodeId: String)
 GET /getParagraphBySectionId/:nodeId                    com.parabole.feed.application.controllers.ParagraphOperationsController.getParagraphBySectionId(nodeId: String)
-GET /getParagraphByParagraphId/:nodeId                    com.parabole.feed.application.controllers.ParagraphOperationsController.getParagraphBySectionId(nodeId: String)
+GET /getParagraphByParagraphId/:nodeId                  com.parabole.feed.application.controllers.ParagraphOperationsController.getParagraphBySectionId(nodeId: String)
 #-----
-GET /addAnewVertexproperty                             com.parabole.feed.application.controllers.ParagraphOperationsController.addAnewVertexproperty()
+GET /addAnewVertexproperty                              com.parabole.feed.application.controllers.ParagraphOperationsController.addAnewVertexproperty()
 #-----
 GET /saveAllTopicsSubTopics/:fileName                   com.parabole.feed.application.controllers.FeedController.getAllTopicsSubTopics(fileName: String)
 GET /saveSectionsFromParagraphJSon                      com.parabole.feed.application.controllers.FeedController.saveSectionsFromParagraphJSon()
-GET /createConceptNodesAndAssignParagraph                    com.parabole.feed.application.controllers.FeedController.createConceptNodesFromParagraph()
+GET /createConceptNodesAndAssignParagraph               com.parabole.feed.application.controllers.FeedController.createConceptNodesFromParagraph()
 #-----
 
 
@@ -73,4 +73,4 @@ GET /createConceptNodesAndAssignParagraph                    com.parabole.feed.a
 
 
 # Map static resources from the /public folder to the /assets URL path
-GET      /feedassets/*file        controllers.Assets.at(path="/public/lib/parabole-module-feed", file)
+GET      /feedassets/*file                              controllers.Assets.at(path="/public/lib/parabole-module-feed", file)
