@@ -476,4 +476,18 @@ public class TaggingUtilitiesServices {
         String sectionName = jsobject.getString(sectionId);
         return sectionName;
     }
+
+    public String createComponentTypseAndAssignParagraph() throws Exception {
+
+
+        JSONObject allConceptNodesDetails = jenaTdbService.getFilteredDataByCompName("componentTypes", null);
+        JSONArray jsonArray = allConceptNodesDetails.getJSONArray("data");
+
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject oneElement = jsonArray.getJSONObject(i);
+            System.out.println("oneElement.getString(\"concept\") = ---------------------------->" + oneElement.getString("concept"));
+            System.out.println("ComponentType --- > ComponentName = " + oneElement.getString("concept"));
+        }
+        return allConceptNodesDetails.toString();
+    }
 }

@@ -226,5 +226,23 @@
 			"name" : "reportName",
 			"label" : "name"
 		}]
+	},
+	"componentTypes" : {
+		"outputFormat":"hierarchy",
+		"source":"212",
+		"groupByField" : "concept",
+		"columns" :  [{
+			"name" : "concept",
+			"label" : "concept"
+		},{
+			"name" : "Area",
+			"label" : "Area"
+		},{
+			"name" : "Type",
+			"label" : "Type"
+		},{
+			"name" : "Typename",
+			"label" : "Typename"
+		}]
 	}
 }
