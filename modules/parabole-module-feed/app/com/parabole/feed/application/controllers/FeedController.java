@@ -67,6 +67,16 @@ public class FeedController extends BaseController{
         return ok(result);
     }
 
+    public Result createComponentTypseAndAssignToConcept() throws Exception {
+        final String result = taggingUtilitiesServices.createComponentTypseAndAssignToConcept();
+        return ok(result);
+    }
+
+    public Result createComponentAndAssignToComponentType() throws Exception {
+        final String result = taggingUtilitiesServices.createComponentAndAssignToComponentType();
+        return ok(result);
+    }
+
     public Result createConceptComponent() throws Exception {
 
         final String result = taggingUtilitiesServices.saveSectionsFromParagraphJSon();

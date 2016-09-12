@@ -226,5 +226,38 @@
 			"name" : "reportName",
 			"label" : "name"
 		}]
+	},
+	"componentTypes" : {
+		"outputFormat":"hierarchy",
+		"source":"212",
+		"groupByField" : "concept",
+		"columns" :  [{
+			"name" : "concept",
+			"label" : "concept"
+		},{
+			"name" : "Area",
+			"label" : "Area"
+		},{
+			"name" : "Type",
+			"label" : "Type"
+		},{
+			"name" : "Typename",
+			"label" : "Typename"
+		}]
+	},
+	"components" : {
+		"outputFormat":"hierarchy",
+		"source":"213",
+		"groupByField" : "Type",
+		"columns" :  [{
+			"name" : "Type",
+			"label" : "Type"
+		},{
+			"name" : "component",
+			"label" : "component"
+		},{
+			"name" : "comp",
+			"label" : "comp"
+		}]
 	}
 }
