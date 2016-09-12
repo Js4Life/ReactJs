@@ -16,14 +16,14 @@
   </div>
   <div class="panel-body zero-padding">
     <ul class="nav nav-tabs">
-      <li ng-click="goSummeryView()" class="active"><a class="pointer" data-toggle="tab" data-target="#summery">Summery View</a></li>
-      <li ng-click="goConceptView()"><a class="pointer" data-toggle="tab" data-target="#concept">Glossary View</a></li>
-      <li ng-click="goComponetView()"><a class="pointer" data-toggle="tab" data-target="#component">Component View</a></li>
-      <li ng-click="goDocumentView()"><a class="pointer" data-toggle="tab" data-target="#document">Regulatory Content View</a></li>
+      <li class="active"><a ng-click="goSummeryView()" class="pointer" data-toggle="tab" data-target="#summeryTab">Summery View</a></li>
+      <li><a ng-click="goConceptView()" class="pointer" data-toggle="tab" data-target="#commonTab">Glossary View</a></li>
+      <li><a ng-click="goComponetView()" class="pointer" data-toggle="tab" data-target="#commonTab">Component View</a></li>
+      <li><a ng-click="goDocumentView()" class="pointer" data-toggle="tab" data-target="#commonTab">Regulatory Content View</a></li>
     </ul>
 
     <div class="tab-content">
-      <div id="summery" class="tab-pane fade in active" style="height: 76vh;overflow-y: auto;padding:10px;">
+      <div id="summeryTab" class="tab-pane fade in active" style="height: 76vh;overflow-y: auto;padding:10px;">
         <div class="col-md-4">
           <div class="card">
             <div class="card-body pointer">
@@ -38,15 +38,10 @@
           </div>
         </div>
       </div>
-      <div id="concept" class="tab-pane fade">
+      <div id="commonTab" class="tab-pane fade">
         <ui-view></ui-view>
       </div>
-      <div id="component" class="tab-pane fade">
-        <ui-view></ui-view>
-      </div>
-      <div id="document" class="tab-pane fade">
-        <ui-view></ui-view>
-      </div>
+
     </div>
   </div>
 </div>

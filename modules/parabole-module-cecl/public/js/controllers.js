@@ -932,6 +932,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 	$scope.goDocumentView = function () {
 		$scope.currentView = 'DOCUMENT';
+
 		$state.go('landing.complianceDashboard.documentViewer');
 	}
 
@@ -960,8 +961,17 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 .controller('checklistViewerCtrl', function($scope, $rootScope, $state, $stateParams, SharedService, MockService){
 	$scope.initialize = function () {
 		$scope.isGridView = true;
+		$scope.showGraph = false;
 		$scope.currentColorCode = 'all';
 		$scope.breads = [" "];
+		$scope.visOptions = {
+			labelField:'name',
+			handlerData: { click : $scope.clickNode, scope : $scope },
+			nodeShape: 'image',
+			nodeImageMap: SharedService.graphImageMap,
+			nodeImageField: "type",
+			hier: false
+		};
 		$scope.exploreNode(SharedService.currentView);
 	}
 
@@ -975,6 +985,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 	$scope.exploreNode = function (nodeType, nodeId) {
 		$scope.searchText = "";
+		$scope.showGraph = false;
 		switch (nodeType) {
 			case "ALL_CONCEPT":
 				var compName = "ceclBaseNodeDetails";
@@ -985,11 +996,13 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				});
 				break;
 			case "CONCEPT" :
-				SharedService.getParagraphsByConceptId(nodeId).then(function (data) {
+				/*SharedService.getParagraphsByConceptId(nodeId).then(function (data) {
 					if(data.status) {
 						$scope.childNodes = angular.fromJson(data.data);
 					}
-				});
+				});*/
+				$scope.currentNode = _.findWhere($scope.childNodes, {"elementID": nodeId});
+				$scope.getComponentsByConceptName($scope.currentNode.name);
 				break;
 			case "COMPONENT" :
 				SharedService.getFilteredDataByCompName('allComponents').then(function (data) {
@@ -997,6 +1010,58 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				});
 				break;
 		}
+	}
+
+	$scope.getComponentsByConceptName = function (nodeName) {
+		var compName = "ceclComponentsByConcept";
+		SharedService.getFilteredDataByCompName(compName, nodeName).then(function (data) {
+			var nodes = data.data;
+			$scope.nodeDetails = _.groupBy(nodes, "type");
+			getGraphByConceptUri();
+			SharedService.getDescriptionByUri($scope.currentNode.elementID).then(function (description) {
+				$scope.currentNode.description = description;
+				$('#dsViewer').modal('show');
+			});
+		});
+	}
+
+	function getGraphByConceptUri(currentNode) {
+		var rootNode = {name: $scope.currentNode.name, id: $scope.currentNode.elementID, type: "concept"};
+		$scope.graphData = {nodes: [rootNode], edges: []};
+		angular.forEach($scope.nodeDetails, function (val, key) {
+			angular.forEach(val, function (aNode, idx) {
+				var node = {name: aNode.name, id: aNode.link, type: key.toLowerCase()};
+				var edge = {from: rootNode.id, to: node.id};
+				$scope.graphData.nodes.push(node);
+				$scope.graphData.edges.push(edge);
+			});
+		});
+	}
+
+	$scope.getGraph = function () {
+		$scope.showGraph = !$scope.showGraph;
+	}
+
+	$scope.clickNode = function (nodeId) {
+		if( !nodeId ) return;
+		$scope.currentGraphNode = $scope.viz.findNodeById( nodeId );
+		SharedService.getDescriptionByUri(nodeId).then(function (description) {
+			$scope.currentGraphNode.desc = description;
+			if($scope.currentGraphNode.desc.definition){
+				$('#dsViewer').modal('hide');
+				$('#definitionViewer').modal('show');
+			}
+		});
+	}
+
+	$scope.viewDefinitionLink = function(){
+		window.open($scope.currentGraphNode.desc.definitionlink);
+	}
+
+	$scope.closeDsViewer = function(){
+		$scope.currentGraphNodeDesc = null;
+		$('#definitionViewer').modal('hide');
+		$('#dsViewer').modal('show');
 	}
 
 	$scope.getComplianceColorcode = function (obj) {

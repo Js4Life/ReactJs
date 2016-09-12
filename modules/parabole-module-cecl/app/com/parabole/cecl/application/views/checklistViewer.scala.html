@@ -65,3 +65,99 @@
     </div>
   </div>
 </div>
+
+
+
+
+
+<div class="modal fade bs-example-modal-lg" id="dsViewer" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" style="width:92%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">{{currentNode.name}}&nbsp({{currentNode.type}})</h4>
+        <i ng-click="getGraph()" class="fa pull-right" ng-class="{'fa-th-large':showGraph, 'fa-sitemap':!showGraph}" aria-hidden="true" style="margin: -22px 30px;"></i>
+        @*<i class="fa fa-paragraph pull-right" aria-hidden="true" ng-click="goChecklistBuilder()" style="margin: -22px 60px;"></i>*@
+      </div>
+      <div class="modal-body" style="height: 66vh; overflow: auto;padding-bottom: 0;">
+        <div ng-if="!showGraph">
+          <div class="row zero-padding">
+            <div class="col-md-12">
+              <textarea ng-if="currentNode.description.definition" ng-disabled="true" ng-model="currentNode.description.definition" rows="4" cols="40" style="border:none;width:100%;padding:10px;">
+
+              </textarea>
+            </div>
+          </div>
+          <br />
+          <div class="row zero-padding">
+            <div class="col-md-2" ng-repeat="(k, v) in nodeDetails">
+              <div class="panel panel-default" ng-if="k==='Related Concept'">
+                <div class="panel-heading">{{k}}</div>
+                <ul class="list-group" style="max-height: 40vh; overflow: auto;">
+                  <li class="list-group-item pointer text-primary" ng-repeat="o in v" ng-click="getComponentsByConceptName(o.name)">{{o.name}}</li>
+                </ul>
+              </div>
+              <div class="panel panel-default" ng-if="k!='Related Concept'">
+                <div class="panel-heading">{{k}}</div>
+                <ul class="list-group" style="max-height: 40vh; overflow: auto;">
+                  <li class="list-group-item" ng-repeat="o in v">
+                    <span tooltip='"title":"View Checklist", "placement":"right"' class="badge pointer" ng-click="getCheckList(currentNode.name, k, o.name)">?</span>
+                    {{o.name}}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <vis-graph ng-if="showGraph" data="graphData" options="visOptions"></vis-graph>
+      </div>
+      <div style="height:5vh;position:absolute;right:10px;bottom:70px;" ng-if="showGraph">
+        <div class="legend">
+          <div class="arrow concept"></div>
+          <div class="bubble-title">Concept</div>
+          <div class="arrow report"></div>
+          <div class="bubble-title">Report</div>
+          <div class="arrow policy"></div>
+          <div class="bubble-title">Policy</div>
+          <div class="arrow person"></div>
+          <div class="bubble-title">Person</div>
+          <div class="arrow model"></div>
+          <div class="bubble-title">Model</div>
+          <div class="arrow committee"></div>
+          <div class="bubble-title">Committee</div>
+          <div class="arrow information"></div>
+          <div class="bubble-title">Information</div>
+          <div class="arrow system"></div>
+          <div class="bubble-title">Information</div>
+          <div class="arrow paragraph"></div>
+          <div class="bubble-title">System</div>
+          <div class="arrow data"></div>
+          <div class="bubble-title">Data Element</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="definitionViewer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">{{currentGraphNode.name}}</h4>
+      </div>
+      <div class="modal-body">
+        <textarea ng-disabled="true" ng-model="currentGraphNode.desc.definition" rows="10" cols="40" style="border:none;width:100%;">
+
+        </textarea>
+        <br />
+        <a class="pointer" ng-if="currentGraphNode.desc.definitionlink" ng-click="viewDefinitionLink()">Read More...</a>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="closeDsViewer()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
