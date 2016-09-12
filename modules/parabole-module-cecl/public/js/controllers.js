@@ -203,15 +203,6 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$scope.collapseClasses = {left: "col-xs-2 menu-back slide-container", center: "col-xs-10"};
 		$scope.nodes = MockService.CeclBaseNodes;
 		$scope.breads = SharedService.homeBreads || [];
-		$scope.showGraph = false;
-		$scope.visOptions = {
-			labelField:'name',
-			handlerData: { click : $scope.clickNode, scope : $scope },
-			nodeShape: 'image',
-			nodeImageMap: SharedService.graphImageMap,
-			nodeImageField: "type",
-			hier: false
-		};
 		$scope.answers = {};
 		$scope.currentColorCode = 'all';
         $scope.isGridView = true;
@@ -311,45 +302,6 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		scaleSlides();
 	}
 
-	$scope.getGraph = function () {
-		$scope.showGraph = !$scope.showGraph;
-	}
-
-	$scope.clickNode = function (nodeId) {
-		if( !nodeId ) return;
-		$scope.currentGraphNode = $scope.viz.findNodeById( nodeId );
-		SharedService.getDescriptionByUri(nodeId).then(function (description) {
-			$scope.currentGraphNode.desc = description;
-			if($scope.currentGraphNode.desc.definition){
-				$('#dsViewer').modal('hide');
-				$('#definitionViewer').modal('show');
-			}
-		});
-	}
-
-	$scope.viewDefinitionLink = function(){
-		window.open($scope.currentGraphNode.desc.definitionlink);
-	}
-
-	$scope.closeDsViewer = function(){
-		$scope.currentGraphNodeDesc = null;
-		$('#definitionViewer').modal('hide');
-		$('#dsViewer').modal('show');
-	}
-
-	function getGraphByConceptUri() {
-		var rootNode = {name: $scope.currentNode.name, id: $scope.currentNode.link, type: "concept"};
-		$scope.graphData = {nodes: [rootNode], edges: []};
-		angular.forEach($scope.nodeDetails, function (val, key) {
-			angular.forEach(val, function (aNode, idx) {
-				var node = {name: aNode.name, id: aNode.link, type: key.toLowerCase()};
-				var edge = {from: rootNode.id, to: node.id};
-				$scope.graphData.nodes.push(node);
-				$scope.graphData.edges.push(edge);
-			});
-		});
-	}
-
 	function scaleSlides(){
 		var slide = $scope.collapseSlide;
 		var classes = $scope.collapseClasses;
@@ -364,33 +316,6 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}
 
 	$scope.iniitialize();
-	
-	$scope.goChecklistBuilder = function () {
-		$('#dsViewer').modal('hide');
-		var compName = "ceclGenericComponentsByConcept";
-		SharedService.getFilteredDataByCompName(compName, $scope.currentNode.name).then(function (data) {
-			var nodes = data.data;
-			var currentConcept = angular.copy($scope.currentNode);
-			var rawNodeDetails = _.reject(nodes, function (n) { return n.type === 'Related Concept'	});
-			currentConcept.components = angular.copy(rawNodeDetails);
-			SharedService.currentConcept = currentConcept;
-			$state.go('landing.checklistBuilder');
-		});
-	}
-
-	$scope.getCheckList = function (conceptName, componentType, componentName) {
-		SharedService.getChecklistByConceptAndComponent(conceptName, componentType, componentName).then(function (data) {
-			var status = data.data.status;
-			if(status.haveData) {
-				$scope.checkList = data.data.questions;
-				$scope.answers = data.data.answers;
-				$('#dsViewer').modal('hide');
-				$('#checklistModal').modal('show');
-			} else{
-				toastr.warning('No checklist found for ' + componentName);
-			}
-		});
-	}
 
 	$scope.getChecklistByNode = function (node) {
 		$scope.currentNode = node;
@@ -487,6 +412,32 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
         $scope.isGridView = !$scope.isGridView;
     }
 
+	/*$scope.goChecklistBuilder = function () {
+	 $('#dsViewer').modal('hide');
+	 var compName = "ceclGenericComponentsByConcept";
+	 SharedService.getFilteredDataByCompName(compName, $scope.currentNode.name).then(function (data) {
+	 var nodes = data.data;
+	 var currentConcept = angular.copy($scope.currentNode);
+	 var rawNodeDetails = _.reject(nodes, function (n) { return n.type === 'Related Concept'	});
+	 currentConcept.components = angular.copy(rawNodeDetails);
+	 SharedService.currentConcept = currentConcept;
+	 $state.go('landing.checklistBuilder');
+	 });
+	 }
+
+	 $scope.getCheckList = function (conceptName, componentType, componentName) {
+	 SharedService.getChecklistByConceptAndComponent(conceptName, componentType, componentName).then(function (data) {
+	 var status = data.data.status;
+	 if(status.haveData) {
+	 $scope.checkList = data.data.questions;
+	 $scope.answers = data.data.answers;
+	 $('#dsViewer').modal('hide');
+	 $('#checklistModal').modal('show');
+	 } else{
+	 toastr.warning('No checklist found for ' + componentName);
+	 }
+	 });
+	 }*/
 
 	/*$scope.getFilteredDataByCompName = function (nodeName, currentNode, index) {
 		if(!currentNode){
@@ -715,9 +666,6 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$scope.doParaTag = true;
         $scope.currentTag = 'all';
 		$scope.paraTags = {};
-		/*SharedService.getParagraphsByConcept($scope.currentConcept.name).then(function (data) {
-			$scope.paragraphs = angular.fromJson(data.data);
-		});*/
 		$scope.paragraphs = SharedService.paragraphs;
 		setParagraphTags();
 	}
@@ -932,7 +880,6 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 	$scope.goDocumentView = function () {
 		$scope.currentView = 'DOCUMENT';
-
 		$state.go('landing.complianceDashboard.documentViewer');
 	}
 
@@ -943,6 +890,11 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 	$scope.goComponetView = function () {
 		$scope.currentView = SharedService.currentView = 'COMPONENT';
+		$state.go('landing.complianceDashboard.checklistViewer', {currentView: $scope.currentView});
+	}
+
+	$scope.goBusinessSegmentView = function () {
+		$scope.currentView = SharedService.currentView = 'BUSINESS_SEGMENT';
 		$state.go('landing.complianceDashboard.checklistViewer', {currentView: $scope.currentView});
 	}
 
@@ -1008,6 +960,9 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				SharedService.getFilteredDataByCompName('allComponents').then(function (data) {
 					$scope.childNodes = data.data;
 				});
+				break;
+			case "BUSINESS_SEGMENT" :
+
 				break;
 		}
 	}
