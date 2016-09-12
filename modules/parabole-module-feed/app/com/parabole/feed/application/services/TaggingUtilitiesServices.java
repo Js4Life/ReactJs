@@ -529,4 +529,11 @@ public class TaggingUtilitiesServices {
 
         return " {status : saved} ";
     }
+
+
+
+    public String createBusinesSegmentAndAssignComponent() throws Exception {
+
+        return null;
+    }
 }

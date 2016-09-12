@@ -120,6 +120,17 @@ public class LightHouseService {
         return result;
     }
 
+    public ArrayList<HashMap<String, String>> getAllVertexesByType(String vertexType){
+
+        ArrayList<HashMap<String, String>> result=null;
+        try {
+            result = lightHouse.getAllvertex(vertexType);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
     public ArrayList<HashMap<String, String>> getSubtopicsByTopicId(String topicId){
 
         ArrayList<HashMap<String, String>> result=null;

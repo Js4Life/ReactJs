@@ -53,6 +53,7 @@ GET /createNewSubtopic                                  com.parabole.feed.applic
 GET /createNewSection                                   com.parabole.feed.application.controllers.ParagraphOperationsController.createNewSection()
 GET /createRelationBetweenTwoNodes                      com.parabole.feed.application.controllers.ParagraphOperationsController.createRelationBetweenTwoNodes()
 #-----
+GET /getAllComponents                                   com.parabole.feed.application.controllers.ParagraphOperationsController.getAllComponents()
 GET /getAlltopic                                        com.parabole.feed.application.controllers.ParagraphOperationsController.getAlltopic()
 GET /getAllConcepts                                     com.parabole.feed.application.controllers.ParagraphOperationsController.getAllConcepts()
 GET /getSubtopicsByTopicId/:nodeId                      com.parabole.feed.application.controllers.ParagraphOperationsController.getSubtopicsByTopicId(nodeId: String)
@@ -68,6 +69,7 @@ GET /saveSectionsFromParagraphJSon                      com.parabole.feed.applic
 GET /createConceptNodesAndAssignParagraph               com.parabole.feed.application.controllers.FeedController.createConceptNodesFromParagraph()
 GET /createComponentTypseAndAssignToConcept             com.parabole.feed.application.controllers.FeedController.createComponentTypseAndAssignToConcept()
 GET /createComponentAndAssignToComponentType            com.parabole.feed.application.controllers.FeedController.createComponentAndAssignToComponentType()
+GET /createBusinesSegmentAndAssignComponent             com.parabole.feed.application.controllers.FeedController.createBusinesSegmentAndAssignComponent()
 #-----
 
 
