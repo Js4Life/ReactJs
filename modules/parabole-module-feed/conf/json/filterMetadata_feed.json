@@ -244,5 +244,20 @@
 			"name" : "Typename",
 			"label" : "Typename"
 		}]
+	},
+	"components" : {
+		"outputFormat":"hierarchy",
+		"source":"213",
+		"groupByField" : "Type",
+		"columns" :  [{
+			"name" : "Type",
+			"label" : "Type"
+		},{
+			"name" : "component",
+			"label" : "component"
+		},{
+			"name" : "comp",
+			"label" : "comp"
+		}]
 	}
 }

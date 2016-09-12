@@ -477,7 +477,7 @@ public class TaggingUtilitiesServices {
         return sectionName;
     }
 
-    public String createComponentTypseAndAssignParagraph() throws Exception {
+    public String createComponentTypseAndAssignToConcept() throws Exception {
 
 
         JSONObject allConceptNodesDetails = jenaTdbService.getFilteredDataByCompName("componentTypes", null);
@@ -485,9 +485,48 @@ public class TaggingUtilitiesServices {
 
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject oneElement = jsonArray.getJSONObject(i);
-            System.out.println("oneElement.getString(\"concept\") = ---------------------------->" + oneElement.getString("concept"));
-            System.out.println("ComponentType --- > ComponentName = " + oneElement.getString("concept"));
+            //System.out.println("oneElement.getString(\"concept\") = ---------------------------->" + oneElement.getString("concept"));
+            //System.out.println("ComponentType --- > ComponentName = " + oneElement.getString("concept"));
+
+            if(oneElement.getString("concept") != null && oneElement.getString("Type") != null) {
+                Map<String, String> nodeData = new HashMap<>();
+                nodeData.put("name", oneElement.getString("Typename"));
+                nodeData.put("type", "COMPONENTTYPE");
+                nodeData.put("elementID", oneElement.getString("Type"));
+                lightHouse.createNewVertex(nodeData);
+                // created
+
+                lightHouse.establishEdgeByVertexIDs(oneElement.getString("concept"), oneElement.getString("Type"), "conceptToComponentType", "conceptToComponentType");
+            }
         }
-        return allConceptNodesDetails.toString();
+        return " {status : saved} ";
+    }
+
+
+
+    public String createComponentAndAssignToComponentType() throws Exception {
+
+        JSONObject allConceptNodesDetails = jenaTdbService.getFilteredDataByCompName("components", null);
+        JSONArray jsonArray = allConceptNodesDetails.getJSONArray("data");
+
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject oneElement = jsonArray.getJSONObject(i);
+            System.out.println("oneElement.getString(\"concept\") = ---------------------------->" + oneElement.getString("Type"));
+            System.out.println("ComponentType --- > ComponentName1 = " + oneElement.getString("comp"));
+
+            if(oneElement.getString("comp") != null && oneElement.getString("Type") != null) {
+                Map<String, String> nodeData = new HashMap<>();
+                nodeData.put("name", oneElement.getString("component"));
+                nodeData.put("type", "COMPONENT");
+                nodeData.put("elementID", oneElement.getString("comp"));
+                lightHouse.createNewVertex(nodeData);
+                lightHouse.establishEdgeByVertexIDs(oneElement.getString("Type"), oneElement.getString("comp"), "componentTypeToComponent", "componentTypeToComponent");
+
+            }
+
+
+        }
+
+        return " {status : saved} ";
     }
 }

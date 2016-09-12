@@ -58,13 +58,16 @@ GET /getAllConcepts                                     com.parabole.feed.applic
 GET /getSubtopicsByTopicId/:nodeId                      com.parabole.feed.application.controllers.ParagraphOperationsController.getSubtopicsByTopicId(nodeId: String)
 GET /getParagraphBySectionId/:nodeId                    com.parabole.feed.application.controllers.ParagraphOperationsController.getParagraphBySectionId(nodeId: String)
 GET /getParagraphByParagraphId/:nodeId                  com.parabole.feed.application.controllers.ParagraphOperationsController.getParagraphBySectionId(nodeId: String)
+GET /getcomponetsByComponentTypes/:nodeId               com.parabole.feed.application.controllers.ParagraphOperationsController.getParagraphBySectionId(nodeId: String)
+GET /getcomponettypesByConcepts/:nodeId                 com.parabole.feed.application.controllers.ParagraphOperationsController.getParagraphBySectionId(nodeId: String)
 #-----
 GET /addAnewVertexproperty                              com.parabole.feed.application.controllers.ParagraphOperationsController.addAnewVertexproperty()
 #-----
 GET /saveAllTopicsSubTopics/:fileName                   com.parabole.feed.application.controllers.FeedController.getAllTopicsSubTopics(fileName: String)
 GET /saveSectionsFromParagraphJSon                      com.parabole.feed.application.controllers.FeedController.saveSectionsFromParagraphJSon()
 GET /createConceptNodesAndAssignParagraph               com.parabole.feed.application.controllers.FeedController.createConceptNodesFromParagraph()
-GET /createComponentTypseAndAssignParagraph             com.parabole.feed.application.controllers.FeedController.createComponentTypseAndAssignParagraph()
+GET /createComponentTypseAndAssignToConcept             com.parabole.feed.application.controllers.FeedController.createComponentTypseAndAssignToConcept()
+GET /createComponentAndAssignToComponentType            com.parabole.feed.application.controllers.FeedController.createComponentAndAssignToComponentType()
 #-----
 
 
