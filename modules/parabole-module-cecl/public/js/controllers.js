@@ -889,7 +889,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}
 
 	$scope.goComponetView = function () {
-		$scope.currentView = SharedService.currentView = 'COMPONENT';
+		$scope.currentView = SharedService.currentView = 'ALL_COMPONENT';
 		$state.go('landing.complianceDashboard.checklistViewer', {currentView: $scope.currentView});
 	}
 
@@ -956,9 +956,11 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				$scope.currentNode = _.findWhere($scope.childNodes, {"elementID": nodeId});
 				$scope.getComponentsByConceptName($scope.currentNode.name);
 				break;
-			case "COMPONENT" :
-				SharedService.getFilteredDataByCompName('allComponents').then(function (data) {
-					$scope.childNodes = data.data;
+			case "ALL_COMPONENT" :
+				SharedService.getAllComponents().then(function (data) {
+					if(data.status) {
+						$scope.childNodes = angular.fromJson(data.data);
+					}
 				});
 				break;
 			case "BUSINESS_SEGMENT" :

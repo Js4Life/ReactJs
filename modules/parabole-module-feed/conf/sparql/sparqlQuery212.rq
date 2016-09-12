@@ -6,7 +6,7 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
-select  ?concept ?Area ?Type ?Typename
+select  ?concept ?Area ?Type ?Typename ?id
 where {
 {select *
 where {
@@ -43,4 +43,5 @@ bind(xsd:string ("Related Concept Type") as ?Area)}}}
 ?concept rdfs:label ?conceptName .
 ?mprp rdfs:label ?connections .
 ?Type rdfs:label ?Typename.
+bind(rand() AS ?id).
 }
