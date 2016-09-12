@@ -210,6 +210,13 @@ public class ParagraphOperationsController extends BaseController{
         return ok(lightHouseService.getAlltopic().toString());
     }
 
+    public Result getAllComponents() {
+
+        String vertexType = "COMPONENT";
+
+        return ok(lightHouseService.getAllVertexesByType(vertexType).toString());
+    }
+
     public Result getAllConcepts() {
 
         return ok(lightHouseService.getAllConcepts().toString());

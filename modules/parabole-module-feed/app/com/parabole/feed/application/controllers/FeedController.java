@@ -77,6 +77,11 @@ public class FeedController extends BaseController{
         return ok(result);
     }
 
+    public Result createBusinesSegmentAndAssignComponent() throws Exception {
+        final String result = taggingUtilitiesServices.createBusinesSegmentAndAssignComponent();
+        return ok(result);
+    }
+
     public Result createConceptComponent() throws Exception {
 
         final String result = taggingUtilitiesServices.saveSectionsFromParagraphJSon();
