@@ -62,6 +62,7 @@ angular
           })
 
           .state('landing.complianceDashboard.checklistViewer', {
+              url: '/:currentView',
               templateUrl : 'checklistViewer',
               controller : 'checklistViewerCtrl'
           });
