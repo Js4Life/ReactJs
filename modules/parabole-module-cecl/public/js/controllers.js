@@ -649,7 +649,6 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 .controller('checklistBuilderCtrl', function($scope, $state, $stateParams, SharedService, MockService) {
 	$scope.initialize = function () {
-		toastr.info('Tag paragraphs..', '', {"positionClass" : "toast-top-right"});
 		$scope.heading = {title: "Checklist Builder"};
 		$scope.question = {components: [], isMandatory: true};
 		$scope.questions = [];
@@ -660,7 +659,6 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			externalIdProp : ""
 		}
 		$scope.currentConcept = SharedService.currentConcept;
-		//$scope.currentConcept = {components: {}}
 		$scope.currentParagraphs = [];
 		$scope.paraTagOptions = MockService.ParaTagOptions;
 		$scope.doParaTag = true;
@@ -678,13 +676,14 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		});
 		if(Object.keys($scope.paraTags).length != $scope.paragraphs.length){
 			$scope.doParaTag = true;
+			toastr.info('Tag paragraphs..', '', {"positionClass" : "toast-top-right"});
 		} else {
 			$scope.enableChecklistBuilder();
+			toastr.info('Select one or more paragraph..', '', {"positionClass" : "toast-top-right"});
 		}
 	}
 	
 	$scope.enableChecklistBuilder = function() {
-        toastr.info('Select one or more paragraph..', '', {"positionClass" : "toast-top-right"});
         var tempParagraphs = [];
         angular.forEach($scope.paraTags, function (tag, elementID) {
             tempParagraphs.push(_.findWhere($scope.paragraphs, {"elementID":elementID}));
@@ -694,23 +693,6 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
     }
 
 	$scope.selectParagraph = function (para) {
-		//$(e.currentTarget).parent().children().removeClass('bg-info');
-		/*if($(e.currentTarget).hasClass('bg-info')){
-			$(e.currentTarget).removeClass('bg-info');
-		} else {
-			$(e.currentTarget).addClass('bg-info');
-		}
-		if($scope.currentParagraph) {
-		 if ($scope.currentParagraph.id != para.id) {
-		 toastr.info('Type a question and select related components from dropdown..', '', {"positionClass" : "toast-top-right"});
-		 $scope.currentParagraph = para;
-		 $scope.questions = [];
-		 }
-		 } else{
-		 toastr.info('Type a question and select related components from dropdown..', '', {"positionClass" : "toast-top-right"});
-		 $scope.currentParagraph = para;
-		 }*/
-
 		para.isSelected = !para.isSelected;
 		var hasPara = _.find($scope.currentParagraphs, function (p) { return p === para.elementID; });
 		if(hasPara){
@@ -720,7 +702,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		}
 	}
 
-	$scope.addQuestion = function () {
+	/*$scope.addQuestion = function () {
 		toastr.info('Save or Add another question..', '', {"positionClass" : "toast-top-right"});
 		$scope.questions.push($scope.question);
 		$scope.question = {components:[], isMandatory: true};
@@ -730,13 +712,21 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$scope.currentQuestionCfg.paragraphId = $scope.currentParagraphs;
 		$scope.currentQuestionCfg.conceptName = $scope.currentConcept.name;
 		$scope.currentQuestionCfg.questions = $scope.questions;
-		/*SharedService.addChecklist($scope.currentQuestionCfg).then(function (data) {
+		/!*SharedService.addChecklist($scope.currentQuestionCfg).then(function (data) {
 			console.log(data.data);
 			if(data.status){
 				toastr.success('Saved Successfully..', '', {"positionClass" : "toast-top-right"});
 				$scope.cleanQuestionEditor();
 			}
-		});*/
+		});*!/
+	}*/
+	
+	$scope.addChecklist = function () {
+		
+	}
+	
+	$scope.getChecklistByParagraphs = function () {
+		
 	}
 
 	$scope.cleanQuestionEditor = function () {
@@ -746,7 +736,6 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}
 
 	$scope.saveParaTags = function () {
-		console.log($scope.paraTags);
         SharedService.saveParagraphTags($scope.paraTags).then(function (data) {
            if(data.status){
                toastr.success('Saved Successfully..', '', {"positionClass" : "toast-top-right"});

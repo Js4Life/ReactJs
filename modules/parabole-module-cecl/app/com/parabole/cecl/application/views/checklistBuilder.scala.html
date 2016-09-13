@@ -39,7 +39,7 @@
           </div>
         </div>
         <div class="col-xs-6 max-height" style="overflow: hidden;padding-right: 0;">
-          <div class="container-fluid zero-padding">
+          @*<div class="container-fluid zero-padding">
             <form class="form-inline">
               <div class="form-group col-xs-9" style="padding-left: 0;">
                 <textarea class="form-control max-width" ng-model="question.text" rows="5"></textarea>
@@ -56,11 +56,15 @@
                 </div>
               </div>
             </form>
-          </div><br>
+          </div><br>*@
           <div class="container-fluid zero-padding">
             <div class="panel panel-default">
-              <div class="panel-heading">{{currentParagraphs.length + " Paragraphs selected"}}</div>
-              <div class="panel-body zero-padding" style="height:52vh;overflow: auto;">
+              <div class="panel-heading">
+                Existing Checklists
+                <i class="fa fa-eye pull-right" aria-hidden="true" ng-click="getChecklistByParagraphs()"></i>
+                <i class="fa fa-plus pull-right" aria-hidden="true" style="margin-right:10px;" ng-click="addChecklist()"></i>
+              </div>
+              <div class="panel-body zero-padding" style="height:71vh;overflow: auto;">
                 <table class="table table-striped table-bordered zero-margin">
                   <tbody>
                     <tr ng-repeat="q in questions">
