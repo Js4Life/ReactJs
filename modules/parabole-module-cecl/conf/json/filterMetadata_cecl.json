@@ -264,16 +264,40 @@
 		"columns" :  ["id", "Topic", "SubTopic", "Section", "Paragraphid"],
 		"tagColumns" : ["Topic", "SubTopic", "Section"]
 	},
-	"allComponents" : {
+	"allBusinessSegments" : {
 		"outputFormat":"table",
-		"source":"213",
-		"groupByField" : "component",
+		"source":"215",
+		"groupByField" : "Seg",
 		"columns" :  [{
-			"name" : "component",
+			"name" : "Segment",
 			"label" : "name"
 		},{
-			"name" : "Type",
+			"name" : "Component",
 			"label" : "type"
+		}]
+	},
+	"industryImpact" : {
+		"outputFormat":"table",
+		"source":"214",
+		"groupByField" : "Indus",
+		"columns" :  [{
+			"name" : "Indus",
+			"label" : "Industry"
+		},{
+			"name" : "Wholesale_Finance",
+			"label" : "Wholesale Finance"
+		},{
+			"name" : "CRE",
+			"label" : "CRE"
+		},{
+			"name" : "Equipment_Finance",
+			"label" : "Equipment Finance"
+		},{
+			"name" : "Credit_Card",
+			"label" : "Credit Card"
+		},{
+			"name" : "Auto_Loan",
+			"label" : "Auto Loan"
 		}]
 	}
 }

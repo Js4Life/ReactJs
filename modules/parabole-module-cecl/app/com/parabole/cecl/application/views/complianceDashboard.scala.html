@@ -1,11 +1,11 @@
 <div class="panel panel-default">
   <div class="panel-heading" style="padding-bottom:9px" >
     <b>{{heading.title}}</b>
-    <div ng-show="currentView != 'SUMMERY'" class="right-inner-addon" style="display:inline-block;width:25%;margin-left:20px;">
+    <div ng-show="currentView != 'SUMMERY' && currentView != 'INDUSTRY_IMPACT'" class="right-inner-addon" style="display:inline-block;width:25%;margin-left:20px;">
       <i class="glyphicon glyphicon-search"></i>
       <input type="search" class="form-control input-sm" placeholder="Search from {{$$childTail.childNodes.length || 'following'}} items..." ng-model="parentSearchText" />
     </div>
-    <div ng-show="currentView != 'SUMMERY'" class="btn-group pull-right" role="group">
+    <div ng-show="currentView != 'SUMMERY' && currentView != 'INDUSTRY_IMPACT'" class="btn-group pull-right" role="group">
       <button ng-if="isGridView" type="button" class="btn btn-xs" ng-click="toggleView()">
         <i class="fa fa-th-list" aria-hidden="true"></i>
       </button>
@@ -20,6 +20,7 @@
       <li><a ng-click="goConceptView()" class="pointer" data-toggle="tab" data-target="#commonTab">Glossary View</a></li>
       <li><a ng-click="goComponetView()" class="pointer" data-toggle="tab" data-target="#commonTab">Component View</a></li>
       <li><a ng-click="goBusinessSegmentView()" class="pointer" data-toggle="tab" data-target="#commonTab">Business Segment</a></li>
+      <li><a ng-click="goIndustryImpact()" class="pointer" data-toggle="tab" data-target="#industryImpact">Industry Impact</a></li>
       <li><a ng-click="goDocumentView()" class="pointer" data-toggle="tab" data-target="#commonTab">Regulatory Content View</a></li>
     </ul>
 
@@ -38,6 +39,18 @@
             </div>
           </div>
         </div>
+      </div>
+      <div id="industryImpact" class="tab-pane fade" style="height: 76vh;overflow-y: auto;padding:10px;">
+        <table class="table table-condensed table-responsive table-bordered">
+          <thead>
+            <th ng-repeat="(k, v) in tableData[0]">{{k}}</th>
+          </thead>
+          <tbody>
+            <tr ng-repeat="r in tableData">
+              <td ng-repeat="(k, v) in r" ng-class="{'bg-red': v==='No', 'bg-green': v==='Yes'}">{{v}}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
       <div id="commonTab" class="tab-pane fade">
         <ui-view></ui-view>

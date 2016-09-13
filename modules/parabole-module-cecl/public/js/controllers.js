@@ -887,6 +887,14 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$state.go('landing.complianceDashboard.checklistViewer', {currentView: $scope.currentView});
 	}
 
+	$scope.goIndustryImpact = function () {
+		$scope.currentView = 'INDUSTRY_IMPACT';
+		var compName = "industryImpact";
+		SharedService.getFilteredDataByCompName(compName).then(function (data) {
+			$scope.tableData = data.data;
+		});
+	}
+
 	$scope.$watch('parentSearchText',function(newVal){
 		$rootScope.$emit('PARENTSEARCHTEXT', newVal);
 	});
@@ -929,7 +937,6 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$scope.showGraph = false;
 		switch (nodeType) {
 			case "ALL_CONCEPT":
-				var compName = "ceclBaseNodeDetails";
 				SharedService.getAllConcepts().then(function (data) {
 					if(data.status) {
 						$scope.childNodes = angular.fromJson(data.data);
@@ -953,7 +960,10 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				});
 				break;
 			case "BUSINESS_SEGMENT" :
-
+				var compName = "allBusinessSegments";
+				SharedService.getFilteredDataByCompName(compName).then(function (data) {
+					$scope.childNodes = data.data;
+				});
 				break;
 		}
 	}
