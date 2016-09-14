@@ -9,10 +9,7 @@ import com.orientechnologies.orient.core.metadata.schema.OType;
 import com.parabole.feed.application.global.CCAppConstants;
 import com.parabole.feed.platform.AppConstants;
 import com.parabole.feed.platform.utils.AppUtils;
-import com.tinkerpop.blueprints.Direction;
-import com.tinkerpop.blueprints.Edge;
-import com.tinkerpop.blueprints.Parameter;
-import com.tinkerpop.blueprints.Vertex;
+import com.tinkerpop.blueprints.*;
 import com.tinkerpop.blueprints.impls.orient.*;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.Validate;
@@ -394,6 +391,12 @@ public class LightHouse extends GraphDb {
             e.printStackTrace();
         }
         return componentTypes;
+    }
+
+    public void tinkerPop(String paragraphID){
+
+        Graph g = getGraphConnectionNoTx();
+        g.getVertices("elementID", paragraphID);
     }
 
 

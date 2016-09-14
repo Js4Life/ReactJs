@@ -10,6 +10,7 @@ import com.parabole.feed.contentparser.models.fasb.DocumentData;
 import com.parabole.feed.contentparser.models.fasb.DocumentElement;
 import com.parabole.feed.platform.graphdb.Anchor;
 import com.parabole.feed.platform.graphdb.LightHouse;
+import com.tinkerpop.blueprints.Graph;
 import edu.stanford.nlp.ling.HasWord;
 import edu.stanford.nlp.ling.TaggedWord;
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
@@ -534,6 +535,19 @@ public class TaggingUtilitiesServices {
 
     public String createBusinesSegmentAndAssignComponent() throws Exception {
 
-        return null;
+        JSONObject allConceptNodesDetails = jenaTdbService.getFilteredDataByCompName("allBusinessSegments", null);
+        JSONArray jsonArray = allConceptNodesDetails.getJSONArray("data");
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject element = jsonArray.getJSONObject(i);
+            if (element.getString("businessSegmentURI") != null && element.getString("componentURI") != null) {
+                Map<String, String> nodeData = new HashMap<>();
+                nodeData.put("name", element.getString("businessSegmentName"));
+                nodeData.put("type", "BUSINESSSEGMENT");
+                nodeData.put("elementID", element.getString("businessSegmentURI"));
+                lightHouse.createNewVertex(nodeData);
+                lightHouse.establishEdgeByVertexIDs(element.getString("componentURI"), element.getString("businessSegmentURI"), "componentToBusinessSegment", "componentToBusinessSegment");
+            }
+        }
+        return jsonArray.toString();
     }
 }
