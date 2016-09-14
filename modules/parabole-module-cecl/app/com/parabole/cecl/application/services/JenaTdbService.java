@@ -1470,7 +1470,7 @@ public class JenaTdbService {
                 }
 
                 /*To be deleted*/
-                double compliance = 0;
+                /*double compliance = 0;
                 String nodeType = jsObj.getString("type");
                 String nodeName = jsObj.getString("name");
                 switch (nodeType){
@@ -1483,7 +1483,7 @@ public class JenaTdbService {
                         jsObj.put("hasChecklist", complianceObj.get("hasChecklist"));
                         jsObj.put("compliance", complianceObj.get("compliance"));
                         break;
-                }
+                }*/
                 /*End*/
 
                 jsArr.put(jsObj);

@@ -33,13 +33,13 @@
           <div class="container-fluid max-height" style="overflow: auto;">
             <div ng-repeat="para in paragraphs" ng-if="currentTag === paraTags[para.elementID] || currentTag === 'all'" style="position: relative;">
               <i class="fa fa-check-circle fa-2x" ng-class="{'text-gray':!para.isSelected, 'text-green':para.isSelected}" aria-hidden="true" ng-click="selectParagraph(para)" style="position:absolute;top:-2px;left:-13px;background:#FFFFFF;border-radius: 50%;"></i>
-              <p ng-class="{'text-danger': para.willIgnore}" read-more="" content="{{para.bodyText}}"></p>
+              <p ng-class="{'text-danger': para.willIgnore === 'true'}" read-more="" content="{{para.bodyText}}"></p>
               <span ng-if="paraTags[para.elementID]" ng-class="getParaTagClass(paraTags[para.elementID])" class="paragraph-tag" tooltip='"title":"{{paraTags[para.elementID]}}","placement":"right"'>{{paraTags[para.elementID].charAt(0)}}</span>
             </div>
           </div>
         </div>
         <div class="col-xs-6 max-height" style="overflow: hidden;padding-right: 0;">
-          <div class="container-fluid zero-padding">
+          @*<div class="container-fluid zero-padding">
             <form class="form-inline">
               <div class="form-group col-xs-9" style="padding-left: 0;">
                 <textarea class="form-control max-width" ng-model="question.text" rows="5"></textarea>
@@ -56,11 +56,15 @@
                 </div>
               </div>
             </form>
-          </div><br>
+          </div><br>*@
           <div class="container-fluid zero-padding">
             <div class="panel panel-default">
-              <div class="panel-heading">{{currentParagraphs.length + " Paragraphs selected"}}</div>
-              <div class="panel-body zero-padding" style="height:52vh;overflow: auto;">
+              <div class="panel-heading">
+                Existing Checklists
+                <i class="fa fa-eye pull-right" aria-hidden="true" ng-click="getChecklistByParagraphs()"></i>
+                <i class="fa fa-plus pull-right" aria-hidden="true" style="margin-right:10px;" ng-click="addChecklist()"></i>
+              </div>
+              <div class="panel-body zero-padding" style="height:71vh;overflow: auto;">
                 <table class="table table-striped table-bordered zero-margin">
                   <tbody>
                     <tr ng-repeat="q in questions">
@@ -87,7 +91,7 @@
     <div ng-if="doParaTag" class="col-xs-12 max-height zero-padding">
       <div class="container-fluid max-height" style="overflow: auto;">
         <div ng-repeat="para in paragraphs | orderBy: 'elementID'" style="position: relative;">
-          <p ng-class="{'text-danger': angular.fromJson(para.willIgnore)}" read-more="" content="{{para.bodyText}}"></p>
+          <p ng-class="{'text-danger': para.willIgnore === 'true'}" read-more="" content="{{para.bodyText}}"></p>
           <select class="form-control" style="position: absolute;top: 10px;right: 30px;width: 20%;" ng-options="op for op in paraTagOptions" ng-model="paraTags[para.elementID]"></select>
         </div>
       </div>

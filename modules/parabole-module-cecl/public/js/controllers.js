@@ -203,15 +203,6 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$scope.collapseClasses = {left: "col-xs-2 menu-back slide-container", center: "col-xs-10"};
 		$scope.nodes = MockService.CeclBaseNodes;
 		$scope.breads = SharedService.homeBreads || [];
-		$scope.showGraph = false;
-		$scope.visOptions = {
-			labelField:'name',
-			handlerData: { click : $scope.clickNode, scope : $scope },
-			nodeShape: 'image',
-			nodeImageMap: SharedService.graphImageMap,
-			nodeImageField: "type",
-			hier: false
-		};
 		$scope.answers = {};
 		$scope.currentColorCode = 'all';
         $scope.isGridView = true;
@@ -311,45 +302,6 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		scaleSlides();
 	}
 
-	$scope.getGraph = function () {
-		$scope.showGraph = !$scope.showGraph;
-	}
-
-	$scope.clickNode = function (nodeId) {
-		if( !nodeId ) return;
-		$scope.currentGraphNode = $scope.viz.findNodeById( nodeId );
-		SharedService.getDescriptionByUri(nodeId).then(function (description) {
-			$scope.currentGraphNode.desc = description;
-			if($scope.currentGraphNode.desc.definition){
-				$('#dsViewer').modal('hide');
-				$('#definitionViewer').modal('show');
-			}
-		});
-	}
-
-	$scope.viewDefinitionLink = function(){
-		window.open($scope.currentGraphNode.desc.definitionlink);
-	}
-
-	$scope.closeDsViewer = function(){
-		$scope.currentGraphNodeDesc = null;
-		$('#definitionViewer').modal('hide');
-		$('#dsViewer').modal('show');
-	}
-
-	function getGraphByConceptUri() {
-		var rootNode = {name: $scope.currentNode.name, id: $scope.currentNode.link, type: "concept"};
-		$scope.graphData = {nodes: [rootNode], edges: []};
-		angular.forEach($scope.nodeDetails, function (val, key) {
-			angular.forEach(val, function (aNode, idx) {
-				var node = {name: aNode.name, id: aNode.link, type: key.toLowerCase()};
-				var edge = {from: rootNode.id, to: node.id};
-				$scope.graphData.nodes.push(node);
-				$scope.graphData.edges.push(edge);
-			});
-		});
-	}
-
 	function scaleSlides(){
 		var slide = $scope.collapseSlide;
 		var classes = $scope.collapseClasses;
@@ -364,33 +316,6 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}
 
 	$scope.iniitialize();
-	
-	$scope.goChecklistBuilder = function () {
-		$('#dsViewer').modal('hide');
-		var compName = "ceclGenericComponentsByConcept";
-		SharedService.getFilteredDataByCompName(compName, $scope.currentNode.name).then(function (data) {
-			var nodes = data.data;
-			var currentConcept = angular.copy($scope.currentNode);
-			var rawNodeDetails = _.reject(nodes, function (n) { return n.type === 'Related Concept'	});
-			currentConcept.components = angular.copy(rawNodeDetails);
-			SharedService.currentConcept = currentConcept;
-			$state.go('landing.checklistBuilder');
-		});
-	}
-
-	$scope.getCheckList = function (conceptName, componentType, componentName) {
-		SharedService.getChecklistByConceptAndComponent(conceptName, componentType, componentName).then(function (data) {
-			var status = data.data.status;
-			if(status.haveData) {
-				$scope.checkList = data.data.questions;
-				$scope.answers = data.data.answers;
-				$('#dsViewer').modal('hide');
-				$('#checklistModal').modal('show');
-			} else{
-				toastr.warning('No checklist found for ' + componentName);
-			}
-		});
-	}
 
 	$scope.getChecklistByNode = function (node) {
 		$scope.currentNode = node;
@@ -487,6 +412,32 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
         $scope.isGridView = !$scope.isGridView;
     }
 
+	/*$scope.goChecklistBuilder = function () {
+	 $('#dsViewer').modal('hide');
+	 var compName = "ceclGenericComponentsByConcept";
+	 SharedService.getFilteredDataByCompName(compName, $scope.currentNode.name).then(function (data) {
+	 var nodes = data.data;
+	 var currentConcept = angular.copy($scope.currentNode);
+	 var rawNodeDetails = _.reject(nodes, function (n) { return n.type === 'Related Concept'	});
+	 currentConcept.components = angular.copy(rawNodeDetails);
+	 SharedService.currentConcept = currentConcept;
+	 $state.go('landing.checklistBuilder');
+	 });
+	 }
+
+	 $scope.getCheckList = function (conceptName, componentType, componentName) {
+	 SharedService.getChecklistByConceptAndComponent(conceptName, componentType, componentName).then(function (data) {
+	 var status = data.data.status;
+	 if(status.haveData) {
+	 $scope.checkList = data.data.questions;
+	 $scope.answers = data.data.answers;
+	 $('#dsViewer').modal('hide');
+	 $('#checklistModal').modal('show');
+	 } else{
+	 toastr.warning('No checklist found for ' + componentName);
+	 }
+	 });
+	 }*/
 
 	/*$scope.getFilteredDataByCompName = function (nodeName, currentNode, index) {
 		if(!currentNode){
@@ -698,7 +649,6 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 .controller('checklistBuilderCtrl', function($scope, $state, $stateParams, SharedService, MockService) {
 	$scope.initialize = function () {
-		toastr.info('Tag paragraphs..', '', {"positionClass" : "toast-top-right"});
 		$scope.heading = {title: "Checklist Builder"};
 		$scope.question = {components: [], isMandatory: true};
 		$scope.questions = [];
@@ -709,15 +659,11 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			externalIdProp : ""
 		}
 		$scope.currentConcept = SharedService.currentConcept;
-		//$scope.currentConcept = {components: {}}
 		$scope.currentParagraphs = [];
 		$scope.paraTagOptions = MockService.ParaTagOptions;
 		$scope.doParaTag = true;
         $scope.currentTag = 'all';
 		$scope.paraTags = {};
-		/*SharedService.getParagraphsByConcept($scope.currentConcept.name).then(function (data) {
-			$scope.paragraphs = angular.fromJson(data.data);
-		});*/
 		$scope.paragraphs = SharedService.paragraphs;
 		setParagraphTags();
 	}
@@ -730,13 +676,14 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		});
 		if(Object.keys($scope.paraTags).length != $scope.paragraphs.length){
 			$scope.doParaTag = true;
+			toastr.info('Tag paragraphs..', '', {"positionClass" : "toast-top-right"});
 		} else {
 			$scope.enableChecklistBuilder();
+			toastr.info('Select one or more paragraph..', '', {"positionClass" : "toast-top-right"});
 		}
 	}
 	
 	$scope.enableChecklistBuilder = function() {
-        toastr.info('Select one or more paragraph..', '', {"positionClass" : "toast-top-right"});
         var tempParagraphs = [];
         angular.forEach($scope.paraTags, function (tag, elementID) {
             tempParagraphs.push(_.findWhere($scope.paragraphs, {"elementID":elementID}));
@@ -746,23 +693,6 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
     }
 
 	$scope.selectParagraph = function (para) {
-		//$(e.currentTarget).parent().children().removeClass('bg-info');
-		/*if($(e.currentTarget).hasClass('bg-info')){
-			$(e.currentTarget).removeClass('bg-info');
-		} else {
-			$(e.currentTarget).addClass('bg-info');
-		}
-		if($scope.currentParagraph) {
-		 if ($scope.currentParagraph.id != para.id) {
-		 toastr.info('Type a question and select related components from dropdown..', '', {"positionClass" : "toast-top-right"});
-		 $scope.currentParagraph = para;
-		 $scope.questions = [];
-		 }
-		 } else{
-		 toastr.info('Type a question and select related components from dropdown..', '', {"positionClass" : "toast-top-right"});
-		 $scope.currentParagraph = para;
-		 }*/
-
 		para.isSelected = !para.isSelected;
 		var hasPara = _.find($scope.currentParagraphs, function (p) { return p === para.elementID; });
 		if(hasPara){
@@ -772,7 +702,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		}
 	}
 
-	$scope.addQuestion = function () {
+	/*$scope.addQuestion = function () {
 		toastr.info('Save or Add another question..', '', {"positionClass" : "toast-top-right"});
 		$scope.questions.push($scope.question);
 		$scope.question = {components:[], isMandatory: true};
@@ -782,13 +712,21 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$scope.currentQuestionCfg.paragraphId = $scope.currentParagraphs;
 		$scope.currentQuestionCfg.conceptName = $scope.currentConcept.name;
 		$scope.currentQuestionCfg.questions = $scope.questions;
-		/*SharedService.addChecklist($scope.currentQuestionCfg).then(function (data) {
+		/!*SharedService.addChecklist($scope.currentQuestionCfg).then(function (data) {
 			console.log(data.data);
 			if(data.status){
 				toastr.success('Saved Successfully..', '', {"positionClass" : "toast-top-right"});
 				$scope.cleanQuestionEditor();
 			}
-		});*/
+		});*!/
+	}*/
+	
+	$scope.addChecklist = function () {
+		
+	}
+	
+	$scope.getChecklistByParagraphs = function () {
+		
 	}
 
 	$scope.cleanQuestionEditor = function () {
@@ -798,7 +736,6 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}
 
 	$scope.saveParaTags = function () {
-		console.log($scope.paraTags);
         SharedService.saveParagraphTags($scope.paraTags).then(function (data) {
            if(data.status){
                toastr.success('Saved Successfully..', '', {"positionClass" : "toast-top-right"});
@@ -932,7 +869,6 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 	$scope.goDocumentView = function () {
 		$scope.currentView = 'DOCUMENT';
-
 		$state.go('landing.complianceDashboard.documentViewer');
 	}
 
@@ -942,8 +878,21 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}
 
 	$scope.goComponetView = function () {
-		$scope.currentView = SharedService.currentView = 'COMPONENT';
+		$scope.currentView = SharedService.currentView = 'ALL_COMPONENT';
 		$state.go('landing.complianceDashboard.checklistViewer', {currentView: $scope.currentView});
+	}
+
+	$scope.goBusinessSegmentView = function () {
+		$scope.currentView = SharedService.currentView = 'BUSINESS_SEGMENT';
+		$state.go('landing.complianceDashboard.checklistViewer', {currentView: $scope.currentView});
+	}
+
+	$scope.goIndustryImpact = function () {
+		$scope.currentView = 'INDUSTRY_IMPACT';
+		var compName = "industryImpact";
+		SharedService.getFilteredDataByCompName(compName).then(function (data) {
+			$scope.tableData = data.data;
+		});
 	}
 
 	$scope.$watch('parentSearchText',function(newVal){
@@ -988,7 +937,6 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$scope.showGraph = false;
 		switch (nodeType) {
 			case "ALL_CONCEPT":
-				var compName = "ceclBaseNodeDetails";
 				SharedService.getAllConcepts().then(function (data) {
 					if(data.status) {
 						$scope.childNodes = angular.fromJson(data.data);
@@ -1004,8 +952,16 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				$scope.currentNode = _.findWhere($scope.childNodes, {"elementID": nodeId});
 				$scope.getComponentsByConceptName($scope.currentNode.name);
 				break;
-			case "COMPONENT" :
-				SharedService.getFilteredDataByCompName('allComponents').then(function (data) {
+			case "ALL_COMPONENT" :
+				SharedService.getAllComponents().then(function (data) {
+					if(data.status) {
+						$scope.childNodes = angular.fromJson(data.data);
+					}
+				});
+				break;
+			case "BUSINESS_SEGMENT" :
+				var compName = "allBusinessSegments";
+				SharedService.getFilteredDataByCompName(compName).then(function (data) {
 					$scope.childNodes = data.data;
 				});
 				break;

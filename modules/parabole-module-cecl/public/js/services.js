@@ -91,7 +91,8 @@ angular.module('RDAApp.services', [])
         'GetSectionsBySubtopicId' : 'getSectionsBySubtopicId',
         'GetParagraphsBySectionId' : 'getParagraphsBySectionId',
         'GetParagraphsByConceptId' : 'getParagraphsByConceptId',
-        'GetAllConcepts' : 'getAllConcepts'
+        'GetAllConcepts' : 'getAllConcepts',
+        'GetAllComponents' : 'getAllComponents'
     };
     SharedService.chartDataMap = {
         '0' : 'getHardCodedResponse/chartData1',
@@ -690,6 +691,9 @@ angular.module('RDAApp.services', [])
     }
     SharedService.getAllConcepts = function () {
         return SharedService.invokeService('GetAllConcepts');
+    }
+    SharedService.getAllComponents = function () {
+        return SharedService.invokeService('GetAllComponents');
     }
 
     return SharedService;

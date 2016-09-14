@@ -1,0 +1,44 @@
+PREFIX pb:<http://www.mindparabole.com/ontology/finance/Parabole-Model#>
+PREFIX pnc:<http://mindparabole.com/finance/pnc_cecl#>
+PREFIX cst:<http://mindparabole.com/finance/cecl_structure#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?Segment ?Seg ?Component
+WHERE{
+{SELECT *
+WHERE{
+?concept cst:conhasPara ?para.
+?para cst:parahasSec ?section.
+?section cst:sechasSt ?st.
+?st cst:sthasTop ?topic.
+?topic cst:tophasInd ?Industry.
+?Industry pb:IndustryRelatedtoSegment ?Seg.
+?concept pb:hasReport ?Component.
+BIND(xsd:string("Report") AS ?Area)
+ }}
+UNION
+{SELECT *
+WHERE{
+?concept cst:conhasPara ?para.
+?para cst:parahasSec ?section.
+?section cst:sechasSt ?st.
+?st cst:sthasTop ?topic.
+?topic cst:tophasInd ?Industry.
+?Industry pb:IndustryRelatedtoSegment ?Seg.
+?concept pb:hasModel  ?Component.
+BIND(xsd:string("Model") AS ?Area)}}
+UNION
+{SELECT *
+WHERE{
+?concept cst:conhasPara ?para.
+?para cst:parahasSec ?section.
+?section cst:sechasSt ?st.
+?st cst:sthasTop ?topic.
+?topic cst:tophasInd ?Industry.
+?Industry pb:IndustryRelatedtoSegment ?Seg.
+?concept pb:hasPolicy ?Component.
+BIND(xsd:string("Policy") AS ?Area)}}
+?Seg rdfs:label ?Segment.}

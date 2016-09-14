@@ -230,7 +230,7 @@
 	"componentTypes" : {
 		"outputFormat":"hierarchy",
 		"source":"212",
-		"groupByField" : "concept",
+		"groupByField" : "id",
 		"columns" :  [{
 			"name" : "concept",
 			"label" : "concept"
@@ -248,7 +248,7 @@
 	"components" : {
 		"outputFormat":"hierarchy",
 		"source":"213",
-		"groupByField" : "Type",
+		"groupByField" : "id",
 		"columns" :  [{
 			"name" : "Type",
 			"label" : "Type"
