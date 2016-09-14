@@ -666,6 +666,18 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$scope.paraTags = {};
 		$scope.paragraphs = SharedService.paragraphs;
 		setParagraphTags();
+		
+		$scope.masterComponentTypes = {
+			'123-456' : "Comp Type 1",
+			'234-567' : "Comp Type 2",
+			'334-667' : "Comp Type 3",
+			'434-767' : "Comp Type 4",
+			'734-767' : "Comp Type 5",
+			'834-767' : "Comp Type 6",
+			'934-767' : "Comp Type 7",
+			'034-767' : "Comp Type 8",
+			'134-767' : "Comp Type 9",
+		};
 	}
 
 	function setParagraphTags() {
@@ -722,7 +734,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}*/
 	
 	$scope.addChecklist = function () {
-		
+		$('#checklistModal').modal('show');
 	}
 	
 	$scope.getChecklistByParagraphs = function () {
@@ -762,6 +774,14 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
     $scope.setColorCode = function (tag) {
         $scope.currentTag = tag;
     }
+    
+    $scope.selectComponentType = function (componentTypeId) {
+
+	}
+	
+	$scope.saveChecklist = function () {
+		
+	}
 	
 	$scope.goPreviousScreen = function () {
 		$state.go('landing.home');

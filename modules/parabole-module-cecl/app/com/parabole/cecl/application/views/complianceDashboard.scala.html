@@ -47,7 +47,10 @@
           </thead>
           <tbody>
             <tr ng-repeat="r in tableData">
-              <td ng-repeat="(k, v) in r" ng-class="{'bg-red': v==='No', 'bg-green': v==='Yes'}">{{v}}</td>
+              <td ng-repeat="(k, v) in r" class="text-center">
+                <div ng-if="v != 'Yes' && v!='No'" class="text-left">{{v}}</div>
+                <i ng-if="v === 'Yes' || v==='No'" class="fa" ng-class="{'fa-times text-danger': v==='No', 'fa-check text-success': v==='Yes'}" aria-hidden="true"></i>
+              </td>
             </tr>
           </tbody>
         </table>
