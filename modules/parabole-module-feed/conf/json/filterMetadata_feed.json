@@ -259,5 +259,20 @@
 			"name" : "comp",
 			"label" : "comp"
 		}]
+	},
+	"allBusinessSegments" : {
+		"outputFormat":"table",
+		"source":"215",
+		"groupByField" : "Seg",
+		"columns" :  [{
+			"name" : "Segment",
+			"label" : "businessSegmentName"
+		},{
+			"name" : "Seg",
+			"label" : "businessSegmentURI"
+		},{
+			"name" : "Component",
+			"label" : "componentURI"
+		}]
 	}
 }
