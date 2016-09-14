@@ -61,7 +61,7 @@ GET /getParagraphBySectionId/:nodeId                    com.parabole.feed.applic
 GET /getParagraphByParagraphId/:nodeId                  com.parabole.feed.application.controllers.ParagraphOperationsController.getParagraphBySectionId(nodeId: String)
 GET /getcomponetsByComponentTypes/:nodeId               com.parabole.feed.application.controllers.ParagraphOperationsController.getParagraphBySectionId(nodeId: String)
 GET /getcomponettypesByConcepts/:nodeId                 com.parabole.feed.application.controllers.ParagraphOperationsController.getParagraphBySectionId(nodeId: String)
-GET /getComponentTypesByParagraphIds                 com.parabole.feed.application.controllers.ParagraphOperationsController.getComponentTypesByParagraphIds
+GET /getComponentTypesByParagraphIds                    com.parabole.feed.application.controllers.ParagraphOperationsController.getComponentTypesByParagraphIds
 #-----
 GET /addAnewVertexproperty                              com.parabole.feed.application.controllers.ParagraphOperationsController.addAnewVertexproperty()
 #-----

@@ -380,9 +380,9 @@ public class LightHouse extends GraphDb {
         return "{ status: saved } ";
     }
 
-    // -----------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------
     // The following two methods will fetch all the document types against given list of paragraph IDs
-    // -----------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------
 
     public HashMap<String, String> getComponentTypeFromParagraphsIDS(ArrayList<String> paragraphIDs){
         HashMap<String, String> componentTypes = new HashMap<>();
@@ -396,16 +396,29 @@ public class LightHouse extends GraphDb {
         return componentTypes;
     }
 
+
     public void getConceptsFromParagraphs(String paragraphID, HashMap<String, String> resultantComponentTypes) throws  IOException{
 
         Iterable<Vertex> verticesData = null;
+
         OrientGraph graph = this.orientGraphFactory.getTx();
         verticesData = graph.getVertices("elementID", paragraphID);
         try {
             for (Vertex v : verticesData) {
                 if (null != v) {
-                    v.getEdges(Direction.OUT).forEach((final Edge edge) -> {
-                        resultantComponentTypes.put(edge.getVertex(Direction.IN).getProperty("elementID"), edge.getVertex(Direction.IN).getProperty("name"));
+                    v.getEdges(Direction.IN).forEach((final Edge edge) -> {
+                        Iterable<Vertex> verticesDataTwo = null;
+                        System.out.println("edge.getVertex(Direction.IN).getProperty(\"type\") = " + edge.getVertex(Direction.IN).getProperty("elementID"));
+                        if (edge.getVertex(Direction.IN).getProperty("type") == "CONCEPT") {
+                            verticesDataTwo = graph.getVertices("elementID", paragraphID);
+                            for (Vertex v2 : verticesDataTwo) {
+                                if (null != v2) {
+                                    v2.getEdges(Direction.OUT).forEach((final Edge edgeTwo) -> {
+                                        resultantComponentTypes.put(edgeTwo.getVertex(Direction.OUT).getProperty("elementID"), edgeTwo.getVertex(Direction.OUT).getProperty("name"));
+                                    });
+                                }
+                            }
+                        }
                     });
                 }
             }
@@ -416,6 +429,5 @@ public class LightHouse extends GraphDb {
             graph.shutdown();
         }
     }
-
 
 }
