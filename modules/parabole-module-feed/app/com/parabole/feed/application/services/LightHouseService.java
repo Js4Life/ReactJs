@@ -167,4 +167,14 @@ public class LightHouseService {
         return result;
     }
 
+    public HashMap<String, HashMap<String, String>> getComponentTypesByParagraphIds(ArrayList<String> listOfParagraphIDs) {
+
+        HashMap<String, HashMap<String, String>> returnData = new HashMap<>();
+
+        for (String listOfParagraphID : listOfParagraphIDs) {
+            HashMap<String, String> componentTypes = lightHouse.getComponentTypes();
+            returnData.put(listOfParagraphID, componentTypes);
+        }
+        return null;
+    }
 }

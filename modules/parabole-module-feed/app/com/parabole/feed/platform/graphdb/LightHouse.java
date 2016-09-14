@@ -380,5 +380,42 @@ public class LightHouse extends GraphDb {
         return "{ status: saved } ";
     }
 
+    // -----------------------------------------------------------------------------------------------
+    // The following two methods will fetch all the document types against given list of paragraph IDs
+    // -----------------------------------------------------------------------------------------------
+
+    public HashMap<String, String> getComponentTypeFromParagraphsIDS(ArrayList<String> paragraphIDs){
+        HashMap<String, String> componentTypes = new HashMap<>();
+        try {
+            for (String paragraphID : paragraphIDs) {
+                getConceptsFromParagraphs(paragraphID, componentTypes);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return componentTypes;
+    }
+
+    public void getConceptsFromParagraphs(String paragraphID, HashMap<String, String> resultantComponentTypes) throws  IOException{
+
+        Iterable<Vertex> verticesData = null;
+        OrientGraph graph = this.orientGraphFactory.getTx();
+        verticesData = graph.getVertices("elementID", paragraphID);
+        try {
+            for (Vertex v : verticesData) {
+                if (null != v) {
+                    v.getEdges(Direction.OUT).forEach((final Edge edge) -> {
+                        resultantComponentTypes.put(edge.getVertex(Direction.IN).getProperty("elementID"), edge.getVertex(Direction.IN).getProperty("name"));
+                    });
+                }
+            }
+            graph.commit();
+        }catch( Exception e ) {
+            graph.rollback();
+        } finally {
+            graph.shutdown();
+        }
+    }
+
 
 }

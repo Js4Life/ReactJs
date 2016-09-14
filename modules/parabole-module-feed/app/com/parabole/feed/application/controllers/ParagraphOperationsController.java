@@ -231,6 +231,15 @@ public class ParagraphOperationsController extends BaseController{
         return ok(lightHouseService.getParagraphBySectionId(nodeId).toString());
     }
 
+    public Result getComponentTypesByParagraphIds() {
+
+        ArrayList<String> listOfParagraphIDs = new ArrayList<>();
+        listOfParagraphIDs.add("");
+        listOfParagraphIDs.add("");
+        listOfParagraphIDs.add("");
+        return ok(lightHouseService.getComponentTypesByParagraphIds(listOfParagraphIDs).toString());
+    }
+
     public Result addAnewVertexproperty() {
 
         String vertexID = "320-10-35-34B";
