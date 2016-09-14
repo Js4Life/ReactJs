@@ -61,6 +61,7 @@ GET /getParagraphBySectionId/:nodeId                    com.parabole.feed.applic
 GET /getParagraphByParagraphId/:nodeId                  com.parabole.feed.application.controllers.ParagraphOperationsController.getParagraphBySectionId(nodeId: String)
 GET /getcomponetsByComponentTypes/:nodeId               com.parabole.feed.application.controllers.ParagraphOperationsController.getParagraphBySectionId(nodeId: String)
 GET /getcomponettypesByConcepts/:nodeId                 com.parabole.feed.application.controllers.ParagraphOperationsController.getParagraphBySectionId(nodeId: String)
+GET /getComponentTypesByParagraphIds                    com.parabole.feed.application.controllers.ParagraphOperationsController.getComponentTypesByParagraphIds
 #-----
 GET /addAnewVertexproperty                              com.parabole.feed.application.controllers.ParagraphOperationsController.addAnewVertexproperty()
 #-----
@@ -72,11 +73,7 @@ GET /createComponentAndAssignToComponentType            com.parabole.feed.applic
 GET /createBusinesSegmentAndAssignComponent             com.parabole.feed.application.controllers.FeedController.createBusinesSegmentAndAssignComponent()
 #-----
 
-
 #---------------------------------------
-
-
-
 
 # Map static resources from the /public folder to the /assets URL path
 GET      /feedassets/*file                              controllers.Assets.at(path="/public/lib/parabole-module-feed", file)

@@ -242,12 +242,18 @@ public class ParagraphOperationsController extends BaseController{
     }
 
     public Result getVertexProperties() {
-
         String vertexID = "320-10-35-34B";
         ArrayList<String>  listOfPropertyNames = new ArrayList<String>();
         return ok(lightHouseService.getVertexProperties(vertexID, listOfPropertyNames));
     }
 
+    public Result getComponentTypesByParagraphIds() {
+        ArrayList<String> listOfParagraphIDs = new ArrayList<>();
+        //listOfParagraphIDs.add("320-10-35-34B");
+        //listOfParagraphIDs.add("320-10-35-34C");
+        listOfParagraphIDs.add("326-10-65-1");
+        return ok(lightHouseService.getComponentTypesByParagraphIds(listOfParagraphIDs).toString());
+    }
 
 
 }
