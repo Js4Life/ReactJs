@@ -108,24 +108,29 @@ public class LightHouse extends GraphDb {
     }
 
 
-    public boolean establishEdgeByVertexIDs(String vertexIDOne, String vertexIDTwo, String edgeName, String edgeType) throws IOException {
+    public Boolean establishEdgeByVertexIDs(String vertexIDOne, String vertexIDTwo, String edgeName, String edgeType) {
 
         OrientGraph graph = this.orientGraphFactory.getTx();
         Iterable<Vertex> vs = graph.getVertices("elementID", vertexIDOne);
         Vertex one = null;
         Vertex two = null;
+        Boolean res = false;
+        try {
+            for (Vertex v : graph.getVertices("elementID", vertexIDOne)) {
+                one = v;
+            }
 
-        for (Vertex v : graph.getVertices("elementID", vertexIDOne)) {
-            one = v;
+            for (Vertex v : graph.getVertices("elementID", vertexIDTwo)) {
+                two = v;
+            }
+
+            Map<String, String> edgeProperty = new HashMap<String, String>();
+            edgeProperty.put("type", edgeType);
+            res = saveGraphInstance(graph, one, two, edgeName, edgeProperty);
+        } catch (IOException e){
+            e.printStackTrace();
         }
-
-        for (Vertex v : graph.getVertices("elementID", vertexIDTwo)) {
-            two = v;
-        }
-
-        Map<String, String> edgeProperty = new HashMap<String, String>();
-        edgeProperty.put("type", edgeType);
-        return saveGraphInstance(graph, one, two, edgeName, edgeProperty);
+        return res;
 
     }
 

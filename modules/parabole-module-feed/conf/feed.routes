@@ -44,8 +44,6 @@ GET /getCheckListById                                  com.parabole.feed.applica
 GET /removeCheckList                                   com.parabole.feed.application.controllers.ParagraphOperationsController.removeCheckList()
 #---------------------------------------
 
-
-
 ## Topic Sub Topic creation Test
 #---------------------------------------
 GET /createNewTopic                                     com.parabole.feed.application.controllers.ParagraphOperationsController.createNewTopic()

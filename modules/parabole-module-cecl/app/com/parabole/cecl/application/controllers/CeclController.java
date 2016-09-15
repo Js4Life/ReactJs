@@ -483,4 +483,28 @@ public class CeclController extends Controller{
         finalJson.put("status", status).put("data", data);
         return ok(finalJson.toString());
     }
+
+    /*@BodyParser.Of(BodyParser.Json.class)
+    public Result saveOrUpdateCheckList() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final JSONObject paraIds = request.getJSONArray("paraIds");
+        JSONObject finalJson = new JSONObject();
+        Boolean status = true;
+        String data = null;
+        ArrayList<String> listOfParagraphIDs = new ArrayList<>();
+        try {
+            for(int i=0; i<paraIds.length(); i++){
+                listOfParagraphIDs.add(paraIds.getString(i));
+            }
+            HashMap<String, String> res = lightHouseService.getComponentTypesByParagraphIds(listOfParagraphIDs);
+            ObjectMapper mapper = new ObjectMapper();
+            data = mapper.writeValueAsString(res);
+        } catch(Exception e) {
+            status = false;
+            e.printStackTrace();
+        }
+        finalJson.put("status", status).put("data", data);
+        return ok(finalJson.toString());
+    }*/
 }

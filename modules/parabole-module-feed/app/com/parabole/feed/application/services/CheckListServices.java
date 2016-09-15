@@ -14,6 +14,8 @@ import play.Environment;
 import java.io.IOException;
 import java.util.*;
 
+import static play.mvc.Http.Context.Implicit.session;
+
 /**
  * Created by Sagir on 02-08-2016.
  */
@@ -402,12 +404,43 @@ public class CheckListServices {
     }
 
 
-    public String saveOrUpdateCheckList(String checkListId, String checklistText) {
+    public String saveOrUpdateCheckList(Map<String, Object> toSave, HashMap<String, Boolean> paragraphIDs, HashMap<String, Boolean> componentTypeIDs) {
+
+        if(toSave.get("DATA_ID") == null || toSave.get("DATA_ID").toString().trim().isEmpty()) {
+            toSave.put("DATA_ID", getUniqueID());
+            toSave.put("CREATED_BY", session().get("USER_ID"));
+            toSave.put("CREATED_AT", new Date());
+        }
+        toSave.put("UPDATED_BY", session().get("USER_ID"));
+        toSave.put("UPDATED_AT", new Date());
 
         String result = null;
         try {
-            result = starFish.saveOrUpdateCheckList(checkListId, checklistText);
+            Map<String, String> nodeData = new HashMap<>();
+            nodeData.put("name", toSave.get("DATA_ID").toString());
+            nodeData.put("type", "CHECKLIST");
+            nodeData.put("elementID", toSave.get("DATA_ID").toString());
+            lightHouse.createNewVertex(nodeData);
+            starFish.saveOrUpdateCheckList(toSave);
+            paragraphIDs.forEach((String k, Boolean v)->{
+                if(v){
+                    lightHouse.establishEdgeByVertexIDs(k, toSave.get("DATA_ID").toString(), "paragraphToChecklist", "paragraphToChecklist");
+                } else {
+
+                }
+            });
+
+            componentTypeIDs.forEach((String k, Boolean v)->{
+                if(v){
+                    lightHouse.establishEdgeByVertexIDs(k, toSave.get("DATA_ID").toString(), "componentTypeToChecklist", "componentTypeToChecklist");
+                } else {
+
+                }
+            });
+            result = toSave.get("DATA_ID").toString();
         } catch (com.parabole.feed.platform.exceptions.AppException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
 

@@ -9,6 +9,7 @@ import play.mvc.Result;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -150,11 +151,22 @@ public class ParagraphOperationsController extends BaseController{
 
     public Result saveOrUpdateCheckList() {
 
-        String checkListId = "1234567890";
-        String checklistText = "This is a sample checklist Text";
+        HashMap<String, Object> toSave = new HashMap<>();
+        toSave.put("DATA_ID","123456");
+        toSave.put("BODY_TEXT","the test body text");
+        toSave.put("IS_MANDATORY", true);
+        toSave.put("STATE","okok");
+        toSave.put("ATTACHMENTINFO", "{ok : ok}");
+        toSave.put("CREATED_BY", "root");
+        toSave.put("UPDATED_BY", "root");
+        toSave.put("CREATED_AT", new Date());
+        toSave.put("UPDATED_AT", new Date());
 
-        return ok(checkListServices.saveOrUpdateCheckList(checkListId, checklistText));
+        ArrayList<String> paragraphIDs = new ArrayList<>();
+        ArrayList<String> componentTypeIDs = new ArrayList<>();
 
+        //return ok(checkListServices.saveOrUpdateCheckList(toSave, paragraphIDs, componentTypeIDs));
+        return null;
     }
 
 
@@ -251,7 +263,7 @@ public class ParagraphOperationsController extends BaseController{
         ArrayList<String> listOfParagraphIDs = new ArrayList<>();
         //listOfParagraphIDs.add("320-10-35-34B");
         //listOfParagraphIDs.add("320-10-35-34C");
-        listOfParagraphIDs.add("310-10-50-1");
+        listOfParagraphIDs.add("326-10-65-1");
         return ok(lightHouseService.getComponentTypesByParagraphIds(listOfParagraphIDs).toString());
     }
 
