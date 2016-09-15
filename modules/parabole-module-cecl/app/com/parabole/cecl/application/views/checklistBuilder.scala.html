@@ -99,3 +99,79 @@
 
   </div>
 </div>
+
+<div class="modal fade bs-example-modal-lg" id="checklistModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" style="width:92%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="gridSystemModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body zero-padding">
+        <ul class="nav nav-tabs">
+          <li class="active"><a class="pointer" data-toggle="tab" data-target="#checklistTab">Checklist</a></li>
+          <li><a class="pointer" data-toggle="tab" data-target="#attachmentTab">Attachments</a></li>
+        </ul>
+        <div class="tab-content">
+          <div id="checklistTab" class="tab-pane fade in active">
+            <div class="container-fluid padding-15" style="height: 45vh;">
+              <div class="col-xs-8 max-height" style="overflow: auto;">
+                <div ng-repeat="para in paragraphs" style="position: relative;">
+                  <i class="fa fa-check-circle fa-2x" ng-class="{'text-gray':!para.isSelected, 'text-green':para.isSelected}" aria-hidden="true" ng-click="selectParagraph(para)" style="position:absolute;top:-2px;left:-13px;background:#FFFFFF;border-radius: 50%;"></i>
+                  <p ng-class="{'text-danger': para.willIgnore === 'true'}" read-more="" content="{{para.bodyText}}"></p>
+                  <span ng-if="paraTags[para.elementID]" ng-class="getParaTagClass(paraTags[para.elementID])" class="paragraph-tag" tooltip='"title":"{{paraTags[para.elementID]}}","placement":"right"'>{{paraTags[para.elementID].charAt(0)}}</span>
+                </div>
+              </div>
+              <div class="col-xs-4 max-height">
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    Component Types
+                  </div>
+                  <div class="panel-body zero-padding" style="height: 35vh;overflow: auto;">
+                    <table class="table table-condensed table-responsive zero-margin">
+                      <tr ng-repeat="(k, v) in masterComponentTypes">
+                        <td>
+                          <i class="fa fa-check-circle fa-2x" aria-hidden="true" ng-click="selectComponentType(k)"></i>
+                        </td>
+                        <td>
+                          {{v}}
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container-fluid" style="height: 12vh;padding:5px 28px;">
+              <textarea class="form-control max-width max-height" ng-model="question.text" placeholder="Type a checklist item"></textarea>
+            </div>
+            <div class="container-fluid" style="padding:15px 28px 20px;">
+              <button type="button" class="btn btn-default pull-right" ng-click="saveChecklist()">Save</button>
+            </div>
+          </div>
+          <div id="attachmentTab" class="tab-pane fade" style="height: 65vh; overflow: auto;">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                Evidents
+                <i class="fa fa-file pull-right" aria-hidden="true"></i>
+                <i class="fa fa-comment pull-right margin-right-10" aria-hidden="true"></i>
+              </div>
+              <div class="panel-body zero-padding" style="height: 35vh;overflow: auto;">
+                <table class="table table-condensed table-responsive zero-margin">
+                  <tr ng-repeat="at in attachments">
+                    <td>
+
+                    </td>
+                    <td>
+
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
