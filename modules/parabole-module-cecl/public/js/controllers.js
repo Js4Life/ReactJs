@@ -782,6 +782,14 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.saveChecklist = function () {
 		
 	}
+
+	$scope.$watch('file', function () {
+		console.log($scope.file);
+	});
+	
+	$scope.addComment = function () {
+		
+	}
 	
 	$scope.goPreviousScreen = function () {
 		$state.go('landing.home');

@@ -411,13 +411,14 @@ public class LightHouse extends GraphDb {
                 if (null != v) {
                     v.getEdges(Direction.IN).forEach((final Edge edge) -> {
                         Iterable<Vertex> verticesDataTwo = null;
-                        System.out.println("edge.getVertex(Direction.IN).getProperty(\"type\") = " + edge.getVertex(Direction.IN).getProperty("elementID"));
-                        if (edge.getVertex(Direction.IN).getProperty("type") == "CONCEPT") {
-                            verticesDataTwo = graph.getVertices("elementID", paragraphID);
+                        //System.out.println("edge.getVertex(Direction.IN).getProperty(\"type\") = " + edge.getVertex(Direction.OUT).getProperty("type"));
+                        if (edge.getVertex(Direction.OUT).getProperty("type").equals("CONCEPT")) {
+                            verticesDataTwo = graph.getVertices("elementID", edge.getVertex(Direction.OUT).getProperty("elementID"));
                             for (Vertex v2 : verticesDataTwo) {
                                 if (null != v2) {
                                     v2.getEdges(Direction.OUT).forEach((final Edge edgeTwo) -> {
-                                        resultantComponentTypes.put(edgeTwo.getVertex(Direction.OUT).getProperty("elementID"), edgeTwo.getVertex(Direction.OUT).getProperty("name"));
+                                        if (edgeTwo.getVertex(Direction.IN).getProperty("type").equals("COMPONENTTYPE"))
+                                            resultantComponentTypes.put(edgeTwo.getVertex(Direction.IN).getProperty("elementID"), edgeTwo.getVertex(Direction.IN).getProperty("name"));
                                     });
                                 }
                             }

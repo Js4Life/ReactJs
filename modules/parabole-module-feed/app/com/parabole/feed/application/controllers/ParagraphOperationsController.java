@@ -251,7 +251,7 @@ public class ParagraphOperationsController extends BaseController{
         ArrayList<String> listOfParagraphIDs = new ArrayList<>();
         //listOfParagraphIDs.add("320-10-35-34B");
         //listOfParagraphIDs.add("320-10-35-34C");
-        listOfParagraphIDs.add("326-10-65-1");
+        listOfParagraphIDs.add("310-10-50-1");
         return ok(lightHouseService.getComponentTypesByParagraphIds(listOfParagraphIDs).toString());
     }
 
