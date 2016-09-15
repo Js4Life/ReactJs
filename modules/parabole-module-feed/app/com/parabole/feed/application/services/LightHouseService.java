@@ -90,7 +90,7 @@ public class LightHouseService {
     public String createRelationBetweenTwoNodes(){
         try {
             lightHouse.establishEdgeByVertexIDs("5001", "6001", "topicSubTopic", "topicSubTopic");
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "ok";

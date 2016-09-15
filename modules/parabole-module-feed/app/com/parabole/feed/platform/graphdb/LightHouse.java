@@ -6,7 +6,6 @@ import com.orientechnologies.orient.client.remote.OServerAdmin;
 import com.orientechnologies.orient.core.intent.OIntentMassiveInsert;
 import com.orientechnologies.orient.core.metadata.schema.OClass;
 import com.orientechnologies.orient.core.metadata.schema.OType;
-import com.orientechnologies.orient.core.record.impl.ODocument;
 import com.parabole.feed.application.global.CCAppConstants;
 import com.parabole.feed.platform.AppConstants;
 import com.parabole.feed.platform.utils.AppUtils;
@@ -109,36 +108,41 @@ public class LightHouse extends GraphDb {
     }
 
 
-    public boolean establishEdgeByVertexIDs(String vertexIDOne, String vertexIDTwo, String edgeName, String edgeType) throws IOException {
+    public Boolean establishEdgeByVertexIDs(String vertexIDOne, String vertexIDTwo, String edgeName, String edgeType) {
 
         OrientGraph graph = this.orientGraphFactory.getTx();
         Iterable<Vertex> vs = graph.getVertices("elementID", vertexIDOne);
         Vertex one = null;
         Vertex two = null;
+        Boolean res = false;
+        try {
+            for (Vertex v : graph.getVertices("elementID", vertexIDOne)) {
+                one = v;
+            }
 
-        for (Vertex v : graph.getVertices("elementID", vertexIDOne)) {
-            one = v;
+            for (Vertex v : graph.getVertices("elementID", vertexIDTwo)) {
+                two = v;
+            }
+
+            Map<String, String> edgeProperty = new HashMap<String, String>();
+            edgeProperty.put("type", edgeType);
+            res = saveGraphInstance(graph, one, two, edgeName, edgeProperty);
+        } catch (IOException e){
+            e.printStackTrace();
         }
-
-        for (Vertex v : graph.getVertices("elementID", vertexIDTwo)) {
-            two = v;
-        }
-
-        Map<String, String> edgeProperty = new HashMap<String, String>();
-        edgeProperty.put("type", edgeType);
-        return saveGraphInstance(graph, one, two, edgeName, edgeProperty);
+        return res;
 
     }
 
 
-
-    public boolean deleteEdgeByVertexIDs(String vertexIDOne, String vertexIDTwo) throws IOException {
+    public boolean deleteEdgeByVertexIDs(String vertexIDOne, String vertexIDTwo) {
 
         OrientGraph graph = this.orientGraphFactory.getTx();
-        try {
+
             Vertex vOne = null;
             Vertex vTwo = null;
 
+        try {
             for (Vertex v : graph.getVertices("elementID", vertexIDOne)) {
                 vOne = v;
             }
@@ -167,6 +171,8 @@ public class LightHouse extends GraphDb {
         return true;
 
     }
+
+
 
 
     public boolean saveListOfVertices(List<String> listOfvertices) throws IOException {
@@ -448,13 +454,14 @@ public class LightHouse extends GraphDb {
                 if (null != v) {
                     v.getEdges(Direction.IN).forEach((final Edge edge) -> {
                         Iterable<Vertex> verticesDataTwo = null;
-                        System.out.println("edge.getVertex(Direction.IN).getProperty(\"type\") = " + edge.getVertex(Direction.IN).getProperty("elementID"));
-                        if (edge.getVertex(Direction.IN).getProperty("type") == "CONCEPT") {
-                            verticesDataTwo = graph.getVertices("elementID", paragraphID);
+                        //System.out.println("edge.getVertex(Direction.IN).getProperty(\"type\") = " + edge.getVertex(Direction.OUT).getProperty("type"));
+                        if (edge.getVertex(Direction.OUT).getProperty("type").equals("CONCEPT")) {
+                            verticesDataTwo = graph.getVertices("elementID", edge.getVertex(Direction.OUT).getProperty("elementID"));
                             for (Vertex v2 : verticesDataTwo) {
                                 if (null != v2) {
                                     v2.getEdges(Direction.OUT).forEach((final Edge edgeTwo) -> {
-                                        resultantComponentTypes.put(edgeTwo.getVertex(Direction.OUT).getProperty("elementID"), edgeTwo.getVertex(Direction.OUT).getProperty("name"));
+                                        if (edgeTwo.getVertex(Direction.IN).getProperty("type").equals("COMPONENTTYPE"))
+                                            resultantComponentTypes.put(edgeTwo.getVertex(Direction.IN).getProperty("elementID"), edgeTwo.getVertex(Direction.IN).getProperty("name"));
                                     });
                                 }
                             }

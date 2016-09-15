@@ -1,5 +1,5 @@
 angular
-    .module('RDAApp', [ 'ui.router', 'ngAnimate', 'angularjs-dropdown-multiselect', 'RDAApp.controllers' ])
+    .module('RDAApp', [ 'ui.router', 'ngAnimate', 'ngFileUpload', 'RDAApp.controllers' ])
 
     .config(function($stateProvider, $urlRouterProvider, $compileProvider) {
           $compileProvider

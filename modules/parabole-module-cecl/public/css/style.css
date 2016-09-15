@@ -2504,4 +2504,8 @@ li.list-group-item.puff{
       font-size: 18px;
       cursor: help;
   }
+
+  .tooltip{
+      z-index: 50000;
+  }
   /*End*/

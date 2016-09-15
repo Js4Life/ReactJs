@@ -165,8 +165,8 @@ public class ParagraphOperationsController extends BaseController{
         ArrayList<String> paragraphIDs = new ArrayList<>();
         ArrayList<String> componentTypeIDs = new ArrayList<>();
 
-        return ok(checkListServices.saveOrUpdateCheckList(toSave, paragraphIDs, componentTypeIDs));
-
+        //return ok(checkListServices.saveOrUpdateCheckList(toSave, paragraphIDs, componentTypeIDs));
+        return null;
     }
 
 

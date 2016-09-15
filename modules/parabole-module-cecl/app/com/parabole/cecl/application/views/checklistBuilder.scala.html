@@ -131,10 +131,7 @@
                     <table class="table table-condensed table-responsive zero-margin">
                       <tr ng-repeat="(k, v) in masterComponentTypes">
                         <td>
-                          <i class="fa fa-check-circle fa-2x" aria-hidden="true" ng-click="selectComponentType(k)"></i>
-                        </td>
-                        <td>
-                          {{v}}
+                          <i class="fa fa-check-circle fa-2x" aria-hidden="true" ng-click="selectComponentType(k)"></i>&nbsp;&nbsp;{{v}}
                         </td>
                       </tr>
                     </table>
@@ -143,30 +140,37 @@
               </div>
             </div>
             <div class="container-fluid" style="height: 12vh;padding:5px 28px;">
-              <textarea class="form-control max-width max-height" ng-model="question.text" placeholder="Type a checklist item"></textarea>
+              <textarea class="form-control max-width max-height" ng-model="question.text" placeholder="Type a checklist item text..."></textarea>
             </div>
             <div class="container-fluid" style="padding:15px 28px 20px;">
               <button type="button" class="btn btn-default pull-right" ng-click="saveChecklist()">Save</button>
             </div>
           </div>
-          <div id="attachmentTab" class="tab-pane fade" style="height: 65vh; overflow: auto;">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                Evidents
-                <i class="fa fa-file pull-right" aria-hidden="true"></i>
-                <i class="fa fa-comment pull-right margin-right-10" aria-hidden="true"></i>
-              </div>
-              <div class="panel-body zero-padding" style="height: 35vh;overflow: auto;">
-                <table class="table table-condensed table-responsive zero-margin">
-                  <tr ng-repeat="at in attachments">
-                    <td>
+          <div id="attachmentTab" class="tab-pane fade">
+            <div class="container-fluid" style="padding: 15px 28px;">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  Evidence
+                  <i class="fa fa-comment pull-right margin-right-10" aria-hidden="true" tooltip='"title":"Add Comment","placement":"right"' ng-click="addComment()"></i>
+                </div>
+                <div class="panel-body zero-padding" style="height: 54vh;">
+                  <div class="col-xs-8 zero-padding max-height" style="overflow: auto;border-right: 1px solid #ccc;">
+                    <table class="table table-condensed table-responsive zero-margin">
+                      <tr ng-repeat="at in attachments">
+                        <td>
 
-                    </td>
-                    <td>
+                      </td>
+                        <td>
 
-                    </td>
-                  </tr>
-                </table>
+                      </td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="col-xs-4 padding-15">
+                    <div ngf-drop ngf-select ng-model="file" class="drop-box" ngf-drag-over-class="'dragover'" ngf-multiple="false" ngf-allow-dir="false" accept="image/*,application/*,text/plain" ngf-pattern="'image/*,application/*'" style="height:50vh;">Drop file or image here or click to upload</div>
+                    <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

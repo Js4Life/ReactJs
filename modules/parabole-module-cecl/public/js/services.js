@@ -92,7 +92,9 @@ angular.module('RDAApp.services', [])
         'GetParagraphsBySectionId' : 'getParagraphsBySectionId',
         'GetParagraphsByConceptId' : 'getParagraphsByConceptId',
         'GetAllConcepts' : 'getAllConcepts',
-        'GetAllComponents' : 'getAllComponents'
+        'GetAllComponents' : 'getAllComponents',
+        'GetComponentTypesByParagraphIds' : 'getComponentTypesByParagraphIds',
+        'SaveOrUpdateCheckList' : 'saveOrUpdateCheckList'
     };
     SharedService.chartDataMap = {
         '0' : 'getHardCodedResponse/chartData1',
@@ -694,6 +696,14 @@ angular.module('RDAApp.services', [])
     }
     SharedService.getAllComponents = function () {
         return SharedService.invokeService('GetAllComponents');
+    }
+    SharedService.getComponentTypesByParagraphIds = function (paraIds) {
+        var sendObj = {"paraIds": paraIds};
+        return SharedService.invokeService('GetComponentTypesByParagraphIds', sendObj, 'post');
+    }
+    SharedService.saveOrUpdateCheckList = function (checklistItem) {
+        var sendObj = {"checklistItem": checklistItem};
+        return SharedService.invokeService('SaveOrUpdateCheckList', sendObj, 'post');
     }
 
     return SharedService;

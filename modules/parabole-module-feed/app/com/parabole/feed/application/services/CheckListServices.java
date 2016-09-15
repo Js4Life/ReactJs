@@ -14,6 +14,8 @@ import play.Environment;
 import java.io.IOException;
 import java.util.*;
 
+import static play.mvc.Http.Context.Implicit.session;
+
 /**
  * Created by Sagir on 02-08-2016.
  */
@@ -402,29 +404,40 @@ public class CheckListServices {
     }
 
 
-    public String saveOrUpdateCheckList(Map<String, Object> toSave, ArrayList<String> paragraphIDs, ArrayList<String> componentTypeIDs) {
+    public String saveOrUpdateCheckList(HashMap<String, Object> toSave, HashMap<String, Boolean> paragraphIDs, HashMap<String, Boolean> componentTypeIDs) {
+
+        if(toSave.get("DATA_ID") == null || toSave.get("DATA_ID").toString().trim().isEmpty()) {
+            toSave.put("DATA_ID", getUniqueID());
+            toSave.put("CREATED_BY", session().get("USER_ID"));
+            toSave.put("CREATED_AT", new Date());
+        }
+        toSave.put("UPDATED_BY", session().get("USER_ID"));
+        toSave.put("UPDATED_AT", new Date());
 
         String result = null;
         try {
-            for (String paragraphID : paragraphIDs) {
-                Map<String, String> nodeData = new HashMap<>();
-                nodeData.put("name", toSave.get("DATA_ID").toString());
-                nodeData.put("type", "CHECKLIST");
-                nodeData.put("elementID", toSave.get("DATA_ID").toString());
-                lightHouse.createNewVertex(nodeData);
-                lightHouse.establishEdgeByVertexIDs(paragraphID, toSave.get("DATA_ID").toString(), "componentToBusinessSegment", "componentToBusinessSegment");
-            }
+            Map<String, String> nodeData = new HashMap<>();
+            nodeData.put("name", toSave.get("DATA_ID").toString());
+            nodeData.put("type", "CHECKLIST");
+            nodeData.put("elementID", toSave.get("DATA_ID").toString());
+            lightHouse.createNewVertex(nodeData);
+            starFish.saveOrUpdateCheckList(toSave);
+            paragraphIDs.forEach((String k, Boolean v)->{
+                if(v){
+                    lightHouse.establishEdgeByVertexIDs(k, toSave.get("DATA_ID").toString(), "paragraphToChecklist", "paragraphToChecklist");
+                } else {
+                    lightHouse.deleteEdgeByVertexIDs(k, toSave.get("DATA_ID").toString());
+                }
+            });
 
-            for (String componentTypeID : componentTypeIDs) {
-                Map<String, String> nodeDataTwo = new HashMap<>();
-                nodeDataTwo.put("name", toSave.get("DATA_ID").toString());
-                nodeDataTwo.put("type", "CHECKLIST");
-                nodeDataTwo.put("elementID", toSave.get("DATA_ID").toString());
-                lightHouse.createNewVertex(nodeDataTwo);
-                lightHouse.establishEdgeByVertexIDs(componentTypeID, toSave.get("DATA_ID").toString(), "componentToBusinessSegment", "componentToBusinessSegment");
-            }
-
-            result = starFish.saveOrUpdateCheckList(toSave);
+            componentTypeIDs.forEach((String k, Boolean v)->{
+                if(v){
+                    lightHouse.establishEdgeByVertexIDs(k, toSave.get("DATA_ID").toString(), "componentTypeToChecklist", "componentTypeToChecklist");
+                } else {
+                    lightHouse.deleteEdgeByVertexIDs(k, toSave.get("DATA_ID").toString());
+                }
+            });
+            result = toSave.get("DATA_ID").toString();
         } catch (com.parabole.feed.platform.exceptions.AppException e) {
             e.printStackTrace();
         } catch (IOException e) {

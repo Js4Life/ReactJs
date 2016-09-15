@@ -3,6 +3,8 @@ package com.parabole.cecl.application.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.parabole.cecl.application.exceptions.AppException;
 import com.parabole.cecl.application.global.CCAppConstants;
 import com.parabole.cecl.application.services.JenaTdbService;
@@ -452,6 +454,56 @@ public class CeclController extends Controller{
             ArrayList<HashMap<String, String>> res = lightHouseService.getAllVertexesByType(vertexType);
             ObjectMapper mapper = new ObjectMapper();
             data = mapper.writeValueAsString(res);
+        } catch(Exception e) {
+            status = false;
+            e.printStackTrace();
+        }
+        finalJson.put("status", status).put("data", data);
+        return ok(finalJson.toString());
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result getComponentTypesByParagraphIds() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final JSONArray paraIds = request.getJSONArray("paraIds");
+        JSONObject finalJson = new JSONObject();
+        Boolean status = true;
+        String data = null;
+        ArrayList<String> listOfParagraphIDs = new ArrayList<>();
+        try {
+            for(int i=0; i<paraIds.length(); i++){
+                listOfParagraphIDs.add(paraIds.getString(i));
+            }
+            HashMap<String, String> res = lightHouseService.getComponentTypesByParagraphIds(listOfParagraphIDs);
+            ObjectMapper mapper = new ObjectMapper();
+            data = mapper.writeValueAsString(res);
+        } catch(Exception e) {
+            status = false;
+            e.printStackTrace();
+        }
+        finalJson.put("status", status).put("data", data);
+        return ok(finalJson.toString());
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result saveOrUpdateCheckList() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final JSONObject checklistItem = request.getJSONObject("checklistItem");
+        JSONObject finalJson = new JSONObject();
+        Boolean status = true;
+        String data = null;
+        HashMap<String, Object> req = new HashMap<>();
+        try {
+            HashMap<String, Boolean> paragraphs = new Gson().fromJson(checklistItem.getJSONObject("paragraphs").toString(), new TypeToken<HashMap<String, Boolean>>() {}.getType());
+            HashMap<String, Boolean> componentTypes = new Gson().fromJson(checklistItem.getJSONObject("componentTypes").toString(), new TypeToken<HashMap<String, Boolean>>() {}.getType());
+            req.put("DATA_ID", checklistItem.getString("id"));
+            req.put("BODY_TEXT", checklistItem.getString("bodyText"));
+            req.put("IS_MANDATORY", checklistItem.getBoolean("isMandatory"));
+            req.put("STATE", "OPEN");
+            req.put("ATTACHMENTINFO", "No");
+            data = checkListServices.saveOrUpdateCheckList(req, paragraphs, componentTypes);
         } catch(Exception e) {
             status = false;
             e.printStackTrace();
