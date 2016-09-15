@@ -402,12 +402,32 @@ public class CheckListServices {
     }
 
 
-    public String saveOrUpdateCheckList(String checkListId, String checklistText) {
+    public String saveOrUpdateCheckList(Map<String, Object> toSave, ArrayList<String> paragraphIDs, ArrayList<String> componentTypeIDs) {
 
         String result = null;
         try {
-            result = starFish.saveOrUpdateCheckList(checkListId, checklistText);
+            for (String paragraphID : paragraphIDs) {
+                Map<String, String> nodeData = new HashMap<>();
+                nodeData.put("name", toSave.get("DATA_ID").toString());
+                nodeData.put("type", "CHECKLIST");
+                nodeData.put("elementID", toSave.get("DATA_ID").toString());
+                lightHouse.createNewVertex(nodeData);
+                lightHouse.establishEdgeByVertexIDs(paragraphID, toSave.get("DATA_ID").toString(), "componentToBusinessSegment", "componentToBusinessSegment");
+            }
+
+            for (String componentTypeID : componentTypeIDs) {
+                Map<String, String> nodeDataTwo = new HashMap<>();
+                nodeDataTwo.put("name", toSave.get("DATA_ID").toString());
+                nodeDataTwo.put("type", "CHECKLIST");
+                nodeDataTwo.put("elementID", toSave.get("DATA_ID").toString());
+                lightHouse.createNewVertex(nodeDataTwo);
+                lightHouse.establishEdgeByVertexIDs(componentTypeID, toSave.get("DATA_ID").toString(), "componentToBusinessSegment", "componentToBusinessSegment");
+            }
+
+            result = starFish.saveOrUpdateCheckList(toSave);
         } catch (com.parabole.feed.platform.exceptions.AppException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
