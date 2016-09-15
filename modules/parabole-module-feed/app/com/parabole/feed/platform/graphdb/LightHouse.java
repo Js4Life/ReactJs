@@ -6,6 +6,7 @@ import com.orientechnologies.orient.client.remote.OServerAdmin;
 import com.orientechnologies.orient.core.intent.OIntentMassiveInsert;
 import com.orientechnologies.orient.core.metadata.schema.OClass;
 import com.orientechnologies.orient.core.metadata.schema.OType;
+import com.orientechnologies.orient.core.record.impl.ODocument;
 import com.parabole.feed.application.global.CCAppConstants;
 import com.parabole.feed.platform.AppConstants;
 import com.parabole.feed.platform.utils.AppUtils;
@@ -130,6 +131,42 @@ public class LightHouse extends GraphDb {
     }
 
 
+
+    public boolean deleteEdgeByVertexIDs(String vertexIDOne, String vertexIDTwo) throws IOException {
+
+        OrientGraph graph = this.orientGraphFactory.getTx();
+        try {
+            Vertex vOne = null;
+            Vertex vTwo = null;
+
+            for (Vertex v : graph.getVertices("elementID", vertexIDOne)) {
+                vOne = v;
+            }
+
+            for (Vertex v : graph.getVertices("elementID", vertexIDTwo)) {
+                vTwo = v;
+            }
+
+            if (vTwo != null) {
+                Iterable<Edge> result = vOne.getEdges(Direction.BOTH);
+                for (Edge e : result) {
+                    if (e.getVertex(Direction.BOTH).equals(vTwo)) {
+                        graph.removeEdge(e);
+                    }
+                }
+            } else {
+                System.out.println("Not connected");
+            }
+            graph.commit();
+        }catch(Exception e ) {
+            graph.rollback();
+            System.out.println("e = " + e);
+        } finally {
+            graph.shutdown();
+        }
+        return true;
+
+    }
 
 
     public boolean saveListOfVertices(List<String> listOfvertices) throws IOException {
