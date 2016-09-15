@@ -110,3 +110,4 @@ POST /getSectionsBySubtopicId               com.parabole.cecl.application.contro
 POST /getParagraphsBySectionId              com.parabole.cecl.application.controllers.CeclController.getParagraphsBySectionId()
 POST /getParagraphsByConceptId              com.parabole.cecl.application.controllers.CeclController.getParagraphsByConceptId()
 POST /getComponentTypesByParagraphIds       com.parabole.cecl.application.controllers.CeclController.getComponentTypesByParagraphIds()
+POST /saveOrUpdateCheckList                 com.parabole.cecl.application.controllers.CeclController.saveOrUpdateCheckList()

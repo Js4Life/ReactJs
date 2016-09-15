@@ -95,7 +95,7 @@ public class TaggingUtilitiesServices {
                     try {
                         System.out.println("t.getId() + subtopicId = " + t.getId() + subtopicId);
                         lightHouse.establishEdgeByVertexIDs(t.getId(), subtopicId, "topicToSubTopic", "topic-subTopic");
-                    } catch (IOException e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
 
