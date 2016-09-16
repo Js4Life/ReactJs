@@ -61,7 +61,8 @@ GET /getcomponettypesByConcepts/:nodeId                 com.parabole.feed.applic
 GET /getComponentTypesByParagraphIds                    com.parabole.feed.application.controllers.ParagraphOperationsController.getComponentTypesByParagraphIds
 #~~~~~~
 GET /getChecklistByID                                   com.parabole.feed.application.controllers.ParagraphOperationsController.getChecklistByID
-GET /getChecklistByParagraph                            com.parabole.feed.application.controllers.ParagraphOperationsController.getChecklistByParagraph
+GET /getChecklistsByParagraphs                          com.parabole.feed.application.controllers.ParagraphOperationsController.getChecklistsByParagraphs
+GET /getChecklistsByComponentTypes                      com.parabole.feed.application.controllers.ParagraphOperationsController.getChecklistsByComponentTypes
 GET /getChecklistByComponentType                        com.parabole.feed.application.controllers.ParagraphOperationsController.getComponentTypesByParagraphIds
 GET /getChecklistByConcept                              com.parabole.feed.application.controllers.ParagraphOperationsController.getChecklistByConcept
 GET /getChecklistComponent                              com.parabole.feed.application.controllers.ParagraphOperationsController.getComponentTypesByParagraphIds

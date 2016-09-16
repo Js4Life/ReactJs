@@ -276,10 +276,16 @@ public class ParagraphOperationsController extends BaseController{
         //return null;
     }
 
-    public Result getChecklistByParagraph() {
+    public Result getChecklistsByParagraphs() {
         ArrayList<String> listOfParagraphIDs = new ArrayList<>();
         listOfParagraphIDs.add("310-10-50-10");
-        return ok(lightHouseService.getChecklistByParagraph(listOfParagraphIDs).toString());
+        return ok(lightHouseService.getChecklistsByParagraphs(listOfParagraphIDs).toString());
+    }
+
+    public Result getChecklistsByComponentTypes() {
+        ArrayList<String> listOfParagraphIDs = new ArrayList<>();
+        listOfParagraphIDs.add("http://www.mindparabole.com/ontology/finance/Parabole-Model#Regulatory_Report");
+        return ok(lightHouseService.getChecklistsByComponentTypes(listOfParagraphIDs).toString());
     }
 
     public Result getChecklistByConcept() {
