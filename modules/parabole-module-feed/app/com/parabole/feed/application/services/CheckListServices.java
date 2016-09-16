@@ -464,7 +464,6 @@ public class CheckListServices {
 
     public String getCheckListById(String checkListId){
         String result = null;
-
         try {
             result = starFish.getCheckListById(checkListId);
         } catch (com.parabole.feed.platform.exceptions.AppException e) {

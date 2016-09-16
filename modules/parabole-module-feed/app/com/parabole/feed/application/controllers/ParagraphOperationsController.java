@@ -277,7 +277,9 @@ public class ParagraphOperationsController extends BaseController{
     }
 
     public Result getChecklistByParagraph() {
-        return ok(lightHouseService.getChecklistByParagraph("310-10-50-10").toString());
+        ArrayList<String> listOfParagraphIDs = new ArrayList<>();
+        listOfParagraphIDs.add("310-10-50-10");
+        return ok(lightHouseService.getChecklistByParagraph(listOfParagraphIDs).toString());
     }
 
     public Result getChecklistByConcept() {
