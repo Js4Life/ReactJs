@@ -659,7 +659,8 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			externalIdProp : ""
 		}
 		$scope.currentConcept = SharedService.currentConcept;
-		$scope.currentParagraphs = [];
+		$scope.currentParagraphs = {};
+		$scope.currentComponentTypes = {};
 		$scope.paraTagOptions = MockService.ParaTagOptions;
 		$scope.doParaTag = true;
         $scope.currentTag = 'all';
@@ -693,7 +694,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
         $scope.doParaTag = false;
     }
 
-	$scope.selectParagraph = function (para) {
+	/*$scope.selectParagraph = function (para) {
 		para.isSelected = !para.isSelected;
 		var hasPara = _.find($scope.currentParagraphs, function (p) { return p === para.elementID; });
 		if(hasPara){
@@ -701,7 +702,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		} else {
 			$scope.currentParagraphs.push(para.elementID);
 		}
-	}
+	}*/
 
 	/*$scope.addQuestion = function () {
 		toastr.info('Save or Add another question..', '', {"positionClass" : "toast-top-right"});
@@ -723,6 +724,8 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}*/
 	
 	$scope.addChecklist = function () {
+		$scope.checklistItem = {isMandatory : true};
+		var selectedParagraphs = _.where
 		SharedService.getComponentTypesByParagraphIds($scope.currentParagraphs).then(function (data) {
 			if(data.status){
 				$scope.masterComponentTypes = angular.fromJson(data.data);
@@ -768,13 +771,35 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
     $scope.setColorCode = function (tag) {
         $scope.currentTag = tag;
     }
+
+	$scope.selectParagraph = function (paraId) {
+		var isSelected = $scope.currentParagraphs[paraId];
+		if(isSelected){
+			$scope.currentParagraphs[paraId] = false;
+		} else {
+			$scope.currentParagraphs[paraId] = true;
+		}
+	}
     
     $scope.selectComponentType = function (componentTypeId) {
-
+		var isSelected = $scope.currentComponentTypes[componentTypeId];
+		if(isSelected){
+			$scope.currentComponentTypes[componentTypeId] = false;
+		} else {
+			$scope.currentComponentTypes[componentTypeId] = true;
+		}
 	}
 	
 	$scope.saveChecklist = function () {
-		
+		$scope.checklistItem.paragraphs = $scope.currentParagraphs;
+		$scope.checklistItem.componentTypes = $scope.currentComponentTypes;
+		$scope.checklistItem.isMandatory = true;
+		SharedService.saveOrUpdateCheckList($scope.checklistItem).then(function (data) {
+			if(data.status){
+				$('#checklistModal').modal('hide');
+				toastr.success('Saved Successfully..', '', {"positionClass" : "toast-top-right"});
+			}
+		});
 	}
 
 	$scope.$watch('file', function () {

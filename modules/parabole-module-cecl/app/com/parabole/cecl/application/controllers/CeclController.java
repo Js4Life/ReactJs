@@ -498,7 +498,8 @@ public class CeclController extends Controller{
         try {
             HashMap<String, Boolean> paragraphs = new Gson().fromJson(checklistItem.getJSONObject("paragraphs").toString(), new TypeToken<HashMap<String, Boolean>>() {}.getType());
             HashMap<String, Boolean> componentTypes = new Gson().fromJson(checklistItem.getJSONObject("componentTypes").toString(), new TypeToken<HashMap<String, Boolean>>() {}.getType());
-            req.put("DATA_ID", checklistItem.getString("id"));
+            if(checklistItem.has("id"))
+                req.put("DATA_ID", checklistItem.getString("id"));
             req.put("BODY_TEXT", checklistItem.getString("bodyText"));
             req.put("IS_MANDATORY", checklistItem.getBoolean("isMandatory"));
             req.put("STATE", "OPEN");
