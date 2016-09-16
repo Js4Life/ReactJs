@@ -32,7 +32,7 @@
         <div class="col-xs-6 max-height zero-padding">
           <div class="container-fluid max-height" style="overflow: auto;">
             <div ng-repeat="para in paragraphs" ng-if="currentTag === paraTags[para.elementID] || currentTag === 'all'" style="position: relative;">
-              <i class="fa fa-check-circle fa-2x" ng-class="{'text-gray':!para.isSelected, 'text-green':para.isSelected}" aria-hidden="true" ng-click="selectParagraph(para)" style="position:absolute;top:-2px;left:-13px;background:#FFFFFF;border-radius: 50%;"></i>
+              <i class="fa fa-check-circle fa-2x" ng-class="{'text-gray':!currentParagraphs[para.elementID], 'text-green':currentParagraphs[para.elementID]}" aria-hidden="true" ng-click="selectParagraph(para.elementID)" style="position:absolute;top:-2px;left:-13px;background:#FFFFFF;border-radius: 50%;"></i>
               <p ng-class="{'text-danger': para.willIgnore === 'true'}" read-more="" content="{{para.bodyText}}"></p>
               <span ng-if="paraTags[para.elementID]" ng-class="getParaTagClass(paraTags[para.elementID])" class="paragraph-tag" tooltip='"title":"{{paraTags[para.elementID]}}","placement":"right"'>{{paraTags[para.elementID].charAt(0)}}</span>
             </div>
@@ -117,7 +117,7 @@
             <div class="container-fluid padding-15" style="height: 45vh;">
               <div class="col-xs-8 max-height" style="overflow: auto;">
                 <div ng-repeat="para in paragraphs" style="position: relative;">
-                  <i class="fa fa-check-circle fa-2x" ng-class="{'text-gray':!para.isSelected, 'text-green':para.isSelected}" aria-hidden="true" ng-click="selectParagraph(para)" style="position:absolute;top:-2px;left:-13px;background:#FFFFFF;border-radius: 50%;"></i>
+                  <i class="fa fa-check-circle fa-2x" ng-class="{'text-gray':!currentParagraphs[para.elementID], 'text-green':currentParagraphs[para.elementID]}" aria-hidden="true" ng-click="selectParagraph(para.elementID)" style="position:absolute;top:-2px;left:-13px;background:#FFFFFF;border-radius: 50%;"></i>
                   <p ng-class="{'text-danger': para.willIgnore === 'true'}" read-more="" content="{{para.bodyText}}"></p>
                   <span ng-if="paraTags[para.elementID]" ng-class="getParaTagClass(paraTags[para.elementID])" class="paragraph-tag" tooltip='"title":"{{paraTags[para.elementID]}}","placement":"right"'>{{paraTags[para.elementID].charAt(0)}}</span>
                 </div>
@@ -131,7 +131,7 @@
                     <table class="table table-condensed table-responsive zero-margin">
                       <tr ng-repeat="(k, v) in masterComponentTypes">
                         <td>
-                          <i class="fa fa-check-circle fa-2x" aria-hidden="true" ng-click="selectComponentType(k)"></i>&nbsp;&nbsp;{{v}}
+                          <i class="fa fa-check-circle fa-2x" ng-class="{'text-gray':!currentComponentTypes[k], 'text-green':currentComponentTypes[k]}" aria-hidden="true" ng-click="selectComponentType(k)"></i>&nbsp;&nbsp;{{v}}
                         </td>
                       </tr>
                     </table>
@@ -140,9 +140,14 @@
               </div>
             </div>
             <div class="container-fluid" style="height: 12vh;padding:5px 28px;">
-              <textarea class="form-control max-width max-height" ng-model="question.text" placeholder="Type a checklist item text..."></textarea>
+              <textarea class="form-control max-width max-height" ng-model="checklistItem.bodyText" placeholder="Type a checklist item text..."></textarea>
             </div>
-            <div class="container-fluid" style="padding:15px 28px 20px;">
+            <div class="inline-form" style="padding:15px 28px 20px;">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" ng-model="checklistItem.isMandatory"> Mandatory
+                </label>
+              </div>
               <button type="button" class="btn btn-default pull-right" ng-click="saveChecklist()">Save</button>
             </div>
           </div>

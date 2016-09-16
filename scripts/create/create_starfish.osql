@@ -26,7 +26,6 @@ ALTER PROPERTY APP_QUESTIONS.TEXT MANDATORY true;
 ALTER PROPERTY APP_QUESTIONS.IS_MANDATORY MANDATORY true;
 ALTER PROPERTY APP_QUESTIONS.PARAGRAPH NOTNULL true;
 ----------------------------------------------------------
-CREATE INDEX APP_QUESTIONS.DATA_ID UNIQUE;
 
 
 -------------------------------------------------------------------
@@ -40,7 +39,6 @@ CREATE PROPERTY APP_PARAGRAPHS.PARAGRAPH_TAG STRING;
 ALTER PROPERTY APP_PARAGRAPHS.DATA_ID MANDATORY true;
 ALTER PROPERTY APP_PARAGRAPHS.TEXT MANDATORY true;
 ----------------------------------------------------------
-CREATE INDEX APP_PARAGRAPHS.DATA_ID UNIQUE;
 
 
 
@@ -61,7 +59,6 @@ CREATE PROPERTY APP_CHECKLIST.UPDATED_AT Datetime;
 ----------------------------------------------------------
 
 ----------------------------------------------------------
-CREATE INDEX APP_CHECKLIST.DATA_ID UNIQUE;
 
 
 
@@ -77,7 +74,6 @@ CREATE PROPERTY APP_TAG_ELEMENTS.TEXT STRING;
 ALTER PROPERTY APP_TAG_ELEMENTS.DATA_ID MANDATORY true;
 ALTER PROPERTY APP_TAG_ELEMENTS.TEXT MANDATORY true;
 ----------------------------------------------------------
-CREATE INDEX APP_TAG_ELEMENTS.DATA_ID UNIQUE;
 
 
 
@@ -93,9 +89,6 @@ CREATE PROPERTY APP_COMPONENTS.CONCEPTS STRING;
 ALTER PROPERTY APP_COMPONENTS.DATA_ID MANDATORY true;
 ALTER PROPERTY APP_COMPONENTS.TEXT MANDATORY true;
 ALTER PROPERTY APP_COMPONENTS.CONCEPTS MANDATORY true;
-----------------------------------------------------------
-CREATE INDEX APP_COMPONENTS.DATA_ID UNIQUE;
-----------------------------------------------------------
 
 
 
