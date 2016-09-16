@@ -725,8 +725,9 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	
 	$scope.addChecklist = function () {
 		$scope.checklistItem = {isMandatory : true};
-		var selectedParagraphs = _.where
-		SharedService.getComponentTypesByParagraphIds($scope.currentParagraphs).then(function (data) {
+		var selectedParagraphs = _.pick($scope.currentParagraphs, function (val, key) { return val;	});
+		selectedParagraphs = _.keys(selectedParagraphs);
+		SharedService.getComponentTypesByParagraphIds(selectedParagraphs).then(function (data) {
 			if(data.status){
 				$scope.masterComponentTypes = angular.fromJson(data.data);
 				$('#checklistModal').modal('show');

@@ -142,13 +142,13 @@
             <div class="container-fluid" style="height: 12vh;padding:5px 28px;">
               <textarea class="form-control max-width max-height" ng-model="checklistItem.bodyText" placeholder="Type a checklist item text..."></textarea>
             </div>
-            <div class="inline-form" style="padding:15px 28px 20px;">
+            <div class="form-inline" style="padding:15px 28px 20px;">
               <div class="checkbox">
                 <label>
                   <input type="checkbox" ng-model="checklistItem.isMandatory"> Mandatory
                 </label>
               </div>
-              <button type="button" class="btn btn-default pull-right" ng-click="saveChecklist()">Save</button>
+              <button type="button" class="btn btn-default" ng-click="saveChecklist()">Save</button>
             </div>
           </div>
           <div id="attachmentTab" class="tab-pane fade">
