@@ -512,4 +512,16 @@ public class CeclController extends Controller{
         finalJson.put("status", status).put("data", data);
         return ok(finalJson.toString());
     }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result getChecklistsByParagraphIds() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final JSONObject checklistItem = request.getJSONObject("checklistItem");
+        JSONObject finalJson = new JSONObject();
+        Boolean status = true;
+        String data = null;
+
+        return ok(finalJson.toString());
+    }
 }
