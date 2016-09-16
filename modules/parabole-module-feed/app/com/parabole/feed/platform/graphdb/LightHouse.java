@@ -352,7 +352,7 @@ public class LightHouse extends GraphDb {
                 if (null != v) {
                     v.getEdges(Direction.OUT).forEach((final Edge edge) -> {
                             HashMap<String, String> finalData = new HashMap<>();
-                            for (String s : edge.getPropertyKeys()) {
+                            for (String s : edge.getVertex(Direction.IN).getPropertyKeys()) {
                                 finalData.put(s, edge.getVertex(Direction.IN).getProperty(s));
                             }
                             listOfFinalData.add(finalData);

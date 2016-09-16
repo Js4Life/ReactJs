@@ -26,11 +26,11 @@ public class StarfishServices {
     private StarFish starFish;
 
 
-    public ArrayList<Map<String, String>> getChecklistByID(List<String> checklistIDs) {
+    public ArrayList<HashMap<String, String>> getChecklistByID(List<String> checklistIDs) {
 
-        ArrayList<Map<String, String>> finalResult = new ArrayList<>();
+        ArrayList<HashMap<String, String>> finalResult = new ArrayList<>();
         for(String checklistID  : checklistIDs){
-            Map<String, String> checklist = starFish.getChecklistByID(checklistID);
+            HashMap<String, String> checklist = starFish.getChecklistByID(checklistID);
             finalResult.add(checklist);
         }
 

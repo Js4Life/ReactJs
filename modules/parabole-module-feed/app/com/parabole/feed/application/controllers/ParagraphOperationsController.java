@@ -271,13 +271,13 @@ public class ParagraphOperationsController extends BaseController{
 
     public Result getChecklistByID() {
         List<String> checklistIDs = new ArrayList<>();
-        checklistIDs.add("");
+        checklistIDs.add("07bdb9b6-858b-4022-8e0e-20361f39bd34");
         return ok(starfishServices.getChecklistByID(checklistIDs).toString());
         //return null;
     }
 
     public Result getChecklistByParagraph() {
-        return ok(lightHouseService.getChecklistByConcept("http://mindparabole.com/finance/fasb_concepts#CreditRating").toString());
+        return ok(lightHouseService.getChecklistByParagraph("310-10-50-10").toString());
     }
 
     public Result getChecklistByConcept() {

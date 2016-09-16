@@ -248,10 +248,10 @@ public class StarFish extends GraphDb {
         }
     }
 
-    public Map<String, String> getChecklistByID(String checklistID){
-        final List<Map<String, String>> outputList = new ArrayList<Map<String, String>>();
+    public HashMap<String, String> getChecklistByID(String checklistID){
+        final List<HashMap<String, String>> outputList = new ArrayList<HashMap<String, String>>();
         final ODatabaseDocumentTx dbNoTx = getDocDBConnectionTx();
-        final Map<String, String> outputMap = new HashMap<String, String>();
+        final HashMap<String, String> outputMap = new HashMap<String, String>();
         try {
             final OSQLSynchQuery<ODocument> query = new OSQLSynchQuery<ODocument>("SELECT * FROM APP_CHECKLIST WHERE DATA_ID = '" + checklistID + "'");
             final List<ODocument> results = dbNoTx.command(query).execute();
