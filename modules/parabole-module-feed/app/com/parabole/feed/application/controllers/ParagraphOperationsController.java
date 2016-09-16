@@ -302,7 +302,7 @@ public class ParagraphOperationsController extends BaseController{
     }
 
     public Result getChecklistByConcept() {
-        return ok(lightHouseService.getChecklistByConcept("http://mindparabole.com/finance/fasb_concepts#CreditRating").toString());
+        return ok(lightHouseService.getChecklistByConcept("http://mindparabole.com/finance/fasb_concepts#ValuationAllowance").toString());
     }
 
 

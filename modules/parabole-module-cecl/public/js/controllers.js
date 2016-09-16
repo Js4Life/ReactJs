@@ -740,9 +740,19 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		selectedParagraphs = _.keys(selectedParagraphs);
 		SharedService.getChecklistsByParagraphIds(selectedParagraphs).then(function (data) {
 			if(data.status){
-				$scope.checklist = angular.fromJson(data.data);
+				$scope.checklist = removeEmptyAndUnique(angular.fromJson(data.data));
 			}
 		});
+	}
+
+	function removeEmptyAndUnique(objList) {
+		objList = _.each(objList, function (obj) {
+			return !_.isEmpty(obj) && !obj.id;
+		});
+		var uniqueList = _.uniq(objList, function(item, key, id) {
+			return item.id;
+		});
+		return uniqueList;
 	}
 
 	$scope.cleanQuestionEditor = function () {
@@ -1096,10 +1106,20 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.getChecklistByNode = function (node) {
 		SharedService.getChecklistByNodeId(node).then(function (data) {
 			if(data.status){
-				$scope.checkList = angular.fromJson(data.data);
+				$scope.checkList = removeEmptyAndUnique(angular.fromJson(data.data));
 				$('#checklistModal').modal('show');
 			}
 		})
+	}
+
+	function removeEmptyAndUnique(objList) {
+		objList = _.reject(objList, function (obj) {
+			return (_.isEmpty(obj) || obj.id == null);
+		});
+		var uniqueList = _.uniq(objList, function(item, key, id) {
+			return item.id;
+		});
+		return uniqueList;
 	}
 
 	$scope.saveAnswers = function () {
