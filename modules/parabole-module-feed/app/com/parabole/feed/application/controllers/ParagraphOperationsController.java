@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.parabole.feed.application.exceptions.AppException;
 import com.parabole.feed.application.services.CheckListServices;
 import com.parabole.feed.application.services.LightHouseService;
+import com.parabole.feed.application.services.StarfishServices;
 import org.json.JSONObject;
 import play.mvc.Result;
 
@@ -25,6 +26,9 @@ public class ParagraphOperationsController extends BaseController{
 
     @Inject
     private LightHouseService lightHouseService;
+
+    @Inject
+    private StarfishServices starfishServices;
 
 
 
@@ -261,10 +265,23 @@ public class ParagraphOperationsController extends BaseController{
 
     public Result getComponentTypesByParagraphIds() {
         ArrayList<String> listOfParagraphIDs = new ArrayList<>();
-        //listOfParagraphIDs.add("320-10-35-34B");
-        //listOfParagraphIDs.add("320-10-35-34C");
         listOfParagraphIDs.add("326-10-65-1");
         return ok(lightHouseService.getComponentTypesByParagraphIds(listOfParagraphIDs).toString());
+    }
+
+    public Result getChecklistByID() {
+        List<String> checklistIDs = new ArrayList<>();
+        checklistIDs.add("07bdb9b6-858b-4022-8e0e-20361f39bd34");
+        return ok(starfishServices.getChecklistByID(checklistIDs).toString());
+        //return null;
+    }
+
+    public Result getChecklistByParagraph() {
+        return ok(lightHouseService.getChecklistByParagraph("310-10-50-10").toString());
+    }
+
+    public Result getChecklistByConcept() {
+        return ok(lightHouseService.getChecklistByConcept("http://mindparabole.com/finance/fasb_concepts#CreditRating").toString());
     }
 
 

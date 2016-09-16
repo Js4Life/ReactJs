@@ -24,6 +24,7 @@ import java.util.*;
  * Created by Sagir on 24-08-2016.
  *
  */
+
 public class LightHouse extends GraphDb {
 
     public static final boolean filterEdge = CollectionUtils.isNotEmpty(CCAppConstants.RDA_RELATIONSHIPS);
@@ -37,7 +38,6 @@ public class LightHouse extends GraphDb {
         this.orientGraphFactory = new OrientGraphFactory(graphDbUrl, graphDbUser, graphDbPassword).setupPool(graphDbPoolMinSize, graphDbPoolMaxSize);
     }
 
-
     /*******************************************************************
     // Everytime you need a graph instance
     /*******************************************************************
@@ -50,7 +50,6 @@ public class LightHouse extends GraphDb {
     }
 
      ******************************************************************/
-
 
     public boolean createLightHouse() throws IOException {
 
@@ -107,7 +106,6 @@ public class LightHouse extends GraphDb {
         return true;
     }
 
-
     public Boolean establishEdgeByVertexIDs(String vertexIDOne, String vertexIDTwo, String edgeName, String edgeType) {
 
         OrientGraph graph = this.orientGraphFactory.getTx();
@@ -133,7 +131,6 @@ public class LightHouse extends GraphDb {
         return res;
 
     }
-
 
     public boolean deleteEdgeByVertexIDs(String vertexIDOne, String vertexIDTwo) {
 
@@ -171,9 +168,6 @@ public class LightHouse extends GraphDb {
         return true;
 
     }
-
-
-
 
     public boolean saveListOfVertices(List<String> listOfvertices) throws IOException {
         OrientGraph graph = this.orientGraphFactory.getTx();
@@ -234,7 +228,6 @@ public class LightHouse extends GraphDb {
 
     }
 
-
     /*******************************************************************
      // Generic Method to save a graph component
      /*******************************************************************
@@ -243,9 +236,6 @@ public class LightHouse extends GraphDb {
      edge and all the edge properties
 
      ******************************************************************/
-
-
-
 
     public boolean saveGraphInstance(OrientGraph graph, Vertex vertexOne, Vertex vertexTwo, String edgeName, Map<String, String> edgeProperties) throws  IOException{
 
@@ -264,7 +254,6 @@ public class LightHouse extends GraphDb {
 
         return true;
     }
-
 
     public ArrayList<HashMap<String, String>> getAlltopic() throws  IOException{
 
@@ -318,8 +307,6 @@ public class LightHouse extends GraphDb {
         return listOfFinalData;
     }
 
-
-
     public ArrayList<HashMap<String, String>> getSubtopicsByTopicId(String topicid) throws  IOException{
 
         Iterable<Vertex> verticesData = null;
@@ -353,6 +340,34 @@ public class LightHouse extends GraphDb {
         return listOfFinalData;
     }
 
+    public ArrayList<HashMap<String, String>> getChildVerticesByRootVertexId(String rootVertexID){
+
+        Iterable<Vertex> verticesData = null;
+        ArrayList<HashMap<String, String>> listOfFinalData = new ArrayList<HashMap<String, String>>();
+        OrientGraph graph = this.orientGraphFactory.getTx();
+        verticesData = graph.getVertices("elementID", rootVertexID);
+        try {
+            for (Vertex v : verticesData) {
+                final Set<Vertex> outputSet = new HashSet<Vertex>();
+                if (null != v) {
+                    v.getEdges(Direction.OUT).forEach((final Edge edge) -> {
+                            HashMap<String, String> finalData = new HashMap<>();
+                            for (String s : edge.getVertex(Direction.IN).getPropertyKeys()) {
+                                finalData.put(s, edge.getVertex(Direction.IN).getProperty(s));
+                            }
+                            listOfFinalData.add(finalData);
+                    });
+                }
+            }
+            graph.commit();
+        }catch( Exception e ) {
+            graph.rollback();
+        } finally {
+            graph.shutdown();
+        }
+
+        return listOfFinalData;
+    }
 
     public ArrayList<HashMap<String, String>> getParagraphBySectionId(String topicid) throws  IOException{
 
@@ -392,7 +407,6 @@ public class LightHouse extends GraphDb {
 
         return listOfFinalData;
     }
-
 
     public String addAnewVertexproperty(String vertexID, HashMap<String, String> mapOfProperties) throws  IOException{
 
@@ -441,7 +455,6 @@ public class LightHouse extends GraphDb {
         Graph g = getGraphConnectionNoTx();
         g.getVertices("elementID", paragraphID);
     }
-
 
     public void getConceptsFromParagraphs(String paragraphID, HashMap<String, String> resultantComponentTypes) throws  IOException{
 

@@ -248,6 +248,28 @@ public class StarFish extends GraphDb {
         }
     }
 
+    public HashMap<String, String> getChecklistByID(String checklistID){
+        final List<HashMap<String, String>> outputList = new ArrayList<HashMap<String, String>>();
+        final ODatabaseDocumentTx dbNoTx = getDocDBConnectionTx();
+        final HashMap<String, String> outputMap = new HashMap<String, String>();
+        try {
+            final OSQLSynchQuery<ODocument> query = new OSQLSynchQuery<ODocument>("SELECT * FROM APP_CHECKLIST WHERE DATA_ID = '" + checklistID + "'");
+            final List<ODocument> results = dbNoTx.command(query).execute();
+            for (final ODocument result : results) {
+                String[] properties = result.fieldNames();
+                for (String property : properties) {
+                    outputMap.put(property, result.field(property));
+                }
+            }
+
+        } catch (final Exception ex) {
+            Logger.error("Could not retrieve All Users", ex);
+        } finally {
+            closeDocDBConnection(dbNoTx);
+        }
+        return outputMap;
+    }
+
 
 
 }

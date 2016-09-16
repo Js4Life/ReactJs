@@ -43,14 +43,13 @@ GET /saveOrUpdateCheckList                             com.parabole.feed.applica
 GET /getCheckListById                                  com.parabole.feed.application.controllers.ParagraphOperationsController.getCheckListById()
 GET /removeCheckList                                   com.parabole.feed.application.controllers.ParagraphOperationsController.removeCheckList()
 #---------------------------------------
-
-## Topic Sub Topic creation Test
+#
 #---------------------------------------
 GET /createNewTopic                                     com.parabole.feed.application.controllers.ParagraphOperationsController.createNewTopic()
 GET /createNewSubtopic                                  com.parabole.feed.application.controllers.ParagraphOperationsController.createNewSubtopic()
 GET /createNewSection                                   com.parabole.feed.application.controllers.ParagraphOperationsController.createNewSection()
 GET /createRelationBetweenTwoNodes                      com.parabole.feed.application.controllers.ParagraphOperationsController.createRelationBetweenTwoNodes()
-#-----
+#~~~~~~
 GET /getAllComponents                                   com.parabole.feed.application.controllers.ParagraphOperationsController.getAllComponents()
 GET /getAlltopic                                        com.parabole.feed.application.controllers.ParagraphOperationsController.getAlltopic()
 GET /getAllConcepts                                     com.parabole.feed.application.controllers.ParagraphOperationsController.getAllConcepts()
@@ -60,16 +59,22 @@ GET /getParagraphByParagraphId/:nodeId                  com.parabole.feed.applic
 GET /getcomponetsByComponentTypes/:nodeId               com.parabole.feed.application.controllers.ParagraphOperationsController.getParagraphBySectionId(nodeId: String)
 GET /getcomponettypesByConcepts/:nodeId                 com.parabole.feed.application.controllers.ParagraphOperationsController.getParagraphBySectionId(nodeId: String)
 GET /getComponentTypesByParagraphIds                    com.parabole.feed.application.controllers.ParagraphOperationsController.getComponentTypesByParagraphIds
-#-----
+#~~~~~~
+GET /getChecklistByID                                   com.parabole.feed.application.controllers.ParagraphOperationsController.getChecklistByID
+GET /getChecklistByParagraph                            com.parabole.feed.application.controllers.ParagraphOperationsController.getChecklistByParagraph
+GET /getChecklistByComponentType                        com.parabole.feed.application.controllers.ParagraphOperationsController.getComponentTypesByParagraphIds
+GET /getChecklistByConcept                              com.parabole.feed.application.controllers.ParagraphOperationsController.getChecklistByConcept
+GET /getChecklistComponent                              com.parabole.feed.application.controllers.ParagraphOperationsController.getComponentTypesByParagraphIds
+GET /getChecklistByBusinessSegment                      com.parabole.feed.application.controllers.ParagraphOperationsController.getComponentTypesByParagraphIds
+#~~~~~~
 GET /addAnewVertexproperty                              com.parabole.feed.application.controllers.ParagraphOperationsController.addAnewVertexproperty()
-#-----
+#~~~~~~
 GET /saveAllTopicsSubTopics/:fileName                   com.parabole.feed.application.controllers.FeedController.getAllTopicsSubTopics(fileName: String)
 GET /saveSectionsFromParagraphJSon                      com.parabole.feed.application.controllers.FeedController.saveSectionsFromParagraphJSon()
 GET /createConceptNodesAndAssignParagraph               com.parabole.feed.application.controllers.FeedController.createConceptNodesFromParagraph()
 GET /createComponentTypseAndAssignToConcept             com.parabole.feed.application.controllers.FeedController.createComponentTypseAndAssignToConcept()
 GET /createComponentAndAssignToComponentType            com.parabole.feed.application.controllers.FeedController.createComponentAndAssignToComponentType()
 GET /createBusinesSegmentAndAssignComponent             com.parabole.feed.application.controllers.FeedController.createBusinesSegmentAndAssignComponent()
-#-----
 
 #---------------------------------------
 

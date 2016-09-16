@@ -43,6 +43,9 @@ public class LightHouseService {
     @Inject
     private LightHouse lightHouse;
 
+    @Inject
+    private StarfishServices starfishServices;
+
    // public String save
 
     public String createNewTopic(){
@@ -172,5 +175,26 @@ public class LightHouseService {
         HashMap<String, String> componentTypes = lightHouse.getComponentTypeFromParagraphsIDS(listOfParagraphIDs);
 
         return componentTypes;
+    }
+
+    public ArrayList<HashMap<String, String>> getChecklistByConcept(String conceptID) {
+
+        ArrayList<String> listOfOfChecklist = new ArrayList<>();
+
+        ArrayList<HashMap<String, String>> componentTypes = lightHouse.getChildVerticesByRootVertexId(conceptID);
+
+        return componentTypes;
+    }
+
+    public ArrayList<HashMap<String, String>> getChecklistByParagraph(String paragraphID) {
+
+        ArrayList<String> listOfOfChecklist = new ArrayList<>();
+        ArrayList<HashMap<String, String>> checklistIDs = lightHouse.getChildVerticesByRootVertexId(paragraphID);
+        for (HashMap<String, String> checklistID : checklistIDs) {
+            listOfOfChecklist.add(checklistID.get("elementID"));
+            System.out.println("checklistID = " + checklistID);
+        }
+        ArrayList<HashMap<String, String>> finalResult = starfishServices.getChecklistByID(listOfOfChecklist);
+        return finalResult;
     }
 }
