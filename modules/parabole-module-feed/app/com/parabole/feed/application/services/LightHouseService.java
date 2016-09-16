@@ -184,10 +184,11 @@ public class LightHouseService {
         for (HashMap<String, String> componentType : componentTypes) {
             if(componentType.get("type").equals("COMPONENTTYPE"));
                 listOfOfChecklist.add(componentType.get("elementID"));
+                System.out.println("componentType.get(\"elementID\") = " + componentType.get("type"));
         }
 
-        getListOfChildComponentVerticesByRootVertices(listOfOfChecklist);
-        return componentTypes;
+        //getListOfChildComponentTypeVerticesByRootVertices(getListOfChildComponentVerticesByRootVertices(listOfOfChecklist));
+        return getChecklistsByComponentTypes(listOfOfChecklist);
 
     }
 
@@ -206,6 +207,24 @@ public class LightHouseService {
 
     }
 
+    public ArrayList<HashMap<String, String>> getChecklistByComponent(ArrayList<String> ids) {
+
+        ArrayList<String> listOFComponentTypes = new ArrayList<>();
+    //    ArrayList<String> listOfOfChecklist = new ArrayList<>();
+        for (String id : ids) {
+            ArrayList<HashMap<String, String>> checklistIDs = lightHouse.getRootVerticesByChildVertexId(id);
+            for (HashMap<String, String> checklistID : checklistIDs) {
+                System.out.println(checklistID.get("elementID"));
+                listOFComponentTypes.add(checklistID.get("elementID"));
+            }
+        }
+
+        ArrayList<HashMap<String, String>> finalResult = getChecklistsByComponentTypes(listOFComponentTypes);
+
+        return finalResult;
+
+    }
+
     ArrayList<String> getListOfChildComponentVerticesByRootVertices(ArrayList<String> listOfOfRootVertices){
 
         ArrayList<String> listOfChildVertices = new ArrayList<>();
@@ -215,6 +234,22 @@ public class LightHouseService {
             for (HashMap<String, String> componentType : componentTypes) {
                 System.out.println("componentType.get(\"type\") = " + componentType.get("type"));
                 if(componentType.get("type").equals("COMPONENT"))
+                    listOfChildVertices.add(componentType.get("elementID"));
+            }
+        }
+
+        return listOfChildVertices;
+    }
+
+    ArrayList<String> getListOfChildComponentTypeVerticesByRootVertices(ArrayList<String> listOfOfRootVertices){
+
+        ArrayList<String> listOfChildVertices = new ArrayList<>();
+
+        for (String rootVertex : listOfOfRootVertices) {
+            ArrayList<HashMap<String, String>> componentTypes = lightHouse.getRootVerticesByChildVertexId(rootVertex);
+            for (HashMap<String, String> componentType : componentTypes) {
+                System.out.println("componentType.get(\"type\") = " + componentType.get("type"));
+                if(componentType.get("type").equals("COMPONENTTYPE"))
                     listOfChildVertices.add(componentType.get("elementID"));
             }
         }

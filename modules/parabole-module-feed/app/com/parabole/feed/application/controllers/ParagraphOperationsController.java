@@ -288,6 +288,12 @@ public class ParagraphOperationsController extends BaseController{
         return ok(lightHouseService.getChecklistsByComponentTypes(listOfParagraphIDs).toString());
     }
 
+    public Result getChecklistByComponent() {
+        ArrayList<String> listOfComponetIds = new ArrayList<>();
+
+        return ok(lightHouseService.getChecklistByComponent(listOfComponetIds).toString());
+    }
+
     public Result getChecklistByConcept() {
         return ok(lightHouseService.getChecklistByConcept("http://mindparabole.com/finance/fasb_concepts#CreditRating").toString());
     }
