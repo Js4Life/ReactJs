@@ -369,6 +369,35 @@ public class LightHouse extends GraphDb {
         return listOfFinalData;
     }
 
+    public ArrayList<HashMap<String, String>> getRootVerticesByChildVertexId(String rootVertexID){
+
+        Iterable<Vertex> verticesData = null;
+        ArrayList<HashMap<String, String>> listOfFinalData = new ArrayList<HashMap<String, String>>();
+        OrientGraph graph = this.orientGraphFactory.getTx();
+        verticesData = graph.getVertices("elementID", rootVertexID);
+        try {
+            for (Vertex v : verticesData) {
+                final Set<Vertex> outputSet = new HashSet<Vertex>();
+                if (null != v) {
+                    v.getEdges(Direction.IN).forEach((final Edge edge) -> {
+                            HashMap<String, String> finalData = new HashMap<>();
+                            for (String s : edge.getVertex(Direction.OUT).getPropertyKeys()) {
+                                finalData.put(s, edge.getVertex(Direction.OUT).getProperty(s));
+                            }
+                            listOfFinalData.add(finalData);
+                    });
+                }
+            }
+            graph.commit();
+        }catch( Exception e ) {
+            graph.rollback();
+        } finally {
+            graph.shutdown();
+        }
+
+        return listOfFinalData;
+    }
+
     public ArrayList<HashMap<String, String>> getParagraphBySectionId(String topicid) throws  IOException{
 
         Iterable<Vertex> verticesData = null;
