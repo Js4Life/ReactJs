@@ -135,6 +135,44 @@ public class LightHouse extends GraphDb {
     }
 
 
+    public boolean deleteEdgeByVertexIDs(String vertexIDOne, String vertexIDTwo) {
+
+        OrientGraph graph = this.orientGraphFactory.getTx();
+
+            Vertex vOne = null;
+            Vertex vTwo = null;
+
+        try {
+            for (Vertex v : graph.getVertices("elementID", vertexIDOne)) {
+                vOne = v;
+            }
+
+            for (Vertex v : graph.getVertices("elementID", vertexIDTwo)) {
+                vTwo = v;
+            }
+
+            if (vTwo != null) {
+                Iterable<Edge> result = vOne.getEdges(Direction.BOTH);
+                for (Edge e : result) {
+                    if (e.getVertex(Direction.BOTH).equals(vTwo)) {
+                        graph.removeEdge(e);
+                    }
+                }
+            } else {
+                System.out.println("Not connected");
+            }
+            graph.commit();
+        }catch(Exception e ) {
+            graph.rollback();
+            System.out.println("e = " + e);
+        } finally {
+            graph.shutdown();
+        }
+        return true;
+
+    }
+
+
 
 
     public boolean saveListOfVertices(List<String> listOfvertices) throws IOException {

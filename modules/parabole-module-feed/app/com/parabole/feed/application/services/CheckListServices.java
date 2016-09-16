@@ -426,7 +426,7 @@ public class CheckListServices {
                 if(v){
                     lightHouse.establishEdgeByVertexIDs(k, toSave.get("DATA_ID").toString(), "paragraphToChecklist", "paragraphToChecklist");
                 } else {
-
+                    lightHouse.deleteEdgeByVertexIDs(k, toSave.get("DATA_ID").toString());
                 }
             });
 
@@ -434,7 +434,7 @@ public class CheckListServices {
                 if(v){
                     lightHouse.establishEdgeByVertexIDs(k, toSave.get("DATA_ID").toString(), "componentTypeToChecklist", "componentTypeToChecklist");
                 } else {
-
+                    lightHouse.deleteEdgeByVertexIDs(k, toSave.get("DATA_ID").toString());
                 }
             });
             result = toSave.get("DATA_ID").toString();
