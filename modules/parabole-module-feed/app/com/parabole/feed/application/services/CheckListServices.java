@@ -404,7 +404,7 @@ public class CheckListServices {
     }
 
 
-    public String saveOrUpdateCheckList(HashMap<String, Object> toSave, HashMap<String, Boolean> paragraphIDs, HashMap<String, Boolean> componentTypeIDs) {
+        public String saveOrUpdateCheckList(HashMap<String, Object> toSave, HashMap<String, Boolean> paragraphIDs, HashMap<String, Boolean> componentTypeIDs) {
 
         if(toSave.get("DATA_ID") == null || toSave.get("DATA_ID").toString().trim().isEmpty()) {
             toSave.put("DATA_ID", getUniqueID());

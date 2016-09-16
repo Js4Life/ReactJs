@@ -173,4 +173,13 @@ public class LightHouseService {
 
         return componentTypes;
     }
+
+    public ArrayList<HashMap<String, String>> getChecklistByConcept(String conceptID) {
+
+        ArrayList<String> listOfOfChecklist = new ArrayList<>();
+
+        ArrayList<HashMap<String, String>> componentTypes = lightHouse.getChildVerticesByRootVertexId(conceptID);
+
+        return componentTypes;
+    }
 }
