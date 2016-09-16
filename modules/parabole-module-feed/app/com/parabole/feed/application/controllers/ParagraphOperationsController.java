@@ -297,8 +297,12 @@ public class ParagraphOperationsController extends BaseController{
     public Result getChecklistByBusinessSegment() {
         // TODO
         ArrayList<String> listOfComponetIds = new ArrayList<>();
-        listOfComponetIds.add("http://www.mindparabole.com/ontology/finance/Parabole-Model#AnnualFinancialStatement");
-        return ok(lightHouseService.getChecklistByComponent(listOfComponetIds).toString());
+        listOfComponetIds.add("http://www.mindparabole.com/ontology/finance/Parabole-Model#WholesaleFinance");
+        listOfComponetIds.add("http://www.mindparabole.com/ontology/finance/Parabole-Model#CommercialRealEstate");
+        listOfComponetIds.add("http://www.mindparabole.com/ontology/finance/Parabole-Model#EquipmentFinance");
+        listOfComponetIds.add("http://www.mindparabole.com/ontology/finance/Parabole-Model#CreditCard");
+        listOfComponetIds.add("http://www.mindparabole.com/ontology/finance/Parabole-Model#AutoLoan");
+        return ok(lightHouseService.getChecklistByBusinessSegment(listOfComponetIds).toString());
     }
 
     public Result getChecklistByConcept() {
