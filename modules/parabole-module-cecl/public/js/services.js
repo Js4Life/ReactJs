@@ -93,6 +93,7 @@ angular.module('RDAApp.services', [])
         'GetParagraphsByConceptId' : 'getParagraphsByConceptId',
         'GetAllConcepts' : 'getAllConcepts',
         'GetAllComponents' : 'getAllComponents',
+        'GetAllBusinessSegments' : 'getAllBusinessSegments',
         'GetComponentTypesByParagraphIds' : 'getComponentTypesByParagraphIds',
         'SaveOrUpdateCheckList' : 'saveOrUpdateCheckList',
         'GetChecklistsByParagraphIds' : 'getChecklistsByParagraphIds',
@@ -700,6 +701,9 @@ angular.module('RDAApp.services', [])
     }
     SharedService.getAllComponents = function () {
         return SharedService.invokeService('GetAllComponents');
+    }
+    SharedService.getAllBusinessSegments = function () {
+        return SharedService.invokeService('GetAllBusinessSegments');
     }
     SharedService.getComponentTypesByParagraphIds = function (paraIds) {
         var sendObj = {"paraIds": paraIds};

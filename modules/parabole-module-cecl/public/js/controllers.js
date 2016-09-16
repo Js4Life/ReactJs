@@ -727,6 +727,10 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$scope.checklistItem = {isMandatory : true};
 		var selectedParagraphs = _.pick($scope.currentParagraphs, function (val, key) { return val;	});
 		selectedParagraphs = _.keys(selectedParagraphs);
+		if(selectedParagraphs.length < 1) {
+			toastr.warning('Select at least one paragraph..', '', {"positionClass": "toast-top-right"});
+			return;
+		}
 		SharedService.getComponentTypesByParagraphIds(selectedParagraphs).then(function (data) {
 			if(data.status){
 				$scope.masterComponentTypes = angular.fromJson(data.data);
@@ -738,6 +742,10 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.getChecklistByParagraphs = function () {
 		var selectedParagraphs = _.pick($scope.currentParagraphs, function (val, key) { return val;	});
 		selectedParagraphs = _.keys(selectedParagraphs);
+		if(selectedParagraphs.length < 1) {
+			toastr.warning('Select at least one paragraph..', '', {"positionClass": "toast-top-right"});
+			return;
+		}
 		SharedService.getChecklistsByParagraphIds(selectedParagraphs).then(function (data) {
 			if(data.status){
 				$scope.checklist = removeEmptyAndUnique(angular.fromJson(data.data));
@@ -746,8 +754,8 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}
 
 	function removeEmptyAndUnique(objList) {
-		objList = _.each(objList, function (obj) {
-			return !_.isEmpty(obj) && !obj.id;
+		objList = _.reject(objList, function (obj) {
+			return (_.isEmpty(obj) || obj.id == null);
 		});
 		var uniqueList = _.uniq(objList, function(item, key, id) {
 			return item.id;
@@ -1025,9 +1033,8 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				});
 				break;
 			case "BUSINESS_SEGMENT" :
-				var compName = "allBusinessSegments";
-				SharedService.getFilteredDataByCompName(compName).then(function (data) {
-					$scope.childNodes = data.data;
+				SharedService.getAllBusinessSegments().then(function (data) {
+					$scope.childNodes = angular.fromJson(data.data);
 				});
 				break;
 		}
@@ -1107,7 +1114,10 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		SharedService.getChecklistByNodeId(node).then(function (data) {
 			if(data.status){
 				$scope.checkList = removeEmptyAndUnique(angular.fromJson(data.data));
-				$('#checklistModal').modal('show');
+				if($scope.checkList.length > 0)
+					$('#checklistModal').modal('show');
+				else
+					toastr.warning('Checklist not found..', '', {"positionClass" : "toast-top-right"});
 			}
 		})
 	}
