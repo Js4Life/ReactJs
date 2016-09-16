@@ -526,7 +526,7 @@ public class CeclController extends Controller{
             for(int i=0; i<paraIds.length(); i++){
                 req.add(paraIds.getString(i));
             }
-            ArrayList<HashMap<String, String>> res = transformToViewModel(lightHouseService.getChecklistByParagraph(req));
+            ArrayList<HashMap<String, String>> res = transformToViewModel(lightHouseService.getChecklistsByParagraphs(req));
             ObjectMapper mapper = new ObjectMapper();
             data = mapper.writeValueAsString(res);
         } catch (Exception e){

@@ -976,6 +976,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			hier: false
 		};
 		$scope.exploreNode(SharedService.currentView);
+		$scope.answers = {};
 	}
 
 	$rootScope.$on('PARENTSEARCHTEXT', function (event, data) {
