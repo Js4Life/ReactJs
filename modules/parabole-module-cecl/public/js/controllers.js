@@ -237,7 +237,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			case "SUBTOPIC" :
 				SharedService.getSectionsBySubtopicId(nodeId).then(function (data) {
 					if(data.status){
-						$scope.childNodes = angular.fromJson(data.data);
+						$scope.childNodes = removeEmptyAndUnique(angular.fromJson(data.data));
 					}
 				});
 				break;
@@ -272,6 +272,16 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				});
 				break;
 		}
+	}
+
+	function removeEmptyAndUnique(objList) {
+		objList = _.reject(objList, function (obj) {
+			return (_.isEmpty(obj) || obj.elementID == null);
+		});
+		var uniqueList = _.uniq(objList, function(item) {
+			return item.elementID;
+		});
+		return uniqueList;
 	}
 
 	function insertBread(nodeType, nodeId){
