@@ -180,21 +180,40 @@ public class LightHouseService {
     public ArrayList<HashMap<String, String>> getChecklistByConcept(String conceptID) {
 
         ArrayList<String> listOfOfChecklist = new ArrayList<>();
-
         ArrayList<HashMap<String, String>> componentTypes = lightHouse.getChildVerticesByRootVertexId(conceptID);
+        for (HashMap<String, String> componentType : componentTypes) {
+            listOfOfChecklist.add(componentType.get("elementID"));
+            System.out.println("----->"+listOfOfChecklist.add(componentType.get("elementID")));
+        }
 
         return componentTypes;
+
     }
 
-    public ArrayList<HashMap<String, String>> getChecklistByParagraph(String paragraphID) {
+    ArrayList<String> getListOfChildVerticesByRootVertices(ArrayList<String> listOfOfRootVertices){
 
+        ArrayList<String> listOfChildVertices = new ArrayList<>();
+
+        for (String rootVertex : listOfOfRootVertices) {
+            ArrayList<HashMap<String, String>> componentTypes = lightHouse.getChildVerticesByRootVertexId(rootVertex);
+            for (HashMap<String, String> componentType : componentTypes) {
+                listOfChildVertices.add(componentType.get("elementID"));
+            }
+        }
+
+        return listOfChildVertices;
+    }
+
+    public ArrayList<HashMap<String, String>> getChecklistByParagraph(ArrayList<String> paragraphIDs) {
         ArrayList<String> listOfOfChecklist = new ArrayList<>();
-        ArrayList<HashMap<String, String>> checklistIDs = lightHouse.getChildVerticesByRootVertexId(paragraphID);
-        for (HashMap<String, String> checklistID : checklistIDs) {
-            listOfOfChecklist.add(checklistID.get("elementID"));
-            System.out.println("checklistID = " + checklistID);
+        for (String paragraphID : paragraphIDs) {
+            ArrayList<HashMap<String, String>> checklistIDs = lightHouse.getChildVerticesByRootVertexId(paragraphID);
+            for (HashMap<String, String> checklistID : checklistIDs) {
+                listOfOfChecklist.add(checklistID.get("elementID"));
+            }
         }
         ArrayList<HashMap<String, String>> finalResult = starfishServices.getChecklistByID(listOfOfChecklist);
+
         return finalResult;
     }
 }
