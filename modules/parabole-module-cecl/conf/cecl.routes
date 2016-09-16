@@ -110,4 +110,13 @@ POST /getSectionsBySubtopicId               com.parabole.cecl.application.contro
 POST /getParagraphsBySectionId              com.parabole.cecl.application.controllers.CeclController.getParagraphsBySectionId()
 POST /getParagraphsByConceptId              com.parabole.cecl.application.controllers.CeclController.getParagraphsByConceptId()
 POST /getComponentTypesByParagraphIds       com.parabole.cecl.application.controllers.CeclController.getComponentTypesByParagraphIds()
+
+# ---------------------------------------------------------------------------------
+# CHECKLIST RELATED OPERATIONS
+# ---------------------------------------------------------------------------------
+
 POST /saveOrUpdateCheckList                 com.parabole.cecl.application.controllers.CeclController.saveOrUpdateCheckList()
+POST /getChecklistsByParagraphIds           com.parabole.cecl.application.controllers.CeclController.getChecklistsByParagraphIds()
+POST /getChecklistsByConcept                com.parabole.cecl.application.controllers.CeclController.getChecklistsByConcept()
+#POST /getChecklistsByComponent              com.parabole.cecl.application.controllers.CeclController.getChecklistsByComponent()
+#POST /getChecklistsByBussinessSegment       com.parabole.cecl.application.controllers.CeclController.getChecklistsByBussinessSegment()

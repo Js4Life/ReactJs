@@ -736,7 +736,13 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}
 	
 	$scope.getChecklistByParagraphs = function () {
-		
+		var selectedParagraphs = _.pick($scope.currentParagraphs, function (val, key) { return val;	});
+		selectedParagraphs = _.keys(selectedParagraphs);
+		SharedService.getChecklistsByParagraphIds(selectedParagraphs).then(function (data) {
+			if(data.status){
+				$scope.checklist = angular.fromJson(data.data);
+			}
+		});
 	}
 
 	$scope.cleanQuestionEditor = function () {
@@ -1084,6 +1090,25 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 	$scope.setColorCode = function (colorCode) {
 		$scope.currentColorCode = colorCode;
+	}
+
+	$scope.getChecklistByNode = function (node) {
+		SharedService.getChecklistByNodeId(node).then(function (data) {
+			if(data.status){
+				$scope.checkList = angular.fromJson(data.data);
+				$('#checklistModal').modal('show');
+			}
+		})
+	}
+
+	$scope.saveAnswers = function () {
+		SharedService.addAnswer($scope.answers).then(function (data) {
+			if(data.status){
+				recalculateCompliance();
+				$('#checklistModal').modal('hide');
+				toastr.success('Saved Successfully..', '', {"positionClass" : "toast-top-right"});
+			}
+		});
 	}
 
 	$scope.initialize();
