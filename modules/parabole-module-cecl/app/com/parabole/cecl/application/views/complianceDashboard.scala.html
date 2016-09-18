@@ -20,7 +20,7 @@
       <li><a ng-click="goConceptView()" class="pointer" data-toggle="tab" data-target="#commonTab">Glossary</a></li>
       <li><a ng-click="goComponetView()" class="pointer" data-toggle="tab" data-target="#commonTab">Component</a></li>
       <li><a ng-click="goBusinessSegmentView()" class="pointer" data-toggle="tab" data-target="#commonTab">Business Segment</a></li>
-      <li><a ng-click="goIndustryImpact()" class="pointer" data-toggle="tab" data-target="#industryImpact">FASB Industry</a></li>
+      <li><a ng-click="goIndustryImpact()" class="pointer" data-toggle="tab" data-target="#industryImpact">Industry</a></li>
       <li><a ng-click="goDocumentView()" class="pointer" data-toggle="tab" data-target="#commonTab">Regulatory Content</a></li>
     </ul>
 
@@ -40,8 +40,8 @@
           </div>
         </div>
       </div>
-      <div id="industryImpact" class="tab-pane fade" style="height: 76vh;overflow-y: auto;padding:10px;">
-        <table class="table table-condensed table-responsive table-bordered">
+      <div id="industryImpact" class="tab-pane fade zero-margin" style="height: 76vh;overflow-y: auto;">
+        <table class="table table-condensed table-responsive table-bordered table-hover">
           <thead>
             <th ng-repeat="(k, v) in tableData[0]">{{k}}</th>
           </thead>
