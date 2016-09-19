@@ -519,4 +519,20 @@ public class LightHouse extends GraphDb {
         }
     }
 
+
+    public void deleteAVertexByID(String checkListId){
+        OrientGraph graph = this.orientGraphFactory.getTx();
+        Iterable<Vertex> verticesData = null;
+        verticesData = graph.getVertices("elementID", checkListId);
+        try {
+            for (Vertex v : verticesData) {
+                v.remove();
+            }
+            graph.commit();
+        }catch( Exception e ) {
+            graph.rollback();
+        } finally {
+            graph.shutdown();
+        }
+    }
 }

@@ -448,18 +448,16 @@ public class CheckListServices {
 
     }
 
-
-
     public String removeCheckList(String checkListId){
         String result = null;
         try {
+            lightHouse.deleteAVertexByID(checkListId);
             result =  starFish.removeCheckList(checkListId);
         } catch (com.parabole.feed.platform.exceptions.AppException e) {
             e.printStackTrace();
         }
         return result;
     }
-
 
 
     public String getCheckListById(String checkListId){
