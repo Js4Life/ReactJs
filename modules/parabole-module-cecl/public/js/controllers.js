@@ -1136,7 +1136,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				if($scope.checkList.length > 0)
 					$('#checklistModal').modal('show');
 				else
-					toastr.warning('Checklist not found..', '', {"positionClass" : "toast-top-right"});
+					toastr.warning('No Checklist available..', '', {"positionClass" : "toast-top-right"});
 			}
 		})
 	}
