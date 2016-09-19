@@ -282,7 +282,7 @@
 		"groupByField" : "Indus",
 		"columns" :  [{
 			"name" : "Indus",
-			"label" : "Industry"
+			"label" : "FASB Industry"
 		},{
 			"name" : "Wholesale_Finance",
 			"label" : "Wholesale Finance"

@@ -445,6 +445,22 @@ public class CeclController extends Controller{
         return ok(finalJson.toString());
     }
 
+    public Result getAllBusinessSegments() {
+        JSONObject finalJson = new JSONObject();
+        Boolean status = true;
+        String data = null;
+        try {
+            ArrayList<HashMap<String, String>> res = lightHouseService.getAllBusinessSegments();
+            ObjectMapper mapper = new ObjectMapper();
+            data = mapper.writeValueAsString(res);
+        } catch(Exception e) {
+            status = false;
+            e.printStackTrace();
+        }
+        finalJson.put("status", status).put("data", data);
+        return ok(finalJson.toString());
+    }
+
     public Result getAllComponents() {
         JSONObject finalJson = new JSONObject();
         Boolean status = true;
@@ -470,12 +486,12 @@ public class CeclController extends Controller{
         JSONObject finalJson = new JSONObject();
         Boolean status = true;
         String data = null;
-        ArrayList<String> listOfParagraphIDs = new ArrayList<>();
+        ArrayList<String> req = new ArrayList<>();
         try {
             for(int i=0; i<paraIds.length(); i++){
-                listOfParagraphIDs.add(paraIds.getString(i));
+                req.add(paraIds.getString(i));
             }
-            HashMap<String, String> res = lightHouseService.getComponentTypesByParagraphIds(listOfParagraphIDs);
+            HashMap<String, String> res = lightHouseService.getComponentTypesByParagraphIds(req);
             ObjectMapper mapper = new ObjectMapper();
             data = mapper.writeValueAsString(res);
         } catch(Exception e) {
@@ -511,5 +527,84 @@ public class CeclController extends Controller{
         }
         finalJson.put("status", status).put("data", data);
         return ok(finalJson.toString());
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result getChecklistsByParagraphIds() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final JSONArray paraIds = request.getJSONArray("paraIds");
+        JSONObject finalJson = new JSONObject();
+        Boolean status = true;
+        String data = null;
+        ArrayList<String> req = new ArrayList<>();
+        try{
+            for(int i=0; i<paraIds.length(); i++){
+                req.add(paraIds.getString(i));
+            }
+            ArrayList<HashMap<String, String>> res = transformToViewModel(lightHouseService.getChecklistsByParagraphs(req));
+            ObjectMapper mapper = new ObjectMapper();
+            data = mapper.writeValueAsString(res);
+        } catch (Exception e){
+            status = false;
+            e.printStackTrace();
+        }
+        finalJson.put("status", status).put("data", data);
+        return ok(finalJson.toString());
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result getChecklistsByConcept() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final String req = request.getString("id");
+        JSONObject finalJson = new JSONObject();
+        Boolean status = true;
+        String data = null;
+        try{
+            ArrayList<HashMap<String, String>> res = transformToViewModel(lightHouseService.getChecklistByConcept(req));
+            ObjectMapper mapper = new ObjectMapper();
+            data = mapper.writeValueAsString(res);
+        } catch (Exception e){
+            status = false;
+            e.printStackTrace();
+        }
+        finalJson.put("status", status).put("data", data);
+        return ok(finalJson.toString());
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result getChecklistsByBussinessSegment() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final String id = request.getString("id");
+        JSONObject finalJson = new JSONObject();
+        Boolean status = true;
+        String data = null;
+        ArrayList<String> req = new ArrayList<>();
+        req.add(id);
+        try{
+            ArrayList<HashMap<String, String>> res = transformToViewModel(lightHouseService.getChecklistByBusinessSegment(req));
+            ObjectMapper mapper = new ObjectMapper();
+            data = mapper.writeValueAsString(res);
+        } catch (Exception e){
+            status = false;
+            e.printStackTrace();
+        }
+        finalJson.put("status", status).put("data", data);
+        return ok(finalJson.toString());
+    }
+
+    private ArrayList<HashMap<String, String>> transformToViewModel(ArrayList<HashMap<String, String>> inData){
+        ArrayList<HashMap<String, String>> outData = new ArrayList<>();
+        for(HashMap<String, String> curr : inData)
+        {
+            HashMap<String, String> aData = new HashMap<>();
+            aData.put("id", curr.get("DATA_ID"));
+            aData.put("bodyText", curr.get("BODY_TEXT"));
+            aData.put("isMandatory", curr.get("IS_MANDATORY"));
+            outData.add(aData);
+        }
+        return outData;
     }
 }

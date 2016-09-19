@@ -45,7 +45,7 @@
   </table>
 </div>
 
-<div class="modal fade" id="checklistModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="checklistModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -53,8 +53,8 @@
       </div>
       <div class="modal-body zero-padding-bottom" style="height: 66vh; overflow: auto;">
         <ul class="list-group">
-          <li class="list-group-item" ng-repeat="(k, v) in checkList">
-            <input type="checkbox" ng-model="answers[k]" style="position: relative;top: 2px;"/>&nbsp;{{v}}
+          <li class="list-group-item" ng-repeat="c in checkList">
+            <input type="checkbox" ng-model="answers[c.id]" style="position: relative;top: 2px;"/>&nbsp;{{c.bodyText}}
           </li>
         </ul>
       </div>
@@ -65,10 +65,6 @@
     </div>
   </div>
 </div>
-
-
-
-
 
 <div class="modal fade bs-example-modal-lg" id="dsViewer" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" style="width:92%;">

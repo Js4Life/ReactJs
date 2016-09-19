@@ -237,7 +237,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			case "SUBTOPIC" :
 				SharedService.getSectionsBySubtopicId(nodeId).then(function (data) {
 					if(data.status){
-						$scope.childNodes = angular.fromJson(data.data);
+						$scope.childNodes = removeEmptyAndUnique(angular.fromJson(data.data));
 					}
 				});
 				break;
@@ -272,6 +272,16 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				});
 				break;
 		}
+	}
+
+	function removeEmptyAndUnique(objList) {
+		objList = _.reject(objList, function (obj) {
+			return (_.isEmpty(obj) || obj.elementID == null);
+		});
+		var uniqueList = _.uniq(objList, function(item) {
+			return item.elementID;
+		});
+		return uniqueList;
 	}
 
 	function insertBread(nodeType, nodeId){
@@ -725,8 +735,13 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	
 	$scope.addChecklist = function () {
 		$scope.checklistItem = {isMandatory : true};
-		var selectedParagraphs = _.where
-		SharedService.getComponentTypesByParagraphIds($scope.currentParagraphs).then(function (data) {
+		var selectedParagraphs = _.pick($scope.currentParagraphs, function (val, key) { return val;	});
+		selectedParagraphs = _.keys(selectedParagraphs);
+		if(selectedParagraphs.length < 1) {
+			toastr.warning('Select at least one paragraph..', '', {"positionClass": "toast-top-right"});
+			return;
+		}
+		SharedService.getComponentTypesByParagraphIds(selectedParagraphs).then(function (data) {
 			if(data.status){
 				$scope.masterComponentTypes = angular.fromJson(data.data);
 				$('#checklistModal').modal('show');
@@ -735,7 +750,27 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}
 	
 	$scope.getChecklistByParagraphs = function () {
-		
+		var selectedParagraphs = _.pick($scope.currentParagraphs, function (val, key) { return val;	});
+		selectedParagraphs = _.keys(selectedParagraphs);
+		if(selectedParagraphs.length < 1) {
+			toastr.warning('Select at least one paragraph..', '', {"positionClass": "toast-top-right"});
+			return;
+		}
+		SharedService.getChecklistsByParagraphIds(selectedParagraphs).then(function (data) {
+			if(data.status){
+				$scope.checklist = removeEmptyAndUnique(angular.fromJson(data.data));
+			}
+		});
+	}
+
+	function removeEmptyAndUnique(objList) {
+		objList = _.reject(objList, function (obj) {
+			return (_.isEmpty(obj) || obj.id == null);
+		});
+		var uniqueList = _.uniq(objList, function(item, key, id) {
+			return item.id;
+		});
+		return uniqueList;
 	}
 
 	$scope.cleanQuestionEditor = function () {
@@ -969,6 +1004,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			hier: false
 		};
 		$scope.exploreNode(SharedService.currentView);
+		$scope.answers = {};
 	}
 
 	$rootScope.$on('PARENTSEARCHTEXT', function (event, data) {
@@ -1007,9 +1043,8 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				});
 				break;
 			case "BUSINESS_SEGMENT" :
-				var compName = "allBusinessSegments";
-				SharedService.getFilteredDataByCompName(compName).then(function (data) {
-					$scope.childNodes = data.data;
+				SharedService.getAllBusinessSegments().then(function (data) {
+					$scope.childNodes = angular.fromJson(data.data);
 				});
 				break;
 		}
@@ -1083,6 +1118,38 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 	$scope.setColorCode = function (colorCode) {
 		$scope.currentColorCode = colorCode;
+	}
+
+	$scope.getChecklistByNode = function (node) {
+		SharedService.getChecklistByNodeId(node).then(function (data) {
+			if(data.status){
+				$scope.checkList = removeEmptyAndUnique(angular.fromJson(data.data));
+				if($scope.checkList.length > 0)
+					$('#checklistModal').modal('show');
+				else
+					toastr.warning('Checklist not found..', '', {"positionClass" : "toast-top-right"});
+			}
+		})
+	}
+
+	function removeEmptyAndUnique(objList) {
+		objList = _.reject(objList, function (obj) {
+			return (_.isEmpty(obj) || obj.id == null);
+		});
+		var uniqueList = _.uniq(objList, function(item, key, id) {
+			return item.id;
+		});
+		return uniqueList;
+	}
+
+	$scope.saveAnswers = function () {
+		SharedService.addAnswer($scope.answers).then(function (data) {
+			if(data.status){
+				recalculateCompliance();
+				$('#checklistModal').modal('hide');
+				toastr.success('Saved Successfully..', '', {"positionClass" : "toast-top-right"});
+			}
+		});
 	}
 
 	$scope.initialize();

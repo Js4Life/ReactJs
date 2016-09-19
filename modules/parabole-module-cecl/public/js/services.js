@@ -93,8 +93,13 @@ angular.module('RDAApp.services', [])
         'GetParagraphsByConceptId' : 'getParagraphsByConceptId',
         'GetAllConcepts' : 'getAllConcepts',
         'GetAllComponents' : 'getAllComponents',
+        'GetAllBusinessSegments' : 'getAllBusinessSegments',
         'GetComponentTypesByParagraphIds' : 'getComponentTypesByParagraphIds',
-        'SaveOrUpdateCheckList' : 'saveOrUpdateCheckList'
+        'SaveOrUpdateCheckList' : 'saveOrUpdateCheckList',
+        'GetChecklistsByParagraphIds' : 'getChecklistsByParagraphIds',
+        'GetChecklistsByConcept' : 'getChecklistsByConcept',
+        'GetChecklistsByComponent' : 'getChecklistsByComponent',
+        'GetChecklistsByBussinessSegment' : 'getChecklistsByBussinessSegment'
     };
     SharedService.chartDataMap = {
         '0' : 'getHardCodedResponse/chartData1',
@@ -697,6 +702,9 @@ angular.module('RDAApp.services', [])
     SharedService.getAllComponents = function () {
         return SharedService.invokeService('GetAllComponents');
     }
+    SharedService.getAllBusinessSegments = function () {
+        return SharedService.invokeService('GetAllBusinessSegments');
+    }
     SharedService.getComponentTypesByParagraphIds = function (paraIds) {
         var sendObj = {"paraIds": paraIds};
         return SharedService.invokeService('GetComponentTypesByParagraphIds', sendObj, 'post');
@@ -704,6 +712,27 @@ angular.module('RDAApp.services', [])
     SharedService.saveOrUpdateCheckList = function (checklistItem) {
         var sendObj = {"checklistItem": checklistItem};
         return SharedService.invokeService('SaveOrUpdateCheckList', sendObj, 'post');
+    }
+    SharedService.getChecklistsByParagraphIds = function (paraIds) {
+        var sendObj = {"paraIds": paraIds};
+        return SharedService.invokeService('GetChecklistsByParagraphIds', sendObj, 'post');
+    }
+
+    SharedService.getChecklistByNodeId = function (node) {
+        var serviceName = "";
+        switch (node.type){
+            case "CONCEPT" :
+                serviceName = "GetChecklistsByConcept";
+                break;
+            case "COMPONENT" :
+                serviceName = "GetChecklistsByComponent";
+                break;
+            case "BUSINESSSEGMENT" :
+                serviceName = "GetChecklistsByBussinessSegment";
+                break;
+        }
+        var sendObj = {"id": node.elementID};
+        return SharedService.invokeService(serviceName, sendObj, 'post');
     }
 
     return SharedService;

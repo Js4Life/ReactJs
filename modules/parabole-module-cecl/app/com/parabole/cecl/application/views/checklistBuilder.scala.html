@@ -61,18 +61,18 @@
             <div class="panel panel-default">
               <div class="panel-heading">
                 Existing Checklists
-                <i class="fa fa-eye pull-right" aria-hidden="true" ng-click="getChecklistByParagraphs()"></i>
-                <i class="fa fa-plus pull-right" aria-hidden="true" style="margin-right:10px;" ng-click="addChecklist()"></i>
+                <i class="fa fa-eye pull-right" aria-hidden="true" ng-click="getChecklistByParagraphs()" tooltip='"title":"View checklists", "placement": "right"'></i>
+                <i class="fa fa-plus pull-right" aria-hidden="true" style="margin-right:10px;" ng-click="addChecklist()" tooltip='"title":"Add new checklist", "placement": "right"'></i>
               </div>
               <div class="panel-body zero-padding" style="height:71vh;overflow: auto;">
-                <table class="table table-striped table-bordered zero-margin">
+                <table class="table table-bordered zero-margin">
                   <tbody>
-                    <tr ng-repeat="q in questions">
+                    <tr ng-repeat="c in checklist">
                       <td>
-                        <div>{{q.text}}</div>
-                        <div><div class="badge margin-right-5" ng-repeat="comp in q.components">{{comp.name}}</div></div>
+                        <div>{{c.bodyText}}</div>
+                        @*<div><div class="badge margin-right-5" ng-repeat="comp in q.components">{{comp.name}}</div></div>*@
                         <div class="btn-toolbar pull-right" role="toolbar" aria-label="Config Tools">
-                          <input type="checkbox" ng-model="q.isMandatory"> Mandatory
+                          <input type="checkbox" ng-model="c.isMandatory"> Mandatory
                           <div class="btn-group btn-group-xs pull-right" role="group" aria-label="Settings">
                             <button type="button" class="btn btn-default"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
                             <button type="button" class="btn btn-default"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
@@ -142,13 +142,13 @@
             <div class="container-fluid" style="height: 12vh;padding:5px 28px;">
               <textarea class="form-control max-width max-height" ng-model="checklistItem.bodyText" placeholder="Type a checklist item text..."></textarea>
             </div>
-            <div class="inline-form" style="padding:15px 28px 20px;">
+            <div class="form-inline" style="padding:15px 28px 20px;">
               <div class="checkbox">
                 <label>
                   <input type="checkbox" ng-model="checklistItem.isMandatory"> Mandatory
                 </label>
               </div>
-              <button type="button" class="btn btn-default pull-right" ng-click="saveChecklist()">Save</button>
+              <button type="button" class="btn btn-default" ng-click="saveChecklist()">Save</button>
             </div>
           </div>
           <div id="attachmentTab" class="tab-pane fade">
