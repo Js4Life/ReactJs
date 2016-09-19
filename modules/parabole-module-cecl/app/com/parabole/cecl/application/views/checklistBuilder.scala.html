@@ -61,8 +61,8 @@
             <div class="panel panel-default">
               <div class="panel-heading">
                 Existing Checklists
-                <i class="fa fa-eye pull-right" aria-hidden="true" ng-click="getChecklistByParagraphs()" tooltip='"title":"View checklists", "placement": "right"'></i>
-                <i class="fa fa-plus pull-right" aria-hidden="true" style="margin-right:10px;" ng-click="addChecklist()" tooltip='"title":"Add new checklist", "placement": "right"'></i>
+                <i class="fa fa-eye pull-right" aria-hidden="true" ng-click="getChecklistByParagraphs()" tooltip='"title":"View checklists"'></i>
+                <i class="fa fa-plus pull-right" aria-hidden="true" style="margin-right:10px;" ng-click="addChecklist()" tooltip='"title":"Add new checklist"'></i>
               </div>
               <div class="panel-body zero-padding" style="height:71vh;overflow: auto;">
                 <table class="table table-bordered zero-margin">
@@ -72,10 +72,11 @@
                         <div>{{c.bodyText}}</div>
                         @*<div><div class="badge margin-right-5" ng-repeat="comp in q.components">{{comp.name}}</div></div>*@
                         <div class="btn-toolbar pull-right" role="toolbar" aria-label="Config Tools">
-                          <input type="checkbox" ng-model="c.isMandatory"> Mandatory
+                          <div ng-if="c.isMandatory" class="badge">Mandatory</div>
+                          <div ng-if="!c.isMandatory" class="badge">Optional</div>
                           <div class="btn-group btn-group-xs pull-right" role="group" aria-label="Settings">
-                            <button type="button" class="btn btn-default"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-                            <button type="button" class="btn btn-default"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                            <button type="button" class="btn btn-default" ng-click="editChecklist(c)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                            <button type="button" class="btn btn-default" ng-click="deleteChecklist(c)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                           </div>
                         </div>
                       </td>

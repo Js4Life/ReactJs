@@ -733,8 +733,8 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		});*!/
 	}*/
 	
-	$scope.addChecklist = function () {
-		$scope.checklistItem = {isMandatory : true};
+	$scope.addChecklist = function (checklistItem) {
+		$scope.checklistItem = checklistItem || {isMandatory : true};
 		var selectedParagraphs = _.pick($scope.currentParagraphs, function (val, key) { return val;	});
 		selectedParagraphs = _.keys(selectedParagraphs);
 		if(selectedParagraphs.length < 1) {
@@ -828,13 +828,22 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.saveChecklist = function () {
 		$scope.checklistItem.paragraphs = $scope.currentParagraphs;
 		$scope.checklistItem.componentTypes = $scope.currentComponentTypes;
-		$scope.checklistItem.isMandatory = true;
 		SharedService.saveOrUpdateCheckList($scope.checklistItem).then(function (data) {
 			if(data.status){
 				$('#checklistModal').modal('hide');
 				toastr.success('Saved Successfully..', '', {"positionClass" : "toast-top-right"});
+			} else {
+				toastr.error('Error in Checklist Saving..', '', {"positionClass" : "toast-top-right"});
 			}
 		});
+	}
+
+	$scope.editChecklist = function (c) {
+		$scope.addChecklist(c);
+	}
+
+	$scope.deleteChecklist = function (c) {
+		
 	}
 
 	$scope.$watch('file', function () {
