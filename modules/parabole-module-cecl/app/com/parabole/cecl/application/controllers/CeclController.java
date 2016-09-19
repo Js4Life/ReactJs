@@ -542,7 +542,7 @@ public class CeclController extends Controller{
             for(int i=0; i<paraIds.length(); i++){
                 req.add(paraIds.getString(i));
             }
-            ArrayList<HashMap<String, String>> res = transformToViewModel(lightHouseService.getChecklistsByParagraphs(req));
+            ArrayList<HashMap<String, HashMap<String, String>>> res = transformChecklistWithTagsToViewModel(lightHouseService.getChecklistsByParagraphs(req));
             ObjectMapper mapper = new ObjectMapper();
             data = mapper.writeValueAsString(res);
         } catch (Exception e){
@@ -562,7 +562,7 @@ public class CeclController extends Controller{
         Boolean status = true;
         String data = null;
         try{
-            ArrayList<HashMap<String, String>> res = transformToViewModel(lightHouseService.getChecklistByConcept(req));
+            ArrayList<HashMap<String, String>> res = transformChecklistToViewModel(lightHouseService.getChecklistByConcept(req));
             ObjectMapper mapper = new ObjectMapper();
             data = mapper.writeValueAsString(res);
         } catch (Exception e){
@@ -584,7 +584,7 @@ public class CeclController extends Controller{
         ArrayList<String> req = new ArrayList<>();
         req.add(id);
         try{
-            ArrayList<HashMap<String, String>> res = transformToViewModel(lightHouseService.getChecklistByBusinessSegment(req));
+            ArrayList<HashMap<String, String>> res = transformChecklistToViewModel(lightHouseService.getChecklistByBusinessSegment(req));
             ObjectMapper mapper = new ObjectMapper();
             data = mapper.writeValueAsString(res);
         } catch (Exception e){
@@ -595,7 +595,25 @@ public class CeclController extends Controller{
         return ok(finalJson.toString());
     }
 
-    private ArrayList<HashMap<String, String>> transformToViewModel(ArrayList<HashMap<String, String>> inData){
+    private ArrayList<HashMap<String, HashMap<String, String>>> transformChecklistWithTagsToViewModel(ArrayList<HashMap<String, HashMap<String, String>>> inData){
+        ArrayList<HashMap<String, HashMap<String, String>>> outData = new ArrayList<>();
+
+        for(HashMap<String, HashMap<String, String>> curr : inData){
+            HashMap<String, HashMap<String, String>> checklistWithTags = new HashMap<>();
+            HashMap<String, String> checklist = curr.get("checklist");
+            HashMap<String, String> aData = new HashMap<>();
+            aData.put("id", checklist.get("DATA_ID"));
+            aData.put("bodyText", checklist.get("BODY_TEXT"));
+            aData.put("isMandatory", checklist.get("IS_MANDATORY"));
+            checklistWithTags.put("checklist", aData);
+            checklistWithTags.put("paragraphs", curr.get("paragraphs"));
+            checklistWithTags.put("componentTypes", curr.get("componentTypes"));
+            outData.add(checklistWithTags);
+        }
+        return outData;
+    }
+
+    private ArrayList<HashMap<String, String>> transformChecklistToViewModel(ArrayList<HashMap<String, String>> inData){
         ArrayList<HashMap<String, String>> outData = new ArrayList<>();
         for(HashMap<String, String> curr : inData)
         {

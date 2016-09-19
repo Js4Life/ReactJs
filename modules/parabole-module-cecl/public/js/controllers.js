@@ -758,9 +758,20 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		}
 		SharedService.getChecklistsByParagraphIds(selectedParagraphs).then(function (data) {
 			if(data.status){
-				$scope.checklist = removeEmptyAndUnique(angular.fromJson(data.data));
+				$scope.checklist = removeEmptyAndUnique(transformToViewModel(angular.fromJson(data.data)));
 			}
 		});
+	}
+
+	function transformToViewModel(data) {
+		var allChecklists = [];
+		angular.forEach(data, function (checklistItem) {
+			var obj = checklistItem["checklist"];
+			obj.paragraphs = checklistItem["paragraphs"];
+			obj.componentTypes = checklistItem["componentTypes"];
+			allChecklists.push(obj);
+		});
+		return allChecklists;
 	}
 
 	function removeEmptyAndUnique(objList) {
@@ -839,6 +850,8 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}
 
 	$scope.editChecklist = function (c) {
+		$scope.currentParagraphs = c.paragraphs;
+		$scope.currentComponentTypes = c.componentTypes;
 		$scope.addChecklist(c);
 	}
 
