@@ -286,16 +286,42 @@ public class LightHouseService {
         return listOfChildVertices;
     }
 
-    public ArrayList<HashMap<String, String>> getChecklistsByParagraphs(ArrayList<String> paragraphIDs) {
-        ArrayList<String> listOfOfChecklist = new ArrayList<>();
+    public ArrayList<HashMap<String, HashMap<String, String>>> getChecklistsByParagraphs(ArrayList<String> paragraphIDs) {
+
+        ArrayList<HashMap<String, HashMap<String, String>>> finalReturn = new ArrayList<>();
+
         for (String paragraphID : paragraphIDs) {
+            ArrayList<String> listOfOfChecklist = new ArrayList<>();
+            HashMap<String, String> relatedParagraphIDs = new HashMap<>();
+            HashMap<String, String> relatedComponentTypeIDs = new HashMap<>();
+
             ArrayList<HashMap<String, String>> checklistIDs = lightHouse.getChildVerticesByRootVertexId(paragraphID);
             for (HashMap<String, String> checklistID : checklistIDs) {
                 listOfOfChecklist.add(checklistID.get("elementID"));
+                    for (HashMap<String, String> paraID:lightHouse.getRootVerticesByChildVertexId(checklistID.get("elementID"))) {
+                        if(paraID.get("type").equals("PARAGRAPH")) {
+                            relatedParagraphIDs.put(paraID.get("elementID"), String.valueOf(true));
+                        }
+                    }
+                    for (HashMap<String, String> paraID:lightHouse.getRootVerticesByChildVertexId(checklistID.get("elementID"))) {
+                        if(paraID.get("type").equals("COMPONENTTYPE")) {
+                            relatedComponentTypeIDs.put(paraID.get("elementID"), String.valueOf(true));
+                        }
+                    }
             }
-        }
-        ArrayList<HashMap<String, String>> finalResult = starfishServices.getChecklistByID(listOfOfChecklist);
 
-        return finalResult;
+            ArrayList<HashMap<String, String>> tempResult = starfishServices.getChecklistByID(listOfOfChecklist);
+            for (HashMap<String, String> checklists : tempResult) {
+                HashMap<String, HashMap<String, String>> chkList = new HashMap<>();
+                chkList.put("checklist", checklists);
+                chkList.put("paragraphs", relatedParagraphIDs);
+                chkList.put("componentTypes", relatedComponentTypeIDs);
+                finalReturn.add(chkList);
+            }
+
+        }
+
+
+        return finalReturn;
     }
 }
