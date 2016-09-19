@@ -326,4 +326,5 @@ public abstract class GraphDb {
             closeDocDBConnection(dbNoTx);
         }
     }
+
 }

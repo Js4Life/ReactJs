@@ -856,7 +856,14 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}
 
 	$scope.deleteChecklist = function (c) {
-		
+		SharedService.removeChecklistById(c.id).then(function (data) {
+			if(data.status){
+				$scope.checklist = _.reject($scope.checklist, function (aChecklist) {
+					return aChecklist.id === c.id;
+				});
+				toastr.success('Removed Successfully..', '', {"positionClass" : "toast-top-right"});
+			}
+		});
 	}
 
 	$scope.$watch('file', function () {

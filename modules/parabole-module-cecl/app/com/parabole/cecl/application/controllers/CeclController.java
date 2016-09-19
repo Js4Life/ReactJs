@@ -594,7 +594,6 @@ public class CeclController extends Controller{
         finalJson.put("status", status).put("data", data);
         return ok(finalJson.toString());
     }
-
     private ArrayList<HashMap<String, HashMap<String, String>>> transformChecklistWithTagsToViewModel(ArrayList<HashMap<String, HashMap<String, String>>> inData){
         ArrayList<HashMap<String, HashMap<String, String>>> outData = new ArrayList<>();
 
@@ -612,7 +611,6 @@ public class CeclController extends Controller{
         }
         return outData;
     }
-
     private ArrayList<HashMap<String, String>> transformChecklistToViewModel(ArrayList<HashMap<String, String>> inData){
         ArrayList<HashMap<String, String>> outData = new ArrayList<>();
         for(HashMap<String, String> curr : inData)
@@ -624,5 +622,23 @@ public class CeclController extends Controller{
             outData.add(aData);
         }
         return outData;
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result removeChecklistById() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final String id = request.getString("id");
+        JSONObject finalJson = new JSONObject();
+        Boolean status = true;
+        String data = null;
+        try{
+            data = checkListServices.removeCheckList(id);
+        } catch (Exception e){
+            status = false;
+            e.printStackTrace();
+        }
+        finalJson.put("status", status).put("data", data);
+        return ok(finalJson.toString());
     }
 }
