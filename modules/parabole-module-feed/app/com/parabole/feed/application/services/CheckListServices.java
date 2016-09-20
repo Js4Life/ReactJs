@@ -452,11 +452,11 @@ public class CheckListServices {
         String result = null;
         try {
             lightHouse.deleteAVertexByID(checkListId);
-            result =  starFish.removeCheckList(checkListId);
+            //starFish.removeCheckList(checkListId);
         } catch (com.parabole.feed.platform.exceptions.AppException e) {
             e.printStackTrace();
         }
-        return result;
+        return "{status: success }";
     }
 
 

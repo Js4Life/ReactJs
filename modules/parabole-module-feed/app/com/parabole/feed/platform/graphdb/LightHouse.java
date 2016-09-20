@@ -525,9 +525,11 @@ public class LightHouse extends GraphDb {
         Iterable<Vertex> verticesData = null;
         verticesData = graph.getVertices("elementID", checkListId);
         try {
-            for (Vertex v : verticesData) {
-                v.remove();
-            }
+            if(verticesData != null)
+                for (Vertex v : verticesData) {
+                if(v!=null)
+                    v.remove();
+                }
             graph.commit();
         }catch( Exception e ) {
             graph.rollback();

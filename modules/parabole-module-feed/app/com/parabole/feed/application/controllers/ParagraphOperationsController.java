@@ -184,7 +184,7 @@ public class ParagraphOperationsController extends BaseController{
 
     public Result removeCheckList() {
 
-        String checkListId = "07bdb9b6-858b-4022-8e0e-20361f39bd34";
+        String checkListId = "89477f8c-2ddc-4c72-a587-5449158e4f6a";
 
         return ok(checkListServices.removeCheckList(checkListId));
 

@@ -2,6 +2,7 @@ package com.parabole.feed.platform.graphdb;
 
 import com.orientechnologies.orient.core.db.document.ODatabaseDocumentTx;
 import com.orientechnologies.orient.core.record.impl.ODocument;
+import com.orientechnologies.orient.core.sql.OCommandSQL;
 import com.orientechnologies.orient.core.sql.query.OSQLSynchQuery;
 import com.parabole.feed.application.global.CCAppConstants;
 import com.parabole.feed.platform.exceptions.AppErrorCode;
@@ -56,11 +57,24 @@ public class StarFish extends GraphDb {
     }
 
 
-    public String removeCheckList( String checkListId) throws AppException {
-        final Map<String, Object> dataMapForCheckList = new HashMap<String, Object>();
-        dataMapForCheckList.put("DATA_ID", checkListId);
-        String rids = removeByProperty(CCAppConstants.APP_CHECKLIST, checkListId);
-        return  rids;
+    public void removeCheckList( String checkListId) throws AppException {
+            executeUpdate("DELETE FROM " + CCAppConstants.APP_CHECKLIST + " WHERE DATA_ID = " + checkListId);
+    }
+
+
+    public void executeUpdate(final String sqlQuery) throws AppException {
+        Validate.notBlank(sqlQuery, "'sqlQuery' cannot be empty!");
+        final ODatabaseDocumentTx dbTx = getDocDBConnectionTx();
+        try {
+            dbTx.command(new OCommandSQL(sqlQuery)).execute();
+            dbTx.commit();
+        } catch (final Exception ex) {
+            dbTx.rollback();
+            Logger.error("Could not execute SQL Query: " + sqlQuery, ex);
+            throw new AppException(AppErrorCode.GRAPH_DB_OPERATION_EXCEPTION);
+        } finally {
+            closeDocDBConnection(dbTx);
+        }
     }
 
 
@@ -115,8 +129,7 @@ public class StarFish extends GraphDb {
     public String removeByProperty(final String configurationObjectClass, final String checkListId) throws AppException {
             Validate.notNull(checkListId, "'configurationId' cannot be null!");
             executeUpdate("DELETE FROM " + configurationObjectClass + " WHERE DATA_ID = " + checkListId);
-
-            return "Success !";
+        return "Success !";
 
     }
 
