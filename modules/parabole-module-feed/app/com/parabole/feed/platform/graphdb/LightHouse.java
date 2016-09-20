@@ -124,16 +124,49 @@ public class LightHouse extends GraphDb {
 
             Map<String, String> edgeProperty = new HashMap<String, String>();
             edgeProperty.put("type", edgeType);
-            res = saveGraphInstance(graph, one, two, edgeName, edgeProperty);
-        } catch (IOException e){
-            e.printStackTrace();
+            edgeProperty.put("elementID", vertexIDOne + "_" + vertexIDTwo);
+            if (two != null) {
+                Iterable<Edge> result = graph.getEdges("elementID", vertexIDOne + "_" + vertexIDTwo);
+                int size = Iterables.size(result);
+                System.out.println("Edge size = " + size);
+                if(size < 1){
+                    res = saveGraphInstance(graph, one, two, edgeName, edgeProperty);
+                    System.out.println("Edge does not exists = " + "null");
+                } else{
+
+                    for (Edge e : result) {
+                        String id = e.getProperty("elementID");
+                        System.out.println("id = " + id);
+                        if (id.equalsIgnoreCase(vertexIDOne + "_" + vertexIDTwo)) {
+                            System.out.println("Edge already exists = " + vertexIDOne + "_" + vertexIDTwo);
+                        } else{
+                            res = saveGraphInstance(graph, one, two, edgeName, edgeProperty);
+                            System.out.println("Edge does not exists = " + vertexIDOne + "_" + vertexIDTwo);
+                        }
+                    }
+                }
+                /*for (Edge e : result) {
+                    if (e.getVertex(Direction.OUT).getProperty("elementID").equals(one.getProperty("elementID"))) {
+                        System.out.println("Edge already exists = ");
+                    } else{
+                        //res = saveGraphInstance(graph, one, two, edgeName, edgeProperty);
+                        System.out.println("Edge does not exists = " + e.getVertex(Direction.OUT).getProperty("type") + e.getVertex(Direction.OUT).getProperty("name"));
+                    }
+                }*/
+            }
+        } catch(Exception e ) {
+            graph.rollback();
+            System.out.println("e = " + e);
+        } finally {
+            graph.shutdown();
         }
         return res;
 
     }
 
     public boolean deleteEdgeByVertexIDs(String vertexIDOne, String vertexIDTwo) {
-
+        System.out.println(">>>>>>>>>>>>> vertexIDOne = " + vertexIDOne);
+        System.out.println(">>>>>>>>>>>>> vertexIDTwo = " + vertexIDTwo);
         OrientGraph graph = this.orientGraphFactory.getTx();
 
             Vertex vOne = null;
@@ -149,9 +182,11 @@ public class LightHouse extends GraphDb {
             }
 
             if (vTwo != null) {
-                Iterable<Edge> result = vOne.getEdges(Direction.BOTH);
+                Iterable<Edge> result = vOne.getEdges(Direction.OUT);
+                System.out.println("I am here = " );
                 for (Edge e : result) {
-                    if (e.getVertex(Direction.BOTH).equals(vTwo)) {
+                    if (e.getVertex(Direction.IN).equals(vTwo)) {
+                        System.out.println("I am here 2 = " + e.getVertex(Direction.IN).getProperty("type"));
                         graph.removeEdge(e);
                     }
                 }
@@ -249,7 +284,7 @@ public class LightHouse extends GraphDb {
         }catch( Exception e ) {
             graph.rollback();
         } finally {
-            graph.shutdown();
+            //graph.shutdown();
         }
 
         return true;

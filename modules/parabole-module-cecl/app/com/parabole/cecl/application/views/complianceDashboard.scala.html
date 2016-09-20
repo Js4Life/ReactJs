@@ -41,9 +41,9 @@
         </div>
       </div>
       <div id="industryImpact" class="tab-pane fade zero-margin" style="height: 76vh;overflow-y: auto;">
-        <table class="table table-condensed table-responsive table-bordered table-hover">
+        <table class="table table-condensed table-responsive table-bordered table-hover zero-margin">
           <thead>
-            <th ng-repeat="(k, v) in tableData[0]">{{k}}</th>
+            <th ng-repeat="(k, v) in tableData[0]" ng-class="{'col-xs-2': $index != 0}">{{k}}</th>
           </thead>
           <tbody>
             <tr ng-repeat="r in tableData">
