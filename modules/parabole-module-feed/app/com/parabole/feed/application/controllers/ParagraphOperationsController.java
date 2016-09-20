@@ -193,7 +193,7 @@ public class ParagraphOperationsController extends BaseController{
     public Result editChecklistCheck() {
 
         HashMap<String, Boolean> checklistCheckInfo = new HashMap<>();
-        checklistCheckInfo.put("", true);
+        checklistCheckInfo.put("65df410d-ec99-4871-a97b-5ce60d2388d5", true);
 
         return ok(checkListServices.editChecklistCheck(checklistCheckInfo));
 
