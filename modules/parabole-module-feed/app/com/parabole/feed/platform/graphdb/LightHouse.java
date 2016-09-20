@@ -274,6 +274,7 @@ public class LightHouse extends GraphDb {
 
     public boolean saveGraphInstance(OrientGraph graph, Vertex vertexOne, Vertex vertexTwo, String edgeName, Map<String, String> edgeProperties) throws  IOException{
 
+
         try {
             Edge edge = graph.addEdge(null, vertexOne, vertexTwo, edgeName);
             if(edgeProperties != null)
@@ -553,7 +554,6 @@ public class LightHouse extends GraphDb {
             graph.shutdown();
         }
     }
-
 
     public void deleteAVertexByID(String checkListId){
         OrientGraph graph = this.orientGraphFactory.getTx();

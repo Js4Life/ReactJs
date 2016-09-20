@@ -48,17 +48,21 @@ public class StarFish extends GraphDb {
         return saveAnything(CCAppConstants.QUESTION_DOCUMENT, dataMap);
     }
 
-    public String saveOrUpdateCheckList(Map<String, Object> toSave) throws AppException {
-
+    public String saveOrUpdateCheckList(Map<String, Object> toSave) {
 
         final Map<String, Object> dataMapForCheckList = new HashMap<String, Object>();
-        String rids = saveAnything(CCAppConstants.APP_CHECKLIST, toSave);
+        String rids = null;
+        try{
+            rids = saveAnything(CCAppConstants.APP_CHECKLIST, toSave);
+        }catch (AppException e){
+            e.printStackTrace();
+        }
         return  rids;
     }
 
 
     public void removeCheckList( String checkListId) throws AppException {
-            executeUpdate("DELETE FROM " + CCAppConstants.APP_CHECKLIST + " WHERE DATA_ID = " + checkListId);
+            executeUpdate("DELETE FROM " + CCAppConstants.APP_CHECKLIST + " WHERE DATA_ID = '" + checkListId +"'");
     }
 
 

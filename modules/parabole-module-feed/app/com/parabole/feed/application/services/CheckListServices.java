@@ -438,9 +438,7 @@ public class CheckListServices {
                 }
             });
             result = toSave.get("DATA_ID").toString();
-        } catch (com.parabole.feed.platform.exceptions.AppException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -448,12 +446,28 @@ public class CheckListServices {
 
     }
 
+    public String editChecklistCheck(HashMap<String, Boolean> checklistCheckInfo) {
+
+        for ( String s : checklistCheckInfo.keySet()) {
+            HashMap<String, Object> toSave = new HashMap<>();
+            toSave.put("DATA_ID",s);
+            toSave.put("IS_CHECKED",checklistCheckInfo.get(s));
+            toSave.put("UPDATED_BY", session().get("USER_ID"));
+            toSave.put("UPDATED_AT", new Date());
+            starFish.saveOrUpdateCheckList(toSave);
+        }
+
+        return "{status: Saved}";
+
+    }
+
+
     public String removeCheckList(String checkListId){
         String result = null;
         try {
             lightHouse.deleteAVertexByID(checkListId);
-            //starFish.removeCheckList(checkListId);
-        } catch (com.parabole.feed.platform.exceptions.AppException e) {
+            starFish.removeCheckList(checkListId);
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "{status: success }";

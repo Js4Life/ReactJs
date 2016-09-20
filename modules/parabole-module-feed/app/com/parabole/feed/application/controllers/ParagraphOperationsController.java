@@ -166,11 +166,11 @@ public class ParagraphOperationsController extends BaseController{
         toSave.put("CREATED_AT", new Date());
         toSave.put("UPDATED_AT", new Date());
 
-        ArrayList<String> paragraphIDs = new ArrayList<>();
-        ArrayList<String> componentTypeIDs = new ArrayList<>();
 
-        //return ok(checkListServices.saveOrUpdateCheckList(toSave, paragraphIDs, componentTypeIDs));
-        return null;
+        HashMap<String, Boolean> paragraphIDs = null;
+        HashMap<String, Boolean> componentTypeIDs = null;
+
+        return ok(checkListServices.saveOrUpdateCheckList(toSave, paragraphIDs, componentTypeIDs));
     }
 
 
@@ -187,6 +187,15 @@ public class ParagraphOperationsController extends BaseController{
         String checkListId = "89477f8c-2ddc-4c72-a587-5449158e4f6a";
 
         return ok(checkListServices.removeCheckList(checkListId));
+
+    }
+
+    public Result editChecklistCheck() {
+
+        HashMap<String, Boolean> checklistCheckInfo = new HashMap<>();
+        checklistCheckInfo.put("", true);
+
+        return ok(checkListServices.editChecklistCheck(checklistCheckInfo));
 
     }
 

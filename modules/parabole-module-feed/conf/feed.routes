@@ -37,13 +37,6 @@ GET /documentParsing/:fileName                         com.parabole.feed.applica
 GET /getNodesFromParagraphJSon                         com.parabole.feed.application.controllers.DocumentController.getNodesFromParagraphJSon()
 
 
-## Check List Operation Test
-#---------------------------------------
-GET /saveOrUpdateCheckList                             com.parabole.feed.application.controllers.ParagraphOperationsController.saveOrUpdateCheckList()
-GET /getCheckListById                                  com.parabole.feed.application.controllers.ParagraphOperationsController.getCheckListById()
-GET /removeCheckList                                   com.parabole.feed.application.controllers.ParagraphOperationsController.removeCheckList()
-#---------------------------------------
-#
 #---------------------------------------
 GET /createNewTopic                                     com.parabole.feed.application.controllers.ParagraphOperationsController.createNewTopic()
 GET /createNewSubtopic                                  com.parabole.feed.application.controllers.ParagraphOperationsController.createNewSubtopic()
@@ -76,6 +69,13 @@ GET /createComponentTypseAndAssignToConcept             com.parabole.feed.applic
 GET /createComponentAndAssignToComponentType            com.parabole.feed.application.controllers.FeedController.createComponentAndAssignToComponentType()
 GET /createBusinesSegmentAndAssignComponent             com.parabole.feed.application.controllers.FeedController.createBusinesSegmentAndAssignComponent()
 
+#---------------------------------------
+## Check List Operation Test
+#---------------------------------------
+GET /saveOrUpdateCheckList                             com.parabole.feed.application.controllers.ParagraphOperationsController.saveOrUpdateCheckList()
+GET /getCheckListById                                  com.parabole.feed.application.controllers.ParagraphOperationsController.getCheckListById()
+GET /removeCheckList                                   com.parabole.feed.application.controllers.ParagraphOperationsController.removeCheckList()
+GET /editChecklistCheck                                com.parabole.feed.application.controllers.ParagraphOperationsController.editChecklistCheck()
 #---------------------------------------
 
 # Map static resources from the /public folder to the /assets URL path
