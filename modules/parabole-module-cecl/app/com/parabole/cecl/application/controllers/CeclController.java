@@ -574,6 +574,28 @@ public class CeclController extends Controller{
     }
 
     @BodyParser.Of(BodyParser.Json.class)
+    public Result getChecklistsByComponent() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final String id = request.getString("id");
+        JSONObject finalJson = new JSONObject();
+        Boolean status = true;
+        String data = null;
+        ArrayList<String> req = new ArrayList<>();
+        req.add(id);
+        try{
+            ArrayList<HashMap<String, String>> res = transformChecklistToViewModel(lightHouseService.getChecklistByComponent(req));
+            ObjectMapper mapper = new ObjectMapper();
+            data = mapper.writeValueAsString(res);
+        } catch (Exception e){
+            status = false;
+            e.printStackTrace();
+        }
+        finalJson.put("status", status).put("data", data);
+        return ok(finalJson.toString());
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
     public Result getChecklistsByBussinessSegment() {
         final String json = request().body().asJson().toString();
         final JSONObject request = new JSONObject(json);
