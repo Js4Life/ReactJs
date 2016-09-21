@@ -491,28 +491,43 @@ public class CheckListServices {
             String checklistID = stringStringHashMap.get("DATA_ID");
             stringStringHashMap.put("paragraphs", getAllParagraphsAgainstTheChecklistID(checklistID));
             stringStringHashMap.put("componentTypes", getAllComponentTypesAgainstTheChecklistID(checklistID));
+            stringStringHashMap.remove("CREATED_AT");
+            stringStringHashMap.remove("UPDATED_AT");
         }
         return allChecklistData;
     }
 
     private String getAllParagraphsAgainstTheChecklistID(String checklistID) {
-        String paragraphIDs = new String();
+        String paragraphIDs = "";
         ArrayList<HashMap<String, String>> allRootNodeDetails = lightHouse.getRootVerticesByChildVertexId(checklistID);
         
         for (HashMap<String, String> allRootNodeDetail : allRootNodeDetails) {
             if(allRootNodeDetail.get("type").equals("PARAGRAPH")){
-                paragraphIDs += ", " + (allRootNodeDetail.get("elementID"));
+
+                if(paragraphIDs != "") {
+                    paragraphIDs += ", " + (allRootNodeDetail.get("elementID"));
+                }else{
+                    paragraphIDs += (allRootNodeDetail.get("elementID"));
+                }
+
+
             }
         }
         return paragraphIDs;
     }
 
     private String getAllComponentTypesAgainstTheChecklistID(String checklistID) {
-        String componentTypeIDs = new String();
+        String componentTypeIDs = "";
         ArrayList<HashMap<String, String>> allRootNodeDetails = lightHouse.getRootVerticesByChildVertexId(checklistID);
         for (HashMap<String, String> allRootNodeDetail : allRootNodeDetails) {
             if(allRootNodeDetail.get("type").equals("COMPONENTTYPE")){
-                componentTypeIDs += ", " + (allRootNodeDetail.get("name"));
+                if(componentTypeIDs != "") {
+                    componentTypeIDs += ", " + (allRootNodeDetail.get("name"));
+                }else{
+                    componentTypeIDs += (allRootNodeDetail.get("name"));
+                }
+
+
             }
         }
         return componentTypeIDs;
