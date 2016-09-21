@@ -1041,11 +1041,17 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 	function configureGridOption() {
 		$scope.gridOptions = {
-			/*columnDefs: [
-				{ field: 'name' },
-				{ field: 'gender'},
-				{ field: 'company' }
-			],*/
+			columnDefs: [
+				{ field: 'DATA_ID',  displayName: 'Id' },
+				{ field: 'BODY_TEXT', displayName: 'Checklist Item' },
+				{ field: 'CREATED_BY', displayName: 'User' },
+				{ field: 'UPDATED_BY', displayName: 'Updated By' },
+				{ field: 'ATTACHMENTINFO', displayName: 'Has Evidence' },
+				{ field: 'paragraphs', displayName: 'Paragraphs' },
+				{ field: 'componentTypes', displayName: 'Component Types' },
+				{ field: 'IS_MANDATORY', displayName: 'Mandatory' },
+				{ field: 'STATE', displayName: 'Current State' }
+			],
 			enableSelectAll: false,
 			exporterCsvFilename: 'download.csv',
 			exporterPdfDefaultStyle: {fontSize: 9},
