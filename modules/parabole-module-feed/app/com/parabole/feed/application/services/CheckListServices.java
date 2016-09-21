@@ -512,7 +512,7 @@ public class CheckListServices {
         ArrayList<HashMap<String, String>> allRootNodeDetails = lightHouse.getRootVerticesByChildVertexId(checklistID);
         for (HashMap<String, String> allRootNodeDetail : allRootNodeDetails) {
             if(allRootNodeDetail.get("type").equals("COMPONENTTYPE")){
-                componentTypeIDs += ", " + (allRootNodeDetail.get("elementID"));
+                componentTypeIDs += ", " + (allRootNodeDetail.get("name"));
             }
         }
         return componentTypeIDs;
