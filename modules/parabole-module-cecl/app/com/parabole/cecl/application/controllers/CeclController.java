@@ -264,16 +264,19 @@ public class CeclController extends Controller{
     public Result addAnswer() {
         final String json = request().body().asJson().toString();
         final JSONObject request = new JSONObject(json);
-        //final JSONArray answerJson = request.getJSONArray("answers");
         final JSONObject answerJson = request.getJSONObject("answers");
         JSONObject finalJson = new JSONObject();
-        Boolean status = false;
+        Boolean status = true;
+        String data = null;
+        HashMap<String, Boolean> answerMap = new Gson().fromJson(answerJson.toString(), new TypeToken<HashMap<String, Boolean>>() {}.getType());
         try {
-            status = checkListServices.addAnswer(answerJson);
+            data = checkListServices.editChecklistCheck(answerMap);
             finalJson.put("status", status);
         } catch (Exception e){
+            status = false;
             e.printStackTrace();
         }
+        finalJson.put("status", status).put("data", data);
         return ok(finalJson.toString());
     }
 
@@ -626,6 +629,7 @@ public class CeclController extends Controller{
             aData.put("id", checklist.get("DATA_ID"));
             aData.put("bodyText", checklist.get("BODY_TEXT"));
             aData.put("isMandatory", checklist.get("IS_MANDATORY"));
+            aData.put("isChecked", checklist.get("IS_CHECKED"));
             checklistWithTags.put("checklist", aData);
             checklistWithTags.put("paragraphs", curr.get("paragraphs"));
             checklistWithTags.put("componentTypes", curr.get("componentTypes"));
@@ -641,6 +645,7 @@ public class CeclController extends Controller{
             aData.put("id", curr.get("DATA_ID"));
             aData.put("bodyText", curr.get("BODY_TEXT"));
             aData.put("isMandatory", curr.get("IS_MANDATORY"));
+            aData.put("isChecked", curr.get("IS_CHECKED"));
             outData.add(aData);
         }
         return outData;

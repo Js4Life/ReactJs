@@ -733,22 +733,6 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		});*!/
 	}*/
 	
-	$scope.addChecklist = function (checklistItem) {
-		$scope.checklistItem = checklistItem || {isMandatory : true};
-		var selectedParagraphs = _.pick($scope.currentParagraphs, function (val, key) { return val;	});
-		selectedParagraphs = _.keys(selectedParagraphs);
-		if(selectedParagraphs.length < 1) {
-			toastr.warning('Select at least one paragraph..', '', {"positionClass": "toast-top-right"});
-			return;
-		}
-		SharedService.getComponentTypesByParagraphIds(selectedParagraphs).then(function (data) {
-			if(data.status){
-				$scope.masterComponentTypes = angular.fromJson(data.data);
-				$('#checklistModal').modal('show');
-			}
-		});
-	}
-	
 	$scope.getChecklistByParagraphs = function () {
 		var selectedParagraphs = _.pick($scope.currentParagraphs, function (val, key) { return val;	});
 		selectedParagraphs = _.keys(selectedParagraphs);
@@ -834,6 +818,24 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		} else {
 			$scope.currentComponentTypes[componentTypeId] = true;
 		}
+	}
+
+	$scope.addChecklist = function (checklistItem) {
+		$scope.checklistItem = checklistItem || {isMandatory : true};
+		if(!checklistItem)
+			$scope.currentComponentTypes = {};
+		var selectedParagraphs = _.pick($scope.currentParagraphs, function (val, key) { return val;	});
+		selectedParagraphs = _.keys(selectedParagraphs);
+		if(selectedParagraphs.length < 1) {
+			toastr.warning('Select at least one paragraph..', '', {"positionClass": "toast-top-right"});
+			return;
+		}
+		SharedService.getComponentTypesByParagraphIds(selectedParagraphs).then(function (data) {
+			if(data.status){
+				$scope.masterComponentTypes = angular.fromJson(data.data);
+				$('#checklistModal').modal('show');
+			}
+		});
 	}
 	
 	$scope.saveChecklist = function () {
@@ -1153,6 +1155,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		SharedService.getChecklistByNodeId(node).then(function (data) {
 			if(data.status){
 				$scope.checkList = removeEmptyAndUnique(angular.fromJson(data.data));
+				populateAnswers($scope.checkList);
 				if($scope.checkList.length > 0)
 					$('#checklistModal').modal('show');
 				else
@@ -1170,11 +1173,17 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		});
 		return uniqueList;
 	}
+	function populateAnswers(allChecklists) {
+		$scope.answers = {};
+		angular.forEach(allChecklists, function (c) {
+			$scope.answers[c.id] = c.isChecked;
+		});
+	}
 
 	$scope.saveAnswers = function () {
 		SharedService.addAnswer($scope.answers).then(function (data) {
 			if(data.status){
-				recalculateCompliance();
+				//recalculateCompliance();
 				$('#checklistModal').modal('hide');
 				toastr.success('Saved Successfully..', '', {"positionClass" : "toast-top-right"});
 			}

@@ -291,30 +291,36 @@ public class LightHouseService {
 
         for (String paragraphID : paragraphIDs) {
             ArrayList<String> listOfOfChecklist = new ArrayList<>();
-            HashMap<String, String> relatedParagraphIDs = new HashMap<>();
-            HashMap<String, String> relatedComponentTypeIDs = new HashMap<>();
+            HashMap<String, HashMap<String, HashMap<String, String>>> checklistTags = new HashMap<>();
 
             ArrayList<HashMap<String, String>> checklistIDs = lightHouse.getChildVerticesByRootVertexId(paragraphID);
             for (HashMap<String, String> checklistID : checklistIDs) {
+                HashMap<String, HashMap<String, String>> tempTags = new HashMap<>();
+                HashMap<String, String> relatedParagraphIDs = new HashMap<>();
+                HashMap<String, String> relatedComponentTypeIDs = new HashMap<>();
                 listOfOfChecklist.add(checklistID.get("elementID"));
-                    for (HashMap<String, String> paraID:lightHouse.getRootVerticesByChildVertexId(checklistID.get("elementID"))) {
-                        if(paraID.get("type").equals("PARAGRAPH")) {
-                            relatedParagraphIDs.put(paraID.get("elementID"), String.valueOf(true));
-                        }
+                for (HashMap<String, String> paraID : lightHouse.getRootVerticesByChildVertexId(checklistID.get("elementID"))) {
+                    if(paraID.get("type").equals("PARAGRAPH")) {
+                        relatedParagraphIDs.put(paraID.get("elementID"), String.valueOf(true));
                     }
-                    for (HashMap<String, String> paraID:lightHouse.getRootVerticesByChildVertexId(checklistID.get("elementID"))) {
-                        if(paraID.get("type").equals("COMPONENTTYPE")) {
-                            relatedComponentTypeIDs.put(paraID.get("elementID"), String.valueOf(true));
-                        }
+                }
+                for (HashMap<String, String> paraID : lightHouse.getRootVerticesByChildVertexId(checklistID.get("elementID"))) {
+                    if(paraID.get("type").equals("COMPONENTTYPE")) {
+                        relatedComponentTypeIDs.put(paraID.get("elementID"), String.valueOf(true));
                     }
+                }
+                tempTags.put("PARAGRAPH", relatedParagraphIDs);
+                tempTags.put("COMPONENTTYPE", relatedComponentTypeIDs);
+                checklistTags.put(checklistID.get("elementID"), tempTags);
             }
 
             ArrayList<HashMap<String, String>> tempResult = starfishServices.getChecklistByID(listOfOfChecklist);
             for (HashMap<String, String> checklists : tempResult) {
                 HashMap<String, HashMap<String, String>> chkList = new HashMap<>();
+                String checklistID = checklists.get("DATA_ID");
                 chkList.put("checklist", checklists);
-                chkList.put("paragraphs", relatedParagraphIDs);
-                chkList.put("componentTypes", relatedComponentTypeIDs);
+                chkList.put("paragraphs", checklistTags.get(checklistID).get("PARAGRAPH"));
+                chkList.put("componentTypes", checklistTags.get(checklistID).get("COMPONENTTYPE"));
                 finalReturn.add(chkList);
             }
 
