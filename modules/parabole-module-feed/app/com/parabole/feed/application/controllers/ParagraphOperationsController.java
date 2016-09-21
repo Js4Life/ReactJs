@@ -304,7 +304,6 @@ public class ParagraphOperationsController extends BaseController{
     }
 
     public Result getChecklistByBusinessSegment() {
-        // TODO
         ArrayList<String> listOfComponetIds = new ArrayList<>();
         listOfComponetIds.add("http://www.mindparabole.com/ontology/finance/Parabole-Model#WholesaleFinance");
         listOfComponetIds.add("http://www.mindparabole.com/ontology/finance/Parabole-Model#CommercialRealEstate");
@@ -312,6 +311,13 @@ public class ParagraphOperationsController extends BaseController{
         listOfComponetIds.add("http://www.mindparabole.com/ontology/finance/Parabole-Model#CreditCard");
         listOfComponetIds.add("http://www.mindparabole.com/ontology/finance/Parabole-Model#AutoLoan");
         return ok(lightHouseService.getChecklistByBusinessSegment(listOfComponetIds).toString());
+    }
+
+    public Result getChecklistDetails() {
+        // TODO
+        ArrayList<String> listOfCheckListIds = new ArrayList<>();
+        listOfCheckListIds.add("9964fc0e-552a-4e3a-a33e-3ebd99636e33");
+        return ok(checkListServices.getChecklistDetails(listOfCheckListIds).toString());
     }
 
     public Result getChecklistByConcept() {
