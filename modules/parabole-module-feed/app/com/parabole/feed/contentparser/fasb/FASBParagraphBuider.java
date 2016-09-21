@@ -1,9 +1,11 @@
 package com.parabole.feed.contentparser.fasb;
 
 import com.parabole.feed.contentparser.filters.IParagraphProcessor;
+import com.parabole.feed.contentparser.models.common.CharacterFormatInfo;
 import com.parabole.feed.contentparser.models.common.ParagraphElement;
 import com.parabole.feed.contentparser.models.common.TextFormatInfo;
 
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.function.Consumer;
@@ -21,7 +23,18 @@ public class FASBParagraphBuider implements IParagraphBuilder {
     public void buildParagraph(String text, TextFormatInfo format) {
         int pageNum = format.getPageNum();
         String paraId = paragraphProcessor.IsNewParagraphStart(text);
-        if( paraId != null){
+        boolean isBold = false;
+        if(paraId != null){
+            List<CharacterFormatInfo> charFmtList = format.getCharacterFormatInfos();
+            int boldCount = 0;
+            for(int i = 0; i < paraId.length();i++){
+                if(charFmtList.get(i).isBold())
+                    boldCount++;
+            }
+            isBold = boldCount == paraId.length();
+        }
+        if( paraId != null && isBold){
+
             if( currentParagraph != null){
                 endParagraph(pageNum);
             }

@@ -1,9 +1,7 @@
 package com.parabole.feed.application.services;
 
 import com.google.inject.Inject;
-import com.orientechnologies.orient.core.record.impl.ODocument;
 import com.parabole.feed.application.exceptions.AppException;
-import com.parabole.feed.application.global.CCAppConstants;
 import com.parabole.feed.application.utils.AppUtils;
 import com.parabole.feed.platform.graphdb.LightHouse;
 import com.parabole.feed.platform.graphdb.StarFish;
@@ -29,6 +27,9 @@ public class CheckListServices {
 
     @Inject
     private LightHouse lightHouse;
+
+    @Inject
+    private StarfishServices starfishServices;
 
 
 
@@ -403,8 +404,7 @@ public class CheckListServices {
         return "Saved";
     }
 
-
-        public String saveOrUpdateCheckList(HashMap<String, Object> toSave, HashMap<String, Boolean> paragraphIDs, HashMap<String, Boolean> componentTypeIDs) {
+    public String saveOrUpdateCheckList(HashMap<String, Object> toSave, HashMap<String, Boolean> paragraphIDs, HashMap<String, Boolean> componentTypeIDs) {
 
         if(toSave.get("DATA_ID") == null || toSave.get("DATA_ID").toString().trim().isEmpty()) {
             toSave.put("DATA_ID", getUniqueID());
@@ -485,4 +485,36 @@ public class CheckListServices {
 
     }
 
+    public ArrayList<HashMap<String, String>> getChecklistDetails(ArrayList<String> listOfCheckListIds) {
+        ArrayList<HashMap<String, String>> allChecklistData = starfishServices.getChecklistByID(listOfCheckListIds);
+        for (HashMap<String, String> stringStringHashMap : allChecklistData) {
+            String checklistID = stringStringHashMap.get("DATA_ID");
+            stringStringHashMap.put("paragraphs", getAllParagraphsAgainstTheChecklistID(checklistID));
+            stringStringHashMap.put("componentTypes", getAllComponentTypesAgainstTheChecklistID(checklistID));
+        }
+        return allChecklistData;
+    }
+
+    private String getAllParagraphsAgainstTheChecklistID(String checklistID) {
+        String paragraphIDs = new String();
+        ArrayList<HashMap<String, String>> allRootNodeDetails = lightHouse.getRootVerticesByChildVertexId(checklistID);
+        
+        for (HashMap<String, String> allRootNodeDetail : allRootNodeDetails) {
+            if(allRootNodeDetail.get("type").equals("PARAGRAPH")){
+                paragraphIDs += ", " + (allRootNodeDetail.get("elementID"));
+            }
+        }
+        return paragraphIDs;
+    }
+
+    private String getAllComponentTypesAgainstTheChecklistID(String checklistID) {
+        String componentTypeIDs = new String();
+        ArrayList<HashMap<String, String>> allRootNodeDetails = lightHouse.getRootVerticesByChildVertexId(checklistID);
+        for (HashMap<String, String> allRootNodeDetail : allRootNodeDetails) {
+            if(allRootNodeDetail.get("type").equals("COMPONENTTYPE")){
+                componentTypeIDs += ", " + (allRootNodeDetail.get("elementID"));
+            }
+        }
+        return componentTypeIDs;
+    }
 }

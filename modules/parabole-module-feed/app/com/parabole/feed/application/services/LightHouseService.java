@@ -206,7 +206,6 @@ public class LightHouseService {
     }
 
     public ArrayList<HashMap<String, String>> getChecklistsByComponentTypes(ArrayList<String> conceptIDs) {
-
         ArrayList<String> listOfOfChecklist = new ArrayList<>();
         for (String conceptID : conceptIDs) {
             ArrayList<HashMap<String, String>> checklistIDs = lightHouse.getChildVerticesByRootVertexId(conceptID);
