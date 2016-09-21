@@ -59,7 +59,7 @@ GET /getChecklistsByComponentTypes                      com.parabole.feed.applic
 GET /getChecklistByConcept                              com.parabole.feed.application.controllers.ParagraphOperationsController.getChecklistByConcept
 GET /getChecklistByComponent                            com.parabole.feed.application.controllers.ParagraphOperationsController.getChecklistByComponent
 GET /getChecklistByBusinessSegment                      com.parabole.feed.application.controllers.ParagraphOperationsController.getChecklistByBusinessSegment
-GET /getChecklistDetails                                com.parabole.feed.application.controllers.ParagraphOperationsController.getChecklistDetails
+GET /getChecklistDetailsForReport                       com.parabole.feed.application.controllers.ParagraphOperationsController.getChecklistDetailsForReport
 #~~~~~~
 GET /addAnewVertexproperty                              com.parabole.feed.application.controllers.ParagraphOperationsController.addAnewVertexproperty()
 #~~~~~~
