@@ -122,3 +122,4 @@ POST /getChecklistsByConcept                com.parabole.cecl.application.contro
 POST /getChecklistsByComponent              com.parabole.cecl.application.controllers.CeclController.getChecklistsByComponent()
 POST /getChecklistsByBussinessSegment       com.parabole.cecl.application.controllers.CeclController.getChecklistsByBussinessSegment()
 POST /removeChecklistById                   com.parabole.cecl.application.controllers.CeclController.removeChecklistById()
+POST /checklistDetailsByIds                 com.parabole.cecl.application.controllers.CeclController.checklistDetailsByIds()

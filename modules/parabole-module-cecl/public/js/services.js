@@ -100,7 +100,8 @@ angular.module('RDAApp.services', [])
         'GetChecklistsByConcept' : 'getChecklistsByConcept',
         'GetChecklistsByComponent' : 'getChecklistsByComponent',
         'GetChecklistsByBussinessSegment' : 'getChecklistsByBussinessSegment',
-        'RemoveChecklistById' : 'removeChecklistById'
+        'RemoveChecklistById' : 'removeChecklistById',
+        'ChecklistDetailsByIds' : 'checklistDetailsByIds'
     };
     SharedService.chartDataMap = {
         '0' : 'getHardCodedResponse/chartData1',
@@ -737,6 +738,10 @@ angular.module('RDAApp.services', [])
     SharedService.removeChecklistById = function (id) {
         var sendObj = {"id": id};
         return SharedService.invokeService('RemoveChecklistById', sendObj, 'post');
+    }
+    SharedService.checklistDetailsByIds = function (ids) {
+        var sendObj = {"ids": ids};
+        return SharedService.invokeService('ChecklistDetailsByIds', sendObj, 'post');
     }
 
     return SharedService;

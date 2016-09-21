@@ -1041,11 +1041,11 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 	function configureGridOption() {
 		$scope.gridOptions = {
-			columnDefs: [
+			/*columnDefs: [
 				{ field: 'name' },
 				{ field: 'gender'},
 				{ field: 'company' }
-			],
+			],*/
 			enableSelectAll: false,
 			exporterCsvFilename: 'download.csv',
 			exporterPdfDefaultStyle: {fontSize: 9},
@@ -1072,13 +1072,17 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}
 
 	$scope.viewChecklistDetails = function () {
-		$http.get('http://ui-grid.info/data/100.json').success(function(data) {
-			$scope.gridOptions.data = data;
-			$('#checklistModal').modal('hide');
-			$('#checklistDetailsModal').modal('show');
-			$timeout( function() {
-				$scope.gridApi.core.handleWindowResize();
-			}, 500);
+		var checklistIds = _.pluck($scope.checkList, 'id');
+		SharedService.checklistDetailsByIds(checklistIds).then(function (data) {
+			if(data.status){
+				console.log(angular.fromJson(data.data));
+				$scope.gridOptions.data = angular.fromJson(data.data);
+				$('#checklistModal').modal('hide');
+				$('#checklistDetailsModal').modal('show');
+				$timeout( function() {
+					$scope.gridApi.core.handleWindowResize();
+				}, 500, 10);
+			}
 		});
 	}
 	$scope.exportCsv = function(){

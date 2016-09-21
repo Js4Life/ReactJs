@@ -668,4 +668,25 @@ public class CeclController extends Controller{
         finalJson.put("status", status).put("data", data);
         return ok(finalJson.toString());
     }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result checklistDetailsByIds() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final JSONArray ids = request.getJSONArray("ids");
+        JSONObject finalJson = new JSONObject();
+        Boolean status = true;
+        String data = null;
+        try{
+            ArrayList<String> checklistIds = new Gson().fromJson(ids.toString(), new TypeToken<ArrayList<String>>() {}.getType());
+            ArrayList<HashMap<String, String>> res = checkListServices.getChecklistDetailsForReport(checklistIds);
+            ObjectMapper mapper = new ObjectMapper();
+            data = mapper.writeValueAsString(res);
+        } catch (Exception e){
+            status = false;
+            e.printStackTrace();
+        }
+        finalJson.put("status", status).put("data", data);
+        return ok(finalJson.toString());
+    }
 }
