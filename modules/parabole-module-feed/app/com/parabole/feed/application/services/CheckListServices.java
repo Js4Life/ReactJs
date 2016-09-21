@@ -501,7 +501,7 @@ public class CheckListServices {
         
         for (HashMap<String, String> allRootNodeDetail : allRootNodeDetails) {
             if(allRootNodeDetail.get("type").equals("PARAGRAPH")){
-                paragraphIDs += "," + (allRootNodeDetail.get("elementID"));
+                paragraphIDs += ", " + (allRootNodeDetail.get("elementID"));
             }
         }
         return paragraphIDs;
@@ -512,7 +512,7 @@ public class CheckListServices {
         ArrayList<HashMap<String, String>> allRootNodeDetails = lightHouse.getRootVerticesByChildVertexId(checklistID);
         for (HashMap<String, String> allRootNodeDetail : allRootNodeDetails) {
             if(allRootNodeDetail.get("type").equals("COMPONENTTYPE")){
-                componentTypeIDs += "," + (allRootNodeDetail.get("elementID"));
+                componentTypeIDs += ", " + (allRootNodeDetail.get("elementID"));
             }
         }
         return componentTypeIDs;
