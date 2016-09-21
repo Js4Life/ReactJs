@@ -1020,7 +1020,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.initialize();
 })
 
-.controller('checklistViewerCtrl', function($scope, $rootScope, $state, $stateParams, SharedService, MockService){
+.controller('checklistViewerCtrl', function($scope, $rootScope, $state, $stateParams, $timeout, $http, SharedService, MockService){
 	$scope.initialize = function () {
 		$scope.isGridView = true;
 		$scope.showGraph = false;
@@ -1036,7 +1036,58 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		};
 		$scope.exploreNode(SharedService.currentView);
 		$scope.answers = {};
+		configureGridOption();
 	}
+
+	function configureGridOption() {
+		$scope.gridOptions = {
+			columnDefs: [
+				{ field: 'name' },
+				{ field: 'gender'},
+				{ field: 'company' }
+			],
+			enableSelectAll: false,
+			exporterCsvFilename: 'download.csv',
+			exporterPdfDefaultStyle: {fontSize: 9},
+			exporterPdfTableStyle: {margin: [30, 30, 30, 30]},
+			exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, color: 'blue'},
+			exporterPdfHeader: { text: "My Header", style: 'headerStyle' },
+			exporterPdfFooter: function ( currentPage, pageCount ) {
+				return { text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle' };
+			},
+			exporterPdfCustomFormatter: function ( docDefinition ) {
+				docDefinition.styles.headerStyle = { fontSize: 16, bold: true, margin: [30, 30, 0, 10] };
+				docDefinition.styles.footerStyle = { fontSize: 10, bold: false, margin: [30, 10, 0, 30] };
+				return docDefinition;
+			},
+			exporterPdfOrientation: 'landscape',
+			exporterPdfPageSize: 'A4',
+			exporterPdfMaxGridWidth: 680,
+			exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")),
+			onRegisterApi: function(gridApi){
+				$scope.gridApi = gridApi;
+
+			}
+		};
+	}
+
+	$scope.viewChecklistDetails = function () {
+		$http.get('http://ui-grid.info/data/100.json').success(function(data) {
+			$scope.gridOptions.data = data;
+			$('#checklistModal').modal('hide');
+			$('#checklistDetailsModal').modal('show');
+			$timeout( function() {
+				$scope.gridApi.core.handleWindowResize();
+			}, 500);
+		});
+	}
+	$scope.exportCsv = function(){
+		var gridElement = angular.element(document.querySelectorAll(".custom-csv-link-location"));
+		$scope.gridApi.exporter.csvExport( "all", "all", gridElement );
+	};
+	$scope.exportPdf = function(){
+		$scope.gridApi.exporter.pdfExport( "all", "all" );
+	};
 
 	$rootScope.$on('PARENTSEARCHTEXT', function (event, data) {
 		$scope.searchText = data;
@@ -1152,6 +1203,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}
 
 	$scope.getChecklistByNode = function (node) {
+		$scope.currentNode = node;
 		SharedService.getChecklistByNodeId(node).then(function (data) {
 			if(data.status){
 				$scope.checkList = removeEmptyAndUnique(angular.fromJson(data.data));
