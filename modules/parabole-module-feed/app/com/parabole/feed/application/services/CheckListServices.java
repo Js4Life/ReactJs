@@ -485,7 +485,7 @@ public class CheckListServices {
 
     }
 
-    public ArrayList<HashMap<String, String>> getChecklistDetails(ArrayList<String> listOfCheckListIds) {
+    public ArrayList<HashMap<String, String>> getChecklistDetailsForReport(ArrayList<String> listOfCheckListIds) {
         ArrayList<HashMap<String, String>> allChecklistData = starfishServices.getChecklistByID(listOfCheckListIds);
         for (HashMap<String, String> stringStringHashMap : allChecklistData) {
             String checklistID = stringStringHashMap.get("DATA_ID");
