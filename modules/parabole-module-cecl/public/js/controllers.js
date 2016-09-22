@@ -694,8 +694,14 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			toastr.info('Select one or more paragraph..', '', {"positionClass" : "toast-top-right"});
 		}
 	}
+
+	$scope.editTags = function () {
+		SharedService.hideAllToolTips();
+		$scope.doParaTag = true;
+	}
 	
 	$scope.enableChecklistBuilder = function() {
+		SharedService.hideAllToolTips();
         var tempParagraphs = [];
         angular.forEach($scope.paraTags, function (tag, elementID) {
             tempParagraphs.push(_.findWhere($scope.paragraphs, {"elementID":elementID}));
@@ -1042,15 +1048,15 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	function configureGridOption() {
 		$scope.gridOptions = {
 			columnDefs: [
-				{ field: 'DATA_ID',  displayName: 'Id' },
-				{ field: 'BODY_TEXT', displayName: 'Checklist Item' },
-				{ field: 'CREATED_BY', displayName: 'User' },
-				{ field: 'UPDATED_BY', displayName: 'Updated By' },
-				{ field: 'ATTACHMENTINFO', displayName: 'Has Evidence' },
-				{ field: 'paragraphs', displayName: 'Paragraphs' },
-				{ field: 'componentTypes', displayName: 'Component Types' },
-				{ field: 'IS_MANDATORY', displayName: 'Mandatory' },
-				{ field: 'STATE', displayName: 'Current State' }
+                { field: 'BODY_TEXT', name: 'Checklist Item' },
+                { field: 'IS_CHECKED', name: 'Checked', cellTemplate: '<div class="text-center"><i ng-if="row.entity.IS_CHECKED" class="fa fa-check text-success" aria-hidden="true"></i><i ng-if="!row.entity.IS_CHECKED" class="fa fa-times text-danger" aria-hidden="true"></i></div>' },
+				{ field: 'CREATED_BY', name: 'User' },
+				{ field: 'UPDATED_BY', name: 'Updated By' },
+				{ field: 'ATTACHMENTINFO', name: 'Has Evidence' },
+				{ field: 'paragraphs', name: 'Paragraphs' },
+				{ field: 'componentTypes', name: 'Component Types' },
+				{ field: 'IS_MANDATORY', name: 'Mandatory', cellTemplate: '<div class="text-center"><i ng-if="row.entity.IS_MANDATORY" class="fa fa-check text-success" aria-hidden="true"></i><i ng-if="!row.entity.IS_MANDATORY" class="fa fa-times text-danger" aria-hidden="true"></i></div>' },
+				{ field: 'STATE', name: 'Current State' }
 			],
 			enableSelectAll: false,
 			exporterCsvFilename: 'download.csv',
@@ -1146,7 +1152,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		var compName = "ceclComponentsByConcept";
 		SharedService.getFilteredDataByCompName(compName, nodeName).then(function (data) {
 			var nodes = data.data;
-			$scope.nodeDetails = _.groupBy(nodes, "type");
+			$scope.nodeDetails = _.groupBy(nodes, "componentType");
 			getGraphByConceptUri();
 			SharedService.getDescriptionByUri($scope.currentNode.elementID).then(function (description) {
 				$scope.currentNode.description = description;
@@ -1160,7 +1166,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$scope.graphData = {nodes: [rootNode], edges: []};
 		angular.forEach($scope.nodeDetails, function (val, key) {
 			angular.forEach(val, function (aNode, idx) {
-				var node = {name: aNode.name, id: aNode.link, type: key.toLowerCase()};
+				var node = {name: aNode.name, id: aNode.elementID, type: key.toLowerCase()};
 				var edge = {from: rootNode.id, to: node.id};
 				$scope.graphData.nodes.push(node);
 				$scope.graphData.edges.push(edge);
@@ -1213,14 +1219,30 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}
 
 	$scope.getChecklistByNode = function (node) {
-		$scope.currentNode = node;
 		SharedService.getChecklistByNodeId(node).then(function (data) {
 			if(data.status){
+				$scope.currentNode = node;
 				$scope.checkList = removeEmptyAndUnique(angular.fromJson(data.data));
 				populateAnswers($scope.checkList);
 				if($scope.checkList.length > 0)
 					$('#checklistModal').modal('show');
 				else
+					toastr.warning('No Checklist available..', '', {"positionClass" : "toast-top-right"});
+			}
+		})
+	}
+
+	$scope.getChecklistByComponentOnly = function (node) {
+		node.type = 'COMPONENT';
+		SharedService.getChecklistByNodeId(node).then(function (data) {
+			if(data.status){
+				$scope.currentNode = node;
+				$scope.checkList = removeEmptyAndUnique(angular.fromJson(data.data));
+				populateAnswers($scope.checkList);
+				if($scope.checkList.length > 0) {
+					$('#dsViewer').modal('hide');
+					$('#checklistModal').modal('show');
+				} else
 					toastr.warning('No Checklist available..', '', {"positionClass" : "toast-top-right"});
 			}
 		})

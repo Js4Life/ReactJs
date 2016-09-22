@@ -122,10 +122,10 @@
 			"label" : "name"
 		},{
 			"name" : "Area",
-			"label" : "type"
+			"label" : "componentType"
 		},{
 			"name" : "mprp",
-			"label" : "link"
+			"label" : "elementID"
 		}]
 	},
 	"ceclTopicNodeDetails" : {

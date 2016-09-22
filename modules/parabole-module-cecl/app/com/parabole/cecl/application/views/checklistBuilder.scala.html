@@ -10,8 +10,22 @@
   <div class="panel-heading">
     <span class="glyphicon glyphicon-chevron-left pull-left" style="margin-right:10px;" ng-click="goPreviousScreen()"></span>
     <b>{{heading.title}}</b>
-    <span ng-if="doParaTag" class="glyphicon glyphicon-play pull-right" ng-click="enableChecklistBuilder()"></span>
-    <span ng-if="doParaTag" class="glyphicon glyphicon-floppy-disk pull-right" style="margin-right:10px;" ng-click="saveParaTags()"></span>
+
+
+    <div ng-if="doParaTag" class="btn-group btn-group-xs pull-right" role="group" aria-label="group1">
+      <button type="button" class="btn btn-default" ng-click="saveParaTags()" tooltip='"title":"Save Paragraph Tags"'>
+        <i class="fa fa-floppy-o" aria-hidden="true"></i>
+      </button>
+      <button type="button" class="btn btn-default" ng-click="enableChecklistBuilder()" tooltip='"title":"Next"'>
+        <i class="fa fa-play" aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <div ng-if="!doParaTag" class="btn-group btn-group-xs pull-right" role="group" aria-label="group2">
+      <button type="button" class="btn btn-default" ng-click="editTags()" tooltip='"title":"Edit Paragraph Tags"'>
+        <i class="fa fa-tags" aria-hidden="true"></i>
+      </button>
+    </div>
     <div ng-if="!doParaTag" class="btn-group btn-group-xs pull-right" data-toggle="buttons">
       <label class="btn btn-primary" ng-click="setColorCode('all')">
           <input type="radio" name="options" id="option1" autocomplete="off"> All
@@ -25,7 +39,7 @@
       <label class="btn btn-warning" ng-click="setColorCode('Explanation')">
           <input type="radio" name="options" id="option2" autocomplete="off"> Explanation
       </label>
-     </div>
+    </div>
   </div>
   <div class="panel-body" style="height:81vh;overflow: hidden;">
     <div ng-if="!doParaTag" class="max-height">
