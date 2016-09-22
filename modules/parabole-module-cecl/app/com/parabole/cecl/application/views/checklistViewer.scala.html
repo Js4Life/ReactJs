@@ -117,7 +117,7 @@
                 <div class="panel-heading">{{k}}</div>
                 <ul class="list-group" style="max-height: 40vh; overflow: auto;">
                   <li class="list-group-item" ng-repeat="o in v">
-                    <span tooltip='"title":"View Checklist", "placement":"right"' class="badge pointer" ng-click="getCheckList(currentNode.name, k, o.name)">?</span>
+                    <span tooltip='"title":"View Checklist", "placement":"right"' class="badge pointer" ng-click="getChecklistByComponentOnly(o)">?</span>
                     {{o.name}}
                   </li>
                 </ul>
