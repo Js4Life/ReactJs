@@ -66,7 +66,26 @@ public class CoralUserService {
         return StringUtils.EMPTY;
     }
 
-    public String getSpecificDocumentUsingIdAndColumnNameFromUserGroup(final String userId, String columnNameToFetch) throws AppException {
+    public String getSpecificDocumentUsingIdAndColumnNameFromUser(final String userId, String columnNameToFetch) throws AppException {
+        Validate.notBlank(userId, "'userId' cannot be empty!");
+        Validate.notBlank(userId, "'userId' cannot be empty!");
+        final ODatabaseDocumentTx dbNoTx = coral.getDocDBConnectionNoTx();
+        try {
+            final OSQLSynchQuery<ODocument> query = new OSQLSynchQuery<ODocument>("SELECT "+columnNameToFetch+" FROM APP_USERS WHERE USER_ID = '" + userId + "'");
+            final List<ODocument> results = dbNoTx.command(query).execute();
+            if (CollectionUtils.isNotEmpty(results)) {
+                return results.get(0).field(columnNameToFetch);
+            }
+        } catch (final Exception ex) {
+            Logger.error("Could not get "+columnNameToFetch+" for user: " + userId, ex);
+            throw new AppException(AppErrorCode.GRAPH_DB_OPERATION_EXCEPTION);
+        } finally {
+            coral.closeDocDBConnection(dbNoTx);
+        }
+        return StringUtils.EMPTY;
+    }
+    
+public String getSpecificDocumentUsingIdAndColumnNameFromUserGroup(final String userId, String columnNameToFetch) throws AppException {
         Validate.notBlank(userId, "'userId' cannot be empty!");
         Validate.notBlank(userId, "'userId' cannot be empty!");
         final ODatabaseDocumentTx dbNoTx = coral.getDocDBConnectionNoTx();
@@ -84,7 +103,7 @@ public class CoralUserService {
         }
         return StringUtils.EMPTY;
     }
-    
+
 
     public void createUser(final AppUser user, final String password) throws AppException {
         Validate.notNull(user, "'user' cannot be null!");

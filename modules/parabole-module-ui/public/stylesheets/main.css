@@ -64,7 +64,7 @@ a{
     background-image: none;
     text-align: center;
     color: #fff;
-    background-color: #6dcff6;
+    background-color: #ccc;
     border: none;
     border-radius: 0px;
     box-shadow: none;
@@ -126,8 +126,8 @@ a{
 
 .navbar-real-white{
     background-image: none;
-    background-color: #6dcff6;
-    border-bottom: 1px solid #f9f9f9;
+    background-color: #ffffff;
+    border-bottom: 1px solid #6dcff6;
 }
 
 /*

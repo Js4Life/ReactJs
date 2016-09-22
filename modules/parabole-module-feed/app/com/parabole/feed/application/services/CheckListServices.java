@@ -33,6 +33,7 @@ public class CheckListServices {
 
 
 
+
     private String getUniqueID() {
         UUID uniqueKey = UUID.randomUUID();
         return uniqueKey.toString();
@@ -134,7 +135,6 @@ public class CheckListServices {
         return addQuestion(jsonObject);
     }
 
-
     public String saveQuestion() throws AppException, IOException {
 
         String sampleIncomingQuestion = null;
@@ -179,8 +179,6 @@ public class CheckListServices {
 
     }
 
-
-
     public String getQuestion() throws AppException, IOException {
 
         Map<String, String> sampleIncomingQuestion = null;
@@ -192,8 +190,6 @@ public class CheckListServices {
 
         return sampleIncomingQuestion.toString();
     }
-
-
 
     public String getPararaphs() throws AppException, IOException, com.parabole.feed.platform.exceptions.AppException {
 
@@ -394,7 +390,6 @@ public class CheckListServices {
         return finalReturn;
     }
 
-
     public String createLightHouse(){
         try {
             lightHouse.createLightHouse();
@@ -461,7 +456,6 @@ public class CheckListServices {
 
     }
 
-
     public String removeCheckList(String checkListId){
         String result = null;
         try {
@@ -472,7 +466,6 @@ public class CheckListServices {
         }
         return "{status: success }";
     }
-
 
     public String getCheckListById(String checkListId){
         String result = null;
@@ -503,14 +496,11 @@ public class CheckListServices {
         
         for (HashMap<String, String> allRootNodeDetail : allRootNodeDetails) {
             if(allRootNodeDetail.get("type").equals("PARAGRAPH")){
-
                 if(paragraphIDs != "") {
                     paragraphIDs += ", " + (allRootNodeDetail.get("elementID"));
                 }else{
                     paragraphIDs += (allRootNodeDetail.get("elementID"));
                 }
-
-
             }
         }
         return paragraphIDs;

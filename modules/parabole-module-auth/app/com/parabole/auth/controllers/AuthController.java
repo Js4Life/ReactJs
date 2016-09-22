@@ -35,16 +35,19 @@ public class AuthController {
         // final DynamicForm requestData = Form.form().bindFromRequest();
         final String userId = username;
         String role = null;
+        String name = username;
         Boolean status = false;
         if (authenticationManager.authenticate(userId, password)) {
 
             try {
                 role = coralUserService.getSpecificDocumentUsingIdAndColumnNameFromUserGroup(userId, AuthConstants.ATTR_DATABASE_GROUP_NAME_COLUMN_NAME);
+                name = coralUserService.getSpecificDocumentUsingIdAndColumnNameFromUser(userId, AuthConstants.ATTR_DATABASE_USER_NAME_COLUMN_NAME);
             } catch (Exception e) {
                 e.printStackTrace();
             }
             session().put(AuthConstants.ROLE, role);
             session().put(AuthConstants.USER_ID, userId);
+            session().put("userName", name);
             try {
                 session().put(AuthConstants.USER_NAME, coralUserService.getSpecificDocumentUsingIdAndColumnName(userId, AuthConstants.ATTR_DATABASE_USER_NAME_COLUMN_NAME));
             } catch (Exception e) {
