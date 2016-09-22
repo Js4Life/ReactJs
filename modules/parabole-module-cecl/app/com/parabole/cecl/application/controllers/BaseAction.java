@@ -111,7 +111,7 @@ public class BaseAction extends Controller {
         final String name = session().get("userName");
         String baseUrl = configuration.getString("application.baseUrl");
         System.out.println("baseUrl = " + configuration.toString());
-        return ok(com.parabole.cecl.application.views.html.main.render(userName, baseUrl));
+        return ok(com.parabole.cecl.application.views.html.main.render(name, baseUrl));
     }
 
     protected boolean isAdmin() {
