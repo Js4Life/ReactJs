@@ -76,11 +76,11 @@
                     <li><a href="#">Profile</a></li>
                     <li><a href="#">Help</a></li>
                 </ul>*@
-                <form class="navbar-form navbar-right">
+               @* <form class="navbar-form navbar-right">
                     <input type="text" class="form-control" placeholder="username">
                     <input type="password" class="form-control" placeholder="password">
                     <input class="btn btn-default" type="button" value="Get Authorization">
-                </form>
+                </form>*@
             </div>
         </div>
     </nav>
@@ -91,16 +91,16 @@
             <div class="col-sm-3 col-md-2 sidebar">
 
                 <div class="sidebarLogo">
-                    <img  class="img-responsive height-30-width-all"  src="uiassets/images/parabole-platform.png"/>
+                    <img  class="img-responsive height-30-width-all"  src="uiassets/images/paraboleLogoV4.png"/>
                 </div>
 
-                <ul class="nav nav-sidebar">
+                @*  <ul class="nav nav-sidebar">
                     <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
                     <li><a href="#">Reports</a></li>
                     <li><a href="#">Analytics</a></li>
                     <li><a href="#">Export</a></li>
-                    <li><a href="#">Exportwqf w</a></li>
-                </ul>
+                    <li><a href="#">Export</a></li>
+                </ul>*@
             </div>
 
             <ui-view></ui-view>
@@ -112,7 +112,7 @@
                         <a href="/rda/doLogin">
                             <div class="well p-tablet">
                                 <img  class="img-responsive width-auto" src="uiassets/images/rda.png"/>
-                                <h3>Risk Data Aggregation</h3>
+                                <h5 class="text-left padding-15">It allows Modelers to have real time visualization of inter model dependencies.</h5>
                             </div>
                         </a>
                     </div>
@@ -120,7 +120,7 @@
                         <a href="/ccar/doLogin">
                             <div class="well p-tablet">
                                 <img  class="img-responsive width-auto" src="uiassets/images/ccar.png"/>
-                                <h3>Comprehensive Capital Analysis</h3>
+                                <h5 class="text-left padding-15">It is a regulatory framework introduced by the Federal Reserve in order to assess. </h5>
                             </div>
                         </a>
                     </div>
@@ -128,7 +128,7 @@
                         <a href="/cecl/doLogin">
                             <div class="well p-tablet">
                                 <img class="img-responsive width-auto" src="uiassets/images/cecl.png"/>
-                                <h3>Current Expected Credit Loss</h3>
+                                <h5 class="text-left padding-15">The Financial Accounting Standards Board (FASB) issued the final current expected credit loss (CECL) </h5>
                             </div>
                         </a>
                     </div>
@@ -141,7 +141,7 @@
                         <a href="#">
                             <div class="well p-tablet">
                                 <img class="img-responsive width-auto" src="uiassets/images/conf.png"/>
-                                <h3>Configuration</h3>
+                                <h5 class="text-left  padding-15">Configuration Manager</h3>
                             </div>
                         </a>
                     </div>
@@ -149,7 +149,7 @@
                         <a href="#">
                             <div class="well p-tablet">
                                 <img class="img-responsive width-auto" src="uiassets/images/report.png"/>
-                                <h3>Report</h3>
+                                <h5 class="text-left padding-15">Report Files and Analytic data</h3>
                             </div>
                         </a>
                     </div>
@@ -157,7 +157,7 @@
                         <a href="#">
                             <div class="well p-tablet">
                                 <img class="img-responsive width-auto" src="uiassets/images/profile.png"/>
-                                <h3>My profile</h3>
+                                <h5 class="text-left padding-15">My profile | User Settings | Authorizations </h3>
                             </div>
                         </a>
                     </div>
