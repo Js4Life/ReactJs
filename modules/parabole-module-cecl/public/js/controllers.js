@@ -953,14 +953,13 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.initialize = function () {
 		$scope.heading = {"title": "Compliance Dashboard"};
 		$scope.isGridView = true;
-		$scope.currentView = 'SUMMERY';
 		$scope.options = {
 			handlerData : {columnClick: "onColumnClick", scope: $scope},
 			colors : ['#04de72', '#00bfff', '#ffb935', '#d2d2d2'],
 			dataLabels : {enabled: true},
 			legend : {enabled: false}
 		}
-		setData(MockService.ChecklistComplianceChartData);
+		$scope.goBusinessSegmentView();
 	}
 
 	function setData(data) {
@@ -984,6 +983,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 	$scope.goSummeryView = function () {
 		$scope.currentView = 'SUMMERY';
+		setData(MockService.ChecklistComplianceChartData);
 	}
 
 	$scope.goDocumentView = function () {
