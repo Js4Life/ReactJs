@@ -264,18 +264,6 @@
 		"columns" :  ["id", "Topic", "SubTopic", "Section", "Paragraphid"],
 		"tagColumns" : ["Topic", "SubTopic", "Section"]
 	},
-	"allBusinessSegments" : {
-		"outputFormat":"table",
-		"source":"215",
-		"groupByField" : "Seg",
-		"columns" :  [{
-			"name" : "Segment",
-			"label" : "name"
-		},{
-			"name" : "Component",
-			"label" : "type"
-		}]
-	},
 	"industryImpact" : {
 		"outputFormat":"table",
 		"source":"214",
@@ -298,6 +286,21 @@
 		},{
 			"name" : "Auto_Loan",
 			"label" : "Auto Loan"
+		}]
+	},
+	"allBusinessSegments" : {
+		"outputFormat":"hierarchy",
+		"source":"215",
+		"groupByField" : "id",
+		"columns" :  [{
+			"name" : "Segment",
+			"label" : "businessSegmentName"
+		},{
+			"name" : "Seg",
+			"label" : "businessSegmentURI"
+		},{
+			"name" : "Component",
+			"label" : "componentURI"
 		}]
 	}
 }

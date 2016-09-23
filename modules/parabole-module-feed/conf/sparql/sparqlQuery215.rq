@@ -6,7 +6,7 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
-SELECT ?Segment ?Seg ?Component
+SELECT ?Segment ?Seg ?Component ?id
 WHERE{
 {SELECT *
 WHERE{
@@ -29,6 +29,7 @@ WHERE{
 ?topic cst:tophasInd ?Industry.
 ?Industry pb:IndustryRelatedtoSegment ?Seg.
 ?concept pb:hasModel  ?Component.
+bind(rand() AS ?id).
 BIND(xsd:string("Model") AS ?Area)}}
 UNION
 {SELECT *
@@ -40,5 +41,8 @@ WHERE{
 ?topic cst:tophasInd ?Industry.
 ?Industry pb:IndustryRelatedtoSegment ?Seg.
 ?concept pb:hasPolicy ?Component.
+bind(rand() AS ?id).
 BIND(xsd:string("Policy") AS ?Area)}}
-?Seg rdfs:label ?Segment.}
+?Seg rdfs:label ?Segment.
+bind(rand() AS ?id).
+}
