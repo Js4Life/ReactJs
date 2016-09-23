@@ -1241,13 +1241,20 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			if(data.status){
 				$scope.currentNode = node;
 				$scope.checkList = removeEmptyAndUnique(angular.fromJson(data.data));
-				populateAnswers($scope.checkList);
-				if($scope.checkList.length > 0)
+				if($scope.checkList.length > 0) {
+					populateAnswers($scope.checkList);
+					recalculateCompliance();
 					$('#checklistModal').modal('show');
-				else
+				} else
 					toastr.warning('No Checklist available..', '', {"positionClass" : "toast-top-right"});
 			}
 		})
+	}
+	function recalculateCompliance() {
+		var qCount = _.size($scope.checkList);
+		var checkedQuestions = _.omit($scope.answers, function(v) {return !v;});
+		var aCount = _.size(checkedQuestions);
+		$scope.currentNode.compliance = Math.floor((aCount*100)/qCount);
 	}
 
 	$scope.getChecklistByComponentOnly = function (node) {
@@ -1278,14 +1285,14 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	function populateAnswers(allChecklists) {
 		$scope.answers = {};
 		angular.forEach(allChecklists, function (c) {
-			$scope.answers[c.id] = c.isChecked;
+			$scope.answers[c.id] = c.isChecked || false;
 		});
 	}
 
 	$scope.saveAnswers = function () {
 		SharedService.addAnswer($scope.answers).then(function (data) {
 			if(data.status){
-				//recalculateCompliance();
+				recalculateCompliance();
 				$('#checklistModal').modal('hide');
 				toastr.success('Saved Successfully..', '', {"positionClass" : "toast-top-right"});
 			}
