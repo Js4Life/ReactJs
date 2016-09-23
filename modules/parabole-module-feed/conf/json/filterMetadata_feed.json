@@ -263,7 +263,7 @@
 	"allBusinessSegments" : {
 		"outputFormat":"hierarchy",
 		"source":"215",
-		"groupByField" : "Segment",
+		"groupByField" : "id",
 		"columns" :  [{
 			"name" : "Segment",
 			"label" : "businessSegmentName"
