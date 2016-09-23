@@ -261,12 +261,15 @@
 		}]
 	},
 	"allBusinessSegments" : {
-		"outputFormat":"table",
+		"outputFormat":"hierarchy",
 		"source":"215",
-		"groupByField" : "Seg",
+		"groupByField" : "id",
 		"columns" :  [{
 			"name" : "Segment",
 			"label" : "businessSegmentName"
+		},{
+			"name" : "id",
+			"label" : "id"
 		},{
 			"name" : "Seg",
 			"label" : "businessSegmentURI"

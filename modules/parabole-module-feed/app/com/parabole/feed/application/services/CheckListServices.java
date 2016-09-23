@@ -490,6 +490,11 @@ public class CheckListServices {
         return allChecklistData;
     }
 
+    public HashMap<String, String> getParagraphTypeCounts() {
+        HashMap<String, String> allChecklistData = lightHouse.getParagraphCountGroupByTag();
+        return allChecklistData;
+    }
+
     private String getAllParagraphsAgainstTheChecklistID(String checklistID) {
         String paragraphIDs = "";
         ArrayList<HashMap<String, String>> allRootNodeDetails = lightHouse.getRootVerticesByChildVertexId(checklistID);
