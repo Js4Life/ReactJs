@@ -101,7 +101,8 @@ angular.module('RDAApp.services', [])
         'GetChecklistsByComponent' : 'getChecklistsByComponent',
         'GetChecklistsByBussinessSegment' : 'getChecklistsByBussinessSegment',
         'RemoveChecklistById' : 'removeChecklistById',
-        'ChecklistDetailsByIds' : 'checklistDetailsByIds'
+        'ChecklistDetailsByIds' : 'checklistDetailsByIds',
+        'GetParagraphCountsByTags' : 'getParagraphCountsByTags'
     };
     SharedService.chartDataMap = {
         '0' : 'getHardCodedResponse/chartData1',
@@ -742,6 +743,10 @@ angular.module('RDAApp.services', [])
     SharedService.checklistDetailsByIds = function (ids) {
         var sendObj = {"ids": ids};
         return SharedService.invokeService('ChecklistDetailsByIds', sendObj, 'post');
+    }
+
+    SharedService.getParagraphCountsByTags = function () {
+        return SharedService.invokeService('GetParagraphCountsByTags');
     }
 
     return SharedService;
@@ -1660,13 +1665,13 @@ angular.module('RDAApp.services', [])
         series: [{
             colorByPoint: true,
             data: [{
-                y: 56
-            }, {
-                y: 24
-            }, {
-                y: 48
-            }, {
-                y: 73
+                    y: 56
+                }, {
+                    y: 24
+                }, {
+                    y: 48
+                }, {
+                    y: 73
             }]
         }]
     };

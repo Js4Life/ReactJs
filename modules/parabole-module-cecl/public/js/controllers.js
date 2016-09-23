@@ -898,12 +898,30 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
             dataLabels : {enabled: true},
 			legend : {enabled: false}
         }
-		setData(MockService.ParagraphCategoryChartData);
+		getChartData();
     }
 
-    function setData(data) {
-		$scope.options.Title = data.title;
-		$scope.data = data;
+    function convertToChartData(data) {
+		var obj = {};
+		obj.title = 'Paragraph Categories';
+		obj.categories = [];
+		obj.series = [{colorByPoint: true, data: []}];
+		angular.forEach(data, function (v, k) {
+			obj.categories.push(k);
+			obj.series[0].data.push({y : parseInt(v)});
+		});
+		return obj;
+	}
+
+    function getChartData() {
+		SharedService.getParagraphCountsByTags().then(function (data) {
+			if(data.status){
+				var rawData = angular.fromJson(data.data);
+				var chartData = convertToChartData(rawData);
+				$scope.options.Title = chartData.title;
+				$scope.data = chartData;
+			}
+		});
 	}
     
     $scope.onColumnClick = function (obj) {
@@ -912,7 +930,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 		switch (tagType){
 			case 'Rule' :
-				setData(MockService.RuleChartData);
+				//setData(MockService.RuleChartData);
 				break;
 			case 'Not Created' :
 				getParagraphs();
