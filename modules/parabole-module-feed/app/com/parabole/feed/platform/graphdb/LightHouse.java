@@ -3,9 +3,13 @@ package com.parabole.feed.platform.graphdb;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Iterators;
 import com.orientechnologies.orient.client.remote.OServerAdmin;
+import com.orientechnologies.orient.core.db.document.ODatabaseDocumentTx;
 import com.orientechnologies.orient.core.intent.OIntentMassiveInsert;
 import com.orientechnologies.orient.core.metadata.schema.OClass;
 import com.orientechnologies.orient.core.metadata.schema.OType;
+import com.orientechnologies.orient.core.record.impl.ODocument;
+import com.orientechnologies.orient.core.sql.query.OSQLSynchQuery;
+import com.orientechnologies.orient.object.db.OObjectDatabaseTx;
 import com.parabole.feed.application.global.CCAppConstants;
 import com.parabole.feed.platform.AppConstants;
 import com.parabole.feed.platform.utils.AppUtils;
@@ -36,6 +40,8 @@ public class LightHouse extends GraphDb {
         final Integer graphDbPoolMinSize = AppUtils.getApplicationPropertyAsInteger(CCAppConstants.INDUSTRY + ".lightHouse.graphdb.pool.min");
         final Integer graphDbPoolMaxSize = AppUtils.getApplicationPropertyAsInteger(CCAppConstants.INDUSTRY + ".lightHouse.graphdb.pool.max");
         this.orientGraphFactory = new OrientGraphFactory(graphDbUrl, graphDbUser, graphDbPassword).setupPool(graphDbPoolMinSize, graphDbPoolMaxSize);
+        //ODatabaseDocumentTx db = new ODatabaseDocumentTx("local:<path>/<db-name>").create();
+
     }
 
     /*******************************************************************
@@ -571,5 +577,24 @@ public class LightHouse extends GraphDb {
         } finally {
             graph.shutdown();
         }
+    }
+
+    public HashMap<String,String> getParagraphCountGroupByTag(){
+
+        HashMap<String, String> paragraphCountGroupByTag = new HashMap<>();
+
+        OObjectDatabaseTx db = new OObjectDatabaseTx(AppUtils.getApplicationProperty(CCAppConstants.INDUSTRY + ".lightHouse.graphdb.url")).open(
+                AppUtils.getApplicationProperty(CCAppConstants.INDUSTRY + ".lightHouse.graphdb.user"),
+                AppUtils.getApplicationProperty(CCAppConstants.INDUSTRY + ".lightHouse.graphdb.password")
+        );
+        List<ODocument> results = db.query(new OSQLSynchQuery<ODocument>("SELECT tag, COUNT(*) FROM V where type = 'PARAGRAPH' group by tag"));
+        for (ODocument aDoc : results) {
+            String tag = (aDoc.field("tag") != null) ? aDoc.field("tag").toString() : "unTagged";
+            paragraphCountGroupByTag.put(tag, aDoc.field("COUNT").toString());
+            System.out.println(aDoc.field("COUNT").toString());
+        }
+
+        return paragraphCountGroupByTag;
+
     }
 }
