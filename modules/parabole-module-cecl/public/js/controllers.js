@@ -898,12 +898,30 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
             dataLabels : {enabled: true},
 			legend : {enabled: false}
         }
-		setData(MockService.ParagraphCategoryChartData);
+		getChartData();
     }
 
-    function setData(data) {
-		$scope.options.Title = data.title;
-		$scope.data = data;
+    function convertToChartData(data) {
+		var obj = {};
+		obj.title = 'Paragraph Categories';
+		obj.categories = [];
+		obj.series = [{colorByPoint: true, data: []}];
+		angular.forEach(data, function (v, k) {
+			obj.categories.push(k);
+			obj.series[0].data.push({y : parseInt(v)});
+		});
+		return obj;
+	}
+
+    function getChartData() {
+		SharedService.getParagraphCountsByTags().then(function (data) {
+			if(data.status){
+				var rawData = angular.fromJson(data.data);
+				var chartData = convertToChartData(rawData);
+				$scope.options.Title = chartData.title;
+				$scope.data = chartData;
+			}
+		});
 	}
     
     $scope.onColumnClick = function (obj) {
@@ -912,7 +930,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 		switch (tagType){
 			case 'Rule' :
-				setData(MockService.RuleChartData);
+				//setData(MockService.RuleChartData);
 				break;
 			case 'Not Created' :
 				getParagraphs();
@@ -953,14 +971,13 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.initialize = function () {
 		$scope.heading = {"title": "Compliance Dashboard"};
 		$scope.isGridView = true;
-		$scope.currentView = 'SUMMERY';
 		$scope.options = {
 			handlerData : {columnClick: "onColumnClick", scope: $scope},
 			colors : ['#04de72', '#00bfff', '#ffb935', '#d2d2d2'],
 			dataLabels : {enabled: true},
 			legend : {enabled: false}
 		}
-		setData(MockService.ChecklistComplianceChartData);
+		$scope.goBusinessSegmentView();
 	}
 
 	function setData(data) {
@@ -984,6 +1001,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 	$scope.goSummeryView = function () {
 		$scope.currentView = 'SUMMERY';
+		setData(MockService.ChecklistComplianceChartData);
 	}
 
 	$scope.goDocumentView = function () {
@@ -1223,13 +1241,20 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			if(data.status){
 				$scope.currentNode = node;
 				$scope.checkList = removeEmptyAndUnique(angular.fromJson(data.data));
-				populateAnswers($scope.checkList);
-				if($scope.checkList.length > 0)
+				if($scope.checkList.length > 0) {
+					populateAnswers($scope.checkList);
+					recalculateCompliance();
 					$('#checklistModal').modal('show');
-				else
+				} else
 					toastr.warning('No Checklist available..', '', {"positionClass" : "toast-top-right"});
 			}
 		})
+	}
+	function recalculateCompliance() {
+		var qCount = _.size($scope.checkList);
+		var checkedQuestions = _.omit($scope.answers, function(v) {return !v;});
+		var aCount = _.size(checkedQuestions);
+		$scope.currentNode.compliance = Math.floor((aCount*100)/qCount);
 	}
 
 	$scope.getChecklistByComponentOnly = function (node) {
@@ -1260,14 +1285,14 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	function populateAnswers(allChecklists) {
 		$scope.answers = {};
 		angular.forEach(allChecklists, function (c) {
-			$scope.answers[c.id] = c.isChecked;
+			$scope.answers[c.id] = c.isChecked || false;
 		});
 	}
 
 	$scope.saveAnswers = function () {
 		SharedService.addAnswer($scope.answers).then(function (data) {
 			if(data.status){
-				//recalculateCompliance();
+				recalculateCompliance();
 				$('#checklistModal').modal('hide');
 				toastr.success('Saved Successfully..', '', {"positionClass" : "toast-top-right"});
 			}

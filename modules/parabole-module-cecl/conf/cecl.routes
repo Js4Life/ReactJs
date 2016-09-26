@@ -106,6 +106,7 @@ GET /getAllTopics                           com.parabole.cecl.application.contro
 GET /getAllConcepts                         com.parabole.cecl.application.controllers.CeclController.getAllConcepts()
 GET /getAllComponents                       com.parabole.cecl.application.controllers.CeclController.getAllComponents()
 GET /getAllBusinessSegments                 com.parabole.cecl.application.controllers.CeclController.getAllBusinessSegments()
+GET /getParagraphCountsByTags               com.parabole.cecl.application.controllers.CeclController.getParagraphCountsByTags()
 POST /getSubtopicsByTopicId                 com.parabole.cecl.application.controllers.CeclController.getSubtopicsByTopicId()
 POST /getSectionsBySubtopicId               com.parabole.cecl.application.controllers.CeclController.getSectionsBySubtopicId()
 POST /getParagraphsBySectionId              com.parabole.cecl.application.controllers.CeclController.getParagraphsBySectionId()

@@ -50,8 +50,9 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">{{currentNode.name}}</h4>
+        <h4 class="modal-title" id="myModalLabel">{{currentNode.name}}&nbsp; ({{currentNode.compliance}}% Compliant)</h4>
       </div>
+      <div class="modal-header zero-padding" ng-class="getComplianceColorcode(currentNode)"></div>
       <div class="modal-body zero-padding-bottom" style="height: 66vh; overflow: auto;">
         <ul class="list-group">
           <li class="list-group-item" ng-repeat="c in checkList">

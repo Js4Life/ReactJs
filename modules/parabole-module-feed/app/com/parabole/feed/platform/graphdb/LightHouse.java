@@ -590,7 +590,7 @@ public class LightHouse extends GraphDb {
         
         List<ODocument> results = db.query(new OSQLSynchQuery<ODocument>("SELECT tag, COUNT(*) FROM V where type = 'PARAGRAPH' group by tag"));
         for (ODocument aDoc : results) {
-            String tag = (aDoc.field("tag") != null) ? aDoc.field("tag").toString() : "unTagged";
+            String tag = (aDoc.field("tag") != null) ? aDoc.field("tag").toString() : "Untagged";
             paragraphCountGroupByTag.put(tag, aDoc.field("COUNT").toString());
             System.out.println(aDoc.field("COUNT").toString());
         }
