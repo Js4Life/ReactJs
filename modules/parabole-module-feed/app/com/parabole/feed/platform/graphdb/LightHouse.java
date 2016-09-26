@@ -587,6 +587,7 @@ public class LightHouse extends GraphDb {
                 AppUtils.getApplicationProperty(CCAppConstants.INDUSTRY + ".lightHouse.graphdb.user"),
                 AppUtils.getApplicationProperty(CCAppConstants.INDUSTRY + ".lightHouse.graphdb.password")
         );
+        
         List<ODocument> results = db.query(new OSQLSynchQuery<ODocument>("SELECT tag, COUNT(*) FROM V where type = 'PARAGRAPH' group by tag"));
         for (ODocument aDoc : results) {
             String tag = (aDoc.field("tag") != null) ? aDoc.field("tag").toString() : "unTagged";
