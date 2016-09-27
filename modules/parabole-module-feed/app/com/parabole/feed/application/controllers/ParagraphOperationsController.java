@@ -314,14 +314,27 @@ public class ParagraphOperationsController extends BaseController{
     }
 
     public Result getChecklistDetailsForReport() {
-        // TODO
         ArrayList<String> listOfCheckListIds = new ArrayList<>();
         listOfCheckListIds.add("9964fc0e-552a-4e3a-a33e-3ebd99636e33");
         return ok(checkListServices.getChecklistDetailsForReport(listOfCheckListIds).toString());
     }
 
     public Result getParagraphTypeCounts() {
+        ArrayList<String> listOfCheckListIds = new ArrayList<>();
+        listOfCheckListIds.add("9964fc0e-552a-4e3a-a33e-3ebd99636e33");
         return ok(checkListServices.getParagraphTypeCounts().toString());
+    }
+
+    public Result getRelatedComponentsByComponent() {
+        String nodeID = "http://www.mindparabole.com/ontology/finance/Parabole-Model#AssetRecognitionPolicy";
+        String filteredBY = "COMPONENT";
+        return ok(checkListServices.getRelatedNodesByNodeID(nodeID, filteredBY).toString());
+    }
+
+    public Result getRelatedBusinessSegentsByBusinessSegment() {
+        String nodeID = "http://www.mindparabole.com/ontology/finance/Parabole-Model#AssetRecognitionPolicy";
+        String filteredBY = "BUSINESSSEGMENT";
+        return ok(checkListServices.getRelatedNodesByNodeID(nodeID, null).toString());
     }
 
     public Result getChecklistByConcept() {

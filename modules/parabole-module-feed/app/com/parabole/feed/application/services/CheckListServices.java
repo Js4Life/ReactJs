@@ -32,8 +32,6 @@ public class CheckListServices {
     private StarfishServices starfishServices;
 
 
-
-
     private String getUniqueID() {
         UUID uniqueKey = UUID.randomUUID();
         return uniqueKey.toString();
@@ -494,6 +492,44 @@ public class CheckListServices {
         HashMap<String, String> allChecklistData = lightHouse.getParagraphCountGroupByTag();
         return allChecklistData;
     }
+
+
+
+    public List<HashMap<String, String>> getRelatedNodesByNodeID(String nodeID, String filteredBY) {
+        ArrayList<HashMap<String, String>> finalResult = new ArrayList<>();
+        ArrayList<HashMap<String, String>> componentTypes = lightHouse.getRootVerticesByChildVertexId(nodeID);
+        ArrayList<String> allElement = getAllElementIDs(componentTypes);
+        for (String elementID : allElement) {
+            ArrayList<HashMap<String, String>> components = lightHouse.getChildVerticesByRootVertexId(elementID);
+            finalResult.addAll(components);
+        }
+        if(filteredBY != null)
+            finalResult = filteringByfilteredBY(finalResult, filteredBY);
+
+        return finalResult;
+    }
+
+    private ArrayList<HashMap<String, String>> filteringByfilteredBY(ArrayList<HashMap<String, String>> toFilters, String filteredBY) {
+
+        ArrayList<HashMap<String, String>> resultData = new ArrayList<>();
+        for (HashMap<String, String> toFilter : toFilters) {
+            if(toFilter.get("type").equalsIgnoreCase(filteredBY) ){
+                resultData.add(toFilter);
+            }
+        }
+        return resultData;
+    }
+
+    private ArrayList<String> getAllElementIDs(ArrayList<HashMap<String, String>> componentTypes){
+        ArrayList<String> resultData = new ArrayList<>();
+        for (HashMap<String, String> componentType : componentTypes) {
+            resultData.add(componentType.get("elementID"));
+        }
+        return resultData;
+    }
+
+
+
 
     private String getAllParagraphsAgainstTheChecklistID(String checklistID) {
         String paragraphIDs = "";
