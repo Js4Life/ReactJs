@@ -563,4 +563,9 @@ public class CheckListServices {
         }
         return componentTypeIDs;
     }
+
+    public HashMap<String, String> getCompliedAndNotCompliedCounts() {
+
+        return starfishServices.getCompliedAndNotCompliedCounts();
+    }
 }

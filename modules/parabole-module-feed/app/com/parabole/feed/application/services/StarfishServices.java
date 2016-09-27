@@ -37,4 +37,9 @@ public class StarfishServices {
         return finalResult;
     }
 
+    public HashMap<String, String> getCompliedAndNotCompliedCounts() {
+
+        HashMap<String, String> compliedAndNotCompliedCounts = starFish.getCompliedAndNotCompliedCounts();
+        return compliedAndNotCompliedCounts;
+    }
 }

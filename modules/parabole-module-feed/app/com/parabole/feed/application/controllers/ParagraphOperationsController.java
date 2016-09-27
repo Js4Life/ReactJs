@@ -331,6 +331,10 @@ public class ParagraphOperationsController extends BaseController{
         return ok(checkListServices.getRelatedNodesByNodeID(nodeID, filteredBY).toString());
     }
 
+    public Result getCompliedAndNotCompliedCounts() {
+        return ok(checkListServices.getCompliedAndNotCompliedCounts().toString());
+    }
+
     public Result getRelatedBusinessSegentsByBusinessSegment() {
         String nodeID = "http://www.mindparabole.com/ontology/finance/Parabole-Model#AssetRecognitionPolicy";
         String filteredBY = "BUSINESSSEGMENT";

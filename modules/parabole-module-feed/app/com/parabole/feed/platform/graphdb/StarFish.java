@@ -287,6 +287,35 @@ public class StarFish extends GraphDb {
         return outputMap;
     }
 
+    public HashMap<String,String> getCompliedAndNotCompliedCounts(){
 
+        HashMap<String, String> resultData = new HashMap<>();
+        Integer checked = 0;
+        Integer notChecked = 0;
+        final ODatabaseDocumentTx dbNoTx = getDocDBConnectionNoTx();
+        try {
+
+            final OSQLSynchQuery<ODocument> query = new OSQLSynchQuery<ODocument>("SELECT * FROM APP_CHECKLIST");
+            final List<ODocument> results = dbNoTx.command(query).execute();
+            for (final ODocument result : results) {
+                System.out.println("result.field(\"IS_CHECKED\") = " + result.field("IS_CHECKED"));
+                if(result.field("IS_CHECKED") == null){
+                    notChecked ++;
+                }else if(Boolean.parseBoolean(result.field("IS_CHECKED").toString()) == true){
+                    checked ++;
+                }else{
+                    notChecked ++;
+                }
+            }
+            System.out.println("StarFish.getCompliedAndNotCompliedCounts");
+            resultData.put("complied", checked.toString());
+            resultData.put("notComplied", notChecked.toString());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return resultData;
+
+    }
 
 }
