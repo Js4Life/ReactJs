@@ -333,7 +333,7 @@ public class ParagraphOperationsController extends BaseController{
 
     public Result getRelatedBusinessSegentsByBusinessSegment() {
         String nodeID = "http://www.mindparabole.com/ontology/finance/Parabole-Model#AssetRecognitionPolicy";
-        String filteredBY = "COMPONENT";
+        String filteredBY = "BUSINESSSEGMENT";
         return ok(checkListServices.getRelatedNodesByNodeID(nodeID, null).toString());
     }
 
