@@ -102,7 +102,9 @@ angular.module('RDAApp.services', [])
         'GetChecklistsByBussinessSegment' : 'getChecklistsByBussinessSegment',
         'RemoveChecklistById' : 'removeChecklistById',
         'ChecklistDetailsByIds' : 'checklistDetailsByIds',
-        'GetParagraphCountsByTags' : 'getParagraphCountsByTags'
+        'GetParagraphCountsByTags' : 'getParagraphCountsByTags',
+        'GetRelatedComponentsByComponent' : 'getRelatedComponentsByComponent',
+        'GetRelatedBusinessSegentsByBusinessSegment' : 'getRelatedBusinessSegentsByBusinessSegment'
     };
     SharedService.chartDataMap = {
         '0' : 'getHardCodedResponse/chartData1',
@@ -146,7 +148,9 @@ angular.module('RDAApp.services', [])
         "default" : "ceclassets/images/blue_dot.png",
         "concept" : "ceclassets/images/concept.png",
         "related concept" : "ceclassets/images/concept.png",
-        "paragraph" : "ceclassets/images/graph_paragraph.png"
+        "paragraph" : "ceclassets/images/graph_paragraph.png",
+        "component" : "ceclassets/images/graph_component.png",
+        "businesssegment" : "ceclassets/images/graph_businesssegment.png"
     };
 
     SharedService.mappableEdges = [];
@@ -747,6 +751,16 @@ angular.module('RDAApp.services', [])
 
     SharedService.getParagraphCountsByTags = function () {
         return SharedService.invokeService('GetParagraphCountsByTags');
+    }
+
+    SharedService.getRelatedComponentsByComponent = function (id) {
+        var sendObj = {"id": id};
+        return SharedService.invokeService('GetRelatedComponentsByComponent', sendObj, 'post');
+    }
+
+    SharedService.getRelatedBusinessSegentsByBusinessSegment = function (id) {
+        var sendObj = {"id": id};
+        return SharedService.invokeService('GetRelatedBusinessSegentsByBusinessSegment', sendObj, 'post');
     }
 
     return SharedService;

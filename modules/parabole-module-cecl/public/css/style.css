@@ -1815,9 +1815,15 @@ li.list-group-item.puff{
 .legend .paragraph{
   background: url("../images/graph_paragraph.png");
 }
-  .legend .concept{
-      background: url("../images/concept.png");
-  }
+.legend .concept{
+  background: url("../images/concept.png");
+}
+.legend .businessSegment{
+  background: url("../images/graph_businesssegment.png");
+}
+.legend .component{
+  background: url("../images/graph_component.png");
+}
 
 .legend .c0{	
 	background: url("../images/impact/default/0.png");	
