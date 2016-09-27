@@ -1688,6 +1688,31 @@ angular.module('RDAApp.services', [])
             }]
         }]
     };
+    MockService.ComponentComplianceChartData = {
+        title : 'Component Compliance',
+        categories : ['100%', '75%-99%', '50%-74%', '25%-49%', '0%-24%'],
+        series: [{
+            colorByPoint: true,
+            data: [{
+                y: 20
+            }, {
+                y: 34
+            }, {
+                y: 55
+            }, {
+                y: 58
+            }, {
+                y: 30
+            }]
+        }]
+    };
+    MockService.PeriodicComplianceChartData = {
+        title : 'Periodic Compliance Rate',
+        categories : ['20 Sep', '21 Sep', '22 Sep', '23 Sep', '24 Sep', '25 Sep', '26 Sep'],
+        series: [{
+            data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2]
+        }]
+    };
 
     MockService.RuleChartData = {
         title : 'Paragraphs with Checklist Created',

@@ -45,9 +45,9 @@ angular
               templateUrl : 'homeContainer'
           })
 
-          .state('landing.summery', {
-              url : '/summery',
-              templateUrl : 'summery'
+          .state('landing.summary', {
+              url : '/summary',
+              templateUrl : 'summary'
           })
 
           .state('landing.complianceDashboard', {
