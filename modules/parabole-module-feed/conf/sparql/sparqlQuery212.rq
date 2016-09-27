@@ -45,10 +45,18 @@ union
 ?conclass rdfs:subClassOf cst:FASBConcept .
 ?concept pb:ConcepthasDataElement ?mprp.
 ?mprp rdf:type ?Type.
-bind(xsd:string ("Related Data Element") as ?Area)}}}
+bind(xsd:string ("Related Data Element") as ?Area)}
+UNION
+{?concept rdf:type ?conclass .
+?conclass rdfs:subClassOf cst:FASBConcept .
+?concept pb:hasProduct ?mprp.
+?mprp rdf:type ?Type.
+bind(xsd:string ("Product") as ?Area)}
+}}
 ?concept rdfs:label ?conceptName .
 ?mprp rdfs:label ?connections .
 ?Type rdfs:label ?Typename.
+
 bind(rand() AS ?id).
 
 }
