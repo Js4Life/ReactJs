@@ -104,7 +104,8 @@ angular.module('RDAApp.services', [])
         'ChecklistDetailsByIds' : 'checklistDetailsByIds',
         'GetParagraphCountsByTags' : 'getParagraphCountsByTags',
         'GetRelatedComponentsByComponent' : 'getRelatedComponentsByComponent',
-        'GetRelatedBusinessSegentsByBusinessSegment' : 'getRelatedBusinessSegentsByBusinessSegment'
+        'GetRelatedBusinessSegentsByBusinessSegment' : 'getRelatedBusinessSegentsByBusinessSegment',
+        'GetCompliedAndNotCompliedChecklistCounts' : 'getCompliedAndNotCompliedChecklistCounts'
     };
     SharedService.chartDataMap = {
         '0' : 'getHardCodedResponse/chartData1',
@@ -761,6 +762,10 @@ angular.module('RDAApp.services', [])
     SharedService.getRelatedBusinessSegentsByBusinessSegment = function (id) {
         var sendObj = {"id": id};
         return SharedService.invokeService('GetRelatedBusinessSegentsByBusinessSegment', sendObj, 'post');
+    }
+
+    SharedService.getCompliedAndNotCompliedChecklistCounts = function () {
+        return SharedService.invokeService('GetCompliedAndNotCompliedChecklistCounts');
     }
 
     return SharedService;
@@ -1704,7 +1709,7 @@ angular.module('RDAApp.services', [])
     };
     MockService.ComponentComplianceChartData = {
         title : 'Component Compliance',
-        categories : ['100%', '75%-99%', '50%-74%', '25%-49%', '0%-24%'],
+        categories : ['75%-100%', '50%-74%', '25%-49%', '0%-24%'],
         series: [{
             colorByPoint: true,
             data: [{
@@ -1715,8 +1720,6 @@ angular.module('RDAApp.services', [])
                 y: 55
             }, {
                 y: 58
-            }, {
-                y: 30
             }]
         }]
     };

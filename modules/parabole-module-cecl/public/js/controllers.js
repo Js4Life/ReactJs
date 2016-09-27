@@ -903,7 +903,6 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
     function convertToChartData(data) {
 		var obj = {};
-		obj.title = 'Paragraph Categories';
 		obj.categories = [];
 		obj.series = [{colorByPoint: true, data: []}];
 		angular.forEach(data, function (v, k) {
@@ -918,7 +917,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			if(data.status){
 				var rawData = angular.fromJson(data.data);
 				var chartData = convertToChartData(rawData);
-				$scope.options.Title = chartData.title;
+				$scope.options.Title = chartData.title = 'Paragraph Categories';
 				$scope.data = chartData;
 			}
 		});
@@ -980,9 +979,27 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$scope.goBusinessSegmentView();
 	}
 
-	function initChecklistComplianceChart(data) {
-		$scope.checklistComplianceOptions = initChartOptions({"title": data.title});
-		$scope.checklistComplianceData = data;
+	function convertToChartData(data) {
+		var obj = {};
+		obj.categories = [];
+		obj.series = [{colorByPoint: true, data: []}];
+		angular.forEach(data, function (v, k) {
+			obj.categories.push(k);
+			obj.series[0].data.push({y : parseInt(v)});
+		});
+		return obj;
+	}
+
+	function initChecklistComplianceChart() {
+		SharedService.getCompliedAndNotCompliedChecklistCounts().then(function (data) {
+			if(data.status){
+				var rawData = angular.fromJson(data.data);
+				var chartData = convertToChartData(rawData);
+				chartData.title = "Checklist Item Compliance";
+				$scope.checklistComplianceOptions = initChartOptions({"title": chartData.title});
+				$scope.checklistComplianceData = chartData;
+			}
+		});
 	}
 	function initComponentComplianceChart(data) {
 		$scope.componentComplianceOptions = initChartOptions({"title": data.title});
@@ -1020,7 +1037,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 	$('a[data-target="#summaryTab"]').on('shown.bs.tab', function (e) {      //On summary tab click
 		$scope.currentView = 'SUMMARY';
-		initChecklistComplianceChart(MockService.ChecklistComplianceChartData);
+		initChecklistComplianceChart();
 		initComponentComplianceChart(MockService.ComponentComplianceChartData);
 		initPeriodicComplianceChart(MockService.PeriodicComplianceChartData);
 	})

@@ -119,10 +119,11 @@ POST /getRelatedBusinessSegentsByBusinessSegment    com.parabole.cecl.applicatio
 # CHECKLIST RELATED OPERATIONS
 # ---------------------------------------------------------------------------------
 
-POST /saveOrUpdateCheckList                 com.parabole.cecl.application.controllers.CeclController.saveOrUpdateCheckList()
-POST /getChecklistsByParagraphIds           com.parabole.cecl.application.controllers.CeclController.getChecklistsByParagraphIds()
-POST /getChecklistsByConcept                com.parabole.cecl.application.controllers.CeclController.getChecklistsByConcept()
-POST /getChecklistsByComponent              com.parabole.cecl.application.controllers.CeclController.getChecklistsByComponent()
-POST /getChecklistsByBussinessSegment       com.parabole.cecl.application.controllers.CeclController.getChecklistsByBussinessSegment()
-POST /removeChecklistById                   com.parabole.cecl.application.controllers.CeclController.removeChecklistById()
-POST /checklistDetailsByIds                 com.parabole.cecl.application.controllers.CeclController.checklistDetailsByIds()
+POST /saveOrUpdateCheckList                         com.parabole.cecl.application.controllers.CeclController.saveOrUpdateCheckList()
+POST /getChecklistsByParagraphIds                   com.parabole.cecl.application.controllers.CeclController.getChecklistsByParagraphIds()
+POST /getChecklistsByConcept                        com.parabole.cecl.application.controllers.CeclController.getChecklistsByConcept()
+POST /getChecklistsByComponent                      com.parabole.cecl.application.controllers.CeclController.getChecklistsByComponent()
+POST /getChecklistsByBussinessSegment               com.parabole.cecl.application.controllers.CeclController.getChecklistsByBussinessSegment()
+POST /removeChecklistById                           com.parabole.cecl.application.controllers.CeclController.removeChecklistById()
+POST /checklistDetailsByIds                         com.parabole.cecl.application.controllers.CeclController.checklistDetailsByIds()
+GET /getCompliedAndNotCompliedChecklistCounts      com.parabole.cecl.application.controllers.CeclController.getCompliedAndNotCompliedChecklistCounts()
