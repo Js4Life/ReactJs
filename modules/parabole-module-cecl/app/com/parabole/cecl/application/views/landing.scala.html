@@ -37,6 +37,10 @@
               <li><a href="" ng-click="goCompliance($event)"><span style="font-size: 14px;" class="glyphicon glyphicon-dashboard" aria-hidden="true"></span>&nbsp;<b>
                   Compliance Dashboard</b></a></li>
           }
+          @restrict(roles = la(as("FORDEMO"))) {
+              <li><a href="" ng-click="goCompliance($event)"><span style="font-size: 14px;" class="glyphicon glyphicon-dashboard" aria-hidden="true"></span>&nbsp;<b>
+                  Compliance Dashboard</b></a></li>
+          }
         <li style="height:32px;margin-right:10px;" class="dropdown">
           <a class="dropdown-toggle pointer" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <img src="ceclassets/images/user.png" alt="user" style="width:23px;"><b> {{userInfo.user}} </b><span class="caret"></span></a>
             <ul class="dropdown-menu" style="top:inherit;">

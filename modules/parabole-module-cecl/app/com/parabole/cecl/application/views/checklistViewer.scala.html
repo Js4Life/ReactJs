@@ -24,7 +24,8 @@
       <div class="panel panel-default" style="box-shadow: 1px 2px 7px #d8d8d8;">
         <div class="panel-body text-center zero-padding" ng-class="getComplianceColorcode(child)">
           <div style="font-weight: bold;font-size: 2.5em;opacity:0.4;">{{child.name.charAt(0)}}</div>
-          <div class="pointer" style="position:absolute;right:20px;top:5px;font-weight: bold;" ng-click="getChecklistByNode(child)">{{child.compliance || 0}}%</div>
+          <div ng-if="!showLimited" class="pointer" style="position:absolute;right:20px;top:5px;font-weight: bold;" ng-click="getChecklistByNode(child)">{{child.compliance || 0}}%</div>
+          <div ng-if="showLimited" class="pointer" style="position:absolute;right:20px;top:5px;font-weight: bold;" ng-click="getChecklistByNode(child)"><i class="fa fa-list-alt" aria-hidden="true"></i></div>
         </div>
         <div ng-click="exploreNode(child.type, child.elementID)" class="panel-footer ellipsis-text pointer" tooltip='"title":"{{child.name}}"'>{{child.name}}</div>
       </div>
@@ -32,13 +33,13 @@
   </div>
   <table ng-if="!isGridView" class="table table-condensed">
     <thead>
-      <th>Status</th><th>{{breads[breads.length-1].name}}</th><th>Compliance</th><th></th>
+      <th>Status</th><th>{{breads[breads.length-1].name}}</th><th ng-show="!showLimited">Compliance</th><th></th>
     </thead>
     <tbody>
       <tr ng-if="currentColorCode === child.colorCode || currentColorCode === 'all'" ng-repeat="child in childNodes | orderBy : 'name' | filter: searchText" index="{{$index}}">
         <td><i class="fa fa-circle" aria-hidden="true" ng-class="getComplianceColorcode(child)"></i></td>
         <td>{{child.name}}</td>
-        <td class="pointer" ng-click="getChecklistByNode(child)">{{child.compliance || 0}}%</td>
+        <td ng-show="!showLimited" class="pointer" ng-click="getChecklistByNode(child)">{{child.compliance || 0}}%</td>
         <td><i class="fa fa-eye" aria-hidden="true" ng-click="exploreNode(child.type, child.elementID)"></i></td>
       </tr>
     </tbody>
@@ -50,20 +51,20 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">{{currentNode.name}}&nbsp; ({{currentNode.compliance}}% Compliant)</h4>
+        <h4 class="modal-title" id="myModalLabel">{{currentNode.name}}&nbsp; <span ng-if="!showLimited">({{currentNode.compliance}}% Compliant)</span></h4>
       </div>
-      <div class="modal-header zero-padding" ng-class="getComplianceColorcode(currentNode)"></div>
+      <div ng-if="!showLimited" class="modal-header zero-padding" ng-class="getComplianceColorcode(currentNode)"></div>
       <div class="modal-body zero-padding-bottom" style="height: 66vh; overflow: auto;">
         <ul class="list-group">
           <li class="list-group-item" ng-repeat="c in checkList">
-            <input type="checkbox" ng-model="answers[c.id]" style="position: relative;top: 2px;"/>&nbsp;{{c.bodyText}}
+            <input ng-if="!showLimited" type="checkbox" ng-model="answers[c.id]" style="position: relative;top: 2px;"/>&nbsp;{{c.bodyText}}
           </li>
         </ul>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
         <button type="button" class="btn btn-default" ng-click="viewChecklistDetails()">Details</button>
-        <button type="button" class="btn btn-default" ng-click="saveAnswers()">Save</button>
+        <button ng-if="!showLimited" type="button" class="btn btn-default" ng-click="saveAnswers()">Save</button>
       </div>
     </div>
   </div>

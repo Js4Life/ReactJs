@@ -52,8 +52,8 @@ angular
 
           .state('landing.complianceDashboard', {
               url : '/compliance-dashboard',
-              templateUrl : 'complianceDashboard',
-              controller : 'complianceDashboardCtrl'
+              templateUrl : 'complianceDashboard'/*,
+              controller : 'complianceDashboardCtrl'*/
           })
 
           .state('landing.complianceDashboard.documentViewer', {
