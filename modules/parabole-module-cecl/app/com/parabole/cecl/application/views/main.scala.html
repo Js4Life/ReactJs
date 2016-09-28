@@ -1,4 +1,4 @@
-@(message: String, baseURl: String)
+@(message: String, role: String, baseURl: String)
 <!doctype html>
 <html ng-app="RDAApp">
 <head>
@@ -80,6 +80,7 @@
 
 	<script>
 		var userName = "@message";
+        var role = "@role";
         var baseURl = "@baseURl";
 	</script>
 </head>

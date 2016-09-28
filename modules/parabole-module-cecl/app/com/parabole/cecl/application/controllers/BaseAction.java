@@ -109,9 +109,10 @@ public class BaseAction extends Controller {
     protected Result index() throws Exception {
         final String userName = session().get(AuthConstants.USER_ID);
         final String name = session().get("userName");
+        final String role = session().get("role");
         String baseUrl = configuration.getString("application.baseUrl");
         System.out.println("baseUrl = " + configuration.toString());
-        return ok(com.parabole.cecl.application.views.html.main.render(name, baseUrl));
+        return ok(com.parabole.cecl.application.views.html.main.render(name, role, baseUrl));
     }
 
     protected boolean isAdmin() {

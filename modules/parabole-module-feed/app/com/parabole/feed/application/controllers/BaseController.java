@@ -48,7 +48,7 @@ public class BaseController extends Controller {
         // final DynamicForm requestData = Form.form().bindFromRequest();
         final String userId = username;
         if (authenticationManager.authenticate(userId, password)) {
-            final String role = coralUserService.getSpecificDocumentUsingIdAndColumnNameFromUserGroup(userId, CCAppConstants.ATTR_DATABASE_GROUP_NAME_COLUMN_NAME);
+            final String role = coralUserService.getSpecificDocumentUsingIdAndColumnName(userId, CCAppConstants.ATTR_DATABASE_GROUP_NAME_COLUMN_NAME);
             session().put(CCAppConstants.ROLE, role);
             session().put(CCAppConstants.USER_ID, userId);
             session().put(CCAppConstants.USER_NAME, coralUserService.getSpecificDocumentUsingIdAndColumnName(userId, CCAppConstants.ATTR_DATABASE_USER_NAME_COLUMN_NAME));
