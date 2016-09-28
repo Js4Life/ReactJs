@@ -69,7 +69,7 @@ GET /addAnewVertexproperty                              com.parabole.feed.applic
 #~~~~~~
 GET /saveAllTopicsSubTopics/:fileName                   com.parabole.feed.application.controllers.FeedController.getAllTopicsSubTopics(fileName: String)
 GET /saveSectionsFromParagraphJSon                      com.parabole.feed.application.controllers.FeedController.saveSectionsFromParagraphJSon()
-GET /createConceptNodesAndAssignParagraph               com.parabole.feed.application.controllers.FeedController.createConceptNodesFromParagraph()
+GET /createConceptNodesAndAssignParagraph/:filename     com.parabole.feed.application.controllers.FeedController.createConceptNodesFromParagraph(filename: String)
 GET /createComponentTypseAndAssignToConcept             com.parabole.feed.application.controllers.FeedController.createComponentTypseAndAssignToConcept()
 GET /createComponentAndAssignToComponentType            com.parabole.feed.application.controllers.FeedController.createComponentAndAssignToComponentType()
 GET /createBusinesSegmentAndAssignComponent             com.parabole.feed.application.controllers.FeedController.createBusinesSegmentAndAssignComponent()

@@ -62,8 +62,8 @@ public class FeedController extends BaseController{
         return ok(result);
     }
 
-    public Result createConceptNodesFromParagraph() throws Exception {
-        final String result = taggingUtilitiesServices.createConceptNodesFromParagraph();
+    public Result createConceptNodesFromParagraph(String filename) throws Exception {
+        final String result = taggingUtilitiesServices.createConceptNodesFromParagraph(filename);
         return ok(result);
     }
 
