@@ -90,7 +90,7 @@ public String getSpecificDocumentUsingIdAndColumnNameFromUserGroup(final String 
         Validate.notBlank(userId, "'userId' cannot be empty!");
         final ODatabaseDocumentTx dbNoTx = coral.getDocDBConnectionNoTx();
         try {
-            final OSQLSynchQuery<ODocument> query = new OSQLSynchQuery<ODocument>("SELECT "+columnNameToFetch+" FROM APP_USER_GROUPS WHERE USER_ID = '" + userId + "'");
+            final OSQLSynchQuery<ODocument> query = new OSQLSynchQuery<ODocument>("SELECT "+columnNameToFetch+" FROM APP_USERS WHERE USER_ID = '" + userId + "'");
             final List<ODocument> results = dbNoTx.command(query).execute();
             if (CollectionUtils.isNotEmpty(results)) {
                 return results.get(0).field(columnNameToFetch);

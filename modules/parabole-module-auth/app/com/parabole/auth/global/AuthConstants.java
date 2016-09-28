@@ -40,7 +40,7 @@ public class AuthConstants {
     public static final String ATTR_DATABASE_USER_NAME = "userid";
     public static final String ATTR_DATABASE_PASSWORD = "password";
     public static final String ATTR_DATABASE_PASSWORD_COLUMN_NAME = "PASSWORD";
-    public static final String ATTR_DATABASE_GROUP_NAME_COLUMN_NAME = "GROUP_NAME";
+    public static final String ATTR_DATABASE_GROUP_NAME_COLUMN_NAME = "USER_GROUP";
     public static final String ATTR_DATABASE_USER_NAME_COLUMN_NAME = "USER_NAME";
     public static final String ATTR_DATASOURCE_MAPPING_NAME = "name";
     public static final String ATTR_DATASOURCE_MAPPING_FILEDATA = "filedata";

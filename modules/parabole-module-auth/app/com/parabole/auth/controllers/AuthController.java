@@ -40,7 +40,7 @@ public class AuthController {
         if (authenticationManager.authenticate(userId, password)) {
 
             try {
-                role = coralUserService.getSpecificDocumentUsingIdAndColumnNameFromUserGroup(userId, AuthConstants.ATTR_DATABASE_GROUP_NAME_COLUMN_NAME);
+                role = coralUserService.getSpecificDocumentUsingIdAndColumnNameFromUser(userId, AuthConstants.ATTR_DATABASE_GROUP_NAME_COLUMN_NAME);
                 name = coralUserService.getSpecificDocumentUsingIdAndColumnNameFromUser(userId, AuthConstants.ATTR_DATABASE_USER_NAME_COLUMN_NAME);
             } catch (Exception e) {
                 e.printStackTrace();
