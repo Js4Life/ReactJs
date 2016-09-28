@@ -102,7 +102,10 @@ angular.module('RDAApp.services', [])
         'GetChecklistsByBussinessSegment' : 'getChecklistsByBussinessSegment',
         'RemoveChecklistById' : 'removeChecklistById',
         'ChecklistDetailsByIds' : 'checklistDetailsByIds',
-        'GetParagraphCountsByTags' : 'getParagraphCountsByTags'
+        'GetParagraphCountsByTags' : 'getParagraphCountsByTags',
+        'GetRelatedComponentsByComponent' : 'getRelatedComponentsByComponent',
+        'GetRelatedBusinessSegentsByBusinessSegment' : 'getRelatedBusinessSegentsByBusinessSegment',
+        'GetCompliedAndNotCompliedChecklistCounts' : 'getCompliedAndNotCompliedChecklistCounts'
     };
     SharedService.chartDataMap = {
         '0' : 'getHardCodedResponse/chartData1',
@@ -146,7 +149,9 @@ angular.module('RDAApp.services', [])
         "default" : "ceclassets/images/blue_dot.png",
         "concept" : "ceclassets/images/concept.png",
         "related concept" : "ceclassets/images/concept.png",
-        "paragraph" : "ceclassets/images/graph_paragraph.png"
+        "paragraph" : "ceclassets/images/graph_paragraph.png",
+        "component" : "ceclassets/images/graph_component.png",
+        "businesssegment" : "ceclassets/images/graph_businesssegment.png"
     };
 
     SharedService.mappableEdges = [];
@@ -747,6 +752,20 @@ angular.module('RDAApp.services', [])
 
     SharedService.getParagraphCountsByTags = function () {
         return SharedService.invokeService('GetParagraphCountsByTags');
+    }
+
+    SharedService.getRelatedComponentsByComponent = function (id) {
+        var sendObj = {"id": id};
+        return SharedService.invokeService('GetRelatedComponentsByComponent', sendObj, 'post');
+    }
+
+    SharedService.getRelatedBusinessSegentsByBusinessSegment = function (id) {
+        var sendObj = {"id": id};
+        return SharedService.invokeService('GetRelatedBusinessSegentsByBusinessSegment', sendObj, 'post');
+    }
+
+    SharedService.getCompliedAndNotCompliedChecklistCounts = function () {
+        return SharedService.invokeService('GetCompliedAndNotCompliedChecklistCounts');
     }
 
     return SharedService;
@@ -1686,6 +1705,29 @@ angular.module('RDAApp.services', [])
             }, {
                 y: 25
             }]
+        }]
+    };
+    MockService.ComponentComplianceChartData = {
+        title : 'Component Compliance',
+        categories : ['75%-100%', '50%-74%', '25%-49%', '0%-24%'],
+        series: [{
+            colorByPoint: true,
+            data: [{
+                y: 20
+            }, {
+                y: 34
+            }, {
+                y: 55
+            }, {
+                y: 58
+            }]
+        }]
+    };
+    MockService.PeriodicComplianceChartData = {
+        title : 'Periodic Compliance Rate',
+        categories : ['20 Sep', '21 Sep', '22 Sep', '23 Sep', '24 Sep', '25 Sep', '26 Sep'],
+        series: [{
+            data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2]
         }]
     };
 

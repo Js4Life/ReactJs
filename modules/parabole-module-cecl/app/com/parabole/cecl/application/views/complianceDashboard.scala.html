@@ -1,11 +1,11 @@
 <div class="panel panel-default">
   <div class="panel-heading" style="padding-bottom:9px" >
     <b>{{heading.title}}</b>
-    <div ng-show="currentView != 'SUMMERY' && currentView != 'INDUSTRY_IMPACT'" class="right-inner-addon" style="display:inline-block;width:25%;margin-left:20px;">
+    <div ng-show="currentView != 'SUMMARY' && currentView != 'INDUSTRY_IMPACT'" class="right-inner-addon" style="display:inline-block;width:25%;margin-left:20px;">
       <i class="glyphicon glyphicon-search"></i>
       <input type="search" class="form-control input-sm" placeholder="Search from {{$$childTail.childNodes.length || 'following'}} items..." ng-model="parentSearchText" />
     </div>
-    <div ng-show="currentView != 'SUMMERY' && currentView != 'INDUSTRY_IMPACT'" class="btn-group pull-right" role="group">
+    <div ng-show="currentView != 'SUMMARY' && currentView != 'INDUSTRY_IMPACT'" class="btn-group pull-right" role="group">
       <button ng-if="isGridView" type="button" class="btn btn-xs" ng-click="toggleView()">
         <i class="fa fa-th-list" aria-hidden="true"></i>
       </button>
@@ -21,21 +21,62 @@
       <li><a ng-click="goComponetView()" class="pointer" data-toggle="tab" data-target="#commonTab">Component</a></li>
       <li><a ng-click="goIndustryImpact()" class="pointer" data-toggle="tab" data-target="#industryImpact">Industry</a></li>
       <li><a ng-click="goDocumentView()" class="pointer" data-toggle="tab" data-target="#commonTab">Regulatory Content</a></li>
-      @*<li><a ng-click="goSummeryView()" class="pointer" data-toggle="tab" data-target="#summeryTab">Summary</a></li>*@
+      <li><a class="pointer" data-toggle="tab" data-target="#summaryTab">Summary</a></li>
     </ul>
 
     <div class="tab-content">
-      <div id="summeryTab" class="tab-pane fade" style="height: 76vh;overflow-y: auto;padding:10px;">
+      <div id="summaryTab" class="tab-pane fade" style="height: 76vh;overflow-y: auto;padding:10px;">
         <div class="col-md-4">
           <div class="card">
             <div class="card-body pointer">
-              <div high-chart options="options" data="data" class="container-fluid"></div>
+              <div high-chart options="checklistComplianceOptions" data="checklistComplianceData" class="container-fluid"></div>
             </div>
             @*<div class="card-content margin-top-5">
               <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
             </div>*@
             <div class="card-action">
-              <label>{{data.title}}</label>
+              <label>{{checklistComplianceData.title}}</label>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body pointer">
+              <div high-chart options="componentComplianceOptions" data="componentComplianceData" class="container-fluid"></div>
+            </div>
+            <div class="card-action">
+              <label>{{componentComplianceData.title}}</label>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body pointer">
+              <div high-chart options="periodicComplianceOptions" data="periodicComplianceData" class="container-fluid"></div>
+            </div>
+            <div class="card-action">
+              <label>{{periodicComplianceData.title}}</label>
+
+
+              @*<div class="btn-group btn-group-xs pull-right">
+                <button data-toggle="dropdown" class="btn dropdown-toggle">Daily <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                  <li>Daily</li>
+                  <li>Weekly</li>
+                  <li>Monthly</li>
+                </ul>
+              </div>*@
+
+              <div class="dropdown pull-right">
+                <button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Daily
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                  <li><a href="">Daily</a></li>
+                  <li><a href="">Weekly</a></li>
+                  <li><a href="">Monthly</a></li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>

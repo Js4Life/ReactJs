@@ -56,8 +56,8 @@ public class DispatcherAction extends BaseAction {
         return ok(com.parabole.cecl.application.views.html.homeContainer.render());
     }
 
-    public Result summery() {
-        return ok(com.parabole.cecl.application.views.html.summery.render());
+    public Result summary() {
+        return ok(com.parabole.cecl.application.views.html.summary.render());
     }
 
     public Result complianceDashboard() {

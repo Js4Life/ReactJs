@@ -110,7 +110,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 	$scope.goCompletion = function (e) {
 		activeCurrentNav(e);
-		$state.go('landing.summery');
+		$state.go('landing.summary');
 	}
 
 	$scope.goCompliance = function (e) {
@@ -889,7 +889,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.initialize();
 })
 
-.controller('summeryCtrl', function($scope, $state, $stateParams, SharedService, MockService) {
+.controller('summaryCtrl', function($scope, $state, $stateParams, SharedService, MockService) {
     $scope.initialize = function () {
         $scope.heading = {"title": "Completion Dashboard"};
         $scope.options = {
@@ -903,7 +903,6 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
     function convertToChartData(data) {
 		var obj = {};
-		obj.title = 'Paragraph Categories';
 		obj.categories = [];
 		obj.series = [{colorByPoint: true, data: []}];
 		angular.forEach(data, function (v, k) {
@@ -918,7 +917,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			if(data.status){
 				var rawData = angular.fromJson(data.data);
 				var chartData = convertToChartData(rawData);
-				$scope.options.Title = chartData.title;
+				$scope.options.Title = chartData.title = 'Paragraph Categories';
 				$scope.data = chartData;
 			}
 		});
@@ -967,7 +966,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
     $scope.initialize();  
 })
 
-.controller('complianceDashboardCtrl', function($scope, $rootScope, $state, $stateParams, SharedService, MockService) {
+.controller('complianceDashboardCtrl', function($scope, $rootScope, $state, $timeout, $stateParams, SharedService, MockService) {
 	$scope.initialize = function () {
 		$scope.heading = {"title": "Compliance Dashboard"};
 		$scope.isGridView = true;
@@ -980,9 +979,46 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$scope.goBusinessSegmentView();
 	}
 
-	function setData(data) {
-		$scope.options.Title = data.title;
-		$scope.data = data;
+	function convertToChartData(data) {
+		var obj = {};
+		obj.categories = [];
+		obj.series = [{colorByPoint: true, data: []}];
+		angular.forEach(data, function (v, k) {
+			obj.categories.push(k);
+			obj.series[0].data.push({y : parseInt(v)});
+		});
+		return obj;
+	}
+
+	function initChecklistComplianceChart() {
+		SharedService.getCompliedAndNotCompliedChecklistCounts().then(function (data) {
+			if(data.status){
+				var rawData = angular.fromJson(data.data);
+				var chartData = convertToChartData(rawData);
+				chartData.title = "Checklist Item Compliance";
+				$scope.checklistComplianceOptions = initChartOptions({"title": chartData.title});
+				$scope.checklistComplianceData = chartData;
+			}
+		});
+	}
+	function initComponentComplianceChart(data) {
+		$scope.componentComplianceOptions = initChartOptions({"title": data.title});
+		$scope.componentComplianceData = data;
+	}
+	function initPeriodicComplianceChart(data) {
+		$scope.periodicComplianceOptions = initChartOptions({"title": data.title, "graphType": 'line'});
+		$scope.periodicComplianceData = data;
+	}
+	function initChartOptions(op) {
+		var option = {
+			Title : op.title || " ",
+			GraphType : op.graphType || 'column',
+			handlerData : op.handlerData || {columnClick: "onColumnClick", scope: $scope},
+			colors : op.colors || ['#04de72', '#00bfff', '#ffb935', '#d2d2d2'],
+			dataLabels : op.dataLabels || {enabled: true},
+			legend :  op.legend || {enabled: false}
+		}
+		return option;
 	}
 
 	$scope.onColumnClick = function (obj) {
@@ -999,10 +1035,12 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		}
 	}
 
-	$scope.goSummeryView = function () {
-		$scope.currentView = 'SUMMERY';
-		setData(MockService.ChecklistComplianceChartData);
-	}
+	$('a[data-target="#summaryTab"]').on('shown.bs.tab', function (e) {      //On summary tab click
+		$scope.currentView = 'SUMMARY';
+		initChecklistComplianceChart();
+		initComponentComplianceChart(MockService.ComponentComplianceChartData);
+		initPeriodicComplianceChart(MockService.PeriodicComplianceChartData);
+	})
 
 	$scope.goDocumentView = function () {
 		$scope.currentView = 'DOCUMENT';
@@ -1020,7 +1058,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}
 
 	$scope.goBusinessSegmentView = function () {
-		$scope.currentView = SharedService.currentView = 'BUSINESS_SEGMENT';
+		$scope.currentView = SharedService.currentView = 'ALL_BUSINESS_SEGMENT';
 		$state.go('landing.complianceDashboard.checklistViewer', {currentView: $scope.currentView});
 	}
 
@@ -1149,7 +1187,10 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 					}
 				});*/
 				$scope.currentNode = _.findWhere($scope.childNodes, {"elementID": nodeId});
-				$scope.getComponentsByConceptName($scope.currentNode.name);
+				var compName = "ceclComponentsByConcept";
+				SharedService.getFilteredDataByCompName(compName, $scope.currentNode.name).then(function (data) {
+					prepareNodeDetails(data.data, "componentType");
+				});
 				break;
 			case "ALL_COMPONENT" :
 				SharedService.getAllComponents().then(function (data) {
@@ -1158,29 +1199,39 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 					}
 				});
 				break;
-			case "BUSINESS_SEGMENT" :
+			case "COMPONENT" :
+				$scope.currentNode = _.findWhere($scope.childNodes, {"elementID": nodeId});
+				SharedService.getRelatedComponentsByComponent(nodeId).then(function (data) {
+					prepareNodeDetails(angular.fromJson(data.data));
+				});
+				break;
+			case "ALL_BUSINESS_SEGMENT" :
 				SharedService.getAllBusinessSegments().then(function (data) {
 					$scope.childNodes = angular.fromJson(data.data);
+				});
+				break;
+			case "BUSINESSSEGMENT" :
+				$scope.currentNode = _.findWhere($scope.childNodes, {"elementID": nodeId});
+				SharedService.getRelatedBusinessSegentsByBusinessSegment(nodeId).then(function (data) {
+					prepareNodeDetails(angular.fromJson(data.data));
 				});
 				break;
 		}
 	}
 
-	$scope.getComponentsByConceptName = function (nodeName) {
-		var compName = "ceclComponentsByConcept";
-		SharedService.getFilteredDataByCompName(compName, nodeName).then(function (data) {
-			var nodes = data.data;
-			$scope.nodeDetails = _.groupBy(nodes, "componentType");
-			getGraphByConceptUri();
-			SharedService.getDescriptionByUri($scope.currentNode.elementID).then(function (description) {
-				$scope.currentNode.description = description;
-				$('#dsViewer').modal('show');
-			});
+	function prepareNodeDetails(nodes, groupByField){
+		var groupByField = groupByField || "type";
+		nodes = _.reject(nodes, function (n) { return n.elementID === $scope.currentNode.elementID; });
+		$scope.nodeDetails = _.groupBy(nodes, groupByField);
+		getGraphByConceptUri();
+		SharedService.getDescriptionByUri($scope.currentNode.elementID).then(function (description) {
+			$scope.currentNode.description = description;
+			$('#dsViewer').modal('show');
 		});
 	}
 
-	function getGraphByConceptUri(currentNode) {
-		var rootNode = {name: $scope.currentNode.name, id: $scope.currentNode.elementID, type: "concept"};
+	function getGraphByConceptUri() {
+		var rootNode = {name: $scope.currentNode.name, id: $scope.currentNode.elementID, type: $scope.currentNode.type.toLowerCase()};
 		$scope.graphData = {nodes: [rootNode], edges: []};
 		angular.forEach($scope.nodeDetails, function (val, key) {
 			angular.forEach(val, function (aNode, idx) {
@@ -1204,6 +1255,8 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			if($scope.currentGraphNode.desc.definition){
 				$('#dsViewer').modal('hide');
 				$('#definitionViewer').modal('show');
+			} else {
+				toastr.warning('No Description available..', '', {"positionClass" : "toast-top-right"});
 			}
 		});
 	}
@@ -1219,17 +1272,19 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}
 
 	$scope.getComplianceColorcode = function (obj) {
-		var val = obj.compliance || 0;
-		if(val > 81) {
-			obj.colorCode = "green";
-		} else if(val >= 51 && val <=80) {
-			obj.colorCode = "amber";
-		} else if(val > 0 && val <=50) {
-			obj.colorCode = "red";
-		} else {
-			obj.colorCode = "gray";
+		if(obj) {
+			var val = obj.compliance || 0;
+			if (val > 81) {
+				obj.colorCode = "green";
+			} else if (val >= 51 && val <= 80) {
+				obj.colorCode = "amber";
+			} else if (val > 0 && val <= 50) {
+				obj.colorCode = "red";
+			} else {
+				obj.colorCode = "gray";
+			}
+			return $scope.isGridView ? ('bg-' + obj.colorCode) : ('text-' + obj.colorCode);
 		}
-		return $scope.isGridView ? ('bg-' + obj.colorCode) : ('text-' + obj.colorCode);
 	}
 
 	$scope.setColorCode = function (colorCode) {

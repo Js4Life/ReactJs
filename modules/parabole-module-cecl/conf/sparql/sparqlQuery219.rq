@@ -1,0 +1,20 @@
+PREFIX pb:<http://www.mindparabole.com/ontology/finance/Parabole-Model#>
+PREFIX pnc:<http://mindparabole.com/finance/pnc_cecl#>
+PREFIX cst:<http://mindparabole.com/finance/cecl_structure#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+select distinct ?segl ?Model ?Report ?Policy
+where {
+?seg rdf:type pb:Segment ; rdfs:label ?segl.
+?seg pb:hasProduct ?pro .
+?pro rdfs:label ?prol .
+?com pb:hasSegment ?seg ; rdfs:label ?coml .
+?comclass rdfs:subClassOf ?coms .
+?com rdf:type ?comclass .
+bind (if(?coms = pb:Model, ?coml, "") as ?Model)
+bind (if(?coms = pb:Report, ?coml, "") as ?Report)
+bind (if(?coms = pb:Policy, ?coml, "") as ?Policy)
+}

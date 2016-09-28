@@ -308,8 +308,8 @@ public class StarFish extends GraphDb {
                 }
             }
             System.out.println("StarFish.getCompliedAndNotCompliedCounts");
-            resultData.put("complied", checked.toString());
-            resultData.put("notComplied", notChecked.toString());
+            resultData.put("Not Complied", notChecked.toString());
+            resultData.put("Complied", checked.toString());
         }catch (Exception e){
             e.printStackTrace();
         }

@@ -21,7 +21,7 @@ GET         /impact                                                             
 GET         /regulation                                                                com.parabole.cecl.application.controllers.DispatcherAction.regulation()
 GET         /checklistBuilder                                                          com.parabole.cecl.application.controllers.DispatcherAction.checklistBuilder()
 GET         /homeContainer                                                             com.parabole.cecl.application.controllers.DispatcherAction.homeContainer()
-GET         /summery                                                                   com.parabole.cecl.application.controllers.DispatcherAction.summery()
+GET         /summary                                                                   com.parabole.cecl.application.controllers.DispatcherAction.summary()
 GET         /complianceDashboard                                                       com.parabole.cecl.application.controllers.DispatcherAction.complianceDashboard()
 GET         /checklistViewer                                                           com.parabole.cecl.application.controllers.DispatcherAction.checklistViewer()
 
@@ -102,25 +102,28 @@ POST /getRelatedVerticesByUri               com.parabole.cecl.application.contro
 # DOCUMENT RELATED OPERATIONS
 # ---------------------------------------------------------------------------------
 
-GET /getAllTopics                           com.parabole.cecl.application.controllers.CeclController.getAllTopics()
-GET /getAllConcepts                         com.parabole.cecl.application.controllers.CeclController.getAllConcepts()
-GET /getAllComponents                       com.parabole.cecl.application.controllers.CeclController.getAllComponents()
-GET /getAllBusinessSegments                 com.parabole.cecl.application.controllers.CeclController.getAllBusinessSegments()
-GET /getParagraphCountsByTags               com.parabole.cecl.application.controllers.CeclController.getParagraphCountsByTags()
-POST /getSubtopicsByTopicId                 com.parabole.cecl.application.controllers.CeclController.getSubtopicsByTopicId()
-POST /getSectionsBySubtopicId               com.parabole.cecl.application.controllers.CeclController.getSectionsBySubtopicId()
-POST /getParagraphsBySectionId              com.parabole.cecl.application.controllers.CeclController.getParagraphsBySectionId()
-POST /getParagraphsByConceptId              com.parabole.cecl.application.controllers.CeclController.getParagraphsByConceptId()
-POST /getComponentTypesByParagraphIds       com.parabole.cecl.application.controllers.CeclController.getComponentTypesByParagraphIds()
+GET /getAllTopics                                   com.parabole.cecl.application.controllers.CeclController.getAllTopics()
+GET /getAllConcepts                                 com.parabole.cecl.application.controllers.CeclController.getAllConcepts()
+GET /getAllComponents                               com.parabole.cecl.application.controllers.CeclController.getAllComponents()
+GET /getAllBusinessSegments                         com.parabole.cecl.application.controllers.CeclController.getAllBusinessSegments()
+GET /getParagraphCountsByTags                       com.parabole.cecl.application.controllers.CeclController.getParagraphCountsByTags()
+POST /getSubtopicsByTopicId                         com.parabole.cecl.application.controllers.CeclController.getSubtopicsByTopicId()
+POST /getSectionsBySubtopicId                       com.parabole.cecl.application.controllers.CeclController.getSectionsBySubtopicId()
+POST /getParagraphsBySectionId                      com.parabole.cecl.application.controllers.CeclController.getParagraphsBySectionId()
+POST /getParagraphsByConceptId                      com.parabole.cecl.application.controllers.CeclController.getParagraphsByConceptId()
+POST /getComponentTypesByParagraphIds               com.parabole.cecl.application.controllers.CeclController.getComponentTypesByParagraphIds()
+POST /getRelatedComponentsByComponent               com.parabole.cecl.application.controllers.CeclController.getRelatedComponentsByComponent()
+POST /getRelatedBusinessSegentsByBusinessSegment    com.parabole.cecl.application.controllers.CeclController.getRelatedBusinessSegentsByBusinessSegment()
 
 # ---------------------------------------------------------------------------------
 # CHECKLIST RELATED OPERATIONS
 # ---------------------------------------------------------------------------------
 
-POST /saveOrUpdateCheckList                 com.parabole.cecl.application.controllers.CeclController.saveOrUpdateCheckList()
-POST /getChecklistsByParagraphIds           com.parabole.cecl.application.controllers.CeclController.getChecklistsByParagraphIds()
-POST /getChecklistsByConcept                com.parabole.cecl.application.controllers.CeclController.getChecklistsByConcept()
-POST /getChecklistsByComponent              com.parabole.cecl.application.controllers.CeclController.getChecklistsByComponent()
-POST /getChecklistsByBussinessSegment       com.parabole.cecl.application.controllers.CeclController.getChecklistsByBussinessSegment()
-POST /removeChecklistById                   com.parabole.cecl.application.controllers.CeclController.removeChecklistById()
-POST /checklistDetailsByIds                 com.parabole.cecl.application.controllers.CeclController.checklistDetailsByIds()
+POST /saveOrUpdateCheckList                         com.parabole.cecl.application.controllers.CeclController.saveOrUpdateCheckList()
+POST /getChecklistsByParagraphIds                   com.parabole.cecl.application.controllers.CeclController.getChecklistsByParagraphIds()
+POST /getChecklistsByConcept                        com.parabole.cecl.application.controllers.CeclController.getChecklistsByConcept()
+POST /getChecklistsByComponent                      com.parabole.cecl.application.controllers.CeclController.getChecklistsByComponent()
+POST /getChecklistsByBussinessSegment               com.parabole.cecl.application.controllers.CeclController.getChecklistsByBussinessSegment()
+POST /removeChecklistById                           com.parabole.cecl.application.controllers.CeclController.removeChecklistById()
+POST /checklistDetailsByIds                         com.parabole.cecl.application.controllers.CeclController.checklistDetailsByIds()
+GET /getCompliedAndNotCompliedChecklistCounts      com.parabole.cecl.application.controllers.CeclController.getCompliedAndNotCompliedChecklistCounts()
