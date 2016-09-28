@@ -1,4 +1,4 @@
-<div class="panel panel-default">
+<div class="panel panel-default" ng-controller="complianceDashboardCtrl">
   <div class="panel-heading" style="padding-bottom:9px" >
     <b>{{heading.title}}</b>
     <div ng-show="currentView != 'SUMMARY' && currentView != 'INDUSTRY_IMPACT'" class="right-inner-addon" style="display:inline-block;width:25%;margin-left:20px;">
@@ -19,9 +19,9 @@
       <li class="active"><a ng-click="goBusinessSegmentView()" class="pointer" data-toggle="tab" data-target="#commonTab">Business Segment</a></li>
       <li><a ng-click="goConceptView()" class="pointer" data-toggle="tab" data-target="#commonTab">FASB Concept</a></li>
       <li><a ng-click="goComponetView()" class="pointer" data-toggle="tab" data-target="#commonTab">Component</a></li>
-      <li><a ng-click="goIndustryImpact()" class="pointer" data-toggle="tab" data-target="#industryImpact">Industry</a></li>
-      <li><a ng-click="goDocumentView()" class="pointer" data-toggle="tab" data-target="#commonTab">Regulatory Content</a></li>
-      <li><a class="pointer" data-toggle="tab" data-target="#summaryTab">Summary</a></li>
+      <li ng-if="!showLimited"><a ng-click="goIndustryImpact()" class="pointer" data-toggle="tab" data-target="#industryImpact">Industry</a></li>
+      <li ng-if="!showLimited"><a ng-click="goDocumentView()" class="pointer" data-toggle="tab" data-target="#commonTab">Regulatory Content</a></li>
+      <li ng-show="!showLimited"><a class="pointer" data-toggle="tab" data-target="#summaryTab">Summary</a></li>
     </ul>
 
     <div class="tab-content">

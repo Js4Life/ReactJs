@@ -3,8 +3,18 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 .controller('mainCtrl', function($scope, $state, $http, $stateParams, SharedService , RiskAggregateService , AlertDashboardService) {
 	$scope.constants = Constant;
 	$scope.userName = userName;
+
 	$scope.breadCrumbs = [];
-	$scope.userInfo = {user : userName };
+	$scope.userInfo = {user : userName, role: role};
+
+
+	/*to be deleted: for showing limited nfeatures*/
+	$scope.showLimited = false;
+	if(role === "FORDEMO"){
+		$scope.showLimited = true;
+	}
+	/*end*/
+
 
 	$scope.heading = SharedService.primaryNav[0];
 	$scope.ColorMap = SharedService.Colors;
@@ -1272,7 +1282,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}
 
 	$scope.getComplianceColorcode = function (obj) {
-		if(obj) {
+		if(obj && !showLimited) {
 			var val = obj.compliance || 0;
 			if (val > 81) {
 				obj.colorCode = "green";
