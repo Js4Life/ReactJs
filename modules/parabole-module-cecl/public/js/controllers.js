@@ -1120,7 +1120,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				{ field: 'UPDATED_BY', name: 'Updated By' },
 				{ field: 'ATTACHMENTINFO', name: 'Has Evidence' },
 				{ field: 'paragraphs', name: 'Paragraphs' },
-				{ field: 'componentTypes', name: 'Component Types' },
+				{ field: 'components', name: 'Component' },
 				{ field: 'IS_MANDATORY', name: 'Mandatory', cellTemplate: '<div class="text-center"><i ng-if="row.entity.IS_MANDATORY" class="fa fa-check text-success" aria-hidden="true"></i><i ng-if="!row.entity.IS_MANDATORY" class="fa fa-times text-danger" aria-hidden="true"></i></div>' },
 				{ field: 'STATE', name: 'Current State' }
 			],
