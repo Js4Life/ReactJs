@@ -24,6 +24,7 @@ public class HomeController extends Controller {
     @Inject
     Configuration configuration;
 
+    final static String appTitle = "Parabole Platform";
     /**
      * An action that renders an HTML page with a welcome message.
      * The configuration in the <code>routes</code> file means that
@@ -40,13 +41,16 @@ public class HomeController extends Controller {
         final String userId = requestData.get("userid");
         final String password = requestData.get("password");
         Boolean status = authController.login(userId, password);
-        String pageTitle = "Parabole Platform";
         String baseUrl = configuration.getString("application.baseUrl");
         System.out.println("baseUrl = " + baseUrl);
         if(status)
-            return ok(main.render(pageTitle, baseUrl));
+            return ok(main.render(appTitle, baseUrl));
         else
             return index();
+    }
+
+    public Result main() {
+        return ok(main.render(appTitle, ""));
     }
 
     public Result logout() {
