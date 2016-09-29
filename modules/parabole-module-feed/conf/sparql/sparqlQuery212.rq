@@ -34,18 +34,6 @@ union
 ?concept pb:hasPolicy ?mprp .
 ?mprp rdf:type ?Type.
 bind(xsd:string ("Policy Type") as ?Area)}
-union
-{?concept rdf:type ?conclass .
-?conclass rdfs:subClassOf cst:FASBConcept .
-?concept pb:hasRelatedConcept ?mprp.
-?mprp rdf:type ?Type.
-bind(xsd:string ("Related Concept Type") as ?Area)}
-union
-{?concept rdf:type ?conclass .
-?conclass rdfs:subClassOf cst:FASBConcept .
-?concept pb:ConcepthasDataElement ?mprp.
-?mprp rdf:type ?Type.
-bind(xsd:string ("Related Data Element") as ?Area)}
 UNION
 {?concept rdf:type ?conclass .
 ?conclass rdfs:subClassOf cst:FASBConcept .
