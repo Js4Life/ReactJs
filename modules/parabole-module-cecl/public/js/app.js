@@ -1,5 +1,5 @@
 angular
-    .module('RDAApp', [ 'ui.router', 'ngAnimate', 'ngFileUpload', 'RDAApp.controllers', 'ui.grid', 'ui.grid.selection', 'ui.grid.exporter', 'ui.grid.moveColumns'])
+    .module('RDAApp', [ 'ui.router', 'ngAnimate', 'ngFileUpload', 'RDAApp.controllers', 'ui.grid', 'ui.grid.selection', 'ui.grid.exporter', 'ui.grid.moveColumns', 'ui.grid.resizeColumns'])
 
     .config(function($stateProvider, $urlRouterProvider, $compileProvider) {
           $compileProvider
