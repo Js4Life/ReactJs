@@ -26,46 +26,36 @@ PREFIX cst:<http://mindparabole.com/finance/cecl_structure#>
 PREFIX owl:<http://www.w3.org/2002/07/owl#>
 
 
-select ?concept  ?conceptName ?Component ?ComponentType ?Product ?Segment
+select  ?concept ?Area ?connections ?mprp
 where {
 {select *
 where {
-{?concept rdf:type ?conclass .
+{?a rdf:type ?conclass .
 ?conclass rdfs:subClassOf cst:FASBConcept .
-?concept pb:hasModel ?mprp .
-?mprp pb:hasSegment ?seg.
-?seg pb:hasProduct ?pro.
-?pro rdfs:label ?Product.
-?seg rdfs:label ?Segment.
-BIND(xsd:string("Model") as ?ComponentType)}
+?a pb:hasModel ?mprp .
+bind(xsd:string ("Model") as ?Area)}
 union
-{?concept rdf:type ?conclass .
+{?a rdf:type ?conclass .
 ?conclass rdfs:subClassOf cst:FASBConcept .
-?concept pb:hasReport ?mprp .
-?mprp pb:hasSegment ?seg.
-?seg pb:hasProduct ?pro.
-?pro rdfs:label ?Product.
-?seg rdfs:label ?Segment.
-BIND(xsd:string("Report") AS ?ComponentType)
-}
+?a pb:hasReport ?mprp .
+bind(xsd:string ("Report") as ?Area)}
 union
-{?concept rdf:type ?conclass .
+{?a rdf:type ?conclass .
 ?conclass rdfs:subClassOf cst:FASBConcept .
-?concept pb:hasPolicy ?mprp .
-?mprp pb:hasSegment ?seg.
-?seg pb:hasProduct ?pro.
-?pro rdfs:label ?Product.
-?seg rdfs:label ?Segment.
-bind(xsd:string ("Policy") as ?ComponentType)}
-UNION
-{?concept rdf:type ?conclass .
+?a pb:hasProcedure ?mprp .
+bind(xsd:string ("Procedure") as ?Area)}
+union
+{?a rdf:type ?conclass .
 ?conclass rdfs:subClassOf cst:FASBConcept .
-?concept pb:ConcepthasDataElement ?mprp.
-bind(xsd:string ("Data Element") as ?ComponentType)}
-}}
-?concept rdfs:label ?conceptName .
-?mprp rdfs:label ?Component .
-FILTER(?concept = con:AmortizedCostBasis)
-bind(rand() AS ?id).
-
+?a pb:hasPolicy ?mprp .
+bind(xsd:string ("Policy") as ?Area)}
+union
+{?a rdf:type ?conclass .
+?conclass rdfs:subClassOf cst:FASBConcept .
+?a pb:hasRelatedConcept ?mprp.
+bind(xsd:string ("Related Concept") as ?Area)}}}
+?a rdfs:label ?concept .
+?mprp rdfs:label ?connections .
+filter (?concept = $$FILTERS$$)
+#filter (?concept = "Accounting Adjustment")
 }
