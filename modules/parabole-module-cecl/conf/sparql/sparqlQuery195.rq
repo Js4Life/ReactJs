@@ -59,3 +59,4 @@ bind(xsd:string ("Related Concept") as ?Area)}}}
 filter (?concept = $$FILTERS$$)
 #filter (?concept = "Accounting Adjustment")
 }
+
