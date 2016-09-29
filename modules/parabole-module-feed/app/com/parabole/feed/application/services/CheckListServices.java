@@ -481,7 +481,8 @@ public class CheckListServices {
         for (HashMap<String, String> stringStringHashMap : allChecklistData) {
             String checklistID = stringStringHashMap.get("DATA_ID");
             stringStringHashMap.put("paragraphs", getAllParagraphsAgainstTheChecklistID(checklistID));
-            stringStringHashMap.put("componentTypes", getAllComponentTypesAgainstTheChecklistID(checklistID));
+            //stringStringHashMap.put("componentTypes", getAllComponentTypesAgainstTheChecklistID(checklistID));
+            stringStringHashMap.put("components", getAllComponentsAgainstTheChecklistID(checklistID));
             stringStringHashMap.remove("CREATED_AT");
             stringStringHashMap.remove("UPDATED_AT");
         }
@@ -561,6 +562,33 @@ public class CheckListServices {
 
             }
         }
+        return componentTypeIDs;
+    }
+
+    private String getAllComponentsAgainstTheChecklistID(String checklistID) {
+        String componentTypeIDs = "";
+        ArrayList<String> componentTypes = new ArrayList<>();
+        ArrayList<HashMap<String, String>> allRootNodeDetails = lightHouse.getRootVerticesByChildVertexId(checklistID);
+        for (HashMap<String, String> allRootNodeDetail : allRootNodeDetails) {
+            if(allRootNodeDetail.get("type").equals("COMPONENTTYPE")){
+                componentTypes.add(allRootNodeDetail.get("elementID"));
+            }
+        }
+
+        for (String componentType : componentTypes) {
+            ArrayList<HashMap<String, String>> allChildNodeDetails = lightHouse.getChildVerticesByRootVertexId(componentType);
+            for (HashMap<String, String> allChildNodeDetail : allChildNodeDetails) {
+                if(allChildNodeDetail.get("type").equals("COMPONENT")){
+                    if(componentTypeIDs != "") {
+                        componentTypeIDs += ", " + (allChildNodeDetail.get("name"));
+                    }else{
+                        componentTypeIDs += (allChildNodeDetail.get("name"));
+                    }
+                }
+            }
+        }
+
+
         return componentTypeIDs;
     }
 
