@@ -12,6 +12,8 @@ GET     /message                    com.parabole.ui.controllers.AsyncController.
 
 POST    /doLogin                    com.parabole.ui.controllers.HomeController.dologin()
 
+GET    /main                    com.parabole.ui.controllers.HomeController.main()
+
 # Map static resources from the /public folder to the /assets URL path
 #GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 GET      /uiassets/*file             controllers.Assets.at(path="/public/lib/parabole-module-ui", file)
