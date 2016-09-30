@@ -1825,6 +1825,10 @@ li.list-group-item.puff{
   background: url("../images/graph_component.png");
 }
 
+.legend .product{
+  background: url("../images/graph_product.png");
+}
+
 .legend .c0{	
 	background: url("../images/impact/default/0.png");	
 }

@@ -481,6 +481,23 @@ public class CeclController extends Controller{
         return ok(finalJson.toString());
     }
 
+    public Result getAllProducts() {
+        JSONObject finalJson = new JSONObject();
+        Boolean status = true;
+        String data = null;
+        try {
+            String vertexType = "PRODUCT";
+            ArrayList<HashMap<String, String>> res = lightHouseService.getAllVertexesByType(vertexType);
+            ObjectMapper mapper = new ObjectMapper();
+            data = mapper.writeValueAsString(res);
+        } catch(Exception e) {
+            status = false;
+            e.printStackTrace();
+        }
+        finalJson.put("status", status).put("data", data);
+        return ok(finalJson.toString());
+    }
+
     @BodyParser.Of(BodyParser.Json.class)
     public Result getComponentTypesByParagraphIds() {
         final String json = request().body().asJson().toString();

@@ -94,6 +94,7 @@ angular.module('RDAApp.services', [])
         'GetAllConcepts' : 'getAllConcepts',
         'GetAllComponents' : 'getAllComponents',
         'GetAllBusinessSegments' : 'getAllBusinessSegments',
+        'GetAllProducts' : 'getAllProducts',
         'GetComponentTypesByParagraphIds' : 'getComponentTypesByParagraphIds',
         'SaveOrUpdateCheckList' : 'saveOrUpdateCheckList',
         'GetChecklistsByParagraphIds' : 'getChecklistsByParagraphIds',
@@ -151,6 +152,8 @@ angular.module('RDAApp.services', [])
         "related concept" : "ceclassets/images/concept.png",
         "paragraph" : "ceclassets/images/graph_paragraph.png",
         "component" : "ceclassets/images/graph_component.png",
+        "product" : "ceclassets/images/graph_product.png",
+        "segment" : "ceclassets/images/graph_businesssegment.png",
         "businesssegment" : "ceclassets/images/graph_businesssegment.png"
     };
 
@@ -713,6 +716,9 @@ angular.module('RDAApp.services', [])
     SharedService.getAllBusinessSegments = function () {
         return SharedService.invokeService('GetAllBusinessSegments');
     }
+    SharedService.getAllProducts = function () {
+        return SharedService.invokeService('GetAllProducts');
+    }
     SharedService.getComponentTypesByParagraphIds = function (paraIds) {
         var sendObj = {"paraIds": paraIds};
         return SharedService.invokeService('GetComponentTypesByParagraphIds', sendObj, 'post');
@@ -737,8 +743,16 @@ angular.module('RDAApp.services', [])
             case "BUSINESSSEGMENT" :
                 serviceName = "GetChecklistsByBussinessSegment";
                 break;
+            case "PRODUCT" :
+                serviceName = "GetChecklistsByProduct";
+
+                /*to be deleted*/
+                toastr.info('Feature coming soon..', '', {"positionClass" : "toast-top-right"});
+                return;
+                /*to be deleted*/
+                break;
         }
-        var sendObj = {"id": node.elementID};
+        var sendObj = {"id": node.id || node.elementID};
         return SharedService.invokeService(serviceName, sendObj, 'post');
     }
     SharedService.removeChecklistById = function (id) {
@@ -1753,4 +1767,83 @@ angular.module('RDAApp.services', [])
             // Create the new dataSets
             return new vis.DataSet(data, options);
         };
-    });
+    })
+
+.factory('OntologyParserService', function (){
+    var OntologyParserService = {};
+
+    var localConstant = {
+        "CONCEPT" : "concept",
+        "COMPONENT" : "component",
+        "COMPONENT_ID" : "componentId",
+        "COMPONENT_CATEGORY" : "componentCategory",
+        "CATEGORY_OPTION" : {
+            "MODEL" : "Model",
+            "REPORT" : "Report",
+            "POLICY" : "Policy"
+        },
+        "PRODUCT" : "product",
+        "SEGMENT" : "businesssegment"
+    }
+
+    OntologyParserService.parseData = function (inputData) {
+        var outputData = {};
+
+        angular.forEach(inputData, function (obj) {
+            if(obj[localConstant.COMPONENT_ID]){
+                var ele = {
+                    id: obj[localConstant.COMPONENT_ID],
+                    name : obj[localConstant.COMPONENT],
+                    type : obj[localConstant.COMPONENT_CATEGORY]
+                };
+                switch(obj[localConstant.COMPONENT_CATEGORY]){
+                    case localConstant.CATEGORY_OPTION.MODEL :
+                        if(!outputData.Model)
+                            outputData.Model = {};
+                        outputData.Model[obj[localConstant.COMPONENT_ID]] = ele;
+                        break;
+                    case localConstant.CATEGORY_OPTION.REPORT :
+                        if(!outputData.Report)
+                            outputData.Report = {};
+                        outputData.Report[obj[localConstant.COMPONENT_ID]] = ele;
+                        break;
+                    case localConstant.CATEGORY_OPTION.POLICY :
+                        if(!outputData.Policy)
+                            outputData.Policy = {};
+                        outputData.Policy[obj[localConstant.COMPONENT_ID]] = ele;
+                        break;
+                }
+            }
+            if(obj[localConstant.SEGMENT]){
+                if(!outputData.Segment)
+                    outputData.Segment = {};
+                var ele = {
+                    name : obj[localConstant.SEGMENT],
+                    type : localConstant.SEGMENT
+                };
+                outputData.Segment[obj[localConstant.SEGMENT]] = ele;
+            }
+            if(obj[localConstant.PRODUCT]){
+                if(!outputData.Product)
+                    outputData.Product = {};
+                var ele = {
+                    name : obj[localConstant.PRODUCT],
+                    type : localConstant.PRODUCT
+                };
+                outputData.Product[obj[localConstant.PRODUCT]] = ele;
+            }
+            if(obj[localConstant.CONCEPT]){
+                if(!outputData.Concept)
+                    outputData.Concept = {};
+                var ele = {
+                    name : obj[localConstant.CONCEPT],
+                    type : localConstant.CONCEPT
+                };
+                outputData.Concept[obj[localConstant.CONCEPT]] = ele;
+            }
+        });
+        return outputData;
+    }
+
+    return OntologyParserService;
+});

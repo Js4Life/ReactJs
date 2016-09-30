@@ -115,17 +115,56 @@
 	},
 	"ceclComponentsByConcept" : {
 		"outputFormat":"table",
-		"source":"195",
-		"groupByField" : "connections",
+		"source":"223",
+		"groupByField" : "id",
 		"columns" :  [{
 			"name" : "connections",
-			"label" : "name"
+			"label" : "component"
 		},{
 			"name" : "Area",
-			"label" : "componentType"
+			"label" : "componentCategory"
 		},{
 			"name" : "mprp",
-			"label" : "elementID"
+			"label" : "componentId"
+		},{
+			"name" : "Product",
+			"label" : "product"
+		},{
+			"name" : "Segment",
+			"label" : "businesssegment"
+		}]
+	},
+	"ceclComponentsBySegment" : {
+		"outputFormat":"table",
+		"source":"221",
+		"groupByField" : "id",
+		"columns" :  [{
+			"name" : "conceptName",
+			"label" : "concept"
+		},{
+			"name" : "Component",
+			"label" : "component"
+		},{
+			"name" : "ComponentType",
+			"label" : "componentCategory"
+		},{
+			"name" : "Product",
+			"label" : "product"
+		}]
+	},
+	"ceclComponentsByComponent" : {
+		"outputFormat": "table",
+		"source": "222",
+		"groupByField": "id",
+		"columns": [{
+			"name" : "conceptName",
+			"label" : "concept"
+		},{
+			"name" : "Product",
+			"label" : "product"
+		},{
+			"name" : "Segment",
+			"label" : "businesssegment"
 		}]
 	},
 	"ceclTopicNodeDetails" : {
