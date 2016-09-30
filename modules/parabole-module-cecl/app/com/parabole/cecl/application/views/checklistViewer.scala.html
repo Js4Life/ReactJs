@@ -109,15 +109,15 @@
           <br />
           <div class="row zero-padding">
             <div class="col-md-2" ng-repeat="(k, v) in nodeDetails">
-              <div class="panel panel-default" ng-if="k==='Related Concept'">
+              @*<div class="panel panel-default" ng-if="k==='Related Concept'">
                 <div class="panel-heading">{{k}}</div>
                 <ul class="list-group" style="max-height: 40vh; overflow: auto;">
                   <li class="list-group-item pointer text-primary" ng-repeat="o in v" ng-click="getComponentsByConceptName(o.name)">{{o.name}}</li>
                 </ul>
-              </div>
-              <div class="panel panel-default" ng-if="k!='Related Concept'">
+              </div>*@
+              <div class="panel panel-default">
                 <div class="panel-heading">{{k}}</div>
-                <ul class="list-group" style="max-height: 40vh; overflow: auto;">
+                <ul class="list-group" style="max-height: 38vh; overflow: auto;">
                   <li class="list-group-item" ng-repeat="o in v">
                     <span tooltip='"title":"View Checklist", "placement":"right"' class="badge pointer" ng-click="getChecklistByComponentOnly(o)">?</span>
                     {{o.name}}
@@ -133,8 +133,8 @@
         <div class="legend">
           <div class="arrow concept"></div>
           <div class="bubble-title">Concept</div>
-          <div class="arrow component"></div>
-          <div class="bubble-title">Component</div>
+          <div class="arrow product"></div>
+          <div class="bubble-title">Product</div>
           <div class="arrow businessSegment"></div>
           <div class="bubble-title">Business Segment</div>
           <div class="arrow report"></div>

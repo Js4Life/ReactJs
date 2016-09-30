@@ -6,7 +6,7 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
-select ?mprp ?Component ?ComponentType ?conceptName ?Product ?Segment
+select ?mprp ?Component ?ComponentType ?conceptName ?Product ?Segment ?id
 where {
 {select *
 where {
@@ -45,7 +45,7 @@ bind(xsd:string ("Data Element") as ?ComponentType)}
 }}
 ?concept rdfs:label ?conceptName .
 ?mprp rdfs:label ?Component .
-FILTER(?mprp = pb:MMLGDModel)
+FILTER(?mprp = pb:AutoLGDModel)
 bind(rand() AS ?id).
 
 }

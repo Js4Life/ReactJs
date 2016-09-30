@@ -1092,7 +1092,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.initialize();
 })
 
-.controller('checklistViewerCtrl', function($scope, $rootScope, $state, $stateParams, $timeout, $http, SharedService, MockService){
+.controller('checklistViewerCtrl', function($scope, $rootScope, $state, $stateParams, $timeout, $http, SharedService, MockService, OntologyParserService){
 	$scope.initialize = function () {
 		$scope.isGridView = true;
 		$scope.showGraph = false;
@@ -1199,7 +1199,13 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				$scope.currentNode = _.findWhere($scope.childNodes, {"elementID": nodeId});
 				var compName = "ceclComponentsByConcept";
 				SharedService.getFilteredDataByCompName(compName, $scope.currentNode.name).then(function (data) {
-					prepareNodeDetails(data.data, "componentType");
+					$scope.nodeDetails = OntologyParserService.parseData(data.data);
+					console.log($scope.nodeDetails);
+					getGraphByConceptUri();
+					SharedService.getDescriptionByUri($scope.currentNode.elementID).then(function (description) {
+						$scope.currentNode.description = description;
+						$('#dsViewer').modal('show');
+					});
 				});
 				break;
 			case "ALL_COMPONENT" :
@@ -1210,9 +1216,20 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				});
 				break;
 			case "COMPONENT" :
-				$scope.currentNode = _.findWhere($scope.childNodes, {"elementID": nodeId});
+				/*$scope.currentNode = _.findWhere($scope.childNodes, {"elementID": nodeId});
 				SharedService.getRelatedComponentsByComponent(nodeId).then(function (data) {
 					prepareNodeDetails(angular.fromJson(data.data));
+				});*/
+				$scope.currentNode = _.findWhere($scope.childNodes, {"elementID": nodeId});
+				var compName = "ceclComponentsByComponent";
+				SharedService.getFilteredDataByCompName(compName, $scope.currentNode.name).then(function (data) {
+					$scope.nodeDetails = OntologyParserService.parseData(data.data);
+					console.log($scope.nodeDetails);
+					getGraphByConceptUri();
+					SharedService.getDescriptionByUri($scope.currentNode.elementID).then(function (description) {
+						$scope.currentNode.description = description;
+						$('#dsViewer').modal('show');
+					});
 				});
 				break;
 			case "ALL_BUSINESS_SEGMENT" :
@@ -1221,9 +1238,20 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				});
 				break;
 			case "BUSINESSSEGMENT" :
-				$scope.currentNode = _.findWhere($scope.childNodes, {"elementID": nodeId});
+				/*$scope.currentNode = _.findWhere($scope.childNodes, {"elementID": nodeId});
 				SharedService.getRelatedBusinessSegentsByBusinessSegment(nodeId).then(function (data) {
 					prepareNodeDetails(angular.fromJson(data.data));
+				});*/
+				$scope.currentNode = _.findWhere($scope.childNodes, {"elementID": nodeId});
+				var compName = "ceclComponentsBySegment";
+				SharedService.getFilteredDataByCompName(compName, $scope.currentNode.name).then(function (data) {
+					$scope.nodeDetails = OntologyParserService.parseData(data.data);
+					console.log($scope.nodeDetails);
+					getGraphByConceptUri();
+					SharedService.getDescriptionByUri($scope.currentNode.elementID).then(function (description) {
+						$scope.currentNode.description = description;
+						$('#dsViewer').modal('show');
+					});
 				});
 				break;
 		}
@@ -1245,7 +1273,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$scope.graphData = {nodes: [rootNode], edges: []};
 		angular.forEach($scope.nodeDetails, function (val, key) {
 			angular.forEach(val, function (aNode, idx) {
-				var node = {name: aNode.name, id: aNode.elementID, type: key.toLowerCase()};
+				var node = {name: aNode.name, id: aNode.id || aNode.name, type: aNode.type.toLowerCase()};
 				var edge = {from: rootNode.id, to: node.id};
 				$scope.graphData.nodes.push(node);
 				$scope.graphData.edges.push(edge);
