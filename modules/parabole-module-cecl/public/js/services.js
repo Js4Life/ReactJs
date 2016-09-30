@@ -94,6 +94,7 @@ angular.module('RDAApp.services', [])
         'GetAllConcepts' : 'getAllConcepts',
         'GetAllComponents' : 'getAllComponents',
         'GetAllBusinessSegments' : 'getAllBusinessSegments',
+        'GetAllProducts' : 'getAllProducts',
         'GetComponentTypesByParagraphIds' : 'getComponentTypesByParagraphIds',
         'SaveOrUpdateCheckList' : 'saveOrUpdateCheckList',
         'GetChecklistsByParagraphIds' : 'getChecklistsByParagraphIds',
@@ -715,6 +716,9 @@ angular.module('RDAApp.services', [])
     SharedService.getAllBusinessSegments = function () {
         return SharedService.invokeService('GetAllBusinessSegments');
     }
+    SharedService.getAllProducts = function () {
+        return SharedService.invokeService('GetAllProducts');
+    }
     SharedService.getComponentTypesByParagraphIds = function (paraIds) {
         var sendObj = {"paraIds": paraIds};
         return SharedService.invokeService('GetComponentTypesByParagraphIds', sendObj, 'post');
@@ -739,8 +743,16 @@ angular.module('RDAApp.services', [])
             case "BUSINESSSEGMENT" :
                 serviceName = "GetChecklistsByBussinessSegment";
                 break;
+            case "PRODUCT" :
+                serviceName = "GetChecklistsByProduct";
+
+                /*to be deleted*/
+                toastr.info('Feature coming soon..', '', {"positionClass" : "toast-top-right"});
+                return;
+                /*to be deleted*/
+                break;
         }
-        var sendObj = {"id": node.id};
+        var sendObj = {"id": node.id || node.elementID};
         return SharedService.invokeService(serviceName, sendObj, 'post');
     }
     SharedService.removeChecklistById = function (id) {

@@ -1067,6 +1067,11 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$state.go('landing.complianceDashboard.checklistViewer', {currentView: $scope.currentView});
 	}
 
+	$scope.goProductView = function () {
+		$scope.currentView = SharedService.currentView = 'ALL_PRODUCT';
+		$state.go('landing.complianceDashboard.checklistViewer', {currentView: $scope.currentView});
+	}
+
 	$scope.goBusinessSegmentView = function () {
 		$scope.currentView = SharedService.currentView = 'ALL_BUSINESS_SEGMENT';
 		$state.go('landing.complianceDashboard.checklistViewer', {currentView: $scope.currentView});
@@ -1253,6 +1258,14 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 						$('#dsViewer').modal('show');
 					});
 				});
+				break;
+			case "ALL_PRODUCT" :
+				SharedService.getAllProducts().then(function (data) {
+					$scope.childNodes = angular.fromJson(data.data);
+				});
+				break;
+			case "PRODUCT" :
+				toastr.info('Feature coming soon..', '', {"positionClass" : "toast-top-right"});
 				break;
 		}
 	}
