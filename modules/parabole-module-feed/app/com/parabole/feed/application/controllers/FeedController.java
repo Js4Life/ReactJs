@@ -57,8 +57,8 @@ public class FeedController extends BaseController{
 
     }
 
-    public Result saveSectionsFromParagraphJSon() throws Exception {
-        final String result = taggingUtilitiesServices.saveSectionsFromParagraphJSon();
+    public Result saveSectionsFromParagraphJSon(String file) throws Exception {
+        final String result = taggingUtilitiesServices.saveSectionsFromParagraphJSon(file);
         return ok(result);
     }
 

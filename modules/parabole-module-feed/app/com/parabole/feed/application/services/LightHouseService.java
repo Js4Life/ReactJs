@@ -256,7 +256,6 @@ public class LightHouseService {
 
 
     public ArrayList<HashMap<String, String>> getChecklistByBusinessSegment(ArrayList<String> ids) {
-
         ArrayList<String> listOFComponentTypes = new ArrayList<>();
         for (String id : ids) {
             ArrayList<HashMap<String, String>> checklistIDs = lightHouse.getRootVerticesByChildVertexId(id);
@@ -264,11 +263,22 @@ public class LightHouseService {
                 listOFComponentTypes.add(checklistID.get("elementID"));
             }
         }
-
         ArrayList<HashMap<String, String>> finalResult = getChecklistByComponent(listOFComponentTypes);
-
         return finalResult;
+    }
 
+
+    public ArrayList<HashMap<String, String>> getChecklistByProducts(ArrayList<String> ids) {
+        ArrayList<String> listOFBusinessSegments = new ArrayList<>();
+        for (String id : ids) {
+            ArrayList<HashMap<String, String>> checklistIDs = lightHouse.getRootVerticesByChildVertexId(id);
+            for (HashMap<String, String> checklistID : checklistIDs) {
+                if(checklistID.get("type").equalsIgnoreCase("BUSINESSSEGMENT"))
+                    listOFBusinessSegments.add(checklistID.get("elementID"));
+            }
+        }
+        ArrayList<HashMap<String, String>> finalResult = getChecklistByBusinessSegment(listOFBusinessSegments);
+        return finalResult;
     }
 
     ArrayList<String> getListOfChildComponentVerticesByRootVertices(ArrayList<String> listOfOfRootVertices){

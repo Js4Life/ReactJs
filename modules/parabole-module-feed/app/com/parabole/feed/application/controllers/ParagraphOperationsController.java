@@ -324,6 +324,14 @@ public class ParagraphOperationsController extends BaseController{
         return ok(lightHouseService.getChecklistByBusinessSegment(listOfComponetIds).toString());
     }
 
+    public Result getChecklistByProduct() {
+        ArrayList<String> listOfProductIds = new ArrayList<>();
+        listOfProductIds.add("http://www.mindparabole.com/ontology/finance/Parabole-Model#MachineryLease");
+        listOfProductIds.add("http://www.mindparabole.com/ontology/finance/Parabole-Model#BuildingLease");
+        listOfProductIds.add("http://www.mindparabole.com/ontology/finance/Parabole-Model#Repurchaseagreement");
+        return ok(lightHouseService.getChecklistByProducts(listOfProductIds).toString());
+    }
+
     public Result getChecklistDetailsForReport() {
         ArrayList<String> listOfCheckListIds = new ArrayList<>();
         listOfCheckListIds.add("9964fc0e-552a-4e3a-a33e-3ebd99636e33");

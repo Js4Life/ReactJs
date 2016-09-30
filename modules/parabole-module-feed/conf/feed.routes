@@ -61,6 +61,7 @@ GET /getChecklistsByComponentTypes                      com.parabole.feed.applic
 GET /getChecklistByConcept                              com.parabole.feed.application.controllers.ParagraphOperationsController.getChecklistByConcept
 GET /getChecklistByComponent                            com.parabole.feed.application.controllers.ParagraphOperationsController.getChecklistByComponent
 GET /getChecklistByBusinessSegment                      com.parabole.feed.application.controllers.ParagraphOperationsController.getChecklistByBusinessSegment
+GET /getChecklistByProduct                              com.parabole.feed.application.controllers.ParagraphOperationsController.getChecklistByProduct
 GET /getChecklistDetailsForReport                       com.parabole.feed.application.controllers.ParagraphOperationsController.getChecklistDetailsForReport
 GET /getParagraphTypeCounts                             com.parabole.feed.application.controllers.ParagraphOperationsController.getParagraphTypeCounts
 GET /getRelatedComponentsByComponent                    com.parabole.feed.application.controllers.ParagraphOperationsController.getRelatedComponentsByComponent
@@ -70,7 +71,7 @@ GET /getCompliedAndNotCompliedCounts                    com.parabole.feed.applic
 GET /addAnewVertexproperty                              com.parabole.feed.application.controllers.ParagraphOperationsController.addAnewVertexproperty()
 #~~~~~~
 GET /saveAllTopicsSubTopics/:fileName                   com.parabole.feed.application.controllers.FeedController.getAllTopicsSubTopics(fileName: String)
-GET /saveSectionsFromParagraphJSon                      com.parabole.feed.application.controllers.FeedController.saveSectionsFromParagraphJSon()
+GET /saveSectionsFromParagraphJSon/:filename            com.parabole.feed.application.controllers.FeedController.saveSectionsFromParagraphJSon(fileName: String)
 GET /createConceptNodesAndAssignParagraph/:filename     com.parabole.feed.application.controllers.FeedController.createConceptNodesFromParagraph(filename: String)
 GET /createComponentTypseAndAssignToConcept             com.parabole.feed.application.controllers.FeedController.createComponentTypseAndAssignToConcept()
 GET /createComponentAndAssignToComponentType            com.parabole.feed.application.controllers.FeedController.createComponentAndAssignToComponentType()
