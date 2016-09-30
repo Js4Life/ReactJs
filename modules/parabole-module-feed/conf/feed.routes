@@ -71,7 +71,7 @@ GET /getCompliedAndNotCompliedCounts                    com.parabole.feed.applic
 GET /addAnewVertexproperty                              com.parabole.feed.application.controllers.ParagraphOperationsController.addAnewVertexproperty()
 #~~~~~~
 GET /saveAllTopicsSubTopics/:fileName                   com.parabole.feed.application.controllers.FeedController.getAllTopicsSubTopics(fileName: String)
-GET /saveSectionsFromParagraphJSon/:filename            com.parabole.feed.application.controllers.FeedController.saveSectionsFromParagraphJSon(fileName: String)
+GET /saveSectionsFromParagraphJSon/:filename            com.parabole.feed.application.controllers.FeedController.saveSectionsFromParagraphJSon(filename: String)
 GET /createConceptNodesAndAssignParagraph/:filename     com.parabole.feed.application.controllers.FeedController.createConceptNodesFromParagraph(filename: String)
 GET /createComponentTypseAndAssignToConcept             com.parabole.feed.application.controllers.FeedController.createComponentTypseAndAssignToConcept()
 GET /createComponentAndAssignToComponentType            com.parabole.feed.application.controllers.FeedController.createComponentAndAssignToComponentType()
