@@ -7,7 +7,7 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
 
-SELECT ?Pro ?Product ?Segment
+SELECT ?Pro ?Product ?Segment ?Seg
 WHERE{
 ?comp pb:hasSegment ?Seg ;rdfs:label ?Component.
 ?Seg pb:hasProduct ?Pro;rdfs:label ?Segment.
