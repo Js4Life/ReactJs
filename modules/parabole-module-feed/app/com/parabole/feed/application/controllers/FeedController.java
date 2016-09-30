@@ -87,11 +87,11 @@ public class FeedController extends BaseController{
         return ok(resultData);
     }
 
-    public Result createConceptComponent() throws Exception {
+    /*public Result createConceptComponent() throws Exception {
 
         final String result = taggingUtilitiesServices.saveSectionsFromParagraphJSon();
         return ok(result);
 
-    }
+    }*/
 
 }
