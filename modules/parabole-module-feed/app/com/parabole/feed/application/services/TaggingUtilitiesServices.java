@@ -561,4 +561,26 @@ public class TaggingUtilitiesServices {
         }
         return jsonArray.toString();
     }
+
+
+
+    public String createProductAndAssignToBusinessSegment() throws Exception {
+
+        JSONObject allConceptNodesDetails = jenaTdbService.getFilteredDataByCompName("allProduct", null);
+        JSONArray jsonArray = allConceptNodesDetails.getJSONArray("data");
+
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject element = jsonArray.getJSONObject(i);
+            if (element.getString("segmentURI") != null && element.getString("productURI") != null) {
+                Map<String, String> nodeData = new HashMap<>();
+                nodeData.put("name", element.getString("productName"));
+                nodeData.put("type", "PRODUCT");
+                nodeData.put("elementID", element.getString("productURI"));
+                lightHouse.createNewVertex(nodeData);
+                lightHouse.establishEdgeByVertexIDs(element.getString("segmentURI"), element.getString("productURI"), "BusinessSegmentToProduct", "BusinessSegmentToProduct");
+            }
+        }
+
+        return jsonArray.toString();
+    }
 }

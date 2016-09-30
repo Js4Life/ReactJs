@@ -1,0 +1,15 @@
+PREFIX pb:<http://www.mindparabole.com/ontology/finance/Parabole-Model#>
+PREFIX pnc:<http://mindparabole.com/finance/pnc_cecl#>
+PREFIX cst:<http://mindparabole.com/finance/cecl_structure#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+
+SELECT ?Pro ?Product ?Segment ?Seg
+WHERE{
+?comp pb:hasSegment ?Seg ;rdfs:label ?Component.
+?Seg pb:hasProduct ?Pro;rdfs:label ?Segment.
+?Pro rdfs:label ?Product.
+}

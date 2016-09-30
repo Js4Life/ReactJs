@@ -136,6 +136,19 @@ public class LightHouseService {
         return result;
     }
 
+    public ArrayList<HashMap<String, String>> getAllProducts(){
+
+        String vertexType = "PRODUCT";
+
+        ArrayList<HashMap<String, String>> result=null;
+        try {
+            result = lightHouse.getAllvertex(vertexType);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
     public ArrayList<HashMap<String, String>> getAllVertexesByType(String vertexType){
 
         ArrayList<HashMap<String, String>> result=null;
@@ -184,10 +197,15 @@ public class LightHouseService {
     }
 
     public HashMap<String, String> getComponentTypesByParagraphIds(ArrayList<String> listOfParagraphIDs) {
-
         HashMap<String, String> componentTypes = lightHouse.getComponentTypeFromParagraphsIDS(listOfParagraphIDs);
-
         return componentTypes;
+    }
+
+    public HashMap<String, String> getProductByBusinessSegmentIds(ArrayList<String> listOfBusinessSegmentIDs) {
+
+        //HashMap<String, String> componentTypes = lightHouse.getProductByBusinessSegmentIds(listOfBusinessSegmentIDs);
+        // TODO
+        return null;
     }
 
     public ArrayList<HashMap<String, String>> getChecklistByConcept(String conceptID) {

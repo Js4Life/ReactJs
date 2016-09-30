@@ -247,6 +247,11 @@ public class ParagraphOperationsController extends BaseController{
         return ok(lightHouseService.getAllConcepts().toString());
     }
 
+    public Result getAllProducts() {
+
+        return ok(lightHouseService.getAllProducts().toString());
+    }
+
     public Result getSubtopicsByTopicId(String topicId) {
 
         return ok(lightHouseService.getSubtopicsByTopicId(topicId).toString());
@@ -276,6 +281,12 @@ public class ParagraphOperationsController extends BaseController{
         ArrayList<String> listOfParagraphIDs = new ArrayList<>();
         listOfParagraphIDs.add("326-10-65-1");
         return ok(lightHouseService.getComponentTypesByParagraphIds(listOfParagraphIDs).toString());
+    }
+
+    public Result getProductByBusinessSegmentIds() {
+        ArrayList<String> listOfBusinessSegmentIDs = new ArrayList<>();
+        //listOfBusinessSegmentIDs.add("326-10-65-1");
+        return ok(lightHouseService.getProductByBusinessSegmentIds(listOfBusinessSegmentIDs).toString());
     }
 
     public Result getChecklistByID() {
