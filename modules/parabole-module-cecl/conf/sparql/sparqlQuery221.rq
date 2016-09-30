@@ -7,7 +7,7 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
 
-select ?seg ?conceptName ?Product ?Component ?ComponentType ?id
+select ?uri ?seg ?concept ?conceptName ?pro ?Product ?mprp ?Component ?ComponentType ?id
 where {
 {select *
 where {
@@ -41,7 +41,8 @@ bind(xsd:string ("Data Element") as ?ComponentType)}
 ?concept rdfs:label ?conceptName .
 ?mprp rdfs:label ?Component .
 ?pro rdfs:label ?Product.
-FILTER(?seg = pb:WholesaleFinance)
+BIND(xsd:string(CONCAT(afn:namespace(?seg),afn:localname(?seg))) as ?uri)
+FILTER(?uri = "http://www.mindparabole.com/ontology/finance/Parabole-Model#WholesaleFinance")
 bind(rand() AS ?id).
 
 }
