@@ -339,7 +339,7 @@ public class LightHouse extends GraphDb {
                 finalData.put("type", v.getProperty("type"));
                 listOfFinalData.add(finalData);
             }
-
+            graph.commit();
         }catch( Exception e ) {
             graph.rollback();
         } finally {
