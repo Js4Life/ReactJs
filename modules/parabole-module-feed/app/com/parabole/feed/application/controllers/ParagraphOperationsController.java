@@ -370,5 +370,17 @@ public class ParagraphOperationsController extends BaseController{
         return ok(lightHouseService.getChecklistBySection(sections).toString());
     }
 
+    public Result getChecklistBySubTopic() {
+        ArrayList<String> subTopics = new ArrayList<>();
+        subTopics.add("326-20");
+        return ok(lightHouseService.getChecklistBySubTopic(subTopics).toString());
+    }
+
+    public Result getChecklistByTopic() {
+        ArrayList<String> topics = new ArrayList<>();
+        topics.add("326");
+        return ok(lightHouseService.getChecklistByTopic(topics).toString());
+    }
+
 
 }

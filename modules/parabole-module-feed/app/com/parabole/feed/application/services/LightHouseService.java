@@ -224,6 +224,32 @@ public class LightHouseService {
         return getChecklistsByParagraphIDs(listOfOfChecklist);
     }
 
+
+    public ArrayList<HashMap<String, String>> getChecklistBySubTopic(ArrayList<String> subTopicIDs) {
+        ArrayList<String> listOfSections = new ArrayList<>();
+        for (String subTopicID : subTopicIDs) {
+            ArrayList<HashMap<String, String>> sections = lightHouse.getChildVerticesByRootVertexId(subTopicID);
+            for (HashMap<String, String> section : sections) {
+                if(section.get("type").equals("SECTION"));
+                listOfSections.add(section.get("elementID"));
+            }
+        }
+        return getChecklistBySection(listOfSections);
+    }
+
+
+    public ArrayList<HashMap<String, String>> getChecklistByTopic(ArrayList<String> topicIDs) {
+        ArrayList<String> listOfSubTopic = new ArrayList<>();
+        for (String topicID : topicIDs) {
+            ArrayList<HashMap<String, String>> subTopics = lightHouse.getChildVerticesByRootVertexId(topicID);
+            for (HashMap<String, String> subTopic : subTopics) {
+                if(subTopic.get("type").equals("SUBTOPIC"));
+                listOfSubTopic.add(subTopic.get("elementID"));
+            }
+        }
+        return getChecklistBySection(listOfSubTopic);
+    }
+
     public ArrayList<HashMap<String, String>> getChecklistsByComponentTypes(ArrayList<String> conceptIDs) {
         ArrayList<String> listOfOfChecklist = new ArrayList<>();
         for (String conceptID : conceptIDs) {
