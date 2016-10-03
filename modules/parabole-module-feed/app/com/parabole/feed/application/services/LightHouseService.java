@@ -247,7 +247,7 @@ public class LightHouseService {
                 listOfSubTopic.add(subTopic.get("elementID"));
             }
         }
-        return getChecklistBySection(listOfSubTopic);
+        return getChecklistBySubTopic(listOfSubTopic);
     }
 
     public ArrayList<HashMap<String, String>> getChecklistsByComponentTypes(ArrayList<String> conceptIDs) {
