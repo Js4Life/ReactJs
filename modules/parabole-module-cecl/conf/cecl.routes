@@ -127,4 +127,7 @@ POST /getChecklistsByComponent                      com.parabole.cecl.applicatio
 POST /getChecklistsByBussinessSegment               com.parabole.cecl.application.controllers.CeclController.getChecklistsByBussinessSegment()
 POST /removeChecklistById                           com.parabole.cecl.application.controllers.CeclController.removeChecklistById()
 POST /checklistDetailsByIds                         com.parabole.cecl.application.controllers.CeclController.checklistDetailsByIds()
-GET /getCompliedAndNotCompliedChecklistCounts      com.parabole.cecl.application.controllers.CeclController.getCompliedAndNotCompliedChecklistCounts()
+GET /getCompliedAndNotCompliedChecklistCounts       com.parabole.cecl.application.controllers.CeclController.getCompliedAndNotCompliedChecklistCounts()
+POST /getChecklistBySection                         com.parabole.cecl.application.controllers.CeclController.getChecklistBySection()
+POST /getChecklistBySubtopic                        com.parabole.cecl.application.controllers.CeclController.getChecklistBySubtopic()
+POST /getChecklistByTopic                           com.parabole.cecl.application.controllers.CeclController.getChecklistByTopic()

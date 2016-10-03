@@ -106,7 +106,11 @@ angular.module('RDAApp.services', [])
         'GetParagraphCountsByTags' : 'getParagraphCountsByTags',
         'GetRelatedComponentsByComponent' : 'getRelatedComponentsByComponent',
         'GetRelatedBusinessSegentsByBusinessSegment' : 'getRelatedBusinessSegentsByBusinessSegment',
-        'GetCompliedAndNotCompliedChecklistCounts' : 'getCompliedAndNotCompliedChecklistCounts'
+        'GetCompliedAndNotCompliedChecklistCounts' : 'getCompliedAndNotCompliedChecklistCounts',
+
+        'GetChecklistBySection' : 'getChecklistBySection',
+        'GetChecklistBySubtopic' : 'getChecklistBySubtopic',
+        'GetChecklistByTopic' : 'getChecklistByTopic'
     };
     SharedService.chartDataMap = {
         '0' : 'getHardCodedResponse/chartData1',
@@ -753,6 +757,15 @@ angular.module('RDAApp.services', [])
                 toastr.info('Feature coming soon..', '', {"positionClass" : "toast-top-right"});
                 return;
                 /*to be deleted*/
+                break;
+            case "SECTION" :
+                serviceName = "GetChecklistBySection";
+                break;
+            case "SUBTOPIC" :
+                serviceName = "GetChecklistBySubtopic";
+                break;
+            case "TOPIC" :
+                serviceName = "GetChecklistByTopic";
                 break;
         }
         var sendObj = {"id": node.id || node.elementID};
