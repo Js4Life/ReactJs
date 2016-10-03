@@ -365,7 +365,9 @@ public class ParagraphOperationsController extends BaseController{
     }
 
     public Result getChecklistBySection() {
-        return ok(lightHouseService.getChecklistBySection("326-20-35").toString());
+        ArrayList<String> sections = new ArrayList<>();
+        sections.add("326-20-35");
+        return ok(lightHouseService.getChecklistBySection(sections).toString());
     }
 
 

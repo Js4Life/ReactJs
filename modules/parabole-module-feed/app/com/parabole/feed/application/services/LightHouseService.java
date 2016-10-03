@@ -209,18 +209,20 @@ public class LightHouseService {
 
         //getListOfChildComponentTypeVerticesByRootVertices(getListOfChildComponentVerticesByRootVertices(listOfOfChecklist));
         return getChecklistsByComponentTypes(listOfOfChecklist);
-
     }
 
-    public ArrayList<HashMap<String, String>> getChecklistBySection(String sectionID) {
+
+    public ArrayList<HashMap<String, String>> getChecklistBySection(ArrayList<String> sectionIDs) {
 
         ArrayList<String> listOfOfChecklist = new ArrayList<>();
         ArrayList<HashMap<String, String>> componentTypes = lightHouse.getChildVerticesByRootVertexId(sectionID);
-        for (HashMap<String, String> componentType : componentTypes) {
-            if(componentType.get("type").equals("PARAGRAPH"));
+        for (String sectionID : sectionIDs) {
+            for (HashMap<String, String> componentType : componentTypes) {
+                if(componentType.get("type").equals("PARAGRAPH"));
                 listOfOfChecklist.add(componentType.get("elementID"));
-                System.out.println("componentType.get(\"elementID\") = " + componentType.get("elementID"));
+            }
         }
+
 
         return getChecklistsByParagraphIDs(listOfOfChecklist);
 
