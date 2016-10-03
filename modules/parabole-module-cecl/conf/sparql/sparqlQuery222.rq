@@ -5,6 +5,7 @@ PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX afn: <http://jena.apache.org/ARQ/function#>
 
 select ?uri ?mprp ?Component ?ComponentType ?concept  ?conceptName ?pro ?Product ?seg ?Segment ?id
 where {
@@ -46,7 +47,8 @@ bind(xsd:string ("Data Element") as ?ComponentType)}
 ?concept rdfs:label ?conceptName .
 ?mprp rdfs:label ?Component .
 BIND(xsd:string(CONCAT(afn:namespace(?mprp),afn:localname(?mprp))) as ?uri)
-FILTER(?uri = "http://www.mindparabole.com/ontology/finance/Parabole-Model#AutoLGDModel")
+FILTER(?uri = $$FILTERS$$)
+#FILTER(?uri = "http://www.mindparabole.com/ontology/finance/Parabole-Model#AutoLGDModel")
 bind(rand() AS ?id).
 
 }

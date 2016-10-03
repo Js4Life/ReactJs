@@ -737,6 +737,9 @@ angular.module('RDAApp.services', [])
             case "CONCEPT" :
                 serviceName = "GetChecklistsByConcept";
                 break;
+            case "Model" :
+            case "Report" :
+            case "Policy" :
             case "COMPONENT" :
                 serviceName = "GetChecklistsByComponent";
                 break;
@@ -1774,6 +1777,7 @@ angular.module('RDAApp.services', [])
 
     var localConstant = {
         "CONCEPT" : "concept",
+        "CONCEPT_ID" : "conceptId",
         "COMPONENT" : "component",
         "COMPONENT_ID" : "componentId",
         "COMPONENT_CATEGORY" : "componentCategory",
@@ -1783,7 +1787,9 @@ angular.module('RDAApp.services', [])
             "POLICY" : "Policy"
         },
         "PRODUCT" : "product",
-        "SEGMENT" : "businesssegment"
+        "PRODUCT_ID" : "productId",
+        "SEGMENT" : "businesssegment",
+        "SEGMENT_ID" : "businesssegmentId"
     }
 
     OntologyParserService.parseData = function (inputData) {
@@ -1818,8 +1824,9 @@ angular.module('RDAApp.services', [])
                 if(!outputData.Segment)
                     outputData.Segment = {};
                 var ele = {
+                    id : obj[localConstant.SEGMENT_ID],
                     name : obj[localConstant.SEGMENT],
-                    type : localConstant.SEGMENT
+                    type : localConstant.SEGMENT.toUpperCase()
                 };
                 outputData.Segment[obj[localConstant.SEGMENT]] = ele;
             }
@@ -1827,8 +1834,9 @@ angular.module('RDAApp.services', [])
                 if(!outputData.Product)
                     outputData.Product = {};
                 var ele = {
+                    id : obj[localConstant.PRODUCT_ID],
                     name : obj[localConstant.PRODUCT],
-                    type : localConstant.PRODUCT
+                    type : localConstant.PRODUCT.toUpperCase()
                 };
                 outputData.Product[obj[localConstant.PRODUCT]] = ele;
             }
@@ -1836,8 +1844,9 @@ angular.module('RDAApp.services', [])
                 if(!outputData.Concept)
                     outputData.Concept = {};
                 var ele = {
+                    id : obj[localConstant.CONCEPT_ID],
                     name : obj[localConstant.CONCEPT],
-                    type : localConstant.CONCEPT
+                    type : localConstant.CONCEPT.toUpperCase()
                 };
                 outputData.Concept[obj[localConstant.CONCEPT]] = ele;
             }

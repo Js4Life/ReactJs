@@ -1203,7 +1203,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				});*/
 				$scope.currentNode = _.findWhere($scope.childNodes, {"elementID": nodeId});
 				var compName = "ceclComponentsByConcept";
-				SharedService.getFilteredDataByCompName(compName, $scope.currentNode.name).then(function (data) {
+				SharedService.getFilteredDataByCompName(compName, nodeId).then(function (data) {
 					$scope.nodeDetails = OntologyParserService.parseData(data.data);
 					console.log($scope.nodeDetails);
 					getGraphByConceptUri();
@@ -1227,7 +1227,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				});*/
 				$scope.currentNode = _.findWhere($scope.childNodes, {"elementID": nodeId});
 				var compName = "ceclComponentsByComponent";
-				SharedService.getFilteredDataByCompName(compName, $scope.currentNode.name).then(function (data) {
+				SharedService.getFilteredDataByCompName(compName, nodeId).then(function (data) {
 					$scope.nodeDetails = OntologyParserService.parseData(data.data);
 					console.log($scope.nodeDetails);
 					getGraphByConceptUri();
@@ -1249,7 +1249,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				});*/
 				$scope.currentNode = _.findWhere($scope.childNodes, {"elementID": nodeId});
 				var compName = "ceclComponentsBySegment";
-				SharedService.getFilteredDataByCompName(compName, $scope.currentNode.name).then(function (data) {
+				SharedService.getFilteredDataByCompName(compName, nodeId).then(function (data) {
 					$scope.nodeDetails = OntologyParserService.parseData(data.data);
 					console.log($scope.nodeDetails);
 					getGraphByConceptUri();
@@ -1350,6 +1350,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				if($scope.checkList.length > 0) {
 					populateAnswers($scope.checkList);
 					recalculateCompliance();
+					$('#dsViewer').modal('hide');
 					$('#checklistModal').modal('show');
 				} else
 					toastr.warning('No Checklist available..', '', {"positionClass" : "toast-top-right"});
@@ -1361,22 +1362,6 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		var checkedQuestions = _.omit($scope.answers, function(v) {return !v;});
 		var aCount = _.size(checkedQuestions);
 		$scope.currentNode.compliance = Math.floor((aCount*100)/qCount);
-	}
-
-	$scope.getChecklistByComponentOnly = function (node) {
-		node.type = 'COMPONENT';
-		SharedService.getChecklistByNodeId(node).then(function (data) {
-			if(data.status){
-				$scope.currentNode = node;
-				$scope.checkList = removeEmptyAndUnique(angular.fromJson(data.data));
-				populateAnswers($scope.checkList);
-				if($scope.checkList.length > 0) {
-					$('#dsViewer').modal('hide');
-					$('#checklistModal').modal('show');
-				} else
-					toastr.warning('No Checklist available..', '', {"positionClass" : "toast-top-right"});
-			}
-		})
 	}
 
 	function removeEmptyAndUnique(objList) {

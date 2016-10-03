@@ -130,8 +130,14 @@
 			"name" : "Product",
 			"label" : "product"
 		},{
+			"name" : "pro",
+			"label" : "productId"
+		},{
 			"name" : "Segment",
 			"label" : "businesssegment"
+		},{
+			"name" : "seg",
+			"label" : "businesssegmentId"
 		}]
 	},
 	"ceclComponentsBySegment" : {
@@ -142,14 +148,23 @@
 			"name" : "conceptName",
 			"label" : "concept"
 		},{
+			"name" : "concept",
+			"label" : "conceptId"
+		},{
 			"name" : "Component",
 			"label" : "component"
+		},{
+			"name" : "mprp",
+			"label" : "componentId"
 		},{
 			"name" : "ComponentType",
 			"label" : "componentCategory"
 		},{
 			"name" : "Product",
 			"label" : "product"
+		},{
+			"name" : "pro",
+			"label" : "productId"
 		}]
 	},
 	"ceclComponentsByComponent" : {
@@ -160,11 +175,20 @@
 			"name" : "conceptName",
 			"label" : "concept"
 		},{
+			"name" : "concept",
+			"label" : "conceptId"
+		},{
 			"name" : "Product",
 			"label" : "product"
 		},{
+			"name" : "pro",
+			"label" : "productId"
+		},{
 			"name" : "Segment",
 			"label" : "businesssegment"
+		},{
+			"name" : "seg",
+			"label" : "businesssegmentId"
 		}]
 	},
 	"ceclTopicNodeDetails" : {
