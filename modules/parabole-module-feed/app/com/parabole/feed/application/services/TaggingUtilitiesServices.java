@@ -380,9 +380,18 @@ public class TaggingUtilitiesServices {
     }
 
 
-    public String saveSectionsFromParagraphJSon() throws Exception {
+    public String saveSectionsFromParagraphJSon(String file) throws Exception {
 
-        String jsonFileContent = AppUtils.getFileContent("feedJson/paragraphs.json");
+        String jsonFileContent= null;
+        try {
+            jsonFileContent = taggerTest.startExtraction(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\" + file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        jsonFileContent.replace("�", "'");
+
+        //String jsonFileContent = AppUtils.getFileContent("feedJson/paragraphs.json");
         JSONObject jsonObject = new JSONObject(jsonFileContent);
         JSONObject finalObj = new JSONObject();
         JSONObject paragraphJSON = jsonObject.getJSONObject("paragraphs");

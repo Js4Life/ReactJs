@@ -6,8 +6,8 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
-select ?concept ?Area ?connections ?mprp ?id
- ?Product ?Segment
+SELECT ?uri ?con ?concept ?Area ?connections ?mprp ?id
+?pro  ?Product  ?seg ?Segment
 where {
 {select *
 where {
@@ -50,10 +50,11 @@ union
 bind(xsd:string ("Related Concept") as ?Area)}
 }}
 ?con rdfs:label ?concept .
+BIND(xsd:string(CONCAT(afn:namespace(?con),afn:localname(?con))) AS ?uri)
 ?mprp rdfs:label ?connections .
 bind(rand() AS ?id).
-filter (?concept = $$FILTERS$$)
-#filter (?concept = "Accounting Adjustment")
+
+FILTER (?uri = "http://mindparabole.com/finance/fasb_concepts#AccountingAdjustment")
 
 }
 

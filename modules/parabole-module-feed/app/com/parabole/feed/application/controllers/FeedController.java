@@ -57,8 +57,8 @@ public class FeedController extends BaseController{
 
     }
 
-    public Result saveSectionsFromParagraphJSon() throws Exception {
-        final String result = taggingUtilitiesServices.saveSectionsFromParagraphJSon();
+    public Result saveSectionsFromParagraphJSon(String filename) throws Exception {
+        final String result = taggingUtilitiesServices.saveSectionsFromParagraphJSon(filename);
         return ok(result);
     }
 
@@ -87,11 +87,11 @@ public class FeedController extends BaseController{
         return ok(resultData);
     }
 
-    public Result createConceptComponent() throws Exception {
+    /*public Result createConceptComponent() throws Exception {
 
         final String result = taggingUtilitiesServices.saveSectionsFromParagraphJSon();
         return ok(result);
 
-    }
+    }*/
 
 }

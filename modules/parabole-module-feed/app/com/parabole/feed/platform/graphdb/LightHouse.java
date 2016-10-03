@@ -333,10 +333,11 @@ public class LightHouse extends GraphDb {
             verticesData = graph.getVertices("type", vertexType);
 
             for (Vertex v : verticesData) {
+                Set<String> propertyKeys = v.getPropertyKeys();
                 HashMap<String, String> finalData = new HashMap<>();
-                finalData.put("elementID", v.getProperty("elementID"));
-                finalData.put("name", v.getProperty("name"));
-                finalData.put("type", v.getProperty("type"));
+                for (String propertyKey : propertyKeys) {
+                    finalData.put(propertyKey, v.getProperty(propertyKey));
+                }
                 listOfFinalData.add(finalData);
             }
             graph.commit();
