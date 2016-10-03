@@ -213,19 +213,15 @@ public class LightHouseService {
 
 
     public ArrayList<HashMap<String, String>> getChecklistBySection(ArrayList<String> sectionIDs) {
-
         ArrayList<String> listOfOfChecklist = new ArrayList<>();
-        ArrayList<HashMap<String, String>> componentTypes = lightHouse.getChildVerticesByRootVertexId(sectionID);
         for (String sectionID : sectionIDs) {
+            ArrayList<HashMap<String, String>> componentTypes = lightHouse.getChildVerticesByRootVertexId(sectionID);
             for (HashMap<String, String> componentType : componentTypes) {
                 if(componentType.get("type").equals("PARAGRAPH"));
                 listOfOfChecklist.add(componentType.get("elementID"));
             }
         }
-
-
         return getChecklistsByParagraphIDs(listOfOfChecklist);
-
     }
 
     public ArrayList<HashMap<String, String>> getChecklistsByComponentTypes(ArrayList<String> conceptIDs) {
