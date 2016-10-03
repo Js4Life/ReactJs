@@ -13,20 +13,9 @@
 // =============================================================================
 package com.parabole.feed.application.services;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.parabole.feed.application.global.CCAppConstants;
-import com.parabole.feed.platform.AppConstants;
-import com.parabole.feed.platform.assimilation.*;
-import com.parabole.feed.platform.exceptions.AppException;
-import com.parabole.feed.platform.graphdb.Biota;
-import com.parabole.feed.platform.graphdb.GraphDbLinkDefinition;
 import com.parabole.feed.platform.graphdb.LightHouse;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import play.Logger;
 
 import java.io.IOException;
 import java.util.*;
@@ -223,6 +212,20 @@ public class LightHouseService {
 
     }
 
+    public ArrayList<HashMap<String, String>> getChecklistBySection(String sectionID) {
+
+        ArrayList<String> listOfOfChecklist = new ArrayList<>();
+        ArrayList<HashMap<String, String>> componentTypes = lightHouse.getChildVerticesByRootVertexId(sectionID);
+        for (HashMap<String, String> componentType : componentTypes) {
+            if(componentType.get("type").equals("PARAGRAPH"));
+                listOfOfChecklist.add(componentType.get("elementID"));
+                System.out.println("componentType.get(\"elementID\") = " + componentType.get("elementID"));
+        }
+
+        return getChecklistsByParagraphIDs(listOfOfChecklist);
+
+    }
+
     public ArrayList<HashMap<String, String>> getChecklistsByComponentTypes(ArrayList<String> conceptIDs) {
         ArrayList<String> listOfOfChecklist = new ArrayList<>();
         for (String conceptID : conceptIDs) {
@@ -237,6 +240,20 @@ public class LightHouseService {
 
     }
 
+    public ArrayList<HashMap<String, String>> getChecklistsByParagraphIDs(ArrayList<String> paragraphIDs) {
+        ArrayList<String> listOfOfChecklist = new ArrayList<>();
+        for (String paragraphID : paragraphIDs) {
+            ArrayList<HashMap<String, String>> checklistIDs = lightHouse.getChildVerticesByRootVertexId(paragraphID);
+            for (HashMap<String, String> checklistID : checklistIDs) {
+                if(checklistID.get("type").equalsIgnoreCase("CHECKLIST"))
+                listOfOfChecklist.add(checklistID.get("elementID"));
+            }
+        }
+        ArrayList<HashMap<String, String>> finalResult = starfishServices.getChecklistByID(listOfOfChecklist);
+        return finalResult;
+
+    }
+
     public ArrayList<HashMap<String, String>> getChecklistByComponent(ArrayList<String> ids) {
 
         ArrayList<String> listOFComponentTypes = new ArrayList<>();
@@ -247,9 +264,7 @@ public class LightHouseService {
                 listOFComponentTypes.add(checklistID.get("elementID"));
             }
         }
-
         ArrayList<HashMap<String, String>> finalResult = getChecklistsByComponentTypes(listOFComponentTypes);
-
         return finalResult;
 
     }

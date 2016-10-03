@@ -364,5 +364,9 @@ public class ParagraphOperationsController extends BaseController{
         return ok(lightHouseService.getChecklistByConcept("http://mindparabole.com/finance/fasb_concepts#ValuationAllowance").toString());
     }
 
+    public Result getChecklistBySection() {
+        return ok(lightHouseService.getChecklistBySection("326-20-35").toString());
+    }
+
 
 }

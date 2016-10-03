@@ -59,6 +59,7 @@ GET /getChecklistByID                                   com.parabole.feed.applic
 GET /getChecklistsByParagraphs                          com.parabole.feed.application.controllers.ParagraphOperationsController.getChecklistsByParagraphs
 GET /getChecklistsByComponentTypes                      com.parabole.feed.application.controllers.ParagraphOperationsController.getChecklistsByComponentTypes
 GET /getChecklistByConcept                              com.parabole.feed.application.controllers.ParagraphOperationsController.getChecklistByConcept
+GET /getChecklistBySection                              com.parabole.feed.application.controllers.ParagraphOperationsController.getChecklistBySection
 GET /getChecklistByComponent                            com.parabole.feed.application.controllers.ParagraphOperationsController.getChecklistByComponent
 GET /getChecklistByBusinessSegment                      com.parabole.feed.application.controllers.ParagraphOperationsController.getChecklistByBusinessSegment
 GET /getChecklistByProduct                              com.parabole.feed.application.controllers.ParagraphOperationsController.getChecklistByProduct
