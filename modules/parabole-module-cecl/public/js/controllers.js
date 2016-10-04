@@ -701,6 +701,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$scope.paragraphs = SharedService.paragraphs;
 		setParagraphTags();
 		$scope.masterComponentTypes = {};
+		$scope.attachments = [];
 	}
 
 	function setParagraphTags() {
@@ -905,9 +906,12 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				data : dataUrl,
 				checklistId : $scope.checklistItem.id
 			}
-			/*SharedService.uploadAttachmentByChecklistId(fileData).then(function (data) {
-
-			});*/
+			SharedService.uploadAttachmentByChecklistId(fileData).then(function (data) {
+				if(data.status){
+					fileData.id = data.data;
+					$scope.attachments.push(fileData);
+				}
+			});
 		});
 	});
 
