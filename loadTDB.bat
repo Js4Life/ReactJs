@@ -82,4 +82,8 @@ CALL tdbloader --loc=tdb   %ONTOLOGY_LOC%/pnc_cecl.rdf
 ECHO =====================================================
 CALL tdbloader --loc=tdb   %ONTOLOGY_LOC%/fasb_concepts.rdf
 ECHO =====================================================
+CALL tdbloader --loc=tdb   %ONTOLOGY_LOC%/basel_glossary.rdf
+ECHO =====================================================
+CALL tdbloader --loc=tdb   %ONTOLOGY_LOC%/basel_vanilla.rdf
+ECHO =====================================================
  

@@ -338,7 +338,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.iniitialize();
 
 	$scope.getChecklistByNode = function (node) {
-		$scope.currentNode = node;
+		/*$scope.currentNode = node;
 		if(node.type === "Paragraph"){
 			SharedService.getChecklistByParagraphId(node.name).then(function (data) {
 				var status = data.data.status;
@@ -361,7 +361,20 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 					toastr.warning('No checklist found for ' + node.name);
 				}
 			});
-		}
+		}*/
+		SharedService.getChecklistByNodeId(node).then(function (data) {
+			if(data.status){
+				$scope.currentNode = node;
+				$scope.checkList = removeEmptyAndUnique(angular.fromJson(data.data));
+				if($scope.checkList.length > 0) {
+					populateAnswers($scope.checkList);
+					recalculateCompliance();
+					$('#dsViewer').modal('hide');
+					$('#checklistModal').modal('show');
+				} else
+					toastr.warning('No Checklist available..', '', {"positionClass" : "toast-top-right"});
+			}
+		});
 	}
 
 	$scope.saveAnswers = function () {
@@ -1203,7 +1216,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				});*/
 				$scope.currentNode = _.findWhere($scope.childNodes, {"elementID": nodeId});
 				var compName = "ceclComponentsByConcept";
-				SharedService.getFilteredDataByCompName(compName, $scope.currentNode.name).then(function (data) {
+				SharedService.getFilteredDataByCompName(compName, nodeId).then(function (data) {
 					$scope.nodeDetails = OntologyParserService.parseData(data.data);
 					console.log($scope.nodeDetails);
 					getGraphByConceptUri();
@@ -1227,7 +1240,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				});*/
 				$scope.currentNode = _.findWhere($scope.childNodes, {"elementID": nodeId});
 				var compName = "ceclComponentsByComponent";
-				SharedService.getFilteredDataByCompName(compName, $scope.currentNode.name).then(function (data) {
+				SharedService.getFilteredDataByCompName(compName, nodeId).then(function (data) {
 					$scope.nodeDetails = OntologyParserService.parseData(data.data);
 					console.log($scope.nodeDetails);
 					getGraphByConceptUri();
@@ -1249,7 +1262,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				});*/
 				$scope.currentNode = _.findWhere($scope.childNodes, {"elementID": nodeId});
 				var compName = "ceclComponentsBySegment";
-				SharedService.getFilteredDataByCompName(compName, $scope.currentNode.name).then(function (data) {
+				SharedService.getFilteredDataByCompName(compName, nodeId).then(function (data) {
 					$scope.nodeDetails = OntologyParserService.parseData(data.data);
 					console.log($scope.nodeDetails);
 					getGraphByConceptUri();
@@ -1350,33 +1363,18 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				if($scope.checkList.length > 0) {
 					populateAnswers($scope.checkList);
 					recalculateCompliance();
+					$('#dsViewer').modal('hide');
 					$('#checklistModal').modal('show');
 				} else
 					toastr.warning('No Checklist available..', '', {"positionClass" : "toast-top-right"});
 			}
-		})
+		});
 	}
 	function recalculateCompliance() {
 		var qCount = _.size($scope.checkList);
 		var checkedQuestions = _.omit($scope.answers, function(v) {return !v;});
 		var aCount = _.size(checkedQuestions);
 		$scope.currentNode.compliance = Math.floor((aCount*100)/qCount);
-	}
-
-	$scope.getChecklistByComponentOnly = function (node) {
-		node.type = 'COMPONENT';
-		SharedService.getChecklistByNodeId(node).then(function (data) {
-			if(data.status){
-				$scope.currentNode = node;
-				$scope.checkList = removeEmptyAndUnique(angular.fromJson(data.data));
-				populateAnswers($scope.checkList);
-				if($scope.checkList.length > 0) {
-					$('#dsViewer').modal('hide');
-					$('#checklistModal').modal('show');
-				} else
-					toastr.warning('No Checklist available..', '', {"positionClass" : "toast-top-right"});
-			}
-		})
 	}
 
 	function removeEmptyAndUnique(objList) {
