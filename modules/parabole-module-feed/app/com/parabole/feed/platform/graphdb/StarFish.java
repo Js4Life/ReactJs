@@ -121,10 +121,10 @@ public class StarFish extends GraphDb {
             final List<ODocument> results = dbNoTx.command(query).execute();
             results.forEach((final ODocument result) -> {
                 final Map<String, String> outputMap = new HashMap<String, String>();
-                final String configurationNameCollected = result.field("DATA_ID");
-                final String configurationDetails = result.field("TEXT");
-                outputMap.put("name", configurationNameCollected);
-                outputMap.put("details", configurationDetails);
+                String[] properties = result.fieldNames();
+                for (String property : properties) {
+                    outputMap.put(property, result.field(property));
+                }
                 outputList.add(outputMap);
             });
             return (outputList);
