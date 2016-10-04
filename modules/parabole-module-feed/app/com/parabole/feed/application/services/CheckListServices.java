@@ -440,12 +440,12 @@ public class CheckListServices {
     }
 
     public String saveOrUpdateCheckListAttachment(HashMap<String, Object> toSave) {
-
-        toSave.put("data_id", getUniqueID());
+        String data_id = getUniqueID();
+        toSave.put("data_id", data_id);
         toSave.put("created_by", session().get("USER_ID"));
         toSave.put("created_at", new Date());
-        return starFish.saveOrUpdateCheckListAttachment(toSave);
-
+        starFish.saveOrUpdateCheckListAttachment(toSave);
+        return data_id;
     }
 
 
