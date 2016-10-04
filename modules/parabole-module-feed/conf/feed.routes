@@ -85,6 +85,8 @@ GET /createProductAndAssignToBusinessSegment            com.parabole.feed.applic
 ## Check List Operation Test
 #---------------------------------------
 GET /saveOrUpdateCheckList                             com.parabole.feed.application.controllers.ParagraphOperationsController.saveOrUpdateCheckList()
+GET /saveOrUpdateCheckListAttachment                   com.parabole.feed.application.controllers.ParagraphOperationsController.saveOrUpdateCheckListAttachment()
+GET /getCheckListAttachmentById                        com.parabole.feed.application.controllers.ParagraphOperationsController.getCheckListAttachmentById()
 GET /getCheckListById                                  com.parabole.feed.application.controllers.ParagraphOperationsController.getCheckListById()
 GET /removeCheckList                                   com.parabole.feed.application.controllers.ParagraphOperationsController.removeCheckList()
 GET /editChecklistCheck                                com.parabole.feed.application.controllers.ParagraphOperationsController.editChecklistCheck()

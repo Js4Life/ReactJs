@@ -60,6 +60,18 @@ public class StarFish extends GraphDb {
         return  rids;
     }
 
+    public String saveOrUpdateCheckListAttachment(Map<String, Object> toSave) {
+
+        final Map<String, Object> dataMapForCheckList = new HashMap<String, Object>();
+        String rids = null;
+        try{
+            rids = saveAnything(CCAppConstants.APP_CHECKLIST_ATTACHMENT, toSave);
+        }catch (AppException e){
+            e.printStackTrace();
+        }
+        return  rids;
+    }
+
 
     public void removeCheckList( String checkListId) throws AppException {
             executeUpdate("DELETE FROM " + CCAppConstants.APP_CHECKLIST + " WHERE DATA_ID = '" + checkListId +"'");
@@ -87,6 +99,13 @@ public class StarFish extends GraphDb {
         List<Map<String, String>> rids = getByProperty(CCAppConstants.APP_CHECKLIST, checkListId);
         return  rids.toString();
     }
+
+
+    public String getCheckListAttachmentIdById(String CheckListAttachmentId) throws AppException {
+        List<Map<String, String>> data = getByProperty(CCAppConstants.APP_CHECKLIST_ATTACHMENT, CheckListAttachmentId);
+        return  data.toString();
+    }
+
 
     public List<Map<String, String>> getByProperty(final String configurationObjectClass, final String checkListId) throws AppException {
         Validate.notBlank(checkListId, "'checkListId' cannot be empty!");

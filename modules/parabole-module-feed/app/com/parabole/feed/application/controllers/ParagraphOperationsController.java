@@ -173,12 +173,31 @@ public class ParagraphOperationsController extends BaseController{
         return ok(checkListServices.saveOrUpdateCheckList(toSave, paragraphIDs, componentTypeIDs));
     }
 
+    public Result saveOrUpdateCheckListAttachment() {
+
+        HashMap<String, Object> toSave = new HashMap<>();
+        toSave.put("checklistId","123456");
+        toSave.put("data","okok");
+        toSave.put("data_id", "12345");
+        toSave.put("name", "file");
+        toSave.put("mime", "PNG");
+
+        return ok(checkListServices.saveOrUpdateCheckListAttachment(toSave));
+    }
+
 
     public Result getCheckListById() {
 
         String checkListId = "1234567890";
 
         return ok(checkListServices.getCheckListById(checkListId));
+
+    }
+
+    public Result getCheckListAttachmentById() {
+
+        String checkListId = "6503f06d-f51d-4104-a061-afae245e44a6";
+        return ok(checkListServices.getCheckListAttachmentById(checkListId));
 
     }
 
