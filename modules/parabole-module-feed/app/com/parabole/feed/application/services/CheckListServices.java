@@ -509,6 +509,18 @@ public class CheckListServices {
 
     }
 
+
+    public String getCheckListAttachmentsByChecklistID(String checkListId){
+        String result = null;
+        try {
+            result = starFish.getCheckListAttachmentsByChecklistID(checkListId);
+        } catch (com.parabole.feed.platform.exceptions.AppException e) {
+            e.printStackTrace();
+        }
+        return result;
+
+    }
+
     public ArrayList<HashMap<String, String>> getChecklistDetailsForReport(ArrayList<String> listOfCheckListIds) {
         ArrayList<HashMap<String, String>> allChecklistData = starfishServices.getChecklistByID(listOfCheckListIds);
         for (HashMap<String, String> stringStringHashMap : allChecklistData) {

@@ -111,6 +111,13 @@ public class StarFish extends GraphDb {
     }
 
 
+    public String getCheckListAttachmentsByChecklistID(String checkListId) throws AppException {
+        String propertyName = "checklistId";
+        List<Map<String, String>> data = getByOtherProperty(CCAppConstants.APP_CHECKLIST_ATTACHMENT, propertyName, checkListId);
+        return  data.toString();
+    }
+
+
     public List<Map<String, String>> getByProperty(final String configurationObjectClass, final String checkListId) throws AppException {
         Validate.notBlank(checkListId, "'checkListId' cannot be empty!");
         final List<Map<String, String>> outputList = new ArrayList<Map<String, String>>();
@@ -118,6 +125,32 @@ public class StarFish extends GraphDb {
         final ODatabaseDocumentTx dbNoTx = getDocDBConnectionNoTx();
         try {
             final OSQLSynchQuery<ODocument> query = new OSQLSynchQuery<ODocument>("SELECT DATA_ID, TEXT  FROM " + configurationObjectClass + " WHERE DATA_ID = '" + checkListId + "'");
+            final List<ODocument> results = dbNoTx.command(query).execute();
+            for (final ODocument result : results) {
+                final Map<String, String> outputMap = new HashMap<String, String>();
+                String[] properties = result.fieldNames();
+                for (String property : properties) {
+                    outputMap.put(property, result.field(property));
+                }
+                outputList.add(outputMap);
+            }
+            return (outputList);
+        } catch (final Exception ex) {
+            Logger.error("Could not retrieve configuration", ex);
+            throw new AppException(AppErrorCode.GRAPH_DB_OPERATION_EXCEPTION);
+        } finally {
+            closeDocDBConnection(dbNoTx);
+        }
+    }
+
+
+    public List<Map<String, String>> getByOtherProperty(final String configurationObjectClass, final String propertyName, final String checkListId) throws AppException {
+        Validate.notBlank(checkListId, "'checkListId' cannot be empty!");
+        final List<Map<String, String>> outputList = new ArrayList<Map<String, String>>();
+        JSONObject jsonObject = null;
+        final ODatabaseDocumentTx dbNoTx = getDocDBConnectionNoTx();
+        try {
+            final OSQLSynchQuery<ODocument> query = new OSQLSynchQuery<ODocument>("SELECT DATA_ID, TEXT  FROM " + configurationObjectClass + " WHERE "+propertyName+" = '" + checkListId + "'");
             final List<ODocument> results = dbNoTx.command(query).execute();
             results.forEach((final ODocument result) -> {
                 final Map<String, String> outputMap = new HashMap<String, String>();
