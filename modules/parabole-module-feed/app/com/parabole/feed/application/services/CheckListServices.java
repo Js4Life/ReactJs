@@ -439,6 +439,16 @@ public class CheckListServices {
 
     }
 
+    public String saveOrUpdateCheckListAttachment(HashMap<String, Object> toSave) {
+
+        toSave.put("data_id", getUniqueID());
+        toSave.put("created_by", session().get("USER_ID"));
+        toSave.put("created_at", new Date());
+        return starFish.saveOrUpdateCheckListAttachment(toSave);
+
+    }
+
+
     public String editChecklistCheck(HashMap<String, Boolean> checklistCheckInfo) {
 
         for ( String s : checklistCheckInfo.keySet()) {
@@ -469,6 +479,18 @@ public class CheckListServices {
         String result = null;
         try {
             result = starFish.getCheckListById(checkListId);
+        } catch (com.parabole.feed.platform.exceptions.AppException e) {
+            e.printStackTrace();
+        }
+        return result;
+
+    }
+
+
+    public String getCheckListAttachmentById(String CheckListAttachmentId){
+        String result = null;
+        try {
+            result = starFish.getCheckListAttachmentIdById(CheckListAttachmentId);
         } catch (com.parabole.feed.platform.exceptions.AppException e) {
             e.printStackTrace();
         }
@@ -530,8 +552,6 @@ public class CheckListServices {
     }
 
 
-
-
     private String getAllParagraphsAgainstTheChecklistID(String checklistID) {
         String paragraphIDs = "";
         ArrayList<HashMap<String, String>> allRootNodeDetails = lightHouse.getRootVerticesByChildVertexId(checklistID);
@@ -547,6 +567,7 @@ public class CheckListServices {
         }
         return paragraphIDs;
     }
+
 
     private String getAllComponentTypesAgainstTheChecklistID(String checklistID) {
         String componentTypeIDs = "";

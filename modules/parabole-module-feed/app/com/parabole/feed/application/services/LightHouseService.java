@@ -206,7 +206,6 @@ public class LightHouseService {
                 listOfOfChecklist.add(componentType.get("elementID"));
                 System.out.println("componentType.get(\"elementID\") = " + componentType.get("type"));
         }
-
         //getListOfChildComponentTypeVerticesByRootVertices(getListOfChildComponentVerticesByRootVertices(listOfOfChecklist));
         return getChecklistsByComponentTypes(listOfOfChecklist);
     }
