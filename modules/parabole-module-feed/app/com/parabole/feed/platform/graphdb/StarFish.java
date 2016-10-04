@@ -106,7 +106,8 @@ public class StarFish extends GraphDb {
 
 
     public String getCheckListAttachmentIdById(String CheckListAttachmentId) throws AppException {
-        List<Map<String, String>> data = getByProperty(CCAppConstants.APP_CHECKLIST_ATTACHMENT, CheckListAttachmentId);
+        String dataId = "data_id";
+        List<Map<String, String>> data = getByOtherProperty(CCAppConstants.APP_CHECKLIST_ATTACHMENT, dataId, CheckListAttachmentId);
         return  data.toString();
     }
 
@@ -150,7 +151,7 @@ public class StarFish extends GraphDb {
         JSONObject jsonObject = null;
         final ODatabaseDocumentTx dbNoTx = getDocDBConnectionNoTx();
         try {
-            final OSQLSynchQuery<ODocument> query = new OSQLSynchQuery<ODocument>("SELECT DATA_ID, TEXT  FROM " + configurationObjectClass + " WHERE "+propertyName+" = '" + checkListId + "'");
+            final OSQLSynchQuery<ODocument> query = new OSQLSynchQuery<ODocument>("SELECT *  FROM " + configurationObjectClass + " WHERE "+propertyName+" = '" + checkListId + "'");
             final List<ODocument> results = dbNoTx.command(query).execute();
             results.forEach((final ODocument result) -> {
                 final Map<String, String> outputMap = new HashMap<String, String>();
