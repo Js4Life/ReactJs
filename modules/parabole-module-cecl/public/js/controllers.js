@@ -680,7 +680,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.initialize();
 })
 
-.controller('checklistBuilderCtrl', function($scope, $state, $stateParams, SharedService, MockService) {
+.controller('checklistBuilderCtrl', function($scope, $state, $stateParams, Upload, SharedService, MockService) {
 	$scope.initialize = function () {
 		$scope.heading = {title: "Checklist Builder"};
 		$scope.question = {components: [], isMandatory: true};
@@ -898,11 +898,37 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}
 
 	$scope.$watch('file', function () {
-		console.log($scope.file);
+		Upload.dataUrl($scope.file, true).then(function(dataUrl) {
+			var fileData = {
+				name : $scope.file.name,
+				mime : $scope.file.type,
+				data : dataUrl,
+				checklistId : $scope.checklistItem.id
+			}
+			/*SharedService.uploadAttachmentByChecklistId(fileData).then(function (data) {
+
+			});*/
+		});
 	});
-	
+
+	$scope.addFile = function () {
+		$scope.commentMode = false;
+	}
 	$scope.addComment = function () {
-		
+		$scope.commentMode = true;
+	}
+
+	$scope.saveComment = function () {
+		var fileData = {
+			name : "Comment",
+			mime : "comment",
+			data : $scope.comment,
+			checklistId : $scope.checklistItem.id
+		}
+		/*SharedService.uploadAttachmentByChecklistId(fileData).then(function (data) {
+
+		 });*/
+		$scope.commentMode = false;
 	}
 	
 	$scope.goPreviousScreen = function () {
