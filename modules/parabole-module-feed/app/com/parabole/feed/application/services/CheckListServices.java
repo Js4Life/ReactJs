@@ -439,6 +439,16 @@ public class CheckListServices {
 
     }
 
+    public String saveOrUpdateCheckListAttachment(HashMap<String, Object> toSave) {
+        String data_id = getUniqueID();
+        toSave.put("data_id", data_id);
+        toSave.put("created_by", session().get("USER_ID"));
+        toSave.put("created_at", new Date());
+        starFish.saveOrUpdateCheckListAttachment(toSave);
+        return data_id;
+    }
+
+
     public String editChecklistCheck(HashMap<String, Boolean> checklistCheckInfo) {
 
         for ( String s : checklistCheckInfo.keySet()) {
@@ -465,10 +475,45 @@ public class CheckListServices {
         return "{status: success }";
     }
 
+    public String removeCheckListAttachment(String checkListAttachmetId){
+        String result = null;
+        try {
+            lightHouse.deleteAVertexByID(checkListAttachmetId);
+            starFish.removeCheckListAttachment(checkListAttachmetId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "{status: success }";
+    }
+
     public String getCheckListById(String checkListId){
         String result = null;
         try {
             result = starFish.getCheckListById(checkListId);
+        } catch (com.parabole.feed.platform.exceptions.AppException e) {
+            e.printStackTrace();
+        }
+        return result;
+
+    }
+
+
+    public String getCheckListAttachmentById(String CheckListAttachmentId){
+        String result = null;
+        try {
+            result = starFish.getCheckListAttachmentIdById(CheckListAttachmentId);
+        } catch (com.parabole.feed.platform.exceptions.AppException e) {
+            e.printStackTrace();
+        }
+        return result;
+
+    }
+
+
+    public String getCheckListAttachmentsByChecklistID(String checkListId){
+        String result = null;
+        try {
+            result = starFish.getCheckListAttachmentsByChecklistID(checkListId);
         } catch (com.parabole.feed.platform.exceptions.AppException e) {
             e.printStackTrace();
         }
@@ -530,8 +575,6 @@ public class CheckListServices {
     }
 
 
-
-
     private String getAllParagraphsAgainstTheChecklistID(String checklistID) {
         String paragraphIDs = "";
         ArrayList<HashMap<String, String>> allRootNodeDetails = lightHouse.getRootVerticesByChildVertexId(checklistID);
@@ -547,6 +590,7 @@ public class CheckListServices {
         }
         return paragraphIDs;
     }
+
 
     private String getAllComponentTypesAgainstTheChecklistID(String checklistID) {
         String componentTypeIDs = "";

@@ -173,6 +173,18 @@ public class ParagraphOperationsController extends BaseController{
         return ok(checkListServices.saveOrUpdateCheckList(toSave, paragraphIDs, componentTypeIDs));
     }
 
+    public Result saveOrUpdateCheckListAttachment() {
+
+        HashMap<String, Object> toSave = new HashMap<>();
+        toSave.put("checklistId","123456");
+        toSave.put("data","okok");
+        toSave.put("data_id", "12345");
+        toSave.put("name", "file");
+        toSave.put("mime", "PNG");
+
+        return ok(checkListServices.saveOrUpdateCheckListAttachment(toSave));
+    }
+
 
     public Result getCheckListById() {
 
@@ -180,6 +192,19 @@ public class ParagraphOperationsController extends BaseController{
 
         return ok(checkListServices.getCheckListById(checkListId));
 
+    }
+
+    public Result getCheckListAttachmentById() {
+
+        String checkListId = "6503f06d-f51d-4104-a061-afae245e44a6";
+        return ok(checkListServices.getCheckListAttachmentById(checkListId));
+
+    }
+
+    public Result getCheckListAttachmentsByChecklistID() {
+
+        String checkListId = "123456";
+        return ok(checkListServices.getCheckListAttachmentsByChecklistID(checkListId));
     }
 
     public Result removeCheckList() {
@@ -190,11 +215,16 @@ public class ParagraphOperationsController extends BaseController{
 
     }
 
+    public Result removeCheckListAttachment() {
+
+        String checkListAttachmetId = "89477f8c-2ddc-4c72-a587-5449158e4f6a";
+        return ok(checkListServices.removeCheckListAttachment(checkListAttachmetId));
+    }
+
     public Result editChecklistCheck() {
 
         HashMap<String, Boolean> checklistCheckInfo = new HashMap<>();
         checklistCheckInfo.put("65df410d-ec99-4871-a97b-5ce60d2388d5", true);
-
         return ok(checkListServices.editChecklistCheck(checklistCheckInfo));
 
     }

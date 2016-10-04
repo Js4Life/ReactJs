@@ -131,3 +131,4 @@ GET /getCompliedAndNotCompliedChecklistCounts       com.parabole.cecl.applicatio
 POST /getChecklistBySection                         com.parabole.cecl.application.controllers.CeclController.getChecklistBySection()
 POST /getChecklistBySubtopic                        com.parabole.cecl.application.controllers.CeclController.getChecklistBySubtopic()
 POST /getChecklistByTopic                           com.parabole.cecl.application.controllers.CeclController.getChecklistByTopic()
+POST /uploadAttachmentByChecklistId                 com.parabole.cecl.application.controllers.CeclController.uploadAttachmentByChecklistId()

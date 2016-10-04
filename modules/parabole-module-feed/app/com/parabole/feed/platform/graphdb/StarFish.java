@@ -60,9 +60,25 @@ public class StarFish extends GraphDb {
         return  rids;
     }
 
+    public String saveOrUpdateCheckListAttachment(Map<String, Object> toSave) {
+
+        final Map<String, Object> dataMapForCheckList = new HashMap<String, Object>();
+        String rids = null;
+        try{
+            rids = saveAnything(CCAppConstants.APP_CHECKLIST_ATTACHMENT, toSave);
+        }catch (AppException e){
+            e.printStackTrace();
+        }
+        return  rids;
+    }
+
 
     public void removeCheckList( String checkListId) throws AppException {
             executeUpdate("DELETE FROM " + CCAppConstants.APP_CHECKLIST + " WHERE DATA_ID = '" + checkListId +"'");
+    }
+
+    public void removeCheckListAttachment( String checkListAttachmetId ) throws AppException {
+            executeUpdate("DELETE FROM " + CCAppConstants.APP_CHECKLIST + " WHERE data_id = '" + checkListAttachmetId +"'");
     }
 
 
@@ -88,6 +104,20 @@ public class StarFish extends GraphDb {
         return  rids.toString();
     }
 
+
+    public String getCheckListAttachmentIdById(String CheckListAttachmentId) throws AppException {
+        List<Map<String, String>> data = getByProperty(CCAppConstants.APP_CHECKLIST_ATTACHMENT, CheckListAttachmentId);
+        return  data.toString();
+    }
+
+
+    public String getCheckListAttachmentsByChecklistID(String checkListId) throws AppException {
+        String propertyName = "checklistId";
+        List<Map<String, String>> data = getByOtherProperty(CCAppConstants.APP_CHECKLIST_ATTACHMENT, propertyName, checkListId);
+        return  data.toString();
+    }
+
+
     public List<Map<String, String>> getByProperty(final String configurationObjectClass, final String checkListId) throws AppException {
         Validate.notBlank(checkListId, "'checkListId' cannot be empty!");
         final List<Map<String, String>> outputList = new ArrayList<Map<String, String>>();
@@ -96,12 +126,38 @@ public class StarFish extends GraphDb {
         try {
             final OSQLSynchQuery<ODocument> query = new OSQLSynchQuery<ODocument>("SELECT DATA_ID, TEXT  FROM " + configurationObjectClass + " WHERE DATA_ID = '" + checkListId + "'");
             final List<ODocument> results = dbNoTx.command(query).execute();
+            for (final ODocument result : results) {
+                final Map<String, String> outputMap = new HashMap<String, String>();
+                String[] properties = result.fieldNames();
+                for (String property : properties) {
+                    outputMap.put(property, result.field(property));
+                }
+                outputList.add(outputMap);
+            }
+            return (outputList);
+        } catch (final Exception ex) {
+            Logger.error("Could not retrieve configuration", ex);
+            throw new AppException(AppErrorCode.GRAPH_DB_OPERATION_EXCEPTION);
+        } finally {
+            closeDocDBConnection(dbNoTx);
+        }
+    }
+
+
+    public List<Map<String, String>> getByOtherProperty(final String configurationObjectClass, final String propertyName, final String checkListId) throws AppException {
+        Validate.notBlank(checkListId, "'checkListId' cannot be empty!");
+        final List<Map<String, String>> outputList = new ArrayList<Map<String, String>>();
+        JSONObject jsonObject = null;
+        final ODatabaseDocumentTx dbNoTx = getDocDBConnectionNoTx();
+        try {
+            final OSQLSynchQuery<ODocument> query = new OSQLSynchQuery<ODocument>("SELECT DATA_ID, TEXT  FROM " + configurationObjectClass + " WHERE "+propertyName+" = '" + checkListId + "'");
+            final List<ODocument> results = dbNoTx.command(query).execute();
             results.forEach((final ODocument result) -> {
                 final Map<String, String> outputMap = new HashMap<String, String>();
-                final String configurationNameCollected = result.field("DATA_ID");
-                final String configurationDetails = result.field("TEXT");
-                outputMap.put("name", configurationNameCollected);
-                outputMap.put("details", configurationDetails);
+                String[] properties = result.fieldNames();
+                for (String property : properties) {
+                    outputMap.put(property, result.field(property));
+                }
                 outputList.add(outputMap);
             });
             return (outputList);

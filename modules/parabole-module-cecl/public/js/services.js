@@ -85,6 +85,7 @@ angular.module('RDAApp.services', [])
         'AddAnswer' : 'addAnswer',
         'SaveParagraphTags' : 'saveParagraphTags',
         'GetParagraphTags' : 'getParagraphTags',
+        'UploadAttachmentByChecklistId' : 'uploadAttachmentByChecklistId',
 
         'GetAllTopics' : 'getAllTopics',
         'GetSubtopicsByTopicId' : 'getSubtopicsByTopicId',
@@ -796,6 +797,10 @@ angular.module('RDAApp.services', [])
 
     SharedService.getCompliedAndNotCompliedChecklistCounts = function () {
         return SharedService.invokeService('GetCompliedAndNotCompliedChecklistCounts');
+    }
+
+    SharedService.uploadAttachmentByChecklistId = function (fileData) {
+        return SharedService.invokeService('UploadAttachmentByChecklistId', fileData, 'post');
     }
 
     return SharedService;
