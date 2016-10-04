@@ -87,6 +87,7 @@ GET /createProductAndAssignToBusinessSegment            com.parabole.feed.applic
 GET /saveOrUpdateCheckList                             com.parabole.feed.application.controllers.ParagraphOperationsController.saveOrUpdateCheckList()
 GET /saveOrUpdateCheckListAttachment                   com.parabole.feed.application.controllers.ParagraphOperationsController.saveOrUpdateCheckListAttachment()
 GET /getCheckListAttachmentById                        com.parabole.feed.application.controllers.ParagraphOperationsController.getCheckListAttachmentById()
+GET /removeCheckListAttachment                         com.parabole.feed.application.controllers.ParagraphOperationsController.removeCheckListAttachment()
 GET /getCheckListById                                  com.parabole.feed.application.controllers.ParagraphOperationsController.getCheckListById()
 GET /removeCheckList                                   com.parabole.feed.application.controllers.ParagraphOperationsController.removeCheckList()
 GET /editChecklistCheck                                com.parabole.feed.application.controllers.ParagraphOperationsController.editChecklistCheck()

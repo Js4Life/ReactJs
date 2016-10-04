@@ -475,6 +475,17 @@ public class CheckListServices {
         return "{status: success }";
     }
 
+    public String removeCheckListAttachment(String checkListAttachmetId){
+        String result = null;
+        try {
+            lightHouse.deleteAVertexByID(checkListAttachmetId);
+            starFish.removeCheckListAttachment(checkListAttachmetId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "{status: success }";
+    }
+
     public String getCheckListById(String checkListId){
         String result = null;
         try {

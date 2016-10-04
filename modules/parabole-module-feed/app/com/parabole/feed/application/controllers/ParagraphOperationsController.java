@@ -209,11 +209,16 @@ public class ParagraphOperationsController extends BaseController{
 
     }
 
+    public Result removeCheckListAttachment() {
+
+        String checkListAttachmetId = "89477f8c-2ddc-4c72-a587-5449158e4f6a";
+        return ok(checkListServices.removeCheckListAttachment(checkListAttachmetId));
+    }
+
     public Result editChecklistCheck() {
 
         HashMap<String, Boolean> checklistCheckInfo = new HashMap<>();
         checklistCheckInfo.put("65df410d-ec99-4871-a97b-5ce60d2388d5", true);
-
         return ok(checkListServices.editChecklistCheck(checklistCheckInfo));
 
     }

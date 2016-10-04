@@ -77,6 +77,10 @@ public class StarFish extends GraphDb {
             executeUpdate("DELETE FROM " + CCAppConstants.APP_CHECKLIST + " WHERE DATA_ID = '" + checkListId +"'");
     }
 
+    public void removeCheckListAttachment( String checkListAttachmetId ) throws AppException {
+            executeUpdate("DELETE FROM " + CCAppConstants.APP_CHECKLIST + " WHERE data_id = '" + checkListAttachmetId +"'");
+    }
+
 
     public void executeUpdate(final String sqlQuery) throws AppException {
         Validate.notBlank(sqlQuery, "'sqlQuery' cannot be empty!");
