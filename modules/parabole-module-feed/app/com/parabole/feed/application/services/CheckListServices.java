@@ -475,6 +475,17 @@ public class CheckListServices {
         return "{status: success }";
     }
 
+    public String removeCheckListAttachment(String checkListAttachmetId){
+        String result = null;
+        try {
+            lightHouse.deleteAVertexByID(checkListAttachmetId);
+            starFish.removeCheckListAttachment(checkListAttachmetId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "{status: success }";
+    }
+
     public String getCheckListById(String checkListId){
         String result = null;
         try {
@@ -491,6 +502,18 @@ public class CheckListServices {
         String result = null;
         try {
             result = starFish.getCheckListAttachmentIdById(CheckListAttachmentId);
+        } catch (com.parabole.feed.platform.exceptions.AppException e) {
+            e.printStackTrace();
+        }
+        return result;
+
+    }
+
+
+    public String getCheckListAttachmentsByChecklistID(String checkListId){
+        String result = null;
+        try {
+            result = starFish.getCheckListAttachmentsByChecklistID(checkListId);
         } catch (com.parabole.feed.platform.exceptions.AppException e) {
             e.printStackTrace();
         }
