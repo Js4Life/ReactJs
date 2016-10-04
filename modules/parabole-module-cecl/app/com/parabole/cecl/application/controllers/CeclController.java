@@ -846,4 +846,21 @@ public class CeclController extends Controller{
         finalJson.put("status", status).put("data", data);
         return ok(finalJson.toString());
     }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result uploadAttachmentByChecklistId() {
+        final String json = request().body().asJson().toString();
+        JSONObject finalJson = new JSONObject();
+        Boolean status = true;
+        String data = null;
+        HashMap<String, Object> req = new Gson().fromJson(json, new TypeToken<HashMap<String, Object>>() {}.getType());
+        try{
+            data = checkListServices.saveOrUpdateCheckListAttachment(req);
+        } catch (Exception e){
+            status = false;
+            e.printStackTrace();
+        }
+        finalJson.put("status", status).put("data", data);
+        return ok(finalJson.toString());
+    }
 }

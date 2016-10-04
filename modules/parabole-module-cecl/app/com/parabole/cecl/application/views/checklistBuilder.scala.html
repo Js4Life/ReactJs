@@ -171,7 +171,8 @@
               <div class="panel panel-default">
                 <div class="panel-heading">
                   Evidence
-                  <i class="fa fa-comment pull-right margin-right-10" aria-hidden="true" tooltip='"title":"Add Comment"' ng-click="addComment()"></i>
+                  <i ng-if="!commentMode" class="fa fa-comment pull-right" aria-hidden="true" tooltip='"title":"Add Comment"' ng-click="addComment()"></i>
+                  <i ng-if="commentMode" class="fa fa-file pull-right" aria-hidden="true" tooltip='"title":"Add File"' ng-click="addFile()"></i>
                 </div>
                 <div class="panel-body zero-padding" style="height: 54vh;">
                   <div class="col-xs-8 zero-padding max-height" style="overflow: auto;border-right: 1px solid #ccc;">
@@ -187,8 +188,18 @@
                     </table>
                   </div>
                   <div class="col-xs-4 padding-15">
-                    <div ngf-drop ngf-select ng-model="file" class="drop-box" ngf-drag-over-class="'dragover'" ngf-multiple="false" ngf-allow-dir="false" accept="image/*,application/*,text/plain" ngf-pattern="'image/*,application/*'" style="height:50vh;">Drop file or image here or click to upload</div>
-                    <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+                    <div class="max-height" ng-if="!commentMode">
+                      <div ngf-drop ngf-select ng-model="file" class="drop-box" ngf-drag-over-class="'dragover'" ngf-multiple="false" ngf-allow-dir="false" accept="image/*,application/*,text/plain" ngf-pattern="'image/*,application/*'" style="height:50vh;">Drop file or image here or click to upload</div>
+                      <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+                    </div>
+                    <div class="max-height" ng-if="commentMode">
+                      <form>
+                        <div class="form-group">
+                          <textarea class="form-control" rows="10" ng-model="comment"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-default pull-right" ng-click="saveComment()">Save</button>
+                      </form>
+                    </div>
                   </div>
                 </div>
               </div>
