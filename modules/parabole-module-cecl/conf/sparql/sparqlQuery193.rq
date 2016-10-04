@@ -24,6 +24,7 @@ PREFIX rule:<http://nextangles.com/Temp/Rule#>
 PREFIX pnc:<http://mindparabole.com/finance/pnc_cecl#>
 PREFIX cst:<http://mindparabole.com/finance/cecl_structure#>
 PREFIX owl:<http://www.w3.org/2002/07/owl#>
+PREFIX bas: <http://mindparabole.com/finance/basel_glossary#>
 
 select *
 where{

@@ -6,51 +6,64 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX afn: <http://jena.apache.org/ARQ/function#>
+PREFIX bas: <http://mindparabole.com/finance/basel_glossary#>
 
-
-
-select ?uri ?pro ?Product ?mprp ?Component ?ComponentType ?concept  ?conceptName  ?seg ?Segment ?id
+SELECT ?uri ?con ?concept ?Area ?connections ?mprp ?id
+?pro  ?Product  ?seg ?Segment
 where {
 {select *
 where {
-{?concept rdf:type ?conclass .
-?conclass rdfs:subClassOf cst:FASBConcept .
-?concept pb:hasModel ?mprp .
+{?con rdf:type ?conclass .
+?conclass rdfs:subClassOf ?sub.
+FILTER(?sub IN(bas:BaselGlossary,cst:FASBConcept))
+?con pb:hasModel ?mprp .
 ?mprp pb:hasSegment ?seg.
 ?seg pb:hasProduct ?pro.
 ?pro rdfs:label ?Product.
 ?seg rdfs:label ?Segment.
-BIND(xsd:string("Model") as ?ComponentType)}
+BIND(xsd:string("Model") as ?Area)}
 union
-{?concept rdf:type ?conclass .
-?conclass rdfs:subClassOf cst:FASBConcept .
-?concept pb:hasReport ?mprp .
+{?con rdf:type ?conclass .
+?conclass rdfs:subClassOf ?sub .
+FILTER(?sub IN(bas:BaselGlossary,cst:FASBConcept))
+?con pb:hasReport ?mprp .
 ?mprp pb:hasSegment ?seg.
 ?seg pb:hasProduct ?pro.
 ?pro rdfs:label ?Product.
 ?seg rdfs:label ?Segment.
-BIND(xsd:string("Report") AS ?ComponentType)
+BIND(xsd:string("Report") AS ?Area)
 }
 union
-{?concept rdf:type ?conclass .
-?conclass rdfs:subClassOf cst:FASBConcept .
-?concept pb:hasPolicy ?mprp .
+{?con rdf:type ?conclass .
+?conclass rdfs:subClassOf ?sub.
+FILTER(?sub IN(bas:BaselGlossary,cst:FASBConcept))
+?con pb:hasPolicy ?mprp .
 ?mprp pb:hasSegment ?seg.
 ?seg pb:hasProduct ?pro.
 ?pro rdfs:label ?Product.
 ?seg rdfs:label ?Segment.
-bind(xsd:string ("Policy") as ?ComponentType)}
+bind(xsd:string ("Policy") as ?Area)}
 UNION
-{?concept rdf:type ?conclass .
-?conclass rdfs:subClassOf cst:FASBConcept .
-?concept pb:ConcepthasDataElement ?mprp.
-bind(xsd:string ("Data Element") as ?ComponentType)}
+{?con rdf:type ?conclass .
+?conclass rdfs:subClassOf ?sub .
+FILTER(?sub IN(bas:BaselGlossary,cst:FASBConcept))
+?con pb:ConcepthasDataElement ?mprp.
+bind(xsd:string ("Data Element") as ?Area)}
+union
+{?con rdf:type ?conclass .
+?conclass rdfs:subClassOf ?sub .
+FILTER(?sub IN(bas:BaselGlossary,cst:FASBConcept))
+?con pb:hasRelatedConcept ?mprp.
+bind(xsd:string ("Related Concept") as ?Area)}
 }}
-?concept rdfs:label ?conceptName .
-?mprp rdfs:label ?Component .
-BIND(xsd:string(CONCAT(afn:namespace(?pro),afn:localname(?pro))) as ?uri)
-FILTER(?uri ="http://www.mindparabole.com/ontology/finance/Parabole-Model#AutoLease")
+?con rdfs:label ?concept .
+BIND(xsd:string(CONCAT(afn:namespace(?con),afn:localname(?con))) AS ?uri)
+?mprp rdfs:label ?connections .
 bind(rand() AS ?id).
+FILTER(?uri = $$FILTERS$$)
+#FILTER (?uri = "http://mindparabole.com/finance/basel_glossary#AdjustedNotionalAmount")
 
 }
+
+
 
