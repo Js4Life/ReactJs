@@ -702,6 +702,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		setParagraphTags();
 		$scope.masterComponentTypes = {};
 		$scope.attachments = [];
+		$scope.fileMimeTypes = SharedService.fileType;
 	}
 
 	function setParagraphTags() {

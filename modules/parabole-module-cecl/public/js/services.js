@@ -163,6 +163,16 @@ angular.module('RDAApp.services', [])
         "segment" : "ceclassets/images/graph_businesssegment.png",
         "businesssegment" : "ceclassets/images/graph_businesssegment.png"
     };
+    SharedService.fileType = {
+        "application/pdf" : "pdf",
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" : "excel",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document" : "document",
+        "application/vnd.openxmlformats-officedocument.presentationml.presentation" : "presentation",
+        "text/plain" : "text",
+        "image/png" : "image",
+        "image/jpeg" : "image",
+        "comment" : "comment"
+    }
 
     SharedService.mappableEdges = [];
     SharedService.selEdges = [];

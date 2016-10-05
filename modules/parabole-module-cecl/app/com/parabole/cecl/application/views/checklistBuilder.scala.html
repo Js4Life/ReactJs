@@ -183,7 +183,7 @@
                             {{at.name}}
                           </td>
                           <td>
-                            {{at.mime}}
+                            {{fileMimeTypes[at.mime]}}
                           </td>
                           <td>
                             <i class="fa fa-trash-o pull-right" aria-hidden="true" ng-click="deleteAttachmentById(at.data_id)"></i>
@@ -194,7 +194,7 @@
                   </div>
                   <div class="col-xs-4 padding-15">
                     <div class="max-height" ng-show="!commentMode">
-                      <div ngf-drop ngf-select ng-model="file" class="drop-box" ngf-drag-over-class="'dragover'" ngf-multiple="false" ngf-allow-dir="false" accept="image/*,application/*,text/plain" ngf-pattern="'image/*,application/*'" style="height:50vh;">Drop file or image here or click to upload</div>
+                      <div ngf-drop ngf-select ng-model="file" class="drop-box" ngf-drag-over-class="'dragover'" ngf-multiple="false" ngf-allow-dir="false" accept="image/*,application/*,text/plain" ngf-pattern="'image/*,application/*,text/plain'" style="height:50vh;">Drop file or image here or click to upload</div>
                       <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
                     </div>
                     <div class="max-height" ng-show="commentMode">

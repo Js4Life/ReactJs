@@ -78,7 +78,7 @@ public class StarFish extends GraphDb {
     }
 
     public void removeCheckListAttachment( String checkListAttachmetId ) throws AppException {
-            executeUpdate("DELETE FROM " + CCAppConstants.APP_CHECKLIST + " WHERE data_id = '" + checkListAttachmetId +"'");
+            executeUpdate("DELETE FROM " + CCAppConstants.APP_CHECKLIST_ATTACHMENT + " WHERE data_id = '" + checkListAttachmetId +"'");
     }
 
 
