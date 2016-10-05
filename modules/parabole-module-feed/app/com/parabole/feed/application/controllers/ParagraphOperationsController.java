@@ -204,7 +204,7 @@ public class ParagraphOperationsController extends BaseController{
     public Result getCheckListAttachmentsByChecklistID() {
 
         String checkListId = "123456";
-        return ok(checkListServices.getCheckListAttachmentsByChecklistID(checkListId));
+        return ok(checkListServices.getCheckListAttachmentsByChecklistID(checkListId).toString());
     }
 
     public Result removeCheckList() {

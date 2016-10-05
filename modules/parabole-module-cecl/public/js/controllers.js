@@ -884,6 +884,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.editChecklist = function (c) {
 		$scope.currentParagraphs = c.paragraphs;
 		$scope.currentComponentTypes = c.componentTypes;
+		$scope.getAttachmentsByChecklistId(c.id);
 		$scope.addChecklist(c);
 	}
 
@@ -907,12 +908,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 					data: dataUrl,
 					checklistId: $scope.checklistItem.id
 				}
-				SharedService.uploadAttachmentByChecklistId(fileData).then(function (data) {
-					if (data.status) {
-						fileData.id = data.data;
-						$scope.attachments.push(fileData);
-					}
-				});
+				uploadAttachment(fileData);
 			});
 		}
 	});
@@ -933,13 +929,34 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			data : $scope.comment,
 			checklistId : $scope.checklistItem.id
 		}
+		uploadAttachment(fileData);
+		$scope.commentMode = false;
+	}
+
+	function uploadAttachment(fileData) {
 		SharedService.uploadAttachmentByChecklistId(fileData).then(function (data) {
 			if (data.status) {
 				fileData.id = data.data;
-				$scope.attachments.push(fileData);
+				//$scope.attachments.push(fileData);
+				$scope.getAttachmentsByChecklistId($scope.checklistItem.id);
 			}
 		});
-		$scope.commentMode = false;
+	}
+
+	$scope.getAttachmentsByChecklistId = function (id) {
+		SharedService.getAttachmentsByChecklistId(id).then(function (data) {
+			if (data.status) {
+				$scope.attachments = angular.fromJson(data.data);
+			}
+		});
+	}
+
+	$scope.deleteAttachmentById = function (id) {
+		SharedService.deleteAttachmentById(id).then(function (data) {
+			if(data.status){
+				$scope.getAttachmentsByChecklistId($scope.checklistItem.id);
+			}
+		});
 	}
 	
 	$scope.goPreviousScreen = function () {

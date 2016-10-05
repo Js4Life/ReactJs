@@ -510,8 +510,8 @@ public class CheckListServices {
     }
 
 
-    public String getCheckListAttachmentsByChecklistID(String checkListId){
-        String result = null;
+    public List<Map<String, String>> getCheckListAttachmentsByChecklistID(String checkListId){
+        List<Map<String, String>> result = null;
         try {
             result = starFish.getCheckListAttachmentsByChecklistID(checkListId);
         } catch (com.parabole.feed.platform.exceptions.AppException e) {

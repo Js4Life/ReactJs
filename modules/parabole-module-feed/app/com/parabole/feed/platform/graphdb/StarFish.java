@@ -112,10 +112,10 @@ public class StarFish extends GraphDb {
     }
 
 
-    public String getCheckListAttachmentsByChecklistID(String checkListId) throws AppException {
+    public List<Map<String, String>> getCheckListAttachmentsByChecklistID(String checkListId) throws AppException {
         String propertyName = "checklistId";
         List<Map<String, String>> data = getByOtherProperty(CCAppConstants.APP_CHECKLIST_ATTACHMENT, propertyName, checkListId);
-        return  data.toString();
+        return  data;
     }
 
 

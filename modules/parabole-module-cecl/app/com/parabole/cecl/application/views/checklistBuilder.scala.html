@@ -176,15 +176,20 @@
                 </div>
                 <div class="panel-body zero-padding" style="height: 54vh;">
                   <div class="col-xs-8 zero-padding max-height" style="overflow: auto;border-right: 1px solid #ccc;">
-                    <table class="table table-condensed table-responsive zero-margin">
-                      <tr ng-repeat="at in attachments">
-                        <td>
-                          {{at.name}}
-                        </td>
-                        <td>
-                          <i class="fa fa-trash-o" aria-hidden="true"></i>
-                        </td>
-                      </tr>
+                    <table class="table table-condensed table-striped zero-margin">
+                      <tbody>
+                        <tr ng-repeat="at in attachments">
+                          <td>
+                            {{at.name}}
+                          </td>
+                          <td>
+                            {{at.mime}}
+                          </td>
+                          <td>
+                            <i class="fa fa-trash-o pull-right" aria-hidden="true" ng-click="deleteAttachmentById(at.data_id)"></i>
+                          </td>
+                        </tr>
+                      </tbody>
                     </table>
                   </div>
                   <div class="col-xs-4 padding-15">
