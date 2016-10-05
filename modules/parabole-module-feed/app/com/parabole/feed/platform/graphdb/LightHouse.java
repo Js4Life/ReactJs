@@ -384,7 +384,6 @@ public class LightHouse extends GraphDb {
     }
 
     public ArrayList<HashMap<String, String>> getChildVerticesByRootVertexId(String rootVertexID){
-
         Iterable<Vertex> verticesData = null;
         ArrayList<HashMap<String, String>> listOfFinalData = new ArrayList<HashMap<String, String>>();
         OrientGraph graph = this.orientGraphFactory.getTx();
@@ -408,7 +407,6 @@ public class LightHouse extends GraphDb {
         } finally {
             graph.shutdown();
         }
-
         return listOfFinalData;
     }
 
