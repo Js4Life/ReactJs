@@ -222,8 +222,69 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
         } else {
             $scope.exploreNode();
         }
-
+		configureGridOption();
+		$scope.answers = {};
 	}
+
+	function configureGridOption() {
+		$scope.gridOptions = {
+			columnDefs: [
+				{ field: 'BODY_TEXT', name: 'Checklist Item' },
+				{ field: 'IS_CHECKED', name: 'Checked', cellTemplate: '<div class="text-center"><i ng-if="row.entity.IS_CHECKED" class="fa fa-check text-success" aria-hidden="true"></i><i ng-if="!row.entity.IS_CHECKED" class="fa fa-times text-danger" aria-hidden="true"></i></div>' },
+				{ field: 'CREATED_BY', name: 'User' },
+				{ field: 'UPDATED_BY', name: 'Updated By' },
+				{ field: 'ATTACHMENTINFO', name: 'Has Evidence' },
+				{ field: 'paragraphs', name: 'Paragraphs' },
+				{ field: 'components', name: 'Component' },
+				{ field: 'IS_MANDATORY', name: 'Mandatory', cellTemplate: '<div class="text-center"><i ng-if="row.entity.IS_MANDATORY" class="fa fa-check text-success" aria-hidden="true"></i><i ng-if="!row.entity.IS_MANDATORY" class="fa fa-times text-danger" aria-hidden="true"></i></div>' },
+				{ field: 'STATE', name: 'Current State' }
+			],
+			enableSelectAll: false,
+			exporterCsvFilename: 'download.csv',
+			exporterPdfDefaultStyle: {fontSize: 9},
+			exporterPdfTableStyle: {margin: [30, 30, 30, 30]},
+			exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, color: 'blue'},
+			exporterPdfHeader: { text: "My Header", style: 'headerStyle' },
+			exporterPdfFooter: function ( currentPage, pageCount ) {
+				return { text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle' };
+			},
+			exporterPdfCustomFormatter: function ( docDefinition ) {
+				docDefinition.styles.headerStyle = { fontSize: 16, bold: true, margin: [30, 30, 0, 10] };
+				docDefinition.styles.footerStyle = { fontSize: 10, bold: false, margin: [30, 10, 0, 30] };
+				return docDefinition;
+			},
+			exporterPdfOrientation: 'landscape',
+			exporterPdfPageSize: 'A4',
+			exporterPdfMaxGridWidth: 680,
+			exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")),
+			onRegisterApi: function(gridApi){
+				$scope.gridApi = gridApi;
+
+			}
+		};
+	}
+
+	$scope.viewChecklistDetails = function () {
+		var checklistIds = _.pluck($scope.checkList, 'id');
+		SharedService.checklistDetailsByIds(checklistIds).then(function (data) {
+			if(data.status){
+				console.log(angular.fromJson(data.data));
+				$scope.gridOptions.data = angular.fromJson(data.data);
+				$('#checklistModal').modal('hide');
+				$('#checklistDetailsModal').modal('show');
+				$timeout( function() {
+					$scope.gridApi.core.handleWindowResize();
+				}, 500, 10);
+			}
+		});
+	}
+	$scope.exportCsv = function(){
+		var gridElement = angular.element(document.querySelectorAll(".custom-csv-link-location"));
+		$scope.gridApi.exporter.csvExport( "all", "all", gridElement );
+	};
+	$scope.exportPdf = function(){
+		$scope.gridApi.exporter.pdfExport( "all", "all" );
+	};
 
 	$rootScope.$on('PARENTSEARCHTEXT', function (event, data) {
 		$scope.searchText = data;
@@ -286,7 +347,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 	function removeEmptyAndUnique(objList) {
 		objList = _.reject(objList, function (obj) {
-			return (_.isEmpty(obj) || obj.elementID == null);
+			return (_.isEmpty(obj) || (obj.elementID == null && obj.id == null));
 		});
 		var uniqueList = _.uniq(objList, function(item) {
 			return item.elementID;
@@ -338,30 +399,6 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.iniitialize();
 
 	$scope.getChecklistByNode = function (node) {
-		/*$scope.currentNode = node;
-		if(node.type === "Paragraph"){
-			SharedService.getChecklistByParagraphId(node.name).then(function (data) {
-				var status = data.data.status;
-				if(status.haveData) {
-					$scope.checkList = data.data.questions;
-					$scope.answers = data.data.answers;
-					$('#checklistModal1').modal('show');
-				} else{
-					toastr.warning('No checklist found for ' + node.name);
-				}
-			});
-		} else {
-			SharedService.getChecklistByNode(node.type, node.name).then(function (data) {
-				var status = data.data.status;
-				if(status.haveData) {
-					$scope.checkList = data.data.questions;
-					$scope.answers = data.data.answers;
-					$('#checklistModal1').modal('show');
-				} else{
-					toastr.warning('No checklist found for ' + node.name);
-				}
-			});
-		}*/
 		SharedService.getChecklistByNodeId(node).then(function (data) {
 			if(data.status){
 				$scope.currentNode = node;
@@ -369,11 +406,17 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				if($scope.checkList.length > 0) {
 					populateAnswers($scope.checkList);
 					recalculateCompliance();
-					$('#dsViewer').modal('hide');
 					$('#checklistModal').modal('show');
 				} else
 					toastr.warning('No Checklist available..', '', {"positionClass" : "toast-top-right"});
 			}
+		});
+	}
+
+	function populateAnswers(allChecklists) {
+		$scope.answers = {};
+		angular.forEach(allChecklists, function (c) {
+			$scope.answers[c.id] = c.isChecked || false;
 		});
 	}
 
@@ -402,19 +445,21 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$('#checklistModal').modal('hide');
 		clearAnswers();
 	}
-	
+
 	$scope.getComplianceColorcode = function (obj) {
-		var val = obj.compliance || 0;
-		if(val > 81) {
-			obj.colorCode = "green";
-		} else if(val >= 51 && val <=80) {
-			obj.colorCode = "amber";
-		} else if(val > 0 && val <=50) {
-			obj.colorCode = "red";
-		} else {
-			obj.colorCode = "gray";
+		if(obj && !$scope.showLimited) {
+			var val = obj.compliance || 0;
+			if (val > 81) {
+				obj.colorCode = "green";
+			} else if (val >= 51 && val <= 80) {
+				obj.colorCode = "amber";
+			} else if (val > 0 && val <= 50) {
+				obj.colorCode = "red";
+			} else {
+				obj.colorCode = "gray";
+			}
+			return $scope.isGridView ? ('bg-' + obj.colorCode) : ('text-' + obj.colorCode);
 		}
-		return $scope.isGridView ? ('bg-' + obj.colorCode) : ('text-' + obj.colorCode);
 	}
 
 	function clearAnswers() {

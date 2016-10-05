@@ -190,7 +190,7 @@ public class CeclController extends Controller{
         return ok(finalJson.toString());
     }
 
-    @BodyParser.Of(BodyParser.Json.class)
+    /*@BodyParser.Of(BodyParser.Json.class)
     public Result getChecklistByParagraphId() {
         final String json = request().body().asJson().toString();
         final JSONObject request = new JSONObject(json);
@@ -259,7 +259,7 @@ public class CeclController extends Controller{
 
         finalJson.put("data", data);
         return ok(finalJson.toString());
-    }
+    }*/
 
     @BodyParser.Of(BodyParser.Json.class)
     public Result addAnswer() {
@@ -783,6 +783,28 @@ public class CeclController extends Controller{
     }
 
     @BodyParser.Of(BodyParser.Json.class)
+    public Result getChecklistByParagraph() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final String id = request.getString("id");
+        JSONObject finalJson = new JSONObject();
+        Boolean status = true;
+        String data = null;
+        ArrayList<String> req = new ArrayList<>();
+        req.add(id);
+        try{
+            ArrayList<HashMap<String, String>> res = transformChecklistToViewModel(lightHouseService.getChecklistsByParagraphIDs(req));
+            ObjectMapper mapper = new ObjectMapper();
+            data = mapper.writeValueAsString(res);
+        } catch (Exception e){
+            status = false;
+            e.printStackTrace();
+        }
+        finalJson.put("status", status).put("data", data);
+        return ok(finalJson.toString());
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
     public Result getChecklistBySection() {
         final String json = request().body().asJson().toString();
         final JSONObject request = new JSONObject(json);
@@ -894,7 +916,7 @@ public class CeclController extends Controller{
         Boolean status = true;
         String data = null;
         try{
-            data = checkListServices.removeCheckList(id);
+            data = checkListServices.removeCheckListAttachment(id);
         } catch (Exception e){
             status = false;
             e.printStackTrace();

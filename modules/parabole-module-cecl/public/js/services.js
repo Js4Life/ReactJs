@@ -111,6 +111,7 @@ angular.module('RDAApp.services', [])
         'GetRelatedBusinessSegentsByBusinessSegment' : 'getRelatedBusinessSegentsByBusinessSegment',
         'GetCompliedAndNotCompliedChecklistCounts' : 'getCompliedAndNotCompliedChecklistCounts',
 
+        'GetChecklistByParagraph' : 'getChecklistByParagraph',
         'GetChecklistBySection' : 'getChecklistBySection',
         'GetChecklistBySubtopic' : 'getChecklistBySubtopic',
         'GetChecklistByTopic' : 'getChecklistByTopic'
@@ -770,6 +771,9 @@ angular.module('RDAApp.services', [])
                 toastr.info('Feature coming soon..', '', {"positionClass" : "toast-top-right"});
                 return;
                 /*to be deleted*/
+                break;
+            case "PARAGRAPH" :
+                serviceName = "GetChecklistByParagraph";
                 break;
             case "SECTION" :
                 serviceName = "GetChecklistBySection";
@@ -1822,7 +1826,8 @@ angular.module('RDAApp.services', [])
         "CATEGORY_OPTION" : {
             "MODEL" : "Model",
             "REPORT" : "Report",
-            "POLICY" : "Policy"
+            "POLICY" : "Policy",
+            "DATA_ELEMENT" : "Data Element"
         },
         "PRODUCT" : "product",
         "PRODUCT_ID" : "productId",
@@ -1855,6 +1860,11 @@ angular.module('RDAApp.services', [])
                         if(!outputData.Policy)
                             outputData.Policy = {};
                         outputData.Policy[obj[localConstant.COMPONENT_ID]] = ele;
+                        break;
+                    case localConstant.CATEGORY_OPTION.DATA_ELEMENT :
+                        if(!outputData.Data_Element)
+                            outputData.Data_Element = {};
+                        outputData.Data_Element[obj[localConstant.COMPONENT_ID]] = ele;
                         break;
                 }
             }

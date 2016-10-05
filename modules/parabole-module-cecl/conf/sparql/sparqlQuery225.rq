@@ -61,7 +61,7 @@ BIND(xsd:string(CONCAT(afn:namespace(?con),afn:localname(?con))) AS ?uri)
 ?mprp rdfs:label ?connections .
 bind(rand() AS ?id).
 FILTER(?uri = $$FILTERS$$)
-#FILTER (?uri = "http://mindparabole.com/finance/basel_glossary#AdjustedNotionalAmount")
+#FILTER (?uri = "http://www.mindparabole.com/ontology/finance/Parabole-Model#AFSInvestment")
 
 }
 
