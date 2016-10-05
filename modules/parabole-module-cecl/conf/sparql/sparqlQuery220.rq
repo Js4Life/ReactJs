@@ -5,6 +5,7 @@ PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX bas: <http://mindparabole.com/finance/basel_glossary#>
 
 
 select ?mprp ?conceptName ?segl ?prol ?id
@@ -12,14 +13,16 @@ where {
 {select *
 where {
 {?concept rdf:type ?conclass .
-?conclass rdfs:subClassOf cst:FASBConcept .
+?conclass rdfs:subClassOf ?sub .
+FILTER(?sub IN(bas:BaselGlossary,cst:FASBConcept))
 ?concept pb:hasModel ?mprp .
 ?mprp pb:hasSegment ?seg.
 ?seg pb:hasProduct ?pro.
 }
 union
 {?concept rdf:type ?conclass .
-?conclass rdfs:subClassOf cst:FASBConcept .
+?conclass rdfs:subClassOf ?sub .
+FILTER(?sub IN(bas:BaselGlossary,cst:FASBConcept))
 ?concept pb:hasReport ?mprp .
 ?mprp pb:hasSegment ?seg.
 ?seg pb:hasProduct ?pro.
@@ -27,14 +30,16 @@ union
 }
 union
 {?concept rdf:type ?conclass .
-?conclass rdfs:subClassOf cst:FASBConcept .
+?conclass rdfs:subClassOf ?sub .
+FILTER(?sub IN(bas:BaselGlossary,cst:FASBConcept))
 ?concept pb:hasProcedure ?mprp .
 ?mprp pb:hasSegment ?seg.
 ?seg pb:hasProduct ?pro.
 }
 union
 {?concept rdf:type ?conclass .
-?conclass rdfs:subClassOf cst:FASBConcept .
+?conclass rdfs:subClassOf ?sub.
+FILTER(?sub IN(bas:BaselGlossary,cst:FASBConcept))
 ?concept pb:hasPolicy ?mprp .
 ?mprp pb:hasSegment ?seg.
 ?seg pb:hasProduct ?pro.

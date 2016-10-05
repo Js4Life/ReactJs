@@ -6,13 +6,16 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX afn: <http://jena.apache.org/ARQ/function#>
+PREFIX bas: <http://mindparabole.com/finance/basel_glossary#>
+
 
 select ?uri ?mprp ?Component ?ComponentType ?concept  ?conceptName ?pro ?Product ?seg ?Segment ?id
 where {
 {select *
 where {
 {?concept rdf:type ?conclass .
-?conclass rdfs:subClassOf cst:FASBConcept .
+?conclass rdfs:subClassOf ?sub.
+FILTER(?sub IN(bas:BaselGlossary,cst:FASBConcept))
 ?concept pb:hasModel ?mprp .
 ?mprp pb:hasSegment ?seg.
 ?seg pb:hasProduct ?pro.
@@ -21,7 +24,8 @@ where {
 BIND(xsd:string("Model") as ?ComponentType)}
 union
 {?concept rdf:type ?conclass .
-?conclass rdfs:subClassOf cst:FASBConcept .
+?conclass rdfs:subClassOf ?sub .
+FILTER(?sub IN(bas:BaselGlossary,cst:FASBConcept))
 ?concept pb:hasReport ?mprp .
 ?mprp pb:hasSegment ?seg.
 ?seg pb:hasProduct ?pro.
@@ -31,7 +35,8 @@ BIND(xsd:string("Report") AS ?ComponentType)
 }
 union
 {?concept rdf:type ?conclass .
-?conclass rdfs:subClassOf cst:FASBConcept .
+?conclass rdfs:subClassOf ?sub.
+FILTER(?sub IN(bas:BaselGlossary,cst:FASBConcept))
 ?concept pb:hasPolicy ?mprp .
 ?mprp pb:hasSegment ?seg.
 ?seg pb:hasProduct ?pro.
@@ -40,7 +45,8 @@ union
 bind(xsd:string ("Policy") as ?ComponentType)}
 UNION
 {?concept rdf:type ?conclass .
-?conclass rdfs:subClassOf cst:FASBConcept .
+?conclass rdfs:subClassOf ?sub .
+FILTER(?sub IN(bas:BaselGlossary,cst:FASBConcept))
 ?concept pb:ConcepthasDataElement ?mprp.
 bind(xsd:string ("Data Element") as ?ComponentType)}
 }}
@@ -52,4 +58,5 @@ FILTER(?uri = $$FILTERS$$)
 bind(rand() AS ?id).
 
 }
+
 
