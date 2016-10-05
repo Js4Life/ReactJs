@@ -211,7 +211,7 @@ public class LightHouseService {
     }
 
 
-    public ArrayList<HashMap<String, String>> getChecklistBySection(ArrayList<String> sectionIDs) {
+    public ArrayList<HashMap<String, HashMap<String, String>>> getChecklistBySection(ArrayList<String> sectionIDs) {
         ArrayList<String> listOfOfChecklist = new ArrayList<>();
         for (String sectionID : sectionIDs) {
             ArrayList<HashMap<String, String>> componentTypes = lightHouse.getChildVerticesByRootVertexId(sectionID);
@@ -220,11 +220,11 @@ public class LightHouseService {
                 listOfOfChecklist.add(componentType.get("elementID"));
             }
         }
-        return getChecklistsByParagraphIDs(listOfOfChecklist);
+        return getChecklistsByParagraphs(listOfOfChecklist);
     }
 
 
-    public ArrayList<HashMap<String, String>> getChecklistBySubTopic(ArrayList<String> subTopicIDs) {
+    public ArrayList<HashMap<String, HashMap<String, String>>> getChecklistBySubTopic(ArrayList<String> subTopicIDs) {
         ArrayList<String> listOfSections = new ArrayList<>();
         for (String subTopicID : subTopicIDs) {
             ArrayList<HashMap<String, String>> sections = lightHouse.getChildVerticesByRootVertexId(subTopicID);
@@ -237,7 +237,7 @@ public class LightHouseService {
     }
 
 
-    public ArrayList<HashMap<String, String>> getChecklistByTopic(ArrayList<String> topicIDs) {
+    public ArrayList<HashMap<String, HashMap<String, String>>> getChecklistByTopic(ArrayList<String> topicIDs) {
         ArrayList<String> listOfSubTopic = new ArrayList<>();
         for (String topicID : topicIDs) {
             ArrayList<HashMap<String, String>> subTopics = lightHouse.getChildVerticesByRootVertexId(topicID);
@@ -258,9 +258,7 @@ public class LightHouseService {
             }
         }
         ArrayList<HashMap<String, String>> finalResult = starfishServices.getChecklistByID(listOfOfChecklist);
-
         return finalResult;
-
     }
 
     public ArrayList<HashMap<String, String>> getChecklistsByParagraphIDs(ArrayList<String> paragraphIDs) {
@@ -274,7 +272,6 @@ public class LightHouseService {
         }
         ArrayList<HashMap<String, String>> finalResult = starfishServices.getChecklistByID(listOfOfChecklist);
         return finalResult;
-
     }
 
     public ArrayList<HashMap<String, String>> getChecklistByComponent(ArrayList<String> ids) {
