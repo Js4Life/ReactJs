@@ -8,6 +8,7 @@ import com.google.gson.reflect.TypeToken;
 import com.parabole.cecl.application.exceptions.AppException;
 import com.parabole.cecl.application.global.CCAppConstants;
 import com.parabole.cecl.application.services.JenaTdbService;
+import com.parabole.cecl.application.utils.BodyParserMaxLength;
 import com.parabole.feed.application.services.CheckListServices;
 import com.parabole.feed.application.services.LightHouseService;
 import com.parabole.feed.application.services.OctopusSemanticService;
@@ -847,7 +848,7 @@ public class CeclController extends Controller{
         return ok(finalJson.toString());
     }
 
-    @BodyParser.Of(BodyParser.Json.class)
+    @BodyParser.Of(BodyParserMaxLength.class)
     public Result uploadAttachmentByChecklistId() {
         final String json = request().body().asJson().toString();
         JSONObject finalJson = new JSONObject();

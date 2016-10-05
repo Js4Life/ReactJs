@@ -918,9 +918,11 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	});
 
 	$scope.addFile = function () {
+		SharedService.hideAllToolTips();
 		$scope.commentMode = false;
 	}
 	$scope.addComment = function () {
+		SharedService.hideAllToolTips();
 		$scope.commentMode = true;
 	}
 
@@ -931,9 +933,12 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			data : $scope.comment,
 			checklistId : $scope.checklistItem.id
 		}
-		/*SharedService.uploadAttachmentByChecklistId(fileData).then(function (data) {
-
-		 });*/
+		SharedService.uploadAttachmentByChecklistId(fileData).then(function (data) {
+			if (data.status) {
+				fileData.id = data.data;
+				$scope.attachments.push(fileData);
+			}
+		});
 		$scope.commentMode = false;
 	}
 	
