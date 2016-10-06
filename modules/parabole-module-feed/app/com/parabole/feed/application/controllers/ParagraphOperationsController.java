@@ -284,7 +284,7 @@ public class ParagraphOperationsController extends BaseController{
 
     public Result getSubtopicsByTopicId(String topicId) {
 
-        return ok(lightHouseService.getSubtopicsByTopicId(topicId).toString());
+        return ok(lightHouseService.getSubtopicsByTopicId(topicId, "SECTION").toString());
     }
 
     public Result getParagraphBySectionId(String nodeId) {
