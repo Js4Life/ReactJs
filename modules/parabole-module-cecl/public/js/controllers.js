@@ -1378,7 +1378,17 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				});
 				break;
 			case "PRODUCT" :
-				toastr.info('Feature coming soon..', '', {"positionClass" : "toast-top-right"});
+				$scope.currentNode = _.findWhere($scope.childNodes, {"elementID": nodeId});
+				var compName = "ceclComponentsByProduct";
+				SharedService.getFilteredDataByCompName(compName, nodeId).then(function (data) {
+					$scope.nodeDetails = OntologyParserService.parseData(data.data);
+					console.log($scope.nodeDetails);
+					getGraphByConceptUri();
+					SharedService.getDescriptionByUri($scope.currentNode.elementID).then(function (description) {
+						$scope.currentNode.description = description;
+						$('#dsViewer').modal('show');
+					});
+				});
 				break;
 		}
 	}

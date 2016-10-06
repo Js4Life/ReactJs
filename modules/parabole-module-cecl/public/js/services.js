@@ -148,6 +148,7 @@ angular.module('RDAApp.services', [])
         "report" : "ceclassets/images/graph_report.png",
         "selected" : "ceclassets/images/sky_dot.png",
         "data" : "ceclassets/images/graph_data.png",
+        "data_element" : "ceclassets/images/graph_data.png",
         "policy" : "ceclassets/images/graph_policy.png",
         "model" : "ceclassets/images/graph_model.png",
         "committee" : "ceclassets/images/graph_committee.png",
@@ -1827,7 +1828,7 @@ angular.module('RDAApp.services', [])
             "MODEL" : "Model",
             "REPORT" : "Report",
             "POLICY" : "Policy",
-            "DATA_ELEMENT" : "Data Element"
+            "DATA_ELEMENT" : "Data_Element"
         },
         "PRODUCT" : "product",
         "PRODUCT_ID" : "productId",

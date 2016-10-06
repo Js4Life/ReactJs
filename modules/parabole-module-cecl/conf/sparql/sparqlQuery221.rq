@@ -41,7 +41,7 @@ UNION
 ?conclass rdfs:subClassOf ?sub.
 FILTER(?sub IN(bas:BaselGlossary,cst:FASBConcept))
 ?concept pb:ConcepthasDataElement ?mprp.
-bind(xsd:string ("Data Element") as ?ComponentType)}
+bind(xsd:string ("Data_Element") as ?ComponentType)}
 }}
 ?concept rdfs:label ?conceptName .
 ?mprp rdfs:label ?Component .
