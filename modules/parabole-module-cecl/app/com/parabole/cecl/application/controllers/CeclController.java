@@ -924,4 +924,40 @@ public class CeclController extends Controller{
         finalJson.put("status", status).put("data", data);
         return ok(finalJson.toString());
     }
+
+    public Result downloadAttachmentById(String id) {
+        try{
+            List<Map<String, String>> res = checkListServices.getCheckListAttachmentById(id);
+            String data = res.get(0).get("data");
+            String mime = res.get(0).get("mime");
+            String name = res.get(0).get("name");
+            String temp = data.substring(data.indexOf(',') + 1);
+            byte[] bytes = Base64.getDecoder().decode(temp);
+            response().setContentType(mime);
+            response().setHeader("Content-Disposition", "attachment; filename=" + name);
+            return ok(bytes).as(mime);
+        } catch (Exception e){
+            e.printStackTrace();
+            return ok("Failed to download file!!!").as("text/html");
+        }
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result getCommentAttachmentById() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final String id = request.getString("id");
+        JSONObject finalJson = new JSONObject();
+        Boolean status = true;
+        String data = null;
+        try{
+            List<Map<String, String>> res = checkListServices.getCheckListAttachmentById(id);
+            data = res.get(0).get("data");
+        } catch (Exception e){
+            status = false;
+            e.printStackTrace();
+        }
+        finalJson.put("status", status).put("data", data);
+        return ok(finalJson.toString());
+    }
 }

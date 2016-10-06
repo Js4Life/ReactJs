@@ -88,6 +88,7 @@ angular.module('RDAApp.services', [])
         'UploadAttachmentByChecklistId' : 'uploadAttachmentByChecklistId',
         'GetAttachmentsByChecklistId' : 'getAttachmentsByChecklistId',
         'DeleteAttachmentById' : 'deleteAttachmentById',
+        'GetCommentAttachmentById' : 'getCommentAttachmentById',
 
         'GetAllTopics' : 'getAllTopics',
         'GetSubtopicsByTopicId' : 'getSubtopicsByTopicId',
@@ -826,6 +827,10 @@ angular.module('RDAApp.services', [])
     SharedService.deleteAttachmentById = function (id) {
         var sendObj = {"id": id};
         return SharedService.invokeService('DeleteAttachmentById', sendObj, 'post');
+    }
+    SharedService.getCommentAttachmentById = function (id) {
+        var sendObj = {"id": id};
+        return SharedService.invokeService('GetCommentAttachmentById', sendObj, 'post');
     }
 
     return SharedService;

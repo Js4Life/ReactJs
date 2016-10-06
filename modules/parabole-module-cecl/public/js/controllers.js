@@ -969,8 +969,9 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}
 
 	$scope.saveComment = function () {
+		var charLimit = 50;
 		var fileData = {
-			name : "Comment",
+			name : $scope.comment.length > charLimit ? $scope.comment.substring(0, charLimit) + "..." : $scope.comment,
 			mime : "comment",
 			data : $scope.comment,
 			checklistId : $scope.checklistItem.id
@@ -1003,6 +1004,25 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				$scope.getAttachmentsByChecklistId($scope.checklistItem.id);
 			}
 		});
+	}
+
+	$scope.viewAttachment = function (at) {
+		if($scope.fileMimeTypes[at.mime] === "comment"){
+			SharedService.getCommentAttachmentById(at.data_id).then(function (data) {
+				if(data.status){
+					$scope.viewComment = data.data;
+					$('#checklistModal').modal('hide');
+					$('#commentViewer').modal('show');
+				}
+			});
+		} else {
+			window.open("downloadAttachmentById?id=" + at.data_id);
+		}
+	}
+
+	$scope.onCommentViewerClose = function () {
+		$('#commentViewer').modal('hide');
+		$('#checklistModal').modal('show');
 	}
 	
 	$scope.goPreviousScreen = function () {
@@ -1227,6 +1247,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$scope.exploreNode(SharedService.currentView);
 		$scope.answers = {};
 		configureGridOption();
+		$scope.fileMimeTypes = SharedService.fileType;
 	}
 
 	function configureGridOption() {
@@ -1511,6 +1532,44 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				toastr.success('Saved Successfully..', '', {"positionClass" : "toast-top-right"});
 			}
 		});
+	}
+
+	$scope.getAttachmentsByChecklistId = function (id) {
+		SharedService.getAttachmentsByChecklistId(id).then(function (data) {
+			if (data.status) {
+				$scope.attachments = angular.fromJson(data.data);
+				if($scope.attachments.length > 0){
+					$('#checklistModal').modal('hide');
+					$('#attachmentViewer').modal('show');
+				} else {
+					toastr.warning('No Evidence Found..', '', {"positionClass" : "toast-top-right"});
+				}
+			}
+		});
+	}
+
+	$scope.viewAttachment = function (at) {
+		if($scope.fileMimeTypes[at.mime] === "comment"){
+			SharedService.getCommentAttachmentById(at.data_id).then(function (data) {
+				if(data.status){
+					$scope.viewComment = data.data;
+					$('#attachmentViewer').modal('hide');
+					$('#commentViewer').modal('show');
+				}
+			});
+		} else {
+			window.open("downloadAttachmentById?id=" + at.data_id);
+		}
+	}
+
+	$scope.onCommentViewerClose = function () {
+		$('#commentViewer').modal('hide');
+		$('#attachmentViewer').modal('show');
+	}
+
+	$scope.onAttachmentViewerClose = function () {
+		$('#attachmentViewer').modal('hide');
+		$('#checklistModal').modal('show');
 	}
 
 	$scope.initialize();

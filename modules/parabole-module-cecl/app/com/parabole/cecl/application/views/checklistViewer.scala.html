@@ -55,11 +55,27 @@
       </div>
       <div ng-if="!showLimited" class="modal-header zero-padding" ng-class="getComplianceColorcode(currentNode)"></div>
       <div class="modal-body zero-padding-bottom" style="height: 66vh; overflow: auto;">
-        <ul class="list-group">
+        @*<ul class="list-group">
           <li class="list-group-item" ng-repeat="c in checkList">
             <input ng-if="!showLimited" type="checkbox" ng-model="answers[c.id]" style="position: relative;top: 2px;"/>&nbsp;{{c.bodyText}}
+            <i class="fa fa-paperclip" aria-hidden="true"></i>
           </li>
-        </ul>
+        </ul>*@
+      <table class="table table-condensed zero-margin" style="border: 1px solid #e5e5e5;">
+        <tbody>
+          <tr ng-repeat="c in checkList">
+            <td ng-if="!showLimited">
+              <input type="checkbox" ng-model="answers[c.id]"/>
+            </td>
+            <td>
+              {{c.bodyText}}
+            </td>
+            <td ng-if="!showLimited">
+              <i class="fa fa-paperclip" aria-hidden="true" ng-click="getAttachmentsByChecklistId(c.id)"></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -170,6 +186,54 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" ng-click="closeDsViewer()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="attachmentViewer" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Attachments</h4>
+      </div>
+      <div class="modal-body">
+        <table class="table table-condensed table-striped zero-margin" style="border: 1px solid #e5e5e5;">
+          <tbody>
+            <tr ng-repeat="at in attachments">
+              <td>
+                {{at.name}}
+              </td>
+              <td>
+                {{fileMimeTypes[at.mime]}}
+              </td>
+              <td>
+                <i class="fa pull-right" ng-class="{'fa-eye': at.mime === 'comment', 'fa-download': at.mime != 'comment'}" aria-hidden="true" ng-click="viewAttachment(at)"></i>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="onAttachmentViewerClose()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="commentViewer" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Comment</h4>
+      </div>
+      <div class="modal-body">
+        {{viewComment}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="onCommentViewerClose()">Close</button>
       </div>
     </div>
   </div>
