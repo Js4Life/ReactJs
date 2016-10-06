@@ -442,15 +442,15 @@ public class CheckListServices {
     }
 
     private String getSectionIdByParagraphId(String k) {
-        return k.substring(0, 8);
+        return k.substring(0, 9);
     }
 
     private String getSubTopicIdByParagraphId(String k) {
-        return k.substring(0, 5);
+        return k.substring(0, 6);
     }
 
     private String getTopicIdByParagraphId(String k) {
-        return k.substring(0, 2);
+        return k.substring(0, 3);
     }
 
     public String saveOrUpdateCheckListAttachment(HashMap<String, Object> toSave) {
