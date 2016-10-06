@@ -191,6 +191,33 @@
 			"label" : "businesssegmentId"
 		}]
 	},
+	"ceclComponentsByProduct" : {
+		"outputFormat": "table",
+		"source": "225",
+		"groupByField": "id",
+		"columns": [{
+			"name" : "connections",
+			"label" : "component"
+		},{
+			"name" : "Area",
+			"label" : "componentCategory"
+		},{
+			"name" : "mprp",
+			"label" : "componentId"
+		},{
+			"name" : "concept",
+			"label" : "concept"
+		},{
+			"name" : "con",
+			"label" : "conceptId"
+		},{
+			"name" : "Segment",
+			"label" : "businesssegment"
+		},{
+			"name" : "seg",
+			"label" : "businesssegmentId"
+		}]
+	},
 	"ceclTopicNodeDetails" : {
 		"outputFormat":"table",
 		"source":"196",
