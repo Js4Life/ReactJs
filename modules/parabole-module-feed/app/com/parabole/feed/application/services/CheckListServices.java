@@ -416,10 +416,24 @@ public class CheckListServices {
             paragraphIDs.forEach((String k, Boolean v)->{
                 if(v){
                     lightHouse.establishEdgeByVertexIDs(k, toSave.get("DATA_ID").toString(), "paragraphToChecklist", "paragraphToChecklist");
+                    // get TOPIC SUBTOPIC SECTION
+                    String topicID = getTopicIdByParagraphId(k);
+                    String subTopicID = getSubTopicIdByParagraphId(k);
+                    String sectionID = getSectionIdByParagraphId(k);
                     // save connection with  TOPIC SUBTOPIC SECTION
-                    lightHouse.establishEdgeByVertexIDs(getTopicIdByParagraphId(k), toSave.get("DATA_ID").toString(), "topicToChecklist", "topicToChecklist");
-                    lightHouse.establishEdgeByVertexIDs(getSubTopicIdByParagraphId(k),  toSave.get("DATA_ID").toString(), "subTopicToChecklist", "subTopicToChecklist");
-                    lightHouse.establishEdgeByVertexIDs(getSectionIdByParagraphId(k),  toSave.get("DATA_ID").toString(), "sectionToChecklist", "sectionToChecklist");
+                    lightHouse.establishEdgeByVertexIDs(topicID, toSave.get("DATA_ID").toString(), "topicToChecklist", "topicToChecklist");
+                    lightHouse.establishEdgeByVertexIDs(subTopicID,  toSave.get("DATA_ID").toString(), "subTopicToChecklist", "subTopicToChecklist");
+                    lightHouse.establishEdgeByVertexIDs(sectionID,  toSave.get("DATA_ID").toString(), "sectionToChecklist", "sectionToChecklist");
+                    // Increase Checklist Count for TOPIC SUBTOPIC SECTION
+                    try{
+                        increaseChecklistCount(topicID);
+                        increaseChecklistCount(subTopicID);
+                        increaseChecklistCount(sectionID);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+
+
                 } else {
                     lightHouse.deleteEdgeByVertexIDs(k, toSave.get("DATA_ID").toString());
                 }
@@ -441,6 +455,21 @@ public class CheckListServices {
 
     }
 
+    private void increaseChecklistCount(String nodeID) throws IOException {
+        HashMap<String, String> vertexByVertexID = lightHouse.getVertexByVertexID(nodeID);
+        if(vertexByVertexID.get("checklistCount") == null){
+            HashMap<String, String> mapOfProperties = new HashMap<>();
+            mapOfProperties.put("checklistCount", "1");
+            lightHouse.addAnewVertexproperty(nodeID, mapOfProperties);
+        }else{
+            Integer count = Integer.parseInt(vertexByVertexID.get("checklistCount")) + 1;
+            HashMap<String, String> mapOfProperties = new HashMap<>();
+            mapOfProperties.put("checklistCount", count.toString());
+            lightHouse.addAnewVertexproperty(nodeID, mapOfProperties);
+        }
+    }
+
+
     private String getSectionIdByParagraphId(String k) {
         return k.substring(0, 9);
     }
@@ -451,6 +480,11 @@ public class CheckListServices {
 
     private String getTopicIdByParagraphId(String k) {
         return k.substring(0, 3);
+    }
+
+    public String getNodeDetailsByNodeID(){
+
+        return null;
     }
 
     public String saveOrUpdateCheckListAttachment(HashMap<String, Object> toSave) {
