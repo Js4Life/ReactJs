@@ -51,7 +51,7 @@ UNION
 ?conclass rdfs:subClassOf ?sub .
 FILTER(?sub IN(bas:BaselGlossary,cst:FASBConcept))
 ?con pb:ConcepthasDataElement ?mprp.
-bind(xsd:string ("Data Element") as ?Area)}
+bind(xsd:string ("Data_Element") as ?Area)}
 union
 {?con rdf:type ?conclass .
 ?conclass rdfs:subClassOf ?sub .

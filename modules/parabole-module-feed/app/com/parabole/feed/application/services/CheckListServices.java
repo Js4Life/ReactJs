@@ -525,7 +525,6 @@ public class CheckListServices {
     public String removeCheckListAttachment(String checkListAttachmetId){
         String result = null;
         try {
-            lightHouse.deleteAVertexByID(checkListAttachmetId);
             starFish.removeCheckListAttachment(checkListAttachmetId);
         } catch (Exception e) {
             e.printStackTrace();
@@ -555,15 +554,14 @@ public class CheckListServices {
 
     }
 
-    public String getCheckListAttachmentsByChecklistID(String checkListId){
-        String result = null;
+    public List<Map<String, String>> getCheckListAttachmentsByChecklistID(String checkListId){
+        List<Map<String, String>> result = null;
         try {
             result = starFish.getCheckListAttachmentsByChecklistID(checkListId);
         } catch (com.parabole.feed.platform.exceptions.AppException e) {
             e.printStackTrace();
         }
         return result;
-
     }
 
     public ArrayList<HashMap<String, String>> getChecklistDetailsForReport(ArrayList<String> listOfCheckListIds) {

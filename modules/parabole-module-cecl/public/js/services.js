@@ -86,6 +86,8 @@ angular.module('RDAApp.services', [])
         'SaveParagraphTags' : 'saveParagraphTags',
         'GetParagraphTags' : 'getParagraphTags',
         'UploadAttachmentByChecklistId' : 'uploadAttachmentByChecklistId',
+        'GetAttachmentsByChecklistId' : 'getAttachmentsByChecklistId',
+        'DeleteAttachmentById' : 'deleteAttachmentById',
 
         'GetAllTopics' : 'getAllTopics',
         'GetSubtopicsByTopicId' : 'getSubtopicsByTopicId',
@@ -109,6 +111,7 @@ angular.module('RDAApp.services', [])
         'GetRelatedBusinessSegentsByBusinessSegment' : 'getRelatedBusinessSegentsByBusinessSegment',
         'GetCompliedAndNotCompliedChecklistCounts' : 'getCompliedAndNotCompliedChecklistCounts',
 
+        'GetChecklistByParagraph' : 'getChecklistByParagraph',
         'GetChecklistBySection' : 'getChecklistBySection',
         'GetChecklistBySubtopic' : 'getChecklistBySubtopic',
         'GetChecklistByTopic' : 'getChecklistByTopic'
@@ -145,6 +148,7 @@ angular.module('RDAApp.services', [])
         "report" : "ceclassets/images/graph_report.png",
         "selected" : "ceclassets/images/sky_dot.png",
         "data" : "ceclassets/images/graph_data.png",
+        "data_element" : "ceclassets/images/graph_data.png",
         "policy" : "ceclassets/images/graph_policy.png",
         "model" : "ceclassets/images/graph_model.png",
         "committee" : "ceclassets/images/graph_committee.png",
@@ -161,6 +165,16 @@ angular.module('RDAApp.services', [])
         "segment" : "ceclassets/images/graph_businesssegment.png",
         "businesssegment" : "ceclassets/images/graph_businesssegment.png"
     };
+    SharedService.fileType = {
+        "application/pdf" : "pdf",
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" : "excel",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document" : "document",
+        "application/vnd.openxmlformats-officedocument.presentationml.presentation" : "presentation",
+        "text/plain" : "text",
+        "image/png" : "image",
+        "image/jpeg" : "image",
+        "comment" : "comment"
+    }
 
     SharedService.mappableEdges = [];
     SharedService.selEdges = [];
@@ -759,6 +773,9 @@ angular.module('RDAApp.services', [])
                 return;
                 /*to be deleted*/
                 break;
+            case "PARAGRAPH" :
+                serviceName = "GetChecklistByParagraph";
+                break;
             case "SECTION" :
                 serviceName = "GetChecklistBySection";
                 break;
@@ -801,6 +818,14 @@ angular.module('RDAApp.services', [])
 
     SharedService.uploadAttachmentByChecklistId = function (fileData) {
         return SharedService.invokeService('UploadAttachmentByChecklistId', fileData, 'post');
+    }
+    SharedService.getAttachmentsByChecklistId = function (id) {
+        var sendObj = {"id": id};
+        return SharedService.invokeService('GetAttachmentsByChecklistId', sendObj, 'post');
+    }
+    SharedService.deleteAttachmentById = function (id) {
+        var sendObj = {"id": id};
+        return SharedService.invokeService('DeleteAttachmentById', sendObj, 'post');
     }
 
     return SharedService;
@@ -1802,7 +1827,8 @@ angular.module('RDAApp.services', [])
         "CATEGORY_OPTION" : {
             "MODEL" : "Model",
             "REPORT" : "Report",
-            "POLICY" : "Policy"
+            "POLICY" : "Policy",
+            "DATA_ELEMENT" : "Data_Element"
         },
         "PRODUCT" : "product",
         "PRODUCT_ID" : "productId",
@@ -1835,6 +1861,11 @@ angular.module('RDAApp.services', [])
                         if(!outputData.Policy)
                             outputData.Policy = {};
                         outputData.Policy[obj[localConstant.COMPONENT_ID]] = ele;
+                        break;
+                    case localConstant.CATEGORY_OPTION.DATA_ELEMENT :
+                        if(!outputData.Data_Element)
+                            outputData.Data_Element = {};
+                        outputData.Data_Element[obj[localConstant.COMPONENT_ID]] = ele;
                         break;
                 }
             }

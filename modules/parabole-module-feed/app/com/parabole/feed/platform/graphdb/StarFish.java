@@ -78,7 +78,7 @@ public class StarFish extends GraphDb {
     }
 
     public void removeCheckListAttachment( String checkListAttachmetId ) throws AppException {
-            executeUpdate("DELETE FROM " + CCAppConstants.APP_CHECKLIST + " WHERE data_id = '" + checkListAttachmetId +"'");
+            executeUpdate("DELETE FROM " + CCAppConstants.APP_CHECKLIST_ATTACHMENT + " WHERE data_id = '" + checkListAttachmetId +"'");
     }
 
 
@@ -112,13 +112,13 @@ public class StarFish extends GraphDb {
     }
 
 
-    public String getCheckListAttachmentsByChecklistID(String checkListId) throws AppException {
+    public List<Map<String, String>> getCheckListAttachmentsByChecklistID(String checkListId) throws AppException {
         String propertyName = "checklistId";
         ArrayList<String> keysToEliminate = new ArrayList<>();
         keysToEliminate.add("data");
         List<Map<String, String>> data = getByOtherPropertyEcceptKeys(CCAppConstants.APP_CHECKLIST_ATTACHMENT, propertyName, checkListId, keysToEliminate);
         data.remove("data");
-        return  data.toString();
+        return  data;
     }
 
 

@@ -8,6 +8,7 @@ import com.google.gson.reflect.TypeToken;
 import com.parabole.cecl.application.exceptions.AppException;
 import com.parabole.cecl.application.global.CCAppConstants;
 import com.parabole.cecl.application.services.JenaTdbService;
+import com.parabole.cecl.application.utils.BodyParserMaxLength;
 import com.parabole.feed.application.services.CheckListServices;
 import com.parabole.feed.application.services.LightHouseService;
 import com.parabole.feed.application.services.OctopusSemanticService;
@@ -189,7 +190,7 @@ public class CeclController extends Controller{
         return ok(finalJson.toString());
     }
 
-    @BodyParser.Of(BodyParser.Json.class)
+    /*@BodyParser.Of(BodyParser.Json.class)
     public Result getChecklistByParagraphId() {
         final String json = request().body().asJson().toString();
         final JSONObject request = new JSONObject(json);
@@ -258,7 +259,7 @@ public class CeclController extends Controller{
 
         finalJson.put("data", data);
         return ok(finalJson.toString());
-    }
+    }*/
 
     @BodyParser.Of(BodyParser.Json.class)
     public Result addAnswer() {
@@ -782,6 +783,28 @@ public class CeclController extends Controller{
     }
 
     @BodyParser.Of(BodyParser.Json.class)
+    public Result getChecklistByParagraph() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final String id = request.getString("id");
+        JSONObject finalJson = new JSONObject();
+        Boolean status = true;
+        String data = null;
+        ArrayList<String> req = new ArrayList<>();
+        req.add(id);
+        try{
+            ArrayList<HashMap<String, String>> res = transformChecklistToViewModel(lightHouseService.getChecklistsByParagraphIDs(req));
+            ObjectMapper mapper = new ObjectMapper();
+            data = mapper.writeValueAsString(res);
+        } catch (Exception e){
+            status = false;
+            e.printStackTrace();
+        }
+        finalJson.put("status", status).put("data", data);
+        return ok(finalJson.toString());
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
     public Result getChecklistBySection() {
         final String json = request().body().asJson().toString();
         final JSONObject request = new JSONObject(json);
@@ -847,7 +870,7 @@ public class CeclController extends Controller{
         return ok(finalJson.toString());
     }
 
-    @BodyParser.Of(BodyParser.Json.class)
+    @BodyParser.Of(BodyParserMaxLength.class)
     public Result uploadAttachmentByChecklistId() {
         final String json = request().body().asJson().toString();
         JSONObject finalJson = new JSONObject();
@@ -856,6 +879,44 @@ public class CeclController extends Controller{
         HashMap<String, Object> req = new Gson().fromJson(json, new TypeToken<HashMap<String, Object>>() {}.getType());
         try{
             data = checkListServices.saveOrUpdateCheckListAttachment(req);
+        } catch (Exception e){
+            status = false;
+            e.printStackTrace();
+        }
+        finalJson.put("status", status).put("data", data);
+        return ok(finalJson.toString());
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result getAttachmentsByChecklistId() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final String id = request.getString("id");
+        JSONObject finalJson = new JSONObject();
+        Boolean status = true;
+        String data = null;
+        try{
+            List<Map<String, String>> res = checkListServices.getCheckListAttachmentsByChecklistID(id);
+            ObjectMapper mapper = new ObjectMapper();
+            data = mapper.writeValueAsString(res);
+        } catch (Exception e){
+            status = false;
+            e.printStackTrace();
+        }
+        finalJson.put("status", status).put("data", data);
+        return ok(finalJson.toString());
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result deleteAttachmentById() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final String id = request.getString("id");
+        JSONObject finalJson = new JSONObject();
+        Boolean status = true;
+        String data = null;
+        try{
+            data = checkListServices.removeCheckListAttachment(id);
         } catch (Exception e){
             status = false;
             e.printStackTrace();
