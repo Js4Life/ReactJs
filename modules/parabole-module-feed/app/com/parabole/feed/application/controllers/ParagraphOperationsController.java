@@ -396,20 +396,20 @@ public class ParagraphOperationsController extends BaseController{
 
     public Result getChecklistBySection() {
         ArrayList<String> sections = new ArrayList<>();
-        sections.add("326-20-35");
-        return ok(lightHouseService.getChecklistBySection(sections).toString());
+        sections.add("326-20-30");
+        return ok(lightHouseService.getChecklistsByRootNodeIDs(sections).toString());
     }
 
     public Result getChecklistBySubTopic() {
         ArrayList<String> subTopics = new ArrayList<>();
         subTopics.add("326-20");
-        return ok(lightHouseService.getChecklistBySubTopic(subTopics).toString());
+        return ok(lightHouseService.getChecklistsByRootNodeIDs(subTopics).toString());
     }
 
     public Result getChecklistByTopic() {
         ArrayList<String> topics = new ArrayList<>();
         topics.add("326");
-        return ok(lightHouseService.getChecklistByTopic(topics).toString());
+        return ok(lightHouseService.getChecklistsByRootNodeIDs(topics).toString());
     }
 
 

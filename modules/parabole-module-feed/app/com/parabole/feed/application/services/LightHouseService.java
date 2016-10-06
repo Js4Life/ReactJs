@@ -78,7 +78,6 @@ public class LightHouseService {
         return "ok";
     }
 
-
     public String createRelationBetweenTwoNodes(){
         try {
             lightHouse.establishEdgeByVertexIDs("5001", "6001", "topicSubTopic", "topicSubTopic");
@@ -210,7 +209,6 @@ public class LightHouseService {
         return getChecklistsByComponentTypes(listOfOfChecklist);
     }
 
-
     public ArrayList<HashMap<String, String>> getChecklistBySection(ArrayList<String> sectionIDs) {
         ArrayList<String> listOfOfChecklist = new ArrayList<>();
         for (String sectionID : sectionIDs) {
@@ -223,7 +221,6 @@ public class LightHouseService {
         return getChecklistsByParagraphIDs(listOfOfChecklist);
     }
 
-
     public ArrayList<HashMap<String, String>> getChecklistBySubTopic(ArrayList<String> subTopicIDs) {
         ArrayList<String> listOfSections = new ArrayList<>();
         for (String subTopicID : subTopicIDs) {
@@ -235,7 +232,6 @@ public class LightHouseService {
         }
         return getChecklistBySection(listOfSections);
     }
-
 
     public ArrayList<HashMap<String, String>> getChecklistByTopic(ArrayList<String> topicIDs) {
         ArrayList<String> listOfSubTopic = new ArrayList<>();
@@ -274,6 +270,19 @@ public class LightHouseService {
         return finalResult;
     }
 
+    public ArrayList<HashMap<String, String>> getChecklistsByRootNodeIDs(ArrayList<String> rootNodeIDs) {
+        ArrayList<String> listOfOfChecklist = new ArrayList<>();
+        for (String rootNodeID : rootNodeIDs) {
+            ArrayList<HashMap<String, String>> checklistIDs = lightHouse.getChildVerticesByRootVertexId(rootNodeID);
+            for (HashMap<String, String> checklistID : checklistIDs) {
+                if(checklistID.get("type").equalsIgnoreCase("CHECKLIST"))
+                    listOfOfChecklist.add(checklistID.get("elementID"));
+            }
+        }
+        ArrayList<HashMap<String, String>> finalResult = starfishServices.getChecklistByID(listOfOfChecklist);
+        return finalResult;
+    }
+
     public ArrayList<HashMap<String, String>> getChecklistByComponent(ArrayList<String> ids) {
 
         ArrayList<String> listOFComponentTypes = new ArrayList<>();
@@ -289,7 +298,6 @@ public class LightHouseService {
 
     }
 
-
     public ArrayList<HashMap<String, String>> getChecklistByBusinessSegment(ArrayList<String> ids) {
         ArrayList<String> listOFComponentTypes = new ArrayList<>();
         for (String id : ids) {
@@ -301,7 +309,6 @@ public class LightHouseService {
         ArrayList<HashMap<String, String>> finalResult = getChecklistByComponent(listOFComponentTypes);
         return finalResult;
     }
-
 
     public ArrayList<HashMap<String, String>> getChecklistByProducts(ArrayList<String> ids) {
         ArrayList<String> listOFBusinessSegments = new ArrayList<>();
