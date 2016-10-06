@@ -367,8 +367,7 @@ public class LightHouse extends GraphDb {
         return finalData;
     }
 
-    public ArrayList<HashMap<String, String>> getSubtopicsByTopicId(String topicid) throws  IOException{
-
+    public ArrayList<HashMap<String, String>> getConnectedNodesByNodeIdAndType(String topicid, String filterType) throws  IOException{
         Iterable<Vertex> verticesData = null;
         ArrayList<HashMap<String, String>> listOfFinalData = new ArrayList<HashMap<String, String>>();
         OrientGraph graph = this.orientGraphFactory.getTx();
@@ -382,12 +381,15 @@ public class LightHouse extends GraphDb {
                 if (null != v) {
                     v.getEdges(Direction.OUT).forEach((final Edge edge) -> {
                             System.out.println((String) edge.getVertex(Direction.IN).getProperty("elementID"));
+                        if(edge.getVertex(Direction.IN).getProperty("type").toString().contains(filterType)){
                             HashMap<String, String> finalData = new HashMap<>();
-                            //outputSet.add(edge.getVertex(Direction.IN));
                             finalData.put("elementID", edge.getVertex(Direction.IN).getProperty("elementID"));
                             finalData.put("name", edge.getVertex(Direction.IN).getProperty("name"));
                             finalData.put("type", edge.getVertex(Direction.IN).getProperty("type"));
                             listOfFinalData.add(finalData);
+                        }
+                        //outputSet.add(edge.getVertex(Direction.IN));
+
                     });
                 }
             }
@@ -470,7 +472,7 @@ public class LightHouse extends GraphDb {
                 System.out.println("v.getProperty(\"name\") = " + v.getProperty("name"));
                 if (null != v) {
                     v.getEdges(Direction.OUT).forEach((final Edge edge) -> {
-                            System.out.println((String) edge.getVertex(Direction.IN).getProperty("elementID"));
+                        if(edge.getVertex(Direction.IN).getProperty("type").toString().contains("PARAGRAPH")) {
                             HashMap<String, String> finalData = new HashMap<>();
                             //outputSet.add(edge.getVertex(Direction.IN));
                             finalData.put("elementID", edge.getVertex(Direction.IN).getProperty("elementID"));
@@ -483,6 +485,7 @@ public class LightHouse extends GraphDb {
                             finalData.put("tag", edge.getVertex(Direction.IN).getProperty("tag"));
                             finalData.put("willIgnore", edge.getVertex(Direction.IN).getProperty("willIgnore"));
                             listOfFinalData.add(finalData);
+                        }
                     });
                 }
             }

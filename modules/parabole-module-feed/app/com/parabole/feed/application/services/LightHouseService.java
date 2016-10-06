@@ -148,11 +148,10 @@ public class LightHouseService {
         return result;
     }
 
-    public ArrayList<HashMap<String, String>> getSubtopicsByTopicId(String topicId){
-
+    public ArrayList<HashMap<String, String>> getSubtopicsByTopicId(String topicId, String filterType){
         ArrayList<HashMap<String, String>> result=null;
         try {
-            result = lightHouse.getSubtopicsByTopicId(topicId);
+            result = lightHouse.getConnectedNodesByNodeIdAndType(topicId, filterType);
         } catch (IOException e) {
             e.printStackTrace();
         }
