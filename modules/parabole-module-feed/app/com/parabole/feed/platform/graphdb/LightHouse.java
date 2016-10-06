@@ -472,7 +472,7 @@ public class LightHouse extends GraphDb {
                 System.out.println("v.getProperty(\"name\") = " + v.getProperty("name"));
                 if (null != v) {
                     v.getEdges(Direction.OUT).forEach((final Edge edge) -> {
-                            System.out.println((String) edge.getVertex(Direction.IN).getProperty("elementID"));
+                        if(edge.getVertex(Direction.IN).getProperty("type").toString().contains("PARAGRAPH")) {
                             HashMap<String, String> finalData = new HashMap<>();
                             //outputSet.add(edge.getVertex(Direction.IN));
                             finalData.put("elementID", edge.getVertex(Direction.IN).getProperty("elementID"));
@@ -485,6 +485,7 @@ public class LightHouse extends GraphDb {
                             finalData.put("tag", edge.getVertex(Direction.IN).getProperty("tag"));
                             finalData.put("willIgnore", edge.getVertex(Direction.IN).getProperty("willIgnore"));
                             listOfFinalData.add(finalData);
+                        }
                     });
                 }
             }
