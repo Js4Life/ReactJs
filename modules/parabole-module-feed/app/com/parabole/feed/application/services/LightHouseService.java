@@ -149,7 +149,6 @@ public class LightHouseService {
     }
 
     public ArrayList<HashMap<String, String>> getSubtopicsByTopicId(String topicId){
-
         ArrayList<HashMap<String, String>> result=null;
         try {
             result = lightHouse.getSubtopicsByTopicId(topicId);
