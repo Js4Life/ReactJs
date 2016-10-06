@@ -57,7 +57,7 @@ union
 ?conclass rdfs:subClassOf ?sub .
 FILTER(?sub IN(bas:BaselGlossary,cst:FASBConcept))
 ?con pb:hasRelatedConcept ?mprp.
-bind(xsd:string ("Related Concept") as ?Area)}
+bind(xsd:string ("Related_Concept") as ?Area)}
 }}
 ?con rdfs:label ?concept .
 BIND(xsd:string(CONCAT(afn:namespace(?con),afn:localname(?con))) AS ?uri)

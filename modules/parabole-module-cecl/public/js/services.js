@@ -150,6 +150,7 @@ angular.module('RDAApp.services', [])
         "selected" : "ceclassets/images/sky_dot.png",
         "data" : "ceclassets/images/graph_data.png",
         "data_element" : "ceclassets/images/graph_data.png",
+        "related_concept" : "ceclassets/images/concept.png",
         "policy" : "ceclassets/images/graph_policy.png",
         "model" : "ceclassets/images/graph_model.png",
         "committee" : "ceclassets/images/graph_committee.png",
@@ -1833,7 +1834,8 @@ angular.module('RDAApp.services', [])
             "MODEL" : "Model",
             "REPORT" : "Report",
             "POLICY" : "Policy",
-            "DATA_ELEMENT" : "Data_Element"
+            "DATA_ELEMENT" : "Data_Element",
+            "RELATED_CONCEPT" : "Related_Concept"
         },
         "PRODUCT" : "product",
         "PRODUCT_ID" : "productId",
@@ -1871,6 +1873,11 @@ angular.module('RDAApp.services', [])
                         if(!outputData.Data_Element)
                             outputData.Data_Element = {};
                         outputData.Data_Element[obj[localConstant.COMPONENT_ID]] = ele;
+                        break;
+                    case localConstant.CATEGORY_OPTION.RELATED_CONCEPT :
+                        if(!outputData.Related_Concept)
+                            outputData.Related_Concept = {};
+                        outputData.Related_Concept[obj[localConstant.COMPONENT_ID]] = ele;
                         break;
                 }
             }

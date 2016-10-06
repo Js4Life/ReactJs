@@ -350,7 +350,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			return (_.isEmpty(obj) || (obj.elementID == null && obj.id == null));
 		});
 		var uniqueList = _.uniq(objList, function(item) {
-			return item.elementID;
+			return item.elementID || item.id;
 		});
 		return uniqueList;
 	}
