@@ -362,7 +362,7 @@ public class CeclController extends Controller{
         Boolean status = true;
         String data = null;
         try {
-            ArrayList<HashMap<String, String>> res = lightHouseService.getSubtopicsByTopicId(id);
+            ArrayList<HashMap<String, String>> res = lightHouseService.getSubtopicsByTopicId(id, "SUBTOPIC");
             ObjectMapper mapper = new ObjectMapper();
             data = mapper.writeValueAsString(res);
         } catch(Exception e) {
@@ -382,7 +382,7 @@ public class CeclController extends Controller{
         Boolean status = true;
         String data = null;
         try {
-            ArrayList<HashMap<String, String>> res = lightHouseService.getSubtopicsByTopicId(id);
+            ArrayList<HashMap<String, String>> res = lightHouseService.getSubtopicsByTopicId(id, "SECTION");
             ObjectMapper mapper = new ObjectMapper();
             data = mapper.writeValueAsString(res);
         } catch(Exception e) {
