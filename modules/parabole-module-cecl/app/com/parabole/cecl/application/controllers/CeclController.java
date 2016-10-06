@@ -815,7 +815,7 @@ public class CeclController extends Controller{
         ArrayList<String> req = new ArrayList<>();
         req.add(id);
         try{
-            ArrayList<HashMap<String, String>> res = transformChecklistToViewModel(lightHouseService.getChecklistByComponent(req));
+            ArrayList<HashMap<String, String>> res = transformChecklistToViewModel(lightHouseService.getChecklistsByRootNodeIDs(req));
             ObjectMapper mapper = new ObjectMapper();
             data = mapper.writeValueAsString(res);
         } catch (Exception e){
@@ -837,7 +837,7 @@ public class CeclController extends Controller{
         ArrayList<String> req = new ArrayList<>();
         req.add(id);
         try{
-            ArrayList<HashMap<String, String>> res = transformChecklistToViewModel(lightHouseService.getChecklistByComponent(req));
+            ArrayList<HashMap<String, String>> res = transformChecklistToViewModel(lightHouseService.getChecklistsByRootNodeIDs(req));
             ObjectMapper mapper = new ObjectMapper();
             data = mapper.writeValueAsString(res);
         } catch (Exception e){
@@ -859,7 +859,7 @@ public class CeclController extends Controller{
         ArrayList<String> req = new ArrayList<>();
         req.add(id);
         try{
-            ArrayList<HashMap<String, String>> res = transformChecklistToViewModel(lightHouseService.getChecklistByComponent(req));
+            ArrayList<HashMap<String, String>> res = transformChecklistToViewModel(lightHouseService.getChecklistsByRootNodeIDs(req));
             ObjectMapper mapper = new ObjectMapper();
             data = mapper.writeValueAsString(res);
         } catch (Exception e){

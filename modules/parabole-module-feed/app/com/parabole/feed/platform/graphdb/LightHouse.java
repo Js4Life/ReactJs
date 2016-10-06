@@ -324,14 +324,11 @@ public class LightHouse extends GraphDb {
     }
 
     public ArrayList<HashMap<String, String>> getAllvertex(String vertexType) throws  IOException{
-
         Iterable<Vertex> verticesData = null;
         ArrayList<HashMap<String, String>> listOfFinalData = new ArrayList<HashMap<String, String>>();
-
         OrientGraph graph = this.orientGraphFactory.getTx();
         try {
             verticesData = graph.getVertices("type", vertexType);
-
             for (Vertex v : verticesData) {
                 Set<String> propertyKeys = v.getPropertyKeys();
                 HashMap<String, String> finalData = new HashMap<>();
@@ -346,8 +343,28 @@ public class LightHouse extends GraphDb {
         } finally {
             graph.shutdown();
         }
-
         return listOfFinalData;
+    }
+
+    public HashMap<String, String> getVertexByVertexID(String vertexID) throws  IOException{
+        Iterable<Vertex> verticesData = null;
+        HashMap<String, String> finalData = new HashMap<>();
+        OrientGraph graph = this.orientGraphFactory.getTx();
+        try {
+            verticesData = graph.getVertices("elementID", vertexID);
+            for (Vertex v : verticesData) {
+                Set<String> propertyKeys = v.getPropertyKeys();
+                for (String propertyKey : propertyKeys) {
+                    finalData.put(propertyKey, v.getProperty(propertyKey));
+                }
+            }
+            graph.commit();
+        }catch( Exception e ) {
+            graph.rollback();
+        } finally {
+            graph.shutdown();
+        }
+        return finalData;
     }
 
     public ArrayList<HashMap<String, String>> getSubtopicsByTopicId(String topicid) throws  IOException{
@@ -384,7 +401,6 @@ public class LightHouse extends GraphDb {
     }
 
     public ArrayList<HashMap<String, String>> getChildVerticesByRootVertexId(String rootVertexID){
-
         Iterable<Vertex> verticesData = null;
         ArrayList<HashMap<String, String>> listOfFinalData = new ArrayList<HashMap<String, String>>();
         OrientGraph graph = this.orientGraphFactory.getTx();
@@ -408,7 +424,6 @@ public class LightHouse extends GraphDb {
         } finally {
             graph.shutdown();
         }
-
         return listOfFinalData;
     }
 
@@ -481,7 +496,6 @@ public class LightHouse extends GraphDb {
     }
 
     public String addAnewVertexproperty(String vertexID, HashMap<String, String> mapOfProperties) throws  IOException{
-
         OrientGraph graph = this.orientGraphFactory.getTx();
         Iterable<Vertex> verticesData = null;
         verticesData = graph.getVertices("elementID", vertexID);
@@ -502,7 +516,6 @@ public class LightHouse extends GraphDb {
         } finally {
             graph.shutdown();
         }
-
         return "{ status: saved } ";
     }
 

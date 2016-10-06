@@ -31,7 +31,6 @@ public class CheckListServices {
     @Inject
     private StarfishServices starfishServices;
 
-
     private String getUniqueID() {
         UUID uniqueKey = UUID.randomUUID();
         return uniqueKey.toString();
@@ -406,7 +405,6 @@ public class CheckListServices {
         }
         toSave.put("UPDATED_BY", session().get("USER_ID"));
         toSave.put("UPDATED_AT", new Date());
-
         String result = null;
         try {
             Map<String, String> nodeData = new HashMap<>();
@@ -418,6 +416,24 @@ public class CheckListServices {
             paragraphIDs.forEach((String k, Boolean v)->{
                 if(v){
                     lightHouse.establishEdgeByVertexIDs(k, toSave.get("DATA_ID").toString(), "paragraphToChecklist", "paragraphToChecklist");
+                    // get TOPIC SUBTOPIC SECTION
+                    String topicID = getTopicIdByParagraphId(k);
+                    String subTopicID = getSubTopicIdByParagraphId(k);
+                    String sectionID = getSectionIdByParagraphId(k);
+                    // save connection with  TOPIC SUBTOPIC SECTION
+                    lightHouse.establishEdgeByVertexIDs(topicID, toSave.get("DATA_ID").toString(), "topicToChecklist", "topicToChecklist");
+                    lightHouse.establishEdgeByVertexIDs(subTopicID,  toSave.get("DATA_ID").toString(), "subTopicToChecklist", "subTopicToChecklist");
+                    lightHouse.establishEdgeByVertexIDs(sectionID,  toSave.get("DATA_ID").toString(), "sectionToChecklist", "sectionToChecklist");
+                    // Increase Checklist Count for TOPIC SUBTOPIC SECTION
+                    try{
+                        increaseChecklistCount(topicID);
+                        increaseChecklistCount(subTopicID);
+                        increaseChecklistCount(sectionID);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+
+
                 } else {
                     lightHouse.deleteEdgeByVertexIDs(k, toSave.get("DATA_ID").toString());
                 }
@@ -439,6 +455,38 @@ public class CheckListServices {
 
     }
 
+    private void increaseChecklistCount(String nodeID) throws IOException {
+        HashMap<String, String> vertexByVertexID = lightHouse.getVertexByVertexID(nodeID);
+        if(vertexByVertexID.get("checklistCount") == null){
+            HashMap<String, String> mapOfProperties = new HashMap<>();
+            mapOfProperties.put("checklistCount", "1");
+            lightHouse.addAnewVertexproperty(nodeID, mapOfProperties);
+        }else{
+            Integer count = Integer.parseInt(vertexByVertexID.get("checklistCount")) + 1;
+            HashMap<String, String> mapOfProperties = new HashMap<>();
+            mapOfProperties.put("checklistCount", count.toString());
+            lightHouse.addAnewVertexproperty(nodeID, mapOfProperties);
+        }
+    }
+
+
+    private String getSectionIdByParagraphId(String k) {
+        return k.substring(0, 9);
+    }
+
+    private String getSubTopicIdByParagraphId(String k) {
+        return k.substring(0, 6);
+    }
+
+    private String getTopicIdByParagraphId(String k) {
+        return k.substring(0, 3);
+    }
+
+    public String getNodeDetailsByNodeID(){
+
+        return null;
+    }
+
     public String saveOrUpdateCheckListAttachment(HashMap<String, Object> toSave) {
         String data_id = getUniqueID();
         toSave.put("data_id", data_id);
@@ -447,7 +495,6 @@ public class CheckListServices {
         starFish.saveOrUpdateCheckListAttachment(toSave);
         return data_id;
     }
-
 
     public String editChecklistCheck(HashMap<String, Boolean> checklistCheckInfo) {
 
@@ -496,7 +543,6 @@ public class CheckListServices {
 
     }
 
-
     public List<Map<String, String>> getCheckListAttachmentById(String CheckListAttachmentId){
         List<Map<String, String>> result = null;
         try {
@@ -508,7 +554,6 @@ public class CheckListServices {
 
     }
 
-
     public List<Map<String, String>> getCheckListAttachmentsByChecklistID(String checkListId){
         List<Map<String, String>> result = null;
         try {
@@ -517,7 +562,6 @@ public class CheckListServices {
             e.printStackTrace();
         }
         return result;
-
     }
 
     public ArrayList<HashMap<String, String>> getChecklistDetailsForReport(ArrayList<String> listOfCheckListIds) {
@@ -537,8 +581,6 @@ public class CheckListServices {
         HashMap<String, String> allChecklistData = lightHouse.getParagraphCountGroupByTag();
         return allChecklistData;
     }
-
-
 
     public List<HashMap<String, String>> getRelatedNodesByNodeID(String nodeID, String filteredBY) {
         ArrayList<HashMap<String, String>> finalResult = new ArrayList<>();
@@ -573,7 +615,6 @@ public class CheckListServices {
         return resultData;
     }
 
-
     private String getAllParagraphsAgainstTheChecklistID(String checklistID) {
         String paragraphIDs = "";
         ArrayList<HashMap<String, String>> allRootNodeDetails = lightHouse.getRootVerticesByChildVertexId(checklistID);
@@ -589,7 +630,6 @@ public class CheckListServices {
         }
         return paragraphIDs;
     }
-
 
     private String getAllComponentTypesAgainstTheChecklistID(String checklistID) {
         String componentTypeIDs = "";
