@@ -2518,4 +2518,11 @@ li.list-group-item.puff{
   .tooltip{
       z-index: 50000;
   }
+
+  .doc-card-img{
+      opacity: 0.6;
+  }
+  .doc-card-img:hover{
+      opacity: 1;
+  }
   /*End*/
