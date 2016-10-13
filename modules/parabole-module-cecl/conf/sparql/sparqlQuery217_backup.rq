@@ -12,6 +12,4 @@ WHERE{
 ?Type rdfs:subClassOf ?c.
 ?comp rdfs:label ?component.
 FILTER(?c =pb:Products).
-?seg rdf:type pb:BankASegments .
-?seg pb:hasProduct ?comp.
 bind(rand() AS ?id)}

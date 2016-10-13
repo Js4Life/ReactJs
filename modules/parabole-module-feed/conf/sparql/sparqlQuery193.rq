@@ -26,36 +26,22 @@ PREFIX cst:<http://mindparabole.com/finance/cecl_structure#>
 PREFIX owl:<http://www.w3.org/2002/07/owl#>
 PREFIX bas: <http://mindparabole.com/finance/basel_glossary#>
 
-select *
-where{
-{select  DISTINCT ?name ?itemname ?item
-where{
-values (?a)
-{("Topic")
-("Sub-Topic")
-("Section")
-("Paragraph")
-("FASB Concept")}
-?class rdfs:subClassOf owl:Thing .
-?class rdfs:label ?name.
-FILTER(?a = ?name)
-?sub rdfs:subClassOf ?class .
-?item rdf:type ?sub.
-?item rdfs:label ?itemname.
-}}
-UNION
-{SELECT  DISTINCT ?name ?itemname ?item
+SELECT  DISTINCT ?name ?itemname ?item
 WHERE{
-?class rdfs:subClassOf owl:Thing .
+?class rdfs:subClassOf ?Type .
 ?class rdfs:label ?name.
-FILTER(?class = bas:BaselGlossary)
+FILTER(?Type = cst:FASBConcept)
 ?item rdf:type ?class.
 ?item rdfs:label ?itemname.
-
-}}
 #FILTER(?name =$$FILTERS$$)
-FILTER((?name ="FASB Concept")||(?name = "Basel Glossary"))
 }
+
+
+
+ 
+
+
+
  
 
 

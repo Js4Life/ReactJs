@@ -8,13 +8,12 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
 select distinct ?segl ?Model ?Report ?Policy
 where {
-?seg rdf:type pb:Segment ; rdfs:label ?segl.
-?seg pb:hasProduct ?pro .
-?pro rdfs:label ?prol .
+?seg rdf:type pb:BankASegments ; rdfs:label ?segl.
 ?com pb:hasSegment ?seg ; rdfs:label ?coml .
 ?comclass rdfs:subClassOf ?coms .
 ?com rdf:type ?comclass .
 bind (if(?coms = pb:Model, ?coml, "") as ?Model)
 bind (if(?coms = pb:Report, ?coml, "") as ?Report)
 bind (if(?coms = pb:Policy, ?coml, "") as ?Policy)
+FILTER((?comclass !=pb:BaselModel)&&(?comclass !=pb:BaselPolicy))
 }
