@@ -57,7 +57,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		switch(obj)
 		{
 			case Constant.DOCUMENT_BROWSER_TAB : $scope.viewTitle = Constant.DOCUMENT_BROWSER_TAB;
-				$state.go('landing.home');
+				$state.go('landing.regulation');
 				break;
 			case Constant.IMPACT_TAB : $scope.viewTitle = Constant.IMPACT_TAB;
 				$state.go('landing.impact');
@@ -639,87 +639,20 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 .controller('regulationCtrl', function($scope, $state, $stateParams, SharedService) {
 	$scope.initialize = function () {
-		$scope.regulations = ["CECL", "IFRS9"];
-		$scope.user = {name: "Bruce Lloyd", role: "Accounts Manager"};
-		$scope.heading = SharedService.primaryNav[2];
-		SharedService.getFilteredDataByCompName("impactProductsByRole", $scope.user.role).then(function (data) {
-			var products = data.data;
-			var prodList = [];
-			angular.forEach(products, function (prod) {
-				prodList.push(prod.type + " - " + prod.name);
-			});
-			SharedService.getFunctionalAreasByProducts("impactAreaByProduct", prodList).then(function (data) {
-				$scope.allAreas = data.data;
-				$scope.columns = data.columns;
-				console.log(data);
-			});
-		});
-	}
-	
-	$scope.onSelectRegulation = function () {
-		switch($scope.selRegulation){
-			case $scope.regulations[0]:
-				SharedService.getFilteredDataByCompName("impactProductsByRole", "Accounts Manager").then(function (data) {
-					var products = data.data;
-					var prodList = [];
-					angular.forEach(products, function (prod) {
-						prodList.push(prod.type + " - " + prod.name);
-					});
-					SharedService.getFunctionalAreasByProducts("impactAreaByProduct", prodList).then(function (data) {
-						$scope.allAreas = data.data;
-						$scope.columns = data.columns;
-						console.log(data);
-					});
-				});
-				break;
-			case $scope.regulations[1]:
-				SharedService.getFilteredDataByCompName("impactProductsByRole", "Branch Manager").then(function (data) {
-					var products = data.data;
-					var prodList = [];
-					angular.forEach(products, function (prod) {
-						prodList.push(prod.type + " - " + prod.name);
-					});
-					SharedService.getFunctionalAreasByProducts("impactAreaByProduct", prodList).then(function (data) {
-						$scope.allAreas = data.data;
-						$scope.columns = data.columns;
-						console.log(data);
-					});
-				});
-				break;
-		}
-	}
+		$scope.heading = {"title": "Regulations"};
 
-	$scope.getImpactedRegulation = function () {
-
-	}
-
-	$scope.getFunctionalAreaDetail = function (productName, areaType, areaName) {
-		var filters = [
-			{"name": "product", "value": productName},
-			{"name": areaType, "value": areaName}
-		];
-		$scope.modalHead = areaName + " (" + productName + ")";
-		var compName = "";
-		switch (areaType){
-			case "concept":
-				compName = "dataelementByFuncArea";
-				break;
-			case "model":
-				compName = "modelByFuncArea";
-				break;
-			case "policy":
-				compName = "policyByFuncArea";
-				break;
-			case "report":
-				compName = "reportByFuncArea";
-				break;
-		}
-		SharedService.getMultiFilteredDataByCompName(compName, filters).then(function (data) {
-			$scope.nodeElements = data.data;
-			if($scope.nodeElements.length > 0){
-				$('#dsViewer').modal('show');
+		SharedService.getRegulations().then(function (data) {
+			if(data.status){
+				$scope.regulations = data.data;
 			}
 		});
+	}
+
+	$scope.loadRegulation = function (reg) {
+		/*SharedService.loadRegulation(reg.name).then(function (data) {
+
+		});*/
+		$state.go('landing.homeContainer');
 	}
 
 	$scope.initialize();
@@ -1225,6 +1158,10 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.toggleView = function () {
 		$scope.isGridView = !$scope.isGridView;
 		$rootScope.$emit('PARENTISGRIDVIEW', $scope.isGridView);
+	}
+	
+	$scope.indutryPredicate = function (val) {
+		return val['FASB Industry'];
 	}
 
 	$scope.initialize();

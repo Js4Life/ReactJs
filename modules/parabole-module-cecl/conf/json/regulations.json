@@ -1,0 +1,9 @@
+[
+  {
+    "name": "FASB",
+    "roles": ["CCO", "EXTSME", "ADMIN", "FORDEMO"]
+  },{
+    "name": "BASEL",
+    "roles": ["CCO", "EXTSME", "ADMIN"]
+  }
+]
