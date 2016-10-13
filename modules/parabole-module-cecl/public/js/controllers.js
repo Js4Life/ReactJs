@@ -1226,6 +1226,10 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$scope.isGridView = !$scope.isGridView;
 		$rootScope.$emit('PARENTISGRIDVIEW', $scope.isGridView);
 	}
+	
+	$scope.indutryPredicate = function (val) {
+		return val['FASB Industry'];
+	}
 
 	$scope.initialize();
 })

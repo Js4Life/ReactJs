@@ -371,11 +371,20 @@
 			"name" : "Equipment_Finance",
 			"label" : "Equipment Finance"
 		},{
-			"name" : "Credit_Card",
-			"label" : "Credit Card"
-		},{
 			"name" : "Auto_Loan",
 			"label" : "Auto Loan"
+		},{
+			"name" : "Small_Business",
+			"label" : "Small Business"
+		},{
+			"name" : "Commercial_Business",
+			"label" : "Commercial Business"
+		},{
+			"name" : "Corporate_Finance",
+			"label" : "Corporate Finance"
+		},{
+			"name" : "Retail_Banking",
+			"label" : "Retail Banking"
 		}]
 	},
 	"allBusinessSegments" : {
