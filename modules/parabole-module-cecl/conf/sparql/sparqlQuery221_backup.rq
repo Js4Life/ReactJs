@@ -8,61 +8,47 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX afn: <http://jena.apache.org/ARQ/function#>
 PREFIX bas: <http://mindparabole.com/finance/basel_glossary#>
 
-
-select ?uri ?mprp ?Component ?ComponentType ?concept  ?conceptName ?pro ?Product ?seg ?Segment ?id
+select ?uri ?seg ?concept ?conceptName ?pro ?Product ?mprp ?Component ?ComponentType ?id
 where {
 {select *
 where {
 {?concept rdf:type ?conclass .
 ?conclass rdfs:subClassOf ?sub.
-FILTER(?sub IN(cst:FASBConcept))
+FILTER(?sub IN(bas:BaselGlossary,cst:FASBConcept))
 ?concept pb:hasModel ?mprp .
-MINUS{?mprp rdf:type pb:BaselModel}
 ?mprp pb:hasSegment ?seg.
-?seg rdf:type ?segtype.
-FILTER(?segtype = pb:BankASegments)
 ?seg pb:hasProduct ?pro.
-?pro rdfs:label ?Product.
-?seg rdfs:label ?Segment.
 BIND(xsd:string("Model") as ?ComponentType)}
 union
 {?concept rdf:type ?conclass .
 ?conclass rdfs:subClassOf ?sub .
-FILTER(?sub IN(cst:FASBConcept))
+FILTER(?sub IN(bas:BaselGlossary,cst:FASBConcept))
 ?concept pb:hasReport ?mprp .
 ?mprp pb:hasSegment ?seg.
-?seg rdf:type ?segtype.
-FILTER(?segtype = pb:BankASegments)
 ?seg pb:hasProduct ?pro.
-?pro rdfs:label ?Product.
-?seg rdfs:label ?Segment.
 BIND(xsd:string("Report") AS ?ComponentType)
 }
 union
 {?concept rdf:type ?conclass .
-?conclass rdfs:subClassOf ?sub.
-FILTER(?sub IN(cst:FASBConcept))
+?conclass rdfs:subClassOf ?sub .
+FILTER(?sub IN(bas:BaselGlossary,cst:FASBConcept))
 ?concept pb:hasPolicy ?mprp .
-MINUS{?mprp rdf:type pb:BaselPolicy}
 ?mprp pb:hasSegment ?seg.
-?seg rdf:type ?segtype.
-FILTER(?segtype = pb:BankASegments)
 ?seg pb:hasProduct ?pro.
-?pro rdfs:label ?Product.
-?seg rdfs:label ?Segment.
 bind(xsd:string ("Policy") as ?ComponentType)}
 UNION
 {?concept rdf:type ?conclass .
-?conclass rdfs:subClassOf ?sub .
-FILTER(?sub IN(cst:FASBConcept))
+?conclass rdfs:subClassOf ?sub.
+FILTER(?sub IN(bas:BaselGlossary,cst:FASBConcept))
 ?concept pb:ConcepthasDataElement ?mprp.
 bind(xsd:string ("Data_Element") as ?ComponentType)}
 }}
 ?concept rdfs:label ?conceptName .
 ?mprp rdfs:label ?Component .
-BIND(xsd:string(CONCAT(afn:namespace(?mprp),afn:localname(?mprp))) as ?uri)
-FILTER(?uri = $$FILTERS$$)
-#FILTER(?uri = "http://www.mindparabole.com/ontology/finance/Parabole-Model#MMPDModel")
+?pro rdfs:label ?Product.
+BIND(xsd:string(CONCAT(afn:namespace(?seg),afn:localname(?seg))) as ?uri)
+#FILTER(?uri = $$FILTERS$$)
+FILTER(?uri = "http://www.mindparabole.com/ontology/finance/Parabole-Model#WholesaleFinance")
 bind(rand() AS ?id).
 
 }

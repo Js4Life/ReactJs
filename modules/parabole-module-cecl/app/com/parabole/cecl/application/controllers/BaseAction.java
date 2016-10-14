@@ -23,12 +23,14 @@ import com.parabole.cecl.platform.exceptions.AppException;
 import com.parabole.cecl.platform.securities.AuthenticationManager;
 import com.parabole.cecl.platform.utils.AppUtils;
 import com.parabole.feed.application.services.*;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import play.Configuration;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -118,5 +120,37 @@ public class BaseAction extends Controller {
     protected boolean isAdmin() {
         final String userId = session().get(RdaAppConstants.USER_ID);
         return (userId == RdaAppConstants.ADMIN) ? true : false;
+    }
+
+    public Result getRegulations() throws Exception {
+        String jsonFileContent = null;
+        String role = session().get(AuthConstants.ROLE);
+        JSONObject finalJson = new JSONObject();
+        JSONArray data = new JSONArray();
+        Boolean status = true;
+        try {
+            if(role != null) {
+                jsonFileContent = AppUtils.getFileContent("json/regulations.json");
+                final JSONArray jsonArray = new JSONArray(jsonFileContent);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject obj = jsonArray.getJSONObject(i);
+                    JSONArray roles = obj.getJSONArray("roles");
+                    for (int j = 0; j < roles.length(); j++) {
+                        if (roles.getString(j).equalsIgnoreCase(role)) {
+                            obj.remove("roles");
+                            data.put(obj);
+                            break;
+                        }
+                    }
+                }
+            } else {
+                status = false;
+            }
+        } catch (final com.parabole.cecl.platform.exceptions.AppException e) {
+            status = false;
+            e.printStackTrace();
+        }
+        finalJson.put("status", status).put("data", data);
+        return Results.ok(finalJson.toString());
     }
 }

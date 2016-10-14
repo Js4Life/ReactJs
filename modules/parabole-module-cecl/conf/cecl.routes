@@ -10,6 +10,7 @@ GET         /doLogin                                                            
 GET         /logout                                                                    com.parabole.cecl.application.controllers.BaseAction.logout()
 GET         /getHardCodedResponse/:jsonFileName                                        com.parabole.cecl.application.controllers.BaseAction.getHardCodedResponse(jsonFileName: String)
 GET         /getLogicalViewJson/:viewName                                              com.parabole.cecl.application.controllers.BaseAction.getLogicalViewJson(viewName: String)
+GET         /getRegulations                                                            com.parabole.cecl.application.controllers.BaseAction.getRegulations()
 
 # ---------------------------------------------------------------------------------
 # View DispatcherActions (All Authenticated)

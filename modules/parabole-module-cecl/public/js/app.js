@@ -67,5 +67,5 @@ angular
               controller : 'checklistViewerCtrl'
           });
 
-          $urlRouterProvider.otherwise('/landing/home-container');
+          $urlRouterProvider.otherwise('/landing/regulation');
   });

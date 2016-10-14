@@ -115,7 +115,9 @@ angular.module('RDAApp.services', [])
         'GetChecklistByParagraph' : 'getChecklistByParagraph',
         'GetChecklistBySection' : 'getChecklistBySection',
         'GetChecklistBySubtopic' : 'getChecklistBySubtopic',
-        'GetChecklistByTopic' : 'getChecklistByTopic'
+        'GetChecklistByTopic' : 'getChecklistByTopic',
+
+        'GetRegulations' : 'getRegulations'
     };
     SharedService.chartDataMap = {
         '0' : 'getHardCodedResponse/chartData1',
@@ -795,8 +797,8 @@ angular.module('RDAApp.services', [])
         var sendObj = {"id": id};
         return SharedService.invokeService('RemoveChecklistById', sendObj, 'post');
     }
-    SharedService.checklistDetailsByIds = function (ids) {
-        var sendObj = {"ids": ids};
+    SharedService.checklistDetailsByIds = function (checklistIds, id, type) {
+        var sendObj = {"checklistIds": checklistIds, "id": id, "type": type};
         return SharedService.invokeService('ChecklistDetailsByIds', sendObj, 'post');
     }
 
@@ -832,6 +834,10 @@ angular.module('RDAApp.services', [])
     SharedService.getCommentAttachmentById = function (id) {
         var sendObj = {"id": id};
         return SharedService.invokeService('GetCommentAttachmentById', sendObj, 'post');
+    }
+
+    SharedService.getRegulations = function(){
+        return SharedService.invokeService('GetRegulations');
     }
 
     return SharedService;
