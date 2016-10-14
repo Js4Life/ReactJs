@@ -365,7 +365,7 @@ public class ParagraphOperationsController extends BaseController{
     public Result getChecklistDetailsForReport() {
         ArrayList<String> listOfCheckListIds = new ArrayList<>();
         listOfCheckListIds.add("9964fc0e-552a-4e3a-a33e-3ebd99636e33");
-        return ok(checkListServices.getChecklistDetailsForReport(listOfCheckListIds).toString());
+       // return ok(checkListServices.getChecklistDetailsForReport(listOfCheckListIds).toString());
         return null;
     }
 

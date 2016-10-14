@@ -571,11 +571,13 @@ public class CheckListServices {
             stringStringHashMap.put("paragraphs", getAllParagraphsAgainstTheChecklistID(checklistID));
             //stringStringHashMap.put("componentTypes", getAllComponentTypesAgainstTheChecklistID(checklistID));
 
-            if(type.contains("BUSINESSSEGMENT"));
-            ArrayList<String> checkliistsByFilter =  getAllChecklistByBusinessSegment(id);
-            ArrayList<String> checkliistsToFilter =  getAllComponentsAgainstTheChecklistIDInArr(checklistID);
-            ArrayList<String> checkliistsFiltered = intersection(checkliistsToFilter, checkliistsByFilter);
-
+            ArrayList<String> checkliistsFiltered = new ArrayList<>();
+            if(type.contains("BUSINESSSEGMENT")) {
+                ArrayList<String> checkliistsByFilter = getAllChecklistByBusinessSegment(id);
+                System.out.println("checkliistsByFilter.toString() = " + checkliistsByFilter.toString());
+                ArrayList<String> checkliistsToFilter = getAllComponentsAgainstTheChecklistIDInArr(checklistID);
+                checkliistsFiltered = intersection(checkliistsToFilter, checkliistsByFilter);
+            }
             stringStringHashMap.put("components", makeListOFStringToOnlyString(checkliistsFiltered));
             stringStringHashMap.remove("CREATED_AT");
             stringStringHashMap.remove("UPDATED_AT");
