@@ -570,6 +570,8 @@ public class CheckListServices {
             String checklistID = stringStringHashMap.get("DATA_ID");
             stringStringHashMap.put("paragraphs", getAllParagraphsAgainstTheChecklistID(checklistID));
             //stringStringHashMap.put("componentTypes", getAllComponentTypesAgainstTheChecklistID(checklistID));
+
+
             stringStringHashMap.put("components", getAllComponentsAgainstTheChecklistID(checklistID));
             stringStringHashMap.remove("CREATED_AT");
             stringStringHashMap.remove("UPDATED_AT");
@@ -673,6 +675,12 @@ public class CheckListServices {
 
 
         return componentTypeIDs;
+    }
+
+    public ArrayList<String> getAllChecklistByBusinessSegment(){
+
+
+        return null;
     }
 
     public HashMap<String, String> getCompliedAndNotCompliedCounts() {
