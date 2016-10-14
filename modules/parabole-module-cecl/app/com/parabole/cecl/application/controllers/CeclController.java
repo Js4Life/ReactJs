@@ -692,12 +692,14 @@ public class CeclController extends Controller{
         final String json = request().body().asJson().toString();
         final JSONObject request = new JSONObject(json);
         final JSONArray ids = request.getJSONArray("checklistIds");
+        final String id = request.getString("id");
+        final String type = request.getString("type");
         JSONObject finalJson = new JSONObject();
         Boolean status = true;
         String data = null;
         try{
             ArrayList<String> checklistIds = new Gson().fromJson(ids.toString(), new TypeToken<ArrayList<String>>() {}.getType());
-            ArrayList<HashMap<String, String>> res = checkListServices.getChecklistDetailsForReport(checklistIds);
+            ArrayList<HashMap<String, String>> res = checkListServices.getChecklistDetailsForReport(checklistIds, id, type);
             ObjectMapper mapper = new ObjectMapper();
             data = mapper.writeValueAsString(res);
         } catch (Exception e){
