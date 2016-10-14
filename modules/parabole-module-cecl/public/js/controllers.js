@@ -81,7 +81,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		outer.animate({ scrollLeft: leftPos + 200 }, 800);
 	};
 
-	setInterval(function(){
+	/*setInterval(function(){
 		var currDate = new Date();
 		var yy = currDate.getFullYear();
 		var hr = currDate.getHours();
@@ -96,7 +96,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$scope.$apply(function(scope){
 			$scope.currDate = dateStr;
 		});
-  	}, 1000);
+  	}, 1000);*/
 
 	$scope.initialize();
 })
@@ -1227,9 +1227,8 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 	$scope.viewChecklistDetails = function () {
 		var checklistIds = _.pluck($scope.checkList, 'id');
-		SharedService.checklistDetailsByIds(checklistIds).then(function (data) {
+		SharedService.checklistDetailsByIds(checklistIds, $scope.currentNode.elementID, $scope.currentNode.type).then(function (data) {
 			if(data.status){
-				console.log(angular.fromJson(data.data));
 				$scope.gridOptions.data = angular.fromJson(data.data);
 				$('#checklistModal').modal('hide');
 				$('#checklistDetailsModal').modal('show');

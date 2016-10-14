@@ -797,8 +797,8 @@ angular.module('RDAApp.services', [])
         var sendObj = {"id": id};
         return SharedService.invokeService('RemoveChecklistById', sendObj, 'post');
     }
-    SharedService.checklistDetailsByIds = function (ids) {
-        var sendObj = {"ids": ids};
+    SharedService.checklistDetailsByIds = function (checklistIds, id, type) {
+        var sendObj = {"checklistIds": checklistIds, "id": id, "type": type};
         return SharedService.invokeService('ChecklistDetailsByIds', sendObj, 'post');
     }
 
