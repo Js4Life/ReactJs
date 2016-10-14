@@ -564,22 +564,35 @@ public class CheckListServices {
         return result;
     }
 
-    public ArrayList<HashMap<String, String>> getChecklistDetailsForReport(ArrayList<String> listOfCheckListIds) {
+    public ArrayList<HashMap<String, String>> getChecklistDetailsForReport(ArrayList<String> listOfCheckListIds, String id, String type) {
         ArrayList<HashMap<String, String>> allChecklistData = starfishServices.getChecklistByID(listOfCheckListIds);
         for (HashMap<String, String> stringStringHashMap : allChecklistData) {
             String checklistID = stringStringHashMap.get("DATA_ID");
             stringStringHashMap.put("paragraphs", getAllParagraphsAgainstTheChecklistID(checklistID));
             //stringStringHashMap.put("componentTypes", getAllComponentTypesAgainstTheChecklistID(checklistID));
 
+            if(type.contains("BUSINESSSEGMENT"));
+            ArrayList<String> checkliistsByFilter =  getAllChecklistByBusinessSegment(id);
+            ArrayList<String> checkliistsToFilter =  getAllComponentsAgainstTheChecklistIDInArr(checklistID);
+            ArrayList<String> checkliistsFiltered = intersection(checkliistsToFilter, checkliistsByFilter);
 
-            ArrayList<String> checkliists =  getAllChecklistByBusinessSegment(checklistID);
-
-
-            stringStringHashMap.put("components", getAllComponentsAgainstTheChecklistID(checklistID));
+            stringStringHashMap.put("components", makeListOFStringToOnlyString(checkliistsFiltered));
             stringStringHashMap.remove("CREATED_AT");
             stringStringHashMap.remove("UPDATED_AT");
         }
         return allChecklistData;
+    }
+
+    public ArrayList<String> intersection(ArrayList<String> list1, ArrayList<String> list2) {
+        ArrayList<String>  ArrayList = new ArrayList<String> ();
+
+        for (String t : list1) {
+            if(list2.contains(t)) {
+                ArrayList.add(t);
+            }
+        }
+
+        return ArrayList;
     }
 
     public HashMap<String, String> getParagraphTypeCounts() {
@@ -678,6 +691,37 @@ public class CheckListServices {
 
 
         return componentTypeIDs;
+    }
+
+    private String makeListOFStringToOnlyString(ArrayList<String> componentTypes) {
+
+        String componentTypeIDs = "";
+        for (String componentType : componentTypes) {
+            ArrayList<HashMap<String, String>> allChildNodeDetails = lightHouse.getChildVerticesByRootVertexId(componentType);
+            for (HashMap<String, String> allChildNodeDetail : allChildNodeDetails) {
+                if(allChildNodeDetail.get("type").equals("COMPONENT")){
+                    if(componentTypeIDs != "") {
+                        componentTypeIDs += ", " + (allChildNodeDetail.get("name"));
+                    }else{
+                        componentTypeIDs += (allChildNodeDetail.get("name"));
+                    }
+                }
+            }
+        }
+
+
+        return componentTypeIDs;
+    }
+
+    private ArrayList<String> getAllComponentsAgainstTheChecklistIDInArr(String checklistID) {
+        ArrayList<String> componentTypes = new ArrayList<>();
+        ArrayList<HashMap<String, String>> allRootNodeDetails = lightHouse.getRootVerticesByChildVertexId(checklistID);
+        for (HashMap<String, String> allRootNodeDetail : allRootNodeDetails) {
+            if(allRootNodeDetail.get("type").equals("COMPONENTTYPE")){
+                componentTypes.add(allRootNodeDetail.get("elementID"));
+            }
+        }
+        return componentTypes;
     }
 
     public ArrayList<String> getAllChecklistByBusinessSegment(String checklistID){
