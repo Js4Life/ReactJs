@@ -572,6 +572,9 @@ public class CheckListServices {
             //stringStringHashMap.put("componentTypes", getAllComponentTypesAgainstTheChecklistID(checklistID));
 
 
+            ArrayList<String> checkliists =  getAllChecklistByBusinessSegment(checklistID);
+
+
             stringStringHashMap.put("components", getAllComponentsAgainstTheChecklistID(checklistID));
             stringStringHashMap.remove("CREATED_AT");
             stringStringHashMap.remove("UPDATED_AT");
@@ -677,10 +680,16 @@ public class CheckListServices {
         return componentTypeIDs;
     }
 
-    public ArrayList<String> getAllChecklistByBusinessSegment(){
+    public ArrayList<String> getAllChecklistByBusinessSegment(String checklistID){
 
-
-        return null;
+        ArrayList<String> componentTypes = new ArrayList<>();
+        ArrayList<HashMap<String, String>> allRootNodeDetails = lightHouse.getRootVerticesByChildVertexId(checklistID);
+        for (HashMap<String, String> allRootNodeDetail : allRootNodeDetails) {
+            if(allRootNodeDetail.get("type").equals("COMPONENTTYPE")){
+                componentTypes.add(allRootNodeDetail.get("elementID"));
+            }
+        }
+        return componentTypes;
     }
 
     public HashMap<String, String> getCompliedAndNotCompliedCounts() {
