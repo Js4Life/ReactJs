@@ -570,7 +570,7 @@ public class CheckListServices {
             String checklistID = stringStringHashMap.get("DATA_ID");
             stringStringHashMap.put("paragraphs", getAllParagraphsAgainstTheChecklistID(checklistID));
             //stringStringHashMap.put("componentTypes", getAllComponentTypesAgainstTheChecklistID(checklistID));
-
+            System.out.println("listOfCheckListIds = [" + listOfCheckListIds + "], id = [" + id + "], type = [" + type + "]");
             ArrayList<String> checkliistsFiltered = new ArrayList<>();
             if(type.contains("BUSINESSSEGMENT")) {
                 ArrayList<String> checkliistsByFilter = getAllChecklistByBusinessSegment(id);
@@ -578,7 +578,9 @@ public class CheckListServices {
                 ArrayList<String> checkliistsToFilter = getAllComponentsAgainstTheChecklistIDInArr(checklistID);
                 checkliistsFiltered = intersection(checkliistsToFilter, checkliistsByFilter);
             }
-            stringStringHashMap.put("components", makeListOFStringToOnlyString(checkliistsFiltered));
+            String res = makeListOFStringToOnlyString(checkliistsFiltered).contains("") ? getAllComponentsAgainstTheChecklistID(checklistID) :
+                    makeListOFStringToOnlyString(checkliistsFiltered);
+            stringStringHashMap.put("components", res);
             stringStringHashMap.remove("CREATED_AT");
             stringStringHashMap.remove("UPDATED_AT");
         }

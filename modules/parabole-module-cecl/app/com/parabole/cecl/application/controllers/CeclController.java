@@ -692,8 +692,8 @@ public class CeclController extends Controller{
         final String json = request().body().asJson().toString();
         final JSONObject request = new JSONObject(json);
         final JSONArray ids = request.getJSONArray("checklistIds");
-        final String id = request.getString("id");
-        final String type = request.getString("type");
+        final String id = request.has("id") ? request.getString("id") : "";
+        final String type = request.has("type") ? request.getString("type") : "";
         JSONObject finalJson = new JSONObject();
         Boolean status = true;
         String data = null;
