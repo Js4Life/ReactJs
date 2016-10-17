@@ -5,6 +5,7 @@ import com.google.inject.Inject;
 import com.parabole.feed.application.exceptions.AppException;
 import com.parabole.feed.application.global.CCAppConstants;
 import com.parabole.feed.application.utils.AppUtils;
+import com.parabole.feed.contentparser.EntryPoint;
 import com.parabole.feed.contentparser.TaggerTest;
 import com.parabole.feed.contentparser.models.fasb.DocumentData;
 import com.parabole.feed.contentparser.models.fasb.DocumentElement;
@@ -36,6 +37,9 @@ public class TaggingUtilitiesServices {
 
     @Inject
     private JenaTdbService jenaTdbService;
+
+    @Inject
+    private EntryPoint entryPoint;
 
     @Inject
     private TaggerTest taggerTest;
@@ -380,11 +384,15 @@ public class TaggingUtilitiesServices {
     }
 
 
-    public String saveSectionsFromParagraphJSon(String file) throws Exception {
+    public String saveSectionsFromParagraphJSon(String file, String fileType) throws Exception {
 
         String jsonFileContent= null;
+        String filePath = environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\" + file;
+        String  contentParserMetaDataString = AppUtils.getFileContent("feedJson/contentParserMetaData.json");
+        JSONObject contentParserMetaDataJSON = new JSONObject(contentParserMetaDataString);
         try {
-            jsonFileContent = taggerTest.startExtraction(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\" + file);
+            //jsonFileContent = taggerTest.startExtraction(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\" + file);
+            jsonFileContent = entryPoint.startExtraction(filePath, contentParserMetaDataJSON,fileType);
         } catch (IOException e) {
             e.printStackTrace();
         }

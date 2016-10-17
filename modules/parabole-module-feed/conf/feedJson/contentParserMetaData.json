@@ -1,0 +1,8 @@
+{
+  "FASB": {
+    "startPage": 1,
+    "endPage": 9999,
+    "paraStartRegEx": "\\w{1,3}[-]\\w{1,3}[-]\\w{1,3}[-]\\w{1,3}",
+    "paraIgnore": "superseded"
+  }
+}

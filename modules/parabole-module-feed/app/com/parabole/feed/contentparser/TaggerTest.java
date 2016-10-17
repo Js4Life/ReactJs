@@ -22,8 +22,6 @@ public class TaggerTest {
 
     @Inject
     JenaTdbService jenaTdbService;
-
-
 /*    public static void main( String[] args ) throws IOException
     {
         *//*Pattern pattern = Pattern.compile("\\w{1,3}[-]\\w{1,3}[-]\\w{1,3}[-]\\w{1,3}");
@@ -76,17 +74,16 @@ public class TaggerTest {
     public String startExtraction(String fPath) throws IOException {
         JSONObject jsonObject = jenaTdbService.getFilteredDataByCompName("ceclBaseNodeDetails","FASB Concept");
         JSONArray jsonArray = jsonObject.getJSONArray("data");
-
+        // TODO
+        JSONObject specificToFileTypeMetaData = new JSONObject();
         List<String> conceptList = new ArrayList<>();
-
         for (int i=0; i< jsonArray.length(); i++){
             String str = jsonArray.getJSONObject(i).getString("name");
             conceptList.add(str);
         }
-        FASBDocIndexBuilder builder = new FASBDocIndexBuilder(fPath,conceptList);
+        FASBDocIndexBuilder builder = new FASBDocIndexBuilder(fPath,conceptList, specificToFileTypeMetaData);
         System.out.println("builder---------------------------------------------------------------> = " + builder);
         FASBIndexedDocument fasbIndexedDocument = builder.buildFASBIndex();
-
         ObjectMapper objectMapper = new ObjectMapper();
         System.out.println("conceptList = " + conceptList);
         return objectMapper.writeValueAsString(fasbIndexedDocument);

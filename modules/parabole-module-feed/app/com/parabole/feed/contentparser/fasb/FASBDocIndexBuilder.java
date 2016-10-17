@@ -12,6 +12,7 @@ import com.parabole.feed.contentparser.models.common.TextFormatInfo;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.encryption.AccessPermission;
 import org.apache.pdfbox.text.PDFTextStripper;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,9 +23,12 @@ import java.util.*;
  */
 public class FASBDocIndexBuilder extends AbstractDocBuilder implements IDocIndexBuilder {
 
-    public FASBDocIndexBuilder( String path , List<String> con) throws IOException {
+    private JSONObject nFASBDocMetaFromJSON = new JSONObject();
+
+    public FASBDocIndexBuilder(String path , List<String> con, JSONObject fasbMETA) throws IOException {
         super(path);
         concepts = con;
+        this.nFASBDocMetaFromJSON = fasbMETA;
     }
 
     //Build the Document
@@ -95,10 +99,18 @@ public class FASBDocIndexBuilder extends AbstractDocBuilder implements IDocIndex
 
     private FASBDocMeta getFASBMetadata() {
         FASBDocMeta fasbDocMeta = new FASBDocMeta();
-        fasbDocMeta.setStartPage(16);
-        fasbDocMeta.setEndPage(Integer.MAX_VALUE);
-        fasbDocMeta.setParaStartRegEx("\\w{1,3}[-]\\w{1,3}[-]\\w{1,3}[-]\\w{1,3}");
-        fasbDocMeta.setParaIgnore("superseded");
+        if(this.nFASBDocMetaFromJSON != null){
+            fasbDocMeta.setStartPage(this.nFASBDocMetaFromJSON.getInt("startPage"));
+            fasbDocMeta.setEndPage(this.nFASBDocMetaFromJSON.getInt("endPage"));
+            fasbDocMeta.setParaStartRegEx(this.nFASBDocMetaFromJSON.getString("paraStartRegEx"));
+            fasbDocMeta.setParaIgnore(this.nFASBDocMetaFromJSON.getString("paraIgnore"));
+        }else{
+            fasbDocMeta.setStartPage(16);
+            fasbDocMeta.setEndPage(Integer.MAX_VALUE);
+            fasbDocMeta.setParaStartRegEx("\\w{1,3}[-]\\w{1,3}[-]\\w{1,3}[-]\\w{1,3}");
+            fasbDocMeta.setParaIgnore("superseded");
+        }
+
         return fasbDocMeta;
     }
 
