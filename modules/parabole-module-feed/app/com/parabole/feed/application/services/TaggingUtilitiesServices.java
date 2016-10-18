@@ -82,11 +82,9 @@ public class TaggingUtilitiesServices {
                 e.printStackTrace();
             }
                 // Creating sub Topics
-
                 t.getChildren().forEach((st)->{
                     String subtopicId =  t.getId()+"-"+st.getId();
                     String subtopicName =  st.getName();
-
                     try {
                         Map<String, String> nodeData = new HashMap<>();
                         nodeData.put("name", subtopicName);
@@ -96,18 +94,13 @@ public class TaggingUtilitiesServices {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-
-
                     try {
                         System.out.println("t.getId() + subtopicId = " + t.getId() + subtopicId);
                         lightHouse.establishEdgeByVertexIDs(t.getId(), subtopicId, "topicToSubTopic", "topic-subTopic");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
                 });
-
-
         });
 
         return "ok";
@@ -390,12 +383,8 @@ public class TaggingUtilitiesServices {
         String filePath = environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\" + file;
         String  contentParserMetaDataString = AppUtils.getFileContent("feedJson/contentParserMetaData.json");
         JSONObject contentParserMetaDataJSON = new JSONObject(contentParserMetaDataString);
-        try {
-            //jsonFileContent = taggerTest.startExtraction(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\" + file);
-            jsonFileContent = entryPoint.startExtraction(filePath, contentParserMetaDataJSON,fileType);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        //jsonFileContent = taggerTest.startExtraction(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\" + file);
+        jsonFileContent = entryPoint.entrance(filePath, contentParserMetaDataJSON, fileType);
 
         jsonFileContent.replace("�", "'");
 

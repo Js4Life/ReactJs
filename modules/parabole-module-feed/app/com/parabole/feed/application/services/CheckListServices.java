@@ -442,6 +442,8 @@ public class CheckListServices {
             componentTypeIDs.forEach((String k, Boolean v)->{
                 if(v){
                     lightHouse.establishEdgeByVertexIDs(k, toSave.get("DATA_ID").toString(), "componentTypeToChecklist", "componentTypeToChecklist");
+                    ArrayList<String> components = getNodesByNodeIDs(k, false, "COMPONENT");
+                    ArrayList<String> concepts = getNodesByNodeIDs(k, true, "CONCEPT");
                 } else {
                     lightHouse.deleteEdgeByVertexIDs(k, toSave.get("DATA_ID").toString());
                 }
@@ -453,6 +455,21 @@ public class CheckListServices {
 
         return result;
 
+    }
+
+    private ArrayList<String> getNodesByNodeIDs(String nodeID, Boolean up, String filteredBY) {
+        ArrayList<HashMap<String, String>> componentTypes = new ArrayList<>();
+        ArrayList<String> finalResult = new ArrayList<>();
+        if(up){
+            componentTypes = lightHouse.getRootVerticesByChildVertexId(nodeID);
+        }else{
+            componentTypes = lightHouse.getChildVerticesByRootVertexId(nodeID);
+        }
+        ArrayList<String> allElement = getAllElementIDsByType(componentTypes, filteredBY);
+        for (String elementID : allElement) {
+            finalResult.addAll(allElement);
+        }
+        return finalResult;
     }
 
     private void increaseChecklistCount(String nodeID) throws IOException {
@@ -633,6 +650,15 @@ public class CheckListServices {
         ArrayList<String> resultData = new ArrayList<>();
         for (HashMap<String, String> componentType : componentTypes) {
             resultData.add(componentType.get("elementID"));
+        }
+        return resultData;
+    }
+
+    private ArrayList<String> getAllElementIDsByType(ArrayList<HashMap<String, String>> componentTypes, String filteredBy){
+        ArrayList<String> resultData = new ArrayList<>();
+        for (HashMap<String, String> componentType : componentTypes) {
+            if(componentType.get("type").equals(filteredBy))
+                resultData.add(componentType.get("elementID"));
         }
         return resultData;
     }
