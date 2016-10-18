@@ -432,8 +432,6 @@ public class CheckListServices {
                     }catch (Exception e){
                         e.printStackTrace();
                     }
-
-
                 } else {
                     lightHouse.deleteEdgeByVertexIDs(k, toSave.get("DATA_ID").toString());
                 }
@@ -442,8 +440,33 @@ public class CheckListServices {
             componentTypeIDs.forEach((String k, Boolean v)->{
                 if(v){
                     lightHouse.establishEdgeByVertexIDs(k, toSave.get("DATA_ID").toString(), "componentTypeToChecklist", "componentTypeToChecklist");
+                    //---------------------------------------------------------------------------
+                     System.out.println("Adding checklist to the components Directly ");
+                    //---------------------------------------------------------------------------
                     ArrayList<String> components = getNodesByNodeIDs(k, false, "COMPONENT");
+                    for (String component : components) {
+                        lightHouse.establishEdgeByVertexIDs(component, toSave.get("DATA_ID").toString(), "componentToChecklist", "componentToChecklist");
+                        // increase the count
+                        try {
+                            increaseChecklistCount(component);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    //---------------------------------------------------------------------------
+                    System.out.println("Adding checklist to the concept Directly ");
+                    //---------------------------------------------------------------------------
                     ArrayList<String> concepts = getNodesByNodeIDs(k, true, "CONCEPT");
+                    for (String concept : concepts) {
+                        lightHouse.establishEdgeByVertexIDs(concept, toSave.get("DATA_ID").toString(), "conceptToChecklist", "conceptToChecklist");
+                        // increase the count
+                        try {
+                            increaseChecklistCount(concept);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 } else {
                     lightHouse.deleteEdgeByVertexIDs(k, toSave.get("DATA_ID").toString());
                 }

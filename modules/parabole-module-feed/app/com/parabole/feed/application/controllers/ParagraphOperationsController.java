@@ -167,8 +167,10 @@ public class ParagraphOperationsController extends BaseController{
         toSave.put("UPDATED_AT", new Date());
 
 
-        HashMap<String, Boolean> paragraphIDs = null;
-        HashMap<String, Boolean> componentTypeIDs = null;
+        HashMap<String, Boolean> paragraphIDs = new HashMap<>();
+        paragraphIDs.put("320-10-35-34B", Boolean.FALSE);
+        HashMap<String, Boolean> componentTypeIDs = new HashMap<>();
+        componentTypeIDs.put("http://www.mindparabole.com/ontology/finance/Parabole-Model#FinconModel", Boolean.TRUE);
 
         return ok(checkListServices.saveOrUpdateCheckList(toSave, paragraphIDs, componentTypeIDs));
     }
