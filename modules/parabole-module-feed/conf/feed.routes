@@ -83,7 +83,7 @@ GET /createProductAndAssignToBusinessSegment            com.parabole.feed.applic
 #-------------------------------------------
 # Basel Operation
 #-------------------------------------------
-GET /saveBaselTopicToSubtopic                           com.parabole.feed.application.controllers.FeedController.saveBaselTopicToSubtopic(fileName: String)
+GET /saveBaselTopicToSubtopic/:fileName                 com.parabole.feed.application.controllers.FeedController.saveBaselTopicToSubtopic(fileName: String)
 
 
 #---------------------------------------

@@ -93,12 +93,12 @@ public class TaggerTest {
         return objectMapper.writeValueAsString(fasbIndexedDocument);
     }
 
-    public String getBaselTopicsSubTopics(String fPath) throws IOException {
+    public ArrayList<DocumentElement> getBaselTopicsSubTopics(String fPath) throws IOException {
         IDocIndexBuilder tocIndexBuilder = new GeneralParaBuilder(fPath, true);
         BaselTocPostProcessor tocBuilder = new BaselTocPostProcessor(tocIndexBuilder);
-        List<DocumentElement> toc = tocBuilder.buildItemTree();
+        ArrayList<DocumentElement> toc = (ArrayList<DocumentElement>) tocBuilder.buildItemTree();
         ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.writeValueAsString(toc);
+        return toc;
     }
 
     public String startBaselExtraction(String fPath) throws IOException {

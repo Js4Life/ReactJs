@@ -107,41 +107,49 @@ public class TaggingUtilitiesServices {
     }
 
     public String saveBaselTopicToSubtopic(String file) throws IOException {
-        com.parabole.feed.contentparser.models.basel.DocumentElement result= null;
+        ArrayList<com.parabole.feed.contentparser.models.basel.DocumentElement> result= null;
         try {
-            result = taggerTest.getAllTopicsSubTopics(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\" + file);
+            result = taggerTest.getBaselTopicsSubTopics(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\" + file+".pdf");
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         // set root
+        System.out.println(" Setting Root Node .............");
         Map<String, String> rootNode = new HashMap<>();
         rootNode.put("name", "ROOT");
         rootNode.put("type", "ROOT");
         rootNode.put("elementID", "ROOT");
         lightHouse.createNewVertex(rootNode);
 
-        // set root
+        // set root next
+        System.out.println(" Setting Sub Root Node .............");
         Map<String, String> subRoot = new HashMap<>();
         subRoot.put("name", "BASELGLOBAL");
         subRoot.put("type", "BASELGLOBAL");
         subRoot.put("elementID", "BASELGLOBAL");
         lightHouse.createNewVertex(subRoot);
-        lightHouse.establishEdgeByVertexIDs("ROOT", "BASELGLOBAL", "ROOT", "topic-subTopic");
+        lightHouse.establishEdgeByVertexIDs("ROOT", "BASELGLOBAL", "ROOTTOBASELGLOBAL", "ROOTTOBASELGLOBAL");
 
-        // set root
+        // set sub root next
+        System.out.println(" Setting Sub Sub Root Node .............");
         Map<String, String> subSubRoot = new HashMap<>();
         subSubRoot.put("name", "BASELCFR");
         subSubRoot.put("type", "BASELCFR");
         subSubRoot.put("elementID", "BASELCFR");
         lightHouse.createNewVertex(subSubRoot);
+        lightHouse.establishEdgeByVertexIDs("BASELGLOBAL", "BASELCFR", "BASELGLOBALTOBASELCFR", "BASELGLOBALTOBASELCFR");
 
-        // set root
+        // set file
+        System.out.println(" Setting File Node .............");
         Map<String, String> fileTypeNode = new HashMap<>();
         fileTypeNode.put("name", file);
-        fileTypeNode.put("type", file);
+        fileTypeNode.put("type", "FILE");
         fileTypeNode.put("elementID", file);
         lightHouse.createNewVertex(fileTypeNode);
+        lightHouse.establishEdgeByVertexIDs("BASELCFR", file, "BASELCFRTOFILE", "BASELCFRTOFILE");
+
+
 
         return "ok";
     }
