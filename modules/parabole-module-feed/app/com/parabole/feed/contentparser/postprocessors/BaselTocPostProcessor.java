@@ -78,13 +78,27 @@ public class BaselTocPostProcessor implements IPostProcessor {
                     DocumentElement temp = buildDocElement(aSentence);
                     for (Integer level : levelSelector.keySet()) {
                         Pattern p = Pattern.compile(levelSelector.get(level));
-                        Matcher m = p.matcher(temp.getName());
+                        Matcher m = p.matcher(temp.getContent());
                         if (m.find()) {
                             if(level == docMeta.getParagraphSelectorLevel())
                                 flatParaList.add(temp);
                             temp.setLevel(level);
-                            if(level == 1) temp.setElementType(DocumentElement.ElementTypes.TOPIC);
-                            else if(level == 2) temp.setElementType(DocumentElement.ElementTypes.SECTION);
+                            if(level == 1){
+                                temp.setElementType(DocumentElement.ElementTypes.TOPIC);
+                                int index = temp.getContent().indexOf(':');
+                                if(index != -1) {
+                                    String name = temp.getContent().substring(0, index);
+                                    temp.setName(name);
+                                }
+                            }
+                            else if(level == 2){
+                                temp.setElementType(DocumentElement.ElementTypes.SECTION);
+                                int index = temp.getContent().indexOf('.');
+                                if(index != -1) {
+                                    String name = temp.getContent().substring(0, index);
+                                    temp.setName(name);
+                                }
+                            }
                             else temp.setElementType(DocumentElement.ElementTypes.OTHER);
                             List<DocumentElement> siblingList = getSiblingsAtPreviousLevel(treeData, level);
                             siblingList.add(temp);
