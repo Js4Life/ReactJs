@@ -304,7 +304,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		insertBread(nodeType, nodeId);
 		if($scope.currentRegulation === 'FASB') {
 			switch (nodeType) {
-				case "BASELTOPIC" :
+				case "TOPIC" :
 					SharedService.getSubtopicsByTopicId(nodeId).then(function (data) {
 						if (data.status) {
 							$scope.childNodes = angular.fromJson(data.data);
@@ -340,7 +340,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			}
 		} else if($scope.currentRegulation === 'BASEL') {
 			switch (nodeType) {
-				case "TOPIC" :
+				case "BASELTOPIC" :
 					SharedService.getBaselSectionByTopicId(nodeId).then(function (data) {
 						if (data.status) {
 							$scope.childNodes = angular.fromJson(data.data);
