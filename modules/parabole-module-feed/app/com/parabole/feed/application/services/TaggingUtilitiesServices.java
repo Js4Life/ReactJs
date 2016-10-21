@@ -166,9 +166,9 @@ public class TaggingUtilitiesServices {
                 Map<String, String> subTopicTypeNode = new HashMap<>();
                 subTopicTypeNode.put("name", subtopicElement.getContent());
                 subTopicTypeNode.put("type", "BASELSUBTOPIC");
-                subTopicTypeNode.put("elementID", subtopicElement.getName());
+                subTopicTypeNode.put("elementID", documentElement.getContent()+"-"+subtopicElement.getName());
                 lightHouse.createNewVertex(subTopicTypeNode);
-                lightHouse.establishEdgeByVertexIDs(documentElement.getName(), subtopicElement.getName(), "TOPICTOSUBTOPIC", "TOPICTOSUBTOPIC");
+                lightHouse.establishEdgeByVertexIDs(documentElement.getName(), documentElement.getContent()+"-"+subtopicElement.getName(), "TOPICTOSUBTOPIC", "TOPICTOSUBTOPIC");
             }
         }
 

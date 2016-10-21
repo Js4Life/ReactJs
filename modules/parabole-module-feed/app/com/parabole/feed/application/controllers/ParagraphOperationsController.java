@@ -303,6 +303,10 @@ public class ParagraphOperationsController extends BaseController{
         return ok(lightHouseService.getParagraphBySectionId(nodeId).toString());
     }
 
+    public Result getBaselParagraphBySubTopicId(String nodeId) {
+        return ok(lightHouseService.getParagraphBySectionId(nodeId).toString());
+    }
+
     public Result addAnewVertexproperty() {
 
         String vertexID = "320-10-35-34B";
