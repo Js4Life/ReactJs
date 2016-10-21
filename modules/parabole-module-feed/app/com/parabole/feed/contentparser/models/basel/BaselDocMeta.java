@@ -1,6 +1,6 @@
-package com.parabole.feed.contentparser.models.basel;
+package com.parabole.contentparser.models.basel;
 
-import com.parabole.feed.contentparser.models.common.DocMetaInfo;
+import com.parabole.contentparser.models.common.DocMetaInfo;
 
 import java.util.Map;
 

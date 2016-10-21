@@ -1,10 +1,10 @@
-package com.parabole.feed.contentparser.postprocessors;
+package com.parabole.contentparser.postprocessors;
 
-import com.parabole.feed.contentparser.IDocIndexBuilder;
-import com.parabole.feed.contentparser.models.basel.BaselDocMeta;
-import com.parabole.feed.contentparser.models.basel.DocumentElement;
-import com.parabole.feed.contentparser.models.common.LineElement;
-import com.parabole.feed.contentparser.models.common.ParagraphElement;
+import com.parabole.contentparser.IDocIndexBuilder;
+import com.parabole.contentparser.models.basel.BaselDocMeta;
+import com.parabole.contentparser.models.basel.DocumentElement;
+import com.parabole.contentparser.models.common.LineElement;
+import com.parabole.contentparser.models.common.ParagraphElement;
 
 import java.io.IOException;
 import java.util.*;
@@ -114,16 +114,16 @@ public class BaselTocPostProcessor implements IPostProcessor {
     }
 
     private List<DocumentElement> getSiblingsAtPreviousLevel(List<DocumentElement> tempTreeData, int level){
-        if (tempTreeData.size() > 0) {
-            for (int i = 1; i < level; i++) {
-                try {
-                    List<DocumentElement> childeren = tempTreeData.get(tempTreeData.size() - 1).getChildren();
-                    tempTreeData = childeren;
-                }catch (Exception e){
-                    return tempTreeData;
+            if (tempTreeData.size() > 0) {
+                for (int i = 1; i < level; i++) {
+                    try {
+                        List<DocumentElement> childeren = tempTreeData.get(tempTreeData.size() - 1).getChildren();
+                        tempTreeData = childeren;
+                    }catch (Exception e){
+                        return tempTreeData;
+                    }
                 }
             }
-        }
         return tempTreeData;
     }
 

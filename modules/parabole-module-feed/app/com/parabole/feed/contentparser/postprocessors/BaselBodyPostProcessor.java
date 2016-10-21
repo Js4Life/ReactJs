@@ -1,10 +1,10 @@
-package com.parabole.feed.contentparser.postprocessors;
+package com.parabole.contentparser.postprocessors;
 
-import com.parabole.feed.contentparser.IDocIndexBuilder;
-import com.parabole.feed.contentparser.models.basel.BaselDocMeta;
-import com.parabole.feed.contentparser.models.basel.DocumentElement;
-import com.parabole.feed.contentparser.models.common.DocMetaInfo;
-import com.parabole.feed.contentparser.models.common.ParagraphElement;
+import com.parabole.contentparser.IDocIndexBuilder;
+import com.parabole.contentparser.models.basel.BaselDocMeta;
+import com.parabole.contentparser.models.basel.DocumentElement;
+import com.parabole.contentparser.models.common.DocMetaInfo;
+import com.parabole.contentparser.models.common.ParagraphElement;
 
 import java.io.IOException;
 import java.util.*;
@@ -63,7 +63,7 @@ public class BaselBodyPostProcessor implements IPostProcessor {
         for(int i = 0; i < toc.size()-1; i++){
             startTocPivot = toc.get(i);
             endTocPivot = toc.get(i+1);
-            treeData.put(startTocPivot.getName(), getParagraphs(paras));
+            treeData.put(startTocPivot.getContent(), getParagraphs(paras));
         }
     }
 
@@ -73,7 +73,7 @@ public class BaselBodyPostProcessor implements IPostProcessor {
         for(int i = paraIndexPivot; i < paras.size(); i++){
             ParagraphElement aPara = paras.get(i);
             if(fetchFlag){
-                if(endTocPivot.getName().trim().equalsIgnoreCase(aPara.toString().trim())){
+                if(endTocPivot.getContent().trim().equalsIgnoreCase(aPara.toString().trim())){
                     paraIndexPivot = i;
                     return tempParas;
                 } else {
@@ -86,7 +86,7 @@ public class BaselBodyPostProcessor implements IPostProcessor {
                     }
                 }
             }
-            if(!fetchFlag && startTocPivot.getName().trim().equalsIgnoreCase(aPara.toString().trim())){
+            if(!fetchFlag && startTocPivot.getContent().trim().equalsIgnoreCase(aPara.toString().trim())){
                 fetchFlag = true;
             }
         }
