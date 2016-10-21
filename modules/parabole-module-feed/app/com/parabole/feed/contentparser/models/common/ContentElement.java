@@ -1,4 +1,4 @@
-package com.parabole.contentparser.models.common;
+package com.parabole.feed.contentparser.models.common;
 
 /**
  * Created by anish on 7/25/2016.

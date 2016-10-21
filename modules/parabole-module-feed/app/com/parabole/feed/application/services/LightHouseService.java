@@ -98,6 +98,17 @@ public class LightHouseService {
         return result;
     }
 
+    public ArrayList<HashMap<String, String>> getAllBaselTopic(){
+
+        ArrayList<HashMap<String, String>> result=null;
+        try {
+            result = lightHouse.getAllBaselTopic();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
     public ArrayList<HashMap<String, String>> getAllConcepts(){
 
         String vertexType = "CONCEPT";

@@ -970,7 +970,7 @@ public class CeclController extends Controller{
         Boolean status = true;
         String data = null;
         try {
-            ArrayList<HashMap<String, String>> res = lightHouseService.getAlltopic();           //Change Here
+            ArrayList<HashMap<String, String>> res = lightHouseService.getAllBaselTopic();           //Change Here
             ObjectMapper mapper = new ObjectMapper();
             data = mapper.writeValueAsString(res);
         } catch(Exception e) {

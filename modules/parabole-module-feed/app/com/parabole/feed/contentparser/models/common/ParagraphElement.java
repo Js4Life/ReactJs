@@ -1,6 +1,6 @@
-package com.parabole.contentparser.models.common;
+package com.parabole.feed.contentparser.models.common;
 
-import com.parabole.contentparser.models.common.ContentElement;
+import com.parabole.feed.contentparser.models.common.ContentElement;
 
 import java.util.ArrayList;
 import java.util.HashMap;
