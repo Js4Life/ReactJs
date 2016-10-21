@@ -114,16 +114,16 @@ public class BaselTocPostProcessor implements IPostProcessor {
     }
 
     private List<DocumentElement> getSiblingsAtPreviousLevel(List<DocumentElement> tempTreeData, int level){
-            if (tempTreeData.size() > 0) {
-                for (int i = 1; i < level; i++) {
-                    try {
-                        List<DocumentElement> childeren = tempTreeData.get(tempTreeData.size() - 1).getChildren();
-                        tempTreeData = childeren;
-                    }catch (Exception e){
-                        return tempTreeData;
-                    }
+        if (tempTreeData.size() > 0) {
+            for (int i = 1; i < level; i++) {
+                try {
+                    List<DocumentElement> childeren = tempTreeData.get(tempTreeData.size() - 1).getChildren();
+                    tempTreeData = childeren;
+                }catch (Exception e){
+                    return tempTreeData;
                 }
             }
+        }
         return tempTreeData;
     }
 
@@ -148,7 +148,7 @@ public class BaselTocPostProcessor implements IPostProcessor {
 
     private DocumentElement buildDocElement(LineElement lineElement){
         DocumentElement documentElement = new DocumentElement();
-        documentElement.setName(lineElement.toString().replaceAll(docMeta.getParaEndRegEx(), ""));
+        documentElement.setContent(lineElement.toString().replaceAll(docMeta.getParaEndRegEx(), ""));
         return documentElement;
     }
 
