@@ -327,18 +327,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			case "PARAGRAPH" :
 				SharedService.paragraphs = $scope.childNodes;
 				SharedService.homeBreads = $scope.breads;
-				var subSectionId = nodeId.substring(0, nodeId.lastIndexOf('-'));
-				var compName = "ceclGenericComponentsByParagraph";
-				SharedService.getFilteredDataByCompName(compName, subSectionId).then(function (comp) {
-					var nodes = comp.data;
-					var currentConcept = {};
-					var rawNodeDetails = _.reject(nodes, function (n) {
-						return n.type === 'Related Concept'
-					});
-					currentConcept.components = angular.copy(rawNodeDetails);
-					SharedService.currentConcept = currentConcept;
-					$state.go('landing.checklistBuilder');
-				});
+				$state.go('landing.checklistBuilder');
 				break;
 			default :
 				SharedService.getAllTopics($scope.currentRegulation).then(function (data) {
@@ -670,12 +659,6 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$scope.question = {components: [], isMandatory: true};
 		$scope.questions = [];
 		$scope.currentQuestionCfg = {};
-		$scope.multiSelectCfg = {
-			idProp : "link",
-			displayProp : "name",
-			externalIdProp : ""
-		}
-		$scope.currentConcept = SharedService.currentConcept;
 		$scope.currentParagraphs = {};
 		$scope.currentComponentTypes = {};
 		$scope.paraTagOptions = MockService.ParaTagOptions;

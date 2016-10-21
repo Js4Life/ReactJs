@@ -79,8 +79,11 @@ public class BaselBodyPostProcessor implements IPostProcessor {
                 } else {
                     Pattern p = Pattern.compile(docMeta.getParaStartRegEx());
                     Matcher m = p.matcher(aPara.toString());
-                    if(m.find())
-                        tempParas.add(buildDocElement(aPara));
+                    if(m.find()) {
+                        DocumentElement anElement = buildDocElement(aPara);
+                        if(anElement != null)
+                            tempParas.add(anElement);
+                    }
                 }
             }
             if(!fetchFlag && startTocPivot.getName().trim().equalsIgnoreCase(aPara.toString().trim())){
@@ -94,6 +97,11 @@ public class BaselBodyPostProcessor implements IPostProcessor {
         DocumentElement documentElement = new DocumentElement();
         documentElement.setContent(paragraphElement.toString());
         documentElement.setElementType(DocumentElement.ElementTypes.PARAGRAPH);
+        int index = documentElement.getContent().indexOf('.');
+        if(index == -1)
+            return null;
+        String name = documentElement.getContent().substring(0, index);
+        documentElement.setName(name);
         return documentElement;
     }
 
