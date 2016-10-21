@@ -45,6 +45,11 @@ public class WordElement extends ContentElement {
         return wordHeight;
     }
 
+    public float getFirstCharacterStartY(){
+        CharacterFormatInfo cInfo = formatInfos.get(0);
+        return cInfo.getStartX();
+    }
+
     @Override
     public String toString(){
         return wordString.toString();

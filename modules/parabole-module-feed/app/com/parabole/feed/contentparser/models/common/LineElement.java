@@ -26,6 +26,11 @@ public class LineElement extends ContentElement{
             currentWord.addCharacter(c,formatInfo);
     }
 
+    public float getLineStart(){
+        WordElement firstWord = wordList.get(0);
+        return firstWord.getFirstCharacterStartY();
+    }
+
     public List<WordElement> getWordList(){
         return wordList;
     }

@@ -6,14 +6,18 @@ import com.parabole.feed.application.services.JenaTdbService;
 import com.parabole.feed.contentparser.fasb.FASBDocIndexBuilder;
 import com.parabole.feed.contentparser.glossary.ConceptGlossaryBuilder;
 import com.parabole.feed.contentparser.glossary.FASBAccoutingGlossaryBuilder;
+import com.parabole.feed.contentparser.models.basel.DocumentElement;
 import com.parabole.feed.contentparser.models.fasb.DocumentData;
 import com.parabole.feed.contentparser.models.fasb.FASBIndexedDocument;
+import com.parabole.feed.contentparser.postprocessors.BaselBodyPostProcessor;
+import com.parabole.feed.contentparser.postprocessors.BaselTocPostProcessor;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by anish on 7/25/2016.
@@ -62,7 +66,7 @@ public class TaggerTest {
         conceptList.add("Accrued Interest");
         conceptList.add("Contingent Items");
         FASBDocIndexBuilder builder = new FASBDocIndexBuilder(fPath,conceptList);*/
-        com.parabole.feed.contentparser.IDocIndexBuilder indexBuilder = new com.parabole.feed.contentparser.GeneralParaBuilder(fPath);
+        com.parabole.feed.contentparser.IDocIndexBuilder indexBuilder = new com.parabole.feed.contentparser.GeneralParaBuilder(fPath, false);
         FASBAccoutingGlossaryBuilder builder = new FASBAccoutingGlossaryBuilder(indexBuilder);
         DocumentData data = builder.buildItemTree();
 
@@ -87,5 +91,23 @@ public class TaggerTest {
         ObjectMapper objectMapper = new ObjectMapper();
         System.out.println("conceptList = " + conceptList);
         return objectMapper.writeValueAsString(fasbIndexedDocument);
+    }
+
+    public String getBaselTopicsSubTopics(String fPath) throws IOException {
+        IDocIndexBuilder tocIndexBuilder = new GeneralParaBuilder(fPath, true);
+        BaselTocPostProcessor tocBuilder = new BaselTocPostProcessor(tocIndexBuilder);
+        List<DocumentElement> toc = tocBuilder.buildItemTree();
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.writeValueAsString(toc);
+    }
+
+    public String startBaselExtraction(String fPath) throws IOException {
+        IDocIndexBuilder indexBuilder = new GeneralParaBuilder(fPath, true);
+        BaselTocPostProcessor tocBuilder = new BaselTocPostProcessor(indexBuilder);
+        List<DocumentElement> toc = tocBuilder.buildItemTree();
+        BaselBodyPostProcessor bodyBuilder = new BaselBodyPostProcessor(indexBuilder);
+        Map<String, List<DocumentElement>> body = bodyBuilder.buildItemTree(tocBuilder.getFlatParaList());
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.writeValueAsString(body);
     }
 }
