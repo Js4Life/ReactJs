@@ -711,8 +711,9 @@ angular.module('RDAApp.services', [])
 
 
     //DDOCUMENT RELATED OPERATIONS
-    SharedService.getAllTopics = function () {
-        return SharedService.invokeService('GetAllTopics');
+    SharedService.getAllTopics = function (regulation) {
+        var sendObj = {"regulation": regulation};
+        return SharedService.invokeService('GetAllTopics', sendObj, 'post');
     }
     SharedService.getSubtopicsByTopicId = function (id) {
         var sendObj = {"id": id};
@@ -1730,8 +1731,11 @@ angular.module('RDAApp.services', [])
         ]
     }
 
-    MockService.CeclBaseNodes = [
+    MockService.FasbBaseNodes = [
         {"name": "Topic", "id": "TOPIC", "idx": 0, "data":{}},{"name": "Sub-Topic", "id": "SUBTOPIC", "idx": 1, "data":{}},{"name": "Section", "id": "SECTION", "idx": 2, "data":{}},{"name": "Paragraph", "id": "PARAGRAPH", "idx": 3, "data":{}},{"name": "Concept", "id": "FASB Concept", "idx": 4, "data":{}}
+    ];
+    MockService.BaselBaseNodes = [
+        {"name": "Topic", "id": "TOPIC", "idx": 0, "data":{}},{"name": "Section", "id": "SECTION", "idx": 1, "data":{}},{"name": "Paragraph", "id": "PARAGRAPH", "idx": 2, "data":{}}
     ];
 
     MockService.CeclBaseNodes2 = [

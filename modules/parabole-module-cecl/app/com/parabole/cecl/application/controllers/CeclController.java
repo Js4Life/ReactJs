@@ -337,7 +337,11 @@ public class CeclController extends Controller{
 
 
     //DOCUMENT RELATED OPERATIONS
+    @BodyParser.Of(BodyParser.Json.class)
     public Result getAllTopics() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final String regulation = request.getString("regulation");
         JSONObject finalJson = new JSONObject();
         Boolean status = true;
         String data = null;

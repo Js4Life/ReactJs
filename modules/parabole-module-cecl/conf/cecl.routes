@@ -100,7 +100,7 @@ POST /getRelatedVerticesByUri               com.parabole.cecl.application.contro
 # DOCUMENT RELATED OPERATIONS
 # ---------------------------------------------------------------------------------
 
-GET /getAllTopics                                   com.parabole.cecl.application.controllers.CeclController.getAllTopics()
+POST /getAllTopics                                   com.parabole.cecl.application.controllers.CeclController.getAllTopics()
 GET /getAllConcepts                                 com.parabole.cecl.application.controllers.CeclController.getAllConcepts()
 GET /getAllComponents                               com.parabole.cecl.application.controllers.CeclController.getAllComponents()
 GET /getAllBusinessSegments                         com.parabole.cecl.application.controllers.CeclController.getAllBusinessSegments()

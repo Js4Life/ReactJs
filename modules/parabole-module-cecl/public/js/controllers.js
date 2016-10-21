@@ -209,9 +209,14 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 .controller('homeCtrl', function($scope, $state, $rootScope, $timeout, $stateParams, SharedService, RiskAggregateService, graphService, MockService) {
 	$scope.iniitialize = function( ){
 		$scope.heading = SharedService.primaryNav[0];
+		$scope.currentRegulation = SharedService.curentRegulation || 'FASB';
 		$scope.collapseSlide = {left: false};
 		$scope.collapseClasses = {left: "col-xs-2 menu-back slide-container", center: "col-xs-10"};
-		$scope.nodes = MockService.CeclBaseNodes;
+		if($scope.currentRegulation === 'FASB'){
+			$scope.nodes = MockService.FasbBaseNodes;
+		} else if($scope.currentRegulation === 'BASEL'){
+			$scope.nodes = MockService.BaselBaseNodes;
+		}
 		$scope.breads = SharedService.homeBreads || [];
 		$scope.answers = {};
 		$scope.currentColorCode = 'all';
@@ -336,7 +341,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				});
 				break;
 			default :
-				SharedService.getAllTopics().then(function (data) {
+				SharedService.getAllTopics($scope.currentRegulation).then(function (data) {
 					if(data.status){
 						$scope.childNodes = angular.fromJson(data.data);
 					}
@@ -652,6 +657,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		/*SharedService.loadRegulation(reg.name).then(function (data) {
 
 		});*/
+		SharedService.curentRegulation = reg.name;
 		$state.go('landing.homeContainer');
 	}
 
