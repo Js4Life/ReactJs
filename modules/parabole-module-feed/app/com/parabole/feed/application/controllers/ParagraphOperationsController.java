@@ -267,6 +267,11 @@ public class ParagraphOperationsController extends BaseController{
         return ok(lightHouseService.getAlltopic().toString());
     }
 
+    public Result getAllBaselTopic() {
+
+        return ok(lightHouseService.getAllBaselTopic().toString());
+    }
+
     public Result getAllComponents() {
 
         String vertexType = "COMPONENT";
@@ -287,6 +292,11 @@ public class ParagraphOperationsController extends BaseController{
     public Result getSubtopicsByTopicId(String topicId) {
 
         return ok(lightHouseService.getSubtopicsByTopicId(topicId, "SECTION").toString());
+    }
+
+    public Result getBaselSubtopicsByTopicId(String topicId) {
+
+        return ok(lightHouseService.getBaselSubtopicsByTopicId(topicId, "BASELSUBTOPIC").toString());
     }
 
     public Result getParagraphBySectionId(String nodeId) {

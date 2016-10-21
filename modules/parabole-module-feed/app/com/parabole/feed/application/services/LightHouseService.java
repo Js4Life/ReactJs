@@ -169,6 +169,16 @@ public class LightHouseService {
         return result;
     }
 
+    public ArrayList<HashMap<String, String>> getBaselSubtopicsByTopicId(String topicId, String filterType){
+        ArrayList<HashMap<String, String>> result=null;
+        try {
+            result = lightHouse.getConnectedNodesByNodeIdAndType(topicId, filterType);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
     public ArrayList<HashMap<String, String>> getParagraphBySectionId(String nodeId){
         ArrayList<HashMap<String, String>> result=null;
         try {
