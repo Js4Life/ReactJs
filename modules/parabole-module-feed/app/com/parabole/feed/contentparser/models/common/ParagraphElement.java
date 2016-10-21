@@ -64,7 +64,8 @@ public class ParagraphElement  extends ContentElement {
         StringBuilder sb = new StringBuilder();
         sentences.stream().forEach(a -> {
            sb.append(a.toString());
-           sb.append("\n");
+           sb.append(" ");
+           //sb.append("\n");
         });
         return sb.toString();
     }
