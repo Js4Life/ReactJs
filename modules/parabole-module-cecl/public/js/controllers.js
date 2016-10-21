@@ -302,40 +302,71 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.exploreNode = function (nodeType, nodeId) {
 		$scope.searchText = "";
 		insertBread(nodeType, nodeId);
-		switch (nodeType) {
-			case "TOPIC" :
-				SharedService.getSubtopicsByTopicId(nodeId).then(function (data) {
-					if(data.status){
-						$scope.childNodes = angular.fromJson(data.data);
-					}
-				});
-				break;
-			case "SUBTOPIC" :
-				SharedService.getSectionsBySubtopicId(nodeId).then(function (data) {
-					if(data.status){
-						$scope.childNodes = removeEmptyAndUnique(angular.fromJson(data.data));
-					}
-				});
-				break;
-			case "SECTION" :
-				SharedService.getParagraphsBySectionId(nodeId).then(function (data) {
-					if(data.status){
-						$scope.childNodes = angular.fromJson(data.data);
-					}
-				});
-				break;
-			case "PARAGRAPH" :
-				SharedService.paragraphs = $scope.childNodes;
-				SharedService.homeBreads = $scope.breads;
-				$state.go('landing.checklistBuilder');
-				break;
-			default :
-				SharedService.getAllTopics($scope.currentRegulation).then(function (data) {
-					if(data.status){
-						$scope.childNodes = angular.fromJson(data.data);
-					}
-				});
-				break;
+		if($scope.currentRegulation === 'FASB') {
+			switch (nodeType) {
+				case "TOPIC" :
+					SharedService.getSubtopicsByTopicId(nodeId).then(function (data) {
+						if (data.status) {
+							$scope.childNodes = angular.fromJson(data.data);
+						}
+					});
+					break;
+				case "SUBTOPIC" :
+					SharedService.getSectionsBySubtopicId(nodeId).then(function (data) {
+						if (data.status) {
+							$scope.childNodes = removeEmptyAndUnique(angular.fromJson(data.data));
+						}
+					});
+					break;
+				case "SECTION" :
+					SharedService.getParagraphsBySectionId(nodeId).then(function (data) {
+						if (data.status) {
+							$scope.childNodes = angular.fromJson(data.data);
+						}
+					});
+					break;
+				case "PARAGRAPH" :
+					SharedService.paragraphs = $scope.childNodes;
+					SharedService.homeBreads = $scope.breads;
+					$state.go('landing.checklistBuilder');
+					break;
+				default :
+					SharedService.getAllTopics().then(function (data) {
+						if (data.status) {
+							$scope.childNodes = angular.fromJson(data.data);
+						}
+					});
+					break;
+			}
+		} else if($scope.currentRegulation === 'BASEL') {
+			switch (nodeType) {
+				case "TOPIC" :
+					SharedService.getBaselSectionByTopicId(nodeId).then(function (data) {
+						if (data.status) {
+							$scope.childNodes = angular.fromJson(data.data);
+						}
+					});
+					break;
+				case "SECTION" :
+					SharedService.getBaselParagraphsBySectionId(nodeId).then(function (data) {
+						if (data.status) {
+							$scope.childNodes = angular.fromJson(data.data);
+						}
+					});
+					break;
+				case "PARAGRAPH" :
+					SharedService.paragraphs = $scope.childNodes;
+					SharedService.homeBreads = $scope.breads;
+					$state.go('landing.checklistBuilder');
+					break;
+				default :
+					SharedService.getAllBaselTopics().then(function (data) {
+						if (data.status) {
+							$scope.childNodes = angular.fromJson(data.data);
+						}
+					});
+					break;
+			}
 		}
 	}
 

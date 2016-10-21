@@ -337,11 +337,7 @@ public class CeclController extends Controller{
 
 
     //DOCUMENT RELATED OPERATIONS
-    @BodyParser.Of(BodyParser.Json.class)
     public Result getAllTopics() {
-        final String json = request().body().asJson().toString();
-        final JSONObject request = new JSONObject(json);
-        final String regulation = request.getString("regulation");
         JSONObject finalJson = new JSONObject();
         Boolean status = true;
         String data = null;
@@ -960,6 +956,64 @@ public class CeclController extends Controller{
             List<Map<String, String>> res = checkListServices.getCheckListAttachmentById(id);
             data = res.get(0).get("data");
         } catch (Exception e){
+            status = false;
+            e.printStackTrace();
+        }
+        finalJson.put("status", status).put("data", data);
+        return ok(finalJson.toString());
+    }
+
+
+    //Basel related api
+    public Result getAllBaselTopics() {
+        JSONObject finalJson = new JSONObject();
+        Boolean status = true;
+        String data = null;
+        try {
+            ArrayList<HashMap<String, String>> res = lightHouseService.getAlltopic();           //Change Here
+            ObjectMapper mapper = new ObjectMapper();
+            data = mapper.writeValueAsString(res);
+        } catch(Exception e) {
+            status = false;
+            e.printStackTrace();
+        }
+        finalJson.put("status", status).put("data", data);
+        return ok(finalJson.toString());
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result getBaselParagraphsBySectionId() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final String id = request.getString("id");
+        JSONObject finalJson = new JSONObject();
+        Boolean status = true;
+        String data = null;
+        try {
+            ArrayList<HashMap<String, String>> res = lightHouseService.getParagraphBySectionId(id);               //Change Here
+            ObjectMapper mapper = new ObjectMapper();
+            data = mapper.writeValueAsString(res);
+        } catch(Exception e) {
+            status = false;
+            e.printStackTrace();
+        }
+        finalJson.put("status", status).put("data", data);
+        return ok(finalJson.toString());
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result getBaselSectionByTopicId() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final String id = request.getString("id");
+        JSONObject finalJson = new JSONObject();
+        Boolean status = true;
+        String data = null;
+        try {
+            ArrayList<HashMap<String, String>> res = lightHouseService.getParagraphBySectionId(id);                 //Change Here
+            ObjectMapper mapper = new ObjectMapper();
+            data = mapper.writeValueAsString(res);
+        } catch(Exception e) {
             status = false;
             e.printStackTrace();
         }
