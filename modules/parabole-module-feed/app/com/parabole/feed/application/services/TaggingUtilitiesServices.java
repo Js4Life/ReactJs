@@ -5,6 +5,7 @@ import com.google.inject.Inject;
 import com.parabole.feed.application.exceptions.AppException;
 import com.parabole.feed.application.global.CCAppConstants;
 import com.parabole.feed.application.utils.AppUtils;
+import com.parabole.feed.contentparser.EntryPoint;
 import com.parabole.feed.contentparser.TaggerTest;
 import com.parabole.feed.contentparser.models.fasb.DocumentData;
 import com.parabole.feed.contentparser.models.fasb.DocumentElement;
@@ -36,6 +37,9 @@ public class TaggingUtilitiesServices {
 
     @Inject
     private JenaTdbService jenaTdbService;
+
+    @Inject
+    private EntryPoint entryPoint;
 
     @Inject
     private TaggerTest taggerTest;
@@ -78,11 +82,9 @@ public class TaggingUtilitiesServices {
                 e.printStackTrace();
             }
                 // Creating sub Topics
-
                 t.getChildren().forEach((st)->{
                     String subtopicId =  t.getId()+"-"+st.getId();
                     String subtopicName =  st.getName();
-
                     try {
                         Map<String, String> nodeData = new HashMap<>();
                         nodeData.put("name", subtopicName);
@@ -92,18 +94,13 @@ public class TaggingUtilitiesServices {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-
-
                     try {
                         System.out.println("t.getId() + subtopicId = " + t.getId() + subtopicId);
                         lightHouse.establishEdgeByVertexIDs(t.getId(), subtopicId, "topicToSubTopic", "topic-subTopic");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
                 });
-
-
         });
 
         return "ok";
@@ -380,14 +377,14 @@ public class TaggingUtilitiesServices {
     }
 
 
-    public String saveSectionsFromParagraphJSon(String file) throws Exception {
+    public String saveSectionsFromParagraphJSon(String file, String fileType) throws Exception {
 
         String jsonFileContent= null;
-        try {
-            jsonFileContent = taggerTest.startExtraction(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\" + file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String filePath = environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\" + file;
+        String  contentParserMetaDataString = AppUtils.getFileContent("feedJson/contentParserMetaData.json");
+        JSONObject contentParserMetaDataJSON = new JSONObject(contentParserMetaDataString);
+        //jsonFileContent = taggerTest.startExtraction(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\" + file);
+        jsonFileContent = entryPoint.entrance(filePath, contentParserMetaDataJSON, fileType);
 
         jsonFileContent.replace("�", "'");
 

@@ -58,7 +58,8 @@ public class FeedController extends BaseController{
     }
 
     public Result saveSectionsFromParagraphJSon(String filename) throws Exception {
-        final String result = taggingUtilitiesServices.saveSectionsFromParagraphJSon(filename);
+        String fileType = "FASB";
+        final String result = taggingUtilitiesServices.saveSectionsFromParagraphJSon(filename, fileType);
         return ok(result);
     }
 
