@@ -1,4 +1,4 @@
-package com.parabole.feed.contentparser.models.common;
+package com.parabole.contentparser.models.common;
 
 import org.apache.pdfbox.text.TextPosition;
 import java.util.ArrayList;

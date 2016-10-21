@@ -1,14 +1,14 @@
-package com.parabole.feed.contentparser.models.common;
+package com.parabole.contentparser.models.common;
 
-import com.parabole.feed.contentparser.models.common.ContentElement;
+import com.parabole.contentparser.models.common.ContentElement;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
  * Created by anish on 7/25/2016.
  */
-
 public class ParagraphElement  extends ContentElement {
 
     public String getBodyText() {
@@ -42,7 +42,7 @@ public class ParagraphElement  extends ContentElement {
     public LineElement getLastLine() {
         int lineSize = sentences.size();
         if(lineSize > 0 )
-            return sentences.get(lineSize-1);
+           return sentences.get(lineSize-1);
         else
             return null;
     }
@@ -77,9 +77,9 @@ public class ParagraphElement  extends ContentElement {
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sentences.stream().forEach(a -> {
-            sb.append(a.toString());
+           sb.append(a.toString());
             sb.append(" ");
-            //sb.append("\n");
+           //sb.append("\n");
         });
         return sb.toString();
     }
