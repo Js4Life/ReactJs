@@ -117,7 +117,11 @@ angular.module('RDAApp.services', [])
         'GetChecklistBySubtopic' : 'getChecklistBySubtopic',
         'GetChecklistByTopic' : 'getChecklistByTopic',
 
-        'GetRegulations' : 'getRegulations'
+        'GetRegulations' : 'getRegulations',
+
+        'GetAllBaselTopics' : 'getAllBaselTopics',
+        'GetBaselParagraphsBySectionId' : 'getBaselParagraphsBySectionId',
+        'GetBaselSectionByTopicId' : 'getBaselSectionByTopicId'
     };
     SharedService.chartDataMap = {
         '0' : 'getHardCodedResponse/chartData1',
@@ -711,9 +715,8 @@ angular.module('RDAApp.services', [])
 
 
     //DDOCUMENT RELATED OPERATIONS
-    SharedService.getAllTopics = function (regulation) {
-        var sendObj = {"regulation": regulation};
-        return SharedService.invokeService('GetAllTopics', sendObj, 'post');
+    SharedService.getAllTopics = function () {
+        return SharedService.invokeService('GetAllTopics');
     }
     SharedService.getSubtopicsByTopicId = function (id) {
         var sendObj = {"id": id};
@@ -839,6 +842,20 @@ angular.module('RDAApp.services', [])
 
     SharedService.getRegulations = function(){
         return SharedService.invokeService('GetRegulations');
+    }
+
+
+    //Basel related service
+    SharedService.getAllBaselTopics = function () {
+        return SharedService.invokeService('GetAllBaselTopics');
+    }
+    SharedService.getBaselParagraphsBySectionId = function (id) {
+        var sendObj = {"id": id};
+        return SharedService.invokeService('GetBaselParagraphsBySectionId', sendObj, 'post');
+    }
+    SharedService.getBaselSectionByTopicId = function (id) {
+        var sendObj = {"id": id};
+        return SharedService.invokeService('GetBaselSectionByTopicId', sendObj, 'post');
     }
 
     return SharedService;

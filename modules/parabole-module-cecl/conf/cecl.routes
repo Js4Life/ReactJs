@@ -100,7 +100,7 @@ POST /getRelatedVerticesByUri               com.parabole.cecl.application.contro
 # DOCUMENT RELATED OPERATIONS
 # ---------------------------------------------------------------------------------
 
-POST /getAllTopics                                   com.parabole.cecl.application.controllers.CeclController.getAllTopics()
+GET /getAllTopics                                   com.parabole.cecl.application.controllers.CeclController.getAllTopics()
 GET /getAllConcepts                                 com.parabole.cecl.application.controllers.CeclController.getAllConcepts()
 GET /getAllComponents                               com.parabole.cecl.application.controllers.CeclController.getAllComponents()
 GET /getAllBusinessSegments                         com.parabole.cecl.application.controllers.CeclController.getAllBusinessSegments()
@@ -135,3 +135,11 @@ POST /getAttachmentsByChecklistId                   com.parabole.cecl.applicatio
 POST /deleteAttachmentById                          com.parabole.cecl.application.controllers.CeclController.deleteAttachmentById()
 POST /getCommentAttachmentById                      com.parabole.cecl.application.controllers.CeclController.getCommentAttachmentById()
 GET /downloadAttachmentById                         com.parabole.cecl.application.controllers.CeclController.downloadAttachmentById(id : String)
+
+
+# ---------------------------------------------------------------------------------
+# BASEL RELATED OPERATIONS
+# ---------------------------------------------------------------------------------
+GET /getAllBaselTopics                              com.parabole.cecl.application.controllers.CeclController.getAllBaselTopics()
+POST /getBaselParagraphsBySectionId                 com.parabole.cecl.application.controllers.CeclController.getBaselParagraphsBySectionId()
+POST /getBaselSectionByTopicId                      com.parabole.cecl.application.controllers.CeclController.getBaselSectionByTopicId()
