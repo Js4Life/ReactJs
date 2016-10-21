@@ -16,8 +16,11 @@ import java.util.List;
 public class GeneralParaBuilder extends AbstractDocBuilder implements IDocIndexBuilder {
 
 
-    public GeneralParaBuilder(String path) throws IOException {
+    private Boolean isTableOfContent = false;
+    public GeneralParaBuilder(String path, Boolean isTableOfContent) throws IOException {
         super(path);
+        if(isTableOfContent != null)
+            this.isTableOfContent = isTableOfContent;
     }
 
     @Override
@@ -32,14 +35,40 @@ public class GeneralParaBuilder extends AbstractDocBuilder implements IDocIndexB
         if( text.trim().length() == 0 )
             return;
         List<LineElement> lineList = sentenceProcessor.processTextSentencesByYCOrd(text, format);
+
         if( isNewPara ){
-            currentPara = new ParagraphElement();
-            paragraphElementList.add(currentPara);
+
+            for (LineElement aLine : lineList){
+                float curStart = aLine.getLineStart();
+                float lastWordHeight = -1 , currentWordHeight= aLine.getWordList().get(0).getWordHeight();
+                if(currentPara != null){
+                    lastWordHeight = currentPara.getLastLine().getWordList().get(0).getWordHeight();
+                }
+
+                if(isTableOfContent){
+                    currentPara = new ParagraphElement();
+                    paragraphElementList.add(currentPara);
+                    currentPara.addSentence(aLine);
+                } else {
+                    if (curStart != paraStart || (currentWordHeight != lastWordHeight)) { //This is not a new Para Start
+                        currentPara = new ParagraphElement();
+                        paragraphElementList.add(currentPara);
+                    }
+                    if (currentPara != null)
+                        currentPara.addSentence(aLine);
+                }
+            }
+            if(paraStart == 0 && lineList.size() > 0) {
+                LineElement le = lineList.get(0);
+                paraStart = le.getLineStart();
+            }
+        }else {
+            if (currentPara != null)
+                currentPara.addSentences(lineList);
         }
-        if(currentPara != null)
-            currentPara.addSentences(lineList);
     }
 
+    float paraStart = 0;
     SentenceProcessor sentenceProcessor = new SentenceProcessor();
     ParagraphElement currentPara = null;
     List<ParagraphElement> paragraphElementList = new ArrayList<>();

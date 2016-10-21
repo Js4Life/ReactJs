@@ -39,6 +39,14 @@ public class ParagraphElement  extends ContentElement {
         return firstLine;
     }
 
+    public LineElement getLastLine() {
+        int lineSize = sentences.size();
+        if(lineSize > 0 )
+            return sentences.get(lineSize-1);
+        else
+            return null;
+    }
+
     public void setFirstLine(String firstLine) {
         this.firstLine = firstLine;
     }
@@ -55,17 +63,23 @@ public class ParagraphElement  extends ContentElement {
         sentences.addAll( s );
     }
 
+    public void addSentence(LineElement s){
+        sentences.add(s);
+    }
+
     public List<LineElement> getLines(){
         return sentences;
     }
+
+
 
     @Override
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sentences.stream().forEach(a -> {
-           sb.append(a.toString());
-           sb.append(" ");
-           //sb.append("\n");
+            sb.append(a.toString());
+            sb.append(" ");
+            //sb.append("\n");
         });
         return sb.toString();
     }

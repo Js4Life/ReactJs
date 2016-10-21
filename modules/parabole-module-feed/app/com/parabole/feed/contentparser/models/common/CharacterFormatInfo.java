@@ -7,6 +7,18 @@ public class CharacterFormatInfo {
     private boolean isBold;
     private boolean isItalics;
     private float   height;
+    private float   startX;
+    private float   startY;
+
+    public float getStartX() {
+        return startX;
+    }
+
+    public void setStartX(float startX) {
+        this.startX = startX;
+    }
+
+
 
     public float getHeight() {
         return height;
@@ -30,5 +42,13 @@ public class CharacterFormatInfo {
 
     public void setIsItalics(boolean isItalics) {
         this.isItalics = isItalics;
+    }
+
+    public float getStartY() {
+        return startY;
+    }
+
+    public void setStartY(float startY) {
+        this.startY = startY;
     }
 }
