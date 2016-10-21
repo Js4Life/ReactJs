@@ -106,6 +106,46 @@ public class TaggingUtilitiesServices {
         return "ok";
     }
 
+    public String saveBaselTopicToSubtopic(String file) throws IOException {
+        com.parabole.feed.contentparser.models.basel.DocumentElement result= null;
+        try {
+            result = taggerTest.getAllTopicsSubTopics(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\" + file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // set root
+        Map<String, String> rootNode = new HashMap<>();
+        rootNode.put("name", "ROOT");
+        rootNode.put("type", "ROOT");
+        rootNode.put("elementID", "ROOT");
+        lightHouse.createNewVertex(rootNode);
+
+        // set root
+        Map<String, String> subRoot = new HashMap<>();
+        subRoot.put("name", "BASELGLOBAL");
+        subRoot.put("type", "BASELGLOBAL");
+        subRoot.put("elementID", "BASELGLOBAL");
+        lightHouse.createNewVertex(subRoot);
+        lightHouse.establishEdgeByVertexIDs("ROOT", "BASELGLOBAL", "ROOT", "topic-subTopic");
+
+        // set root
+        Map<String, String> subSubRoot = new HashMap<>();
+        subSubRoot.put("name", "BASELCFR");
+        subSubRoot.put("type", "BASELCFR");
+        subSubRoot.put("elementID", "BASELCFR");
+        lightHouse.createNewVertex(subSubRoot);
+
+        // set root
+        Map<String, String> fileTypeNode = new HashMap<>();
+        fileTypeNode.put("name", file);
+        fileTypeNode.put("type", file);
+        fileTypeNode.put("elementID", file);
+        lightHouse.createNewVertex(fileTypeNode);
+
+        return "ok";
+    }
+
 
 
     public Boolean createEdge(DocumentElement documentElement) throws IOException {
