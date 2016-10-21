@@ -1,4 +1,4 @@
-package com.parabole.contentparser.models.basel;
+package com.parabole.feed.contentparser.models.basel;
 
 import java.util.*;
 
