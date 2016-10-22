@@ -347,7 +347,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 						}
 					});
 					break;
-				case "SECTION" :
+				case "BASELSUBTOPIC" :
 					SharedService.getBaselParagraphsBySectionId(nodeId).then(function (data) {
 						if (data.status) {
 							$scope.childNodes = angular.fromJson(data.data);
