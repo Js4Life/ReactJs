@@ -506,6 +506,72 @@ public class TaggingUtilitiesServices {
     }
 
 
+    public String saveParagraphsAndAssociateItWithBaselSubTopic(String file) throws Exception {
+
+        String jsonFileContent= null;
+        String filePath = environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\" + file;
+        String  contentParserMetaDataString = AppUtils.getFileContent("feedJson/contentParserMetaData.json");
+        JSONObject contentParserMetaDataJSON = new JSONObject(contentParserMetaDataString);
+        jsonFileContent = taggerTest.startBaselExtraction(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\" + file);
+
+        /*String jsonFileContent= null;
+        String filePath = environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\" + file;
+        String  contentParserMetaDataString = AppUtils.getFileContent("feedJson/contentParserMetaData.json");
+        JSONObject contentParserMetaDataJSON = new JSONObject(contentParserMetaDataString);
+        //jsonFileContent = taggerTest.startExtraction(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\" + file);
+        jsonFileContent = entryPoint.entrance(filePath, contentParserMetaDataJSON, fileType);
+
+        jsonFileContent.replace("�", "'");
+
+        //String jsonFileContent = AppUtils.getFileContent("feedJson/paragraphs.json");
+        JSONObject jsonObject = new JSONObject(jsonFileContent);
+        JSONObject finalObj = new JSONObject();
+        JSONObject paragraphJSON = jsonObject.getJSONObject("paragraphs");
+        //JSONObject topicToSubTopic = new JSONObject();
+        List<String> arrayOfTopics = new ArrayList<>();
+        Iterator<?> keys = paragraphJSON.keys();
+
+        HashMap<String, String> topicToSubTopic = new HashMap<String, String>();
+
+        while( keys.hasNext() ) {
+            String key = (String)keys.next();
+
+            if ( paragraphJSON.get(key) instanceof JSONObject ) {
+                List<String> elephantList = Arrays.asList(key.split("-"));
+                String topicID = elephantList.get(0);
+                String subTopicID = elephantList.get(0)+"-"+elephantList.get(1);
+                String sectionID = subTopicID+"-"+elephantList.get(2);
+                String secIdForFindingName = elephantList.get(2);
+                String paragraphId = key;
+
+                Map<String, String> nodeData = new HashMap<>();
+                nodeData.put("name", getSectionNameBySectionId(secIdForFindingName));
+                nodeData.put("type", "SECTION");
+                nodeData.put("elementID", sectionID);
+                lightHouse.createNewVertex(nodeData);
+
+                lightHouse.establishEdgeByVertexIDs(subTopicID, sectionID, "subTopicSection", "subTopicSection");
+
+                Map<String, String> nodeDataTwo = new HashMap<>();
+                nodeDataTwo.put("name", paragraphId);
+                nodeDataTwo.put("type", "PARAGRAPH");
+                nodeDataTwo.put("bodyText", paragraphJSON.getJSONObject(key).getString("bodyText"));
+                System.out.println("paragraphJSON.getJSONObject(key).getString(\"bodyText\") = " + paragraphJSON.getJSONObject(key).getString("bodyText"));
+                nodeDataTwo.put("firstLine", paragraphJSON.getJSONObject(key).getString("firstLine"));
+                nodeDataTwo.put("startPage", paragraphJSON.getJSONObject(key).getBigInteger("startPage").toString());
+                nodeDataTwo.put("willIgnore", String.valueOf(paragraphJSON.getJSONObject(key).getBoolean("willIgnore")));
+                nodeDataTwo.put("endPage", paragraphJSON.getJSONObject(key).getBigInteger("endPage").toString());
+                nodeDataTwo.put("elementID", paragraphId);
+                lightHouse.createNewVertex(nodeDataTwo);
+
+                lightHouse.establishEdgeByVertexIDs(sectionID, paragraphId, "sectionParagraph", "sectionParagraph");
+            }
+        }*/
+
+        return "Ok";
+    }
+
+
     public String createConceptNodesFromParagraph(String file) throws Exception {
 
         String jsonFileContent= null;

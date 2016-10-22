@@ -56,6 +56,12 @@ public class FeedController extends BaseController{
 
     }
 
+    public Result saveParagraphsAndAssociateItWithBaselSubTopic(String file) throws AppException, Exception {
+        final String result = taggingUtilitiesServices.saveParagraphsAndAssociateItWithBaselSubTopic(file);
+        return ok(result);
+
+    }
+
     public Result getParagraphsByContent(String concept) throws AppException, com.parabole.feed.platform.exceptions.AppException, IOException {
 
         final String result = taggingUtilitiesServices.getParagraphsByContent(concept);
