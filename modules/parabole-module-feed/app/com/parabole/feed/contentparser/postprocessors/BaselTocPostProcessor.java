@@ -29,6 +29,7 @@ public class BaselTocPostProcessor implements IPostProcessor {
         this.flatParaList = new ArrayList<>();
     }
 
+
     public List<DocumentElement> buildItemTree() throws IOException {
         List<ParagraphElement> paraList = docIndexBuilder.startProcessing(docMeta);
         return buildTree(paraList);
@@ -156,8 +157,8 @@ public class BaselTocPostProcessor implements IPostProcessor {
         BaselDocMeta baselDocMeta = new BaselDocMeta();
         baselDocMeta.setStartPage(5);
         baselDocMeta.setEndPage(10);
-        baselDocMeta.setStartText("Part 2: The First Pillar – Minimum Capital Requirements");
-        baselDocMeta.setEndText("9. Model validation standards");
+        baselDocMeta.setStartText("Part 4: The Third Pillar – Market Discipline");
+        baselDocMeta.setEndText("6. Interest rate risk in the banking book");
         baselDocMeta.setParagraphSelectorLevel(2);
         baselDocMeta.setParaEndRegEx("[.]{5,}[0-9]{1,}|[.]{5,}");
 
@@ -174,5 +175,9 @@ public class BaselTocPostProcessor implements IPostProcessor {
 
     public List<DocumentElement> getFlatParaList() {
         return flatParaList;
+    }
+
+    public List<DocumentElement> getTreeData() {
+        return treeData;
     }
 }

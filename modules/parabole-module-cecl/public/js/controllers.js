@@ -1105,6 +1105,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$scope.periodicComplianceOptions = initChartOptions({"title": data.title, "graphType": 'line'});
 		$scope.periodicComplianceData = data;
 	}
+
 	function initChartOptions(op) {
 		var option = {
 			Title : op.title || " ",

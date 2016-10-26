@@ -103,9 +103,9 @@ public class TaggerTest {
     public Map<String, List<DocumentElement>> startBaselExtraction(String fPath) throws IOException {
         IDocIndexBuilder indexBuilder = new GeneralParaBuilder(fPath, true);
         BaselTocPostProcessor tocBuilder = new BaselTocPostProcessor(indexBuilder);
-        List<DocumentElement> toc = tocBuilder.buildItemTree();
+        tocBuilder.buildItemTree();
         BaselBodyPostProcessor bodyBuilder = new BaselBodyPostProcessor(indexBuilder);
-        Map<String, List<DocumentElement>> body = bodyBuilder.buildItemTree(tocBuilder.getFlatParaList());
+        Map<String, List<DocumentElement>> body = bodyBuilder.buildItemTreeForBasel(tocBuilder);
         ObjectMapper objectMapper = new ObjectMapper();
         // return objectMapper.writeValueAsString(body);
         return body;
