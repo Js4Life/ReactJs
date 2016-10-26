@@ -158,7 +158,7 @@ public class BaselTocPostProcessor implements IPostProcessor {
         baselDocMeta.setStartPage(5);
         baselDocMeta.setEndPage(10);
         baselDocMeta.setStartText("Part 2: The First Pillar – Minimum Capital Requirements");
-        baselDocMeta.setEndText("Model validation standards");
+        baselDocMeta.setEndText("9. Model validation standards");
         baselDocMeta.setParagraphSelectorLevel(2);
         baselDocMeta.setParaEndRegEx("[.]{5,}[0-9]{1,}|[.]{5,}");
 

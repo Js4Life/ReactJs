@@ -516,7 +516,7 @@ public class TaggingUtilitiesServices {
                 nodeDataTwo.put("bodyText", documentElement.getContent());
                 nodeDataTwo.put("elementID", documentElement.getId());
                 lightHouse.createNewVertex(nodeDataTwo);
-                lightHouse.establishEdgeByVertexIDs(lightHouse.getVertexByVertexID(s).get("elementID"), documentElement.getName(), "subTopicToParagraph", "subTopicToParagraph");
+                lightHouse.establishEdgeByVertexIDs(lightHouse.getVertexByVertexID(s).get("elementID"), documentElement.getId(), "subTopicToParagraph", "subTopicToParagraph");
             }
         }
         return "Ok";
