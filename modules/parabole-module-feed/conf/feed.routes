@@ -84,9 +84,10 @@ GET /createProductAndAssignToBusinessSegment            com.parabole.feed.applic
 # Basel Operation
 #-------------------------------------------
 GET /saveBaselTopicToSubtopic/:fileName                 com.parabole.feed.application.controllers.FeedController.saveBaselTopicToSubtopic(fileName: String)
-GET /getAllBaselTopic                                        com.parabole.feed.application.controllers.ParagraphOperationsController.getAllBaselTopic()
-GET /getBaselSubtopicsByTopicId/:nodeId                      com.parabole.feed.application.controllers.ParagraphOperationsController.getBaselSubtopicsByTopicId(nodeId: String)
-GET /getBaselParagraphBySubTopicId/:nodeId                  com.parabole.feed.application.controllers.ParagraphOperationsController.getBaselParagraphBySubTopicId(nodeId: String)
+GET /saveParagraphsAndAssociateItWithBaselSubTopic/:fileName                 com.parabole.feed.application.controllers.FeedController.saveParagraphsAndAssociateItWithBaselSubTopic(fileName: String)
+GET /getAllBaselTopic                                   com.parabole.feed.application.controllers.ParagraphOperationsController.getAllBaselTopic()
+GET /getBaselSubtopicsByTopicId/:nodeId                 com.parabole.feed.application.controllers.ParagraphOperationsController.getBaselSubtopicsByTopicId(nodeId: String)
+GET /getBaselParagraphBySubTopicId/:nodeId              com.parabole.feed.application.controllers.ParagraphOperationsController.getBaselParagraphBySubTopicId(nodeId: String)
 
 
 #---------------------------------------

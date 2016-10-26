@@ -163,25 +163,23 @@ public class TaggingUtilitiesServices {
 
             for (com.parabole.feed.contentparser.models.basel.DocumentElement subtopicElement : subTopic) {
                 System.out.println(" Setting SubTopic .............");
+                String subTopicID = documentElement.getName()+"-"+subtopicElement.getName();
                 Map<String, String> subTopicTypeNode = new HashMap<>();
                 subTopicTypeNode.put("name", subtopicElement.getContent());
                 subTopicTypeNode.put("type", "BASELSUBTOPIC");
-                subTopicTypeNode.put("elementID", documentElement.getContent()+"-"+subtopicElement.getName());
+                subTopicTypeNode.put("elementID", subTopicID);
                 lightHouse.createNewVertex(subTopicTypeNode);
-                lightHouse.establishEdgeByVertexIDs(documentElement.getName(), documentElement.getContent()+"-"+subtopicElement.getName(), "TOPICTOSUBTOPIC", "TOPICTOSUBTOPIC");
+                lightHouse.establishEdgeByVertexIDs(documentElement.getName(), subTopicID, "TOPICTOSUBTOPIC", "TOPICTOSUBTOPIC");
             }
         }
 
         return "ok";
     }
 
-
-
     public Boolean createEdge(DocumentElement documentElement) throws IOException {
 
         return true;
     }
-
 
     public Boolean createNodeFromJSONObject(DocumentElement documentElement) throws IOException {
 
@@ -193,14 +191,13 @@ public class TaggingUtilitiesServices {
         return true;
     }
 
-
     public String getParagraphsAgainstConceptNames(String conceptName){
         String result= null;
         return result;
     }
 
-
     private static ArrayList<String> NOUNS = new ArrayList<>();
+
     private MaxentTagger tagger;
 
     static {
@@ -218,7 +215,6 @@ public class TaggingUtilitiesServices {
         //Run the SparQL
         return null;
     }
-
 
     private List<String> getTheConceptNouns(String text){
         List<String> nounList = new ArrayList<>();
@@ -272,7 +268,6 @@ public class TaggingUtilitiesServices {
         ArrayList<String> listedItems = new ArrayList<String>();
         taggedIndex.setItems(nameOfTheKeyURI, listedItems);
         listOfTaggedIndex.add(taggedIndex);
-
         return coralConfigurationService.saveConfiguration("admin", "taggedData",
                 "ListOfTaggedWordsAgainstAllURIs", listOfTaggedIndex.toString());
     }
@@ -339,7 +334,6 @@ public class TaggingUtilitiesServices {
         final byte[] data = IOUtils.toByteArray(strm);
         return data;
     }
-
 
     public String getParagraphsByContent(String concept) throws AppException {
 
@@ -445,7 +439,6 @@ public class TaggingUtilitiesServices {
         return arrayOfTopics.toString();
     }
 
-
     public String saveSectionsFromParagraphJSon(String file, String fileType) throws Exception {
 
         String jsonFileContent= null;
@@ -505,6 +498,34 @@ public class TaggingUtilitiesServices {
         return "Ok";
     }
 
+    public String saveParagraphsAndAssociateItWithBaselSubTopic(String file) throws Exception {
+
+        Map<String, List<com.parabole.feed.contentparser.models.basel.DocumentElement>> jsonFileContent= null;
+        String filePath = environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\" + file;
+        String  contentParserMetaDataString = AppUtils.getFileContent("feedJson/contentParserMetaData.json");
+        JSONObject contentParserMetaDataJSON = new JSONObject(contentParserMetaDataString);
+        jsonFileContent = taggerTest.startBaselExtraction(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\" + file+".pdf");
+
+        for (String s : jsonFileContent.keySet()) {
+            List<com.parabole.feed.contentparser.models.basel.DocumentElement> paragraphsData = jsonFileContent.get(s);
+            for (com.parabole.feed.contentparser.models.basel.DocumentElement documentElement : paragraphsData) {
+                // create paragraph node
+                Map<String, String> nodeDataTwo = new HashMap<>();
+                nodeDataTwo.put("name", documentElement.getName());
+                nodeDataTwo.put("type", "BASELPARAGRAPH");
+                nodeDataTwo.put("bodyText", documentElement.getContent());
+                nodeDataTwo.put("elementID", documentElement.getId());
+                lightHouse.createNewVertex(nodeDataTwo);
+                lightHouse.establishEdgeByVertexIDs(lightHouse.getVertexByVertexID(s).get("elementID"), documentElement.getName(), "subTopicToParagraph", "subTopicToParagraph");
+            }
+        }
+        return "Ok";
+    }
+
+    private String  getNodeIDByNodeName(String s) {
+
+        return null;
+    }
 
     public String createConceptNodesFromParagraph(String file) throws Exception {
 
@@ -589,8 +610,6 @@ public class TaggingUtilitiesServices {
         return " {status : saved} ";
     }
 
-
-
     public String createComponentAndAssignToComponentType() throws Exception {
 
         JSONObject allConceptNodesDetails = jenaTdbService.getFilteredDataByCompName("components", null);
@@ -617,8 +636,6 @@ public class TaggingUtilitiesServices {
         return " {status : saved} ";
     }
 
-
-
     public String createBusinesSegmentAndAssignComponent() throws Exception {
 
         JSONObject allConceptNodesDetails = jenaTdbService.getFilteredDataByCompName("allBusinessSegments", null);
@@ -636,8 +653,6 @@ public class TaggingUtilitiesServices {
         }
         return jsonArray.toString();
     }
-
-
 
     public String createProductAndAssignToBusinessSegment() throws Exception {
 

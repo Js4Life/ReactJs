@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 /**
  * Created by parabole on 10/14/2016.
  */
+
 public class BaselBodyPostProcessor implements IPostProcessor {
 
     IDocIndexBuilder docIndexBuilder;
@@ -34,6 +35,12 @@ public class BaselBodyPostProcessor implements IPostProcessor {
     public Map<String, List<DocumentElement>> buildItemTree(List<DocumentElement> toc) throws IOException {
         List<ParagraphElement> paras = docIndexBuilder.startProcessing(docMeta);
         buildTree(paras, toc);
+        return treeData;
+    }
+
+    public Map<String, List<DocumentElement>> buildItemTreeForBasel(BaselTocPostProcessor fullToc) throws IOException {
+        List<ParagraphElement> paras = docIndexBuilder.startProcessing(docMeta);
+        dynamicBuildTree(paras, fullToc);
         return treeData;
     }
 
@@ -63,8 +70,23 @@ public class BaselBodyPostProcessor implements IPostProcessor {
         for(int i = 0; i < toc.size()-1; i++){
             startTocPivot = toc.get(i);
             endTocPivot = toc.get(i+1);
-            treeData.put(startTocPivot.getContent(), getParagraphs(paras));
+            treeData.put(startTocPivot.getName(), getParagraphs(paras));
         }
+    }
+
+    private void dynamicBuildTree(List<ParagraphElement> paras, BaselTocPostProcessor fullToc){
+
+        List<DocumentElement> trData = fullToc.getTreeData();
+        for(int j = 0; j < trData.size(); j++){
+            String topicName = trData.get(j).getName();
+            List<DocumentElement> toc = fullToc.getFlatParaList();
+            for(int i = 0; i < toc.size()-1; i++){
+                startTocPivot = toc.get(i);
+                endTocPivot = toc.get(i+1);
+                treeData.put(topicName+"-"+startTocPivot.getName(), getParagraphs(paras));
+            }
+        }
+
     }
 
     private List<DocumentElement> getParagraphs(List<ParagraphElement> paras){
@@ -107,8 +129,8 @@ public class BaselBodyPostProcessor implements IPostProcessor {
 
     private BaselDocMeta getGlossaryMetadata() {
         BaselDocMeta baselDocMeta = new BaselDocMeta();
-        baselDocMeta.setStartPage(26);
-        baselDocMeta.setEndPage(184);
+        baselDocMeta.setStartPage(218);
+        baselDocMeta.setEndPage(239);
         baselDocMeta.setParaStartRegEx("^[1-9].");
         return baselDocMeta;
     }

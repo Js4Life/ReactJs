@@ -347,14 +347,14 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 						}
 					});
 					break;
-				case "SECTION" :
+				case "BASELSUBTOPIC" :
 					SharedService.getBaselParagraphsBySectionId(nodeId).then(function (data) {
 						if (data.status) {
 							$scope.childNodes = angular.fromJson(data.data);
 						}
 					});
 					break;
-				case "PARAGRAPH" :
+				case "BASELPARAGRAPH" :
 					SharedService.paragraphs = $scope.childNodes;
 					SharedService.homeBreads = $scope.breads;
 					$state.go('landing.checklistBuilder');
@@ -1105,6 +1105,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$scope.periodicComplianceOptions = initChartOptions({"title": data.title, "graphType": 'line'});
 		$scope.periodicComplianceData = data;
 	}
+
 	function initChartOptions(op) {
 		var option = {
 			Title : op.title || " ",

@@ -393,6 +393,27 @@ public class LightHouse extends GraphDb {
         return finalData;
     }
 
+    public HashMap<String, String> getVertexByVertexName(String vName) throws  IOException{
+        Iterable<Vertex> verticesData = null;
+        HashMap<String, String> finalData = new HashMap<>();
+        OrientGraph graph = this.orientGraphFactory.getTx();
+        try {
+            verticesData = graph.getVertices("name", vName);
+            for (Vertex v : verticesData) {
+                Set<String> propertyKeys = v.getPropertyKeys();
+                for (String propertyKey : propertyKeys) {
+                    finalData.put(propertyKey, v.getProperty(propertyKey));
+                }
+            }
+            graph.commit();
+        }catch( Exception e ) {
+            graph.rollback();
+        } finally {
+            graph.shutdown();
+        }
+        return finalData;
+    }
+
     public ArrayList<HashMap<String, String>> getConnectedNodesByNodeIdAndType(String topicid, String filterType) throws  IOException{
         Iterable<Vertex> verticesData = null;
         ArrayList<HashMap<String, String>> listOfFinalData = new ArrayList<HashMap<String, String>>();
