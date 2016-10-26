@@ -514,7 +514,7 @@ public class TaggingUtilitiesServices {
                 nodeDataTwo.put("name", documentElement.getName());
                 nodeDataTwo.put("type", "BASELPARAGRAPH");
                 nodeDataTwo.put("bodyText", documentElement.getContent());
-                nodeDataTwo.put("elementID", documentElement.getName());
+                nodeDataTwo.put("elementID", documentElement.getId());
                 lightHouse.createNewVertex(nodeDataTwo);
                 lightHouse.establishEdgeByVertexIDs(lightHouse.getVertexByVertexID(s).get("elementID"), documentElement.getName(), "subTopicToParagraph", "subTopicToParagraph");
             }

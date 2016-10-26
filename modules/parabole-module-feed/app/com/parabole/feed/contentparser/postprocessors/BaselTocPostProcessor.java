@@ -157,8 +157,8 @@ public class BaselTocPostProcessor implements IPostProcessor {
         BaselDocMeta baselDocMeta = new BaselDocMeta();
         baselDocMeta.setStartPage(5);
         baselDocMeta.setEndPage(10);
-        baselDocMeta.setStartText("Part 4: The Third Pillar – Market Discipline");
-        baselDocMeta.setEndText("6. Interest rate risk in the banking book");
+        baselDocMeta.setStartText("Part 2: The First Pillar – Minimum Capital Requirements");
+        baselDocMeta.setEndText("Model validation standards");
         baselDocMeta.setParagraphSelectorLevel(2);
         baselDocMeta.setParaEndRegEx("[.]{5,}[0-9]{1,}|[.]{5,}");
 
