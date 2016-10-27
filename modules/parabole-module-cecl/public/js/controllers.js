@@ -387,7 +387,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			aBread.data = {type: "", id: ""};
 			$scope.breads.push(aBread);
 			return;
-		} else if (nodeType === 'PARAGRAPH'){
+		} else if (nodeType === 'PARAGRAPH' || nodeType === 'BASELPARAGRAPH'){
 			return;
 		}
 		var idx = _.findIndex($scope.nodes, function (n) {return n.id === nodeType});
