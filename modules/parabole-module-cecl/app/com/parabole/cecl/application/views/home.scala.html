@@ -1,7 +1,7 @@
 <div ng-controller="homeCtrl">
   <div class="panel panel-default">
     <div class="panel-heading" style="padding-bottom:9px" >
-      <b>{{heading.title}}</b>
+      <b>{{heading.title}}</b> ({{currentRegulation}})
       <div ng-show="childNodes.length > 0" class="right-inner-addon" style="display:inline-block;width:25%;margin-left:20px;">
         <i class="glyphicon glyphicon-search"></i>
         <input type="search" class="form-control input-sm" placeholder="Search from {{childNodes.length || 'following'}} items..." ng-model="searchText" />
