@@ -129,8 +129,8 @@ public class BaselBodyPostProcessor implements IPostProcessor {
 
     private BaselDocMeta getGlossaryMetadata() {
         BaselDocMeta baselDocMeta = new BaselDocMeta();
-        baselDocMeta.setStartPage(26);
-        baselDocMeta.setEndPage(184);
+        baselDocMeta.setStartPage(239);
+        baselDocMeta.setEndPage(241);
         baselDocMeta.setParaStartRegEx("^[1-9].");
         return baselDocMeta;
     }
