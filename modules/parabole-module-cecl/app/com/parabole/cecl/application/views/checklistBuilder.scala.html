@@ -134,9 +134,10 @@
             <div class="container-fluid padding-15" style="height: 45vh;">
               <div class="col-xs-8 max-height" style="overflow: auto;">
                 <div ng-if="currentParagraphs[para.elementID]" ng-repeat="para in paragraphs" style="position: relative;">
-                  @*<i class="fa fa-check-circle fa-2x" ng-class="{'text-gray':!currentParagraphs[para.elementID], 'text-green':currentParagraphs[para.elementID]}" aria-hidden="true" ng-click="selectParagraph(para.elementID)" style="position:absolute;top:-2px;left:-13px;background:#FFFFFF;border-radius: 50%;"></i>*@
-                  <p ng-class="{'text-danger': para.willIgnore === 'true'}" read-more="" content="{{para.bodyText}}"></p>
-                  <span ng-if="paraTags[para.elementID]" ng-class="getParaTagClass(paraTags[para.elementID])" class="paragraph-tag" tooltip='"title":"{{paraTags[para.elementID]}}","placement":"right"'>{{paraTags[para.elementID].charAt(0)}}</span>
+                  <div class="well">
+                    <div ng-class="{'text-danger': para.willIgnore === 'true'}" read-more="" content="{{para.bodyText}}"></div>
+                    <span ng-if="paraTags[para.elementID]" ng-class="getParaTagClass(paraTags[para.elementID])" class="paragraph-tag" tooltip='"title":"{{paraTags[para.elementID]}}","placement":"right"'>{{paraTags[para.elementID].charAt(0)}}</span>
+                  </div>
                 </div>
               </div>
               <div class="col-xs-4 max-height">

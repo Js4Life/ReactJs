@@ -326,6 +326,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 					});
 					break;
 				case "PARAGRAPH" :
+					SharedService.hideAllToolTips();
 					SharedService.paragraphs = $scope.childNodes;
 					SharedService.homeBreads = $scope.breads;
 					$state.go('landing.checklistBuilder');
@@ -355,6 +356,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 					});
 					break;
 				case "BASELPARAGRAPH" :
+					SharedService.hideAllToolTips();
 					SharedService.paragraphs = $scope.childNodes;
 					SharedService.homeBreads = $scope.breads;
 					$state.go('landing.checklistBuilder');
