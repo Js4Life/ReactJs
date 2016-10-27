@@ -44,9 +44,11 @@
         <div class="col-xs-6 max-height zero-padding">
           <div class="container-fluid max-height" style="overflow: auto;">
             <div ng-repeat="para in paragraphs" ng-if="currentTag === paraTags[para.elementID] || currentTag === 'all'" style="position: relative;">
-              <i class="fa fa-check-circle fa-2x" ng-class="{'text-gray':!currentParagraphs[para.elementID], 'text-green':currentParagraphs[para.elementID]}" aria-hidden="true" ng-click="selectParagraph(para.elementID)" style="position:absolute;top:-2px;left:-13px;background:#FFFFFF;border-radius: 50%;"></i>
-              <p ng-class="{'text-danger': para.willIgnore === 'true'}" read-more="" content="{{para.bodyText}}"></p>
-              <span ng-if="paraTags[para.elementID]" ng-class="getParaTagClass(paraTags[para.elementID])" class="paragraph-tag" tooltip='"title":"{{paraTags[para.elementID]}}","placement":"right"'>{{paraTags[para.elementID].charAt(0)}}</span>
+              <div class="well">
+                <i class="fa fa-check-circle fa-2x" ng-class="{'text-gray':!currentParagraphs[para.elementID], 'text-green':currentParagraphs[para.elementID]}" aria-hidden="true" ng-click="selectParagraph(para.elementID)" style="position:absolute;top:-2px;left:-13px;background:#FFFFFF;border-radius: 50%;"></i>
+                <div ng-class="{'text-danger': para.willIgnore === 'true'}" read-more="" content="{{para.bodyText}}"></div>
+                <span ng-if="paraTags[para.elementID]" ng-class="getParaTagClass(paraTags[para.elementID])" class="paragraph-tag" tooltip='"title":"{{paraTags[para.elementID]}}","placement":"right"'>{{paraTags[para.elementID].charAt(0)}}</span>
+              </div>
             </div>
           </div>
         </div>
@@ -104,8 +106,10 @@
     <div ng-if="doParaTag" class="col-xs-12 max-height zero-padding">
       <div class="container-fluid max-height" style="overflow: auto;">
         <div ng-repeat="para in paragraphs | orderBy: 'elementID'" style="position: relative;">
-          <p ng-class="{'text-danger': para.willIgnore === 'true'}" read-more="" content="{{para.bodyText}}"></p>
-          <select class="form-control" style="position: absolute;top: 10px;right: 30px;width: 20%;" ng-options="op for op in paraTagOptions" ng-model="paraTags[para.elementID]"></select>
+          <div class="well">
+            <div ng-class="{'text-danger': para.willIgnore === 'true'}" read-more="" content="{{para.bodyText}}"></div>
+            <select class="form-control" style="position: absolute;top: 10px;right: 30px;width: 20%;" ng-options="op for op in paraTagOptions" ng-model="paraTags[para.elementID]"></select>
+          </div>
         </div>
       </div>
     </div>
