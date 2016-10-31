@@ -326,6 +326,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 					});
 					break;
 				case "PARAGRAPH" :
+					SharedService.hideAllToolTips();
 					SharedService.paragraphs = $scope.childNodes;
 					SharedService.homeBreads = $scope.breads;
 					$state.go('landing.checklistBuilder');
@@ -355,6 +356,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 					});
 					break;
 				case "BASELPARAGRAPH" :
+					SharedService.hideAllToolTips();
 					SharedService.paragraphs = $scope.childNodes;
 					SharedService.homeBreads = $scope.breads;
 					$state.go('landing.checklistBuilder');
@@ -665,7 +667,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 .controller('regulationCtrl', function($scope, $state, $stateParams, SharedService) {
 	$scope.initialize = function () {
 		$scope.heading = {"title": "Regulations"};
-
+		SharedService.homeBreads = [];
 		SharedService.getRegulations().then(function (data) {
 			if(data.status){
 				$scope.regulations = data.data;
