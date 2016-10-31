@@ -58,8 +58,8 @@ bind(xsd:string ("Data_Element") as ?ComponentType)}
 ?pro rdfs:label ?Product.
 
 BIND(xsd:string(CONCAT(afn:namespace(?seg),afn:localname(?seg))) as ?uri)
-#FILTER(?uri = $$FILTERS$$)
-FILTER(?uri = "http://www.mindparabole.com/ontology/finance/Parabole-Model#CommercialIndustrial")
+FILTER(?uri = $$FILTERS$$)
+#FILTER(?uri = "http://www.mindparabole.com/ontology/finance/Parabole-Model#CommercialIndustrial")
 bind(rand() AS ?id).
 
 }
