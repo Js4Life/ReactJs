@@ -69,7 +69,6 @@ public class TaggerTest {
         com.parabole.feed.contentparser.IDocIndexBuilder indexBuilder = new com.parabole.feed.contentparser.GeneralParaBuilder(fPath, false);
         FASBAccoutingGlossaryBuilder builder = new FASBAccoutingGlossaryBuilder(indexBuilder);
         DocumentData data = builder.buildItemTree();
-
         ObjectMapper objectMapper = new ObjectMapper();
         return data;
 
@@ -100,14 +99,13 @@ public class TaggerTest {
         return toc;
     }
 
-    public Map<String, List<DocumentElement>> startBaselExtraction(String fPath) throws IOException {
-        IDocIndexBuilder indexBuilder = new GeneralParaBuilder(fPath, true);
-        BaselTocPostProcessor tocBuilder = new BaselTocPostProcessor(indexBuilder);
-        tocBuilder.buildItemTree();
-        BaselBodyPostProcessor bodyBuilder = new BaselBodyPostProcessor(indexBuilder);
-        Map<String, List<DocumentElement>> body = bodyBuilder.buildItemTreeForBasel(tocBuilder);
-        ObjectMapper objectMapper = new ObjectMapper();
-        // return objectMapper.writeValueAsString(body);
+    public Map<String, List<DocumentElement>>  startBaselExtraction(String fPath) throws IOException {
+        IDocIndexBuilder tocIndexBuilder = new GeneralParaBuilder(fPath, true);
+        BaselTocPostProcessor tocBuilder = new BaselTocPostProcessor(tocIndexBuilder);
+        List<DocumentElement> toc = tocBuilder.buildItemTree();
+        IDocIndexBuilder bodyIndexBuilder = new GeneralParaBuilder(fPath, true);
+        BaselBodyPostProcessor bodyBuilder = new BaselBodyPostProcessor(bodyIndexBuilder);
+        Map<String, List<DocumentElement>> body = bodyBuilder.buildItemTree(tocBuilder.getFlatParaList());
         return body;
     }
 }

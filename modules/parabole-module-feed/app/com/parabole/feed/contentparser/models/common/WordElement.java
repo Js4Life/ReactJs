@@ -14,6 +14,14 @@ public class WordElement extends ContentElement {
     private boolean isBold;
     private boolean isItaics;
 
+    public boolean isBold() {
+        return isBold;
+    }
+
+    public boolean isItaics() {
+        return isItaics;
+    }
+
     public float getStartY() {
         return startY;
     }

@@ -1,10 +1,10 @@
-package com.parabole.contentparser.postprocessors;
+package com.parabole.feed.contentparser.postprocessors;
 
-import com.parabole.contentparser.IDocIndexBuilder;
-import com.parabole.contentparser.models.basel.BaselDocMeta;
-import com.parabole.contentparser.models.basel.DocumentElement;
-import com.parabole.contentparser.models.common.LineElement;
-import com.parabole.contentparser.models.common.ParagraphElement;
+import com.parabole.feed.contentparser.IDocIndexBuilder;
+import com.parabole.feed.contentparser.models.basel.BaselDocMeta;
+import com.parabole.feed.contentparser.models.basel.DocumentElement;
+import com.parabole.feed.contentparser.models.common.LineElement;
+import com.parabole.feed.contentparser.models.common.ParagraphElement;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.io.IOException;

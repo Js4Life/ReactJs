@@ -1,6 +1,6 @@
-package com.parabole.contentparser.postprocessors;
+package com.parabole.feed.contentparser.postprocessors;
 
-import com.parabole.contentparser.models.basel.DocumentElement;
+import com.parabole.feed.contentparser.models.basel.DocumentElement;
 
 import java.util.Set;
 
