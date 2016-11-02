@@ -1,6 +1,6 @@
-package com.parabole.feed.contentparser.models.basel;
+package com.parabole.contentparser.models.basel;
 
-import com.parabole.feed.contentparser.models.common.DocMetaInfo;
+import com.parabole.contentparser.models.common.DocMetaInfo;
 
 import java.util.Map;
 
@@ -58,13 +58,23 @@ public class BaselDocMeta extends DocMetaInfo {
 
     private String endText;
 
-    public int getParagraphSelectorLevel() {
+    public int[] getParagraphSelectorLevel() {
         return paragraphSelectorLevel;
     }
 
-    public void setParagraphSelectorLevel(int paragraphSelectorLevel) {
+    public void setParagraphSelectorLevel(int[] paragraphSelectorLevel) {
         this.paragraphSelectorLevel = paragraphSelectorLevel;
     }
 
-    private int paragraphSelectorLevel;
+    private int[] paragraphSelectorLevel;
+
+    public float getParagraphFontSize() {
+        return paragraphFontSize;
+    }
+
+    public void setParagraphFontSize(float paragraphFontSize) {
+        this.paragraphFontSize = paragraphFontSize;
+    }
+
+    private float paragraphFontSize;
 }

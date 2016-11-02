@@ -1,15 +1,17 @@
-package com.parabole.feed.contentparser.postprocessors;
+package com.parabole.contentparser.postprocessors;
 
-import com.parabole.feed.contentparser.IDocIndexBuilder;
-import com.parabole.feed.contentparser.models.basel.BaselDocMeta;
-import com.parabole.feed.contentparser.models.basel.DocumentElement;
-import com.parabole.feed.contentparser.models.common.LineElement;
-import com.parabole.feed.contentparser.models.common.ParagraphElement;
+import com.parabole.contentparser.IDocIndexBuilder;
+import com.parabole.contentparser.models.basel.BaselDocMeta;
+import com.parabole.contentparser.models.basel.DocumentElement;
+import com.parabole.contentparser.models.common.LineElement;
+import com.parabole.contentparser.models.common.ParagraphElement;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.io.IOException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.IntStream;
 
 /**
  * Created by parabole on 10/19/2016.
@@ -28,7 +30,6 @@ public class BaselTocPostProcessor implements IPostProcessor {
         this.treeData = new ArrayList<>();
         this.flatParaList = new ArrayList<>();
     }
-
 
     public List<DocumentElement> buildItemTree() throws IOException {
         List<ParagraphElement> paraList = docIndexBuilder.startProcessing(docMeta);
@@ -81,7 +82,7 @@ public class BaselTocPostProcessor implements IPostProcessor {
                         Pattern p = Pattern.compile(levelSelector.get(level));
                         Matcher m = p.matcher(temp.getContent());
                         if (m.find()) {
-                            if(level == docMeta.getParagraphSelectorLevel())
+                            if(isParagraphSelectorLevel(level))
                                 flatParaList.add(temp);
                             temp.setLevel(level);
                             if(level == 1){
@@ -93,6 +94,14 @@ public class BaselTocPostProcessor implements IPostProcessor {
                                 }
                             }
                             else if(level == 2){
+                                temp.setElementType(DocumentElement.ElementTypes.SUBTOPIC);
+                                int index = temp.getContent().indexOf('.');
+                                if(index != -1) {
+                                    String name = temp.getContent().substring(0, index);
+                                    temp.setName(name);
+                                }
+                            }
+                            else if(level == 3){
                                 temp.setElementType(DocumentElement.ElementTypes.SECTION);
                                 int index = temp.getContent().indexOf('.');
                                 if(index != -1) {
@@ -100,8 +109,11 @@ public class BaselTocPostProcessor implements IPostProcessor {
                                     temp.setName(name);
                                 }
                             }
-                            else temp.setElementType(DocumentElement.ElementTypes.OTHER);
+                            //else temp.setElementType(DocumentElement.ElementTypes.OTHER);
+                            else
+                                break;                                                                      //Concidering upto level 3 (SECTION)
                             List<DocumentElement> siblingList = getSiblingsAtPreviousLevel(treeData, level);
+                            temp.setIndex(siblingList.size());
                             siblingList.add(temp);
                             break;
                         }
@@ -114,21 +126,26 @@ public class BaselTocPostProcessor implements IPostProcessor {
         return treeData;
     }
 
+    private Boolean isParagraphSelectorLevel(int level){
+        int[] paraSelectorLevels = docMeta.getParagraphSelectorLevel();
+        return IntStream.of(paraSelectorLevels).anyMatch(x -> x == level);
+    }
+
     private List<DocumentElement> getSiblingsAtPreviousLevel(List<DocumentElement> tempTreeData, int level){
-            if (tempTreeData.size() > 0) {
-                for (int i = 1; i < level; i++) {
-                    try {
-                        List<DocumentElement> childeren = tempTreeData.get(tempTreeData.size() - 1).getChildren();
-                        tempTreeData = childeren;
-                    }catch (Exception e){
-                        return tempTreeData;
-                    }
+        if (tempTreeData.size() > 0) {
+            for (int i = 1; i < level; i++) {
+                try {
+                    List<DocumentElement> childeren = tempTreeData.get(tempTreeData.size() - 1).getChildren();
+                    tempTreeData = childeren;
+                }catch (Exception e){
+                    return tempTreeData;
                 }
             }
+        }
         return tempTreeData;
     }
 
-    private List<DocumentElement> getSiblingsAtPreviousLevel(List<DocumentElement> tempTreeData, float currentStartX){
+    /*private List<DocumentElement> getSiblingsAtPreviousLevel(List<DocumentElement> tempTreeData, float currentStartX){
         for (DocumentElement documentElement : tempTreeData) {
             if (currentStartX == documentElement.getStartX()) {
                 return tempTreeData;
@@ -145,7 +162,7 @@ public class BaselTocPostProcessor implements IPostProcessor {
         documentElement.setStartX(currentStartX);
         documentElement.setName(paragraphElement.toString().replaceAll(docMeta.getParaEndRegEx(), ""));
         return documentElement;
-    }
+    }*/
 
     private DocumentElement buildDocElement(LineElement lineElement){
         DocumentElement documentElement = new DocumentElement();
@@ -157,10 +174,12 @@ public class BaselTocPostProcessor implements IPostProcessor {
         BaselDocMeta baselDocMeta = new BaselDocMeta();
         baselDocMeta.setStartPage(5);
         baselDocMeta.setEndPage(10);
-        baselDocMeta.setStartText("Part 4: The Third Pillar – Market Discipline");
-        baselDocMeta.setEndText("D. Risk exposure and assessment");
-        baselDocMeta.setParagraphSelectorLevel(2);
-        baselDocMeta.setParaEndRegEx("[.]{5,}[0-9]{1,}|[.]{5,}");
+        baselDocMeta.setStartText("Part 2: The First Pillar – Minimum Capital Requirements");
+        baselDocMeta.setEndText("9. Model validation standards");
+
+        int[] paraSelectorLevels = {2, 3};
+        baselDocMeta.setParagraphSelectorLevel(paraSelectorLevels);
+        baselDocMeta.setParaEndRegEx("[.]{5,}[0-9]{1,}|[.]{5,}|\\d+");
 
         Map<Integer, String> levelSelector = new HashMap<>();
         levelSelector.put(1, "^Part[ ]{1,}[0-9]{1,}:");
@@ -175,9 +194,5 @@ public class BaselTocPostProcessor implements IPostProcessor {
 
     public List<DocumentElement> getFlatParaList() {
         return flatParaList;
-    }
-
-    public List<DocumentElement> getTreeData() {
-        return treeData;
     }
 }
