@@ -21,8 +21,7 @@ public class BaselTocPostProcessor implements IPostProcessor {
     BaselDocMeta docMeta;
     List<DocumentElement> treeData;
     List<DocumentElement> flatParaList;
-    DocumentElement lastInsertedParentNode;
-    DocumentElement lastInsertedChildNode;
+    StringBuilder levelId;
 
     public BaselTocPostProcessor(IDocIndexBuilder docIndexBuilder) {
         this.docIndexBuilder = docIndexBuilder;
@@ -35,38 +34,6 @@ public class BaselTocPostProcessor implements IPostProcessor {
         List<ParagraphElement> paraList = docIndexBuilder.startProcessing(docMeta);
         return buildTree(paraList);
     }
-
-    /*private List<DocumentElement> buildTree(List<ParagraphElement> paraList) {            //coordinate wise indentation
-        for(ParagraphElement aPara : paraList) {
-            LineElement lineElement = aPara.getLines().get(0);
-            float currentStartX = lineElement.getLineStart();
-            DocumentElement temp = buildDocElement(aPara, currentStartX);
-
-            flatParaList.add(temp);
-            if(lastInsertedParentNode != null){
-                if(currentStartX > lastInsertedParentNode.getStartX()){
-                    if((currentStartX > lastInsertedChildNode.getStartX()) && (lastInsertedParentNode.getStartX() != lastInsertedChildNode.getStartX())){
-                        lastInsertedChildNode.addChildren(temp);
-                        lastInsertedParentNode = lastInsertedChildNode;
-                        lastInsertedChildNode = temp;
-                    } else {
-                        lastInsertedChildNode = temp;
-                        lastInsertedParentNode.addChildren(lastInsertedChildNode);
-                    }
-                } else {
-                    List<DocumentElement> siblingList = getSiblingsAtPreviousLevel(treeData, currentStartX);
-                    if(siblingList != null){
-                        lastInsertedChildNode = lastInsertedParentNode = temp;
-                        siblingList.add(lastInsertedParentNode);
-                    }
-                }
-            } else {
-                lastInsertedChildNode = lastInsertedParentNode = temp;
-                treeData.add(lastInsertedParentNode);
-            }
-        }
-        return treeData;
-    }   */
 
     private List<DocumentElement> buildTree(List<ParagraphElement> paraList) {            //predefined pattern match wise indentation
         Map<Integer, String> levelSelector = docMeta.getLevelSelector();
@@ -109,18 +76,20 @@ public class BaselTocPostProcessor implements IPostProcessor {
                                     temp.setName(name);
                                 }
                             }
-                            //else temp.setElementType(DocumentElement.ElementTypes.OTHER);
                             else
                                 break;                                                                      //Concidering upto level 3 (SECTION)
                             List<DocumentElement> siblingList = getSiblingsAtPreviousLevel(treeData, level);
-                            temp.setIndex(siblingList.size());
+                            temp.setIndex(siblingList.size()+1);
+                            levelId.append(temp.getIndex());
+                            temp.setLevelId(levelId.toString());
                             siblingList.add(temp);
                             break;
                         }
                     }
                 }
-                if(aSentence.toString().startsWith(docMeta.getEndText()))
+                if(aSentence.toString().startsWith(docMeta.getEndText())) {
                     return treeData;
+                }
             }
         }
         return treeData;
@@ -132,11 +101,14 @@ public class BaselTocPostProcessor implements IPostProcessor {
     }
 
     private List<DocumentElement> getSiblingsAtPreviousLevel(List<DocumentElement> tempTreeData, int level){
+        levelId = new StringBuilder(docMeta.getMetaDocName()).append("-");
         if (tempTreeData.size() > 0) {
             for (int i = 1; i < level; i++) {
                 try {
-                    List<DocumentElement> childeren = tempTreeData.get(tempTreeData.size() - 1).getChildren();
+                    DocumentElement documentElement = tempTreeData.get(tempTreeData.size() - 1);
+                    List<DocumentElement> childeren = documentElement.getChildren();
                     tempTreeData = childeren;
+                    levelId.append(documentElement.getIndex()).append("-");
                 }catch (Exception e){
                     return tempTreeData;
                 }
@@ -144,25 +116,6 @@ public class BaselTocPostProcessor implements IPostProcessor {
         }
         return tempTreeData;
     }
-
-    /*private List<DocumentElement> getSiblingsAtPreviousLevel(List<DocumentElement> tempTreeData, float currentStartX){
-        for (DocumentElement documentElement : tempTreeData) {
-            if (currentStartX == documentElement.getStartX()) {
-                return tempTreeData;
-            } else {
-                if(documentElement.getChildren().size() > 0)
-                    return getSiblingsAtPreviousLevel(documentElement.getChildren(), currentStartX);
-            }
-        }
-        return tempTreeData;
-    }
-
-    private DocumentElement buildDocElement(ParagraphElement paragraphElement, float currentStartX){
-        DocumentElement documentElement = new DocumentElement();
-        documentElement.setStartX(currentStartX);
-        documentElement.setName(paragraphElement.toString().replaceAll(docMeta.getParaEndRegEx(), ""));
-        return documentElement;
-    }*/
 
     private DocumentElement buildDocElement(LineElement lineElement){
         DocumentElement documentElement = new DocumentElement();
@@ -172,6 +125,7 @@ public class BaselTocPostProcessor implements IPostProcessor {
 
     private BaselDocMeta getGlossaryMetadata() {
         BaselDocMeta baselDocMeta = new BaselDocMeta();
+        baselDocMeta.setMetaDocName("basel1");
         baselDocMeta.setStartPage(5);
         baselDocMeta.setEndPage(10);
         baselDocMeta.setStartText("Part 2: The First Pillar – Minimum Capital Requirements");

@@ -14,6 +14,7 @@ public class DocumentElement {
     private String name;
     private int level;
     private int index;
+    private String levelId;
     private String content;
     private float startX;
 
@@ -100,5 +101,13 @@ public class DocumentElement {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getLevelId() {
+        return levelId;
+    }
+
+    public void setLevelId(String levelId) {
+        this.levelId = levelId;
     }
 }

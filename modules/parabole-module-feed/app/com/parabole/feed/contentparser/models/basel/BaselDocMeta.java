@@ -77,4 +77,15 @@ public class BaselDocMeta extends DocMetaInfo {
     }
 
     private float paragraphFontSize;
+
+    public String getMetaDocName() {
+        return metaDocName;
+    }
+
+    public void setMetaDocName(String metaDocName) {
+        this.metaDocName = metaDocName;
+    }
+
+    private String metaDocName;
+
 }
