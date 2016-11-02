@@ -6,6 +6,8 @@ import com.parabole.feed.contentparser.models.basel.DocumentElement;
 import com.parabole.feed.contentparser.models.common.DocMetaInfo;
 import com.parabole.feed.contentparser.models.common.LineElement;
 import com.parabole.feed.contentparser.models.common.ParagraphElement;
+import com.parabole.feed.contentparser.models.fasb.FASBDocMeta;
+import com.parabole.feed.contentparser.models.fasb.FASBIndexedDocument;
 
 import java.io.IOException;
 import java.util.*;
@@ -23,6 +25,7 @@ public class BaselBodyPostProcessor implements IPostProcessor {
     DocumentElement startTocPivot;
     DocumentElement endTocPivot;
     int paraIndexPivot;
+    HashMap<String,Set<String>> indexListMap;
 
     public BaselBodyPostProcessor(IDocIndexBuilder docIndexBuilder){
         this.docIndexBuilder = docIndexBuilder;
@@ -32,9 +35,9 @@ public class BaselBodyPostProcessor implements IPostProcessor {
         this.paraIndexPivot = 0;
     }
 
-    public Map<String, List<DocumentElement>> buildItemTree(List<DocumentElement> toc) throws IOException {
+    public Map<String, List<DocumentElement>> buildItemTree(List<DocumentElement> toc, List<String> concepts) throws IOException {
         List<ParagraphElement> paras = docIndexBuilder.startProcessing(docMeta);
-        buildTree(paras, toc);
+        buildTree(paras, toc, concepts);
         return treeData;
     }
 
@@ -60,14 +63,14 @@ public class BaselBodyPostProcessor implements IPostProcessor {
         }
     }*/
 
-    private void buildTree(List<ParagraphElement> paras, List<DocumentElement> toc){
+    private void buildTree(List<ParagraphElement> paras, List<DocumentElement> toc, List<String> concepts){
         Map<String, List<ParagraphElement>> tempTree = new LinkedHashMap<>();
         toc.add(null);
         for(int i = 0; i < toc.size()-1; i++){
             startTocPivot = toc.get(i);
             endTocPivot = toc.get(i+1);
             //treeData.put(startTocPivot.getContent(), getParagraphs(paras));
-            tempTree.put(startTocPivot.getContent(), indexParagraphs(paras));
+            tempTree.put(startTocPivot.getContent(), indexParagraphs(paras, concepts));
         }
 
         Iterator<String> it = tempTree.keySet().iterator();
@@ -78,7 +81,8 @@ public class BaselBodyPostProcessor implements IPostProcessor {
         }
     }
 
-    private List<ParagraphElement> indexParagraphs(List<ParagraphElement> paras){
+    private List<ParagraphElement> indexParagraphs(List<ParagraphElement> paras, List<String> concepts){
+
         Boolean fetchFlag = false;
         List<ParagraphElement> tempParas = new ArrayList<>();
         for(int i = paraIndexPivot; i < paras.size(); i++){
@@ -97,14 +101,43 @@ public class BaselBodyPostProcessor implements IPostProcessor {
                 tempParas.add(aPara);
                 fetchFlag = true;
             }
+
+            // TODO
+            postProcessParagraph(aPara, concepts);
         }
+
+        // TORETURN
+        // this.indexListMap;
         return tempParas;
+    }
+
+    private void postProcessParagraph(ParagraphElement para, List<String> concepts){
+        //Is Ihe Para Obsolete
+        for(String concept : concepts){
+            indexParagraphByConcepts(concept,para) ;
+        }
+    }
+
+    private void indexParagraphByConcepts(String concept, ParagraphElement paragraph){
+        Set<String> paraIds = null;
+        this.indexListMap = indexedDocument.getConceptIndex();
+        if( this.indexListMap.containsKey(concept))
+            paraIds = this.indexListMap.get(concept);
+        else{
+            paraIds = new TreeSet<>();
+            this.indexListMap.put(concept,paraIds);
+        }
+        if(paragraph.getBodyText().toUpperCase().indexOf(concept.toUpperCase()) != -1) {
+            if(!paraIds.contains(paragraph.getId()))
+                paraIds.add(paragraph.getId());
+        }
     }
 
     private List<DocumentElement> getParagraphs(List<ParagraphElement> paras){
         List<DocumentElement> tempParas = new ArrayList<>();
         for(int i = 0; i < paras.size(); i++){
             ParagraphElement aPara = paras.get(i);
+
             removeBoldAndItalicPrefixIfExist(aPara);
             Pattern p = Pattern.compile(docMeta.getParaStartRegEx());
             Matcher m = p.matcher(aPara.toString());
@@ -116,6 +149,8 @@ public class BaselBodyPostProcessor implements IPostProcessor {
                 if(anElement != null)
                     tempParas.add(anElement);
             }
+             break;
+
         }
         return tempParas;
     }
@@ -214,4 +249,6 @@ public class BaselBodyPostProcessor implements IPostProcessor {
         //baselDocMeta.setParaStartRegEx("(^[0-9])([^%])(\\w+)\\b([.])");
         return baselDocMeta;
     }
+
+    FASBIndexedDocument indexedDocument;
 }
