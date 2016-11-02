@@ -103,7 +103,7 @@ public class BaselBodyPostProcessor implements IPostProcessor {
             }
 
             // TODO
-            postProcessParagraph(aPara, concepts);
+           // postProcessParagraph(aPara, concepts);
         }
 
         // TORETURN
