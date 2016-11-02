@@ -178,7 +178,7 @@ public class BaselBodyPostProcessor implements IPostProcessor {
         baselDocMeta.setStartPage(26);
         baselDocMeta.setEndPage(200);
         baselDocMeta.setParagraphFontSize(10);
-        baselDocMeta.setParaStartRegEx("^[0-9^\\s^\\%].");
+        baselDocMeta.setParaStartRegEx("^[\\d+^[\\%\\s]].");
         return baselDocMeta;
     }
 }
