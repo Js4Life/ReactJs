@@ -1,4 +1,4 @@
-package com.parabole.feed.contentparser.models.basel;
+package com.parabole.contentparser.models.basel;
 
 import java.util.*;
 
@@ -13,6 +13,7 @@ public class DocumentElement {
     private ElementTypes elementType;
     private String name;
     private int level;
+    private int index;
     private String content;
     private float startX;
 
@@ -23,6 +24,7 @@ public class DocumentElement {
 
     public enum ElementTypes{
         TOPIC,
+        SUBTOPIC,
         SECTION,
         PARAGRAPH,
         OTHER
@@ -84,6 +86,13 @@ public class DocumentElement {
         this.level = level;
     }
 
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
 
     public String getContent() {
         return content;

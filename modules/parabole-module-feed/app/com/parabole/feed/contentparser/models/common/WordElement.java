@@ -46,6 +46,8 @@ public class WordElement extends ContentElement {
     }
 
     public float getFirstCharacterStartY(){
+        if(formatInfos.size() == 0)
+            return -1;
         CharacterFormatInfo cInfo = formatInfos.get(0);
         return cInfo.getStartX();
     }

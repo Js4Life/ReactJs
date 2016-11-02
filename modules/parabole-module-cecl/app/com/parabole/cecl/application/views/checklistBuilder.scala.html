@@ -105,7 +105,7 @@
 
     <div ng-if="doParaTag" class="col-xs-12 max-height zero-padding">
       <div class="container-fluid max-height" style="overflow: auto;">
-        <div ng-repeat="para in paragraphs | orderBy: 'elementID'" style="position: relative;">
+        <div ng-repeat="para in paragraphs" style="position: relative;">
           <div class="well">
             <div ng-class="{'text-danger': para.willIgnore === 'true'}" read-more="" content="{{para.bodyText}}"></div>
             <select class="form-control" style="position: absolute;top: 10px;right: 30px;width: 20%;" ng-options="op for op in paraTagOptions" ng-model="paraTags[para.elementID]"></select>
