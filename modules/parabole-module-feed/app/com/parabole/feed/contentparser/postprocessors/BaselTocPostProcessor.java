@@ -175,11 +175,11 @@ public class BaselTocPostProcessor implements IPostProcessor {
         baselDocMeta.setStartPage(5);
         baselDocMeta.setEndPage(10);
         baselDocMeta.setStartText("Part 2: The First Pillar – Minimum Capital Requirements");
-        baselDocMeta.setEndText("9. Model validation standards");
+        baselDocMeta.setEndText("6. Interest rate risk in the banking book");
 
         int[] paraSelectorLevels = {2, 3};
         baselDocMeta.setParagraphSelectorLevel(paraSelectorLevels);
-        baselDocMeta.setParaEndRegEx("[.]{5,}[0-9]{1,}|[.]{5,}|\\d+");
+        baselDocMeta.setParaEndRegEx("[.]{5,}[0-9]{1,}|[.]{5,}|\\d+$");
 
         Map<Integer, String> levelSelector = new HashMap<>();
         levelSelector.put(1, "^Part[ ]{1,}[0-9]{1,}:");
