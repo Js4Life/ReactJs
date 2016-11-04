@@ -114,6 +114,7 @@ public class FASBDocIndexBuilder extends AbstractDocBuilder implements IDocIndex
         return fasbDocMeta;
     }
 
+
     FASBIndexedDocument indexedDocument;
     List<String> concepts;
     IParagraphBuilder paragraphBuilder;

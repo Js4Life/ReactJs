@@ -7,6 +7,7 @@ import com.parabole.feed.contentparser.fasb.FASBDocIndexBuilder;
 import com.parabole.feed.contentparser.glossary.ConceptGlossaryBuilder;
 import com.parabole.feed.contentparser.glossary.FASBAccoutingGlossaryBuilder;
 import com.parabole.feed.contentparser.models.basel.DocumentElement;
+import com.parabole.feed.contentparser.models.common.ParagraphElement;
 import com.parabole.feed.contentparser.models.fasb.DocumentData;
 import com.parabole.feed.contentparser.models.fasb.FASBIndexedDocument;
 import com.parabole.feed.contentparser.postprocessors.BaselBodyPostProcessor;
@@ -15,9 +16,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by anish on 7/25/2016.
@@ -103,8 +102,6 @@ public class TaggerTest {
 
         JSONObject jsonObject = jenaTdbService.getFilteredDataByCompName("ceclBaseNodeDetails","FASB Concept");
         JSONArray jsonArray = jsonObject.getJSONArray("data");
-        // TODO
-        JSONObject specificToFileTypeMetaData = new JSONObject();
         List<String> conceptList = new ArrayList<>();
         for (int i=0; i< jsonArray.length(); i++){
             String str = jsonArray.getJSONObject(i).getString("name");
@@ -114,8 +111,30 @@ public class TaggerTest {
         BaselTocPostProcessor tocBuilder = new BaselTocPostProcessor(tocIndexBuilder);
         List<DocumentElement> toc = tocBuilder.buildItemTree();
         IDocIndexBuilder bodyIndexBuilder = new GeneralParaBuilder(fPath, true);
-        BaselBodyPostProcessor bodyBuilder = new BaselBodyPostProcessor(bodyIndexBuilder);
-        Map<String, List<DocumentElement>> body = bodyBuilder.buildItemTree(tocBuilder.getFlatParaList(), conceptList);
-        return null;
+        BaselBodyPostProcessor bodyBuilder = new BaselBodyPostProcessor(bodyIndexBuilder, conceptList);
+        Map<String, List<DocumentElement>> body = bodyBuilder.buildItemTree(tocBuilder.getFlatParaList());
+        return body;
     }
+
+    public HashMap<String, Set<String>>  startBaselComponentMappingExtractions(String fPath) throws IOException {
+
+        JSONObject jsonObject = jenaTdbService.getFilteredDataByCompName("ceclBaseNodeDetails","FASB Concept");
+        JSONArray jsonArray = jsonObject.getJSONArray("data");
+        List<String> conceptList = new ArrayList<>();
+        for (int i=0; i< jsonArray.length(); i++){
+            String str = jsonArray.getJSONObject(i).getString("name");
+            conceptList.add(str);
+        }
+        IDocIndexBuilder tocIndexBuilder = new GeneralParaBuilder(fPath, true);
+        BaselTocPostProcessor tocBuilder = new BaselTocPostProcessor(tocIndexBuilder);
+        List<DocumentElement> toc = tocBuilder.buildItemTree();
+        IDocIndexBuilder bodyIndexBuilder = new GeneralParaBuilder(fPath, true);
+        BaselBodyPostProcessor bodyBuilder = new BaselBodyPostProcessor(bodyIndexBuilder, conceptList);
+        Map<String, List<DocumentElement>> body = bodyBuilder.buildItemTree(tocBuilder.getFlatParaList());
+        HashMap<String, Set<String>> paragraphElements = bodyBuilder.getConceptParaMap();
+
+        return paragraphElements;
+    }
+
+
 }

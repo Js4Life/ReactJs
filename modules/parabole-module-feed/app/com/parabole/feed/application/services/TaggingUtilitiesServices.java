@@ -150,26 +150,45 @@ public class TaggingUtilitiesServices {
         lightHouse.establishEdgeByVertexIDs("BASELCFR", file, "BASELCFRTOFILE", "BASELCFRTOFILE");
 
         for (com.parabole.feed.contentparser.models.basel.DocumentElement documentElement : result) {
-
+            String topicID =  documentElement.getLevelId();
             System.out.println(" Setting Topic .............");
             Map<String, String> topicTypeNode = new HashMap<>();
             topicTypeNode.put("name", documentElement.getContent());
             topicTypeNode.put("type", "BASELTOPIC");
-            topicTypeNode.put("elementID", documentElement.getName());
+            topicTypeNode.put("elementID", topicID);
             lightHouse.createNewVertex(topicTypeNode);
-            lightHouse.establishEdgeByVertexIDs(file, documentElement.getName(), "FILETOTOPIC", "FILETOTOPIC");
+            lightHouse.establishEdgeByVertexIDs(file, topicID, "FILETOTOPIC", "FILETOTOPIC");
 
             List<com.parabole.feed.contentparser.models.basel.DocumentElement> subTopic = documentElement.getChildren();
 
             for (com.parabole.feed.contentparser.models.basel.DocumentElement subtopicElement : subTopic) {
-                System.out.println(" Setting SubTopic .............");
-                String subTopicID = documentElement.getName()+"-"+subtopicElement.getName();
-                Map<String, String> subTopicTypeNode = new HashMap<>();
-                subTopicTypeNode.put("name", subtopicElement.getContent());
-                subTopicTypeNode.put("type", "BASELSUBTOPIC");
-                subTopicTypeNode.put("elementID", subTopicID);
-                lightHouse.createNewVertex(subTopicTypeNode);
-                lightHouse.establishEdgeByVertexIDs(documentElement.getName(), subTopicID, "TOPICTOSUBTOPIC", "TOPICTOSUBTOPIC");
+                if (subtopicElement.getElementType().toString().equals("SUBTOPIC")) {
+                    System.out.println(" Setting SubTopic .............");
+                    String subTopicID = subtopicElement.getLevelId();
+                    Map<String, String> subTopicTypeNode = new HashMap<>();
+                    subTopicTypeNode.put("name", subtopicElement.getContent());
+                    subTopicTypeNode.put("type", "BASELSUBTOPIC");
+                    subTopicTypeNode.put("elementID", subTopicID);
+                    lightHouse.createNewVertex(subTopicTypeNode);
+                    lightHouse.establishEdgeByVertexIDs(topicID, subTopicID, "TOPICTOSUBTOPIC", "TOPICTOSUBTOPIC");
+
+                List<com.parabole.feed.contentparser.models.basel.DocumentElement> sections = documentElement.getChildren();
+
+
+                    for (com.parabole.feed.contentparser.models.basel.DocumentElement sectionElement : sections) {
+                        if (subtopicElement.getElementType().toString().equals("SECTION")) {
+                            System.out.println(" Setting SubTopic .............");
+                            String sectionID = sectionElement.getLevelId();
+                            Map<String, String> sectionTypeNode = new HashMap<>();
+                            sectionTypeNode.put("name", subtopicElement.getContent());
+                            sectionTypeNode.put("type", "BASELSECTION");
+                            sectionTypeNode.put("elementID", sectionID);
+                            lightHouse.createNewVertex(sectionTypeNode);
+                            lightHouse.establishEdgeByVertexIDs(subTopicID, sectionID, "SUBTOPICTOSECTION", "SUBTOPICTOSECTION");
+                        }
+
+                    }
+                }
             }
         }
 
