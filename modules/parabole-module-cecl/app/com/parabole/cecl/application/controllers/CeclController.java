@@ -1010,7 +1010,7 @@ public class CeclController extends Controller{
         Boolean status = true;
         String data = null;
         try {
-            ArrayList<HashMap<String, String>> res = lightHouseService.getBaselSubtopicsByTopicId(id, "BASELSUBTOPIC");                 //Change Here
+            ArrayList<HashMap<String, String>> res = lightHouseService.getBaselSubtopicsByTopicId(id, null);                 //Change Here
             ObjectMapper mapper = new ObjectMapper();
             data = mapper.writeValueAsString(res);
         } catch(Exception e) {

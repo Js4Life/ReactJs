@@ -172,11 +172,11 @@ public class TaggingUtilitiesServices {
                     lightHouse.createNewVertex(subTopicTypeNode);
                     lightHouse.establishEdgeByVertexIDs(topicID, subTopicID, "TOPICTOSUBTOPIC", "TOPICTOSUBTOPIC");
 
-                List<com.parabole.feed.contentparser.models.basel.DocumentElement> sections = documentElement.getChildren();
+                List<com.parabole.feed.contentparser.models.basel.DocumentElement> sections = subtopicElement.getChildren();
 
 
                     for (com.parabole.feed.contentparser.models.basel.DocumentElement sectionElement : sections) {
-                        if (subtopicElement.getElementType().toString().equals("SECTION")) {
+                        if (sectionElement.getElementType().toString().equals("SECTION")) {
                             System.out.println(" Setting SubTopic .............");
                             String sectionID = sectionElement.getLevelId();
                             Map<String, String> sectionTypeNode = new HashMap<>();
@@ -533,9 +533,10 @@ public class TaggingUtilitiesServices {
                 nodeDataTwo.put("name", documentElement.getName());
                 nodeDataTwo.put("type", "BASELPARAGRAPH");
                 nodeDataTwo.put("bodyText", documentElement.getContent());
-                nodeDataTwo.put("elementID", documentElement.getId());
+                nodeDataTwo.put("elementID", documentElement.getLevelId());
                 lightHouse.createNewVertex(nodeDataTwo);
-                lightHouse.establishEdgeByVertexIDs(lightHouse.getVertexByVertexID(s).get("elementID"), documentElement.getId(), "subTopicToParagraph", "subTopicToParagraph");
+                System.out.println("lightHouse.getVertexByVertexID(s).get(\"elementID\") = " + lightHouse.getVertexByVertexID(s).get("elementID"));
+                lightHouse.establishEdgeByVertexIDs(lightHouse.getVertexByVertexID(s).get("elementID"),  documentElement.getLevelId(), "subTopicToParagraph", "subTopicToParagraph");
             }
         }
         return "Ok";

@@ -428,12 +428,21 @@ public class LightHouse extends GraphDb {
                 if (null != v) {
                     v.getEdges(Direction.OUT).forEach((final Edge edge) -> {
                             System.out.println((String) edge.getVertex(Direction.IN).getProperty("elementID"));
-                        if(edge.getVertex(Direction.IN).getProperty("type").toString().contains(filterType)){
-                            HashMap<String, String> finalData = new HashMap<>();
-                            finalData.put("elementID", edge.getVertex(Direction.IN).getProperty("elementID"));
-                            finalData.put("name", edge.getVertex(Direction.IN).getProperty("name"));
-                            finalData.put("type", edge.getVertex(Direction.IN).getProperty("type"));
-                            listOfFinalData.add(finalData);
+                        if(filterType != null){
+                            if(edge.getVertex(Direction.IN).getProperty("type").toString().contains(filterType)){
+                                HashMap<String, String> finalData = new HashMap<>();
+                                finalData.put("elementID", edge.getVertex(Direction.IN).getProperty("elementID"));
+                                finalData.put("name", edge.getVertex(Direction.IN).getProperty("name"));
+                                finalData.put("type", edge.getVertex(Direction.IN).getProperty("type"));
+                                listOfFinalData.add(finalData);
+                            }
+                        }else{
+                                System.out.println("I am in all type of element field consideration !");
+                                HashMap<String, String> anotherFinalData = new HashMap<>();
+                                anotherFinalData.put("elementID", edge.getVertex(Direction.IN).getProperty("elementID"));
+                                anotherFinalData.put("name", edge.getVertex(Direction.IN).getProperty("name"));
+                                anotherFinalData.put("type", edge.getVertex(Direction.IN).getProperty("type"));
+                                listOfFinalData.add(anotherFinalData);
                         }
                         //outputSet.add(edge.getVertex(Direction.IN));
 

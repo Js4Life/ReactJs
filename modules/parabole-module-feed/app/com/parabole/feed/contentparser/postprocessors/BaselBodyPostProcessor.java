@@ -59,7 +59,7 @@ public class BaselBodyPostProcessor implements IPostProcessor {
         for(int i = 0; i < toc.size()-1; i++){
             startTocPivot = toc.get(i);
             endTocPivot = toc.get(i+1);
-            tempTree.put(startTocPivot.getContent(), indexParagraphs(paras));
+            tempTree.put(startTocPivot.getLevelId(), indexParagraphs(paras));
         }
 
         Iterator<String> it = tempTree.keySet().iterator();
@@ -214,8 +214,8 @@ public class BaselBodyPostProcessor implements IPostProcessor {
 
     private BaselDocMeta getGlossaryMetadata() {
         BaselDocMeta baselDocMeta = new BaselDocMeta();
-        baselDocMeta.setStartPage(26);
-        baselDocMeta.setEndPage(200);
+        baselDocMeta.setStartPage(201);
+        baselDocMeta.setEndPage(246);
         baselDocMeta.setParagraphFontSize(10);
         baselDocMeta.setParaStartRegEx("^[\\d+^[\\%\\s]].");
         return baselDocMeta;
