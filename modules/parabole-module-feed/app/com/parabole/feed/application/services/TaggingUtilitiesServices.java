@@ -536,7 +536,7 @@ public class TaggingUtilitiesServices {
                 nodeDataTwo.put("elementID", documentElement.getId());
                 lightHouse.createNewVertex(nodeDataTwo);
                 System.out.println("lightHouse.getVertexByVertexID(s).get(\"elementID\") = " + lightHouse.getVertexByVertexID(s).get("elementID"));
-                lightHouse.establishEdgeByVertexIDs(lightHouse.getVertexByVertexID(s).get("elementID"),  documentElement.getId(), "dynamicNodeToParagraph", "dynamicNodeToParagraph");
+                lightHouse.establishEdgeByVertexIDs(s,  documentElement.getId(), "dynamicNodeToParagraph", "dynamicNodeToParagraph");
             }
         }
         return "Ok";
