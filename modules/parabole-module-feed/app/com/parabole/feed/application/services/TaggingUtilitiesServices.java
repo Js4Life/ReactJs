@@ -533,10 +533,10 @@ public class TaggingUtilitiesServices {
                 nodeDataTwo.put("name", documentElement.getName());
                 nodeDataTwo.put("type", "BASELPARAGRAPH");
                 nodeDataTwo.put("bodyText", documentElement.getContent());
-                nodeDataTwo.put("elementID", documentElement.getLevelId());
+                nodeDataTwo.put("elementID", documentElement.getId());
                 lightHouse.createNewVertex(nodeDataTwo);
                 System.out.println("lightHouse.getVertexByVertexID(s).get(\"elementID\") = " + lightHouse.getVertexByVertexID(s).get("elementID"));
-                lightHouse.establishEdgeByVertexIDs(lightHouse.getVertexByVertexID(s).get("elementID"),  documentElement.getLevelId(), "subTopicToParagraph", "subTopicToParagraph");
+                lightHouse.establishEdgeByVertexIDs(lightHouse.getVertexByVertexID(s).get("elementID"),  documentElement.getId(), "dynamicNodeToParagraph", "dynamicNodeToParagraph");
             }
         }
         return "Ok";
