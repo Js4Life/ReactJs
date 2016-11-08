@@ -990,7 +990,7 @@ public class CeclController extends Controller{
         Boolean status = true;
         String data = null;
         try {
-            ArrayList<HashMap<String, String>> res = lightHouseService.getParagraphBySectionId(id);               //Change Here
+            ArrayList<HashMap<String, String>> res = lightHouseService.getParagraphBySectionId(id);
             ObjectMapper mapper = new ObjectMapper();
             data = mapper.writeValueAsString(res);
         } catch(Exception e) {
@@ -1002,7 +1002,7 @@ public class CeclController extends Controller{
     }
 
     @BodyParser.Of(BodyParser.Json.class)
-    public Result getBaselSectionByTopicId() {
+    public Result getBaselSectionsBySubtopicId() {
         final String json = request().body().asJson().toString();
         final JSONObject request = new JSONObject(json);
         final String id = request.getString("id");
@@ -1010,7 +1010,27 @@ public class CeclController extends Controller{
         Boolean status = true;
         String data = null;
         try {
-            ArrayList<HashMap<String, String>> res = lightHouseService.getBaselSubtopicsByTopicId(id, null);                 //Change Here
+            ArrayList<HashMap<String, String>> res = lightHouseService.getBaselSubtopicsByTopicId(id, null);
+            ObjectMapper mapper = new ObjectMapper();
+            data = mapper.writeValueAsString(res);
+        } catch(Exception e) {
+            status = false;
+            e.printStackTrace();
+        }
+        finalJson.put("status", status).put("data", data);
+        return ok(finalJson.toString());
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result getBaselSubtopicsByTopicId() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final String id = request.getString("id");
+        JSONObject finalJson = new JSONObject();
+        Boolean status = true;
+        String data = null;
+        try {
+            ArrayList<HashMap<String, String>> res = lightHouseService.getBaselSubtopicsByTopicId(id, "BASELSUBTOPIC");
             ObjectMapper mapper = new ObjectMapper();
             data = mapper.writeValueAsString(res);
         } catch(Exception e) {

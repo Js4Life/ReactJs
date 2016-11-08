@@ -121,7 +121,8 @@ angular.module('RDAApp.services', [])
 
         'GetAllBaselTopics' : 'getAllBaselTopics',
         'GetBaselParagraphsBySectionId' : 'getBaselParagraphsBySectionId',
-        'GetBaselSectionByTopicId' : 'getBaselSectionByTopicId'
+        'GetBaselSectionsBySubtopicId' : 'getBaselSectionsBySubtopicId',
+        'GetBaselSubtopicsByTopicId' : 'getBaselSubtopicsByTopicId'
     };
     SharedService.chartDataMap = {
         '0' : 'getHardCodedResponse/chartData1',
@@ -853,9 +854,13 @@ angular.module('RDAApp.services', [])
         var sendObj = {"id": id};
         return SharedService.invokeService('GetBaselParagraphsBySectionId', sendObj, 'post');
     }
-    SharedService.getBaselSectionByTopicId = function (id) {
+    SharedService.getBaselSectionsBySubtopicId = function (id) {
         var sendObj = {"id": id};
-        return SharedService.invokeService('GetBaselSectionByTopicId', sendObj, 'post');
+        return SharedService.invokeService('GetBaselSectionsBySubtopicId', sendObj, 'post');
+    }
+    SharedService.getBaselSubtopicsByTopicId = function (id) {
+        var sendObj = {"id": id};
+        return SharedService.invokeService('GetBaselSubtopicsByTopicId', sendObj, 'post');
     }
 
     return SharedService;
@@ -1752,7 +1757,7 @@ angular.module('RDAApp.services', [])
         {"name": "Topic", "id": "TOPIC", "idx": 0, "data":{}},{"name": "Sub-Topic", "id": "SUBTOPIC", "idx": 1, "data":{}},{"name": "Section", "id": "SECTION", "idx": 2, "data":{}},{"name": "Paragraph", "id": "PARAGRAPH", "idx": 3, "data":{}},{"name": "Concept", "id": "FASB Concept", "idx": 4, "data":{}}
     ];
     MockService.BaselBaseNodes = [
-        {"name": "Topic", "id": "BASELTOPIC", "idx": 0, "data":{}},{"name": "Sub-Topic", "id": "BASELSUBTOPIC", "idx": 1, "data":{}},{"name": "Paragraph", "id": "BASELPARAGRAPH", "idx": 2, "data":{}}
+        {"name": "Topic", "id": "BASELTOPIC", "idx": 0, "data":{}},{"name": "Sub-Topic", "id": "BASELSUBTOPIC", "idx": 1, "data":{}}, {"name": "Section", "id": "BASELSECTION", "idx": 2, "data":{}},{"name": "Paragraph", "id": "BASELPARAGRAPH", "idx": 3, "data":{}}
     ];
 
     MockService.CeclBaseNodes2 = [

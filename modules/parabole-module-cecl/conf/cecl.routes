@@ -142,4 +142,5 @@ GET /downloadAttachmentById                         com.parabole.cecl.applicatio
 # ---------------------------------------------------------------------------------
 GET /getAllBaselTopics                              com.parabole.cecl.application.controllers.CeclController.getAllBaselTopics()
 POST /getBaselParagraphsBySectionId                 com.parabole.cecl.application.controllers.CeclController.getBaselParagraphsBySectionId()
-POST /getBaselSectionByTopicId                      com.parabole.cecl.application.controllers.CeclController.getBaselSectionByTopicId()
+POST /getBaselSectionsBySubtopicId                     com.parabole.cecl.application.controllers.CeclController.getBaselSectionsBySubtopicId()
+POST /getBaselSubtopicsByTopicId                    com.parabole.cecl.application.controllers.CeclController.getBaselSubtopicsByTopicId()

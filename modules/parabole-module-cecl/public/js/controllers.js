@@ -342,13 +342,20 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		} else if($scope.currentRegulation === 'BASEL') {
 			switch (nodeType) {
 				case "BASELTOPIC" :
-					SharedService.getBaselSectionByTopicId(nodeId).then(function (data) {
+					SharedService.getBaselSubtopicsByTopicId(nodeId).then(function (data) {
 						if (data.status) {
 							$scope.childNodes = angular.fromJson(data.data);
 						}
 					});
 					break;
 				case "BASELSUBTOPIC" :
+					SharedService.getBaselSectionsBySubtopicId(nodeId).then(function (data) {
+						if (data.status) {
+							$scope.childNodes = angular.fromJson(data.data);
+						}
+					});
+					break;
+				case "BASELSECTION" :
 					SharedService.getBaselParagraphsBySectionId(nodeId).then(function (data) {
 						if (data.status) {
 							$scope.childNodes = angular.fromJson(data.data);

@@ -2093,6 +2093,16 @@ li.list-group-item.puff{
   left: 2px;
 }
 
+.para-ribbon{
+    width: 70px;
+    height: 20px;
+    background: url(../images/corner-ribon.png) no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+    top: 5px;
+    left: 10px;
+}
+
 .corner-green{
   width: 37px;
   height: 37px;
