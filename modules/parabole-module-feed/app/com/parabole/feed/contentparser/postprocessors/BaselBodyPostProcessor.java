@@ -215,7 +215,7 @@ public class BaselBodyPostProcessor implements IPostProcessor {
     private BaselDocMeta getGlossaryMetadata() {
         BaselDocMeta baselDocMeta = new BaselDocMeta();
         baselDocMeta.setStartPage(201);
-        baselDocMeta.setEndPage(246);
+        baselDocMeta.setEndPage(241);
         baselDocMeta.setParagraphFontSize(10);
         baselDocMeta.setParaStartRegEx("^[\\d+^[\\%\\s]].");
         return baselDocMeta;
