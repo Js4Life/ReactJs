@@ -1,8 +1,0 @@
--------------------------------------------------------------------
--- DATABASE IMPORT: BIOTA (DATA ASSIMILATION DB)
--------------------------------------------------------------------
-SET ignoreErrors true
-DROP DATABASE remote:localhost/finance-biota root BFE376F0EBA538288064DBE92F0A56B6ED154B619187FA9AB16D1B3A16DB1D4F;
-SET ignoreErrors false
-CREATE DATABASE remote:localhost/finance-biota root BFE376F0EBA538288064DBE92F0A56B6ED154B619187FA9AB16D1B3A16DB1D4F plocal document;
-IMPORT DATABASE ../backup/finance-biota.export.gz;

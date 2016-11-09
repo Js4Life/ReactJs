@@ -106,6 +106,35 @@ public class TaggingUtilitiesServices {
         return "ok";
     }
 
+    public String saveBaselConcepts(String file) throws IOException {
+
+        HashMap<String, Set<String>> dataToProcess = taggerTest.startBaselConceptMappingExtractions(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\Part2_Pillar1_2_3_MCR.pdf");
+        JSONObject allConceptNodesDetails = jenaTdbService.getFilteredDataByCompName("ceclBaseNodeDetails","FASB Concept");
+        JSONArray jsonArray = allConceptNodesDetails.getJSONArray("data");
+        Map<String, String> mapofNameURI = new HashMap<String, String>();
+        for (int i=0; i< jsonArray.length(); i++){
+            mapofNameURI.put(jsonArray.getJSONObject(i).getString("name"), jsonArray.getJSONObject(i).getString("link"));
+        }
+        for (String key : dataToProcess.keySet()) {
+           if(null != dataToProcess.get(key)){
+               Map<String, String> nodeData = new HashMap<>();
+               nodeData.put("name", key);
+               nodeData.put("type", "CONCEPT");
+               nodeData.put("subtype", "FASB");
+               nodeData.put("elementID", mapofNameURI.get(key));
+               lightHouse.createNewVertex(nodeData);
+               Set<String> listOfParagraphVertexIDs = dataToProcess.get(key);
+               for (String listOfParagraphVertexID : listOfParagraphVertexIDs) {
+                   lightHouse.establishEdgeByVertexIDs(mapofNameURI.get(key), listOfParagraphVertexID, "conceptToParagraph", "conceptToParagraph");
+                   System.out.println( " || CONNECTION || --- || " +mapofNameURI.get(key) +" + "+ listOfParagraphVertexID);
+               }
+           }
+        }
+
+        return "{status: Saved}";
+
+    }
+
     public String saveBaselTopicToSubtopic(String file) throws IOException {
         List<com.parabole.feed.contentparser.models.basel.DocumentElement> result= null;
         try {
@@ -180,7 +209,7 @@ public class TaggingUtilitiesServices {
                             System.out.println(" Setting SubTopic .............");
                             String sectionID = sectionElement.getLevelId();
                             Map<String, String> sectionTypeNode = new HashMap<>();
-                            sectionTypeNode.put("name", subtopicElement.getContent());
+                            sectionTypeNode.put("name", sectionElement.getContent());
                             sectionTypeNode.put("type", "BASELSECTION");
                             sectionTypeNode.put("elementID", sectionID);
                             lightHouse.createNewVertex(sectionTypeNode);

@@ -1,5 +1,0 @@
--------------------------------------------------------------------
--- DATABASE EXPORT: CORAL (APPLICATION CONFIGURATION DB)
--------------------------------------------------------------------
-CONNECT remote:localhost/finance-coral root BFE376F0EBA538288064DBE92F0A56B6ED154B619187FA9AB16D1B3A16DB1D4F;
-EXPORT DATABASE ../backup/finance-coral.export;

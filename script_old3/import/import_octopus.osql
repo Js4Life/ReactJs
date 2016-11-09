@@ -1,8 +1,0 @@
--------------------------------------------------------------------
--- DATABASE IMPORT: OCTOPUS (SEMANTIC RULE-ENGINE DB)
--------------------------------------------------------------------
-SET ignoreErrors true
-DROP DATABASE remote:localhost/finance-octopus root BFE376F0EBA538288064DBE92F0A56B6ED154B619187FA9AB16D1B3A16DB1D4F;
-SET ignoreErrors false
-CREATE DATABASE remote:localhost/finance-octopus root BFE376F0EBA538288064DBE92F0A56B6ED154B619187FA9AB16D1B3A16DB1D4F plocal graph;
-IMPORT DATABASE ../backup/finance-octopus.export.gz;

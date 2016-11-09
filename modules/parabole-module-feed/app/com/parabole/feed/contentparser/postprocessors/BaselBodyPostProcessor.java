@@ -173,6 +173,7 @@ public class BaselBodyPostProcessor implements IPostProcessor {
             this.conceptParaMap.put(concept,paraIds);
         }
         if(paragraph.toString().toUpperCase().indexOf(concept.toUpperCase()) != -1) {
+            System.out.println("paraIds = " + paraIds);
             if(!paraIds.contains(paragraph.getId()))
                 paraIds.add(paragraph.getId());
         }
@@ -214,7 +215,7 @@ public class BaselBodyPostProcessor implements IPostProcessor {
 
     private BaselDocMeta getGlossaryMetadata() {
         BaselDocMeta baselDocMeta = new BaselDocMeta();
-        baselDocMeta.setStartPage(201);
+        baselDocMeta.setStartPage(26);
         baselDocMeta.setEndPage(241);
         baselDocMeta.setParagraphFontSize(10);
         baselDocMeta.setParaStartRegEx("^[\\d+^[\\%\\s]].");
