@@ -439,11 +439,17 @@ public class LightHouse extends GraphDb {
                         }else{
                             if(edge.getVertex(Direction.IN).getProperty("type").toString().contains("BASELSECTION") ||
                                     edge.getVertex(Direction.IN).getProperty("type").toString().contains("BASELPARAGRAPH")) {
+
+
                                 System.out.println("I am in all type of element field consideration !");
                                 HashMap<String, String> anotherFinalData = new HashMap<>();
                                 anotherFinalData.put("elementID", edge.getVertex(Direction.IN).getProperty("elementID"));
                                 anotherFinalData.put("name", edge.getVertex(Direction.IN).getProperty("name"));
                                 anotherFinalData.put("type", edge.getVertex(Direction.IN).getProperty("type"));
+                                if(edge.getVertex(Direction.IN).getProperty("type").toString().contains("BASELPARAGRAPH")) {
+                                    anotherFinalData.put("bodyText", edge.getVertex(Direction.IN).getProperty("bodyText"));
+                                    anotherFinalData.put("tag", edge.getVertex(Direction.IN).getProperty("tag"));
+                                }
                                 listOfFinalData.add(anotherFinalData);
                             }
                         }
