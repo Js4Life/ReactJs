@@ -173,6 +173,7 @@ public class BaselBodyPostProcessor implements IPostProcessor {
             this.conceptParaMap.put(concept,paraIds);
         }
         if(paragraph.toString().toUpperCase().indexOf(concept.toUpperCase()) != -1) {
+            System.out.println("paraIds = " + paraIds);
             if(!paraIds.contains(paragraph.getId()))
                 paraIds.add(paragraph.getId());
         }

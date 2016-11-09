@@ -116,7 +116,7 @@ public class TaggerTest {
         return body;
     }
 
-    public HashMap<String, Set<String>>  startBaselComponentMappingExtractions(String fPath) throws IOException {
+    public HashMap<String, Set<String>>  startBaselConceptMappingExtractions(String fPath) throws IOException {
 
         JSONObject jsonObject = jenaTdbService.getFilteredDataByCompName("ceclBaseNodeDetails","FASB Concept");
         JSONArray jsonArray = jsonObject.getJSONArray("data");
@@ -130,7 +130,7 @@ public class TaggerTest {
         List<DocumentElement> toc = tocBuilder.buildItemTree();
         IDocIndexBuilder bodyIndexBuilder = new GeneralParaBuilder(fPath, true);
         BaselBodyPostProcessor bodyBuilder = new BaselBodyPostProcessor(bodyIndexBuilder, conceptList);
-        Map<String, List<DocumentElement>> body = bodyBuilder.buildItemTree(tocBuilder.getFlatParaList());
+        bodyBuilder.buildItemTree(tocBuilder.getFlatParaList());
         HashMap<String, Set<String>> paragraphElements = bodyBuilder.getConceptParaMap();
 
         return paragraphElements;
