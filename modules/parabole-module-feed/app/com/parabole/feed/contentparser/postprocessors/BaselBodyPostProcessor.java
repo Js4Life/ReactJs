@@ -147,7 +147,7 @@ public class BaselBodyPostProcessor implements IPostProcessor {
             return null;
         String name = documentElement.getContent().substring(0, index);
         documentElement.setName(name);
-        paraId = paraId + "-" + levelIndex;
+        paraId = paraId + "-P" + levelIndex;
         documentElement.setLevelId(paraId);
         newPara.setId(paraId);
         flatParaList.add(newPara);
@@ -214,7 +214,7 @@ public class BaselBodyPostProcessor implements IPostProcessor {
 
     private BaselDocMeta getGlossaryMetadata() {
         BaselDocMeta baselDocMeta = new BaselDocMeta();
-        baselDocMeta.setStartPage(201);
+        baselDocMeta.setStartPage(26);
         baselDocMeta.setEndPage(241);
         baselDocMeta.setParagraphFontSize(10);
         baselDocMeta.setParaStartRegEx("^[\\d+^[\\%\\s]].");
