@@ -410,12 +410,13 @@ public class LightHouseService {
     }
 
     public ArrayList<HashMap<String,String>> getRelatedParagraphsByNames(ArrayList<String> listOfParagraphIDs) {
-
-        ArrayList<HashMap<String,String>> getParagraphByNameProperty = new ArrayList<>();
-        lightHouse.getParagraphsByParagraphIds
-        for (String listOfParagraphID : listOfParagraphIDs) {
-            getParagraphByNameProperty += lightHouse.getParagraphByNameProperty();
+        ArrayList<HashMap<String,String>> paragraphByNameProperty = new ArrayList<>();
+        ArrayList<HashMap<String, String>> alltheParagraphs = lightHouse.getParagraphsByParagraphIds(listOfParagraphIDs);
+        for (HashMap<String, String> paragraph : alltheParagraphs) {
+            String nameP = paragraph.get("name");
+            ArrayList<HashMap<String, String>> paragraphOne = lightHouse.getParagraphByNameProperty(nameP);
+            paragraphByNameProperty.addAll(paragraphOne);
         }
-        return getParagraphByNameProperty;
+        return paragraphByNameProperty;
     }
 }

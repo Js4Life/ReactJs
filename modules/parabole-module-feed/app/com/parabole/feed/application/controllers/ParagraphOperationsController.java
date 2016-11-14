@@ -310,7 +310,7 @@ public class ParagraphOperationsController extends BaseController{
     public Result getRelatedParagraphsByNames() {
 
         ArrayList<String> listOfParagraphIDs = new ArrayList<>();
-        listOfParagraphIDs.add("");
+        listOfParagraphIDs.add("basel1-1-7-3-P6");
         return ok(lightHouseService.getRelatedParagraphsByNames(listOfParagraphIDs).toString());
     }
 

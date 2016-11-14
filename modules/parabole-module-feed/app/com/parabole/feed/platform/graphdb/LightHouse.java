@@ -683,24 +683,32 @@ public class LightHouse extends GraphDb {
 
     public ArrayList<HashMap<String,String>> getParagraphByNameProperty(String name){
 
-        ArrayList<HashMap<String, String>> resultData = new ArrayList<>();
-        OObjectDatabaseTx db = new OObjectDatabaseTx(AppUtils.getApplicationProperty(CCAppConstants.INDUSTRY + ".lightHouse.graphdb.url")).open(
-                AppUtils.getApplicationProperty(CCAppConstants.INDUSTRY + ".lightHouse.graphdb.user"),
-                AppUtils.getApplicationProperty(CCAppConstants.INDUSTRY + ".lightHouse.graphdb.password")
-        );
-        List<ODocument> results = db.query(new OSQLSynchQuery<ODocument>("SELECT * FROM V where type = 'BASELPARAGRAPH' and name = "+ name ));
-        for (ODocument aDoc : results) {
-            HashMap<String, String> oneParagraph = new HashMap<>();
-            for (String fieldName:aDoc.fieldNames()) {
-                oneParagraph.put(fieldName,  aDoc.field(fieldName));
+        Iterable<Vertex> verticesData = null;
+        ArrayList<HashMap<String,String>> finalData = new ArrayList<>();
+        OrientGraph graph = this.orientGraphFactory.getTx();
+        try {
+
+                verticesData = graph.getVertices("name", name);
+                for (Vertex v : verticesData) {
+                    if(v.getProperty("type").toString().contains("BASELPARAGRAPH")) {
+                        HashMap<String, String> tempData = new HashMap<>();
+                        Set<String> propertyKeys = v.getPropertyKeys();
+                        for (String propertyKey : propertyKeys) {
+                            tempData.put(propertyKey, v.getProperty(propertyKey));
+                        }
+                        finalData.add(tempData);
+                    }
             }
-            resultData.add(oneParagraph);
+            graph.commit();
+        }catch( Exception e ) {
+            graph.rollback();
+        } finally {
+            graph.shutdown();
         }
-        return resultData;
+        return finalData;
     }
 
     public ArrayList<HashMap<String,String>> getParagraphsByParagraphIds(ArrayList<String> listOfParagraphIDs){
-
         Iterable<Vertex> verticesData = null;
         ArrayList<HashMap<String,String>> finalData = new ArrayList<>();
         OrientGraph graph = this.orientGraphFactory.getTx();
@@ -714,6 +722,7 @@ public class LightHouse extends GraphDb {
                             tempData.put(propertyKey, v.getProperty(propertyKey));
                         }
                     }
+                    finalData.add(tempData);
                 }
                 graph.commit();
             }catch( Exception e ) {
@@ -721,7 +730,6 @@ public class LightHouse extends GraphDb {
             } finally {
                 graph.shutdown();
             }
-
         return finalData;
     }
 }
