@@ -409,8 +409,13 @@ public class LightHouseService {
         return finalReturn;
     }
 
-    public String getRelatedParagraphsByNames(ArrayList<String> listOfParagraphIDs) {
+    public ArrayList<HashMap<String,String>> getRelatedParagraphsByNames(ArrayList<String> listOfParagraphIDs) {
 
-        return null;
+        ArrayList<HashMap<String,String>> getParagraphByNameProperty = new ArrayList<>();
+        lightHouse.getParagraphsByParagraphIds
+        for (String listOfParagraphID : listOfParagraphIDs) {
+            getParagraphByNameProperty += lightHouse.getParagraphByNameProperty();
+        }
+        return getParagraphByNameProperty;
     }
 }

@@ -683,22 +683,45 @@ public class LightHouse extends GraphDb {
 
     public ArrayList<HashMap<String,String>> getParagraphByNameProperty(String name){
 
-        ArrayList<HashMap<String, String>> resultAmount = new ArrayList<>();
-        HashMap<String, String> paragraphCountGroupByTag = new HashMap<>();
-
+        ArrayList<HashMap<String, String>> resultData = new ArrayList<>();
         OObjectDatabaseTx db = new OObjectDatabaseTx(AppUtils.getApplicationProperty(CCAppConstants.INDUSTRY + ".lightHouse.graphdb.url")).open(
                 AppUtils.getApplicationProperty(CCAppConstants.INDUSTRY + ".lightHouse.graphdb.user"),
                 AppUtils.getApplicationProperty(CCAppConstants.INDUSTRY + ".lightHouse.graphdb.password")
         );
-
         List<ODocument> results = db.query(new OSQLSynchQuery<ODocument>("SELECT * FROM V where type = 'BASELPARAGRAPH' and name = "+ name ));
         for (ODocument aDoc : results) {
+            HashMap<String, String> oneParagraph = new HashMap<>();
             for (String fieldName:aDoc.fieldNames()) {
-                paragraphCountGroupByTag.put(fieldName,  aDoc.field(fieldName));
+                oneParagraph.put(fieldName,  aDoc.field(fieldName));
+            }
+            resultData.add(oneParagraph);
+        }
+        return resultData;
+    }
+
+    public ArrayList<HashMap<String,String>> getParagraphsByParagraphIds(ArrayList<String> listOfParagraphIDs){
+
+        Iterable<Vertex> verticesData = null;
+        ArrayList<HashMap<String,String>> finalData = new ArrayList<>();
+        OrientGraph graph = this.orientGraphFactory.getTx();
+            try {
+                for (String paragraphID : listOfParagraphIDs) {
+                    HashMap<String, String> tempData = new HashMap<>();
+                    verticesData = graph.getVertices("elementID", paragraphID);
+                    for (Vertex v : verticesData) {
+                        Set<String> propertyKeys = v.getPropertyKeys();
+                        for (String propertyKey : propertyKeys) {
+                            tempData.put(propertyKey, v.getProperty(propertyKey));
+                        }
+                    }
+                }
+                graph.commit();
+            }catch( Exception e ) {
+                graph.rollback();
+            } finally {
+                graph.shutdown();
             }
 
-        }
-
-        return resultAmount;
+        return finalData;
     }
 }
