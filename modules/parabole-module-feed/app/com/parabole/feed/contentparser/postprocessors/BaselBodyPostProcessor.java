@@ -32,7 +32,6 @@ public class BaselBodyPostProcessor implements IPostProcessor {
     List<String> concepts = new ArrayList<>();
     // FASBIndexedDocument indexedDocument;
 
-
     public HashMap<String, Set<String>> getConceptParaMap() {
         return conceptParaMap;
     }
@@ -160,9 +159,6 @@ public class BaselBodyPostProcessor implements IPostProcessor {
         return documentElement;
     }
 
-
-
-
     private void indexParagraphByConcepts(String concept, ParagraphElement paragraph){
         Set<String> paraIds = null;
         //HashMap<String,Set<String>> indexListMap = indexedDocument.getConceptIndex();
@@ -185,9 +181,6 @@ public class BaselBodyPostProcessor implements IPostProcessor {
             indexParagraphByConcepts(concept,para) ;
         }
     }
-
-
-
 
     private void addToParagraphElement(ParagraphElement toPara, ParagraphElement fromPara){
         for (LineElement aSentence: fromPara.getLines()) {

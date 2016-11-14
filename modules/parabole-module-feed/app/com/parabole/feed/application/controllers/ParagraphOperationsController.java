@@ -307,6 +307,13 @@ public class ParagraphOperationsController extends BaseController{
         return ok(lightHouseService.getParagraphBySectionId(nodeId).toString());
     }
 
+    public Result getRelatedParagraphsByNames() {
+
+        ArrayList<String> listOfParagraphIDs = new ArrayList<>();
+        listOfParagraphIDs.add("");
+        return ok(lightHouseService.getRelatedParagraphsByNames(listOfParagraphIDs).toString());
+    }
+
     public Result addAnewVertexproperty() {
 
         String vertexID = "320-10-35-34B";

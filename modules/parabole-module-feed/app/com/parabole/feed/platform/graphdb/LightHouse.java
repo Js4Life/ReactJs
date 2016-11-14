@@ -680,4 +680,25 @@ public class LightHouse extends GraphDb {
         return paragraphCountGroupByTag;
 
     }
+
+    public ArrayList<HashMap<String,String>> getParagraphByNameProperty(String name){
+
+        ArrayList<HashMap<String, String>> resultAmount = new ArrayList<>();
+        HashMap<String, String> paragraphCountGroupByTag = new HashMap<>();
+
+        OObjectDatabaseTx db = new OObjectDatabaseTx(AppUtils.getApplicationProperty(CCAppConstants.INDUSTRY + ".lightHouse.graphdb.url")).open(
+                AppUtils.getApplicationProperty(CCAppConstants.INDUSTRY + ".lightHouse.graphdb.user"),
+                AppUtils.getApplicationProperty(CCAppConstants.INDUSTRY + ".lightHouse.graphdb.password")
+        );
+
+        List<ODocument> results = db.query(new OSQLSynchQuery<ODocument>("SELECT * FROM V where type = 'BASELPARAGRAPH' and name = "+ name ));
+        for (ODocument aDoc : results) {
+            for (String fieldName:aDoc.fieldNames()) {
+                paragraphCountGroupByTag.put(fieldName,  aDoc.field(fieldName));
+            }
+
+        }
+
+        return resultAmount;
+    }
 }

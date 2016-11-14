@@ -138,7 +138,7 @@ public class TaggingUtilitiesServices {
     public String saveBaselTopicToSubtopic(String file) throws IOException {
         List<com.parabole.feed.contentparser.models.basel.DocumentElement> result= null;
         try {
-            result = taggerTest.getBaselTopicsSubTopics(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\Part2_Pillar1_2_3_MCR.pdf");
+            result = taggerTest.getBaselTopicsSubTopics(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\"+file+".pdf");
         } catch (IOException e) {
             e.printStackTrace();
         }
