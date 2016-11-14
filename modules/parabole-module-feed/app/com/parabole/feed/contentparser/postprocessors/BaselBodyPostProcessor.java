@@ -24,8 +24,16 @@ public class BaselBodyPostProcessor implements IPostProcessor {
     DocumentElement endTocPivot;
     List<ParagraphElement> flatParaList;
     int paraIndexPivot;
+    HashMap<String,Set<String>> conceptParaMap = new HashMap<>();
+    List<String> concepts = new ArrayList<>();
+    // FASBIndexedDocument indexedDocument;
 
-    public BaselBodyPostProcessor(IDocIndexBuilder docIndexBuilder){
+    public HashMap<String, Set<String>> getConceptParaMap() {
+        return conceptParaMap;
+    }
+
+    public BaselBodyPostProcessor(IDocIndexBuilder docIndexBuilder, List<String> extConcepts){
+        this.concepts = extConcepts;
         this.docIndexBuilder = docIndexBuilder;
         this.docMeta = getGlossaryMetadata();
         this.treeData = new LinkedHashMap<>();
@@ -207,10 +215,33 @@ public class BaselBodyPostProcessor implements IPostProcessor {
 
         // TODO
         // concept mapping here with each ======> newPara
-
+        postProcessParagraph(newPara);
         //end
 
         return documentElement;
+    }
+
+    private void indexParagraphByConcepts(String concept, ParagraphElement paragraph){
+        Set<String> paraIds = null;
+        //HashMap<String,Set<String>> indexListMap = indexedDocument.getConceptIndex();
+        if( this.conceptParaMap.containsKey(concept))
+            paraIds = this.conceptParaMap.get(concept);
+        else{
+            paraIds = new TreeSet<>();
+            this.conceptParaMap.put(concept,paraIds);
+        }
+        if(paragraph.toString().toUpperCase().indexOf(concept.toUpperCase()) != -1) {
+            System.out.println("paraIds = " + paraIds);
+            if(!paraIds.contains(paragraph.getId()))
+                paraIds.add(paragraph.getId());
+        }
+    }
+
+    private void postProcessParagraph(ParagraphElement para){
+        //Is Ihe Para Obsolete
+        for(String concept : this.concepts){
+            indexParagraphByConcepts(concept,para) ;
+        }
     }
 
     private void addToParagraphElement(ParagraphElement toPara, ParagraphElement fromPara){
