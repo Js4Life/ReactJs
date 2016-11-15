@@ -8,19 +8,17 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX afn: <http://jena.apache.org/ARQ/function#>
 PREFIX bas: <http://mindparabole.com/finance/basel_glossary#>
 
-
-
-
-SELECT ?uri ?con ?concept ?Area ?connections ?mprp ?id
-?pro  ?Product  ?seg ?Segment
+SELECT ?uri ?con ?concept ?Area ?connections ?mprp ?id ?seg ?Segment
 where {
 {select *
 where {
 {?con rdf:type ?conclass .
 ?conclass rdfs:subClassOf ?sub.
-FILTER(?sub IN(bas:BaselGlossary,cst:FASBConcept))
+FILTER(?sub IN(cst:FASBConcept))
 ?con pb:hasModel ?mprp .
-?mprp pb:hasSegment ?seg.
+MINUS{?mprp rdf:type pb:BaselModel}
+?mprp pb:hasSegment ?seg.?seg rdf:type ?segtype.
+FILTER(?segtype = pb:BankASegments)
 ?seg pb:hasProduct ?pro.
 ?pro rdfs:label ?Product.
 ?seg rdfs:label ?Segment.
@@ -28,9 +26,11 @@ BIND(xsd:string("Model") as ?Area)}
 union
 {?con rdf:type ?conclass .
 ?conclass rdfs:subClassOf ?sub .
-FILTER(?sub IN(bas:BaselGlossary,cst:FASBConcept))
+FILTER(?sub IN(cst:FASBConcept))
 ?con pb:hasReport ?mprp .
 ?mprp pb:hasSegment ?seg.
+?seg rdf:type ?segtype.
+FILTER(?segtype = pb:BankASegments)
 ?seg pb:hasProduct ?pro.
 ?pro rdfs:label ?Product.
 ?seg rdfs:label ?Segment.
@@ -39,9 +39,12 @@ BIND(xsd:string("Report") AS ?Area)
 union
 {?con rdf:type ?conclass .
 ?conclass rdfs:subClassOf ?sub.
-FILTER(?sub IN(bas:BaselGlossary,cst:FASBConcept))
+FILTER(?sub IN(cst:FASBConcept))
 ?con pb:hasPolicy ?mprp .
 ?mprp pb:hasSegment ?seg.
+MINUS{?mprp rdf:type pb:BaselPolicy}
+?seg rdf:type ?segtype.
+FILTER(?segtype = pb:BankASegments)
 ?seg pb:hasProduct ?pro.
 ?pro rdfs:label ?Product.
 ?seg rdfs:label ?Segment.
@@ -49,23 +52,22 @@ bind(xsd:string ("Policy") as ?Area)}
 UNION
 {?con rdf:type ?conclass .
 ?conclass rdfs:subClassOf ?sub .
-FILTER(?sub IN(bas:BaselGlossary,cst:FASBConcept))
+FILTER(?sub IN(cst:FASBConcept))
 ?con pb:ConcepthasDataElement ?mprp.
 bind(xsd:string ("Data_Element") as ?Area)}
 union
 {?con rdf:type ?conclass .
 ?conclass rdfs:subClassOf ?sub .
-FILTER(?sub IN(bas:BaselGlossary,cst:FASBConcept))
+FILTER(?sub IN(cst:FASBConcept))
 ?con pb:hasRelatedConcept ?mprp.
-bind(xsd:string ("Related_Concept") as ?Area)}
+bind(xsd:string ("Related Concept") as ?Area)}
 }}
 ?con rdfs:label ?concept .
-BIND(xsd:string(CONCAT(afn:namespace(?con),afn:localname(?con))) AS ?uri)
+BIND(xsd:string(CONCAT(afn:namespace(?pro),afn:localname(?pro))) AS ?uri)
 ?mprp rdfs:label ?connections .
 bind(rand() AS ?id).
 FILTER(?uri = $$FILTERS$$)
-#FILTER (?uri = "http://mindparabole.com/finance/basel_glossary#AdjustedNotionalAmount")
+#FILTER (?uri = "http://www.mindparabole.com/ontology/finance/Parabole-Model#BuildingLease")
 
 }
-
 

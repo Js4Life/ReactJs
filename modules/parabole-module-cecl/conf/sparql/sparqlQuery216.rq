@@ -13,14 +13,14 @@ where {
 where {
 {?concept rdf:type ?conclass .
 ?conclass rdfs:subClassOf ?sub .
-FILTER(?sub IN(cst:FASBConcept))
+FILTER(?sub IN(bas:BaselGlossary,cst:FASBConcept))
 ?concept pb:hasModel ?mprp .
 ?mprp rdf:type ?Type.
 BIND(xsd:string("Model Type") as ?Area)}
 union
 {?concept rdf:type ?conclass .
 ?conclass rdfs:subClassOf ?sub .
-FILTER(?sub IN(cst:FASBConcept))
+FILTER(?sub IN(bas:BaselGlossary,cst:FASBConcept))
 ?concept pb:hasReport ?mprp .
 ?mprp rdf:type ?Type.
 BIND(xsd:string("Report Type") AS ?Area)
@@ -28,35 +28,34 @@ BIND(xsd:string("Report Type") AS ?Area)
 union
 {?concept rdf:type ?conclass .
 ?conclass rdfs:subClassOf ?sub.
-FILTER(?sub IN(cst:FASBConcept))
+FILTER(?sub IN(bas:BaselGlossary,cst:FASBConcept))
 ?concept pb:hasProcedure ?mprp .
 ?mprp rdf:type ?Type.
 bind(xsd:string ("Procedure Type") as ?Area)}
 union
 {?concept rdf:type ?conclass .
 ?conclass rdfs:subClassOf ?sub.
-FILTER(?sub IN(cst:FASBConcept))
+FILTER(?sub IN(bas:BaselGlossary,cst:FASBConcept))
 ?concept pb:hasPolicy ?mprp .
 ?mprp rdf:type ?Type.
 bind(xsd:string ("Policy Type") as ?Area)}
 union
 {?concept rdf:type ?conclass .
 ?conclass rdfs:subClassOf ?sub.
-FILTER(?sub IN(cst:FASBConcept))
+FILTER(?sub IN(bas:BaselGlossary,cst:FASBConcept))
 ?concept pb:hasRelatedConcept ?mprp.
 ?mprp rdf:type ?Type.
 bind(xsd:string ("Related Concept Type") as ?Area)}
 union
 {?concept rdf:type ?conclass .
 ?conclass rdfs:subClassOf ?sub.
-FILTER(?sub IN(cst:FASBConcept))
+FILTER(?sub IN(bas:BaselGlossary,cst:FASBConcept))
 ?concept pb:ConcepthasDataElement ?mprp.
 ?mprp rdf:type ?Type.
 bind(xsd:string ("Related Data Element") as ?Area)}}}
 ?concept rdfs:label ?conceptName .
 ?mprp rdfs:label ?connections .
 ?Type rdfs:label ?Typename.
-FILTER((?Type!=pb:BaselModel)&&(?Type != pb:BaselPolicy))
 bind(rand() AS ?id).
 
 }

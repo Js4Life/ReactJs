@@ -10,8 +10,6 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 SELECT ?Pro ?Product ?Segment ?Seg
 WHERE{
 ?comp pb:hasSegment ?Seg ;rdfs:label ?Component.
-MINUS{?comp rdf:type pb:BaselModel}
-MINUS{?comp rdf:type pb:BaselPolicy}
-?Seg pb:hasProduct ?Pro;rdfs:label ?Segment;rdf:type pb:BankASegments .
+?Seg pb:hasProduct ?Pro;rdfs:label ?Segment.
 ?Pro rdfs:label ?Product.
 }
