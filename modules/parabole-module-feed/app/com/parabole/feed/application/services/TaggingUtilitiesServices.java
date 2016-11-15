@@ -28,6 +28,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static com.parabole.feed.application.utils.AppUtils.writeFile;
 import static play.mvc.Controller.response;
 
 public class TaggingUtilitiesServices {
@@ -138,7 +139,7 @@ public class TaggingUtilitiesServices {
     public String saveBaselTopicToSubtopic(String file) throws IOException {
         List<com.parabole.feed.contentparser.models.basel.DocumentElement> result= null;
         try {
-            result = taggerTest.getBaselTopicsSubTopics(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\Part2_Pillar1_2_3_MCR.pdf");
+            result = taggerTest.getBaselTopicsSubTopics(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\"+file+".pdf");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -720,5 +721,30 @@ public class TaggingUtilitiesServices {
         }
 
         return jsonArray.toString();
+    }
+
+
+    public String getAllParagraphInTextFile(String fileType) throws IOException {
+
+        StringBuilder storage = new StringBuilder();
+        ArrayList<HashMap<String, String>> paragraphVariable = lightHouse.getParagraphsByParagraphType(fileType);
+
+        for (HashMap<String, String> stringStringHashMap : paragraphVariable) {
+            if(stringStringHashMap.containsKey("bodyText")) {
+                String dataToConcat = stringStringHashMap.get("bodyText");
+                System.out.println("dataToConcat = " + dataToConcat);
+                storage.append(dataToConcat);
+                storage.append(" \n \n");
+                /*result.concat(dataToConcat);
+                result.concat("\n");*/
+            }
+        }
+
+        if(fileType.equals("PARAGRAPH")) {
+            writeFile(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedJson\\fasb-paragraph.txt", storage.toString());
+        }else{
+            writeFile(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedJson\\"+fileType+".txt", storage.toString());
+        }
+        return "ok";
     }
 }

@@ -1,15 +1,11 @@
 package com.parabole.feed.contentparser.postprocessors;
 
 import com.parabole.feed.contentparser.IDocIndexBuilder;
-import com.parabole.feed.contentparser.fasb.FASBParagraphBuider;
-import com.parabole.feed.contentparser.filters.FASBParagraphProcessor;
 import com.parabole.feed.contentparser.models.basel.BaselDocMeta;
 import com.parabole.feed.contentparser.models.basel.DocumentElement;
 import com.parabole.feed.contentparser.models.common.DocMetaInfo;
 import com.parabole.feed.contentparser.models.common.LineElement;
 import com.parabole.feed.contentparser.models.common.ParagraphElement;
-import com.parabole.feed.contentparser.models.fasb.FASBDocMeta;
-import com.parabole.feed.contentparser.models.fasb.FASBIndexedDocument;
 
 import java.io.IOException;
 import java.util.*;
@@ -32,7 +28,6 @@ public class BaselBodyPostProcessor implements IPostProcessor {
     List<String> concepts = new ArrayList<>();
     // FASBIndexedDocument indexedDocument;
 
-
     public HashMap<String, Set<String>> getConceptParaMap() {
         return conceptParaMap;
     }
@@ -53,12 +48,35 @@ public class BaselBodyPostProcessor implements IPostProcessor {
         return treeData;
     }
 
+    //Boolean inChild = false;
+
+    /*private void buildTree(List<ParagraphElement> paras, List<DocumentElement> toc){
+        for(int i = 0; i < toc.size(); i++){
+            if(!inChild) {
+                startTocPivot = toc.get(i);
+                if(startTocPivot.getChildren().size() > 0){
+                    inChild = true;
+                    buildTree(paras, startTocPivot.getChildren());
+                } else {
+                    inChild = false;
+                    endTocPivot = toc.get(i+1);
+                    treeData.put(startTocPivot.getName(), getParagraphs(paras));
+                }
+            } else {
+                inChild = false;
+                endTocPivot = toc.get(i);
+                treeData.put(startTocPivot.getName(), getParagraphs(paras));
+            }
+        }
+    }*/
+
     private void buildTree(List<ParagraphElement> paras, List<DocumentElement> toc){
         Map<String, List<ParagraphElement>> tempTree = new LinkedHashMap<>();
         toc.add(null);
         for(int i = 0; i < toc.size()-1; i++){
             startTocPivot = toc.get(i);
             endTocPivot = toc.get(i+1);
+            //treeData.put(startTocPivot.getContent(), getParagraphs(paras));
             tempTree.put(startTocPivot.getLevelId(), indexParagraphs(paras));
         }
 
@@ -76,7 +94,7 @@ public class BaselBodyPostProcessor implements IPostProcessor {
         for(int i = paraIndexPivot; i < paras.size(); i++){
             ParagraphElement aPara = paras.get(i);
             if(fetchFlag){
-                if(endTocPivot != null && aPara.toString().trim().startsWith(endTocPivot.getContent().trim())){
+                if(endTocPivot != null && (aPara.toString().trim().startsWith(endTocPivot.getContent().trim()) || endTocPivot.getContent().trim().startsWith(aPara.toString().trim()))){
                     paraIndexPivot = i;
                     return tempParas;
                 } else {
@@ -84,7 +102,8 @@ public class BaselBodyPostProcessor implements IPostProcessor {
                     tempParas.add(aPara);
                 }
             }
-            if(!fetchFlag && aPara.toString().trim().startsWith(startTocPivot.getContent().trim())){
+            //if(!fetchFlag && startTocPivot.getContent().trim().equalsIgnoreCase(aPara.toString().trim())){
+            if(!fetchFlag && (aPara.toString().trim().startsWith(startTocPivot.getContent().trim()) || startTocPivot.getContent().trim().startsWith(aPara.toString().trim()))){
                 aPara.setId(startTocPivot.getLevelId());
                 tempParas.add(aPara);
                 fetchFlag = true;
@@ -113,6 +132,48 @@ public class BaselBodyPostProcessor implements IPostProcessor {
         }
         return tempParas;
     }
+
+    /*private List<DocumentElement> getParagraphs(List<ParagraphElement> paras){
+        Boolean fetchFlag = false;
+        List<DocumentElement> tempParas = new ArrayList<>();
+        for(int i = paraIndexPivot; i < paras.size(); i++){
+            ParagraphElement aPara = paras.get(i);
+            if(fetchFlag){
+                if(endTocPivot.getContent().trim().equalsIgnoreCase(aPara.toString().trim())){
+                    paraIndexPivot = i;
+                    return tempParas;
+                } else {
+                    removeBoldAndItalicPrefixIfExist(aPara);
+                    Pattern p = Pattern.compile(docMeta.getParaStartRegEx());
+                    Matcher m = p.matcher(aPara.toString());
+                    if(m.find()) {
+                        int index = aPara.toString().indexOf('.');
+                        if(index == -1)
+                            continue;
+                        DocumentElement anElement = buildDocElement(paras, i);
+                        if(anElement != null)
+                            tempParas.add(anElement);
+                    }
+                }
+            }
+            if(!fetchFlag && startTocPivot.getContent().trim().equalsIgnoreCase(aPara.toString().trim())){
+                fetchFlag = true;
+            }
+        }
+        return tempParas;
+    }*/
+
+    /*private DocumentElement buildDocElement(ParagraphElement paragraphElement){
+        DocumentElement documentElement = new DocumentElement();
+        documentElement.setContent(paragraphElement.toString());
+        documentElement.setElementType(DocumentElement.ElementTypes.PARAGRAPH);
+        int index = documentElement.getContent().indexOf('.');
+        if(index == -1)
+            return null;
+        String name = documentElement.getContent().substring(0, index);
+        documentElement.setName(name);
+        return documentElement;
+    }*/
 
     private DocumentElement buildDocElement(List<ParagraphElement> paras, int pivot, int levelIndex){
         ParagraphElement aPara = paras.get(pivot);
@@ -160,9 +221,6 @@ public class BaselBodyPostProcessor implements IPostProcessor {
         return documentElement;
     }
 
-
-
-
     private void indexParagraphByConcepts(String concept, ParagraphElement paragraph){
         Set<String> paraIds = null;
         //HashMap<String,Set<String>> indexListMap = indexedDocument.getConceptIndex();
@@ -186,9 +244,6 @@ public class BaselBodyPostProcessor implements IPostProcessor {
         }
     }
 
-
-
-
     private void addToParagraphElement(ParagraphElement toPara, ParagraphElement fromPara){
         for (LineElement aSentence: fromPara.getLines()) {
             toPara.addSentence(aSentence);
@@ -203,7 +258,7 @@ public class BaselBodyPostProcessor implements IPostProcessor {
                 sentenceIt.remove();
             } else if(aSentence.getWordList().get(0).isItaics()){
                 sentenceIt.remove();
-            } else if(aSentence.getWordList().get(0).getWordHeight() < docMeta.getParagraphFontSize()){
+            } else if(aSentence.getWordList().get(0).getWordHeight() != docMeta.getParagraphFontSize()){
                 sentenceIt.remove();
             }
         }
@@ -215,9 +270,9 @@ public class BaselBodyPostProcessor implements IPostProcessor {
 
     private BaselDocMeta getGlossaryMetadata() {
         BaselDocMeta baselDocMeta = new BaselDocMeta();
-        baselDocMeta.setStartPage(26);
-        baselDocMeta.setEndPage(241);
-        baselDocMeta.setParagraphFontSize(10);
+        baselDocMeta.setStartPage(4);
+        baselDocMeta.setEndPage(24);
+        baselDocMeta.setParagraphFontSize(9);
         baselDocMeta.setParaStartRegEx("^[\\d+^[\\%\\s]].");
         return baselDocMeta;
     }
