@@ -139,8 +139,8 @@
                   </div>
                 </div>
 
-                <div class="bs-docs-section">
-                  <h3 class="page-header">Related Paragraphs</h3>
+                <div class="bs-docs-section" ng-if="relateParagraphs.length > 0">
+                  <h4 class="page-header">Related Paragraphs</h4>
                   <div ng-repeat="para in relateParagraphs" style="position: relative;">
                     <div class="well">
                       <div ng-class="{'text-danger': para.willIgnore === 'true'}" read-more="" content="{{para.bodyText}}"></div>

@@ -91,6 +91,10 @@ GET /getBaselSubtopicsByTopicId/:nodeId                 com.parabole.feed.applic
 GET /getBaselParagraphBySubTopicId/:nodeId              com.parabole.feed.application.controllers.ParagraphOperationsController.getBaselParagraphBySubTopicId(nodeId: String)
 GET /getRelatedParagraphsByNames                        com.parabole.feed.application.controllers.ParagraphOperationsController.getRelatedParagraphsByNames()
 
+#-------------------------------------------
+# EXTRA Operations
+#-------------------------------------------
+GET /getAllParagraphInTextFile/:fileType                          com.parabole.feed.application.controllers.FeedController.getAllParagraphInTextFile(fileType: String)
 
 #---------------------------------------
 ## Check List Operation Test

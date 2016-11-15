@@ -871,9 +871,9 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		SharedService.getComponentTypesByParagraphIds(selectedParagraphs).then(function (data) {
 			if(data.status){
 				$scope.masterComponentTypes = angular.fromJson(data.data);
-				SharedService.getRelatedParagraphsByIds(selectedParagraphs).then(function (data) {
-					if(data.status) {
-						$scope.relateParagraphs = angular.fromJson(data.data);
+				SharedService.getRelatedParagraphsByIds(selectedParagraphs).then(function (tempData) {
+					if(tempData.status) {
+						$scope.relateParagraphs = angular.fromJson(tempData.data);
 						$('#checklistModal').modal('show');
 					}
 				});

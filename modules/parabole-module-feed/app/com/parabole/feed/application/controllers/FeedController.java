@@ -113,4 +113,9 @@ public class FeedController extends BaseController{
 
     }*/
 
+
+    public Result getAllParagraphInTextFile(String fileType) throws Exception {
+        final String resultData = taggingUtilitiesServices.getAllParagraphInTextFile(fileType);
+        return ok(resultData);
+    }
 }

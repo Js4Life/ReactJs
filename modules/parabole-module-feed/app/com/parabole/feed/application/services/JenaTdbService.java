@@ -36,6 +36,8 @@ import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import static com.parabole.feed.application.utils.AppUtils.writeFile;
+
 public class JenaTdbService {
 
     @Inject
@@ -1541,7 +1543,6 @@ public class JenaTdbService {
         });
         return returnOblList.toString();
     }
-
 
 
 }

@@ -1054,7 +1054,9 @@ public class CeclController extends Controller{
             for (int i=0; i<paraIds.length(); i++){
                 paraIdList.add(paraIds.getString(i));
             }
-            data = lightHouseService.getRelatedParagraphsByNames(paraIdList).toString();
+            ArrayList<HashMap<String, String>> res = lightHouseService.getRelatedParagraphsByNames(paraIdList);
+            ObjectMapper mapper = new ObjectMapper();
+            data = mapper.writeValueAsString(res);
         } catch (Exception e){
             status = false;
             e.printStackTrace();

@@ -708,6 +708,30 @@ public class LightHouse extends GraphDb {
         return finalData;
     }
 
+    public ArrayList<HashMap<String,String>> getParagraphsByParagraphType(String paragraphType){
+
+        Iterable<Vertex> verticesData = null;
+        ArrayList<HashMap<String,String>> finalData = new ArrayList<>();
+        OrientGraph graph = this.orientGraphFactory.getTx();
+        try {
+                verticesData = graph.getVertices("type", paragraphType);
+                for (Vertex v : verticesData) {
+                        HashMap<String, String> tempData = new HashMap<>();
+                        Set<String> propertyKeys = v.getPropertyKeys();
+                        for (String propertyKey : propertyKeys) {
+                            tempData.put(propertyKey, v.getProperty(propertyKey));
+                        }
+                        finalData.add(tempData);
+            }
+            graph.commit();
+        }catch( Exception e ) {
+            graph.rollback();
+        } finally {
+            graph.shutdown();
+        }
+        return finalData;
+    }
+
     public ArrayList<HashMap<String,String>> getParagraphsByParagraphIds(ArrayList<String> listOfParagraphIDs){
         Iterable<Vertex> verticesData = null;
         ArrayList<HashMap<String,String>> finalData = new ArrayList<>();

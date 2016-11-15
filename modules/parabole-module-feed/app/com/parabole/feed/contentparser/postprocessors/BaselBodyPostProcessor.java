@@ -77,7 +77,7 @@ public class BaselBodyPostProcessor implements IPostProcessor {
             startTocPivot = toc.get(i);
             endTocPivot = toc.get(i+1);
             //treeData.put(startTocPivot.getContent(), getParagraphs(paras));
-            tempTree.put(startTocPivot.getContent(), indexParagraphs(paras));
+            tempTree.put(startTocPivot.getLevelId(), indexParagraphs(paras));
         }
 
         Iterator<String> it = tempTree.keySet().iterator();
