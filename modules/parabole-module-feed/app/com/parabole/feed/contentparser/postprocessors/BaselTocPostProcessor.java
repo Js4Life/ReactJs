@@ -21,8 +21,6 @@ public class BaselTocPostProcessor implements IPostProcessor {
     BaselDocMeta docMeta;
     List<DocumentElement> treeData;
     List<DocumentElement> flatParaList;
-    DocumentElement lastInsertedParentNode;
-    DocumentElement lastInsertedChildNode;
     StringBuilder levelId;
 
     public BaselTocPostProcessor(IDocIndexBuilder docIndexBuilder) {
@@ -37,38 +35,6 @@ public class BaselTocPostProcessor implements IPostProcessor {
         return buildTree(paraList);
     }
 
-    /*private List<DocumentElement> buildTree(List<ParagraphElement> paraList) {            //coordinate wise indentation
-        for(ParagraphElement aPara : paraList) {
-            LineElement lineElement = aPara.getLines().get(0);
-            float currentStartX = lineElement.getLineStart();
-            DocumentElement temp = buildDocElement(aPara, currentStartX);
-
-            flatParaList.add(temp);
-            if(lastInsertedParentNode != null){
-                if(currentStartX > lastInsertedParentNode.getStartX()){
-                    if((currentStartX > lastInsertedChildNode.getStartX()) && (lastInsertedParentNode.getStartX() != lastInsertedChildNode.getStartX())){
-                        lastInsertedChildNode.addChildren(temp);
-                        lastInsertedParentNode = lastInsertedChildNode;
-                        lastInsertedChildNode = temp;
-                    } else {
-                        lastInsertedChildNode = temp;
-                        lastInsertedParentNode.addChildren(lastInsertedChildNode);
-                    }
-                } else {
-                    List<DocumentElement> siblingList = getSiblingsAtPreviousLevel(treeData, currentStartX);
-                    if(siblingList != null){
-                        lastInsertedChildNode = lastInsertedParentNode = temp;
-                        siblingList.add(lastInsertedParentNode);
-                    }
-                }
-            } else {
-                lastInsertedChildNode = lastInsertedParentNode = temp;
-                treeData.add(lastInsertedParentNode);
-            }
-        }
-        return treeData;
-    }   */
-
     private List<DocumentElement> buildTree(List<ParagraphElement> paraList) {            //predefined pattern match wise indentation
         Map<Integer, String> levelSelector = docMeta.getLevelSelector();
         Boolean startParsing = false;
@@ -79,8 +45,6 @@ public class BaselTocPostProcessor implements IPostProcessor {
                 }
                 if(startParsing) {
                     DocumentElement temp = buildDocElement(aSentence);
-                    if(temp == null)
-                        continue;
                     for (Integer level : levelSelector.keySet()) {
                         Pattern p = Pattern.compile(levelSelector.get(level));
                         Matcher m = p.matcher(temp.getContent());
@@ -112,7 +76,6 @@ public class BaselTocPostProcessor implements IPostProcessor {
                                     temp.setName(name);
                                 }
                             }
-                            //else temp.setElementType(DocumentElement.ElementTypes.OTHER);
                             else
                                 break;                                                                      //Concidering upto level 3 (SECTION)
                             List<DocumentElement> siblingList = getSiblingsAtPreviousLevel(treeData, level);
@@ -154,41 +117,13 @@ public class BaselTocPostProcessor implements IPostProcessor {
         return tempTreeData;
     }
 
-    /*private List<DocumentElement> getSiblingsAtPreviousLevel(List<DocumentElement> tempTreeData, float currentStartX){
-        for (DocumentElement documentElement : tempTreeData) {
-            if (currentStartX == documentElement.getStartX()) {
-                return tempTreeData;
-            } else {
-                if(documentElement.getChildren().size() > 0)
-                    return getSiblingsAtPreviousLevel(documentElement.getChildren(), currentStartX);
-            }
-        }
-        return tempTreeData;
-    }
-
-    private DocumentElement buildDocElement(ParagraphElement paragraphElement, float currentStartX){
-        DocumentElement documentElement = new DocumentElement();
-        documentElement.setStartX(currentStartX);
-        documentElement.setName(paragraphElement.toString().replaceAll(docMeta.getParaEndRegEx(), ""));
-        return documentElement;
-    }*/
-
-    String tempContent = "";
     private DocumentElement buildDocElement(LineElement lineElement){
         DocumentElement documentElement = new DocumentElement();
-        Pattern p = Pattern.compile(docMeta.getParaEndRegEx());
-        Matcher m = p.matcher(lineElement.toString());
-        if(!m.find()){
-            tempContent = tempContent + lineElement.toString() + " ";
-            return null;
-        }
-        tempContent += lineElement.toString();
-        documentElement.setContent(tempContent.replaceAll(docMeta.getParaEndRegEx(), ""));
-        tempContent = "";
+        documentElement.setContent(lineElement.toString().replaceAll(docMeta.getParaEndRegEx(), ""));
         return documentElement;
     }
 
-    /*private BaselDocMeta getGlossaryMetadata() {
+    private BaselDocMeta getGlossaryMetadata() {
         BaselDocMeta baselDocMeta = new BaselDocMeta();
         baselDocMeta.setMetaDocName("basel1");
         baselDocMeta.setStartPage(5);
@@ -205,27 +140,6 @@ public class BaselTocPostProcessor implements IPostProcessor {
         levelSelector.put(2, "^(I{1,}[a-z]|I{1,}|V{1,}|X{1,}|I{1,}V{1,}|V{1,}I{1,}).");
         levelSelector.put(3, "^[A-H].");
         levelSelector.put(4, "^[1-9].");
-
-        baselDocMeta.setLevelSelector(levelSelector);
-
-        return baselDocMeta;
-    }*/
-
-    private BaselDocMeta getGlossaryMetadata() {
-        BaselDocMeta baselDocMeta = new BaselDocMeta();
-        baselDocMeta.setMetaDocName("basel3");
-        baselDocMeta.setStartPage(3);
-        baselDocMeta.setEndPage(3);
-        baselDocMeta.setStartText("I. Background");
-        baselDocMeta.setEndText("IV.  Implication for the IMM shortcut method");
-
-        int[] paraSelectorLevels = {1, 2};
-        baselDocMeta.setParagraphSelectorLevel(paraSelectorLevels);
-        baselDocMeta.setParaEndRegEx("[.]{5,}[0-9]{1,}|[.]{5,}|\\d+$");
-
-        Map<Integer, String> levelSelector = new HashMap<>();
-        levelSelector.put(1, "^(I{1,}[a-z]|I{1,}|V{1,}|X{1,}|I{1,}V{1,}|V{1,}I{1,}).");
-        levelSelector.put(2, "^[A-H].");
 
         baselDocMeta.setLevelSelector(levelSelector);
 
