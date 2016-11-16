@@ -323,7 +323,7 @@ public class LightHouse extends GraphDb {
         return listOfFinalData;
     }
 
-    public ArrayList<HashMap<String, String>> getAllBaselTopic() throws  IOException{
+    public ArrayList<HashMap<String, String>> getAllBaselTopic(String key, String fromFileName) throws  IOException{
 
         Iterable<Vertex> verticesData = null;
         ArrayList<HashMap<String, String>> listOfFinalData = new ArrayList<HashMap<String, String>>();
@@ -331,13 +331,23 @@ public class LightHouse extends GraphDb {
         OrientGraph graph = this.orientGraphFactory.getTx();
         try {
             verticesData = graph.getVertices("type", "BASELTOPIC");
-
             for (Vertex v : verticesData) {
-                HashMap<String, String> finalData = new HashMap<>();
-                finalData.put("elementID", v.getProperty("elementID"));
-                finalData.put("name", v.getProperty("name"));
-                finalData.put("type", v.getProperty("type"));
-                listOfFinalData.add(finalData);
+                if(null != fromFileName || null != key) {
+                    if (v.getProperty(key).equals(fromFileName)) {
+                        HashMap<String, String> finalData1 = new HashMap<>();
+                        finalData1.put("elementID", v.getProperty("elementID"));
+                        finalData1.put("name", v.getProperty("name"));
+                        finalData1.put("type", v.getProperty("type"));
+                        listOfFinalData.add(finalData1);
+                    }
+                }else{
+                    HashMap<String, String> finalData = new HashMap<>();
+                    finalData.put("elementID", v.getProperty("elementID"));
+                    finalData.put("name", v.getProperty("name"));
+                    finalData.put("type", v.getProperty("type"));
+                    listOfFinalData.add(finalData);
+                }
+
             }
 
         }catch( Exception e ) {
