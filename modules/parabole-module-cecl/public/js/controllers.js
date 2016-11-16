@@ -366,7 +366,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 					break;
 				case "BASELPARAGRAPH" :
 					SharedService.hideAllToolTips();
-					SharedService.paragraphs =  $scope.childNodes;
+					SharedService.paragraphs = _.where($scope.childNodes, {type: "BASELPARAGRAPH"});
 					SharedService.homeBreads = $scope.breads;
 					$state.go('landing.checklistBuilder');
 					break;
