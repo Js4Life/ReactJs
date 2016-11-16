@@ -314,6 +314,11 @@ public class ParagraphOperationsController extends BaseController{
         return ok(lightHouseService.getRelatedParagraphsByNames(listOfParagraphIDs).toString());
     }
 
+    public Result getAllDocFileNamesByType() throws IOException {
+        String fType = "FILE";
+        return ok(lightHouseService.getAllDocFileNamesByType(fType).toString());
+    }
+
     public Result addAnewVertexproperty() {
 
         String vertexID = "320-10-35-34B";

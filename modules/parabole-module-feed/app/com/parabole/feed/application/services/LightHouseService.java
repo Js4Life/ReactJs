@@ -419,4 +419,14 @@ public class LightHouseService {
         }
         return paragraphByNameProperty;
     }
+
+    public HashSet<String> getAllDocFileNamesByType(String fType) throws IOException {
+        HashSet<String> allFileNames = new HashSet<>();
+        ArrayList<HashMap<String, String>> allFilesWithAllProperties = lightHouse.getVertexByProperty("type", fType);
+        for (HashMap<String, String> allFilesWithAllProperty : allFilesWithAllProperties) {
+            allFileNames.add(allFilesWithAllProperty.get("name"));
+        }
+
+        return allFileNames;
+    }
 }
