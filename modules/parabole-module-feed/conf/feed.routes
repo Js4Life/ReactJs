@@ -90,6 +90,11 @@ GET /getAllBaselTopic                                   com.parabole.feed.applic
 GET /getBaselSubtopicsByTopicId/:nodeId                 com.parabole.feed.application.controllers.ParagraphOperationsController.getBaselSubtopicsByTopicId(nodeId: String)
 GET /getBaselParagraphBySubTopicId/:nodeId              com.parabole.feed.application.controllers.ParagraphOperationsController.getBaselParagraphBySubTopicId(nodeId: String)
 GET /getRelatedParagraphsByNames                        com.parabole.feed.application.controllers.ParagraphOperationsController.getRelatedParagraphsByNames()
+#-------------------------------------------
+# common data operation
+#-------------------------------------------
+GET /getAllDocFileNamesByType                         com.parabole.feed.application.controllers.ParagraphOperationsController.getAllDocFileNamesByType()
+
 
 #-------------------------------------------
 # EXTRA Operations
