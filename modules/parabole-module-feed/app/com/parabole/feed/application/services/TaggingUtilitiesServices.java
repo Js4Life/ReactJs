@@ -184,6 +184,7 @@ public class TaggingUtilitiesServices {
             System.out.println(" Setting Topic .............");
             Map<String, String> topicTypeNode = new HashMap<>();
             topicTypeNode.put("name", documentElement.getContent());
+            topicTypeNode.put("fromFileName", file);
             topicTypeNode.put("type", "BASELTOPIC");
             topicTypeNode.put("elementID", topicID);
             lightHouse.createNewVertex(topicTypeNode);
@@ -197,6 +198,7 @@ public class TaggingUtilitiesServices {
                     String subTopicID = subtopicElement.getLevelId();
                     Map<String, String> subTopicTypeNode = new HashMap<>();
                     subTopicTypeNode.put("name", subtopicElement.getContent());
+                    subTopicTypeNode.put("fromFileName", file);
                     subTopicTypeNode.put("type", "BASELSUBTOPIC");
                     subTopicTypeNode.put("elementID", subTopicID);
                     lightHouse.createNewVertex(subTopicTypeNode);
@@ -212,6 +214,7 @@ public class TaggingUtilitiesServices {
                             Map<String, String> sectionTypeNode = new HashMap<>();
                             sectionTypeNode.put("name", sectionElement.getContent());
                             sectionTypeNode.put("type", "BASELSECTION");
+                            sectionTypeNode.put("fromFileName", file);
                             sectionTypeNode.put("elementID", sectionID);
                             lightHouse.createNewVertex(sectionTypeNode);
                             lightHouse.establishEdgeByVertexIDs(subTopicID, sectionID, "SUBTOPICTOSECTION", "SUBTOPICTOSECTION");
@@ -562,6 +565,7 @@ public class TaggingUtilitiesServices {
                 Map<String, String> nodeDataTwo = new HashMap<>();
                 nodeDataTwo.put("name", documentElement.getName());
                 nodeDataTwo.put("type", "BASELPARAGRAPH");
+                nodeDataTwo.put("fromFileName", file);
                 nodeDataTwo.put("bodyText", documentElement.getContent());
                 nodeDataTwo.put("elementID", documentElement.getLevelId());
                 lightHouse.createNewVertex(nodeDataTwo);
