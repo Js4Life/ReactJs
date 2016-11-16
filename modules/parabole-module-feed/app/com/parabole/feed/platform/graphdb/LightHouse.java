@@ -335,16 +335,16 @@ public class LightHouse extends GraphDb {
                 if(null != fromFileName || null != key) {
                     if (v.getProperty(key).equals(fromFileName)) {
                         HashMap<String, String> finalData1 = new HashMap<>();
-                        finalData1.put("elementID", v.getProperty("elementID"));
-                        finalData1.put("name", v.getProperty("name"));
-                        finalData1.put("type", v.getProperty("type"));
+                        for (String s : v.getPropertyKeys()) {
+                            finalData1.put(s, v.getProperty(s));
+                        }
                         listOfFinalData.add(finalData1);
                     }
                 }else{
                     HashMap<String, String> finalData = new HashMap<>();
-                    finalData.put("elementID", v.getProperty("elementID"));
-                    finalData.put("name", v.getProperty("name"));
-                    finalData.put("type", v.getProperty("type"));
+                    for (String pkey : v.getPropertyKeys()) {
+                        finalData.put(pkey, v.getProperty(pkey));
+                    }
                     listOfFinalData.add(finalData);
                 }
 
