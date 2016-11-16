@@ -100,9 +100,11 @@ public class LightHouseService {
 
     public ArrayList<HashMap<String, String>> getAllBaselTopic(){
 
+        String filterName = "fromFileName";
+        String filterValue = "Part2_Pillar1_2_3_MCR";
         ArrayList<HashMap<String, String>> result=null;
         try {
-            result = lightHouse.getAllBaselTopic();
+            result = lightHouse.getAllBaselTopic(filterName, filterValue);
         } catch (IOException e) {
             e.printStackTrace();
         }
