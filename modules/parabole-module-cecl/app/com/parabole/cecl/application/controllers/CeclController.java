@@ -965,12 +965,16 @@ public class CeclController extends Controller{
 
 
     //Basel related api
-    public Result getAllBaselTopics() {
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result getAllBaselTopicsByFile() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final String fileName = request.getString("fileName");
         JSONObject finalJson = new JSONObject();
         Boolean status = true;
         String data = null;
         try {
-            ArrayList<HashMap<String, String>> res = lightHouseService.getAllBaselTopic();           //Change Here
+            ArrayList<HashMap<String, String>> res = lightHouseService.getAllBaselTopic(fileName);           //Change Here
             ObjectMapper mapper = new ObjectMapper();
             data = mapper.writeValueAsString(res);
         } catch(Exception e) {

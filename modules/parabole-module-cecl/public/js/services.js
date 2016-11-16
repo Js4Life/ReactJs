@@ -854,8 +854,9 @@ angular.module('RDAApp.services', [])
 
 
     //Basel related service
-    SharedService.getAllBaselTopics = function () {
-        return SharedService.invokeService('GetAllBaselTopics');
+    SharedService.getAllBaselTopics = function (fileName) {
+        var sendObj = {"fileName": fileName};
+        return SharedService.invokeService('GetAllBaselTopics', sendObj, 'post');
     }
     SharedService.getBaselParagraphsBySectionId = function (id) {
         var sendObj = {"id": id};

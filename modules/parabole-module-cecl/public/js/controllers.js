@@ -366,12 +366,12 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 					break;
 				case "BASELPARAGRAPH" :
 					SharedService.hideAllToolTips();
-					SharedService.paragraphs = $scope.childNodes;
+					SharedService.paragraphs =  $scope.childNodes;
 					SharedService.homeBreads = $scope.breads;
 					$state.go('landing.checklistBuilder');
 					break;
 				default :
-					SharedService.getAllBaselTopics().then(function (data) {
+					SharedService.getAllBaselTopics($scope.currentRegulationFile).then(function (data) {
 						if (data.status) {
 							$scope.childNodes = angular.fromJson(data.data);
 						}

@@ -141,7 +141,7 @@ POST /getRelatedParagraphsByIds                     com.parabole.cecl.applicatio
 # ---------------------------------------------------------------------------------
 # BASEL RELATED OPERATIONS
 # ---------------------------------------------------------------------------------
-GET /getAllBaselTopics                              com.parabole.cecl.application.controllers.CeclController.getAllBaselTopics()
+POST /getAllBaselTopics                             com.parabole.cecl.application.controllers.CeclController.getAllBaselTopicsByFile()
 POST /getBaselParagraphsBySectionId                 com.parabole.cecl.application.controllers.CeclController.getBaselParagraphsBySectionId()
 POST /getBaselSectionsBySubtopicId                  com.parabole.cecl.application.controllers.CeclController.getBaselSectionsBySubtopicId()
 POST /getBaselSubtopicsByTopicId                    com.parabole.cecl.application.controllers.CeclController.getBaselSubtopicsByTopicId()

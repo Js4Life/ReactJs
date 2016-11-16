@@ -269,7 +269,7 @@ public class ParagraphOperationsController extends BaseController{
 
     public Result getAllBaselTopic() {
 
-        return ok(lightHouseService.getAllBaselTopic().toString());
+        return ok(lightHouseService.getAllBaselTopic(null).toString());
     }
 
     public Result getAllComponents() {

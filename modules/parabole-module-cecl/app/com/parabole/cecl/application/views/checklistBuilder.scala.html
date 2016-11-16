@@ -144,6 +144,7 @@
                   <div ng-repeat="para in relateParagraphs" style="position: relative;">
                     <div class="well">
                       <div ng-class="{'text-danger': para.willIgnore === 'true'}" read-more="" content="{{para.bodyText}}"></div>
+                      <i class="pull-right text-info">(File: {{para.fromFileName}})</i>
                     </div>
                   </div>
                 </div>
