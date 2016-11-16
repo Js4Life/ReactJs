@@ -871,7 +871,12 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		SharedService.getComponentTypesByParagraphIds(selectedParagraphs).then(function (data) {
 			if(data.status){
 				$scope.masterComponentTypes = angular.fromJson(data.data);
-				$('#checklistModal').modal('show');
+				SharedService.getRelatedParagraphsByIds(selectedParagraphs).then(function (tempData) {
+					if(tempData.status) {
+						$scope.relateParagraphs = angular.fromJson(tempData.data);
+						$('#checklistModal').modal('show');
+					}
+				});
 			}
 		});
 	}

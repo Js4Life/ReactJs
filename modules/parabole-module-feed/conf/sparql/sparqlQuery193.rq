@@ -30,7 +30,8 @@ SELECT  DISTINCT ?name ?itemname ?item
 WHERE{
 ?class rdfs:subClassOf ?Type .
 ?class rdfs:label ?name.
-FILTER(?Type = cst:FASBConcept)
+FILTER((
+?Type = bas:BaselGlossary)||(?Type = cst:FASBConcept))
 ?item rdf:type ?class.
 ?item rdfs:label ?itemname.
 #FILTER(?name =$$FILTERS$$)

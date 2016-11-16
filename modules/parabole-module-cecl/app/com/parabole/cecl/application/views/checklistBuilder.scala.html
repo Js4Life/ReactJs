@@ -138,6 +138,15 @@
                     <span ng-if="paraTags[para.elementID]" ng-class="getParaTagClass(paraTags[para.elementID])" class="paragraph-tag" tooltip='"title":"{{paraTags[para.elementID]}}","placement":"right"'>{{paraTags[para.elementID].charAt(0)}}</span>
                   </div>
                 </div>
+
+                <div class="bs-docs-section" ng-if="relateParagraphs.length > 0">
+                  <h4 class="page-header">Related Paragraphs</h4>
+                  <div ng-repeat="para in relateParagraphs" style="position: relative;">
+                    <div class="well">
+                      <div ng-class="{'text-danger': para.willIgnore === 'true'}" read-more="" content="{{para.bodyText}}"></div>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div class="col-xs-4 max-height">
                 <div class="panel panel-default">

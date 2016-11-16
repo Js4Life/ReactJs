@@ -6,10 +6,12 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
-SELECT ?Type ?component ?comp ?id
+
+SELECT ?Pro ?Product ?Segment ?Seg
 WHERE{
-?comp rdf:type ?Type.
-?Type rdfs:subClassOf ?c.
-?comp rdfs:label ?component.
-FILTER(?c IN(pb:Policy,pb:Report,pb:Model)).
-bind(rand() AS ?id)
+?comp pb:hasSegment ?Seg ;rdfs:label ?Component.
+MINUS{?comp rdf:type pb:BaselModel}
+MINUS{?comp rdf:type pb:BaselPolicy}
+?Seg pb:hasProduct ?Pro;rdfs:label ?Segment;rdf:type pb:BankASegments .
+?Pro rdfs:label ?Product.
+}

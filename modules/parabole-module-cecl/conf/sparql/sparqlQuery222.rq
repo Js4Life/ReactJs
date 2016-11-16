@@ -15,12 +15,9 @@ where {
 where {
 {?concept rdf:type ?conclass .
 ?conclass rdfs:subClassOf ?sub.
-FILTER(?sub IN(cst:FASBConcept))
+FILTER(?sub IN(bas:BaselGlossary,cst:FASBConcept))
 ?concept pb:hasModel ?mprp .
-MINUS{?mprp rdf:type pb:BaselModel}
 ?mprp pb:hasSegment ?seg.
-?seg rdf:type ?segtype.
-FILTER(?segtype = pb:BankASegments)
 ?seg pb:hasProduct ?pro.
 ?pro rdfs:label ?Product.
 ?seg rdfs:label ?Segment.
@@ -28,11 +25,9 @@ BIND(xsd:string("Model") as ?ComponentType)}
 union
 {?concept rdf:type ?conclass .
 ?conclass rdfs:subClassOf ?sub .
-FILTER(?sub IN(cst:FASBConcept))
+FILTER(?sub IN(bas:BaselGlossary,cst:FASBConcept))
 ?concept pb:hasReport ?mprp .
 ?mprp pb:hasSegment ?seg.
-?seg rdf:type ?segtype.
-FILTER(?segtype = pb:BankASegments)
 ?seg pb:hasProduct ?pro.
 ?pro rdfs:label ?Product.
 ?seg rdfs:label ?Segment.
@@ -41,12 +36,9 @@ BIND(xsd:string("Report") AS ?ComponentType)
 union
 {?concept rdf:type ?conclass .
 ?conclass rdfs:subClassOf ?sub.
-FILTER(?sub IN(cst:FASBConcept))
+FILTER(?sub IN(bas:BaselGlossary,cst:FASBConcept))
 ?concept pb:hasPolicy ?mprp .
-MINUS{?mprp rdf:type pb:BaselPolicy}
 ?mprp pb:hasSegment ?seg.
-?seg rdf:type ?segtype.
-FILTER(?segtype = pb:BankASegments)
 ?seg pb:hasProduct ?pro.
 ?pro rdfs:label ?Product.
 ?seg rdfs:label ?Segment.
@@ -54,7 +46,7 @@ bind(xsd:string ("Policy") as ?ComponentType)}
 UNION
 {?concept rdf:type ?conclass .
 ?conclass rdfs:subClassOf ?sub .
-FILTER(?sub IN(cst:FASBConcept))
+FILTER(?sub IN(bas:BaselGlossary,cst:FASBConcept))
 ?concept pb:ConcepthasDataElement ?mprp.
 bind(xsd:string ("Data_Element") as ?ComponentType)}
 }}
@@ -62,7 +54,9 @@ bind(xsd:string ("Data_Element") as ?ComponentType)}
 ?mprp rdfs:label ?Component .
 BIND(xsd:string(CONCAT(afn:namespace(?mprp),afn:localname(?mprp))) as ?uri)
 FILTER(?uri = $$FILTERS$$)
-#FILTER(?uri = "http://www.mindparabole.com/ontology/finance/Parabole-Model#MMPDModel")
+#FILTER(?uri = "http://www.mindparabole.com/ontology/finance/Parabole-Model#AutoLGDModel")
 bind(rand() AS ?id).
 
 }
+
+

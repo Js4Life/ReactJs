@@ -8,10 +8,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
 SELECT ?Segment ?Seg ?Component ?id
 WHERE {
-?Seg rdf:type pb:BankASegments .
     ?Component pb:hasSegment ?Seg.
 ?Seg rdfs:label ?Segment.
-?Component rdf:type ?Type.
-FILTER((?Type !=pb:BaselModel) &&(?Type != pb:BaselPolicy))
 bind(rand() AS ?id).
 }
