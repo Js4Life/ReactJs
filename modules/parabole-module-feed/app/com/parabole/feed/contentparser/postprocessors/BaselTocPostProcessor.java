@@ -188,7 +188,7 @@ public class BaselTocPostProcessor implements IPostProcessor {
         return documentElement;
     }
 
-    /*private BaselDocMeta getGlossaryMetadata() {
+    private BaselDocMeta getGlossaryMetadata() {
         BaselDocMeta baselDocMeta = new BaselDocMeta();
         baselDocMeta.setMetaDocName("basel1");
         baselDocMeta.setStartPage(5);
@@ -209,9 +209,9 @@ public class BaselTocPostProcessor implements IPostProcessor {
         baselDocMeta.setLevelSelector(levelSelector);
 
         return baselDocMeta;
-    }*/
+    }
 
-    private BaselDocMeta getGlossaryMetadata() {
+    /*private BaselDocMeta getGlossaryMetadata() {
         BaselDocMeta baselDocMeta = new BaselDocMeta();
         baselDocMeta.setMetaDocName("basel3");
         baselDocMeta.setStartPage(3);
@@ -230,7 +230,7 @@ public class BaselTocPostProcessor implements IPostProcessor {
         baselDocMeta.setLevelSelector(levelSelector);
 
         return baselDocMeta;
-    }
+    }*/
 
     public List<DocumentElement> getFlatParaList() {
         return flatParaList;
