@@ -210,6 +210,8 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.iniitialize = function( ){
 		$scope.heading = SharedService.primaryNav[0];
 		$scope.currentRegulation = SharedService.curentRegulation || 'FASB';
+		$scope.currentRegulationFile = angular.copy(SharedService.regulationFileName);
+		SharedService.regulationFileName = null;
 		$scope.collapseSlide = {left: false};
 		$scope.collapseClasses = {left: "col-xs-2 menu-back slide-container", center: "col-xs-10"};
 		if($scope.currentRegulation === 'FASB'){
@@ -675,6 +677,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.initialize = function () {
 		$scope.heading = {"title": "Regulations"};
 		SharedService.homeBreads = [];
+		$scope.regulationFiles = null;
 		SharedService.getRegulations().then(function (data) {
 			if(data.status){
 				$scope.regulations = data.data;
@@ -687,6 +690,18 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 		});*/
 		SharedService.curentRegulation = reg.name;
+		if(reg.name === 'BASEL'){
+			SharedService.getAllDocFileNamesByType('FILE').then(function(data){
+				if(data.status){
+					$scope.regulationFiles = angular.fromJson(data.data);
+				}
+			});
+		} else
+			$state.go('landing.homeContainer');
+	}
+
+	$scope.loadFileBasedRegulation = function (fileName) {
+		SharedService.regulationFileName = fileName;
 		$state.go('landing.homeContainer');
 	}
 

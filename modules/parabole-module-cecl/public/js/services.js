@@ -123,7 +123,8 @@ angular.module('RDAApp.services', [])
         'GetAllBaselTopics' : 'getAllBaselTopics',
         'GetBaselParagraphsBySectionId' : 'getBaselParagraphsBySectionId',
         'GetBaselSectionsBySubtopicId' : 'getBaselSectionsBySubtopicId',
-        'GetBaselSubtopicsByTopicId' : 'getBaselSubtopicsByTopicId'
+        'GetBaselSubtopicsByTopicId' : 'getBaselSubtopicsByTopicId',
+        'GetAllDocFileNamesByType' : 'getAllDocFileNamesByType'
     };
     SharedService.chartDataMap = {
         '0' : 'getHardCodedResponse/chartData1',
@@ -867,6 +868,10 @@ angular.module('RDAApp.services', [])
     SharedService.getBaselSubtopicsByTopicId = function (id) {
         var sendObj = {"id": id};
         return SharedService.invokeService('GetBaselSubtopicsByTopicId', sendObj, 'post');
+    }
+    SharedService.getAllDocFileNamesByType = function (type) {
+        var sendObj = {"type": type};
+        return SharedService.invokeService('GetAllDocFileNamesByType', sendObj, 'post');
     }
 
     return SharedService;
