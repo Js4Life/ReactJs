@@ -367,9 +367,8 @@ public class ParagraphOperationsController extends BaseController{
     }
 
     public Result getChecklistByComponent() {
-        ArrayList<String> listOfComponetIds = new ArrayList<>();
-        listOfComponetIds.add("http://www.mindparabole.com/ontology/finance/Parabole-Model#AnnualFinancialStatement");
-        return ok(lightHouseService.getChecklistByComponent(listOfComponetIds).toString());
+        String id = "http://www.mindparabole.com/ontology/finance/Parabole-Model#AnnualFinancialStatement";
+        return ok(lightHouseService.getChecklistByComponent(id).toString());
     }
 
     public Result getChecklistByBusinessSegment() {

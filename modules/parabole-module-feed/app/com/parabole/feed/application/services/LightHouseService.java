@@ -304,20 +304,40 @@ public class LightHouseService {
         return finalResult;
     }
 
-    public ArrayList<HashMap<String, String>> getChecklistByComponent(ArrayList<String> ids) {
-        return null;
+    public ArrayList<HashMap<String, String>> getChecklistByComponent(String ids) {
+        ArrayList<String> listOfOfChecklist = new ArrayList<>();
+        ArrayList<HashMap<String, String>> componentTypes = lightHouse.getChildVerticesByRootVertexId(ids);
+        for (HashMap<String, String> componentType : componentTypes) {
+            if(componentType.get("type").equals("CHECKLIST"));
+            listOfOfChecklist.add(componentType.get("elementID"));
+            System.out.println("componentType.get(\"elementID\") = " + componentType.get("type"));
+        }
+        ArrayList<HashMap<String, String>> finalResult = starfishServices.getChecklistByID(listOfOfChecklist);
+        return finalResult;
     }
 
     public ArrayList<HashMap<String, String>> getChecklistByBusinessSegment(ArrayList<String> ids) {
         ArrayList<String> listOFComponentTypes = new ArrayList<>();
+        ArrayList<HashMap<String, String>> finalResult = new ArrayList<>();
         for (String id : ids) {
             ArrayList<HashMap<String, String>> checklistIDs = lightHouse.getRootVerticesByChildVertexId(id);
             for (HashMap<String, String> checklistID : checklistIDs) {
                 listOFComponentTypes.add(checklistID.get("elementID"));
             }
         }
-        ArrayList<HashMap<String, String>> finalResult = getChecklistByComponent(listOFComponentTypes);
-        return finalResult;
+        ArrayList<String> listOfOfChecklist = new ArrayList<>();
+        for (String listOFComponentType : listOFComponentTypes) {
+            ArrayList<HashMap<String, String>> components = lightHouse.getChildVerticesByRootVertexId(listOFComponentType);
+
+            for (HashMap<String, String> componentType : components) {
+                if (componentType.get("type").equals("CHECKLIST"))
+                listOfOfChecklist.add(componentType.get("elementID"));
+                System.out.println("componentType.get(\"elementID\") = " + componentType.get("type"));
+            }
+        }
+
+        ArrayList<HashMap<String, String>> f_Result = starfishServices.getChecklistByID(listOfOfChecklist);
+        return f_Result;
     }
 
     public ArrayList<HashMap<String, String>> getChecklistByProducts(ArrayList<String> ids) {

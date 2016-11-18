@@ -74,7 +74,6 @@ public class LightHouse extends GraphDb {
         Map<String, String> edgeProperty = new HashMap<String, String>();
         edgeProperty.put("color", "Red");
         return saveGraphInstance(graph, luca, marko, edgeName, edgeProperty);
-
     }
 
     public boolean createNewVertex( Map<String, String> dataToSave) throws IOException {
@@ -448,7 +447,8 @@ public class LightHouse extends GraphDb {
                             }
                         }else{
                             if(edge.getVertex(Direction.IN).getProperty("type").toString().contains("BASELSECTION") ||
-                                    edge.getVertex(Direction.IN).getProperty("type").toString().contains("BASELPARAGRAPH")) {
+                                    edge.getVertex(Direction.IN).getProperty("type").toString().contains("BASELPARAGRAPH") ||
+                                        edge.getVertex(Direction.IN).getProperty("type").toString().contains("BASELSUBTOPIC")){
 
 
                                 System.out.println("I am in all type of element field consideration !");

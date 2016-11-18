@@ -188,7 +188,31 @@ public class BaselTocPostProcessor implements IPostProcessor {
         return documentElement;
     }
 
+    //------------------------------------------------------
+    // For CounterpartyCreditRisk-Standardized-Apr2014
+    //------------------------------------------------------
     private BaselDocMeta getGlossaryMetadata() {
+        BaselDocMeta baselDocMeta = new BaselDocMeta();
+        baselDocMeta.setMetaDocName("basel4");
+        baselDocMeta.setStartPage(3);
+        baselDocMeta.setEndPage(3);
+        baselDocMeta.setStartText("I. Introduction");
+        baselDocMeta.setEndText("B. Part 4: Third Pillar; Section II Disclosure requirements");
+
+        int[] paraSelectorLevels = {1, 2};
+        baselDocMeta.setParagraphSelectorLevel(paraSelectorLevels);
+        baselDocMeta.setParaEndRegEx("[.]{5,}[0-9]{1,}|[.]{5,}|\\d+$");
+
+        Map<Integer, String> levelSelector = new HashMap<>();
+        levelSelector.put(1, "^(I{1,}[a-z]|I{1,}|V{1,}|X{1,}|I{1,}V{1,}|V{1,}I{1,}).");
+        levelSelector.put(2, "^[A-H].");
+
+        baselDocMeta.setLevelSelector(levelSelector);
+
+        return baselDocMeta;
+    }
+
+/*    private BaselDocMeta getGlossaryMetadata() {
         BaselDocMeta baselDocMeta = new BaselDocMeta();
         baselDocMeta.setMetaDocName("basel1");
         baselDocMeta.setStartPage(5);
@@ -209,7 +233,7 @@ public class BaselTocPostProcessor implements IPostProcessor {
         baselDocMeta.setLevelSelector(levelSelector);
 
         return baselDocMeta;
-    }
+    }*/
 
     /*private BaselDocMeta getGlossaryMetadata() {
         BaselDocMeta baselDocMeta = new BaselDocMeta();

@@ -444,6 +444,7 @@ public class CheckListServices {
                      System.out.println("Adding checklist to the components Directly ");
                     //---------------------------------------------------------------------------
                     ArrayList<String> components = getNodesByNodeIDs(k, false, "COMPONENT");
+                    // ArrayList<String> components = getChildNodesByNodeIDs(k, "COMPONENT");
                     for (String component : components) {
                         lightHouse.establishEdgeByVertexIDs(component, toSave.get("DATA_ID").toString(), "componentToChecklist", "componentToChecklist");
                         // increase the count
@@ -458,6 +459,7 @@ public class CheckListServices {
                     System.out.println("Adding checklist to the concept Directly ");
                     //---------------------------------------------------------------------------
                     ArrayList<String> concepts = getNodesByNodeIDs(k, true, "CONCEPT");
+                    //ArrayList<String> concepts = getRootNodesByNodeIDs(k, "CONCEPT");
                     for (String concept : concepts) {
                         lightHouse.establishEdgeByVertexIDs(concept, toSave.get("DATA_ID").toString(), "conceptToChecklist", "conceptToChecklist");
                         // increase the count
@@ -478,6 +480,22 @@ public class CheckListServices {
 
         return result;
 
+    }
+
+    private ArrayList<String> getRootNodesByNodeIDs(String nodeID, String filteredBY) {
+        ArrayList<HashMap<String, String>> componentTypes = new ArrayList<>();
+        ArrayList<String> finalResult = new ArrayList<>();
+        componentTypes = lightHouse.getRootVerticesByChildVertexId(nodeID);
+        ArrayList<String> allElement = getAllElementIDsByType(componentTypes, filteredBY);
+        return allElement;
+    }
+
+    private ArrayList<String> getChildNodesByNodeIDs(String nodeID, String filteredBY) {
+        ArrayList<HashMap<String, String>> componentTypes = new ArrayList<>();
+        ArrayList<String> finalResult = new ArrayList<>();
+        componentTypes = lightHouse.getChildVerticesByRootVertexId(nodeID);
+        ArrayList<String> allElement = getAllElementIDsByType(componentTypes, filteredBY);
+        return allElement;
     }
 
     private ArrayList<String> getNodesByNodeIDs(String nodeID, Boolean up, String filteredBY) {
