@@ -65,6 +65,12 @@ angular
               url: '/:currentView',
               templateUrl : 'checklistViewer',
               controller : 'checklistViewerCtrl'
+          })
+
+          .state('landing.documentUploader', {
+              url: '/documentUploader',
+              templateUrl : 'documentUploader',
+              controller : 'documentUploaderCtrl'
           });
 
           $urlRouterProvider.otherwise('/landing/regulation');

@@ -1,8 +1,89 @@
-<div class="panel panel-default" ng-controller="complianceDashboardCtrl">
+<div class="panel panel-default">
   <div class="panel-heading">
     <b>Document Uploader</b>
   </div>
-  <div class="panel-body zero-padding" style="height: 80vh;">
+  <div class="panel-body" style="height: 80vh;">
+    <div class="col-xs-8">
+      <form class="form-horizontal">
+        <div class="form-group">
+          <label class="col-sm-3 control-label">File Configuration</label>
+          <div class="col-sm-9">
+            <select class="form-control"></select>
+          </div>
+        </div>
+      </form>
+      <div class="bs-docs-section">
+        <h4 class="page-header">Table of content</h4>
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Name</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" placeholder="Document name (without space)">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Config Id</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" placeholder="Configuration name (without space)">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Page Limit</label>
+            <div class="col-sm-9 zero-padding">
+              <div class="col-sm-6">
+                <input type="number" class="form-control" placeholder="From">
+              </div>
+              <div class="col-sm-6">
+                <input type="number" class="form-control" placeholder="To">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Text Limit</label>
+            <div class="col-sm-9 zero-padding">
+              <div class="col-sm-6">
+                <input type="text" class="form-control" placeholder="From">
+              </div>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" placeholder="To">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Text Limit</label>
+            <div class="col-sm-9">
+              <label class="checkbox-inline">
+                <input type="checkbox" id="inlineCheckbox1" value="1"> 1
+              </label>
+              <label class="checkbox-inline">
+                <input type="checkbox" id="inlineCheckbox2" value="2"> 2
+              </label>
+              <label class="checkbox-inline">
+                <input type="checkbox" id="inlineCheckbox3" value="3"> 3
+              </label>
+              <label class="checkbox-inline">
+                <input type="checkbox" id="inlineCheckbox3" value="4"> 4
+              </label>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-xs-4">
+      <div class="row zero-padding">
+        <div ngf-drop ngf-select ng-model="file" class="drop-box" ngf-drag-over-class="'dragover'" ngf-multiple="false" ngf-allow-dir="false" accept="image/*,application/*,text/plain" ngf-pattern="'image/*,application/*,text/plain'" style="height:30vh;">Drop file or here or click to upload</div>
+        <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+      </div>
+      <div class="row zero-padding">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <b>Uploaded Documents</b>
+          </div>
+          <div class="panel-body zero-padding" style="height: 40vh;">
 
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

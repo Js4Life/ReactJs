@@ -44,6 +44,9 @@
         <li style="height:32px;margin-right:10px;" class="dropdown">
           <a class="dropdown-toggle pointer" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <img src="ceclassets/images/user.png" alt="user" style="width:23px;"><b> {{userInfo.user}} </b><span class="caret"></span></a>
             <ul class="dropdown-menu" style="top:inherit;">
+                @restrict(roles = la(as("ADMIN"))) {
+                    <li><a class="pointer" ng-click="goFileUploader()"><i class="fa fa-upload"></i> Upload File</a></li>
+                }
                 <li><a href="http://localhost:9000/logout"><i class="fa fa-sign-out"></i> Logout</a></li>
             </ul>
         </li>

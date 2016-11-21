@@ -67,4 +67,8 @@ public class DispatcherAction extends BaseAction {
     public Result checklistViewer() {
         return ok(com.parabole.cecl.application.views.html.checklistViewer.render());
     }
+
+    public Result documentUploader() {
+        return ok(com.parabole.cecl.application.views.html.documentUploader.render());
+    }
 }

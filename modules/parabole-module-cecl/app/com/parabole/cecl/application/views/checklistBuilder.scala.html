@@ -136,15 +136,16 @@
                   <div class="well">
                     <div ng-class="{'text-danger': para.willIgnore === 'true'}" read-more="" content="{{para.bodyText}}"></div>
                     <span ng-if="paraTags[para.elementID]" ng-class="getParaTagClass(paraTags[para.elementID])" class="paragraph-tag" tooltip='"title":"{{paraTags[para.elementID]}}","placement":"right"'>{{paraTags[para.elementID].charAt(0)}}</span>
+                    <div class="para-bottom-tile text-danger pointer" ng-click="getRelatedParagraphs(para)">Related Paragraphs</div>
                   </div>
                 </div>
 
                 <div class="bs-docs-section" ng-if="relateParagraphs.length > 0">
-                  <h4 class="page-header">Related Paragraphs</h4>
+                  <h4 class="page-header">Related Paragraphs for para: {{baseParagraph.name}} (relateParagraphs.length)</h4>
                   <div ng-repeat="para in relateParagraphs" style="position: relative;">
                     <div class="well">
                       <div ng-class="{'text-danger': para.willIgnore === 'true'}" read-more="" content="{{para.bodyText}}"></div>
-                      <i class="pull-right text-info">(File: {{para.fromFileName}})</i>
+                      <div class="text-info para-bottom-tile">(File: {{para.fromFileName}})</div>
                     </div>
                   </div>
                 </div>
