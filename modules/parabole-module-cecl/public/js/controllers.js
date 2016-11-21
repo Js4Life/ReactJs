@@ -898,7 +898,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 	$scope.getRelatedParagraphs = function (para) {
 		$scope.baseParagraph = para;
-		SharedService.getRelatedParagraphsById(para.elementID).then(function (tempData) {
+		SharedService.getRelatedParagraphsById(para.elementID, para.fromFileName).then(function (tempData) {
 			if(tempData.status) {
 				$scope.relateParagraphs = angular.fromJson(tempData.data);
 			}
