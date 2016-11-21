@@ -314,6 +314,12 @@ public class ParagraphOperationsController extends BaseController{
         return ok(lightHouseService.getRelatedParagraphsByNames(listOfParagraphIDs).toString());
     }
 
+    public Result getRelatedParagraphsByMaxConceptsMatch() {
+
+        ArrayList<String> listOfParagraphIDs = new ArrayList<>();
+        return ok(lightHouseService.getRelatedParagraphsByMaxConceptsMatch("220-10-45-10A").toString());
+    }
+
     public Result getAllDocFileNamesByType() throws IOException {
         String fType = "FILE";
         return ok(lightHouseService.getAllDocFileNamesByType(fType).toString());

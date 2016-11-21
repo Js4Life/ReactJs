@@ -89,7 +89,8 @@ GET /saveBaselConcepts/:fileName                        com.parabole.feed.applic
 GET /getAllBaselTopic                                   com.parabole.feed.application.controllers.ParagraphOperationsController.getAllBaselTopic()
 GET /getBaselSubtopicsByTopicId/:nodeId                 com.parabole.feed.application.controllers.ParagraphOperationsController.getBaselSubtopicsByTopicId(nodeId: String)
 GET /getBaselParagraphBySubTopicId/:nodeId              com.parabole.feed.application.controllers.ParagraphOperationsController.getBaselParagraphBySubTopicId(nodeId: String)
-GET /getRelatedParagraphsByNames                        com.parabole.feed.application.controllers.ParagraphOperationsController.getRelatedParagraphsByNames()
+#GET /getRelatedParagraphsByNames                       com.parabole.feed.application.controllers.ParagraphOperationsController.getRelatedParagraphsByNames()
+GET /getRelatedParagraphsByMaxConceptsMatch             com.parabole.feed.application.controllers.ParagraphOperationsController.getRelatedParagraphsByMaxConceptsMatch()
 #-------------------------------------------
 # common data operation
 #-------------------------------------------

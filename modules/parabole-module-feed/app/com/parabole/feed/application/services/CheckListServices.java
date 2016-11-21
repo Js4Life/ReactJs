@@ -796,7 +796,6 @@ public class CheckListServices {
     }
 
     public ArrayList<String> getAllChecklistByBusinessSegment(String checklistID){
-
         ArrayList<String> componentTypes = new ArrayList<>();
         ArrayList<HashMap<String, String>> allRootNodeDetails = lightHouse.getRootVerticesByChildVertexId(checklistID);
         for (HashMap<String, String> allRootNodeDetail : allRootNodeDetails) {
@@ -808,7 +807,6 @@ public class CheckListServices {
     }
 
     public HashMap<String, String> getCompliedAndNotCompliedCounts() {
-
         return starfishServices.getCompliedAndNotCompliedCounts();
     }
 }

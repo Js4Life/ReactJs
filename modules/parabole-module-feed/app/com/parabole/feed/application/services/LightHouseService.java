@@ -441,6 +441,73 @@ public class LightHouseService {
         return paragraphByNameProperty;
     }
 
+
+    public ArrayList<HashMap<String,String>> getRelatedParagraphsByMaxConceptsMatch(String paragraphID) {
+
+        HashMap<String, Integer> sortableParagraphExistanceCounts = new HashMap<>();
+        ArrayList<String> relatedConcepts = getRelatedConceptsByParagraphID(paragraphID);
+        for (String relatedConcept : relatedConcepts) {
+            ArrayList<HashMap<String, String>> paragraphsFromTheConcept = lightHouse.getChildVerticesByRootVertexId(relatedConcept);
+            for (HashMap<String, String> paragraphFromTheConcept : paragraphsFromTheConcept) {
+                String elementIDofAParagraph = paragraphFromTheConcept.get("elementID");
+                System.out.println("elementIDofAParagraph = " + elementIDofAParagraph);
+                if(!elementIDofAParagraph.equals(paragraphID) && (paragraphFromTheConcept.get("type").contains("PARAGRAPH") || paragraphFromTheConcept.get("type").contains("BASELPARAGRAPH")))
+                if(sortableParagraphExistanceCounts.containsKey(elementIDofAParagraph)){
+                    Integer eachCount = sortableParagraphExistanceCounts.get(elementIDofAParagraph);
+                    System.out.println("eachCount = " + eachCount);
+                    Integer newCount = eachCount + 1;
+                    sortableParagraphExistanceCounts.put(elementIDofAParagraph, newCount);
+                }else {
+                    sortableParagraphExistanceCounts.put(elementIDofAParagraph, 1);
+                    System.out.println("LightHouseService.getRelatedParagraphsByMaxConceptsMatch");
+                }
+            }
+        }
+
+        // in the following operation it will try to get the highest number of concept attached paragraph
+
+        if(sortableParagraphExistanceCounts != null) {
+            Map<String, Integer> sortedParagraphs = sortByValue(sortableParagraphExistanceCounts);
+            String oneParagraph = (String) sortedParagraphs.keySet().toArray()[sortedParagraphs.keySet().size()-1];
+            ArrayList<String> paragraphIDs = new ArrayList<>();
+            paragraphIDs.add(oneParagraph);
+            return lightHouse.getParagraphsByParagraphIds(paragraphIDs);
+        }else{
+            return null;
+        }
+    }
+
+    public static <K, V extends Comparable<? super V>> Map<K, V>
+    sortByValue( Map<K, V> map )
+    {
+        List<Map.Entry<K, V>> list =
+                new LinkedList<Map.Entry<K, V>>( map.entrySet() );
+        Collections.sort( list, new Comparator<Map.Entry<K, V>>()
+        {
+            public int compare( Map.Entry<K, V> o1, Map.Entry<K, V> o2 )
+            {
+                return (o1.getValue()).compareTo( o2.getValue() );
+            }
+        } );
+
+        Map<K, V> result = new LinkedHashMap<K, V>();
+        for (Map.Entry<K, V> entry : list)
+        {
+            result.put( entry.getKey(), entry.getValue() );
+        }
+        return result;
+    }
+
+    private ArrayList<String> getRelatedConceptsByParagraphID(String paragraphID){
+        ArrayList<String> relatedConcepts = new ArrayList<>();
+        ArrayList<HashMap<String, String>> concepts = lightHouse.getRootVerticesByChildVertexId(paragraphID);
+        for (HashMap<String, String> concept : concepts) {
+            if(concept.get("type").equalsIgnoreCase("CONCEPT"))
+                relatedConcepts.add(concept.get("elementID"));
+        }
+        return relatedConcepts;
+    }
+
     public HashSet<String> getAllDocFileNamesByType(String fType) throws IOException {
         HashSet<String> allFileNames = new HashSet<>();
         ArrayList<HashMap<String, String>> allFilesWithAllProperties = lightHouse.getVertexByProperty("type", fType);
