@@ -295,7 +295,6 @@ public class ParagraphOperationsController extends BaseController{
     }
 
     public Result getBaselSubtopicsByTopicId(String topicId) {
-
         return ok(lightHouseService.getBaselSubtopicsByTopicId(topicId, "BASELSUBTOPIC").toString());
     }
 
@@ -317,7 +316,7 @@ public class ParagraphOperationsController extends BaseController{
     public Result getRelatedParagraphsByMaxConceptsMatch() {
 
         ArrayList<String> listOfParagraphIDs = new ArrayList<>();
-        return ok(lightHouseService.getRelatedParagraphsByMaxConceptsMatch("220-10-45-10A").toString());
+        return ok(lightHouseService.getRelatedParagraphsByMaxConceptsMatch("basel1-1-5-1-P3", "Part2_Pillar1_2_3_MCR").toString());
     }
 
     public Result getAllDocFileNamesByType() throws IOException {

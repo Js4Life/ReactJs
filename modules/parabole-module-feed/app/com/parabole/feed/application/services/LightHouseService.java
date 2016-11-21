@@ -442,16 +442,26 @@ public class LightHouseService {
     }
 
 
-    public ArrayList<HashMap<String,String>> getRelatedParagraphsByMaxConceptsMatch(String paragraphID) {
+    public ArrayList<HashMap<String,String>> getRelatedParagraphsByMaxConceptsMatch(String paragraphID, String paragraphFile) {
 
         HashMap<String, Integer> sortableParagraphExistanceCounts = new HashMap<>();
         ArrayList<String> relatedConcepts = getRelatedConceptsByParagraphID(paragraphID);
         for (String relatedConcept : relatedConcepts) {
             ArrayList<HashMap<String, String>> paragraphsFromTheConcept = lightHouse.getChildVerticesByRootVertexId(relatedConcept);
             for (HashMap<String, String> paragraphFromTheConcept : paragraphsFromTheConcept) {
-                String elementIDofAParagraph = paragraphFromTheConcept.get("elementID");
+                String elementIDofAParagraph =  new String();
+                if(paragraphFromTheConcept.containsKey("fromFileName")){
+                    if(!paragraphFromTheConcept.get("fromFileName").contains(paragraphFile) && (paragraphFromTheConcept.get("type").contains("BASELPARAGRAPH") || (paragraphFromTheConcept.get("type").contains("PARAGRAPH")))) {
+                        elementIDofAParagraph = paragraphFromTheConcept.get("elementID");
+                    }
+                }else{
+                    if(paragraphFromTheConcept.get("type").contains("BASELPARAGRAPH") || paragraphFromTheConcept.get("type").contains("PARAGRAPH") ) {
+                        elementIDofAParagraph = paragraphFromTheConcept.get("elementID");
+                    }
+                }
+
                 System.out.println("elementIDofAParagraph = " + elementIDofAParagraph);
-                if(!elementIDofAParagraph.equals(paragraphID) && (paragraphFromTheConcept.get("type").contains("PARAGRAPH") || paragraphFromTheConcept.get("type").contains("BASELPARAGRAPH")))
+                if(!elementIDofAParagraph.equals(paragraphID) && !elementIDofAParagraph.isEmpty() && null != elementIDofAParagraph )
                 if(sortableParagraphExistanceCounts.containsKey(elementIDofAParagraph)){
                     Integer eachCount = sortableParagraphExistanceCounts.get(elementIDofAParagraph);
                     System.out.println("eachCount = " + eachCount);
