@@ -1046,19 +1046,16 @@ public class CeclController extends Controller{
     }
 
     @BodyParser.Of(BodyParser.Json.class)
-    public Result getRelatedParagraphsByIds() {
+    public Result getRelatedParagraphsById() {
         final String json = request().body().asJson().toString();
         final JSONObject request = new JSONObject(json);
-        final JSONArray paraIds = request.getJSONArray("paraIds");
+        final String paraId = request.getString("paraId");
         JSONObject finalJson = new JSONObject();
         Boolean status = true;
         String data = null;
-        ArrayList<String> paraIdList = new ArrayList<String>();
         try {
-            for (int i=0; i<paraIds.length(); i++){
-                paraIdList.add(paraIds.getString(i));
-            }
-            ArrayList<HashMap<String, String>> res = lightHouseService.getRelatedParagraphsByNames(paraIdList);
+            //ArrayList<HashMap<String, String>> res = lightHouseService.getRelatedParagraphsByNames(paraIdList);
+            ArrayList<HashMap<String, String>> res = null;
             ObjectMapper mapper = new ObjectMapper();
             data = mapper.writeValueAsString(res);
         } catch (Exception e){

@@ -128,6 +128,10 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$state.go('landing.complianceDashboard');
 	}
 
+	$scope.goFileUploader = function () {
+		$state.go('landing.documentUploader');
+	}
+
 	function activeCurrentNav(e) {
 		$(e.currentTarget).parent().parent().children().removeClass('active');
 		$(e.currentTarget).parent().addClass('active');
@@ -693,6 +697,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		if(reg.name === 'BASEL'){
 			SharedService.getAllDocFileNamesByType('FILE').then(function(data){
 				if(data.status){
+					$scope.heading.title = "List of documents (" + reg.name + ")";
 					$scope.regulationFiles = angular.fromJson(data.data);
 				}
 			});
@@ -886,12 +891,16 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		SharedService.getComponentTypesByParagraphIds(selectedParagraphs).then(function (data) {
 			if(data.status){
 				$scope.masterComponentTypes = angular.fromJson(data.data);
-				SharedService.getRelatedParagraphsByIds(selectedParagraphs).then(function (tempData) {
-					if(tempData.status) {
-						$scope.relateParagraphs = angular.fromJson(tempData.data);
-						$('#checklistModal').modal('show');
-					}
-				});
+				$('#checklistModal').modal('show');
+			}
+		});
+	}
+
+	$scope.getRelatedParagraphs = function (para) {
+		$scope.baseParagraph = para;
+		SharedService.getRelatedParagraphsById(para.elementID).then(function (tempData) {
+			if(tempData.status) {
+				$scope.relateParagraphs = angular.fromJson(tempData.data);
 			}
 		});
 	}
@@ -1556,6 +1565,32 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.onAttachmentViewerClose = function () {
 		$('#attachmentViewer').modal('hide');
 		$('#checklistModal').modal('show');
+	}
+
+	$scope.initialize();
+})
+
+.controller('documentUploaderCtrl', function ($scope, $state, SharedService) {
+	$scope.initialize = function(){
+
+	}
+
+	$scope.$watch('file', function (newVal) {
+		if(newVal) {
+			Upload.dataUrl($scope.file, true).then(function (dataUrl) {
+				var fileData = {
+					name: $scope.file.name,
+					mime: $scope.file.type,
+					data: dataUrl,
+					checklistId: $scope.checklistItem.id
+				}
+				uploadAttachment(fileData);
+			});
+		}
+	});
+
+	function uploadAttachment(fileData) {
+
 	}
 
 	$scope.initialize();

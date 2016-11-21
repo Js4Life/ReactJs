@@ -25,6 +25,7 @@ GET         /homeContainer                                                      
 GET         /summary                                                                   com.parabole.cecl.application.controllers.DispatcherAction.summary()
 GET         /complianceDashboard                                                       com.parabole.cecl.application.controllers.DispatcherAction.complianceDashboard()
 GET         /checklistViewer                                                           com.parabole.cecl.application.controllers.DispatcherAction.checklistViewer()
+GET         /documentUploader                                                          com.parabole.cecl.application.controllers.DispatcherAction.documentUploader()
 
 # ---------------------------------------------------------------------------------
 # Server Side Calls (All Authenticated)
@@ -135,7 +136,7 @@ POST /getAttachmentsByChecklistId                   com.parabole.cecl.applicatio
 POST /deleteAttachmentById                          com.parabole.cecl.application.controllers.CeclController.deleteAttachmentById()
 POST /getCommentAttachmentById                      com.parabole.cecl.application.controllers.CeclController.getCommentAttachmentById()
 GET /downloadAttachmentById                         com.parabole.cecl.application.controllers.CeclController.downloadAttachmentById(id : String)
-POST /getRelatedParagraphsByIds                     com.parabole.cecl.application.controllers.CeclController.getRelatedParagraphsByIds()
+POST /getRelatedParagraphsById                      com.parabole.cecl.application.controllers.CeclController.getRelatedParagraphsById()
 
 
 # ---------------------------------------------------------------------------------
