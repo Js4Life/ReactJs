@@ -1048,13 +1048,16 @@ public class CeclController extends Controller{
         final String json = request().body().asJson().toString();
         final JSONObject request = new JSONObject(json);
         final String paraId = request.getString("paraId");
-        final String fromFile = request.getString("fromFile");
+        String fromFile = "";
+        if(request.has("fromFile")){
+            fromFile = request.getString("fromFile");
+        }
         JSONObject finalJson = new JSONObject();
         Boolean status = true;
         String data = null;
         try {
             //ArrayList<HashMap<String, String>> res = lightHouseService.getRelatedParagraphsByNames(paraIdList);
-            ArrayList<HashMap<String, String>> res = null;
+            ArrayList<HashMap<String, String>> res = lightHouseService.getRelatedParagraphsByMaxConceptsMatch(paraId, fromFile);
             ObjectMapper mapper = new ObjectMapper();
             data = mapper.writeValueAsString(res);
         } catch (Exception e){

@@ -141,11 +141,11 @@
                 </div>
 
                 <div class="bs-docs-section" ng-if="relateParagraphs.length > 0">
-                  <h4 class="page-header">Related Paragraphs for para: {{baseParagraph.name}} (relateParagraphs.length)</h4>
+                  <h4 class="page-header">Related Paragraphs for para: {{baseParagraph.name}} ({{relateParagraphs.length}})</h4>
                   <div ng-repeat="para in relateParagraphs" style="position: relative;">
                     <div class="well">
                       <div ng-class="{'text-danger': para.willIgnore === 'true'}" read-more="" content="{{para.bodyText}}"></div>
-                      <div class="text-info para-bottom-tile">(File: {{para.fromFileName}})</div>
+                      <div class="text-info para-bottom-tile">(File: {{para.fromFileName || "FASB"}})</div>
                     </div>
                   </div>
                 </div>
