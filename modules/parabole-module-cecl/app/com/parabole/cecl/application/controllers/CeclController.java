@@ -1050,6 +1050,7 @@ public class CeclController extends Controller{
         final String json = request().body().asJson().toString();
         final JSONObject request = new JSONObject(json);
         final String paraId = request.getString("paraId");
+        final String fromFile = request.getString("fromFile");
         JSONObject finalJson = new JSONObject();
         Boolean status = true;
         String data = null;

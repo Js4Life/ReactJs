@@ -827,8 +827,8 @@ angular.module('RDAApp.services', [])
         return SharedService.invokeService('GetCompliedAndNotCompliedChecklistCounts');
     }
 
-    SharedService.getRelatedParagraphsById = function (paraId) {
-        var sendObj = {"paraId": paraId};
+    SharedService.getRelatedParagraphsById = function (paraId, fromFile) {
+        var sendObj = {"paraId": paraId, 'fromFile': fromFile};
         return SharedService.invokeService('GetRelatedParagraphsById', sendObj, 'post');
     }
 
