@@ -295,5 +295,23 @@
 			"name" : "Seg",
 			"label" : "segmentURI"
 		}]
+	},
+	"relatedConcepts" : {
+		"outputFormat":"hierarchy",
+		"source":"226",
+		"groupByField" : "Pro",
+		"columns" :  [{
+			"name" : "Pro",
+			"label" : "productURI"
+		},{
+			"name" : "Product",
+			"label" : "productName"
+		},{
+			"name" : "Segment",
+			"label" : "segmentName"
+		},{
+			"name" : "Seg",
+			"label" : "segmentURI"
+		}]
 	}
 }
