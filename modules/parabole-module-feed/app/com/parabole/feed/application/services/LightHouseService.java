@@ -445,20 +445,25 @@ public class LightHouseService {
     public ArrayList<HashMap<String,String>> getRelatedParagraphsByMaxConceptsMatch(String paragraphID, String paragraphFile) {
 
         HashMap<String, Integer> sortableParagraphExistanceCounts = new HashMap<>();
-        ArrayList<String> relatedConcepts = getRelatedConceptsByParagraphID(paragraphID);
+        ArrayList<String> relatedConcepts = new ArrayList<>();
+        ArrayList<String> directlyRelatedConcepts = getRelatedConceptsByParagraphID(paragraphID);
+
+        //getRelated()
+
+        relatedConcepts.addAll(directlyRelatedConcepts);
         for (String relatedConcept : relatedConcepts) {
             ArrayList<HashMap<String, String>> paragraphsFromTheConcept = lightHouse.getChildVerticesByRootVertexId(relatedConcept);
             for (HashMap<String, String> paragraphFromTheConcept : paragraphsFromTheConcept) {
                 String elementIDofAParagraph =  new String();
-                if(paragraphFromTheConcept.containsKey("fromFileName")){
-                    if(!paragraphFromTheConcept.get("fromFileName").contains(paragraphFile) && (paragraphFromTheConcept.get("type").contains("BASELPARAGRAPH") || (paragraphFromTheConcept.get("type").contains("PARAGRAPH")))) {
+               /* if(paragraphFromTheConcept.containsKey("fromFileName")){
+                    if(!paragraphFromTheConcept.get("fromFileName").contains(paragraphFile) && paragraphFromTheConcept.get("type").contains("BASELPARAGRAPH") ) {
                         elementIDofAParagraph = paragraphFromTheConcept.get("elementID");
                     }
-                }else{
-                    if(paragraphFromTheConcept.get("type").contains("BASELPARAGRAPH") || paragraphFromTheConcept.get("type").contains("PARAGRAPH") ) {
+               }else{*/
+                    if(paragraphFromTheConcept.get("type").contains("BASELPARAGRAPH")  ) {
                         elementIDofAParagraph = paragraphFromTheConcept.get("elementID");
                     }
-                }
+                //}
 
                 System.out.println("elementIDofAParagraph = " + elementIDofAParagraph);
                 if(!elementIDofAParagraph.equals(paragraphID) && !elementIDofAParagraph.isEmpty() && null != elementIDofAParagraph )
@@ -476,7 +481,7 @@ public class LightHouseService {
 
         // in the following operation it will try to get the highest number of concept attached paragraph
 
-        if(sortableParagraphExistanceCounts != null) {
+        if(sortableParagraphExistanceCounts != null && sortableParagraphExistanceCounts.keySet().size() != 0) {
             Map<String, Integer> sortedParagraphs = sortByValue(sortableParagraphExistanceCounts);
             String oneParagraph = (String) sortedParagraphs.keySet().toArray()[sortedParagraphs.keySet().size()-1];
             ArrayList<String> paragraphIDs = new ArrayList<>();

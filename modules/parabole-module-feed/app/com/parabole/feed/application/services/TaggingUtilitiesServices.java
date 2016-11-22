@@ -109,7 +109,7 @@ public class TaggingUtilitiesServices {
 
     public String saveBaselConcepts(String file) throws IOException {
 
-        HashMap<String, Set<String>> dataToProcess = taggerTest.startBaselConceptMappingExtractions(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\Part2_Pillar1_2_3_MCR.pdf");
+        HashMap<String, Set<String>> dataToProcess = taggerTest.startBaselConceptMappingExtractions(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\"+file+".pdf");
         JSONObject allConceptNodesDetails = jenaTdbService.getFilteredDataByCompName("ceclBaseNodeDetails","FASB Concept");
         JSONArray jsonArray = allConceptNodesDetails.getJSONArray("data");
         Map<String, String> mapofNameURI = new HashMap<String, String>();
