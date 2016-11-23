@@ -7,15 +7,17 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX con:<http://mindparabole.com/finance/fasb_concepts#>
 PREFIX afn: <http://jena.apache.org/ARQ/function#>
+PREFIX bas: <http://mindparabole.com/finance/basel_glossary#>
 
 SELECT DISTINCT *
 WHERE {
-?concept pb:hasModel/pb:hasInput/ ^pb:ConcepthasDataElement ?con ;rdfs:label ?ConceptName.
-?concept pb:hasModel/pb:hasOutput/ ^pb:ConcepthasDataElement ?con2.
+?concept (pb:hasModel/pb:hasInput/ ^pb:ConcepthasDataElement)|
+(pb:hasModel/pb:hasOutput/ ^pb:ConcepthasDataElement)|
+(bas:usedinCalculation)|
+(bas:usedinCalculation/bas:methodToCalculate)|
+(bas:usedinCalculation/bas:methodToCalculate/bas:isAPartOf) ?con ;rdfs:label ?ConceptName.
+#?concept pb:hasModel/pb:hasOutput/ ^pb:ConcepthasDataElement ?con2.
 BIND(CONCAT(xsd:string(afn:namespace(?concept)),xsd:string(afn:localname(?concept))) AS ?uri)
-
 #FILTER(?ConceptName = "Credit Loss")
-
-FILTER(?uri="http://mindparabole.com/finance/fasb_concepts#CreditLoss")
-
+FILTER(?uri="http://mindparabole.com/finance/basel_glossary#Alpha")
 }
