@@ -306,6 +306,12 @@
 		},{
 			"name" : "ConceptName",
 			"label" : "ConceptName"
+		},{
+			"name" : "con",
+			"label" : "con"
+		},{
+			"name" : "con2",
+			"label" : "con2"
 		}]
 	}
 }

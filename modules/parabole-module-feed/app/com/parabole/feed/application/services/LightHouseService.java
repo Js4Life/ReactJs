@@ -460,7 +460,8 @@ public class LightHouseService {
             JSONArray arrayOfConcepts = ontoDataRelatedConcepts.getJSONArray("data");
             for (int i = 0; i < arrayOfConcepts.length(); i++) {
                 JSONObject conceptObj = arrayOfConcepts.getJSONObject(i);
-                newConceptNames.add(conceptObj.getString("concept"));
+                newConceptNames.add(conceptObj.getString("con"));
+                newConceptNames.add(conceptObj.getString("con2"));
             }
         }
         relatedConcepts.addAll(directlyRelatedConcepts);
