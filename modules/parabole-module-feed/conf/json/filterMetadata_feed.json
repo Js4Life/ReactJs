@@ -298,20 +298,14 @@
 	},
 	"relatedConcepts" : {
 		"outputFormat":"hierarchy",
-		"source":"226",
-		"groupByField" : "Pro",
+		"source":"229",
+		"groupByField" : "concept",
 		"columns" :  [{
-			"name" : "Pro",
-			"label" : "productURI"
+			"name" : "concept",
+			"label" : "concept"
 		},{
-			"name" : "Product",
-			"label" : "productName"
-		},{
-			"name" : "Segment",
-			"label" : "segmentName"
-		},{
-			"name" : "Seg",
-			"label" : "segmentURI"
+			"name" : "ConceptName",
+			"label" : "ConceptName"
 		}]
 	}
 }

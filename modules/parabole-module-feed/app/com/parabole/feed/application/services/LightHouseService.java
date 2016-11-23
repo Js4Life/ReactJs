@@ -16,6 +16,8 @@ package com.parabole.feed.application.services;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.parabole.feed.platform.graphdb.LightHouse;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.*;
@@ -34,6 +36,9 @@ public class LightHouseService {
 
     @Inject
     private StarfishServices starfishServices;
+
+    @Inject
+    private JenaTdbService jenaTdbService;
 
    // public String save
 
@@ -447,10 +452,19 @@ public class LightHouseService {
         HashMap<String, Integer> sortableParagraphExistanceCounts = new HashMap<>();
         ArrayList<String> relatedConcepts = new ArrayList<>();
         ArrayList<String> directlyRelatedConcepts = getRelatedConceptsByParagraphID(paragraphID);
-
+        directlyRelatedConcepts.add("http://mindparabole.com/finance/fasb_concepts#CreditLoss");
+        ArrayList<String> newConceptNames = new ArrayList<>();
         //getRelated()
-
+        for (String directlyRelatedConcept : directlyRelatedConcepts) {
+            JSONObject ontoDataRelatedConcepts = jenaTdbService.getFilteredDataByCompName("relatedConcepts", directlyRelatedConcept);
+            JSONArray arrayOfConcepts = ontoDataRelatedConcepts.getJSONArray("data");
+            for (int i = 0; i < arrayOfConcepts.length(); i++) {
+                JSONObject conceptObj = arrayOfConcepts.getJSONObject(i);
+                newConceptNames.add(conceptObj.getString("concept"));
+            }
+        }
         relatedConcepts.addAll(directlyRelatedConcepts);
+        relatedConcepts.addAll(newConceptNames);
         for (String relatedConcept : relatedConcepts) {
             ArrayList<HashMap<String, String>> paragraphsFromTheConcept = lightHouse.getChildVerticesByRootVertexId(relatedConcept);
             for (HashMap<String, String> paragraphFromTheConcept : paragraphsFromTheConcept) {
