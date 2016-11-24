@@ -124,7 +124,13 @@ angular.module('RDAApp.services', [])
         'GetBaselParagraphsBySectionId' : 'getBaselParagraphsBySectionId',
         'GetBaselSectionsBySubtopicId' : 'getBaselSectionsBySubtopicId',
         'GetBaselSubtopicsByTopicId' : 'getBaselSubtopicsByTopicId',
-        'GetAllDocFileNamesByType' : 'getAllDocFileNamesByType'
+        'GetAllDocFileNamesByType' : 'getAllDocFileNamesByType',
+
+        'GetAllFeedFiles' : 'getAllFeedFiles',
+        'GetDocumentConfigById' : 'getDocumentConfigById',
+        'SaveDocumentConfig' : 'saveDocumentConfig',
+        'WriteDocument' : 'writeDocument',
+        'RunConfig' : 'runConfig'
     };
     SharedService.chartDataMap = {
         '0' : 'getHardCodedResponse/chartData1',
@@ -873,6 +879,24 @@ angular.module('RDAApp.services', [])
     SharedService.getAllDocFileNamesByType = function (type) {
         var sendObj = {"type": type};
         return SharedService.invokeService('GetAllDocFileNamesByType', sendObj, 'post');
+    }
+
+    SharedService.getAllFeedFiles = function () {
+        return SharedService.invokeService('GetAllFeedFiles');
+    }
+    SharedService.getDocumentConfigById = function (id) {
+        var sendObj = {"id": id};
+        return SharedService.invokeService('GetDocumentConfigById', sendObj, 'post');
+    }
+    SharedService.saveDocumentConfig = function (fileConfig) {
+        var sendObj = {"fileConfig": fileConfig};
+        return SharedService.invokeService('SaveDocumentConfig', sendObj, 'post');
+    }
+    SharedService.writeDocument = function (fileConfig) {
+        return SharedService.invokeService('WriteDocument', fileConfig, 'post');
+    }
+    SharedService.runConfig = function (fileConfig) {
+        return SharedService.invokeService('RunConfig', fileConfig, 'post');
     }
 
     return SharedService;

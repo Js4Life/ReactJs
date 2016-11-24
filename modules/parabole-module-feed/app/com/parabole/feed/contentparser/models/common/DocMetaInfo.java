@@ -4,22 +4,22 @@ package com.parabole.feed.contentparser.models.common;
  * Created by anish on 8/22/2016.
  */
 public class DocMetaInfo {
-    private int startPage;
-    private int endPage;
+    private Integer startPage;
+    private Integer endPage;
 
-    public int getStartPage() {
+    public Integer getStartPage() {
         return startPage;
     }
 
-    public void setStartPage(int startPage) {
+    public void setStartPage(Integer startPage) {
         this.startPage = startPage;
     }
 
-    public int getEndPage() {
+    public Integer getEndPage() {
         return endPage;
     }
 
-    public void setEndPage(int endPage) {
+    public void setEndPage(Integer endPage) {
         this.endPage = endPage;
     }
 

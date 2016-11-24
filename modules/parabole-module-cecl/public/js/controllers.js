@@ -701,12 +701,15 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 					$scope.regulationFiles = angular.fromJson(data.data);
 				}
 			});
-		} else
+		} else {
+			SharedService.hideAllToolTips();
 			$state.go('landing.homeContainer');
+		}
 	}
 
 	$scope.loadFileBasedRegulation = function (fileName) {
 		SharedService.regulationFileName = fileName;
+		SharedService.hideAllToolTips();
 		$state.go('landing.homeContainer');
 	}
 
@@ -1570,9 +1573,59 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.initialize();
 })
 
-.controller('documentUploaderCtrl', function ($scope, $state, SharedService) {
+.controller('documentUploaderCtrl', function ($scope, $state, Upload, SharedService) {
 	$scope.initialize = function(){
+		$scope.fileConfig = {toc:{levels: []}, body:{}};
+		SharedService.getRegulations().then(function (data) {
+			if(data.status){
+				$scope.regulations = data.data;
+			}
+		});
+		getAllFeedFiles();
+	}
 
+	function getAllFeedFiles(){
+		SharedService.getAllFeedFiles().then(function (data) {
+			if(data.status){
+				$scope.uploadedFiles = angular.fromJson(data.data);
+			}
+		});
+	}
+
+	$scope.addLevel = function () {
+		var aLevel = {level: $scope.fileConfig.toc.levels.length + 1};
+		$scope.fileConfig.toc.levels.push(aLevel);
+	}
+	
+	$scope.getConfig = function (fileId) {
+		$scope.fileConfig = {toc:{levels: [], levelIdPrefix: fileId}, body:{}, name: fileId};
+		SharedService.getDocumentConfigById(fileId).then(function (data) {
+			if(data.status){
+				var config = angular.fromJson(data.data);
+				if(config.length > 0){
+					$scope.fileConfig = angular.fromJson(config[0].details);
+				} else {
+					toastr.warning('No Configuration found. Please save a new one..', '', {"positionClass" : "toast-top-right"});
+				}
+			}
+		});
+	}
+
+	$scope.saveConfig = function () {
+		SharedService.saveDocumentConfig($scope.fileConfig).then(function (data) {
+			if(data.status){
+				$scope.fileConfig = {toc:{}, body:{}};
+				toastr.success('Configuration saved successfully..', '', {"positionClass" : "toast-top-right"});
+			}
+		});
+	}
+
+	$scope.runConfig = function () {
+		SharedService.runConfig($scope.fileConfig).then(function(data){
+			if(data.status){
+
+			}
+		});
 	}
 
 	$scope.$watch('file', function (newVal) {
@@ -1581,8 +1634,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				var fileData = {
 					name: $scope.file.name,
 					mime: $scope.file.type,
-					data: dataUrl,
-					checklistId: $scope.checklistItem.id
+					data: dataUrl
 				}
 				uploadAttachment(fileData);
 			});
@@ -1590,7 +1642,14 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	});
 
 	function uploadAttachment(fileData) {
-
+		SharedService.writeDocument(fileData).then(function (data) {
+			if(data.status){
+				toastr.success('File uploaded successfully..', '', {"positionClass" : "toast-top-right"});
+				getAllFeedFiles();
+			} else {
+				toastr.error('File uploading failed..', '', {"positionClass" : "toast-top-right"});
+			}
+		});
 	}
 
 	$scope.initialize();

@@ -37,6 +37,8 @@ public class BaseController extends Controller {
     @Inject
     protected AuthenticationManager authenticationManager;
 
+    @Inject
+    protected DocumentCfgService documentCfgService;
 
 
     @Inject

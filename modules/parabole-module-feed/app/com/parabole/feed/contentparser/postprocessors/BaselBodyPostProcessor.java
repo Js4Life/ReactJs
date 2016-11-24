@@ -6,6 +6,7 @@ import com.parabole.feed.contentparser.models.basel.DocumentElement;
 import com.parabole.feed.contentparser.models.common.DocMetaInfo;
 import com.parabole.feed.contentparser.models.common.LineElement;
 import com.parabole.feed.contentparser.models.common.ParagraphElement;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.*;
@@ -32,10 +33,14 @@ public class BaselBodyPostProcessor implements IPostProcessor {
         return conceptParaMap;
     }
 
-    public BaselBodyPostProcessor(IDocIndexBuilder docIndexBuilder, List<String> extConcepts){
+    public BaselBodyPostProcessor(IDocIndexBuilder docIndexBuilder, List<String> extConcepts, JSONObject glossaryMetaData){
         this.concepts = extConcepts;
         this.docIndexBuilder = docIndexBuilder;
-        this.docMeta = getGlossaryMetadata();
+        if(glossaryMetaData != null){
+            this.docMeta = getGlossaryMetadata(glossaryMetaData);
+        } else {
+            this.docMeta = getGlossaryMetadata();
+        }
         this.treeData = new LinkedHashMap<>();
         this.startTocPivot = this.endTocPivot = null;
         this.paraIndexPivot = 0;
@@ -274,6 +279,15 @@ public class BaselBodyPostProcessor implements IPostProcessor {
         baselDocMeta.setEndPage(25);
         baselDocMeta.setParagraphFontSize(9);
         baselDocMeta.setParaStartRegEx("^[\\d+^[\\%\\s]].");
+        return baselDocMeta;
+    }
+
+    private BaselDocMeta getGlossaryMetadata(JSONObject glossaryMetaData) {
+        BaselDocMeta baselDocMeta = new BaselDocMeta();
+        baselDocMeta.setStartPage(glossaryMetaData.getInt("fromPage"));
+        baselDocMeta.setEndPage(glossaryMetaData.getInt("toPage"));
+        baselDocMeta.setParagraphFontSize(glossaryMetaData.getInt("fontSize"));
+        baselDocMeta.setParaStartRegEx(glossaryMetaData.getString("paraStartRegex"));
         return baselDocMeta;
     }
 }

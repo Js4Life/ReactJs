@@ -1,11 +1,16 @@
 package com.parabole.feed.contentparser.postprocessors;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.parabole.feed.contentparser.IDocIndexBuilder;
 import com.parabole.feed.contentparser.models.basel.BaselDocMeta;
 import com.parabole.feed.contentparser.models.basel.DocumentElement;
 import com.parabole.feed.contentparser.models.common.LineElement;
 import com.parabole.feed.contentparser.models.common.ParagraphElement;
 import com.sun.org.apache.xpath.internal.operations.Bool;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.*;
@@ -25,9 +30,13 @@ public class BaselTocPostProcessor implements IPostProcessor {
     DocumentElement lastInsertedChildNode;
     StringBuilder levelId;
 
-    public BaselTocPostProcessor(IDocIndexBuilder docIndexBuilder) {
+    public BaselTocPostProcessor(IDocIndexBuilder docIndexBuilder, JSONObject glossaryMetaData) {
         this.docIndexBuilder = docIndexBuilder;
-        this.docMeta = getGlossaryMetadata();
+        if(glossaryMetaData != null){
+            this.docMeta = getGlossaryMetadata(glossaryMetaData);
+        } else {
+            this.docMeta = getGlossaryMetadata();
+        }
         this.treeData = new ArrayList<>();
         this.flatParaList = new ArrayList<>();
     }
@@ -255,6 +264,41 @@ public class BaselTocPostProcessor implements IPostProcessor {
 
         return baselDocMeta;
     }*/
+
+    private BaselDocMeta getGlossaryMetadata(JSONObject glossaryMetaData){
+        BaselDocMeta baselDocMeta = new BaselDocMeta();
+
+        baselDocMeta.setMetaDocName(glossaryMetaData.getString("levelIdPrefix"));
+        baselDocMeta.setStartPage(glossaryMetaData.getInt("fromPage"));
+        baselDocMeta.setEndPage(glossaryMetaData.getInt("toPage"));
+        baselDocMeta.setStartText(glossaryMetaData.getString("fromText"));
+        baselDocMeta.setEndText(glossaryMetaData.getString("toText"));
+        baselDocMeta.setParaEndRegEx(glossaryMetaData.getString("paraEndRegex"));
+
+        JSONArray levels = glossaryMetaData.getJSONArray("levels");
+
+        Map<Integer, String> levelSelector = new HashMap<>();
+        List<Integer> paraSelectorList = new ArrayList<>();
+
+        for(int i=0; i<levels.length(); i++){
+            JSONObject aLevel = levels.getJSONObject(i);
+            levelSelector.put(aLevel.getInt("level"), aLevel.getString("regex"));
+            if(aLevel.has("hasPara") && aLevel.getBoolean("hasPara")){
+                paraSelectorList.add(aLevel.getInt("level"));
+            }
+        }
+
+        int[] paraSelectorLevels = new int[paraSelectorList.size()];
+        for(int i=0; i<paraSelectorList.size(); i++){
+            paraSelectorLevels[i] = paraSelectorList.get(i);
+        }
+
+        baselDocMeta.setLevelSelector(levelSelector);
+        baselDocMeta.setParagraphSelectorLevel(paraSelectorLevels);
+        return baselDocMeta;
+    }
+
+
 
     public List<DocumentElement> getFlatParaList() {
         return flatParaList;

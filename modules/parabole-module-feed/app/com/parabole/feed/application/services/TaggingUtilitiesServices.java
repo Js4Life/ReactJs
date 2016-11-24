@@ -109,7 +109,7 @@ public class TaggingUtilitiesServices {
 
     public String saveBaselConcepts(String file) throws IOException {
 
-        HashMap<String, Set<String>> dataToProcess = taggerTest.startBaselConceptMappingExtractions(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\Part2_Pillar1_2_3_MCR.pdf");
+        HashMap<String, Set<String>> dataToProcess = taggerTest.startBaselConceptMappingExtractions(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\Part2_Pillar1_2_3_MCR.pdf", null, null);
         JSONObject allConceptNodesDetails = jenaTdbService.getFilteredDataByCompName("ceclBaseNodeDetails","FASB Concept");
         JSONArray jsonArray = allConceptNodesDetails.getJSONArray("data");
         Map<String, String> mapofNameURI = new HashMap<String, String>();
@@ -139,7 +139,7 @@ public class TaggingUtilitiesServices {
     public String saveBaselTopicToSubtopic(String file) throws IOException {
         List<com.parabole.feed.contentparser.models.basel.DocumentElement> result= null;
         try {
-            result = taggerTest.getBaselTopicsSubTopics(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\"+file+".pdf");
+            result = taggerTest.getBaselTopicsSubTopics(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\"+file+".pdf", null);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -556,7 +556,7 @@ public class TaggingUtilitiesServices {
         String filePath = environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\" + file;
         String  contentParserMetaDataString = AppUtils.getFileContent("feedJson/contentParserMetaData.json");
         JSONObject contentParserMetaDataJSON = new JSONObject(contentParserMetaDataString);
-        jsonFileContent = taggerTest.startBaselExtraction(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\" + file+".pdf");
+        jsonFileContent = taggerTest.startBaselExtraction(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\" + file+".pdf", null, null);
 
         for (String s : jsonFileContent.keySet()) {
             List<com.parabole.feed.contentparser.models.basel.DocumentElement> paragraphsData = jsonFileContent.get(s);
@@ -750,5 +750,153 @@ public class TaggingUtilitiesServices {
             writeFile(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedJson\\"+fileType+".txt", storage.toString());
         }
         return "ok";
+    }
+
+
+    //Basel related api methods called from cecl
+    public String saveBaselTopicToSubtopic(String file, JSONObject glossaryMetaData) throws IOException {
+        List<com.parabole.feed.contentparser.models.basel.DocumentElement> result= null;
+        try {
+            result = taggerTest.getBaselTopicsSubTopics(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\"+file+".pdf", glossaryMetaData);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // set root
+        System.out.println(" Setting Root Node .............");
+        Map<String, String> rootNode = new HashMap<>();
+        rootNode.put("name", "ROOT");
+        rootNode.put("type", "ROOT");
+        rootNode.put("elementID", "ROOT");
+        lightHouse.createNewVertex(rootNode);
+
+        // set root next
+        System.out.println(" Setting Sub Root Node .............");
+        Map<String, String> subRoot = new HashMap<>();
+        subRoot.put("name", "BASELGLOBAL");
+        subRoot.put("type", "BASELGLOBAL");
+        subRoot.put("elementID", "BASELGLOBAL");
+        lightHouse.createNewVertex(subRoot);
+        lightHouse.establishEdgeByVertexIDs("ROOT", "BASELGLOBAL", "ROOTTOBASELGLOBAL", "ROOTTOBASELGLOBAL");
+
+        // set sub root next
+        System.out.println(" Setting Sub Sub Root Node .............");
+        Map<String, String> subSubRoot = new HashMap<>();
+        subSubRoot.put("name", "BASELCFR");
+        subSubRoot.put("type", "BASELCFR");
+        subSubRoot.put("elementID", "BASELCFR");
+        lightHouse.createNewVertex(subSubRoot);
+        lightHouse.establishEdgeByVertexIDs("BASELGLOBAL", "BASELCFR", "BASELGLOBALTOBASELCFR", "BASELGLOBALTOBASELCFR");
+
+        // set file
+        System.out.println(" Setting File Node .............");
+        Map<String, String> fileTypeNode = new HashMap<>();
+        fileTypeNode.put("name", file);
+        fileTypeNode.put("type", "FILE");
+        fileTypeNode.put("elementID", file);
+        lightHouse.createNewVertex(fileTypeNode);
+        lightHouse.establishEdgeByVertexIDs("BASELCFR", file, "BASELCFRTOFILE", "BASELCFRTOFILE");
+
+        for (com.parabole.feed.contentparser.models.basel.DocumentElement documentElement : result) {
+            String topicID =  documentElement.getLevelId();
+            System.out.println(" Setting Topic .............");
+            Map<String, String> topicTypeNode = new HashMap<>();
+            topicTypeNode.put("name", documentElement.getContent());
+            topicTypeNode.put("fromFileName", file);
+            topicTypeNode.put("type", "BASELTOPIC");
+            topicTypeNode.put("elementID", topicID);
+            lightHouse.createNewVertex(topicTypeNode);
+            lightHouse.establishEdgeByVertexIDs(file, topicID, "FILETOTOPIC", "FILETOTOPIC");
+
+            List<com.parabole.feed.contentparser.models.basel.DocumentElement> subTopic = documentElement.getChildren();
+
+            for (com.parabole.feed.contentparser.models.basel.DocumentElement subtopicElement : subTopic) {
+                if (subtopicElement.getElementType().toString().equals("SUBTOPIC")) {
+                    System.out.println(" Setting SubTopic .............");
+                    String subTopicID = subtopicElement.getLevelId();
+                    Map<String, String> subTopicTypeNode = new HashMap<>();
+                    subTopicTypeNode.put("name", subtopicElement.getContent());
+                    subTopicTypeNode.put("fromFileName", file);
+                    subTopicTypeNode.put("type", "BASELSUBTOPIC");
+                    subTopicTypeNode.put("elementID", subTopicID);
+                    lightHouse.createNewVertex(subTopicTypeNode);
+                    lightHouse.establishEdgeByVertexIDs(topicID, subTopicID, "TOPICTOSUBTOPIC", "TOPICTOSUBTOPIC");
+
+                    List<com.parabole.feed.contentparser.models.basel.DocumentElement> sections = subtopicElement.getChildren();
+
+
+                    for (com.parabole.feed.contentparser.models.basel.DocumentElement sectionElement : sections) {
+                        if (sectionElement.getElementType().toString().equals("SECTION")) {
+                            System.out.println(" Setting SubTopic .............");
+                            String sectionID = sectionElement.getLevelId();
+                            Map<String, String> sectionTypeNode = new HashMap<>();
+                            sectionTypeNode.put("name", sectionElement.getContent());
+                            sectionTypeNode.put("type", "BASELSECTION");
+                            sectionTypeNode.put("fromFileName", file);
+                            sectionTypeNode.put("elementID", sectionID);
+                            lightHouse.createNewVertex(sectionTypeNode);
+                            lightHouse.establishEdgeByVertexIDs(subTopicID, sectionID, "SUBTOPICTOSECTION", "SUBTOPICTOSECTION");
+                        }
+
+                    }
+                }
+            }
+        }
+
+        return "ok";
+    }
+
+    public String saveParagraphsAndAssociateItWithBaselSubTopic(String file, JSONObject tocGlossaryMetaData, JSONObject bodyGlossaryMetaData) throws Exception {
+
+        Map<String, List<com.parabole.feed.contentparser.models.basel.DocumentElement>> jsonFileContent= null;
+        String filePath = environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\" + file;
+        String  contentParserMetaDataString = AppUtils.getFileContent("feedJson/contentParserMetaData.json");
+        JSONObject contentParserMetaDataJSON = new JSONObject(contentParserMetaDataString);
+        jsonFileContent = taggerTest.startBaselExtraction(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\" + file+".pdf", tocGlossaryMetaData, bodyGlossaryMetaData);
+
+        for (String s : jsonFileContent.keySet()) {
+            List<com.parabole.feed.contentparser.models.basel.DocumentElement> paragraphsData = jsonFileContent.get(s);
+            for (com.parabole.feed.contentparser.models.basel.DocumentElement documentElement : paragraphsData) {
+                // create paragraph node
+                Map<String, String> nodeDataTwo = new HashMap<>();
+                nodeDataTwo.put("name", documentElement.getName());
+                nodeDataTwo.put("type", "BASELPARAGRAPH");
+                nodeDataTwo.put("fromFileName", file);
+                nodeDataTwo.put("bodyText", documentElement.getContent());
+                nodeDataTwo.put("elementID", documentElement.getLevelId());
+                lightHouse.createNewVertex(nodeDataTwo);
+                lightHouse.establishEdgeByVertexIDs(s,  documentElement.getLevelId(), "dynamicNodeToParagraph", "dynamicNodeToParagraph");
+            }
+        }
+        return "Ok";
+    }
+
+    public String saveBaselConcepts(String file, JSONObject tocGlossaryMetaData, JSONObject bodyGlossaryMetaData) throws IOException {
+
+        HashMap<String, Set<String>> dataToProcess = taggerTest.startBaselConceptMappingExtractions(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\" + file+".pdf", tocGlossaryMetaData, bodyGlossaryMetaData);
+        JSONObject allConceptNodesDetails = jenaTdbService.getFilteredDataByCompName("ceclBaseNodeDetails","FASB Concept");
+        JSONArray jsonArray = allConceptNodesDetails.getJSONArray("data");
+        Map<String, String> mapofNameURI = new HashMap<String, String>();
+        for (int i=0; i< jsonArray.length(); i++){
+            mapofNameURI.put(jsonArray.getJSONObject(i).getString("name"), jsonArray.getJSONObject(i).getString("link"));
+        }
+        for (String key : dataToProcess.keySet()) {
+            if(null != dataToProcess.get(key)){
+                Map<String, String> nodeData = new HashMap<>();
+                nodeData.put("name", key);
+                nodeData.put("type", "CONCEPT");
+                nodeData.put("subtype", "FASB");
+                nodeData.put("elementID", mapofNameURI.get(key));
+                lightHouse.createNewVertex(nodeData);
+                Set<String> listOfParagraphVertexIDs = dataToProcess.get(key);
+                for (String listOfParagraphVertexID : listOfParagraphVertexIDs) {
+                    lightHouse.establishEdgeByVertexIDs(mapofNameURI.get(key), listOfParagraphVertexID, "conceptToParagraph", "conceptToParagraph");
+                    System.out.println( " || CONNECTION || --- || " +mapofNameURI.get(key) +" + "+ listOfParagraphVertexID);
+                }
+            }
+        }
+
+        return "{status: Saved}";
+
     }
 }
