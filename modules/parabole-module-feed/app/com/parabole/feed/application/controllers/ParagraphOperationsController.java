@@ -314,7 +314,6 @@ public class ParagraphOperationsController extends BaseController{
     }
 
     public Result getRelatedParagraphsByMaxConceptsMatch() {
-
         ArrayList<String> listOfParagraphIDs = new ArrayList<>();
         //return ok(lightHouseService.getRelatedParagraphsByMaxConceptsMatch("basel1-1-1-1-P3", "Part2_Pillar1_2_3_MCR").toString());
         return ok(lightHouseService.getRelatedParagraphsByMaxConceptsMatch("basel3-1-2-P1", "CounterpartyCreditRisk-Consultative-Jul2013").toString());

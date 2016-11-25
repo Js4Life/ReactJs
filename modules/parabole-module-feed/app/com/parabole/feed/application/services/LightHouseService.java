@@ -13,9 +13,13 @@
 // =============================================================================
 package com.parabole.feed.application.services;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Maps;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.parabole.feed.application.global.CCAppConstants;
 import com.parabole.feed.platform.graphdb.LightHouse;
+import com.parabole.feed.platform.utils.AppUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -449,10 +453,11 @@ public class LightHouseService {
 
     public ArrayList<HashMap<String,String>> getRelatedParagraphsByMaxConceptsMatch(String paragraphID, String paragraphFile) {
 
+        Integer paragraphCountsThresHold = Integer.valueOf(AppUtils.getApplicationProperty("paragraphCountsThresHold"));
+        Integer minConceptMatchingThreshold = Integer.valueOf(AppUtils.getApplicationProperty("minConceptMatchingThreshold"));
         HashMap<String, Integer> sortableParagraphExistanceCounts = new HashMap<>();
         ArrayList<String> relatedConcepts = new ArrayList<>();
         ArrayList<String> directlyRelatedConcepts = getRelatedConceptsByParagraphID(paragraphID);
-        directlyRelatedConcepts.add("http://mindparabole.com/finance/fasb_concepts#CreditLoss");
         ArrayList<String> newConceptNames = new ArrayList<>();
         //getRelated()
         for (String directlyRelatedConcept : directlyRelatedConcepts) {
@@ -494,18 +499,35 @@ public class LightHouseService {
             }
         }
 
+        Predicate<Integer> thresholdFilter = new Predicate<Integer>() {
+            public boolean apply(Integer i) {
+                return (i >= minConceptMatchingThreshold);
+            }
+        };
+
+        Map<String, Integer> limitedToThresholdValueMap = Maps.filterValues(sortableParagraphExistanceCounts, thresholdFilter);
+
+
         // in the following operation it will try to get the highest number of concept attached paragraph
 
         if(sortableParagraphExistanceCounts != null && sortableParagraphExistanceCounts.keySet().size() != 0) {
-            Map<String, Integer> sortedParagraphs = sortByValue(sortableParagraphExistanceCounts);
-            String oneParagraph = (String) sortedParagraphs.keySet().toArray()[sortedParagraphs.keySet().size()-1];
             ArrayList<String> paragraphIDs = new ArrayList<>();
-            paragraphIDs.add(oneParagraph);
+            Map<String, Integer> sortedParagraphs = sortByValue(sortableParagraphExistanceCounts);
+            int count = 0;
+            for(int i=sortedParagraphs.size(); i >= 0 ; i--) {
+                String para = (String) sortedParagraphs.keySet().toArray()[i-1];
+                count++;
+                if(count == paragraphCountsThresHold){
+                    i = 0;
+                }
+                paragraphIDs.add(para);
+            }
             return lightHouse.getParagraphsByParagraphIds(paragraphIDs);
         }else{
             return null;
         }
     }
+
 
     public static <K, V extends Comparable<? super V>> Map<K, V>
     sortByValue( Map<K, V> map )
