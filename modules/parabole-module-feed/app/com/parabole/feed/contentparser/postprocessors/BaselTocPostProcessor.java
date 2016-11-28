@@ -202,6 +202,26 @@ public class BaselTocPostProcessor implements IPostProcessor {
     //------------------------------------------------------
     private BaselDocMeta getGlossaryMetadata() {
         BaselDocMeta baselDocMeta = new BaselDocMeta();
+        baselDocMeta.setMetaDocName("bank-document-1");
+        baselDocMeta.setStartPage(2);
+        baselDocMeta.setEndPage(2);
+        baselDocMeta.setStartText("I. Background");
+        baselDocMeta.setEndText("C. Time risk horizon");
+
+        int[] paraSelectorLevels = {1, 2};
+        baselDocMeta.setParagraphSelectorLevel(paraSelectorLevels);
+        baselDocMeta.setParaEndRegEx("[.]{5,}[0-9]{1,}|[.]{5,}|\\d+$");
+
+        Map<Integer, String> levelSelector = new HashMap<>();
+        levelSelector.put(1, "^(I{1,}[a-z]|I{1,}|V{1,}|X{1,}|I{1,}V{1,}|V{1,}I{1,}).");
+        levelSelector.put(2, "^[A-H].");
+
+        baselDocMeta.setLevelSelector(levelSelector);
+
+        return baselDocMeta;
+    }
+    /*private BaselDocMeta getGlossaryMetadata() {
+        BaselDocMeta baselDocMeta = new BaselDocMeta();
         baselDocMeta.setMetaDocName("basel4");
         baselDocMeta.setStartPage(3);
         baselDocMeta.setEndPage(3);
@@ -219,7 +239,7 @@ public class BaselTocPostProcessor implements IPostProcessor {
         baselDocMeta.setLevelSelector(levelSelector);
 
         return baselDocMeta;
-    }
+    }*/
 
 /*    private BaselDocMeta getGlossaryMetadata() {
         BaselDocMeta baselDocMeta = new BaselDocMeta();
