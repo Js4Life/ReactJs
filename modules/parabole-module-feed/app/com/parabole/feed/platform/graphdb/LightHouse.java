@@ -458,6 +458,7 @@ public class LightHouse extends GraphDb {
                                 anotherFinalData.put("type", edge.getVertex(Direction.IN).getProperty("type"));
                                 if(edge.getVertex(Direction.IN).getProperty("type").toString().contains("BASELPARAGRAPH")) {
                                     anotherFinalData.put("bodyText", edge.getVertex(Direction.IN).getProperty("bodyText"));
+                                    anotherFinalData.put("fromFileName", edge.getVertex(Direction.IN).getProperty("fromFileName"));
                                     anotherFinalData.put("tag", edge.getVertex(Direction.IN).getProperty("tag"));
                                 }
                                 listOfFinalData.add(anotherFinalData);
@@ -553,6 +554,7 @@ public class LightHouse extends GraphDb {
                             finalData.put("elementID", edge.getVertex(Direction.IN).getProperty("elementID"));
                             finalData.put("name", edge.getVertex(Direction.IN).getProperty("name"));
                             finalData.put("type", edge.getVertex(Direction.IN).getProperty("type"));
+                            finalData.put("fromFileName", edge.getVertex(Direction.IN).getProperty("fromFileName"));
                             finalData.put("startPage", edge.getVertex(Direction.IN).getProperty("startPage"));
                             finalData.put("endPage", edge.getVertex(Direction.IN).getProperty("endPage"));
                             finalData.put("firstLine", edge.getVertex(Direction.IN).getProperty("firstLine"));

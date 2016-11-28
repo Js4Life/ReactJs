@@ -13,9 +13,15 @@
 // =============================================================================
 package com.parabole.feed.application.services;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Maps;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.parabole.feed.application.global.CCAppConstants;
 import com.parabole.feed.platform.graphdb.LightHouse;
+import com.parabole.feed.platform.utils.AppUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.*;
@@ -34,6 +40,9 @@ public class LightHouseService {
 
     @Inject
     private StarfishServices starfishServices;
+
+    @Inject
+    private JenaTdbService jenaTdbService;
 
    // public String save
 
@@ -444,21 +453,37 @@ public class LightHouseService {
 
     public ArrayList<HashMap<String,String>> getRelatedParagraphsByMaxConceptsMatch(String paragraphID, String paragraphFile) {
 
+        Integer paragraphCountsThresHold = Integer.valueOf(AppUtils.getApplicationProperty("paragraphCountsThresHold"));
+        Integer minConceptMatchingThreshold = Integer.valueOf(AppUtils.getApplicationProperty("minConceptMatchingThreshold"));
         HashMap<String, Integer> sortableParagraphExistanceCounts = new HashMap<>();
-        ArrayList<String> relatedConcepts = getRelatedConceptsByParagraphID(paragraphID);
+        ArrayList<String> relatedConcepts = new ArrayList<>();
+        ArrayList<String> directlyRelatedConcepts = getRelatedConceptsByParagraphID(paragraphID);
+        ArrayList<String> newConceptNames = new ArrayList<>();
+        //getRelated()
+        for (String directlyRelatedConcept : directlyRelatedConcepts) {
+            JSONObject ontoDataRelatedConcepts = jenaTdbService.getFilteredDataByCompName("relatedConcepts", directlyRelatedConcept);
+            JSONArray arrayOfConcepts = ontoDataRelatedConcepts.getJSONArray("data");
+            for (int i = 0; i < arrayOfConcepts.length(); i++) {
+                JSONObject conceptObj = arrayOfConcepts.getJSONObject(i);
+                newConceptNames.add(conceptObj.getString("con"));
+                newConceptNames.add(conceptObj.getString("con2"));
+            }
+        }
+        relatedConcepts.addAll(directlyRelatedConcepts);
+        relatedConcepts.addAll(newConceptNames);
         for (String relatedConcept : relatedConcepts) {
             ArrayList<HashMap<String, String>> paragraphsFromTheConcept = lightHouse.getChildVerticesByRootVertexId(relatedConcept);
             for (HashMap<String, String> paragraphFromTheConcept : paragraphsFromTheConcept) {
                 String elementIDofAParagraph =  new String();
-                if(paragraphFromTheConcept.containsKey("fromFileName")){
-                    if(!paragraphFromTheConcept.get("fromFileName").contains(paragraphFile) && (paragraphFromTheConcept.get("type").contains("BASELPARAGRAPH") || (paragraphFromTheConcept.get("type").contains("PARAGRAPH")))) {
+               /* if(paragraphFromTheConcept.containsKey("fromFileName")){
+                    if(!paragraphFromTheConcept.get("fromFileName").contains(paragraphFile) && paragraphFromTheConcept.get("type").contains("BASELPARAGRAPH") ) {
                         elementIDofAParagraph = paragraphFromTheConcept.get("elementID");
                     }
-                }else{
-                    if(paragraphFromTheConcept.get("type").contains("BASELPARAGRAPH") || paragraphFromTheConcept.get("type").contains("PARAGRAPH") ) {
+               }else{*/
+                    if(paragraphFromTheConcept.get("type").contains("BASELPARAGRAPH")  ) {
                         elementIDofAParagraph = paragraphFromTheConcept.get("elementID");
                     }
-                }
+                //}
 
                 System.out.println("elementIDofAParagraph = " + elementIDofAParagraph);
                 if(!elementIDofAParagraph.equals(paragraphID) && !elementIDofAParagraph.isEmpty() && null != elementIDofAParagraph )
@@ -474,18 +499,35 @@ public class LightHouseService {
             }
         }
 
+        Predicate<Integer> thresholdFilter = new Predicate<Integer>() {
+            public boolean apply(Integer i) {
+                return (i >= minConceptMatchingThreshold);
+            }
+        };
+
+        Map<String, Integer> limitedToThresholdValueMap = Maps.filterValues(sortableParagraphExistanceCounts, thresholdFilter);
+
+
         // in the following operation it will try to get the highest number of concept attached paragraph
 
-        if(sortableParagraphExistanceCounts != null) {
-            Map<String, Integer> sortedParagraphs = sortByValue(sortableParagraphExistanceCounts);
-            String oneParagraph = (String) sortedParagraphs.keySet().toArray()[sortedParagraphs.keySet().size()-1];
+        if(sortableParagraphExistanceCounts != null && sortableParagraphExistanceCounts.keySet().size() != 0) {
             ArrayList<String> paragraphIDs = new ArrayList<>();
-            paragraphIDs.add(oneParagraph);
+            Map<String, Integer> sortedParagraphs = sortByValue(sortableParagraphExistanceCounts);
+            int count = 0;
+            for(int i=sortedParagraphs.size(); i >= 0 ; i--) {
+                String para = (String) sortedParagraphs.keySet().toArray()[i-1];
+                count++;
+                if(count == paragraphCountsThresHold){
+                    i = 0;
+                }
+                paragraphIDs.add(para);
+            }
             return lightHouse.getParagraphsByParagraphIds(paragraphIDs);
         }else{
             return null;
         }
     }
+
 
     public static <K, V extends Comparable<? super V>> Map<K, V>
     sortByValue( Map<K, V> map )

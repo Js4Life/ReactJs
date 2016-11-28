@@ -99,17 +99,17 @@ public class FASBDocIndexBuilder extends AbstractDocBuilder implements IDocIndex
 
     private FASBDocMeta getFASBMetadata() {
         FASBDocMeta fasbDocMeta = new FASBDocMeta();
-        if(this.nFASBDocMetaFromJSON != null){
-            fasbDocMeta.setStartPage(this.nFASBDocMetaFromJSON.getInt("startPage"));
-            fasbDocMeta.setEndPage(this.nFASBDocMetaFromJSON.getInt("endPage"));
+        /*if(this.nFASBDocMetaFromJSON != null){
+            fasbDocMeta.setStartPage(16);
+            fasbDocMeta.setEndPage(219);
             fasbDocMeta.setParaStartRegEx(this.nFASBDocMetaFromJSON.getString("paraStartRegEx"));
             fasbDocMeta.setParaIgnore(this.nFASBDocMetaFromJSON.getString("paraIgnore"));
-        }else{
+        }else{*/
             fasbDocMeta.setStartPage(16);
             fasbDocMeta.setEndPage(Integer.MAX_VALUE);
             fasbDocMeta.setParaStartRegEx("\\w{1,3}[-]\\w{1,3}[-]\\w{1,3}[-]\\w{1,3}");
             fasbDocMeta.setParaIgnore("superseded");
-        }
+        /*}*/
 
         return fasbDocMeta;
     }

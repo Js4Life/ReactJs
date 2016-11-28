@@ -295,5 +295,23 @@
 			"name" : "Seg",
 			"label" : "segmentURI"
 		}]
+	},
+	"relatedConcepts" : {
+		"outputFormat":"hierarchy",
+		"source":"229",
+		"groupByField" : "concept",
+		"columns" :  [{
+			"name" : "concept",
+			"label" : "concept"
+		},{
+			"name" : "ConceptName",
+			"label" : "ConceptName"
+		},{
+			"name" : "con",
+			"label" : "con"
+		},{
+			"name" : "con2",
+			"label" : "con2"
+		}]
 	}
 }

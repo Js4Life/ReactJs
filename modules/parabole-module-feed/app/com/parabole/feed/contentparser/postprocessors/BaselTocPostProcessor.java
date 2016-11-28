@@ -200,7 +200,7 @@ public class BaselTocPostProcessor implements IPostProcessor {
     //------------------------------------------------------
     // For CounterpartyCreditRisk-Standardized-Apr2014
     //------------------------------------------------------
-    private BaselDocMeta getGlossaryMetadata() {
+    /*private BaselDocMeta getGlossaryMetadata() {
         BaselDocMeta baselDocMeta = new BaselDocMeta();
         baselDocMeta.setMetaDocName("bank-document-1");
         baselDocMeta.setStartPage(2);
@@ -264,7 +264,7 @@ public class BaselTocPostProcessor implements IPostProcessor {
         return baselDocMeta;
     }*/
 
-    /*private BaselDocMeta getGlossaryMetadata() {
+    private BaselDocMeta getGlossaryMetadata() {
         BaselDocMeta baselDocMeta = new BaselDocMeta();
         baselDocMeta.setMetaDocName("basel3");
         baselDocMeta.setStartPage(3);
@@ -283,7 +283,7 @@ public class BaselTocPostProcessor implements IPostProcessor {
         baselDocMeta.setLevelSelector(levelSelector);
 
         return baselDocMeta;
-    }*/
+    }
 
     private BaselDocMeta getGlossaryMetadata(JSONObject glossaryMetaData){
         BaselDocMeta baselDocMeta = new BaselDocMeta();
