@@ -1,22 +1,15 @@
 package com.parabole.feed.platform.graphdb;
 
 import com.google.common.collect.Iterables;
-import com.google.common.collect.Iterators;
-import com.orientechnologies.orient.client.remote.OServerAdmin;
-import com.orientechnologies.orient.core.db.document.ODatabaseDocumentTx;
-import com.orientechnologies.orient.core.intent.OIntentMassiveInsert;
-import com.orientechnologies.orient.core.metadata.schema.OClass;
-import com.orientechnologies.orient.core.metadata.schema.OType;
 import com.orientechnologies.orient.core.record.impl.ODocument;
 import com.orientechnologies.orient.core.sql.query.OSQLSynchQuery;
 import com.orientechnologies.orient.object.db.OObjectDatabaseTx;
 import com.parabole.feed.application.global.CCAppConstants;
-import com.parabole.feed.platform.AppConstants;
 import com.parabole.feed.platform.utils.AppUtils;
 import com.tinkerpop.blueprints.*;
 import com.tinkerpop.blueprints.impls.orient.*;
+import com.tinkerpop.gremlin.java.GremlinPipeline;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.Validate;
 
 
 import java.io.IOException;
@@ -615,10 +608,25 @@ public class LightHouse extends GraphDb {
         return componentTypes;
     }
 
-    public void tinkerPop(String paragraphID){
+    public ArrayList<Vertex> getRelatedVerticesByProperty(String KeyName, String keyValue){
+        GremlinPipeline pipe = new GremlinPipeline();
+        ArrayList<String> dataToReturn = new ArrayList<>();
+        ArrayList<Vertex> listOfVertex = new ArrayList<>();
 
+        Vertex temVert;
         Graph g = getGraphConnectionNoTx();
-        g.getVertices("elementID", paragraphID);
+        Iterable vertices = g.getVertices(KeyName, keyValue);
+        if(vertices.iterator().hasNext())
+        {
+            temVert = (Vertex) vertices.iterator().next();
+            GremlinPipeline PathO = pipe.start(temVert).bothE().bothV();
+            List<Vertex> pathList = PathO.toList();
+            for(int i=0; i<pathList.size(); i++){
+                listOfVertex.add(pathList.get(i));
+                System.out.println("listOfVertex = " + listOfVertex);
+            }
+        }
+        return listOfVertex;
     }
 
     public void getConceptsFromParagraphs(String paragraphID, HashMap<String, String> resultantComponentTypes) throws  IOException{

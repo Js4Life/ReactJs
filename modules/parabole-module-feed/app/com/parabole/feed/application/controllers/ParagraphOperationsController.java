@@ -31,6 +31,10 @@ public class ParagraphOperationsController extends BaseController{
     private StarfishServices starfishServices;
 
 
+    public Result tinkerPopTest() {
+        return ok(lightHouseService.tinkerPopTest());
+    }
+
 
     public Result addQuestion() throws AppException, IOException {
 
