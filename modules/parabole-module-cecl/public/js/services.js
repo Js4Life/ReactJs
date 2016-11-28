@@ -1,6 +1,6 @@
 angular.module('RDAApp.services', [])
 
-.factory('SharedService', function($rootScope , $http, $q) {
+.factory('SharedService', function($rootScope , $http, $q, $timeout) {
     var SharedService = {};
     SharedService.ServiceMap = {
         'LoadBaseNodes' : 'getBaseNodes',
@@ -272,7 +272,6 @@ angular.module('RDAApp.services', [])
 
     SharedService.invokeService = function( serviceId , data , method){
         $rootScope.loader = true;
-        //SharedService.sleep(1000);
         var serviceUrl = this.ServiceMap[serviceId];
         var defer = $q.defer();
         if( method == undefined ){
@@ -296,6 +295,44 @@ angular.module('RDAApp.services', [])
                 $rootScope.loader = false;
                 alert('Error in POST Service Call: '+serviceUrl);
             });
+        }
+        return defer.promise;
+    }
+
+    SharedService.invokeAsyncService = function( serviceId , data , method, timeout){
+        var serviceUrl = this.ServiceMap[serviceId];
+        $rootScope.loader = true;
+        var serviceUrl = this.ServiceMap[serviceId];
+        var defer = $q.defer();
+        if( method == undefined ){
+            if( data != undefined ) {
+                serviceUrl += data;
+            }
+            $http.get(serviceUrl).success(function(data) {
+                $rootScope.loader = false;
+                defer.resolve( data );
+            })
+                .error(function(data, status){
+                    $rootScope.loader = false;
+                    alert('Error in GET Service Call: '+serviceUrl);
+                });
+        } else {
+            $http.post(serviceUrl , data).success(function(data) {
+                $rootScope.loader = false;
+                defer.resolve( data );
+            })
+                .error(function(data, status){
+                    $rootScope.loader = false;
+                    alert('Error in POST Service Call: '+serviceUrl);
+                });
+        }
+
+        if(timeout){
+            $timeout(function () {
+                $rootScope.loader = false;
+                var res = {status: true};
+                defer.resolve( res );
+            }, timeout);
         }
         return defer.promise;
     }
@@ -761,7 +798,7 @@ angular.module('RDAApp.services', [])
     }
     SharedService.saveOrUpdateCheckList = function (checklistItem) {
         var sendObj = {"checklistItem": checklistItem};
-        return SharedService.invokeService('SaveOrUpdateCheckList', sendObj, 'post');
+        return SharedService.invokeAsyncService('SaveOrUpdateCheckList', sendObj, 'post', 10000);
     }
     SharedService.getChecklistsByParagraphIds = function (paraIds) {
         var sendObj = {"paraIds": paraIds};
