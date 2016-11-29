@@ -81,6 +81,10 @@ public class CCAppConstants extends AppConstants {
     public static final String FEED_JSON_PATH = "feedJson/";
 
 
+    public static final String FASB = "CECLConcept";
+    public static final String BASEL = "Basel IV Glossary";
+
+
     public static enum ExcelFormat {
         XLS, XLSX, CSV
     }
@@ -92,4 +96,5 @@ public class CCAppConstants extends AppConstants {
     public static enum FileFormat {
         XLS, XLSX, CSV, DOC, DOCX, TXT
     }
+
 }

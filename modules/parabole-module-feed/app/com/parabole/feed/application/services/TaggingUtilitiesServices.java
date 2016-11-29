@@ -112,21 +112,27 @@ public class TaggingUtilitiesServices {
         HashMap<String, Set<String>> dataToProcess = taggerTest.startBaselConceptMappingExtractions(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\"+file+".pdf");
         JSONObject allConceptNodesDetails = jenaTdbService.getFilteredDataByCompName("ceclBaseNodeDetails","FASB Concept");
         JSONArray jsonArray = allConceptNodesDetails.getJSONArray("data");
-        Map<String, String> mapofNameURI = new HashMap<String, String>();
+        Map<String, Map<String, String>> mapofNameURI = new HashMap<>();
         for (int i=0; i< jsonArray.length(); i++){
-            mapofNameURI.put(jsonArray.getJSONObject(i).getString("name"), jsonArray.getJSONObject(i).getString("link"));
+            Map<String, String> values = new HashMap<>();
+            values.put("uri", jsonArray.getJSONObject(i).getString("link"));
+            values.put("type", jsonArray.getJSONObject(i).getString("type"));
+            mapofNameURI.put(jsonArray.getJSONObject(i).getString("name"), values);
         }
         for (String key : dataToProcess.keySet()) {
            if(null != dataToProcess.get(key)){
                Map<String, String> nodeData = new HashMap<>();
                nodeData.put("name", key);
                nodeData.put("type", "CONCEPT");
-               nodeData.put("subtype", "FASB");
-               nodeData.put("elementID", mapofNameURI.get(key));
+               String conceptType = "FASB";
+               if(mapofNameURI.get(key).get("type").equalsIgnoreCase(CCAppConstants.BASEL))
+                   conceptType = "BASEL";
+               nodeData.put("subtype", conceptType);
+               nodeData.put("elementID", mapofNameURI.get(key).get("uri"));
                lightHouse.createNewVertex(nodeData);
                Set<String> listOfParagraphVertexIDs = dataToProcess.get(key);
                for (String listOfParagraphVertexID : listOfParagraphVertexIDs) {
-                   lightHouse.establishEdgeByVertexIDs(mapofNameURI.get(key), listOfParagraphVertexID, "conceptToParagraph", "conceptToParagraph");
+                   lightHouse.establishEdgeByVertexIDs(mapofNameURI.get(key).get("uri"), listOfParagraphVertexID, "conceptToParagraph", "conceptToParagraph");
                    System.out.println( " || CONNECTION || --- || " +mapofNameURI.get(key) +" + "+ listOfParagraphVertexID);
                }
            }
