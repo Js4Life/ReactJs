@@ -118,4 +118,9 @@ public class FeedController extends BaseController{
         final String resultData = taggingUtilitiesServices.getAllParagraphInTextFile(fileType);
         return ok(resultData);
     }
+
+    public Result getFeedFileNames() throws Exception {
+        final String resultData = documentCfgService.getFeedFileNames().toString();
+        return ok(resultData);
+    }
 }

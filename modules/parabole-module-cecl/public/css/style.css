@@ -2103,6 +2103,26 @@ li.list-group-item.puff{
     left: 10px;
 }
 
+.fasb-ribbon{
+    width: 70px;
+    height: 20px;
+    background: url(../images/fasb.png) no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+    top: 5px;
+    left: 10px;
+}
+
+.basel-ribbon{
+    width: 70px;
+    height: 20px;
+    background: url(../images/basel.png) no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+    top: 5px;
+    left: 10px;
+}
+
 .corner-green{
   width: 37px;
   height: 37px;
@@ -2534,6 +2554,13 @@ li.list-group-item.puff{
   }
   .doc-card-img:hover{
       opacity: 1;
+  }
+
+  .doc-ribbon{
+      width: 80%;
+      position: absolute;
+      top: 62%;
+      left: 10%;
   }
 
   .para-bottom-tile{

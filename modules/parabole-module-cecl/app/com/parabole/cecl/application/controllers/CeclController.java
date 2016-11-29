@@ -9,10 +9,7 @@ import com.parabole.cecl.application.exceptions.AppException;
 import com.parabole.cecl.application.global.CCAppConstants;
 import com.parabole.cecl.application.services.JenaTdbService;
 import com.parabole.cecl.application.utils.BodyParserMaxLength;
-import com.parabole.feed.application.services.CheckListServices;
-import com.parabole.feed.application.services.LightHouseService;
-import com.parabole.feed.application.services.OctopusSemanticService;
-import com.parabole.feed.application.services.TaggingUtilitiesServices;
+import com.parabole.feed.application.services.*;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -40,6 +37,12 @@ public class CeclController extends Controller{
 
     @Inject
     LightHouseService lightHouseService;
+
+    @Inject
+    DocumentCfgService documentCfgService;
+
+    @Inject
+    CoralConfigurationService coralConfigurationService;
 
     @BodyParser.Of(BodyParser.Json.class)
     public Result getFilteredDataByCompName() throws AppException, JSONException {
@@ -1077,7 +1080,7 @@ public class CeclController extends Controller{
         Boolean status = true;
         String data = null;
         try {
-            HashSet<String> res = lightHouseService.getAllDocFileNamesByType(type);
+            List<Map<String, String>> res = lightHouseService.getAllDocFileNamesByType(type);
             ObjectMapper mapper = new ObjectMapper();
             data = mapper.writeValueAsString(res);
         } catch (Exception e){
@@ -1085,6 +1088,103 @@ public class CeclController extends Controller{
             e.printStackTrace();
         }
         finalJson.put("status", status).put("data", data);
+        return ok(finalJson.toString());
+    }
+
+    public Result getAllFeedFiles() {
+        JSONObject finalJson = new JSONObject();
+        Boolean status = true;
+        String data = null;
+        try {
+            List<HashMap<String, String>> res = documentCfgService.getFeedFileNames();
+            ObjectMapper mapper = new ObjectMapper();
+            data = mapper.writeValueAsString(res);
+        } catch (Exception e){
+            status = false;
+            e.printStackTrace();
+        }
+        finalJson.put("status", status).put("data", data);
+        return ok(finalJson.toString());
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result getDocumentConfigById() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final String id = request.getString("id");
+
+        JSONObject finalJson = new JSONObject();
+        Boolean status = true;
+        String data = null;
+        try {
+            final String userId = session().get(CCAppConstants.USER_ID);
+            List<Map<String, String>> res = coralConfigurationService.getConfigurationByName(userId, id);
+            ObjectMapper mapper = new ObjectMapper();
+            data = mapper.writeValueAsString(res);
+        } catch (Exception e){
+            status = false;
+            e.printStackTrace();
+        }
+        finalJson.put("status", status).put("data", data);
+        return ok(finalJson.toString());
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result saveDocumentConfig() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final JSONObject fileConfig = request.getJSONObject("fileConfig");
+        JSONObject finalJson = new JSONObject();
+        Boolean status = true;
+        Integer data = null;
+        try {
+            final String userId = session().get(CCAppConstants.USER_ID);
+            data = coralConfigurationService.saveConfiguration(userId, CCAppConstants.ConfigurationType.ACCOUNTING_DOCUMENT.toString(), fileConfig.getString("name"), fileConfig.toString());
+        } catch (Exception e){
+            status = false;
+            e.printStackTrace();
+        }
+        finalJson.put("status", status).put("data", data);
+        return ok(finalJson.toString());
+    }
+
+    @BodyParser.Of(BodyParserMaxLength.class)
+    public Result writeDocument() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final String fileName = request.getString("name");
+        final String fileData = request.getString("data");
+        JSONObject finalJson = new JSONObject();
+        Boolean status = true;
+        try {
+            status = documentCfgService.uploadFeedFile(fileName, fileData);
+        } catch (Exception e){
+            status = false;
+            e.printStackTrace();
+        }
+        finalJson.put("status", status);
+        return ok(finalJson.toString());
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result runConfig() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final String fileName = request.getString("name");
+        final String regulation = request.getString("type");
+        final JSONObject toc = request.getJSONObject("toc");
+        final JSONObject body = request.getJSONObject("body");
+        JSONObject finalJson = new JSONObject();
+        Boolean status = true;
+        try {
+            taggingUtilitiesServices.saveBaselTopicToSubtopic(fileName, toc);
+            taggingUtilitiesServices.saveParagraphsAndAssociateItWithBaselSubTopic(fileName, toc, body);
+            taggingUtilitiesServices.saveBaselConcepts(fileName, toc, body);
+        } catch (Exception e){
+            status = false;
+            e.printStackTrace();
+        }
+        finalJson.put("status", status);
         return ok(finalJson.toString());
     }
 }

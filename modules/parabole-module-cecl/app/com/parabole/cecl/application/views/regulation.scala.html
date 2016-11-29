@@ -1,6 +1,32 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <b>{{heading.title}}</b>
+    <div ng-if="regulationFiles" class="btn-group btn-group-xs pull-right margin-right-5" data-toggle="buttons">
+      <label class="btn btn-primary" ng-click="setGenre('all')" tooltip='"title":"All"'>
+        <input type="radio" name="options" id="option1" autocomplete="off"> <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+      </label>
+      <label class="btn" ng-click="setGenre('credit-risk')" tooltip='"title":"Credit risk"' style="background: #00a99d;">
+        <input type="radio" name="options" id="option2" autocomplete="off"> <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+      </label>
+      <label class="btn" ng-click="setGenre('counterparty-credit-risk')" tooltip='"title":"Counterparty Credit risk"' style="background: #14346e;color: #FFFFFF;">
+        <input type="radio" name="options" id="option3" autocomplete="off"> <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+      </label>
+      <label class="btn btn-warning" ng-click="setGenre('market-risk')" tooltip='"title":"Market risk"'>
+        <input type="radio" name="options" id="option4" autocomplete="off"> <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+      </label>
+      <label class="btn" ng-click="setGenre('operational-risk')" tooltip='"title":"Operational risk"' style="background: #e20111;">
+        <input type="radio" name="options" id="option5" autocomplete="off"> <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+      </label>
+      <label class="btn" ng-click="setGenre('liquidity-risk')" tooltip='"title":"Liquidity risk"' style="background: #107403;color: #FFFFFF;">
+        <input type="radio" name="options" id="option6" autocomplete="off"> <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+      </label>
+      <label class="btn" ng-click="setGenre('capital')" tooltip='"title":"Capital"' style="background: yellow;">
+        <input type="radio" name="options" id="option7" autocomplete="off"> <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+      </label>
+      <label class="btn" ng-click="setGenre('accounting-principles')" tooltip='"title":"Accounting Principles"' style="background: #424240;color: #FFFFFF;">
+        <input type="radio" name="options" id="option8" autocomplete="off"> <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+      </label>
+    </div>
   </div>
   <div class="panel-body" style="height:81vh;overflow: auto;">
     <div ng-if="!regulationFiles">
@@ -14,12 +40,13 @@
       </div>
     </div>
     <div ng-if="regulationFiles">
-      <div class="col-md-2" ng-repeat="reg in regulationFiles">
-        <div class="panel panel-default pointer" style="box-shadow: 1px 2px 7px #d8d8d8;" ng-click="loadFileBasedRegulation(reg)">
+      <div class="col-md-2" ng-repeat="reg in regulationFiles" ng-if="currentGenre === reg.genre || currentGenre === 'all'">
+        <div class="panel panel-default pointer" style="box-shadow: 1px 2px 7px #d8d8d8;" ng-click="loadFileBasedRegulation(reg.name)">
           <div class="panel-body" style="padding:45px;">
             <img class="img-responsive width-auto doc-card-img" src="ceclassets/images/regulation_file.png"/>
+            <img class="doc-ribbon" ng-src="ceclassets/images/{{reg.genre}}.png"/>
           </div>
-          <div class="panel-footer ellipsis-text pointer" tooltip='"title":"{{reg}}"'>{{reg}}</div>
+          <div class="panel-footer ellipsis-text pointer" tooltip='"title":"{{reg.name}}"'>{{reg.name}}</div>
         </div>
       </div>
     </div>

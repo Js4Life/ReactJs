@@ -1,6 +1,6 @@
 angular.module('RDAApp.services', [])
 
-.factory('SharedService', function($rootScope , $http, $q) {
+.factory('SharedService', function($rootScope , $http, $q, $timeout) {
     var SharedService = {};
     SharedService.ServiceMap = {
         'LoadBaseNodes' : 'getBaseNodes',
@@ -124,7 +124,13 @@ angular.module('RDAApp.services', [])
         'GetBaselParagraphsBySectionId' : 'getBaselParagraphsBySectionId',
         'GetBaselSectionsBySubtopicId' : 'getBaselSectionsBySubtopicId',
         'GetBaselSubtopicsByTopicId' : 'getBaselSubtopicsByTopicId',
-        'GetAllDocFileNamesByType' : 'getAllDocFileNamesByType'
+        'GetAllDocFileNamesByType' : 'getAllDocFileNamesByType',
+
+        'GetAllFeedFiles' : 'getAllFeedFiles',
+        'GetDocumentConfigById' : 'getDocumentConfigById',
+        'SaveDocumentConfig' : 'saveDocumentConfig',
+        'WriteDocument' : 'writeDocument',
+        'RunConfig' : 'runConfig'
     };
     SharedService.chartDataMap = {
         '0' : 'getHardCodedResponse/chartData1',
@@ -266,7 +272,6 @@ angular.module('RDAApp.services', [])
 
     SharedService.invokeService = function( serviceId , data , method){
         $rootScope.loader = true;
-        //SharedService.sleep(1000);
         var serviceUrl = this.ServiceMap[serviceId];
         var defer = $q.defer();
         if( method == undefined ){
@@ -290,6 +295,44 @@ angular.module('RDAApp.services', [])
                 $rootScope.loader = false;
                 alert('Error in POST Service Call: '+serviceUrl);
             });
+        }
+        return defer.promise;
+    }
+
+    SharedService.invokeAsyncService = function( serviceId , data , method, timeout){
+        var serviceUrl = this.ServiceMap[serviceId];
+        $rootScope.loader = true;
+        var serviceUrl = this.ServiceMap[serviceId];
+        var defer = $q.defer();
+        if( method == undefined ){
+            if( data != undefined ) {
+                serviceUrl += data;
+            }
+            $http.get(serviceUrl).success(function(data) {
+                $rootScope.loader = false;
+                defer.resolve( data );
+            })
+                .error(function(data, status){
+                    $rootScope.loader = false;
+                    alert('Error in GET Service Call: '+serviceUrl);
+                });
+        } else {
+            $http.post(serviceUrl , data).success(function(data) {
+                $rootScope.loader = false;
+                defer.resolve( data );
+            })
+                .error(function(data, status){
+                    $rootScope.loader = false;
+                    alert('Error in POST Service Call: '+serviceUrl);
+                });
+        }
+
+        if(timeout){
+            $timeout(function () {
+                $rootScope.loader = false;
+                var res = {status: true};
+                defer.resolve( res );
+            }, timeout);
         }
         return defer.promise;
     }
@@ -755,7 +798,7 @@ angular.module('RDAApp.services', [])
     }
     SharedService.saveOrUpdateCheckList = function (checklistItem) {
         var sendObj = {"checklistItem": checklistItem};
-        return SharedService.invokeService('SaveOrUpdateCheckList', sendObj, 'post');
+        return SharedService.invokeAsyncService('SaveOrUpdateCheckList', sendObj, 'post', 10000);
     }
     SharedService.getChecklistsByParagraphIds = function (paraIds) {
         var sendObj = {"paraIds": paraIds};
@@ -873,6 +916,24 @@ angular.module('RDAApp.services', [])
     SharedService.getAllDocFileNamesByType = function (type) {
         var sendObj = {"type": type};
         return SharedService.invokeService('GetAllDocFileNamesByType', sendObj, 'post');
+    }
+
+    SharedService.getAllFeedFiles = function () {
+        return SharedService.invokeService('GetAllFeedFiles');
+    }
+    SharedService.getDocumentConfigById = function (id) {
+        var sendObj = {"id": id};
+        return SharedService.invokeService('GetDocumentConfigById', sendObj, 'post');
+    }
+    SharedService.saveDocumentConfig = function (fileConfig) {
+        var sendObj = {"fileConfig": fileConfig};
+        return SharedService.invokeService('SaveDocumentConfig', sendObj, 'post');
+    }
+    SharedService.writeDocument = function (fileConfig) {
+        return SharedService.invokeService('WriteDocument', fileConfig, 'post');
+    }
+    SharedService.runConfig = function (fileConfig) {
+        return SharedService.invokeService('RunConfig', fileConfig, 'post');
     }
 
     return SharedService;
@@ -1777,6 +1838,16 @@ angular.module('RDAApp.services', [])
     ];
 
     MockService.ParaTagOptions = ["Rule", "Information", "Explanation"];
+
+    MockService.documentGenres = [
+        {"id": "credit-risk", "name": "Credit Risk"},
+        {"id": "counterparty-credit-risk", "name": "Counterparty Credit Risk"},
+        {"id": "market-risk", "name": "Market Risk"},
+        {"id": "operational-risk", "name": "Operational Risk"},
+        {"id": "liquidity-risk", "name": "Liquidity Risk"},
+        {"id": "capital", "name": "Capital"},
+        {"id": "accounting-principles", "name": "Accounting Principles"}
+    ];
 
     MockService.CeclChildNodeDetails = {
         "Amortized Cost Basis" : "The amortized cost basis is the amount at which a financing receivable or investment is originated or acquired, adjusted for applicable accrued interest, accretion, or amortization of premium, discount, and net deferred fees or costs, collection of cash,  writeoffs, foreign exchange, and fair value hedge accounting adjustments",

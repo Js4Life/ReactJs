@@ -120,3 +120,8 @@ GET /tinkerPopTest                                com.parabole.feed.application.
 
 # Map static resources from the /public folder to the /assets URL path
 GET      /feedassets/*file                              controllers.Assets.at(path="/public/lib/parabole-module-feed", file)
+
+#---------------------------------------
+## Document Upload Operation Test
+#---------------------------------------
+GET /getFeedFileNames                                   com.parabole.feed.application.controllers.FeedController.getFeedFileNames()

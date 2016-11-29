@@ -2,39 +2,59 @@
   <div class="panel-heading">
     <b>Document Uploader</b>
   </div>
-  <div class="panel-body" style="height: 80vh;">
-    <div class="col-xs-8">
+  <div class="panel-body zero-padding" style="height: 82vh;">
+    <div class="col-xs-4 padding-15 max-height" style="border-right: 1px solid #e5e5e5;">
+      <div class="row-fluid" style="padding-bottom: 2vh;">
+        <div ngf-drop ngf-select ng-model="file" class="drop-box" ngf-drag-over-class="'dragover'" ngf-multiple="false" ngf-allow-dir="false" accept="image/*,application/*,text/plain" ngf-pattern="'image/*,application/*,text/plain'" style="height:29vh;">Drop file or here or click to upload</div>
+        <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+      </div>
+      <div class="row-fluid">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <b>Uploaded Documents</b>
+          </div>
+          <div class="panel-body zero-padding" style="height: 40vh;overflow: auto;">
+            <table class="table table-condensed table-hover">
+              <tr class="pointer" ng-repeat="file in uploadedFiles" ng-click="getConfig(file.id)">
+                <td>{{$index+1}}.</td><td>{{file.name}}</td><td><i class="fa fa-chevron-right pull-right" aria-hidden="true"></i></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-8 padding-15" style="max-height: 82vh;overflow: auto;">
       <form class="form-horizontal">
         <div class="form-group">
-          <label class="col-sm-3 control-label">File Configuration</label>
+          <label class="col-sm-3 control-label">Regulation</label>
           <div class="col-sm-9">
-            <select class="form-control"></select>
+            <select class="form-control" ng-model="fileConfig.type" ng-options="r.name as r.name for r in regulations"></select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">Genre</label>
+          <div class="col-sm-9">
+            <select class="form-control" ng-model="fileConfig.genre" ng-options="r.id as r.name for r in documentGenres"></select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">Name</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" placeholder="Document name (without space)" ng-model="fileConfig.name" disabled>
           </div>
         </div>
       </form>
       <div class="bs-docs-section">
-        <h4 class="page-header">Table of content</h4>
+        <h4 class="page-header">Table of Content</h4>
         <form class="form-horizontal">
-          <div class="form-group">
-            <label class="col-sm-3 control-label">Name</label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control" placeholder="Document name (without space)">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-3 control-label">Config Id</label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control" placeholder="Configuration name (without space)">
-            </div>
-          </div>
           <div class="form-group">
             <label class="col-sm-3 control-label">Page Limit</label>
             <div class="col-sm-9 zero-padding">
               <div class="col-sm-6">
-                <input type="number" class="form-control" placeholder="From">
+                <input type="number" class="form-control" placeholder="From" ng-model="fileConfig.toc.fromPage">
               </div>
               <div class="col-sm-6">
-                <input type="number" class="form-control" placeholder="To">
+                <input type="number" class="form-control" placeholder="To" ng-model="fileConfig.toc.toPage">
               </div>
             </div>
           </div>
@@ -42,47 +62,71 @@
             <label class="col-sm-3 control-label">Text Limit</label>
             <div class="col-sm-9 zero-padding">
               <div class="col-sm-6">
-                <input type="text" class="form-control" placeholder="From">
+                <input type="text" class="form-control" placeholder="From" ng-model="fileConfig.toc.fromText">
               </div>
               <div class="col-sm-6">
-                <input type="text" class="form-control" placeholder="To">
+                <input type="text" class="form-control" placeholder="To" ng-model="fileConfig.toc.toText">
               </div>
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-3 control-label">Text Limit</label>
+            <label class="col-sm-3 control-label">Level Id Prefix</label>
             <div class="col-sm-9">
-              <label class="checkbox-inline">
-                <input type="checkbox" id="inlineCheckbox1" value="1"> 1
-              </label>
-              <label class="checkbox-inline">
-                <input type="checkbox" id="inlineCheckbox2" value="2"> 2
-              </label>
-              <label class="checkbox-inline">
-                <input type="checkbox" id="inlineCheckbox3" value="3"> 3
-              </label>
-              <label class="checkbox-inline">
-                <input type="checkbox" id="inlineCheckbox3" value="4"> 4
+              <input type="text" class="form-control" placeholder="Level id prefix (without space)" ng-model="fileConfig.toc.levelIdPrefix" disabled>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Para End Regex</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" placeholder="Paragraph end regex" ng-model="fileConfig.toc.paraEndRegex">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Level Regex</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" placeholder="Regex for level {{l.level}}" ng-repeat="l in fileConfig.toc.levels" ng-model="l.regex" style="margin-bottom: 10px;">
+              <input type="button" class="btn btn-default btn-sm max-width" value="Add" ng-click="addLevel()">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Para Insertion Level</label>
+            <div class="col-sm-9">
+              <label class="checkbox-inline" ng-repeat="l in fileConfig.toc.levels">
+                <input type="checkbox" ng-value="l.level" ng-model="l.hasPara"> {{l.level}}
               </label>
             </div>
           </div>
         </form>
       </div>
-    </div>
-    <div class="col-xs-4">
-      <div class="row zero-padding">
-        <div ngf-drop ngf-select ng-model="file" class="drop-box" ngf-drag-over-class="'dragover'" ngf-multiple="false" ngf-allow-dir="false" accept="image/*,application/*,text/plain" ngf-pattern="'image/*,application/*,text/plain'" style="height:30vh;">Drop file or here or click to upload</div>
-        <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
-      </div>
-      <div class="row zero-padding">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <b>Uploaded Documents</b>
+      <div class="bs-docs-section">
+        <h4 class="page-header">Body of Content</h4>
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Page Limit</label>
+            <div class="col-sm-9 zero-padding">
+              <div class="col-sm-6">
+                <input type="number" class="form-control" placeholder="From" ng-model="fileConfig.body.fromPage">
+              </div>
+              <div class="col-sm-6">
+                <input type="number" class="form-control" placeholder="To" ng-model="fileConfig.body.toPage">
+              </div>
+            </div>
           </div>
-          <div class="panel-body zero-padding" style="height: 40vh;">
-
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Font Size</label>
+            <div class="col-sm-9">
+              <input type="number" class="form-control" placeholder="Paragraph font size" ng-model="fileConfig.body.fontSize">
+            </div>
           </div>
-        </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Para Start regex</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" placeholder="Regex for paragraph start" ng-model="fileConfig.body.paraStartRegex">
+            </div>
+          </div>
+          <input type="button" class="btn btn-default pull-right" value="Save" ng-click="saveConfig()">
+          <input type="button" class="btn btn-default pull-right margin-right-10" value="Run" ng-click="runConfig()">
+        </form>
       </div>
     </div>
   </div>
