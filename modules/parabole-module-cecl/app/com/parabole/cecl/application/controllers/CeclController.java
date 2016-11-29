@@ -1080,7 +1080,7 @@ public class CeclController extends Controller{
         Boolean status = true;
         String data = null;
         try {
-            HashSet<String> res = lightHouseService.getAllDocFileNamesByType(type);
+            List<Map<String, String>> res = lightHouseService.getAllDocFileNamesByType(type);
             ObjectMapper mapper = new ObjectMapper();
             data = mapper.writeValueAsString(res);
         } catch (Exception e){

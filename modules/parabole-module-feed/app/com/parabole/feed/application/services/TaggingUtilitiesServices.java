@@ -793,6 +793,7 @@ public class TaggingUtilitiesServices {
         fileTypeNode.put("name", file);
         fileTypeNode.put("type", "FILE");
         fileTypeNode.put("elementID", file);
+        fileTypeNode.put("genre", glossaryMetaData.getString("genre"));
         lightHouse.createNewVertex(fileTypeNode);
         lightHouse.establishEdgeByVertexIDs("BASELCFR", file, "BASELCFRTOFILE", "BASELCFRTOFILE");
 

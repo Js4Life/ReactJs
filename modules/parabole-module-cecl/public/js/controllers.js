@@ -682,6 +682,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$scope.heading = {"title": "Regulations"};
 		SharedService.homeBreads = [];
 		$scope.regulationFiles = null;
+		$scope.currentGenre = 'all';
 		SharedService.getRegulations().then(function (data) {
 			if(data.status){
 				$scope.regulations = data.data;
@@ -711,6 +712,10 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		SharedService.regulationFileName = fileName;
 		SharedService.hideAllToolTips();
 		$state.go('landing.homeContainer');
+	}
+
+	$scope.setGenre = function (genre) {
+		$scope.currentGenre = genre;
 	}
 
 	$scope.initialize();
@@ -1573,9 +1578,10 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.initialize();
 })
 
-.controller('documentUploaderCtrl', function ($scope, $state, Upload, SharedService) {
+.controller('documentUploaderCtrl', function ($scope, $state, Upload, SharedService, MockService) {
 	$scope.initialize = function(){
 		$scope.fileConfig = {toc:{levels: []}, body:{}};
+		$scope.documentGenres = MockService.documentGenres;
 		SharedService.getRegulations().then(function (data) {
 			if(data.status){
 				$scope.regulations = data.data;

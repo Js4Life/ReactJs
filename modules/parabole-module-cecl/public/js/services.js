@@ -1839,6 +1839,16 @@ angular.module('RDAApp.services', [])
 
     MockService.ParaTagOptions = ["Rule", "Information", "Explanation"];
 
+    MockService.documentGenres = [
+        {"id": "credit-risk", "name": "Credit Risk"},
+        {"id": "counterparty-credit-risk", "name": "Counterparty Credit Risk"},
+        {"id": "market-risk", "name": "Market Risk"},
+        {"id": "operational-risk", "name": "Operational Risk"},
+        {"id": "liquidity-risk", "name": "Liquidity Risk"},
+        {"id": "capital", "name": "Capital"},
+        {"id": "accounting-principles", "name": "Accounting Principles"}
+    ];
+
     MockService.CeclChildNodeDetails = {
         "Amortized Cost Basis" : "The amortized cost basis is the amount at which a financing receivable or investment is originated or acquired, adjusted for applicable accrued interest, accretion, or amortization of premium, discount, and net deferred fees or costs, collection of cash,  writeoffs, foreign exchange, and fair value hedge accounting adjustments",
         "Effective Interest Rate" : "The rate of return implicit in the financial asset, that is, the contractual interest rate adjusted for any net deferred fees or costs, premium, or discount existing at the origination or acquisition of the financial asset",

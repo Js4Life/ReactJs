@@ -560,11 +560,14 @@ public class LightHouseService {
         return relatedConcepts;
     }
 
-    public HashSet<String> getAllDocFileNamesByType(String fType) throws IOException {
-        HashSet<String> allFileNames = new HashSet<>();
+    public List<Map<String, String>> getAllDocFileNamesByType(String fType) throws IOException {
+        List<Map<String, String>> allFileNames = new ArrayList<>();
         ArrayList<HashMap<String, String>> allFilesWithAllProperties = lightHouse.getVertexByProperty("type", fType);
         for (HashMap<String, String> allFilesWithAllProperty : allFilesWithAllProperties) {
-            allFileNames.add(allFilesWithAllProperty.get("name"));
+            Map<String, String> aFile = new HashMap<>();
+            aFile.put("name", allFilesWithAllProperty.get("name"));
+            aFile.put("genre", allFilesWithAllProperty.get("genre"));
+            allFileNames.add(aFile);
         }
 
         return allFileNames;

@@ -32,6 +32,12 @@
           </div>
         </div>
         <div class="form-group">
+          <label class="col-sm-3 control-label">Genre</label>
+          <div class="col-sm-9">
+            <select class="form-control" ng-model="fileConfig.genre" ng-options="r.id as r.name for r in documentGenres"></select>
+          </div>
+        </div>
+        <div class="form-group">
           <label class="col-sm-3 control-label">Name</label>
           <div class="col-sm-9">
             <input type="text" class="form-control" placeholder="Document name (without space)" ng-model="fileConfig.name" disabled>
