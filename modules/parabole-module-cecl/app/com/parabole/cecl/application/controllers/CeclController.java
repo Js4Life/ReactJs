@@ -1172,7 +1172,9 @@ public class CeclController extends Controller{
         final JSONObject request = new JSONObject(json);
         final String fileName = request.getString("name");
         final String regulation = request.getString("type");
+        final String genre = request.getString("genre");
         final JSONObject toc = request.getJSONObject("toc");
+        toc.put("genre", genre);
         final JSONObject body = request.getJSONObject("body");
         JSONObject finalJson = new JSONObject();
         Boolean status = true;
