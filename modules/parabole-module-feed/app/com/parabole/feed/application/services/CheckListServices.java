@@ -5,6 +5,7 @@ import com.parabole.feed.application.exceptions.AppException;
 import com.parabole.feed.application.utils.AppUtils;
 import com.parabole.feed.platform.graphdb.LightHouse;
 import com.parabole.feed.platform.graphdb.StarFish;
+import com.tinkerpop.blueprints.Vertex;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import play.Environment;
@@ -396,7 +397,7 @@ public class CheckListServices {
         return "Saved";
     }
 
-    public String saveOrUpdateCheckList(HashMap<String, Object> toSave, HashMap<String, Boolean> paragraphIDs, HashMap<String, Boolean> componentTypeIDs) {
+    public String saveOrUpdateCheckListOld(HashMap<String, Object> toSave, HashMap<String, Boolean> paragraphIDs, HashMap<String, Boolean> componentTypeIDs) {
 
         if(toSave.get("DATA_ID") == null || toSave.get("DATA_ID").toString().trim().isEmpty()) {
             toSave.put("DATA_ID", getUniqueID());
@@ -471,6 +472,73 @@ public class CheckListServices {
                     }
                 } else {
                     lightHouse.deleteEdgeByVertexIDs(k, toSave.get("DATA_ID").toString());
+                }
+            });
+            result = toSave.get("DATA_ID").toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+
+    }
+
+    public String saveOrUpdateCheckList(HashMap<String, Object> toSave, HashMap<String, Boolean> paragraphIDs, HashMap<String, Boolean> componentTypeIDs) {
+
+        if(toSave.get("DATA_ID") == null || toSave.get("DATA_ID").toString().trim().isEmpty()) {
+            toSave.put("DATA_ID", getUniqueID());
+            toSave.put("CREATED_BY", session().get("USER_ID"));
+            toSave.put("CREATED_AT", new Date());
+        }
+        toSave.put("UPDATED_BY", session().get("USER_ID"));
+        toSave.put("UPDATED_AT", new Date());
+        String result = null;
+        try {
+            Map<String, String> nodeData = new HashMap<>();
+            nodeData.put("name", toSave.get("DATA_ID").toString());
+            nodeData.put("type", "CHECKLIST");
+            nodeData.put("elementID", toSave.get("DATA_ID").toString());
+            lightHouse.createNewVertex(nodeData);
+            starFish.saveOrUpdateCheckList(toSave);
+
+            paragraphIDs.forEach((String k, Boolean v)->{
+                if(v){
+                    String toSaveNode = toSave.get("DATA_ID").toString();
+                    lightHouse.establishEdgeByVertexIDs(k, toSaveNode, "paragraphToChecklist", "paragraphToChecklist");
+                    // get TOPIC SUBTOPIC SECTION
+                    ArrayList<Vertex> relatedVertices = lightHouse.getRelatedVerticesByProperty("elementID", k);
+                    for (Vertex relatedVertex : relatedVertices) {
+                        if(relatedVertex.getProperty("type").toString().equals("TOPIC"))
+                            lightHouse.establishEdgeByVertexIDs(relatedVertex.getProperty("type").toString(), toSaveNode, "topicToChecklist", "topicToChecklist");
+
+                        if(relatedVertex.getProperty("type").toString().equals("SUBTOPIC"))
+                            lightHouse.establishEdgeByVertexIDs(relatedVertex.getProperty("type").toString(), toSaveNode, "subTopicToChecklist", "subTopicToChecklist");
+
+                        if(relatedVertex.getProperty("type").toString().equals("SECTION"))
+                            lightHouse.establishEdgeByVertexIDs(relatedVertex.getProperty("type").toString(), toSaveNode, "sectionToChecklist", "sectionToChecklist");
+                    }
+                } else {
+                    lightHouse.deleteEdgeByVertexIDs(k, toSave.get("DATA_ID").toString());
+                }
+            });
+
+            componentTypeIDs.forEach((String l, Boolean v)->{
+                if(v){
+                    String toSaveNode = toSave.get("DATA_ID").toString();
+                    lightHouse.establishEdgeByVertexIDs(l, toSaveNode, "componentTypeToChecklist", "componentTypeToChecklist");
+                    //---------------------------------------------------------------------------
+                    System.out.println("Adding checklist to the components Directly ");
+                    //---------------------------------------------------------------------------
+                    ArrayList<Vertex> relatedVertices = lightHouse.getRelatedVerticesByProperty("elementID", l);
+                    for (Vertex relatedVertex : relatedVertices) {
+                        if(relatedVertex.getProperty("type").toString().equals("COMPONENT"))
+                        lightHouse.establishEdgeByVertexIDs(relatedVertex.getProperty("elementID").toString(), toSaveNode, "componentToChecklist", "componentToChecklist");
+
+                        if(relatedVertex.getProperty("type").toString().equals("CONCEPT"))
+                        lightHouse.establishEdgeByVertexIDs(relatedVertex.getProperty("elementID").toString(), toSaveNode, "conceptToChecklist", "conceptToChecklist");
+                    }
+                } else {
+                    lightHouse.deleteEdgeByVertexIDs(l, toSave.get("DATA_ID").toString());
                 }
             });
             result = toSave.get("DATA_ID").toString();

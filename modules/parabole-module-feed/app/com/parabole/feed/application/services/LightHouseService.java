@@ -20,6 +20,7 @@ import com.google.inject.Singleton;
 import com.parabole.feed.application.global.CCAppConstants;
 import com.parabole.feed.platform.graphdb.LightHouse;
 import com.parabole.feed.platform.utils.AppUtils;
+import com.tinkerpop.blueprints.Vertex;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -571,5 +572,10 @@ public class LightHouseService {
         }
 
         return allFileNames;
+    }
+
+    public String tinkerPopTest() {
+        ArrayList<Vertex> listOfRelatedVertices = lightHouse.getRelatedVerticesByProperty("elementID", "320-10-35-34B");
+        return listOfRelatedVertices.toString();
     }
 }

@@ -115,6 +115,9 @@ GET /removeCheckList                                   com.parabole.feed.applica
 GET /editChecklistCheck                                com.parabole.feed.application.controllers.ParagraphOperationsController.editChecklistCheck()
 #---------------------------------------
 
+
+GET /tinkerPopTest                                com.parabole.feed.application.controllers.ParagraphOperationsController.tinkerPopTest()
+
 # Map static resources from the /public folder to the /assets URL path
 GET      /feedassets/*file                              controllers.Assets.at(path="/public/lib/parabole-module-feed", file)
 
