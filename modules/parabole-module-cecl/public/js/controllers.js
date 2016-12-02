@@ -1610,6 +1610,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				var config = angular.fromJson(data.data);
 				if(config.length > 0){
 					$scope.fileConfig = angular.fromJson(config[0].details);
+                    $scope.fileConfig.body.hasParaIdentifier = $scope.fileConfig.body.hasParaIdentifier || false;
 				} else {
 					toastr.warning('No Configuration found. Please save a new one..', '', {"positionClass" : "toast-top-right"});
 				}

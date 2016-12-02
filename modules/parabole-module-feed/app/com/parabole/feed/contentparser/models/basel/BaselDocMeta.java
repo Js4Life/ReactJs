@@ -88,4 +88,14 @@ public class BaselDocMeta extends DocMetaInfo {
 
     private String metaDocName;
 
+    public Boolean getHasParaIdentifier() {
+        return hasParaIdentifier;
+    }
+
+    public void setHasParaIdentifier(Boolean hasParaIdentifier) {
+        this.hasParaIdentifier = hasParaIdentifier;
+    }
+
+    private Boolean hasParaIdentifier;
+
 }

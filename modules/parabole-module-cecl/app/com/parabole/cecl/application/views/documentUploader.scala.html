@@ -124,6 +124,14 @@
               <input type="text" class="form-control" placeholder="Regex for paragraph start" ng-model="fileConfig.body.paraStartRegex">
             </div>
           </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Has Para Number</label>
+            <div class="col-sm-9">
+                <label class="checkbox-inline">
+                    <input type="checkbox" ng-model="fileConfig.body.hasParaIdentifier">
+                </label>
+            </div>
+          </div>
           <input type="button" class="btn btn-default pull-right" value="Save" ng-click="saveConfig()">
           <input type="button" class="btn btn-default pull-right margin-right-10" value="Run" ng-click="runConfig()">
         </form>
