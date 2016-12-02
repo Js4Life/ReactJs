@@ -69,7 +69,7 @@ public class LightHouse extends GraphDb {
         return saveGraphInstance(graph, luca, marko, edgeName, edgeProperty);
     }
 
-    public boolean createNewVertex( Map<String, String> dataToSave) throws IOException {
+    public boolean createNewVertex_depricated( Map<String, String> dataToSave) throws IOException {
         OrientGraph graph = this.orientGraphFactory.getTx();
         try {
             String id = dataToSave.get("elementID");
@@ -157,6 +157,48 @@ public class LightHouse extends GraphDb {
             System.out.println("e = " + e);
         } finally {
             graph.shutdown();
+        }
+        return res;
+
+    }
+
+    public Boolean establishEdgeByVertexIDsUsingTinkerpop(String vertexIDOne, String vertexIDTwo, String edgeName, String edgeType) {
+
+        Graph g = getGraphConnectionNoTx();
+        Iterable<Vertex> vs = g.getVertices("elementID", vertexIDOne);
+        Vertex one = null;
+        Vertex two = null;
+        Boolean res = false;
+        try {
+            for (Vertex v : g.getVertices("elementID", vertexIDOne)) {
+                one = v;
+            }
+
+            for (Vertex v : g.getVertices("elementID", vertexIDTwo)) {
+                two = v;
+            }
+            Map<String, String> edgeProperty = new HashMap<String, String>();
+            edgeProperty.put("type", edgeType);
+            edgeProperty.put("elementID", vertexIDOne + "_" + vertexIDTwo);
+            if (two != null) {
+                Iterable<Edge> result = g.getEdges("elementID", vertexIDOne + "_" + vertexIDTwo);
+                int size = Iterables.size(result);
+                if (size < 1) {
+                    res = saveGraphInstanceUsingTinkerpop(g, one, two, edgeName, edgeProperty);
+                    System.out.println("Edge does not exists = " + "null");
+                } else {
+                    for (Edge e : result) {
+                        String id = e.getProperty("elementID");
+                        if (id.equalsIgnoreCase(vertexIDOne + "_" + vertexIDTwo)) {
+                        } else {
+                            res = saveGraphInstanceUsingTinkerpop(g, one, two, edgeName, edgeProperty);
+                            System.out.println("Edge does not exists = " + vertexIDOne + "_" + vertexIDTwo);
+                        }
+                    }
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
         return res;
 
@@ -286,6 +328,15 @@ public class LightHouse extends GraphDb {
             //graph.shutdown();
         }
 
+        return true;
+    }
+
+    public boolean saveGraphInstanceUsingTinkerpop(Graph graph, Vertex vertexOne, Vertex vertexTwo, String edgeName, Map<String, String> edgeProperties) throws  IOException{
+            Edge edge = graph.addEdge(null, vertexOne, vertexTwo, edgeName);
+            if(edgeProperties != null)
+                edgeProperties.forEach((key, value)->{
+                    edge.setProperty(key, value);
+                });
         return true;
     }
 
@@ -606,6 +657,33 @@ public class LightHouse extends GraphDb {
             e.printStackTrace();
         }
         return componentTypes;
+    }
+
+    public boolean createNewVertex( Map<String, String> dataToSave) throws IOException {
+        //GremlinPipeline pipe = new GremlinPipeline();
+        Graph g = getGraphConnectionNoTx();
+        Iterable<Vertex> abc = g.getVertices("elementID", dataToSave.get("elementID"));
+        //Vertex v = new OrientVertex();
+        int size = Iterables.size(abc);
+        System.out.println("size = " + size);
+        if(size > 0){
+            for (Vertex vertex1 : abc) {
+                Iterator dts = dataToSave.entrySet().iterator();
+                while (dts.hasNext()) {
+                    Map.Entry oneDataToSave = (Map.Entry)dts.next();
+                    vertex1.setProperty(oneDataToSave.getKey().toString(), oneDataToSave.getValue());
+                }
+            }
+            System.out.println("Already exists = ");
+        }else{
+            Vertex vertex2 = g.addVertex(null);
+            Iterator dts = dataToSave.entrySet().iterator();
+            while (dts.hasNext()) {
+                Map.Entry oneDataToSave = (Map.Entry)dts.next();
+                vertex2.setProperty(oneDataToSave.getKey().toString(), oneDataToSave.getValue());
+            }
+        }
+        return true;
     }
 
     public ArrayList<Vertex> getRelatedVerticesByProperty(String KeyName, String keyValue){

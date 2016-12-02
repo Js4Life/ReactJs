@@ -20,7 +20,6 @@ import java.util.List;
 
 public class ParagraphOperationsController extends BaseController{
 
-
     @Inject
     private CheckListServices checkListServices;
 
@@ -30,11 +29,23 @@ public class ParagraphOperationsController extends BaseController{
     @Inject
     private StarfishServices starfishServices;
 
+    public Result saveAVertex() throws IOException {
+        HashMap<String, String> data = new HashMap<>();
+        data.put("elementID", "0987654321");
+        data.put("type", "testVertexVN");
+        data.put("name", "woo hoo");
+        return ok(lightHouseService.saveAVertex(data).toString());
+    }
+
+    public Result saveEdge() throws IOException {
+        HashMap<String, String> data = new HashMap<>();
+        // return ok(lightHouseService.saveAnEdge(data).toString());
+        return null;
+    }
 
     public Result tinkerPopTest() {
         return ok(lightHouseService.tinkerPopTest());
     }
-
 
     public Result addQuestion() throws AppException, IOException {
 
@@ -44,7 +55,6 @@ public class ParagraphOperationsController extends BaseController{
 
     }
 
-
     public Result saveQuestion() throws AppException, IOException {
 
         String savedQuestions = checkListServices.saveQuestion();
@@ -52,7 +62,6 @@ public class ParagraphOperationsController extends BaseController{
         return ok(savedQuestions);
 
     }
-
 
     public Result saveParagraph() throws AppException, IOException {
 
@@ -66,7 +75,6 @@ public class ParagraphOperationsController extends BaseController{
 
     }
 
-
     public Result savetagsToParagraphs() throws AppException, IOException {
 
         JSONObject tagsObject = new JSONObject();
@@ -76,7 +84,6 @@ public class ParagraphOperationsController extends BaseController{
 
     }
 
-
     public Result getQuestion() throws AppException, IOException {
 
         String getQuestions = checkListServices.getQuestion();
@@ -85,7 +92,6 @@ public class ParagraphOperationsController extends BaseController{
 
     }
 
-
     public Result getParagraph() throws Exception, IOException {
 
         String getParagraphs = checkListServices.getPararaphs();
@@ -93,7 +99,6 @@ public class ParagraphOperationsController extends BaseController{
         return ok(getParagraphs);
 
     }
-
 
     public Result getAllParagraphsByTag(String tagName) throws Exception, IOException {
 
@@ -118,7 +123,6 @@ public class ParagraphOperationsController extends BaseController{
 
     }
 
-
     public Result addAnswer() throws AppException, IOException {
 
         String mappedQuestions = checkListServices.findAndAddAnswer();
@@ -126,7 +130,6 @@ public class ParagraphOperationsController extends BaseController{
         return ok(mappedQuestions);
 
     }
-
 
     public Result questionAgainstParagraphId(String paragrphId) throws AppException, IOException {
 
@@ -136,7 +139,6 @@ public class ParagraphOperationsController extends BaseController{
 
     }
 
-
     public Result questionAgainstConceptNameComponentTypeComponentName(String conceptName, String componentType,  String componentName) throws AppException {
 
         JSONObject mappedQuestions = checkListServices.questionAgainstConceptNameComponentTypeComponentName(conceptName, componentType,  componentName);
@@ -145,13 +147,11 @@ public class ParagraphOperationsController extends BaseController{
 
     }
 
-
     public Result createLightHouse() throws AppException {
 
         return ok(checkListServices.createLightHouse());
 
     }
-
 
     // -----------------------------------------------------------------------------
     //   Check List Operation Test
@@ -190,7 +190,6 @@ public class ParagraphOperationsController extends BaseController{
 
         return ok(checkListServices.saveOrUpdateCheckListAttachment(toSave));
     }
-
 
     public Result getCheckListById() {
 
@@ -235,31 +234,24 @@ public class ParagraphOperationsController extends BaseController{
 
     }
 
-
-
     // -----------------------------------------------------------------------------
     //   testing creation of Topic, subtopic, section and their relationships
     // -----------------------------------------------------------------------------
-
-
 
     public Result createNewTopic() {
 
         return ok(lightHouseService.createNewTopic());
     }
 
-
     public Result createNewSubtopic() {
 
         return ok(lightHouseService.createNewSubtopic());
     }
 
-
     public Result createNewSection() {
 
         return ok(lightHouseService.createNewSection());
     }
-
 
     public Result createRelationBetweenTwoNodes() {
 

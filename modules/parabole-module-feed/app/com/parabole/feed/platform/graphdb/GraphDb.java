@@ -30,6 +30,7 @@ import com.parabole.feed.platform.exceptions.AppException;
 import com.tinkerpop.blueprints.impls.orient.OrientGraph;
 import com.tinkerpop.blueprints.impls.orient.OrientGraphFactory;
 import com.tinkerpop.blueprints.impls.orient.OrientGraphNoTx;
+import com.tinkerpop.blueprints.impls.tg.TinkerGraphFactory;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.Validate;
 import play.Logger;
@@ -46,11 +47,18 @@ public abstract class GraphDb {
 
     protected OrientGraphFactory orientGraphFactory;
 
+    protected TinkerGraphFactory tinkerGraphFactory;
+
     public OrientGraphNoTx getGraphConnectionNoTx() {
         final OrientGraphNoTx graphDbNoTx = orientGraphFactory.getNoTx();
         ODatabaseRecordThreadLocal.INSTANCE.set(graphDbNoTx.getRawGraph());
         return graphDbNoTx;
     }
+
+/*    public TinkerGraphFactory getTinkerGraphConnections(){
+        final TinkerGraphFactory tinkerGraphFactoryResult = tinkerGraphFactory.
+        return null;
+    }*/
 
     public void closeGraphConnection(final OrientGraphNoTx graphDbNoTx) {
         if (null != graphDbNoTx) {

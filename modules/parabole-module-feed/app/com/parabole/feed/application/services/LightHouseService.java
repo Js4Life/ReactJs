@@ -578,4 +578,8 @@ public class LightHouseService {
         ArrayList<Vertex> listOfRelatedVertices = lightHouse.getRelatedVerticesByProperty("elementID", "320-10-35-34B");
         return listOfRelatedVertices.toString();
     }
+
+    public Boolean saveAVertex(HashMap<String, String> data) throws IOException {
+       return lightHouse.createNewVertex(data);
+    }
 }
