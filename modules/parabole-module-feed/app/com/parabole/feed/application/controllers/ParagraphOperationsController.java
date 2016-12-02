@@ -31,10 +31,15 @@ public class ParagraphOperationsController extends BaseController{
 
     public Result saveAVertex() throws IOException {
         HashMap<String, String> data = new HashMap<>();
-        data.put("elementID", "0987654321");
+        data.put("elementID", "0987654322");
         data.put("type", "testVertexVN");
         data.put("name", "woo hoo");
         return ok(lightHouseService.saveAVertex(data).toString());
+    }
+
+    public Result establishEdgeByVertexIDs() throws IOException {
+
+        return ok(lightHouseService.establishEdgeByVertexIDs());
     }
 
     public Result saveEdge() throws IOException {

@@ -104,7 +104,7 @@ public class LightHouse extends GraphDb {
         return true;
     }
 
-    public Boolean establishEdgeByVertexIDs(String vertexIDOne, String vertexIDTwo, String edgeName, String edgeType) {
+    public Boolean establishEdgeByVertexIDs_depricated(String vertexIDOne, String vertexIDTwo, String edgeName, String edgeType) {
 
         OrientGraph graph = this.orientGraphFactory.getTx();
         Iterable<Vertex> vs = graph.getVertices("elementID", vertexIDOne);
@@ -162,7 +162,7 @@ public class LightHouse extends GraphDb {
 
     }
 
-    public Boolean establishEdgeByVertexIDsUsingTinkerpop(String vertexIDOne, String vertexIDTwo, String edgeName, String edgeType) {
+    public Boolean establishEdgeByVertexIDs(String vertexIDOne, String vertexIDTwo, String edgeName, String edgeType) {
 
         Graph g = getGraphConnectionNoTx();
         Iterable<Vertex> vs = g.getVertices("elementID", vertexIDOne);
@@ -185,14 +185,12 @@ public class LightHouse extends GraphDb {
                 int size = Iterables.size(result);
                 if (size < 1) {
                     res = saveGraphInstanceUsingTinkerpop(g, one, two, edgeName, edgeProperty);
-                    System.out.println("Edge does not exists = " + "null");
                 } else {
                     for (Edge e : result) {
                         String id = e.getProperty("elementID");
                         if (id.equalsIgnoreCase(vertexIDOne + "_" + vertexIDTwo)) {
                         } else {
                             res = saveGraphInstanceUsingTinkerpop(g, one, two, edgeName, edgeProperty);
-                            System.out.println("Edge does not exists = " + vertexIDOne + "_" + vertexIDTwo);
                         }
                     }
                 }
@@ -520,6 +518,21 @@ public class LightHouse extends GraphDb {
         }
 
         return listOfFinalData;
+    }
+
+    public ArrayList<HashMap<String, String>> getConnectedNodesByNodeIdAndTypeUsingTinkerPop(String topicid, String filterType) throws  IOException{
+        ArrayList<HashMap<String, String>> listOfHM = new ArrayList<>();
+        ArrayList<Vertex> listOfRelatedVertices = getRelatedVerticesByProperty("elementID", topicid);
+        for (Vertex relatedVertice : listOfRelatedVertices) {
+            if(relatedVertice.getProperty("type").equals(filterType)) {
+                HashMap<String, String> finalData = new HashMap<>();
+                for (String s : relatedVertice.getPropertyKeys()) {
+                    finalData.put(s, relatedVertice.getProperty(s));
+                }
+                listOfHM.add(finalData);
+            }
+        }
+        return listOfHM;
     }
 
     public ArrayList<HashMap<String, String>> getChildVerticesByRootVertexId(String rootVertexID){

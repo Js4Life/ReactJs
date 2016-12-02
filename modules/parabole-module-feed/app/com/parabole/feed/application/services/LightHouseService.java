@@ -582,4 +582,10 @@ public class LightHouseService {
     public Boolean saveAVertex(HashMap<String, String> data) throws IOException {
        return lightHouse.createNewVertex(data);
     }
+
+    public String establishEdgeByVertexIDs() {
+
+        return lightHouse.establishEdgeByVertexIDs("0987654322", "0987654321", "testEdge", "testEdgeType").toString();
+
+    }
 }
