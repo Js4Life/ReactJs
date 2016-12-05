@@ -157,3 +157,4 @@ POST /getDocumentConfigById                         com.parabole.cecl.applicatio
 POST /saveDocumentConfig                            com.parabole.cecl.application.controllers.CeclController.saveDocumentConfig()
 POST /writeDocument                                 com.parabole.cecl.application.controllers.CeclController.writeDocument()
 POST /runConfig                                     com.parabole.cecl.application.controllers.CeclController.runConfig()
+POST /removeParsing                                 com.parabole.cecl.application.controllers.CeclController.removeParsing()
