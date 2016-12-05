@@ -13,6 +13,7 @@ import java.io.IOException;
 public class FeedController extends BaseController{
 
 
+
     public Result getRawBindingDataValues(String fileName) throws AppException {
 
         final String configurationId = jenaTdbService.getRawBindingDataValues(fileName);

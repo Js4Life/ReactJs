@@ -18,6 +18,7 @@ import com.google.common.collect.Maps;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.parabole.feed.application.global.CCAppConstants;
+import com.parabole.feed.platform.exceptions.AppException;
 import com.parabole.feed.platform.graphdb.LightHouse;
 import com.parabole.feed.platform.utils.AppUtils;
 import com.tinkerpop.blueprints.Vertex;
@@ -587,5 +588,16 @@ public class LightHouseService {
 
         return lightHouse.establishEdgeByVertexIDs("0987654322", "0987654321", "testEdge", "testEdgeType").toString();
 
+    }
+
+    public String deleteAFIleAndItsAssociations(String fileName) {
+        String queryForDeletion = "delete * from V where elementID = "+fileName+" or type ="+ fileName;
+        try {
+            //lightHouse.deleteAFIleAndItsAssociations(fileName);
+            lightHouse.executeQuery(queryForDeletion);
+        } catch (AppException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
