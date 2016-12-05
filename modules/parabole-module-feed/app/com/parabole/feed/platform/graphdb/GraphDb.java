@@ -102,10 +102,26 @@ public abstract class GraphDb {
                     resultMap.add(aRec);
                 });
             }
-            return resultMap;
         } finally {
             closeDocDBConnection(dbTx);
         }
+        return resultMap;
+    }
+
+    public int executeDelete(final String sqlQuery) throws AppException {
+        Validate.notNull(sqlQuery, "'sqlQuery' cannot be empty!");
+        final List<Map<String, Object>> resultMap = new ArrayList<Map<String, Object>>();
+        final ODatabaseDocumentTx dbTx = getDocDBConnectionTx();
+        int result = 0;
+        try {
+            result = dbTx.command(new OCommandSQL(sqlQuery)).execute();
+        } catch(Exception e){
+            e.printStackTrace();
+            return result;
+        } finally {
+            closeDocDBConnection(dbTx);
+        }
+        return result;
     }
 
     public void executeUpdate(final String sqlQuery) throws AppException {

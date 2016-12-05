@@ -1198,7 +1198,7 @@ public class CeclController extends Controller{
         JSONObject finalJson = new JSONObject();
         Boolean status = true;
         try {
-
+            status = lightHouseService.deleteAFIleAndItsAssociations(fileName);
         } catch (Exception e){
             status = false;
             e.printStackTrace();

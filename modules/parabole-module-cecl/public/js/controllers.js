@@ -1643,9 +1643,12 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}
 
 	$scope.removeParsing = function () {
+		$("#confirmationModal").modal("hide");
 		SharedService.removeParsing($scope.fileConfig.name).then(function(data){
 			if(data.status){
 				toastr.success('Removed successfully..', '', {"positionClass" : "toast-top-right"});
+			} else {
+				toastr.warning('Nothing to delete..', '', {"positionClass" : "toast-top-right"});
 			}
 		});
 	}

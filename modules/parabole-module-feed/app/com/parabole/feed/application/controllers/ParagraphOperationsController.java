@@ -35,7 +35,7 @@ public class ParagraphOperationsController extends BaseController{
 
         String fileName = "Part2_Pillar1_2_3_MCR_";
 
-        return ok(lightHouseService.deleteAFIleAndItsAssociations(fileName));
+        return ok(lightHouseService.deleteAFIleAndItsAssociations(fileName).toString());
     }
 
     public Result saveAVertex() throws IOException {
