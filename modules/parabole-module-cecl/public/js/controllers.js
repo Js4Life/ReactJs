@@ -1620,7 +1620,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 	$scope.saveConfig = function () {
 		$scope.fileConfig.toc.levels = _.reject($scope.fileConfig.toc.levels, function (l) {
-			return _.isUndefined(l.regex);
+			return _.isUndefined(l.regex) || l.regex === "";
 		});
 		SharedService.saveDocumentConfig($scope.fileConfig).then(function (data) {
 			if(data.status){
