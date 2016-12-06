@@ -80,7 +80,7 @@ GET /createComponentTypseAndAssignToConcept             com.parabole.feed.applic
 GET /createComponentAndAssignToComponentType            com.parabole.feed.application.controllers.FeedController.createComponentAndAssignToComponentType()
 GET /createBusinesSegmentAndAssignComponent             com.parabole.feed.application.controllers.FeedController.createBusinesSegmentAndAssignComponent()
 GET /createProductAndAssignToBusinessSegment            com.parabole.feed.application.controllers.FeedController.createProductAndAssignToBusinessSegment()
-GET /deleteAFIleAndItsAssociations                      com.parabole.feed.application.controllers.FeedController.deleteAFIleAndItsAssociations()
+GET /deleteAFIleAndItsAssociations                      com.parabole.feed.application.controllers.ParagraphOperationsController.deleteAFIleAndItsAssociations()
 #-------------------------------------------
 # Basel Operation
 #-------------------------------------------

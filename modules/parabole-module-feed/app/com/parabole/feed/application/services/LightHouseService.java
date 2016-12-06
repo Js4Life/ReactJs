@@ -590,14 +590,18 @@ public class LightHouseService {
 
     }
 
-    public String deleteAFIleAndItsAssociations(String fileName) {
-        String queryForDeletion = "delete * from V where elementID = "+fileName+" or type ="+ fileName;
+    public Boolean deleteAFIleAndItsAssociations(String fileName) {
+        String queryForDeletion = "delete vertex from V where elementID = '" + fileName + "' or fromFileName = '" + fileName + "'";
+        Boolean status = true;
         try {
-            lightHouse.deleteAFIleAndItsAssociations(fileName);
-            lightHouse.executeQuery(queryForDeletion);
+            //lightHouse.deleteAFIleAndItsAssociations(fileName);
+            int res = lightHouse.executeDelete(queryForDeletion);
+            System.out.println("Delete count = " + res);
+            if(res < 1) status = false;
         } catch (AppException e) {
+            status = false;
             e.printStackTrace();
         }
-        return null;
+        return status;
     }
 }

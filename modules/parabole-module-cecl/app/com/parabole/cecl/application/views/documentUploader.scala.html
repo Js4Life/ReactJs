@@ -132,9 +132,24 @@
                 </label>
             </div>
           </div>
-          <input type="button" class="btn btn-default pull-right" value="Save" ng-click="saveConfig()">
-          <input type="button" class="btn btn-default pull-right margin-right-10" value="Run" ng-click="runConfig()">
+          <input type="button" class="btn btn-primary pull-right" value="Save" ng-click="saveConfig()">
+          <input type="button" class="btn btn-success pull-right margin-right-10" value="Run" ng-click="runConfig()">
+          <input type="button" class="btn btn-danger pull-right margin-right-10" value="Remove Data" ng-click="confirmRemoveParsing()">
         </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="confirmationModal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        Are you sure?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+        <button type="button" class="btn btn-primary" ng-click="removeParsing()">Yes</button>
       </div>
     </div>
   </div>

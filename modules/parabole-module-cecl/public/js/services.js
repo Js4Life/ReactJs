@@ -130,7 +130,8 @@ angular.module('RDAApp.services', [])
         'GetDocumentConfigById' : 'getDocumentConfigById',
         'SaveDocumentConfig' : 'saveDocumentConfig',
         'WriteDocument' : 'writeDocument',
-        'RunConfig' : 'runConfig'
+        'RunConfig' : 'runConfig',
+        'RemoveParsing' : 'removeParsing'
     };
     SharedService.chartDataMap = {
         '0' : 'getHardCodedResponse/chartData1',
@@ -934,6 +935,10 @@ angular.module('RDAApp.services', [])
     }
     SharedService.runConfig = function (fileConfig) {
         return SharedService.invokeService('RunConfig', fileConfig, 'post');
+    }
+    SharedService.removeParsing = function (fileName) {
+        var sendObj = {"name": fileName};
+        return SharedService.invokeService('RemoveParsing', sendObj, 'post');
     }
 
     return SharedService;

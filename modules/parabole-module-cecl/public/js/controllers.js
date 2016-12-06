@@ -1619,6 +1619,9 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}
 
 	$scope.saveConfig = function () {
+		$scope.fileConfig.toc.levels = _.reject($scope.fileConfig.toc.levels, function (l) {
+			return _.isUndefined(l.regex) || l.regex === "";
+		});
 		SharedService.saveDocumentConfig($scope.fileConfig).then(function (data) {
 			if(data.status){
 				$scope.fileConfig = {toc:{}, body:{}};
@@ -1630,7 +1633,22 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.runConfig = function () {
 		SharedService.runConfig($scope.fileConfig).then(function(data){
 			if(data.status){
+				toastr.success('Parsing done successfully..', '', {"positionClass" : "toast-top-right"});
+			}
+		});
+	}
+	
+	$scope.confirmRemoveParsing = function () {
+		$("#confirmationModal").modal("show");
+	}
 
+	$scope.removeParsing = function () {
+		$("#confirmationModal").modal("hide");
+		SharedService.removeParsing($scope.fileConfig.name).then(function(data){
+			if(data.status){
+				toastr.success('Removed successfully..', '', {"positionClass" : "toast-top-right"});
+			} else {
+				toastr.warning('Nothing to delete..', '', {"positionClass" : "toast-top-right"});
 			}
 		});
 	}

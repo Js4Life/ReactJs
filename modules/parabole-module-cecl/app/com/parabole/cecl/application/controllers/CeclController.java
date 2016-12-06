@@ -1189,4 +1189,21 @@ public class CeclController extends Controller{
         finalJson.put("status", status);
         return ok(finalJson.toString());
     }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result removeParsing() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final String fileName = request.getString("name");
+        JSONObject finalJson = new JSONObject();
+        Boolean status = true;
+        try {
+            status = lightHouseService.deleteAFIleAndItsAssociations(fileName);
+        } catch (Exception e){
+            status = false;
+            e.printStackTrace();
+        }
+        finalJson.put("status", status);
+        return ok(finalJson.toString());
+    }
 }
