@@ -593,7 +593,7 @@ public class LightHouseService {
     public String deleteAFIleAndItsAssociations(String fileName) {
         String queryForDeletion = "delete * from V where elementID = "+fileName+" or type ="+ fileName;
         try {
-            //lightHouse.deleteAFIleAndItsAssociations(fileName);
+            lightHouse.deleteAFIleAndItsAssociations(fileName);
             lightHouse.executeQuery(queryForDeletion);
         } catch (AppException e) {
             e.printStackTrace();
