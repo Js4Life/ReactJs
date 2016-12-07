@@ -75,7 +75,7 @@ public class BaselBodyPostProcessor implements IPostProcessor {
         for(int i = paraIndexPivot; i < paras.size(); i++){
             ParagraphElement aPara = paras.get(i);
             if(fetchFlag){
-                if(endTocPivot != null && (aPara.toString().trim().startsWith(endTocPivot.getContent().trim()) || endTocPivot.getContent().trim().startsWith(aPara.toString().trim()))){
+                if(endTocPivot != null && (aPara.toString().toLowerCase().trim().startsWith(endTocPivot.getContent().toLowerCase().trim()) || endTocPivot.getContent().toLowerCase().trim().startsWith(aPara.toString().toLowerCase().trim()))){
                     paraIndexPivot = i;
                     return tempParas;
                 } else {
@@ -83,7 +83,7 @@ public class BaselBodyPostProcessor implements IPostProcessor {
                     tempParas.add(aPara);
                 }
             }
-            if(!fetchFlag && (aPara.toString().trim().startsWith(startTocPivot.getContent().trim()) || startTocPivot.getContent().trim().startsWith(aPara.toString().trim()))){
+            if(!fetchFlag && (aPara.toString().toLowerCase().trim().startsWith(startTocPivot.getContent().toLowerCase().trim()) || startTocPivot.getContent().toLowerCase().trim().startsWith(aPara.toString().toLowerCase().trim()))){
                 aPara.setId(startTocPivot.getLevelId());
                 tempParas.add(aPara);
                 fetchFlag = true;
