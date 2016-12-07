@@ -107,6 +107,7 @@ public class PDFContentTagger extends PDFTextStripper {
     {
         System.out.println();
         System.out.println("End Paragraph :: ********************* " + this.getCurrentPageNo());
+        isParaStart = false;
     }
 
     /**
@@ -128,8 +129,8 @@ public class PDFContentTagger extends PDFTextStripper {
             populateTextFormattingInfo(text, textPositions, formatInfo);
             docIndexBuilder.addChunk(text, formatInfo, isParaStart);
         }
-        if( isParaStart )
-            isParaStart = false;
+        /*if( isParaStart )
+            isParaStart = false;*/
     }
 
     private void populateTextFormattingInfo(String text,  List<TextPosition> textPositions, TextFormatInfo formatInfo) {
