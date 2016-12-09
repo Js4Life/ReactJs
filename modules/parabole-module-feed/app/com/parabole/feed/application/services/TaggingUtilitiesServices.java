@@ -917,8 +917,66 @@ public class TaggingUtilitiesServices {
             HashMap<String, Set<String>> conceptParaMap = cfr.getConceptParaMap();
 
             //TODO: save to graph db here
+            saveCFRTopicToSubtopic(toc, glossaryMetaData.getString("fileName"));
         } catch (Exception e){
             e.printStackTrace();
         }
     }
+
+
+    public String saveCFRTopicToSubtopic(List<com.parabole.feed.contentparser.models.cfr.DocumentElement> result, String fileName) throws IOException {
+
+
+        // set root
+        System.out.println(" Setting Root Node .............");
+        Map<String, String> rootNode = new HashMap<>();
+        rootNode.put("name", "ROOT");
+        rootNode.put("type", "ROOT");
+        rootNode.put("elementID", "ROOT");
+        lightHouse.createNewVertex(rootNode);
+
+        // set root next
+        System.out.println(" Setting Sub Root Node .............");
+        Map<String, String> subRoot = new HashMap<>();
+        subRoot.put("name", "CFRGLOBAL");
+        subRoot.put("type", "CFRGLOBAL");
+        subRoot.put("elementID", "CFRGLOBAL");
+        lightHouse.createNewVertex(subRoot);
+        lightHouse.establishEdgeByVertexIDs("ROOT", "CFRGLOBAL", "ROOTTOCFRGLOBAL", "ROOTTOCFRGLOBAL");
+
+        // set file
+        System.out.println(" Setting File Node .............");
+        Map<String, String> fileTypeNode = new HashMap<>();
+        fileTypeNode.put("name", fileName);
+        fileTypeNode.put("type", "CFRFILE");
+        fileTypeNode.put("elementID", fileName);
+        // lightHouse.createNewVertex(fileTypeNode);
+        // lightHouse.establishEdgeByVertexIDs("CFRGLOBAL", fileName, "CFRGLOBALTOFILE", "CFRGLOBALTOFILE");
+
+        createNodesAndrelateEdgesRecursively(result, fileName);
+        return "ok";
+    }
+
+    private String createNodesAndrelateEdgesRecursively(List<com.parabole.feed.contentparser.models.cfr.DocumentElement> result, String fileName) throws IOException {
+
+        if(!result.isEmpty()){
+            for (com.parabole.feed.contentparser.models.cfr.DocumentElement documentElement : result) {
+                String topicID =  documentElement.getLevelId();
+                Map<String, String> topicTypeNode = new HashMap<>();
+                topicTypeNode.put("name", documentElement.getContent());
+                topicTypeNode.put("fromFileName", fileName);
+                topicTypeNode.put("type", "CFR-"+documentElement.getElementType());
+                topicTypeNode.put("elementID", topicID);
+                lightHouse.createNewVertex(topicTypeNode);
+                lightHouse.establishEdgeByVertexIDs(fileName, topicID, "DYNAMICNODERELATIONS", "DYNAMICNODERELATIONS");
+                List<com.parabole.feed.contentparser.models.cfr.DocumentElement> subTopic = documentElement.getChildren();
+                createNodesAndrelateEdgesRecursively(documentElement.getChildren(), fileName);
+            }
+        }
+
+        return "Saved";
+
+    }
+
+
 }

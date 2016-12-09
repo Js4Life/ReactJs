@@ -99,6 +99,11 @@ GET /getAllDocFileNamesByType                             com.parabole.feed.appl
 
 
 #-------------------------------------------
+# CFR Operation
+#-------------------------------------------
+GET /cfrDocumentHirarchyLoading/:fileName                 com.parabole.feed.application.controllers.FeedController.saveBaselTopicToSubtopic(fileName: String)
+
+#-------------------------------------------
 # EXTRA Operations
 #-------------------------------------------
 GET /getAllParagraphInTextFile/:fileType              com.parabole.feed.application.controllers.FeedController.getAllParagraphInTextFile(fileType: String)
