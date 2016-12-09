@@ -695,8 +695,15 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 		});*/
 		SharedService.curentRegulation = reg.name;
-		if(reg.name === 'BASEL'){
+		if(reg.key === 'BASEL'){
 			SharedService.getAllDocFileNamesByType('FILE').then(function(data){
+				if(data.status){
+					$scope.heading.title = "List of documents (" + reg.name + ")";
+					$scope.regulationFiles = angular.fromJson(data.data);
+				}
+			});
+		} else if(reg.key === 'CFR'){
+			SharedService.getAllDocFileNamesByType('CFRFILE').then(function(data){
 				if(data.status){
 					$scope.heading.title = "List of documents (" + reg.name + ")";
 					$scope.regulationFiles = angular.fromJson(data.data);
@@ -1587,7 +1594,19 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				$scope.regulations = data.data;
 			}
 		});
-		getAllFeedFiles();
+		$scope.isRegulationSelector = true;
+	}
+
+	$scope.goConfigWindow = function (reg) {
+		$scope.currentRegulation = reg;
+		$scope.fileConfig = {toc:{levels: []}, body:{}};
+		if(reg.key === 'BASEL'){
+			getAllFeedFiles();
+		} else if(reg.key === 'CFR'){
+			SharedService.getAllCfrDocuments().then(function (data) {
+				$scope.cfrFiles = data;
+			});
+		}
 	}
 
 	function getAllFeedFiles(){
@@ -1604,7 +1623,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}
 	
 	$scope.getConfig = function (fileId) {
-		$scope.fileConfig = {toc:{levels: [], levelIdPrefix: fileId}, body:{}, name: fileId};
+		$scope.fileConfig = {toc:{levels: [], levelIdPrefix: fileId}, body:{}, name: fileId, type: $scope.currentRegulation.name};
 		SharedService.getDocumentConfigById(fileId).then(function (data) {
 			if(data.status){
 				var config = angular.fromJson(data.data);

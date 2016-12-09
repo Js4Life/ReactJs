@@ -1170,18 +1170,22 @@ public class CeclController extends Controller{
     public Result runConfig() {
         final String json = request().body().asJson().toString();
         final JSONObject request = new JSONObject(json);
-        final String fileName = request.getString("name");
-        final String regulation = request.getString("type");
-        final String genre = request.getString("genre");
-        final JSONObject toc = request.getJSONObject("toc");
+        final String fileName = request.has("name") ? request.getString("name") : "";
+        final String regulation = request.has("type") ? request.getString("type") : "";
+        final String genre = request.has("genre") ? request.getString("genre") : "";
+        final JSONObject toc = request.has("toc") ? request.getJSONObject("toc") : new JSONObject();
         toc.put("genre", genre);
-        final JSONObject body = request.getJSONObject("body");
+        final JSONObject body = request.has("body") ? request.getJSONObject("body") : new JSONObject();
         JSONObject finalJson = new JSONObject();
         Boolean status = true;
         try {
-            taggingUtilitiesServices.saveBaselTopicToSubtopic(fileName, toc);
-            taggingUtilitiesServices.saveParagraphsAndAssociateItWithBaselSubTopic(fileName, toc, body);
-            taggingUtilitiesServices.saveBaselConcepts(fileName, toc, body);
+            if(regulation.equals("BASEL")) {
+                taggingUtilitiesServices.saveBaselTopicToSubtopic(fileName, toc);
+                taggingUtilitiesServices.saveParagraphsAndAssociateItWithBaselSubTopic(fileName, toc, body);
+                taggingUtilitiesServices.saveBaselConcepts(fileName, toc, body);
+            } else if(regulation.equals("CFR")){
+
+            }
         } catch (Exception e){
             status = false;
             e.printStackTrace();

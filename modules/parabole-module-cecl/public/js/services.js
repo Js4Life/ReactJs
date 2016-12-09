@@ -131,7 +131,9 @@ angular.module('RDAApp.services', [])
         'SaveDocumentConfig' : 'saveDocumentConfig',
         'WriteDocument' : 'writeDocument',
         'RunConfig' : 'runConfig',
-        'RemoveParsing' : 'removeParsing'
+        'RemoveParsing' : 'removeParsing',
+
+        'GetAllCfrDocuments' : 'https://www.federalregister.gov/api/v1/documents.json?fields%5B%5D=document_number&fields%5B%5D=full_text_xml_url&fields%5B%5D=html_url&fields%5B%5D=pdf_url&fields%5B%5D=title&fields%5B%5D=type&per_page=20&order=relevance&conditions%5Bagencies%5D%5B%5D=committee-for-the-implementation-of-textile-agreements'
     };
     SharedService.chartDataMap = {
         '0' : 'getHardCodedResponse/chartData1',
@@ -939,6 +941,10 @@ angular.module('RDAApp.services', [])
     SharedService.removeParsing = function (fileName) {
         var sendObj = {"name": fileName};
         return SharedService.invokeService('RemoveParsing', sendObj, 'post');
+    }
+
+    SharedService.getAllCfrDocuments = function () {
+        return SharedService.invokeService('GetAllCfrDocuments');
     }
 
     return SharedService;
