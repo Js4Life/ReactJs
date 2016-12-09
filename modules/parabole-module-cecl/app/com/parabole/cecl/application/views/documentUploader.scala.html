@@ -3,12 +3,12 @@
     <b>Document Uploader</b>
   </div>
   <div class="panel-body zero-padding" style="height: 82vh;">
-    <div ng-if="isRegulationSelector" class="col-md-4 col-md-offset-4">
-      <div class="well-sm text-center" ng-repeat="reg in regulations" ng-click="goConfigWindow(reg)">
-        {{reg.name}}
+    <div ng-if="!currentRegulation" class="col-md-4 col-md-offset-4" style="padding-top: 10%;">
+      <div class="well text-center pointer" ng-repeat="reg in regulations" ng-click="goConfigWindow(reg)">
+        <b>{{reg.name}}</b>
       </div>
     </div>
-    <div ng-if="!isRegulationSelector">
+    <div ng-if="currentRegulation">
       <div ng-if="currentRegulation.key === 'BASEL'">
         <div class="col-xs-4 padding-15 max-height" style="border-right: 1px solid #e5e5e5;">
           <div class="row-fluid" style="padding-bottom: 2vh;">
@@ -35,7 +35,7 @@
             <div class="form-group">
               <label class="col-sm-3 control-label">Regulation</label>
               <div class="col-sm-9">
-                <select class="form-control" ng-model="fileConfig.type" ng-options="r.name as r.name for r in regulations" disabled></select>
+                <select class="form-control" ng-model="fileConfig.type" ng-options="r.key as r.name for r in regulations" disabled></select>
               </div>
             </div>
             <div class="form-group">
@@ -166,13 +166,20 @@
             <div class="form-group">
               <label class="col-sm-3 control-label">Regulation</label>
               <div class="col-sm-9">
-                <select class="form-control" ng-model="fileConfig.type" ng-options="r.name as r.name for r in regulations" disabled></select>
+                <select class="form-control" ng-model="fileConfig.type" ng-options="r.key as r.name for r in regulations" disabled></select>
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-3 control-label">File</label>
               <div class="col-sm-9">
-                <select class="form-control" ng-model="fileConfig.filePath" ng-options="r.full_text_xml_url as r.document_number for r in cfrFiles"></select>
+                @*<select class="form-control" ng-model="fileConfig.name" ng-options="r.full_text_xml_url as r.document_number for r in cfrFiles"></select>*@
+                <input type="text" class="form-control" placeholder="File url" ng-model="fileConfig.name">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Level Id Prefix</label>
+              <div class="col-sm-9">
+              <input type="text" class="form-control" placeholder="Level id prefix" ng-model="fileConfig.levelIdPrefix">
               </div>
             </div>
             <input type="button" class="btn btn-primary pull-right" value="Save" ng-click="saveConfig()">

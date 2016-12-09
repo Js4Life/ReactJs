@@ -1170,21 +1170,24 @@ public class CeclController extends Controller{
     public Result runConfig() {
         final String json = request().body().asJson().toString();
         final JSONObject request = new JSONObject(json);
-        final String fileName = request.has("name") ? request.getString("name") : "";
-        final String regulation = request.has("type") ? request.getString("type") : "";
-        final String genre = request.has("genre") ? request.getString("genre") : "";
-        final JSONObject toc = request.has("toc") ? request.getJSONObject("toc") : new JSONObject();
-        toc.put("genre", genre);
-        final JSONObject body = request.has("body") ? request.getJSONObject("body") : new JSONObject();
+        final String fileName = request.getString("name");
+        final String regulation = request.getString("type");
         JSONObject finalJson = new JSONObject();
         Boolean status = true;
         try {
             if(regulation.equals("BASEL")) {
+                final String genre = request.getString("genre");
+                final JSONObject toc = request.getJSONObject("toc");
+                toc.put("genre", genre);
+                final JSONObject body = request.getJSONObject("body");
                 taggingUtilitiesServices.saveBaselTopicToSubtopic(fileName, toc);
                 taggingUtilitiesServices.saveParagraphsAndAssociateItWithBaselSubTopic(fileName, toc, body);
                 taggingUtilitiesServices.saveBaselConcepts(fileName, toc, body);
             } else if(regulation.equals("CFR")){
-
+                final String levelIdPrefix = request.getString("levelIdPrefix");
+                JSONObject glossaryMetaData = new JSONObject();
+                glossaryMetaData.put("levelIdPrefix", levelIdPrefix);
+                taggingUtilitiesServices.saveCfrContents(fileName, glossaryMetaData);
             }
         } catch (Exception e){
             status = false;

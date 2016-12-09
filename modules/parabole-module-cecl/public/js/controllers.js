@@ -1585,7 +1585,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.initialize();
 })
 
-.controller('documentUploaderCtrl', function ($scope, $state, Upload, SharedService, MockService) {
+.controller('documentUploaderCtrl', function ($scope, $state, $http, Upload, SharedService, MockService) {
 	$scope.initialize = function(){
 		$scope.fileConfig = {toc:{levels: []}, body:{}};
 		$scope.documentGenres = MockService.documentGenres;
@@ -1594,18 +1594,17 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				$scope.regulations = data.data;
 			}
 		});
-		$scope.isRegulationSelector = true;
 	}
 
 	$scope.goConfigWindow = function (reg) {
 		$scope.currentRegulation = reg;
-		$scope.fileConfig = {toc:{levels: []}, body:{}};
+		$scope.fileConfig = {toc:{levels: []}, body:{}, type: reg.key};
 		if(reg.key === 'BASEL'){
 			getAllFeedFiles();
 		} else if(reg.key === 'CFR'){
-			SharedService.getAllCfrDocuments().then(function (data) {
-				$scope.cfrFiles = data;
-			});
+			/*SharedService.getAllCfrDocuments().then(function (data) {
+			 	$scope.cfrFiles = data;
+			});*/
 		}
 	}
 

@@ -917,7 +917,7 @@ public class TaggingUtilitiesServices {
             HashMap<String, Set<String>> conceptParaMap = cfr.getConceptParaMap();
 
             //TODO: save to graph db here
-            saveCFRTopicToSubtopic(toc, glossaryMetaData.getString("fileName"));
+            //saveCFRTopicToSubtopic(toc, glossaryMetaData.getString("levelIdPrefix"));
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -950,8 +950,8 @@ public class TaggingUtilitiesServices {
         fileTypeNode.put("name", fileName);
         fileTypeNode.put("type", "CFRFILE");
         fileTypeNode.put("elementID", fileName);
-        // lightHouse.createNewVertex(fileTypeNode);
-        // lightHouse.establishEdgeByVertexIDs("CFRGLOBAL", fileName, "CFRGLOBALTOFILE", "CFRGLOBALTOFILE");
+        lightHouse.createNewVertex(fileTypeNode);
+        lightHouse.establishEdgeByVertexIDs("CFRGLOBAL", fileName, "CFRGLOBALTOFILE", "CFRGLOBALTOFILE");
 
         createNodesAndrelateEdgesRecursively(result, fileName);
         return "ok";

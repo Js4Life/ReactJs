@@ -1,9 +1,15 @@
 angular
     .module('RDAApp', [ 'ui.router', 'ngAnimate', 'ngFileUpload', 'RDAApp.controllers', 'ui.grid', 'ui.grid.selection', 'ui.grid.exporter', 'ui.grid.moveColumns', 'ui.grid.resizeColumns'])
 
-    .config(function($stateProvider, $urlRouterProvider, $compileProvider) {
+    .config(function($stateProvider, $urlRouterProvider, $compileProvider, $httpProvider) {
           $compileProvider
               .imgSrcSanitizationWhitelist(/^\s*(https?|ftp|mailto|content|file|data):/);
+
+        $httpProvider.defaults.useXDomain = true;
+        $httpProvider.defaults.withCredentials = true;
+        delete $httpProvider.defaults.headers.common["X-Requested-With"];
+        $httpProvider.defaults.headers.common["Accept"] = "application/json";
+        $httpProvider.defaults.headers.common["Content-Type"] = "application/json";
 
           $stateProvider.state('landing', {
             url : '/landing',
