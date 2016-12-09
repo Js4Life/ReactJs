@@ -892,7 +892,7 @@ public class TaggingUtilitiesServices {
                 Map<String, String> nodeData = new HashMap<>();
                 nodeData.put("name", key);
                 nodeData.put("type", "CONCEPT");
-                nodeData.put("subtype", "FASB");
+                nodeData.put("subtype", "BASEL");
                 nodeData.put("elementID", mapofNameURI.get(key));
                 lightHouse.createNewVertex(nodeData);
                 Set<String> listOfParagraphVertexIDs = dataToProcess.get(key);
@@ -916,8 +916,11 @@ public class TaggingUtilitiesServices {
             Map<String, List<com.parabole.feed.contentparser.models.cfr.DocumentElement>> body = cfr.getBody();
             HashMap<String, Set<String>> conceptParaMap = cfr.getConceptParaMap();
 
-            //TODO: save to graph db here
-            saveCFRTopicToSubtopic(toc, glossaryMetaData.getString("fileName"));
+            // TODO: save to graph db here
+            String fileName = glossaryMetaData.getString("fileName");
+            saveCFRTopicToSubtopic(toc, fileName);
+            saveCFRParagraphsAndAssociateItToNode(body, fileName);
+            saveCFRConcepts(conceptParaMap);
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -975,6 +978,54 @@ public class TaggingUtilitiesServices {
         }
 
         return "Saved";
+
+    }
+
+
+    public String saveCFRParagraphsAndAssociateItToNode(Map<String, List<com.parabole.feed.contentparser.models.cfr.DocumentElement>> jsonFileContent, String fileName) throws Exception {
+
+        for (String s : jsonFileContent.keySet()) {
+            List<com.parabole.feed.contentparser.models.cfr.DocumentElement> paragraphsData = jsonFileContent.get(s);
+            for (com.parabole.feed.contentparser.models.cfr.DocumentElement documentElement: paragraphsData) {
+                // create paragraph node
+                Map<String, String> nodeDataTwo = new HashMap<>();
+                nodeDataTwo.put("name", documentElement.getName());
+                nodeDataTwo.put("type", "CFRPARAGRAPH");
+                nodeDataTwo.put("fromFileName", fileName);
+                nodeDataTwo.put("bodyText", documentElement.getContent());
+                nodeDataTwo.put("elementID", documentElement.getLevelId());
+                lightHouse.createNewVertex(nodeDataTwo);
+                lightHouse.establishEdgeByVertexIDs(s,  documentElement.getLevelId(), "dynamicNodeToParagraph", "dynamicNodeToParagraph");
+            }
+        }
+        return "Ok";
+    }
+
+
+    public String saveCFRConcepts(HashMap<String, Set<String>> conceptParaMap) throws IOException {
+        JSONObject allConceptNodesDetails = jenaTdbService.getFilteredDataByCompName("ceclBaseNodeDetails","FASB Concept");
+        JSONArray jsonArray = allConceptNodesDetails.getJSONArray("data");
+        Map<String, String> mapofNameURI = new HashMap<String, String>();
+        for (int i=0; i< jsonArray.length(); i++){
+            mapofNameURI.put(jsonArray.getJSONObject(i).getString("name"), jsonArray.getJSONObject(i).getString("link"));
+        }
+        for (String key : conceptParaMap.keySet()) {
+            if(null != conceptParaMap.get(key)){
+                Map<String, String> nodeData = new HashMap<>();
+                nodeData.put("name", key);
+                nodeData.put("type", "CONCEPT");
+                nodeData.put("subtype", "CFR");
+                nodeData.put("elementID", mapofNameURI.get(key));
+                lightHouse.createNewVertex(nodeData);
+                Set<String> listOfParagraphVertexIDs = conceptParaMap.get(key);
+                for (String listOfParagraphVertexID : listOfParagraphVertexIDs) {
+                    lightHouse.establishEdgeByVertexIDs(mapofNameURI.get(key), listOfParagraphVertexID, "conceptToParagraph", "conceptToParagraph");
+                    System.out.println( " || CONNECTION || --- || " +mapofNameURI.get(key) +" + "+ listOfParagraphVertexID);
+                }
+            }
+        }
+
+        return "{status: Saved}";
 
     }
 
