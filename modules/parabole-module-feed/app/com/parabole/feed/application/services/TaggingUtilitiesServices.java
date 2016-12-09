@@ -9,6 +9,7 @@ import com.parabole.feed.contentparser.EntryPoint;
 import com.parabole.feed.contentparser.TaggerTest;
 import com.parabole.feed.contentparser.models.fasb.DocumentData;
 import com.parabole.feed.contentparser.models.fasb.DocumentElement;
+import com.parabole.feed.contentparser.postprocessors.CfrProcessor;
 import com.parabole.feed.platform.graphdb.Anchor;
 import com.parabole.feed.platform.graphdb.LightHouse;
 import com.tinkerpop.blueprints.Graph;
@@ -904,5 +905,20 @@ public class TaggingUtilitiesServices {
 
         return "{status: Saved}";
 
+    }
+
+
+    //CFR related api methods called from cecl
+    public void saveCfrContents(String fPath, JSONObject glossaryMetaData){
+        try {
+            CfrProcessor cfr = taggerTest.startCfrExtraction(fPath, glossaryMetaData);
+            List<com.parabole.feed.contentparser.models.cfr.DocumentElement> toc = cfr.getToc();
+            Map<String, List<com.parabole.feed.contentparser.models.cfr.DocumentElement>> body = cfr.getBody();
+            HashMap<String, Set<String>> conceptParaMap = cfr.getConceptParaMap();
+
+            //TODO: save to graph db here
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

@@ -12,6 +12,7 @@ import com.parabole.feed.contentparser.models.fasb.DocumentData;
 import com.parabole.feed.contentparser.models.fasb.FASBIndexedDocument;
 import com.parabole.feed.contentparser.postprocessors.BaselBodyPostProcessor;
 import com.parabole.feed.contentparser.postprocessors.BaselTocPostProcessor;
+import com.parabole.feed.contentparser.postprocessors.CfrProcessor;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -136,5 +137,20 @@ public class TaggerTest {
         return paragraphElements;
     }
 
+    public CfrProcessor startCfrExtraction(String fPath, JSONObject glossaryMetaData){
+        JSONObject jsonObject = jenaTdbService.getFilteredDataByCompName("ceclBaseNodeDetails","FASB Concept");
+        JSONArray jsonArray = jsonObject.getJSONArray("data");
+        List<String> conceptList = new ArrayList<>();
+        for (int i=0; i< jsonArray.length(); i++){
+            String str = jsonArray.getJSONObject(i).getString("name");
+            conceptList.add(str);
+        }
 
+        CfrProcessor cfr = new CfrProcessor(fPath, conceptList, glossaryMetaData);
+        cfr.buildItemTree();
+        return cfr;
+       /* List<com.parabole.feed.contentparser.models.cfr.DocumentElement> toc = cfr.getToc();
+        Map<String, List<com.parabole.feed.contentparser.models.cfr.DocumentElement>> body = cfr.getBody();
+        HashMap<String, Set<String>> conceptParaMap = cfr.getConceptParaMap();*/
+    }
 }
