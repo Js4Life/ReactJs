@@ -222,7 +222,10 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			$scope.nodes = MockService.FasbBaseNodes;
 		} else if($scope.currentRegulation === 'BASEL'){
 			$scope.nodes = MockService.BaselBaseNodes;
+		} else if($scope.currentRegulation === 'CFR'){
+			$scope.nodes = MockService.CfrBaseNodes;
 		}
+
 		$scope.breads = SharedService.homeBreads || [];
 		$scope.answers = {};
 		$scope.currentColorCode = 'all';
@@ -382,6 +385,24 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 					});
 					break;
 			}
+		} else if($scope.currentRegulation === 'CFR'){
+			nodeId = nodeId ? nodeId : $scope.currentRegulationFile;
+			switch (nodeType) {
+				case "CFRPARAGRAPH" :
+					SharedService.hideAllToolTips();
+					SharedService.paragraphs = _.where($scope.childNodes, {type: "CFRPARAGRAPH"});
+					SharedService.homeBreads = $scope.breads;
+					$state.go('landing.checklistBuilder');
+					break;
+
+				default:
+					SharedService.getAllChildrenByRootId(nodeId).then(function (data) {
+						if (data.status) {
+							$scope.childNodes = angular.fromJson(data.data);
+						}
+					});
+					break;
+			}
 		}
 	}
 
@@ -402,7 +423,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			aBread.data = {type: "", id: ""};
 			$scope.breads.push(aBread);
 			return;
-		} else if (nodeType === 'PARAGRAPH' || nodeType === 'BASELPARAGRAPH'){
+		} else if (nodeType === 'PARAGRAPH' || nodeType === 'BASELPARAGRAPH' || nodeType === 'CFRPARAGRAPH'){
 			return;
 		}
 		var idx = _.findIndex($scope.nodes, function (n) {return n.id === nodeType});
@@ -694,7 +715,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		/*SharedService.loadRegulation(reg.name).then(function (data) {
 
 		});*/
-		SharedService.curentRegulation = reg.name;
+		SharedService.curentRegulation = reg.key;
 		if(reg.key === 'BASEL'){
 			SharedService.getAllDocFileNamesByType('FILE').then(function(data){
 				if(data.status){

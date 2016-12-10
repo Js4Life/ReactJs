@@ -147,7 +147,7 @@
         </div>
       </div>
       <div ng-if="currentRegulation.key === 'CFR'">
-        <div class="col-xs-4 padding-15 max-height" style="border-right: 1px solid #e5e5e5;">
+        @*<div class="col-xs-4 padding-15 max-height" style="border-right: 1px solid #e5e5e5;">
           <div class="panel panel-default">
             <div class="panel-heading">
               <b>Uploaded Documents</b>
@@ -160,13 +160,19 @@
               </table>
             </div>
           </div>
-        </div>
-        <div class="col-xs-8 padding-15" style="max-height: 82vh;overflow: auto;">
+        </div>*@
+        <div class="col-xs-8 col-xs-offset-2 padding-15" style="max-height: 82vh;overflow: auto;">
           <form class="form-horizontal">
             <div class="form-group">
               <label class="col-sm-3 control-label">Regulation</label>
               <div class="col-sm-9">
                 <select class="form-control" ng-model="fileConfig.type" ng-options="r.key as r.name for r in regulations" disabled></select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Genre</label>
+              <div class="col-sm-9">
+                <select class="form-control" ng-model="fileConfig.genre" ng-options="r.id as r.name for r in documentGenres"></select>
               </div>
             </div>
             <div class="form-group">
@@ -182,9 +188,9 @@
               <input type="text" class="form-control" placeholder="Level id prefix" ng-model="fileConfig.levelIdPrefix">
               </div>
             </div>
-            <input type="button" class="btn btn-primary pull-right" value="Save" ng-click="saveConfig()">
+            @*<input type="button" class="btn btn-primary pull-right" value="Save" ng-click="saveConfig()">*@
             <input type="button" class="btn btn-success pull-right margin-right-10" value="Run" ng-click="runConfig()">
-            <input type="button" class="btn btn-danger pull-right margin-right-10" value="Remove Data" ng-click="confirmRemoveParsing()">
+            @*<input type="button" class="btn btn-danger pull-right margin-right-10" value="Remove Data" ng-click="confirmRemoveParsing()">*@
           </form>
         </div>
       </div>

@@ -68,8 +68,9 @@ public class CfrProcessor {
                                 String levelId = prevDocElement.getLevelId() + "-P" + aPara.getIndex();
                                 aPara.setLevelId(levelId);
                                 aPara.setName(levelId);
+                                postProcessParagraph(aPara);
                             }
-                            body.put(prevDocElement.getContent(), paraList);
+                            body.put(prevDocElement.getLevelId(), paraList);
                         }
                         paraList = new ArrayList<>();
                         if(prevHead != null) {
@@ -119,7 +120,7 @@ public class CfrProcessor {
                     aPara.setLevelId(levelId);
                     aPara.setName(levelId);
                 }
-                body.put(prevDocElement.getContent(), paraList);
+                body.put(prevDocElement.getLevelId(), paraList);
             }
         } catch (ParserConfigurationException e){
             e.printStackTrace();
