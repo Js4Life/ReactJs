@@ -1717,7 +1717,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		SharedService.writeDocument(fileData).then(function (data) {
 			if(data.status){
 				toastr.success('File uploaded successfully..', '', {"positionClass" : "toast-top-right"});
-				getAllFeedFiles();
+				getAllFeedFiles($scope.currentRegulation.key);
 			} else {
 				toastr.error('File uploading failed..', '', {"positionClass" : "toast-top-right"});
 			}

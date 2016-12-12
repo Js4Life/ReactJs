@@ -9,8 +9,8 @@
         <b>{{reg.name}}</b>
       </div>
     </div>
-    <div ng-if="currentRegulation">
-      <div ng-if="currentRegulation.key === 'BASEL' || currentRegulation.key === 'BANKDOCUMENT'">
+    <div ng-show="currentRegulation">
+      <div ng-show="currentRegulation.key === 'BASEL' || currentRegulation.key === 'BANKDOCUMENT'">
         <div class="col-xs-4 padding-15 max-height" style="border-right: 1px solid #e5e5e5;">
           <div class="row-fluid" style="padding-bottom: 2vh;">
             <div ngf-drop ngf-select ng-model="file" class="drop-box" ngf-drag-over-class="'dragover'" ngf-multiple="false" ngf-allow-dir="false" accept="image/*,application/*,text/plain" ngf-pattern="'image/*,application/*,text/plain'" style="height:29vh;">Drop file or here or click to upload</div>
