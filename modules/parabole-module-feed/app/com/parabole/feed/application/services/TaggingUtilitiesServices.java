@@ -760,10 +760,10 @@ public class TaggingUtilitiesServices {
 
 
     //Basel related api methods called from cecl
-    public String saveBaselTopicToSubtopic(String file, JSONObject glossaryMetaData) throws IOException {
+    public String saveBaselTopicToSubtopic(String file, JSONObject glossaryMetaData, String fileNodeType, String folderName) throws IOException {
         List<com.parabole.feed.contentparser.models.basel.DocumentElement> result= null;
         try {
-            result = taggerTest.getBaselTopicsSubTopics(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\"+file+".pdf", glossaryMetaData);
+            result = taggerTest.getBaselTopicsSubTopics(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\"+ folderName + "\\" +file+".pdf", glossaryMetaData);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -798,7 +798,7 @@ public class TaggingUtilitiesServices {
         System.out.println(" Setting File Node .............");
         Map<String, String> fileTypeNode = new HashMap<>();
         fileTypeNode.put("name", file);
-        fileTypeNode.put("type", "FILE");
+        fileTypeNode.put("type", fileNodeType);
         fileTypeNode.put("elementID", file);
         fileTypeNode.put("genre", glossaryMetaData.getString("genre"));
         lightHouse.createNewVertex(fileTypeNode);
@@ -853,13 +853,13 @@ public class TaggingUtilitiesServices {
         return "ok";
     }
 
-    public String saveParagraphsAndAssociateItWithBaselSubTopic(String file, JSONObject tocGlossaryMetaData, JSONObject bodyGlossaryMetaData) throws Exception {
+    public String saveParagraphsAndAssociateItWithBaselSubTopic(String file, JSONObject tocGlossaryMetaData, JSONObject bodyGlossaryMetaData, String folderName) throws Exception {
 
         Map<String, List<com.parabole.feed.contentparser.models.basel.DocumentElement>> jsonFileContent= null;
-        String filePath = environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\" + file;
+        String filePath = environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\" + folderName + "\\" + file;
         String  contentParserMetaDataString = AppUtils.getFileContent("feedJson/contentParserMetaData.json");
         JSONObject contentParserMetaDataJSON = new JSONObject(contentParserMetaDataString);
-        jsonFileContent = taggerTest.startBaselExtraction(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\" + file+".pdf", tocGlossaryMetaData, bodyGlossaryMetaData);
+        jsonFileContent = taggerTest.startBaselExtraction(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\" + folderName + "\\" + file+".pdf", tocGlossaryMetaData, bodyGlossaryMetaData);
 
         for (String s : jsonFileContent.keySet()) {
             List<com.parabole.feed.contentparser.models.basel.DocumentElement> paragraphsData = jsonFileContent.get(s);
@@ -878,9 +878,9 @@ public class TaggingUtilitiesServices {
         return "Ok";
     }
 
-    public String saveBaselConcepts(String file, JSONObject tocGlossaryMetaData, JSONObject bodyGlossaryMetaData) throws IOException {
+    public String saveBaselConcepts(String file, JSONObject tocGlossaryMetaData, JSONObject bodyGlossaryMetaData, String folderName) throws IOException {
 
-        HashMap<String, Set<String>> dataToProcess = taggerTest.startBaselConceptMappingExtractions(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\" + file+".pdf", tocGlossaryMetaData, bodyGlossaryMetaData);
+        HashMap<String, Set<String>> dataToProcess = taggerTest.startBaselConceptMappingExtractions(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\" + folderName + "\\" + file+".pdf", tocGlossaryMetaData, bodyGlossaryMetaData);
         JSONObject allConceptNodesDetails = jenaTdbService.getFilteredDataByCompName("ceclBaseNodeDetails","FASB Concept");
         JSONArray jsonArray = allConceptNodesDetails.getJSONArray("data");
         Map<String, String> mapofNameURI = new HashMap<String, String>();
@@ -909,7 +909,7 @@ public class TaggingUtilitiesServices {
 
 
     //CFR related api methods called from cecl
-    public void saveCfrContents(String fPath, JSONObject glossaryMetaData){
+    public void saveCfrContents(String fPath, JSONObject glossaryMetaData, String fileNodeType){
         try {
             CfrProcessor cfr = taggerTest.startCfrExtraction(fPath, glossaryMetaData);
             List<com.parabole.feed.contentparser.models.cfr.DocumentElement> toc = cfr.getToc();
@@ -919,7 +919,7 @@ public class TaggingUtilitiesServices {
             // TODO: save to graph db here
             String fileName = glossaryMetaData.getString("levelIdPrefix");
             String genre = glossaryMetaData.getString("genre");
-            saveCFRTopicToSubtopic(toc, fileName, genre);
+            saveCFRTopicToSubtopic(toc, fileName, genre, fileNodeType);
             saveCFRParagraphsAndAssociateItToNode(body, fileName);
             saveCFRConcepts(conceptParaMap);
         } catch (Exception e){
@@ -928,7 +928,7 @@ public class TaggingUtilitiesServices {
     }
 
 
-    public String saveCFRTopicToSubtopic(List<com.parabole.feed.contentparser.models.cfr.DocumentElement> result, String fileName, String genre) throws IOException {
+    public String saveCFRTopicToSubtopic(List<com.parabole.feed.contentparser.models.cfr.DocumentElement> result, String fileName, String genre, String fileNodeType) throws IOException {
 
 
         // set root
@@ -952,7 +952,7 @@ public class TaggingUtilitiesServices {
         System.out.println(" Setting File Node .............");
         Map<String, String> fileTypeNode = new HashMap<>();
         fileTypeNode.put("name", fileName);
-        fileTypeNode.put("type", "CFRFILE");
+        fileTypeNode.put("type", fileNodeType);
         fileTypeNode.put("elementID", fileName);
         fileTypeNode.put("genre", genre);
         lightHouse.createNewVertex(fileTypeNode);

@@ -923,8 +923,9 @@ angular.module('RDAApp.services', [])
         return SharedService.invokeService('GetAllDocFileNamesByType', sendObj, 'post');
     }
 
-    SharedService.getAllFeedFiles = function () {
-        return SharedService.invokeService('GetAllFeedFiles');
+    SharedService.getAllFeedFiles = function (regulation) {
+        var sendObj = {"regulation": regulation};
+        return SharedService.invokeService('GetAllFeedFiles', sendObj, 'post');
     }
     SharedService.getDocumentConfigById = function (id) {
         var sendObj = {"id": id};

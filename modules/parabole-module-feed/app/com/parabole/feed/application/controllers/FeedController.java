@@ -121,7 +121,7 @@ public class FeedController extends BaseController{
     }
 
     public Result getFeedFileNames() throws Exception {
-        final String resultData = documentCfgService.getFeedFileNames().toString();
+        final String resultData = documentCfgService.getFeedFileNames("BASEL").toString();
         return ok(resultData);
     }
 }

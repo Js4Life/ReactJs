@@ -52,6 +52,11 @@ public class CfrProcessor {
             XPath xPath =  XPathFactory.newInstance().newXPath();
             NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(doc, XPathConstants.NODESET);
 
+            if(nodeList.getLength() == 0){
+                expression = "/PRORULE/SUPLINF";
+                nodeList = (NodeList) xPath.compile(expression).evaluate(doc, XPathConstants.NODESET);
+            }
+
             Element root =(Element) nodeList.item(0);
             NodeList hds = root.getChildNodes();
             List<DocumentElement> paraList = null;

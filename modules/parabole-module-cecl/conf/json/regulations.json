@@ -8,8 +8,12 @@
     "key": "BASEL",
     "roles": ["CCO", "EXTSME", "ADMIN"]
   },{
-    "name": "FEDERAL-REGISTER",
+    "name": "FEDERAL REGISTER",
     "key": "CFR",
+    "roles": ["CCO", "EXTSME", "ADMIN"]
+  },{
+    "name": "BANK DOCUMENT",
+    "key": "BANKDOCUMENT",
     "roles": ["CCO", "EXTSME", "ADMIN"]
   }
 ]

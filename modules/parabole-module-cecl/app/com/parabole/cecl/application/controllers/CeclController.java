@@ -1101,11 +1101,15 @@ public class CeclController extends Controller{
     }
 
     public Result getAllFeedFiles() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final String regulation = request.getString("regulation");
+
         JSONObject finalJson = new JSONObject();
         Boolean status = true;
         String data = null;
         try {
-            List<HashMap<String, String>> res = documentCfgService.getFeedFileNames();
+            List<HashMap<String, String>> res = documentCfgService.getFeedFileNames(regulation);
             ObjectMapper mapper = new ObjectMapper();
             data = mapper.writeValueAsString(res);
         } catch (Exception e){
@@ -1163,10 +1167,11 @@ public class CeclController extends Controller{
         final JSONObject request = new JSONObject(json);
         final String fileName = request.getString("name");
         final String fileData = request.getString("data");
+        final String regulation = request.getString("regulation");
         JSONObject finalJson = new JSONObject();
         Boolean status = true;
         try {
-            status = documentCfgService.uploadFeedFile(fileName, fileData);
+            status = documentCfgService.uploadFeedFile(fileName, fileData, regulation);
         } catch (Exception e){
             status = false;
             e.printStackTrace();
@@ -1189,15 +1194,22 @@ public class CeclController extends Controller{
                 final JSONObject toc = request.getJSONObject("toc");
                 toc.put("genre", genre);
                 final JSONObject body = request.getJSONObject("body");
-                taggingUtilitiesServices.saveBaselTopicToSubtopic(fileName, toc);
-                taggingUtilitiesServices.saveParagraphsAndAssociateItWithBaselSubTopic(fileName, toc, body);
-                taggingUtilitiesServices.saveBaselConcepts(fileName, toc, body);
+                taggingUtilitiesServices.saveBaselTopicToSubtopic(fileName, toc, "FILE", "basel");
+                taggingUtilitiesServices.saveParagraphsAndAssociateItWithBaselSubTopic(fileName, toc, body, "basel");
+                taggingUtilitiesServices.saveBaselConcepts(fileName, toc, body, "basel");
+            } else if(regulation.equals("BANKDOCUMENT")) {
+                final JSONObject toc = request.getJSONObject("toc");
+                toc.put("genre", genre);
+                final JSONObject body = request.getJSONObject("body");
+                taggingUtilitiesServices.saveBaselTopicToSubtopic(fileName, toc, "BANKFILE", "bank");
+                taggingUtilitiesServices.saveParagraphsAndAssociateItWithBaselSubTopic(fileName, toc, body, "bank");
+                taggingUtilitiesServices.saveBaselConcepts(fileName, toc, body, "bank");
             } else if(regulation.equals("CFR")){
                 final String levelIdPrefix = request.getString("levelIdPrefix");
                 JSONObject glossaryMetaData = new JSONObject();
                 glossaryMetaData.put("levelIdPrefix", levelIdPrefix);
                 glossaryMetaData.put("genre", genre);
-                taggingUtilitiesServices.saveCfrContents(fileName, glossaryMetaData);
+                taggingUtilitiesServices.saveCfrContents(fileName, glossaryMetaData, "CFRFILE");
             }
         } catch (Exception e){
             status = false;
