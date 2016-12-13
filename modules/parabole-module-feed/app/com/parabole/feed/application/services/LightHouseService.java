@@ -513,7 +513,6 @@ public class LightHouseService {
 
         Map<String, Integer> limitedToThresholdValueMap = Maps.filterValues(sortableParagraphExistanceCounts, thresholdFilter);
 
-
         // in the following operation it will try to get the highest number of concept attached paragraph
 
         if(sortableParagraphExistanceCounts != null && sortableParagraphExistanceCounts.keySet().size() != 0) {

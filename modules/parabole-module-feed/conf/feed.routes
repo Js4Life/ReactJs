@@ -101,30 +101,38 @@ GET /getAllDocFileNamesByType                             com.parabole.feed.appl
 #-------------------------------------------
 # CFR Operation
 #-------------------------------------------
-GET /cfrDocumentHirarchyLoading/:fileName                 com.parabole.feed.application.controllers.FeedController.saveBaselTopicToSubtopic(fileName: String)
+GET /cfrDocumentHirarchyLoading/:fileName               com.parabole.feed.application.controllers.FeedController.saveBaselTopicToSubtopic(fileName: String)
 
 #-------------------------------------------
 # EXTRA Operations
 #-------------------------------------------
-GET /getAllParagraphInTextFile/:fileType              com.parabole.feed.application.controllers.FeedController.getAllParagraphInTextFile(fileType: String)
+GET /getAllParagraphInTextFile/:fileType                com.parabole.feed.application.controllers.FeedController.getAllParagraphInTextFile(fileType: String)
 
 #---------------------------------------
 ## Check List Operation Test
 #---------------------------------------
-GET /saveOrUpdateCheckList                             com.parabole.feed.application.controllers.ParagraphOperationsController.saveOrUpdateCheckList()
-GET /saveOrUpdateCheckListAttachment                   com.parabole.feed.application.controllers.ParagraphOperationsController.saveOrUpdateCheckListAttachment()
-GET /getCheckListAttachmentById                        com.parabole.feed.application.controllers.ParagraphOperationsController.getCheckListAttachmentById()
-GET /getCheckListAttachmentsByChecklistID              com.parabole.feed.application.controllers.ParagraphOperationsController.getCheckListAttachmentsByChecklistID()
-GET /removeCheckListAttachment                         com.parabole.feed.application.controllers.ParagraphOperationsController.removeCheckListAttachment()
-GET /getCheckListById                                  com.parabole.feed.application.controllers.ParagraphOperationsController.getCheckListById()
-GET /removeCheckList                                   com.parabole.feed.application.controllers.ParagraphOperationsController.removeCheckList()
-GET /editChecklistCheck                                com.parabole.feed.application.controllers.ParagraphOperationsController.editChecklistCheck()
+GET /saveOrUpdateCheckList                              com.parabole.feed.application.controllers.ParagraphOperationsController.saveOrUpdateCheckList()
+GET /saveOrUpdateCheckListAttachment                    com.parabole.feed.application.controllers.ParagraphOperationsController.saveOrUpdateCheckListAttachment()
+GET /getCheckListAttachmentById                         com.parabole.feed.application.controllers.ParagraphOperationsController.getCheckListAttachmentById()
+GET /getCheckListAttachmentsByChecklistID               com.parabole.feed.application.controllers.ParagraphOperationsController.getCheckListAttachmentsByChecklistID()
+GET /removeCheckListAttachment                          com.parabole.feed.application.controllers.ParagraphOperationsController.removeCheckListAttachment()
+GET /getCheckListById                                   com.parabole.feed.application.controllers.ParagraphOperationsController.getCheckListById()
+GET /removeCheckList                                    com.parabole.feed.application.controllers.ParagraphOperationsController.removeCheckList()
+GET /editChecklistCheck                                 com.parabole.feed.application.controllers.ParagraphOperationsController.editChecklistCheck()
 #---------------------------------------
 
+#---------------------------------------
+## Concept Context map saving operation
+#---------------------------------------
+GET /saveContextConceptMap                              com.parabole.feed.application.controllers.ParagraphOperationsController.saveContextConceptMap()
+GET /getConceptsAgainstContextUri                       com.parabole.feed.application.controllers.ParagraphOperationsController.getConceptsAgainstContextUri()
+GET /getContextsAgainstConceptUri                       com.parabole.feed.application.controllers.ParagraphOperationsController.getContextsAgainstConceptUri()
 
-GET /tinkerPopTest                                com.parabole.feed.application.controllers.ParagraphOperationsController.tinkerPopTest()
-GET /saveAVertex                                  com.parabole.feed.application.controllers.ParagraphOperationsController.saveAVertex()
-GET /establishEdgeByVertexIDs                     com.parabole.feed.application.controllers.ParagraphOperationsController.establishEdgeByVertexIDs()
+
+
+GET /tinkerPopTest                                      com.parabole.feed.application.controllers.ParagraphOperationsController.tinkerPopTest()
+GET /saveAVertex                                        com.parabole.feed.application.controllers.ParagraphOperationsController.saveAVertex()
+GET /establishEdgeByVertexIDs                           com.parabole.feed.application.controllers.ParagraphOperationsController.establishEdgeByVertexIDs()
 
 # Map static resources from the /public folder to the /assets URL path
 GET      /feedassets/*file                              controllers.Assets.at(path="/public/lib/parabole-module-feed", file)

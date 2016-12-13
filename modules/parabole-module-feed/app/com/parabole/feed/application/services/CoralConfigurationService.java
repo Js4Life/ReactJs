@@ -104,6 +104,34 @@ public class CoralConfigurationService {
         return configurationId;
     }
 
+    public String saveContextConceptMap(final String context_url, final String context_name, final String concept_url) throws AppException {
+        Validate.notNull(context_url, "'configurationType' cannot be null!");
+        Validate.notNull(context_name, "'configurationType' cannot be null!");
+        Validate.notNull(concept_url, "'configurationType' cannot be null!");
+        String retData = "{Status: true, message: saved }";
+        try {
+            final Map<String, Object> dataMap = new HashMap<String, Object>();
+            dataMap.put("CONTEXT_URI", concept_url);
+            dataMap.put("CONTEXT_NAME", context_name);
+            dataMap.put("CONCEPT_URI", concept_url);
+            coral.saveContextConceptMap(CCAppConstants.APP_CONTEXT_CONCEPT_MAPPING, dataMap);
+        }catch (Exception e){
+            retData = "{Status: false, message: "+e.toString()+"}";
+            e.printStackTrace();
+        }
+        return retData;
+    }
+
+    public List<String> getConceptsAgainstContextUri(String contextUri) throws AppException {
+        Validate.notNull(contextUri, "'contextUri' cannot be null");
+        return coral.getConceptsAgainstContextUri(contextUri);
+    }
+
+    public List<Map<String, String>> getContextsAgainstConceptUri(String conceptUri) throws AppException {
+        Validate.notNull(conceptUri, "'contextUri' cannot be null");
+        return coral.getContextsAgainstConceptUri(conceptUri);
+    }
+
     public Integer saveViewConfiguration(final String userId, final JsonNode json) throws AppException {
         final String configurationName = json.findPath("name").textValue();
         final String configurationType = json.findPath("type").textValue();
