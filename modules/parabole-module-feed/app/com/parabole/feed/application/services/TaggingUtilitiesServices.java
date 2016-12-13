@@ -953,8 +953,8 @@ public class TaggingUtilitiesServices {
         fileTypeNode.put("name", fileName);
         fileTypeNode.put("type", "CFRFILE");
         fileTypeNode.put("elementID", fileName);
-        // lightHouse.createNewVertex(fileTypeNode);
-        // lightHouse.establishEdgeByVertexIDs("CFRGLOBAL", fileName, "CFRGLOBALTOFILE", "CFRGLOBALTOFILE");
+        lightHouse.createNewVertex(fileTypeNode);
+        lightHouse.establishEdgeByVertexIDs("CFRGLOBAL", fileName, "CFRGLOBALTOFILE", "CFRGLOBALTOFILE");
 
         createNodesAndrelateEdgesRecursively(result, fileName);
         return "ok";

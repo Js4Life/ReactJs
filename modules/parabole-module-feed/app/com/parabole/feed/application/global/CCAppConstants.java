@@ -21,6 +21,7 @@ public class CCAppConstants extends AppConstants {
     public static final String APP_CHECKLIST_ATTACHMENT = "APP_CHECKLIST_ATTACHMENT";
     public static final String APP_CONCEPTS_INFO = "APP_CONCEPTS_INFO";
     public static final String RDA_CONCEPT_TAGS = "APP_CONCEPT_TAGS";
+    public static final String APP_CONTEXT_CONCEPT_MAPPING = "APP_CONTEXT_CONCEPT_MAPPING";
     public static final String RDA_GLOSSARY_CONFIGS = "GLOSSARY_CONFIGS";
     public static final String RDA_GLOSSARY_TABLE = "GLOSSARY_TABLE";
     public static final String RDA_CFG_TYPE_REPORT = "REPORTS";
