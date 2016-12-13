@@ -21,10 +21,14 @@ public class DocumentCfgService {
     @Inject
     Configuration configuration;
 
-    public List<HashMap<String, String>> getFeedFileNames(){
+    public List<HashMap<String, String>> getFeedFileNames(String regulation){
         List<HashMap<String, String>> files = new ArrayList<>();
         String subPath = configuration.getString("application.feedFilePath");
-        String path = Play.current().path().getAbsolutePath().concat(subPath);
+        String path = "";
+        if(regulation.equalsIgnoreCase("BASEL"))
+            path = Play.current().path().getAbsolutePath().concat(subPath).concat("/basel");
+        else if(regulation.equalsIgnoreCase("BANKDOCUMENT"))
+            path = Play.current().path().getAbsolutePath().concat(subPath).concat("/bank");
         File folder = new File(path);
         File[] allFiles = folder.listFiles();
         for (File file: allFiles) {
@@ -42,9 +46,13 @@ public class DocumentCfgService {
         return files;
     }
 
-    public Boolean uploadFeedFile(String fileName, String fileData){
+    public Boolean uploadFeedFile(String fileName, String fileData, String regulation){
         String subPath = configuration.getString("application.feedFilePath");
-        String path = Play.current().path().getAbsolutePath().concat(subPath).concat("/").concat(fileName);
+        String path = "";
+        if(regulation.equalsIgnoreCase("BASEL"))
+            path = Play.current().path().getAbsolutePath().concat(subPath).concat("/basel/").concat(fileName);
+        else if(regulation.equalsIgnoreCase("BANKDOCUMENT"))
+            path = Play.current().path().getAbsolutePath().concat(subPath).concat("/bank/").concat(fileName);
         try {
             String temp = fileData.substring(fileData.indexOf(',') + 1);
             byte[] bytes = Base64.getDecoder().decode(temp);

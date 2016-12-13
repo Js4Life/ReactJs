@@ -148,13 +148,19 @@ POST /getBaselSectionsBySubtopicId                  com.parabole.cecl.applicatio
 POST /getBaselSubtopicsByTopicId                    com.parabole.cecl.application.controllers.CeclController.getBaselSubtopicsByTopicId()
 POST /getAllDocFileNamesByType                      com.parabole.cecl.application.controllers.CeclController.getAllDocFileNamesByType()
 
+# ---------------------------------------------------------------------------------
+# CFR RELATED OPERATIONS
+# ---------------------------------------------------------------------------------
+POST /getAllChildrenByRootId                        com.parabole.cecl.application.controllers.CeclController.getAllChildrenByRootId()
+
 
 # ---------------------------------------------------------------------------------
 # DOCUMENT UPLOADER RELATED OPERATIONS
 # ---------------------------------------------------------------------------------
-GET /getAllFeedFiles                                com.parabole.cecl.application.controllers.CeclController.getAllFeedFiles()
+POST /getAllFeedFiles                                com.parabole.cecl.application.controllers.CeclController.getAllFeedFiles()
 POST /getDocumentConfigById                         com.parabole.cecl.application.controllers.CeclController.getDocumentConfigById()
 POST /saveDocumentConfig                            com.parabole.cecl.application.controllers.CeclController.saveDocumentConfig()
 POST /writeDocument                                 com.parabole.cecl.application.controllers.CeclController.writeDocument()
 POST /runConfig                                     com.parabole.cecl.application.controllers.CeclController.runConfig()
 POST /removeParsing                                 com.parabole.cecl.application.controllers.CeclController.removeParsing()
+GET /getAllCfrFileDetails                           com.parabole.cecl.application.controllers.CeclController.getAllCfrFileDetails()

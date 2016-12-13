@@ -52,6 +52,11 @@ public class CfrProcessor {
             XPath xPath =  XPathFactory.newInstance().newXPath();
             NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(doc, XPathConstants.NODESET);
 
+            if(nodeList.getLength() == 0){
+                expression = "/PRORULE/SUPLINF";
+                nodeList = (NodeList) xPath.compile(expression).evaluate(doc, XPathConstants.NODESET);
+            }
+
             Element root =(Element) nodeList.item(0);
             NodeList hds = root.getChildNodes();
             List<DocumentElement> paraList = null;
@@ -68,8 +73,9 @@ public class CfrProcessor {
                                 String levelId = prevDocElement.getLevelId() + "-P" + aPara.getIndex();
                                 aPara.setLevelId(levelId);
                                 aPara.setName(levelId);
+                                postProcessParagraph(aPara);
                             }
-                            body.put(prevDocElement.getContent(), paraList);
+                            body.put(prevDocElement.getLevelId(), paraList);
                         }
                         paraList = new ArrayList<>();
                         if(prevHead != null) {
@@ -119,7 +125,7 @@ public class CfrProcessor {
                     aPara.setLevelId(levelId);
                     aPara.setName(levelId);
                 }
-                body.put(prevDocElement.getContent(), paraList);
+                body.put(prevDocElement.getLevelId(), paraList);
             }
         } catch (ParserConfigurationException e){
             e.printStackTrace();

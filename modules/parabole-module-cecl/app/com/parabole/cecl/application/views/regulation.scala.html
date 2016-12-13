@@ -1,5 +1,6 @@
 <div class="panel panel-default">
   <div class="panel-heading">
+    <span ng-if="regulationFiles" class="glyphicon glyphicon-chevron-left pull-left" style="margin-right:10px;" ng-click="goPreviousScreen()"></span>
     <b>{{heading.title}}</b>
     <div ng-if="regulationFiles" class="btn-group btn-group-xs pull-right margin-right-5" data-toggle="buttons">
       <label class="btn btn-primary" ng-click="setGenre('all')" tooltip='"title":"All"'>

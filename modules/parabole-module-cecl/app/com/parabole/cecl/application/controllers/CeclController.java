@@ -10,6 +10,9 @@ import com.parabole.cecl.application.global.CCAppConstants;
 import com.parabole.cecl.application.services.JenaTdbService;
 import com.parabole.cecl.application.utils.BodyParserMaxLength;
 import com.parabole.feed.application.services.*;
+import play.libs.ws.WSClient;
+import play.libs.ws.WSRequest;
+import play.libs.ws.WSResponse;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -17,7 +20,13 @@ import play.mvc.Results;
 import org.json.*;
 
 import javax.inject.Inject;
+import javax.net.ssl.HttpsURLConnection;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.*;
+import java.util.concurrent.CompletionStage;
 
 /**
  * Created by ATANU on 7/29/2016.
@@ -1092,11 +1101,15 @@ public class CeclController extends Controller{
     }
 
     public Result getAllFeedFiles() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final String regulation = request.getString("regulation");
+
         JSONObject finalJson = new JSONObject();
         Boolean status = true;
         String data = null;
         try {
-            List<HashMap<String, String>> res = documentCfgService.getFeedFileNames();
+            List<HashMap<String, String>> res = documentCfgService.getFeedFileNames(regulation);
             ObjectMapper mapper = new ObjectMapper();
             data = mapper.writeValueAsString(res);
         } catch (Exception e){
@@ -1154,10 +1167,11 @@ public class CeclController extends Controller{
         final JSONObject request = new JSONObject(json);
         final String fileName = request.getString("name");
         final String fileData = request.getString("data");
+        final String regulation = request.getString("regulation");
         JSONObject finalJson = new JSONObject();
         Boolean status = true;
         try {
-            status = documentCfgService.uploadFeedFile(fileName, fileData);
+            status = documentCfgService.uploadFeedFile(fileName, fileData, regulation);
         } catch (Exception e){
             status = false;
             e.printStackTrace();
@@ -1173,15 +1187,30 @@ public class CeclController extends Controller{
         final String fileName = request.getString("name");
         final String regulation = request.getString("type");
         final String genre = request.getString("genre");
-        final JSONObject toc = request.getJSONObject("toc");
-        toc.put("genre", genre);
-        final JSONObject body = request.getJSONObject("body");
         JSONObject finalJson = new JSONObject();
         Boolean status = true;
         try {
-            taggingUtilitiesServices.saveBaselTopicToSubtopic(fileName, toc);
-            taggingUtilitiesServices.saveParagraphsAndAssociateItWithBaselSubTopic(fileName, toc, body);
-            taggingUtilitiesServices.saveBaselConcepts(fileName, toc, body);
+            if(regulation.equals("BASEL")) {
+                final JSONObject toc = request.getJSONObject("toc");
+                toc.put("genre", genre);
+                final JSONObject body = request.getJSONObject("body");
+                taggingUtilitiesServices.saveBaselTopicToSubtopic(fileName, toc, "FILE", "basel");
+                taggingUtilitiesServices.saveParagraphsAndAssociateItWithBaselSubTopic(fileName, toc, body, "basel");
+                taggingUtilitiesServices.saveBaselConcepts(fileName, toc, body, "basel");
+            } else if(regulation.equals("BANKDOCUMENT")) {
+                final JSONObject toc = request.getJSONObject("toc");
+                toc.put("genre", genre);
+                final JSONObject body = request.getJSONObject("body");
+                taggingUtilitiesServices.saveBaselTopicToSubtopic(fileName, toc, "BANKFILE", "bank");
+                taggingUtilitiesServices.saveParagraphsAndAssociateItWithBaselSubTopic(fileName, toc, body, "bank");
+                taggingUtilitiesServices.saveBaselConcepts(fileName, toc, body, "bank");
+            } else if(regulation.equals("CFR")){
+                final String levelIdPrefix = request.getString("levelIdPrefix");
+                JSONObject glossaryMetaData = new JSONObject();
+                glossaryMetaData.put("levelIdPrefix", levelIdPrefix);
+                glossaryMetaData.put("genre", genre);
+                taggingUtilitiesServices.saveCfrContents(fileName, glossaryMetaData, "CFRFILE");
+            }
         } catch (Exception e){
             status = false;
             e.printStackTrace();
@@ -1205,5 +1234,66 @@ public class CeclController extends Controller{
         }
         finalJson.put("status", status);
         return ok(finalJson.toString());
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result getAllChildrenByRootId() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final String nodeId = request.getString("nodeId");
+        JSONObject finalJson = new JSONObject();
+        Boolean status = true;
+        String data = null;
+        try {
+            ArrayList<HashMap<String, String>> res = lightHouseService.getChildVerticesByRootVertexId(nodeId);
+            ObjectMapper mapper = new ObjectMapper();
+            data = mapper.writeValueAsString(res);
+        } catch (Exception e){
+            status = false;
+            e.printStackTrace();
+        }
+        finalJson.put("status", status).put("data", data);
+        return ok(finalJson.toString());
+    }
+
+    public Result getAllCfrFileDetails(){
+        JSONObject finalJson = new JSONObject();
+        CompletionStage<JsonNode> response = null;
+        String data = "";
+        try{
+            data = invokeEndPoint("https://www.federalregister.gov/documents/full_text/xml/2016/09/16/2016-21970.xml");
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return ok(data);
+    }
+
+    private String invokeEndPoint(String resturl ) {
+        try {
+            URL url = new URL( resturl );
+            HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("Accept", "text/xml");
+
+            if (conn.getResponseCode() != 200) {
+                throw new RuntimeException("Failed : HTTP error code : "
+                        + conn.getResponseCode());
+            }
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(
+                    (conn.getInputStream())));
+
+            final StringBuffer output = new StringBuffer();
+            br.lines().forEach(a -> {
+                output.append(a);
+            });
+            conn.disconnect();
+            return  output.toString();
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+        }
+        return null;
     }
 }

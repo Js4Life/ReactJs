@@ -88,4 +88,6 @@ CALL tdbloader --loc=tdb   %ONTOLOGY_LOC%/basel_vanilla.rdf
 ECHO =====================================================
 CALL tdbloader --loc=tdb   %ONTOLOGY_LOC%/Rbot.rdf
 ECHO =====================================================
+CALL tdbloader --loc=tdb   %ONTOLOGY_LOC%/Context.rdf
+ECHO =====================================================
  

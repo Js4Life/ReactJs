@@ -220,9 +220,12 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$scope.collapseClasses = {left: "col-xs-2 menu-back slide-container", center: "col-xs-10"};
 		if($scope.currentRegulation === 'FASB'){
 			$scope.nodes = MockService.FasbBaseNodes;
-		} else if($scope.currentRegulation === 'BASEL'){
+		} else if($scope.currentRegulation === 'BASEL' || $scope.currentRegulation === 'BANKDOCUMENT'){
 			$scope.nodes = MockService.BaselBaseNodes;
+		} else if($scope.currentRegulation === 'CFR'){
+			$scope.nodes = MockService.CfrBaseNodes;
 		}
+
 		$scope.breads = SharedService.homeBreads || [];
 		$scope.answers = {};
 		$scope.currentColorCode = 'all';
@@ -345,7 +348,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 					});
 					break;
 			}
-		} else if($scope.currentRegulation === 'BASEL') {
+		} else if($scope.currentRegulation === 'BASEL' || $scope.currentRegulation === 'BANKDOCUMENT') {
 			switch (nodeType) {
 				case "BASELTOPIC" :
 					SharedService.getBaselSubtopicsByTopicId(nodeId).then(function (data) {
@@ -382,6 +385,24 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 					});
 					break;
 			}
+		} else if($scope.currentRegulation === 'CFR'){
+			nodeId = nodeId ? nodeId : $scope.currentRegulationFile;
+			switch (nodeType) {
+				case "CFRPARAGRAPH" :
+					SharedService.hideAllToolTips();
+					SharedService.paragraphs = _.where($scope.childNodes, {type: "CFRPARAGRAPH"});
+					SharedService.homeBreads = $scope.breads;
+					$state.go('landing.checklistBuilder');
+					break;
+
+				default:
+					SharedService.getAllChildrenByRootId(nodeId).then(function (data) {
+						if (data.status) {
+							$scope.childNodes = angular.fromJson(data.data);
+						}
+					});
+					break;
+			}
 		}
 	}
 
@@ -402,7 +423,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			aBread.data = {type: "", id: ""};
 			$scope.breads.push(aBread);
 			return;
-		} else if (nodeType === 'PARAGRAPH' || nodeType === 'BASELPARAGRAPH'){
+		} else if (nodeType === 'PARAGRAPH' || nodeType === 'BASELPARAGRAPH' || nodeType === 'CFRPARAGRAPH'){
 			return;
 		}
 		var idx = _.findIndex($scope.nodes, function (n) {return n.id === nodeType});
@@ -679,7 +700,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 .controller('regulationCtrl', function($scope, $state, $stateParams, SharedService) {
 	$scope.initialize = function () {
-		$scope.heading = {"title": "Regulations"};
+		$scope.heading = {"title": "Knowledge Repository"};
 		SharedService.homeBreads = [];
 		$scope.regulationFiles = null;
 		$scope.currentGenre = 'all';
@@ -694,15 +715,29 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		/*SharedService.loadRegulation(reg.name).then(function (data) {
 
 		});*/
-		SharedService.curentRegulation = reg.name;
-		if(reg.name === 'BASEL'){
+		SharedService.curentRegulation = reg.key;
+		if(reg.key === 'BASEL'){
 			SharedService.getAllDocFileNamesByType('FILE').then(function(data){
 				if(data.status){
 					$scope.heading.title = "List of documents (" + reg.name + ")";
 					$scope.regulationFiles = angular.fromJson(data.data);
 				}
 			});
-		} else {
+		} else if(reg.key === 'CFR'){
+			SharedService.getAllDocFileNamesByType('CFRFILE').then(function(data){
+				if(data.status){
+					$scope.heading.title = "List of documents (" + reg.name + ")";
+					$scope.regulationFiles = angular.fromJson(data.data);
+				}
+			});
+		} else if(reg.key === 'BANKDOCUMENT'){
+            SharedService.getAllDocFileNamesByType('BANKFILE').then(function(data){
+                if(data.status){
+                    $scope.heading.title = "List of documents (" + reg.name + ")";
+                    $scope.regulationFiles = angular.fromJson(data.data);
+                }
+            });
+        } else {
 			SharedService.hideAllToolTips();
 			$state.go('landing.homeContainer');
 		}
@@ -716,6 +751,10 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 	$scope.setGenre = function (genre) {
 		$scope.currentGenre = genre;
+	}
+
+	$scope.goPreviousScreen = function () {
+		$scope.regulationFiles = null;
 	}
 
 	$scope.initialize();
@@ -1578,7 +1617,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.initialize();
 })
 
-.controller('documentUploaderCtrl', function ($scope, $state, Upload, SharedService, MockService) {
+.controller('documentUploaderCtrl', function ($scope, $state, $http, Upload, SharedService, MockService) {
 	$scope.initialize = function(){
 		$scope.fileConfig = {toc:{levels: []}, body:{}};
 		$scope.documentGenres = MockService.documentGenres;
@@ -1587,11 +1626,22 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				$scope.regulations = data.data;
 			}
 		});
-		getAllFeedFiles();
 	}
 
-	function getAllFeedFiles(){
-		SharedService.getAllFeedFiles().then(function (data) {
+	$scope.goConfigWindow = function (reg) {
+		$scope.currentRegulation = reg;
+		$scope.fileConfig = {toc:{levels: []}, body:{}, type: reg.key};
+		if(reg.key === 'BASEL' || reg.key === 'BANKDOCUMENT'){
+			getAllFeedFiles(reg.key);
+		} else if(reg.key === 'CFR'){
+			/*SharedService.getAllCfrDocuments().then(function (data) {
+			 	$scope.cfrFiles = data;
+			});*/
+		}
+	}
+
+	function getAllFeedFiles(regulation){
+		SharedService.getAllFeedFiles(regulation).then(function (data) {
 			if(data.status){
 				$scope.uploadedFiles = angular.fromJson(data.data);
 			}
@@ -1604,7 +1654,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}
 	
 	$scope.getConfig = function (fileId) {
-		$scope.fileConfig = {toc:{levels: [], levelIdPrefix: fileId}, body:{}, name: fileId};
+		$scope.fileConfig = {toc:{levels: [], levelIdPrefix: fileId}, body:{}, name: fileId, type: $scope.currentRegulation.key};
 		SharedService.getDocumentConfigById(fileId).then(function (data) {
 			if(data.status){
 				var config = angular.fromJson(data.data);
@@ -1667,15 +1717,20 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	});
 
 	function uploadAttachment(fileData) {
+		fileData.regulation = $scope.currentRegulation.key;
 		SharedService.writeDocument(fileData).then(function (data) {
 			if(data.status){
 				toastr.success('File uploaded successfully..', '', {"positionClass" : "toast-top-right"});
-				getAllFeedFiles();
+				getAllFeedFiles($scope.currentRegulation.key);
 			} else {
 				toastr.error('File uploading failed..', '', {"positionClass" : "toast-top-right"});
 			}
 		});
 	}
 
+	$scope.goPreviousScreen = function () {
+		$scope.currentRegulation = null;
+	}
+	
 	$scope.initialize();
 });

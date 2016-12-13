@@ -1,9 +1,19 @@
 [
   {
     "name": "FASB",
+    "key": "FASB",
     "roles": ["CCO", "EXTSME", "ADMIN", "FORDEMO"]
   },{
     "name": "BASEL",
+    "key": "BASEL",
+    "roles": ["CCO", "EXTSME", "ADMIN"]
+  },{
+    "name": "FEDERAL REGISTER",
+    "key": "CFR",
+    "roles": ["CCO", "EXTSME", "ADMIN"]
+  },{
+    "name": "BANK DOCUMENT",
+    "key": "BANKDOCUMENT",
     "roles": ["CCO", "EXTSME", "ADMIN"]
   }
 ]

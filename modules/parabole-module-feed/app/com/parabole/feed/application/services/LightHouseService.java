@@ -327,6 +327,10 @@ public class LightHouseService {
         return finalResult;
     }
 
+    public ArrayList<HashMap<String, String>> getChildVerticesByRootVertexId(String rootId){
+        return lightHouse.getChildVerticesByRootVertexId(rootId);
+    }
+
     public ArrayList<HashMap<String, String>> getChecklistByBusinessSegment(ArrayList<String> ids) {
         ArrayList<String> listOFComponentTypes = new ArrayList<>();
         ArrayList<HashMap<String, String>> finalResult = new ArrayList<>();

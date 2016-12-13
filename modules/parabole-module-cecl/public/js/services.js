@@ -131,7 +131,11 @@ angular.module('RDAApp.services', [])
         'SaveDocumentConfig' : 'saveDocumentConfig',
         'WriteDocument' : 'writeDocument',
         'RunConfig' : 'runConfig',
-        'RemoveParsing' : 'removeParsing'
+        'RemoveParsing' : 'removeParsing',
+
+        'GetAllChildrenByRootId' : 'getAllChildrenByRootId',
+
+        'GetAllCfrDocuments' : 'https://www.federalregister.gov/api/v1/documents.json?fields%5B%5D=document_number&fields%5B%5D=full_text_xml_url&fields%5B%5D=html_url&fields%5B%5D=pdf_url&fields%5B%5D=title&fields%5B%5D=type&per_page=20&order=relevance&conditions%5Bagencies%5D%5B%5D=committee-for-the-implementation-of-textile-agreements'
     };
     SharedService.chartDataMap = {
         '0' : 'getHardCodedResponse/chartData1',
@@ -919,8 +923,9 @@ angular.module('RDAApp.services', [])
         return SharedService.invokeService('GetAllDocFileNamesByType', sendObj, 'post');
     }
 
-    SharedService.getAllFeedFiles = function () {
-        return SharedService.invokeService('GetAllFeedFiles');
+    SharedService.getAllFeedFiles = function (regulation) {
+        var sendObj = {"regulation": regulation};
+        return SharedService.invokeService('GetAllFeedFiles', sendObj, 'post');
     }
     SharedService.getDocumentConfigById = function (id) {
         var sendObj = {"id": id};
@@ -939,6 +944,15 @@ angular.module('RDAApp.services', [])
     SharedService.removeParsing = function (fileName) {
         var sendObj = {"name": fileName};
         return SharedService.invokeService('RemoveParsing', sendObj, 'post');
+    }
+
+    SharedService.getAllCfrDocuments = function () {
+        return SharedService.invokeService('GetAllCfrDocuments');
+    }
+
+    SharedService.getAllChildrenByRootId = function (nodeId) {
+        var sendObj = {"nodeId": nodeId};
+        return SharedService.invokeService('GetAllChildrenByRootId', sendObj, 'post');
     }
 
     return SharedService;
@@ -1836,6 +1850,9 @@ angular.module('RDAApp.services', [])
     ];
     MockService.BaselBaseNodes = [
         {"name": "Topic", "id": "BASELTOPIC", "idx": 0, "data":{}},{"name": "Sub-Topic", "id": "BASELSUBTOPIC", "idx": 1, "data":{}}, {"name": "Section", "id": "BASELSECTION", "idx": 2, "data":{}},{"name": "Paragraph", "id": "BASELPARAGRAPH", "idx": 3, "data":{}}
+    ];
+    MockService.CfrBaseNodes = [
+        {"name": "Level-1", "id": "CFR-Level-1", "idx": 0, "data":{}}, {"name": "Level-2", "id": "CFR-Level-2", "idx": 1, "data":{}}, {"name": "Level-3", "id": "CFR-Level-3", "idx": 2, "data":{}}, {"name": "Level-4", "id": "CFR-Level-4", "idx": 3, "data":{}}, {"name": "Level-5", "id": "CFR-Level-5", "idx": 4, "data":{}}, {"name": "Level-6", "id": "CFR-Level-6", "idx": 5, "data":{}}, {"name": "Level-7", "id": "CFR-Level-7", "idx": 6, "data":{}}, {"name": "Level-8", "id": "CFR-Level-8", "idx": 7, "data":{}}, {"name": "Paragraph", "id": "CFRPARAGRAPH", "idx": 8, "data":{}}
     ];
 
     MockService.CeclBaseNodes2 = [
