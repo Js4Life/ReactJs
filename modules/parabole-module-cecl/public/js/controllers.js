@@ -700,7 +700,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 .controller('regulationCtrl', function($scope, $state, $stateParams, SharedService) {
 	$scope.initialize = function () {
-		$scope.heading = {"title": "Regulations"};
+		$scope.heading = {"title": "Knowledge Repository"};
 		SharedService.homeBreads = [];
 		$scope.regulationFiles = null;
 		$scope.currentGenre = 'all';
@@ -751,6 +751,10 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 	$scope.setGenre = function (genre) {
 		$scope.currentGenre = genre;
+	}
+
+	$scope.goPreviousScreen = function () {
+		$scope.regulationFiles = null;
 	}
 
 	$scope.initialize();

@@ -35,9 +35,9 @@ BIND(CONCAT(xsd:string(afn:namespace(?concept)),xsd:string(afn:localname(?concep
 
 #FILTER(?ConceptName = "Credit Loss")
 
-#FILTER(?uri="http://mindparabole.com/finance/basel_glossary#MarginedNettingSet")
+FILTER(?uri="http://mindparabole.com/finance/basel_glossary#Risk")
 
-FILTER(?uri=$$FILTERS$$)
+#FILTER(?uri=$$FILTERS$$)
 
 }
 
