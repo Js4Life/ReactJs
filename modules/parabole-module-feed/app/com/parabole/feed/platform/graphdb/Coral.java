@@ -163,6 +163,18 @@ public class Coral extends GraphDb {
         }
     }
 
+    public Integer saveConfiguration(final String userId, final String configurationType, final String configurationName, final String configurationDetails) throws AppException {
+        final Integer configurationId = generateId(CCAppConstants.RDA_USER_CONFIGS);
+        final Map<String, Object> dataMap = new HashMap<String, Object>();
+        dataMap.put("CFG_ID", configurationId);
+        dataMap.put("CFG_USER", userId);
+        dataMap.put("CFG_NAME", configurationName);
+        dataMap.put("CFG_TYPE", configurationType);
+        dataMap.put("CFG_INFO", configurationDetails);
+        save(CCAppConstants.RDA_USER_CONFIGS, dataMap);
+        return configurationId;
+    }
+
     public List<Map<String, String>> getConfigurationByName(final String configurationName) throws AppException {
         Validate.notBlank(configurationName, "'nodeName' cannot be empty!");
         final List<Map<String, String>> outputList = new ArrayList<Map<String, String>>();
@@ -199,7 +211,7 @@ public class Coral extends GraphDb {
             } else {
                 sqlQuery = "SELECT CFG_NAME, CFG_INFO FROM " + CCAppConstants.RDA_USER_CONFIGS + " WHERE CFG_USER = '" + userId + "' AND CFG_NAME = '" + configurationName + "'";
             }
-            
+
             final OSQLSynchQuery<ODocument> query = new OSQLSynchQuery<ODocument>(sqlQuery);
             final List<ODocument> results = dbNoTx.command(query).execute();
             results.forEach((final ODocument result) -> {
@@ -217,18 +229,6 @@ public class Coral extends GraphDb {
         } finally {
             closeDocDBConnection(dbNoTx);
         }
-    }
-
-    public Integer saveConfiguration(final String userId, final String configurationType, final String configurationName, final String configurationDetails) throws AppException {
-        final Integer configurationId = generateId(CCAppConstants.RDA_USER_CONFIGS);
-        final Map<String, Object> dataMap = new HashMap<String, Object>();
-        dataMap.put("CFG_ID", configurationId);
-        dataMap.put("CFG_USER", userId);
-        dataMap.put("CFG_NAME", configurationName);
-        dataMap.put("CFG_TYPE", configurationType);
-        dataMap.put("CFG_INFO", configurationDetails);
-        save(CCAppConstants.RDA_USER_CONFIGS, dataMap);
-        return configurationId;
     }
 
     public void save(final String configurationObjectClass, final Map<String, Object> configurationDataMap) throws AppException {
@@ -266,6 +266,75 @@ public class Coral extends GraphDb {
             throw new AppException(AppErrorCode.GRAPH_DB_OPERATION_EXCEPTION);
         } finally {
             closeDocDBConnection(dbTx);
+        }
+    }
+
+    public void saveContextConceptMap(final String configurationObjectClass, final Map<String, Object> configurationDataMap) throws AppException {
+        Validate.notBlank(configurationObjectClass, "'configurationObjectClass' cannot be empty!");
+        Validate.notEmpty(configurationDataMap, "'configurationDataMap' cannot be empty!");
+        boolean isNew = true;
+        final String cfgname = (String) configurationDataMap.get("CFG_NAME");
+        final ODatabaseDocumentTx dbTx = getDocDBConnectionTx();
+        try {
+            dbTx.begin();
+            ODocument document = null;
+            document = new ODocument(configurationObjectClass);
+            for (final Entry<String, Object> entry : configurationDataMap.entrySet()) {
+                document.field(entry.getKey(), entry.getValue());
+            }
+            dbTx.save(document);
+            dbTx.commit();
+        } catch (final Exception ex) {
+            dbTx.rollback();
+            Logger.error("Could not save configuration", ex);
+            throw new AppException(AppErrorCode.GRAPH_DB_OPERATION_EXCEPTION);
+        } finally {
+            closeDocDBConnection(dbTx);
+        }
+    }
+
+    public List<Map<String, String>> getContextsAgainstConceptUri(final String conceptUri) throws AppException {
+        Validate.notNull(conceptUri, "'conceptName' cannot be empty!");
+        final List<Map<String, String>> outputList = new ArrayList<Map<String, String>>();
+        final ODatabaseDocumentTx dbNoTx = getDocDBConnectionNoTx();
+        try {
+            final OSQLSynchQuery<ODocument> query = new OSQLSynchQuery<ODocument>("SELECT CONTEXT_URI, CONTEXT_NAME FROM " + CCAppConstants.APP_CONTEXT_CONCEPT_MAPPING + " WHERE CONCEPT_URI ='" + conceptUri+"'");
+            final List<ODocument> results = dbNoTx.command(query).execute();
+            results.forEach((final ODocument result) -> {
+                System.out.println("result.toString() = " + result.toString());
+                final Map<String, String> outputMap = new HashMap<String, String>();
+                final String contextUri = result.field("CONTEXT_URI");
+                final String contextName = result.field("CONTEXT_NAME");
+                outputMap.put("context_uri", contextUri);
+                outputMap.put("context_name", contextName);
+                outputList.add(outputMap);
+            });
+            return Collections.unmodifiableList(outputList);
+        } catch (final Exception ex) {
+            Logger.error("Could not retrieve configuration", ex);
+            throw new AppException(AppErrorCode.GRAPH_DB_OPERATION_EXCEPTION);
+        } finally {
+            closeDocDBConnection(dbNoTx);
+        }
+    }
+
+    public List<String> getConceptsAgainstContextUri(final String ContextUri) throws AppException {
+        Validate.notNull(ContextUri, "'conceptName' cannot be empty!");
+        final List<String> outputList = new ArrayList<String>();
+        final ODatabaseDocumentTx dbNoTx = getDocDBConnectionNoTx();
+        try {
+            final OSQLSynchQuery<ODocument> query = new OSQLSynchQuery<ODocument>("SELECT CONCEPT_URI from" + CCAppConstants.APP_CONTEXT_CONCEPT_MAPPING + " WHERE CONTEXT_URI = '" + ContextUri+"'");
+            final List<ODocument> results = dbNoTx.command(query).execute();
+            results.forEach((final ODocument result) -> {
+                final Map<String, String> outputMap = new HashMap<String, String>();
+                outputList.add(result.field("CONCEPT_URI"));
+            });
+            return Collections.unmodifiableList(outputList);
+        } catch (final Exception ex) {
+            Logger.error("Could not retrieve configuration", ex);
+            throw new AppException(AppErrorCode.GRAPH_DB_OPERATION_EXCEPTION);
+        } finally {
+            closeDocDBConnection(dbNoTx);
         }
     }
 

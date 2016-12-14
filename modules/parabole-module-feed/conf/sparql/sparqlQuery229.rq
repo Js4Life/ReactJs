@@ -31,7 +31,7 @@ WHERE
 
 #?concept pb:hasModel/pb:hasOutput/ ^pb:ConcepthasDataElement ?con2.
 
-BIND(CONCAT(xsd:string(afn:namespace(?concept)),xsd:string(afn:localname(?concept))) AS ?uri)
+BIND(CONCAT(xsd:string(afn:namespace(?con)),xsd:string(afn:localname(?con))) AS ?uri)
 
 #FILTER(?ConceptName = "Credit Loss")
 

@@ -455,5 +455,22 @@ public class ParagraphOperationsController extends BaseController{
         return ok(lightHouseService.getChecklistsByRootNodeIDs(topics).toString());
     }
 
+    public Result saveContextConceptMap() throws com.parabole.feed.platform.exceptions.AppException {
+        final String context_url = "test_context_uri4";
+        final String context_name = "test_context_name4";
+        final String concept_url = "test_concept_uri4";
+        return ok(coralConfigurationService.saveContextConceptMap(context_url, context_name, concept_url));
+    }
+
+    public Result getConceptsAgainstContextUri() throws com.parabole.feed.platform.exceptions.AppException {
+        final String contextUri= "test_context_uri4";
+        return ok(coralConfigurationService.getConceptsAgainstContextUri(contextUri).toString());
+    }
+
+    public Result getContextsAgainstConceptUri() throws com.parabole.feed.platform.exceptions.AppException {
+        final String conceptUri= "test_concept_uri4";
+        return ok(coralConfigurationService.getContextsAgainstConceptUri(conceptUri).toString());
+
+    }
 
 }

@@ -301,9 +301,6 @@
 		"source":"229",
 		"groupByField" : "concept",
 		"columns" :  [{
-			"name" : "concept",
-			"label" : "concept"
-		},{
 			"name" : "ConceptName",
 			"label" : "ConceptName"
 		},{
