@@ -463,12 +463,12 @@ public class ParagraphOperationsController extends BaseController{
     }
 
     public Result getConceptsAgainstContextUri() throws com.parabole.feed.platform.exceptions.AppException {
-        final String contextUri= "test_context_uri";
+        final String contextUri= "test_context_uri4";
         return ok(coralConfigurationService.getConceptsAgainstContextUri(contextUri).toString());
     }
 
     public Result getContextsAgainstConceptUri() throws com.parabole.feed.platform.exceptions.AppException {
-        final String conceptUri= "test_concept_uri";
+        final String conceptUri= "test_concept_uri4";
         return ok(coralConfigurationService.getContextsAgainstConceptUri(conceptUri).toString());
 
     }

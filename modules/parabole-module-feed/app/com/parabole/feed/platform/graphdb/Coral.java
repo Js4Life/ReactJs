@@ -298,7 +298,7 @@ public class Coral extends GraphDb {
         final List<Map<String, String>> outputList = new ArrayList<Map<String, String>>();
         final ODatabaseDocumentTx dbNoTx = getDocDBConnectionNoTx();
         try {
-            final OSQLSynchQuery<ODocument> query = new OSQLSynchQuery<ODocument>("SELECT CONTEXT_URI, CONTEXT_NAME FROM " + CCAppConstants.APP_CONTEXT_CONCEPT_MAPPING + " WHERE CONCEPT_URI " + conceptUri);
+            final OSQLSynchQuery<ODocument> query = new OSQLSynchQuery<ODocument>("SELECT CONTEXT_URI, CONTEXT_NAME FROM " + CCAppConstants.APP_CONTEXT_CONCEPT_MAPPING + " WHERE CONCEPT_URI ='" + conceptUri+"'");
             final List<ODocument> results = dbNoTx.command(query).execute();
             results.forEach((final ODocument result) -> {
                 System.out.println("result.toString() = " + result.toString());
@@ -323,7 +323,7 @@ public class Coral extends GraphDb {
         final List<String> outputList = new ArrayList<String>();
         final ODatabaseDocumentTx dbNoTx = getDocDBConnectionNoTx();
         try {
-            final OSQLSynchQuery<ODocument> query = new OSQLSynchQuery<ODocument>("SELECT CONCEPT_URI " + CCAppConstants.APP_CONTEXT_CONCEPT_MAPPING + " WHERE CONTEXT_URI " + ContextUri);
+            final OSQLSynchQuery<ODocument> query = new OSQLSynchQuery<ODocument>("SELECT CONCEPT_URI from" + CCAppConstants.APP_CONTEXT_CONCEPT_MAPPING + " WHERE CONTEXT_URI = '" + ContextUri+"'");
             final List<ODocument> results = dbNoTx.command(query).execute();
             results.forEach((final ODocument result) -> {
                 final Map<String, String> outputMap = new HashMap<String, String>();
