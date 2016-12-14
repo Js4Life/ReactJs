@@ -46,6 +46,9 @@ public class LightHouseService {
     @Inject
     private JenaTdbService jenaTdbService;
 
+    @Inject
+    private CoralConfigurationService coralConfigurationService;
+
    // public String save
 
     public String createNewTopic(){
@@ -606,5 +609,21 @@ public class LightHouseService {
             e.printStackTrace();
         }
         return status;
+    }
+
+    public void saveContextVsConceptMap() {
+        try{
+            JSONObject conceptVsContextObj = jenaTdbService.getFilteredDataByCompName("conceptVsContext", null);
+            JSONArray conceptVsContextArr = conceptVsContextObj.getJSONArray("data");
+            for (int i = 0; i < conceptVsContextArr.length(); i++) {
+                JSONObject conceptObj = conceptVsContextArr.getJSONObject(i);
+                String context_url = conceptObj.getString("contextUri");
+                String context_name = conceptObj.getString("contextName");
+                String concept_url = conceptObj.getString("conceptUri");
+                coralConfigurationService.saveContextConceptMap(context_url, context_name, concept_url);
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

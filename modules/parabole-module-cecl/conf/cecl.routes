@@ -157,10 +157,11 @@ POST /getAllChildrenByRootId                        com.parabole.cecl.applicatio
 # ---------------------------------------------------------------------------------
 # DOCUMENT UPLOADER RELATED OPERATIONS
 # ---------------------------------------------------------------------------------
-POST /getAllFeedFiles                                com.parabole.cecl.application.controllers.CeclController.getAllFeedFiles()
+POST /getAllFeedFiles                               com.parabole.cecl.application.controllers.CeclController.getAllFeedFiles()
 POST /getDocumentConfigById                         com.parabole.cecl.application.controllers.CeclController.getDocumentConfigById()
 POST /saveDocumentConfig                            com.parabole.cecl.application.controllers.CeclController.saveDocumentConfig()
 POST /writeDocument                                 com.parabole.cecl.application.controllers.CeclController.writeDocument()
+GET /saveConceptVsContextMap                        com.parabole.cecl.application.controllers.CeclController.saveConceptVsContextMap()
 POST /runConfig                                     com.parabole.cecl.application.controllers.CeclController.runConfig()
 POST /removeParsing                                 com.parabole.cecl.application.controllers.CeclController.removeParsing()
 GET /getAllCfrFileDetails                           com.parabole.cecl.application.controllers.CeclController.getAllCfrFileDetails()

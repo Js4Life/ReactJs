@@ -130,6 +130,7 @@ angular.module('RDAApp.services', [])
         'GetDocumentConfigById' : 'getDocumentConfigById',
         'SaveDocumentConfig' : 'saveDocumentConfig',
         'WriteDocument' : 'writeDocument',
+        'SaveConceptVsContextMap' : 'saveConceptVsContextMap',
         'RunConfig' : 'runConfig',
         'RemoveParsing' : 'removeParsing',
 
@@ -937,6 +938,9 @@ angular.module('RDAApp.services', [])
     }
     SharedService.writeDocument = function (fileConfig) {
         return SharedService.invokeService('WriteDocument', fileConfig, 'post');
+    }
+    SharedService.saveConceptVsContextMap = function () {
+        return SharedService.invokeService('SaveConceptVsContextMap');
     }
     SharedService.runConfig = function (fileConfig) {
         return SharedService.invokeService('RunConfig', fileConfig, 'post');

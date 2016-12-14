@@ -131,6 +131,16 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.goFileUploader = function () {
 		$state.go('landing.documentUploader');
 	}
+	
+	$scope.loadConceptVsContextMap = function () {
+		SharedService.saveConceptVsContextMap().then(function (data) {
+			if(data.status){
+				toastr.success('Loading successful..', '', {"positionClass" : "toast-top-right"});
+			} else {
+				toastr.error('Loading failed..', '', {"positionClass" : "toast-top-right"});
+			}
+		});
+	}
 
 	function activeCurrentNav(e) {
 		$(e.currentTarget).parent().parent().children().removeClass('active');

@@ -1256,6 +1256,19 @@ public class CeclController extends Controller{
         return ok(finalJson.toString());
     }
 
+    public Result saveConceptVsContextMap(){
+        JSONObject finalJson = new JSONObject();
+        Boolean status = true;
+        try{
+            lightHouseService.saveContextVsConceptMap();
+        } catch (Exception e){
+            status = false;
+            e.printStackTrace();
+        }
+        finalJson.put("status", status);
+        return ok(finalJson.toString());
+    }
+
     public Result getAllCfrFileDetails(){
         JSONObject finalJson = new JSONObject();
         CompletionStage<JsonNode> response = null;
