@@ -323,7 +323,7 @@ public class Coral extends GraphDb {
         final List<String> outputList = new ArrayList<String>();
         final ODatabaseDocumentTx dbNoTx = getDocDBConnectionNoTx();
         try {
-            final OSQLSynchQuery<ODocument> query = new OSQLSynchQuery<ODocument>("SELECT CONCEPT_URI from" + CCAppConstants.APP_CONTEXT_CONCEPT_MAPPING + " WHERE CONTEXT_URI = '" + ContextUri+"'");
+            final OSQLSynchQuery<ODocument> query = new OSQLSynchQuery<ODocument>("SELECT CONCEPT_URI from " + CCAppConstants.APP_CONTEXT_CONCEPT_MAPPING + " WHERE CONTEXT_URI = '" + ContextUri+"'");
             final List<ODocument> results = dbNoTx.command(query).execute();
             results.forEach((final ODocument result) -> {
                 final Map<String, String> outputMap = new HashMap<String, String>();

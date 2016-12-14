@@ -1081,6 +1081,47 @@ public class CeclController extends Controller{
     }
 
     @BodyParser.Of(BodyParser.Json.class)
+    public Result getRelatedContextsByParaId() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final String paraId = request.getString("paraId");
+        JSONObject finalJson = new JSONObject();
+        Boolean status = true;
+        String data = null;
+        try {
+            List<Map<String, String>> res = taggingUtilitiesServices.getListofContextsAgainstParagraph(paraId);
+            ObjectMapper mapper = new ObjectMapper();
+            data = mapper.writeValueAsString(res);
+        } catch (Exception e){
+            status = false;
+            e.printStackTrace();
+        }
+        finalJson.put("status", status).put("data", data);
+        return ok(finalJson.toString());
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result getRelatedParagraphsByContexts() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final JSONArray contexts = request.getJSONArray("contexts");
+        JSONObject finalJson = new JSONObject();
+        Boolean status = true;
+        String data = null;
+        try {
+            List<String> contextUris = new Gson().fromJson(contexts.toString(), new TypeToken<List<String>>() {}.getType());
+            ArrayList<HashMap<String, String>> res = taggingUtilitiesServices.getRelatedParagraphsAgainstListOfContextUris(contextUris);
+            ObjectMapper mapper = new ObjectMapper();
+            data = mapper.writeValueAsString(res);
+        } catch (Exception e){
+            status = false;
+            e.printStackTrace();
+        }
+        finalJson.put("status", status).put("data", data);
+        return ok(finalJson.toString());
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
     public Result getAllDocFileNamesByType() {
         final String json = request().body().asJson().toString();
         final JSONObject request = new JSONObject(json);

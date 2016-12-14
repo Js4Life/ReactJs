@@ -137,6 +137,8 @@ POST /deleteAttachmentById                          com.parabole.cecl.applicatio
 POST /getCommentAttachmentById                      com.parabole.cecl.application.controllers.CeclController.getCommentAttachmentById()
 GET /downloadAttachmentById                         com.parabole.cecl.application.controllers.CeclController.downloadAttachmentById(id : String)
 POST /getRelatedParagraphsById                      com.parabole.cecl.application.controllers.CeclController.getRelatedParagraphsById()
+POST /getRelatedContextsByParaId                    com.parabole.cecl.application.controllers.CeclController.getRelatedContextsByParaId()
+POST /getRelatedParagraphsByContexts                com.parabole.cecl.application.controllers.CeclController.getRelatedParagraphsByContexts()
 
 
 # ---------------------------------------------------------------------------------
