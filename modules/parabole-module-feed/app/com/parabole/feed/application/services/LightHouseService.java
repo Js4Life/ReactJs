@@ -456,6 +456,29 @@ public class LightHouseService {
         return paragraphByNameProperty;
     }
 
+    protected List<String> getConceptListsFromParagraphs(String paragraphID) {
+        List<String> relatedConcepts = new ArrayList<>();
+
+        Integer paragraphCountsThresHold = Integer.valueOf(AppUtils.getApplicationProperty("paragraphCountsThresHold"));
+        Integer minConceptMatchingThreshold = Integer.valueOf(AppUtils.getApplicationProperty("minConceptMatchingThreshold"));
+        HashMap<String, Integer> sortableParagraphExistanceCounts = new HashMap<>();
+        ArrayList<String> directlyRelatedConcepts = getRelatedConceptsByParagraphID(paragraphID);
+        ArrayList<String> newConceptNames = new ArrayList<>();
+        for (String directlyRelatedConcept : directlyRelatedConcepts) {
+            JSONObject ontoDataRelatedConcepts = jenaTdbService.getFilteredDataByCompName("relatedConcepts", directlyRelatedConcept);
+            JSONArray arrayOfConcepts = ontoDataRelatedConcepts.getJSONArray("data");
+            for (int i = 0; i < arrayOfConcepts.length(); i++) {
+                JSONObject conceptObj = arrayOfConcepts.getJSONObject(i);
+                newConceptNames.add(conceptObj.getString("con"));
+                newConceptNames.add(conceptObj.getString("con2"));
+            }
+        }
+        relatedConcepts.addAll(directlyRelatedConcepts);
+        relatedConcepts.addAll(newConceptNames);
+
+        return relatedConcepts;
+    }
+
 
     public ArrayList<HashMap<String,String>> getRelatedParagraphsByMaxConceptsMatch(String paragraphID, String paragraphFile) {
 
@@ -607,4 +630,6 @@ public class LightHouseService {
         }
         return status;
     }
+
+
 }

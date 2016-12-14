@@ -50,6 +50,12 @@ public class TaggingUtilitiesServices {
     private Environment environment;
 
     @Inject
+    LightHouseService lightHouseService;
+
+    @Inject
+    CoralConfigurationService coralConfigurationService;
+
+    @Inject
     LightHouse lightHouse;
 
     public String startContentParser(String file) throws IOException {
@@ -1026,10 +1032,19 @@ public class TaggingUtilitiesServices {
                 }
             }
         }
-
         return "{status: Saved}";
-
     }
 
-
+    public List<Map<String, String>> getListofContextsAgainstParagraph(String paragraphId){
+        List<Map<String, String>> resultData = new ArrayList<>();
+        List<String> listOfConceptUris = lightHouseService.getConceptListsFromParagraphs(paragraphId);
+        try {
+            for (String conceptUri : listOfConceptUris) {
+                resultData.addAll(coralConfigurationService.getContextsAgainstConceptUri(conceptUri));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return resultData;
+    }
 }
