@@ -17,7 +17,6 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Maps;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.parabole.feed.application.global.CCAppConstants;
 import com.parabole.feed.platform.exceptions.AppException;
 import com.parabole.feed.platform.graphdb.LightHouse;
 import com.parabole.feed.platform.utils.AppUtils;
@@ -459,6 +458,29 @@ public class LightHouseService {
         return paragraphByNameProperty;
     }
 
+    protected List<String> getConceptListsFromParagraphs(String paragraphID) {
+        List<String> relatedConcepts = new ArrayList<>();
+
+        Integer paragraphCountsThresHold = Integer.valueOf(AppUtils.getApplicationProperty("paragraphCountsThresHold"));
+        Integer minConceptMatchingThreshold = Integer.valueOf(AppUtils.getApplicationProperty("minConceptMatchingThreshold"));
+        HashMap<String, Integer> sortableParagraphExistanceCounts = new HashMap<>();
+        ArrayList<String> directlyRelatedConcepts = getRelatedConceptsByParagraphID(paragraphID);
+        ArrayList<String> newConceptNames = new ArrayList<>();
+        for (String directlyRelatedConcept : directlyRelatedConcepts) {
+            JSONObject ontoDataRelatedConcepts = jenaTdbService.getFilteredDataByCompName("relatedConcepts", directlyRelatedConcept);
+            JSONArray arrayOfConcepts = ontoDataRelatedConcepts.getJSONArray("data");
+            for (int i = 0; i < arrayOfConcepts.length(); i++) {
+                JSONObject conceptObj = arrayOfConcepts.getJSONObject(i);
+                newConceptNames.add(conceptObj.getString("con"));
+                newConceptNames.add(conceptObj.getString("con2"));
+            }
+        }
+        relatedConcepts.addAll(directlyRelatedConcepts);
+        relatedConcepts.addAll(newConceptNames);
+
+        return relatedConcepts;
+    }
+
 
     public ArrayList<HashMap<String,String>> getRelatedParagraphsByMaxConceptsMatch(String paragraphID, String paragraphFile) {
 
@@ -518,6 +540,62 @@ public class LightHouseService {
 
         // in the following operation it will try to get the highest number of concept attached paragraph
 
+        if(sortableParagraphExistanceCounts != null && sortableParagraphExistanceCounts.keySet().size() != 0) {
+            ArrayList<String> paragraphIDs = new ArrayList<>();
+            Map<String, Integer> sortedParagraphs = sortByValue(sortableParagraphExistanceCounts);
+            int count = 0;
+            for(int i=sortedParagraphs.size(); i >= 0 ; i--) {
+                String para = (String) sortedParagraphs.keySet().toArray()[i-1];
+                count++;
+                if(count == paragraphCountsThresHold){
+                    i = 0;
+                }
+                paragraphIDs.add(para);
+            }
+            return lightHouse.getParagraphsByParagraphIds(paragraphIDs);
+        }else{
+            return null;
+        }
+    }
+
+    public ArrayList<HashMap<String, String>> getRelatedParagraphAgainstConceptUris(List<String> relatedConcepts) {
+
+        Integer paragraphCountsThresHold = Integer.valueOf(AppUtils.getApplicationProperty("paragraphCountsThresHold"));
+        Integer minConceptMatchingThreshold = Integer.valueOf(AppUtils.getApplicationProperty("minConceptMatchingThreshold"));
+        HashMap<String, Integer> sortableParagraphExistanceCounts = new HashMap<>();
+        for (String relatedConcept : relatedConcepts) {
+            ArrayList<HashMap<String, String>> paragraphsFromTheConcept = lightHouse.getChildVerticesByRootVertexId(relatedConcept);
+            for (HashMap<String, String> paragraphFromTheConcept : paragraphsFromTheConcept) {
+                String elementIDofAParagraph = new String();
+               /* if(paragraphFromTheConcept.containsKey("fromFileName")){
+                    if(!paragraphFromTheConcept.get("fromFileName").contains(paragraphFile) && paragraphFromTheConcept.get("type").contains("BASELPARAGRAPH") ) {
+                        elementIDofAParagraph = paragraphFromTheConcept.get("elementID");
+                    }
+               }else{*/
+                if (paragraphFromTheConcept.get("type").contains("BASELPARAGRAPH")) {
+                    elementIDofAParagraph = paragraphFromTheConcept.get("elementID");
+                }
+                //}
+
+                System.out.println("elementIDofAParagraph = " + elementIDofAParagraph);
+                if (/*!elementIDofAParagraph.equals(paragraphID) &&*/ !elementIDofAParagraph.isEmpty() && null != elementIDofAParagraph)
+                    if (sortableParagraphExistanceCounts.containsKey(elementIDofAParagraph)) {
+                        Integer eachCount = sortableParagraphExistanceCounts.get(elementIDofAParagraph);
+                        System.out.println("eachCount = " + eachCount);
+                        Integer newCount = eachCount + 1;
+                        sortableParagraphExistanceCounts.put(elementIDofAParagraph, newCount);
+                    } else {
+                        sortableParagraphExistanceCounts.put(elementIDofAParagraph, 1);
+                        System.out.println("LightHouseService.getRelatedParagraphsByMaxConceptsMatch");
+                    }
+            }
+        }
+        Predicate<Integer> thresholdFilter = new Predicate<Integer>() {
+            public boolean apply(Integer i) {
+                return (i >= minConceptMatchingThreshold);
+            }
+        };
+        Map<String, Integer> limitedToThresholdValueMap = Maps.filterValues(sortableParagraphExistanceCounts, thresholdFilter);
         if(sortableParagraphExistanceCounts != null && sortableParagraphExistanceCounts.keySet().size() != 0) {
             ArrayList<String> paragraphIDs = new ArrayList<>();
             Map<String, Integer> sortedParagraphs = sortByValue(sortableParagraphExistanceCounts);
