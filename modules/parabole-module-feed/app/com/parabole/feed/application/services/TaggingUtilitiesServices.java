@@ -12,24 +12,20 @@ import com.parabole.feed.contentparser.models.fasb.DocumentElement;
 import com.parabole.feed.contentparser.postprocessors.CfrProcessor;
 import com.parabole.feed.platform.graphdb.Anchor;
 import com.parabole.feed.platform.graphdb.LightHouse;
-import com.tinkerpop.blueprints.Graph;
 import edu.stanford.nlp.ling.HasWord;
 import edu.stanford.nlp.ling.TaggedWord;
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
-import org.apache.commons.collections.MultiHashMap;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.Validate;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import play.Environment;
 import play.Play;
 import java.io.*;
-import java.lang.annotation.ElementType;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-import static com.parabole.feed.application.utils.AppUtils.writeFile;
 import static play.mvc.Controller.response;
 
 public class TaggingUtilitiesServices {
@@ -1046,5 +1042,16 @@ public class TaggingUtilitiesServices {
             e.printStackTrace();
         }
         return resultData;
+    }
+
+    public ArrayList<HashMap<String, String>> getRelatedParagraphsAgainstListOfContextUris(List<String> contextUris) throws com.parabole.feed.platform.exceptions.AppException {
+        Validate.notNull(contextUris, "contextUris can not be null");
+        List<String> conceptUris = new ArrayList<>();
+        for (String contextUri : contextUris) {
+            conceptUris.addAll(coralConfigurationService.getConceptsAgainstContextUri(contextUri));
+        }
+        ArrayList<HashMap<String, String>> dataToReturn = lightHouseService.getRelatedParagraphAgainstConceptUris(conceptUris);
+
+        return dataToReturn;
     }
 }
