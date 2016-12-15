@@ -603,7 +603,7 @@ public class LightHouseService {
             ArrayList<String> paragraphIDs = new ArrayList<>();
             Map<String, Integer> sortedParagraphs = sortByValue(sortableParagraphExistanceCounts);
             int count = 0;
-            for(int i=sortedParagraphs.size(); i >= 0 ; i--) {
+            for(int i=sortedParagraphs.size(); i > 0 ; i--) {
                 String para = (String) sortedParagraphs.keySet().toArray()[i-1];
                 count++;
                 if(count == paragraphCountsThresHold){
