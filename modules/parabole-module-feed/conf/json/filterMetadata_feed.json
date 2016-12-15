@@ -299,7 +299,7 @@
 	"relatedConcepts" : {
 		"outputFormat":"hierarchy",
 		"source":"229",
-		"groupByField" : "concept",
+		"groupByField" : "con2",
 		"columns" :  [{
 			"name" : "ConceptName",
 			"label" : "ConceptName"
