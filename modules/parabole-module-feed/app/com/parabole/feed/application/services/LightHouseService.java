@@ -555,7 +555,7 @@ public class LightHouseService {
         }
     }
 
-    public ArrayList<HashMap<String, String>> getRelatedParagraphAgainstConceptUris(List<String> relatedConcepts) {
+    public ArrayList<HashMap<String, String>> getRelatedParagraphAgainstConceptUris(List<String> relatedConcepts, String typeFilter) {
 
         Integer paragraphCountsThresHold = Integer.valueOf(AppUtils.getApplicationProperty("paragraphCountsThresHold"));
         Integer minConceptMatchingThreshold = Integer.valueOf(AppUtils.getApplicationProperty("minConceptMatchingThreshold"));
@@ -569,7 +569,7 @@ public class LightHouseService {
                         elementIDofAParagraph = paragraphFromTheConcept.get("elementID");
                     }
                }else{*/
-                if (paragraphFromTheConcept.get("type").contains("BASELPARAGRAPH")) {
+                if (paragraphFromTheConcept.get("type").contains(typeFilter)) {
                     elementIDofAParagraph = paragraphFromTheConcept.get("elementID");
                 }
                 //}

@@ -909,8 +909,8 @@ public class TaggingUtilitiesServices {
 
     }
 
-
     //CFR related api methods called from cecl
+
     public void saveCfrContents(String fPath, JSONObject glossaryMetaData, String fileNodeType){
         try {
             CfrProcessor cfr = taggerTest.startCfrExtraction(fPath, glossaryMetaData);
@@ -1044,14 +1044,21 @@ public class TaggingUtilitiesServices {
         return resultData;
     }
 
-    public ArrayList<HashMap<String, String>> getRelatedParagraphsAgainstListOfContextUris(List<String> contextUris) throws com.parabole.feed.platform.exceptions.AppException {
+    public ArrayList<HashMap<String, String>> getRelatedParagraphsAgainstListOfContextUris(List<String> contextUris, String typeFilter) throws com.parabole.feed.platform.exceptions.AppException {
         Validate.notNull(contextUris, "contextUris can not be null");
         List<String> conceptUris = new ArrayList<>();
         for (String contextUri : contextUris) {
             conceptUris.addAll(coralConfigurationService.getConceptsAgainstContextUri(contextUri));
         }
-        ArrayList<HashMap<String, String>> dataToReturn = lightHouseService.getRelatedParagraphAgainstConceptUris(conceptUris);
 
+        String dbFilterType = "BASELPARAGRAPH";
+        if(typeFilter.equalsIgnoreCase("FASB")){
+            dbFilterType = "PARAGRAPH";
+        }else if(typeFilter.equalsIgnoreCase("CFR")){
+            dbFilterType = "CFRPARAGRAPH";
+        }
+
+        ArrayList<HashMap<String, String>> dataToReturn = lightHouseService.getRelatedParagraphAgainstConceptUris(conceptUris, dbFilterType);
         return dataToReturn;
     }
 }

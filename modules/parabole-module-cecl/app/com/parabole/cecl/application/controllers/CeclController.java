@@ -1069,7 +1069,7 @@ public class CeclController extends Controller{
         String data = null;
         try {
             //ArrayList<HashMap<String, String>> res = lightHouseService.getRelatedParagraphsByNames(paraIdList);
-            ArrayList<HashMap<String, String>> res = lightHouseService.getRelatedParagraphsByMaxConceptsMatch(paraId, fromFile);
+            ArrayList<HashMap<String, String>> res = lightHouseService.getRelatedParagraphsByMaxConceptsMatch(paraId, null);
             ObjectMapper mapper = new ObjectMapper();
             data = mapper.writeValueAsString(res);
         } catch (Exception e){
