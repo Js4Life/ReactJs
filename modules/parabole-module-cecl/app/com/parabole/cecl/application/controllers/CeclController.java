@@ -1069,7 +1069,7 @@ public class CeclController extends Controller{
         String data = null;
         try {
             //ArrayList<HashMap<String, String>> res = lightHouseService.getRelatedParagraphsByNames(paraIdList);
-            ArrayList<HashMap<String, String>> res = lightHouseService.getRelatedParagraphsByMaxConceptsMatch(paraId, fromFile);
+            ArrayList<HashMap<String, String>> res = lightHouseService.getRelatedParagraphsByMaxConceptsMatch(paraId, null);
             ObjectMapper mapper = new ObjectMapper();
             data = mapper.writeValueAsString(res);
         } catch (Exception e){
@@ -1108,9 +1108,12 @@ public class CeclController extends Controller{
         JSONObject finalJson = new JSONObject();
         Boolean status = true;
         String data = null;
+        List<String> typeFilter = new ArrayList<>();
+        typeFilter.add("FASB");
+        typeFilter.add("CFR");
         try {
             List<String> contextUris = new Gson().fromJson(contexts.toString(), new TypeToken<List<String>>() {}.getType());
-            ArrayList<HashMap<String, String>> res = taggingUtilitiesServices.getRelatedParagraphsAgainstListOfContextUris(contextUris);
+            ArrayList<HashMap<String, String>> res = taggingUtilitiesServices.getRelatedParagraphsAgainstListOfContextUris(contextUris, typeFilter);
             ObjectMapper mapper = new ObjectMapper();
             data = mapper.writeValueAsString(res);
         } catch (Exception e){
