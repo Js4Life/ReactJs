@@ -1108,7 +1108,9 @@ public class CeclController extends Controller{
         JSONObject finalJson = new JSONObject();
         Boolean status = true;
         String data = null;
-        String typeFilter = "FASB";
+        List<String> typeFilter = new ArrayList<>();
+        typeFilter.add("FASB");
+        typeFilter.add("CFR");
         try {
             List<String> contextUris = new Gson().fromJson(contexts.toString(), new TypeToken<List<String>>() {}.getType());
             ArrayList<HashMap<String, String>> res = taggingUtilitiesServices.getRelatedParagraphsAgainstListOfContextUris(contextUris, typeFilter);

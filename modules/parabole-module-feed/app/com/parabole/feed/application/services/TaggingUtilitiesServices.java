@@ -1044,19 +1044,24 @@ public class TaggingUtilitiesServices {
         return resultData;
     }
 
-    public ArrayList<HashMap<String, String>> getRelatedParagraphsAgainstListOfContextUris(List<String> contextUris, String typeFilter) throws com.parabole.feed.platform.exceptions.AppException {
+    public ArrayList<HashMap<String, String>> getRelatedParagraphsAgainstListOfContextUris(List<String> contextUris, List<String> typeFilter) throws com.parabole.feed.platform.exceptions.AppException {
         Validate.notNull(contextUris, "contextUris can not be null");
         List<String> conceptUris = new ArrayList<>();
         for (String contextUri : contextUris) {
             conceptUris.addAll(coralConfigurationService.getConceptsAgainstContextUri(contextUri));
         }
 
-        String dbFilterType = "BASELPARAGRAPH";
-        if(typeFilter.equalsIgnoreCase("FASB")){
-            dbFilterType = "PARAGRAPH";
-        }else if(typeFilter.equalsIgnoreCase("CFR")){
-            dbFilterType = "CFRPARAGRAPH";
+        Set<String> dbFilterType = new HashSet<>();
+        for (String type : typeFilter) {
+            if(type.equalsIgnoreCase("FASB")){
+                dbFilterType.add("PARAGRAPH");
+            }else if(type.equalsIgnoreCase("CFR")){
+                dbFilterType.add("CFRPARAGRAPH");
+            }else if(type.equalsIgnoreCase("BASEL")){
+                dbFilterType.add("BASELPARAGRAPH");
+            }
         }
+
 
         ArrayList<HashMap<String, String>> dataToReturn = lightHouseService.getRelatedParagraphAgainstConceptUris(conceptUris, dbFilterType);
         return dataToReturn;
