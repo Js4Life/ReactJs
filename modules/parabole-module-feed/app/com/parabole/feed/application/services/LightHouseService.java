@@ -573,7 +573,7 @@ public class LightHouseService {
                     }
                }else{*/
                 for (String type : typeFilter) {
-                    if (paragraphFromTheConcept.get("type").contains(type)) {
+                    if (paragraphFromTheConcept.get("type").equalsIgnoreCase(type)) {
                         elementIDofAParagraph = paragraphFromTheConcept.get("elementID");
                     }
                 }
