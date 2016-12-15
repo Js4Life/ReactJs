@@ -886,8 +886,8 @@ angular.module('RDAApp.services', [])
         var sendObj = {"paraId": paraId};
         return SharedService.invokeService('GetRelatedContextsByParaId', sendObj, 'post');
     }
-    SharedService.getRelatedParagraphsByContexts = function (contexts) {
-        var sendObj = {"contexts": contexts};
+    SharedService.getRelatedParagraphsByContexts = function (contexts, regulations) {
+        var sendObj = {"contexts": contexts, "regulations": regulations};
         return SharedService.invokeService('GetRelatedParagraphsByContexts', sendObj, 'post');
     }
 

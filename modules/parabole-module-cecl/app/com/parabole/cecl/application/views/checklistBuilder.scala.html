@@ -254,17 +254,39 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" id="myModalLabel">Filter</h4>
+        <h4 class="modal-title" id="myModalLabel">Filters</h4>
       </div>
       <div class="modal-body">
-        @*<div class="col-xs-6 panel-body">
-
-        </div>*@
-        <ul class="list-group">
-          <li class="list-group-item" ng-repeat="c in currentContexts">
-            <input type="checkbox" ng-model="c.isChecked" style="position: relative;top: 2px;"/>&nbsp;{{c.context_name}}
-          </li>
-        </ul>
+        <div class="row">
+          <div class="col-xs-6">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Knowledge Repository</h3>
+              </div>
+              <div class="panel-body zero-padding">
+                <ul class="list-group zero-margin">
+                  <li class="list-group-item" ng-repeat="r in regulations">
+                    <input type="checkbox" ng-model="r.isChecked" style="position: relative;top: 2px;"/>&nbsp;{{r.name}}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-6">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Context</h3>
+              </div>
+              <div class="panel-body zero-padding">
+                <ul class="list-group zero-margin">
+                  <li class="list-group-item" ng-repeat="c in currentContexts">
+                    <input type="checkbox" ng-model="c.isChecked" style="position: relative;top: 2px;"/>&nbsp;{{c.context_name}}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" ng-click="getChecklistModal()">Close</button>

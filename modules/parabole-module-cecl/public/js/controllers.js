@@ -787,6 +787,11 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$scope.masterComponentTypes = {};
 		$scope.attachments = [];
 		$scope.fileMimeTypes = SharedService.fileType;
+		SharedService.getRegulations().then(function (data) {
+			if(data.status){
+				$scope.regulations = data.data;
+			}
+		});
 	}
 
 	function setParagraphTags() {
@@ -973,6 +978,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 
 	$scope.getRelatedParagraphsByContext = function () {
 		var selContexts = [];
+		var selRegulations = [];
 		var isDefaultSelected = false;
 		angular.forEach($scope.currentContexts, function (obj) {
 			if(obj.isChecked){
@@ -981,12 +987,21 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 					isDefaultSelected = true;
 			}
 		});
+		angular.forEach($scope.regulations, function (obj) {
+			if(obj.isChecked){
+				selRegulations.push(obj.key);
+			}
+		});
 		if(selContexts.length < 1){
-			toastr.warning('Select a context..', '', {"positionClass" : "toast-top-right"});
+			toastr.warning('Select a Context..', '', {"positionClass" : "toast-top-right"});
+			return;
+		}
+		if(selRegulations.length < 1){
+			toastr.warning('Select a Knowledge Repository..', '', {"positionClass" : "toast-top-right"});
 			return;
 		}
 		if(!isDefaultSelected) {
-			SharedService.getRelatedParagraphsByContexts(selContexts).then(function (data) {
+			SharedService.getRelatedParagraphsByContexts(selContexts, selRegulations).then(function (data) {
 				if (data.status) {
 					$scope.relateParagraphs = angular.fromJson(data.data);
 					$scope.getChecklistModal();
