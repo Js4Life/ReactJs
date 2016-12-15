@@ -1059,6 +1059,8 @@ public class TaggingUtilitiesServices {
                 dbFilterType.add("CFRPARAGRAPH");
             }else if(type.equalsIgnoreCase("BASEL")){
                 dbFilterType.add("BASELPARAGRAPH");
+            }else if(type.equalsIgnoreCase("BANKDOCUMENT")){
+                dbFilterType.add("BASELPARAGRAPH");
             }
         }
 
