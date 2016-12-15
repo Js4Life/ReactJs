@@ -1105,15 +1105,14 @@ public class CeclController extends Controller{
         final String json = request().body().asJson().toString();
         final JSONObject request = new JSONObject(json);
         final JSONArray contexts = request.getJSONArray("contexts");
+        final JSONArray regulations = request.getJSONArray("regulations");
         JSONObject finalJson = new JSONObject();
         Boolean status = true;
         String data = null;
-        List<String> typeFilter = new ArrayList<>();
-        typeFilter.add("FASB");
-        typeFilter.add("CFR");
         try {
             List<String> contextUris = new Gson().fromJson(contexts.toString(), new TypeToken<List<String>>() {}.getType());
-            ArrayList<HashMap<String, String>> res = taggingUtilitiesServices.getRelatedParagraphsAgainstListOfContextUris(contextUris, typeFilter);
+            List<String> regulationNames = new Gson().fromJson(regulations.toString(), new TypeToken<List<String>>() {}.getType());
+            ArrayList<HashMap<String, String>> res = taggingUtilitiesServices.getRelatedParagraphsAgainstListOfContextUris(contextUris, regulationNames);
             ObjectMapper mapper = new ObjectMapper();
             data = mapper.writeValueAsString(res);
         } catch (Exception e){
