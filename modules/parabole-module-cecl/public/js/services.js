@@ -112,6 +112,8 @@ angular.module('RDAApp.services', [])
         'GetRelatedBusinessSegentsByBusinessSegment' : 'getRelatedBusinessSegentsByBusinessSegment',
         'GetCompliedAndNotCompliedChecklistCounts' : 'getCompliedAndNotCompliedChecklistCounts',
         'GetRelatedParagraphsById' : 'getRelatedParagraphsById',
+        'GetRelatedContextsByParaId' : 'getRelatedContextsByParaId',
+        'GetRelatedParagraphsByContexts' : 'getRelatedParagraphsByContexts',
 
         'GetChecklistByParagraph' : 'getChecklistByParagraph',
         'GetChecklistBySection' : 'getChecklistBySection',
@@ -130,6 +132,7 @@ angular.module('RDAApp.services', [])
         'GetDocumentConfigById' : 'getDocumentConfigById',
         'SaveDocumentConfig' : 'saveDocumentConfig',
         'WriteDocument' : 'writeDocument',
+        'SaveConceptVsContextMap' : 'saveConceptVsContextMap',
         'RunConfig' : 'runConfig',
         'RemoveParsing' : 'removeParsing',
 
@@ -879,6 +882,14 @@ angular.module('RDAApp.services', [])
         var sendObj = {"paraId": paraId, 'fromFile': fromFile};
         return SharedService.invokeService('GetRelatedParagraphsById', sendObj, 'post');
     }
+    SharedService.getRelatedContextsByParaId = function (paraId) {
+        var sendObj = {"paraId": paraId};
+        return SharedService.invokeService('GetRelatedContextsByParaId', sendObj, 'post');
+    }
+    SharedService.getRelatedParagraphsByContexts = function (contexts) {
+        var sendObj = {"contexts": contexts};
+        return SharedService.invokeService('GetRelatedParagraphsByContexts', sendObj, 'post');
+    }
 
     SharedService.uploadAttachmentByChecklistId = function (fileData) {
         return SharedService.invokeService('UploadAttachmentByChecklistId', fileData, 'post');
@@ -937,6 +948,9 @@ angular.module('RDAApp.services', [])
     }
     SharedService.writeDocument = function (fileConfig) {
         return SharedService.invokeService('WriteDocument', fileConfig, 'post');
+    }
+    SharedService.saveConceptVsContextMap = function () {
+        return SharedService.invokeService('SaveConceptVsContextMap');
     }
     SharedService.runConfig = function (fileConfig) {
         return SharedService.invokeService('RunConfig', fileConfig, 'post');

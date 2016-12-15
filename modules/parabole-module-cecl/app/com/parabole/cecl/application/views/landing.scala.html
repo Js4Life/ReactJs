@@ -46,6 +46,7 @@
             <ul class="dropdown-menu" style="top:inherit;">
                 @restrict(roles = la(as("ADMIN"))) {
                     <li><a class="pointer" ng-click="goFileUploader()"><i class="fa fa-upload"></i> Upload File</a></li>
+                    <li><a class="pointer" ng-click="loadConceptVsContextMap()"><i class="fa fa-upload"></i> Load Contexts</a></li>
                 }
                 <li><a href="http://localhost:9000/logout"><i class="fa fa-sign-out"></i> Logout</a></li>
             </ul>

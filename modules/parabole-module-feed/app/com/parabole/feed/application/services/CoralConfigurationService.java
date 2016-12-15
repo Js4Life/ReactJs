@@ -111,7 +111,7 @@ public class CoralConfigurationService {
         String retData = "{Status: true, message: saved }";
         try {
             final Map<String, Object> dataMap = new HashMap<String, Object>();
-            dataMap.put("CONTEXT_URI", concept_url);
+            dataMap.put("CONTEXT_URI", context_url);
             dataMap.put("CONTEXT_NAME", context_name);
             dataMap.put("CONCEPT_URI", concept_url);
             coral.saveContextConceptMap(CCAppConstants.APP_CONTEXT_CONCEPT_MAPPING, dataMap);

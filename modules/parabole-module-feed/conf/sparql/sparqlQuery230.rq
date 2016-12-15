@@ -1,0 +1,60 @@
+PREFIX pb:<http://www.mindparabole.com/ontology/finance/Parabole-Model#>
+PREFIX pnc:<http://mindparabole.com/finance/pnc_cecl#>
+PREFIX cst:<http://mindparabole.com/finance/cecl_structure#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX con:<http://mindparabole.com/finance/fasb_concepts#>
+PREFIX afn: <http://jena.apache.org/ARQ/function#>
+PREFIX bas: <http://mindparabole.com/finance/basel_glossary#>
+
+SELECT distinct *
+WHERE{
+
+{SELECT  ?con ?prop ?restr ?cl
+WHERE{
+
+{SELECT ( COUNT(?con) AS ?pass) ?con ?class ?numRestr ?opr ?cl ?prop ?restr
+
+WHERE{
+
+{SELECT DISTINCT ?prop ?restr ?numRestr ?class ?opr ?cl
+
+WHERE
+{
+?class  (owl:intersectionOf|owl:unionOf)/rdf:rest*/rdf:first  ?i .
+?i owl:allValuesFrom|owl:someValuesFrom ?val; owl:onProperty ?prop.
+OPTIONAL{?val owl:oneOf/rdf:rest*/rdf:first  ?val2}
+BIND(IF(!bound(?val2) = true,?val ,?val2)  AS ?restr)
+{select  (COUNT(?i) AS ?numRestr) ?class ?opr ?cl
+ where {
+?class  (owl:intersectionOf|owl:unionOf)/rdf:rest*/rdf:first  ?i .
+?cl owl:equivalentClass ?class.
+FILTER(EXISTS{?cl rdfs:subClassOf pb:Context .})
+OPTIONAL{?i owl:allValuesFrom ?val; owl:onProperty ?prop.}
+FILTER(!bound(?val) = false)
+?class ?prop2 ?test.
+FILTER(?prop2 =( owl:unionOf)||?prop2 =(owl:intersectionOf ))
+BIND(IF(?prop2 = owl:intersectionOf ,"Intersection","Union") AS ?opr)
+}
+GROUP BY ?class ?opr ?cl}
+}}
+
+?con ?prop ?restr}
+GROUP BY ?con ?class ?numRestr ?opr ?cl ?prop ?restr}
+#BIND(IF(?opr = "Union",?pass<=?numRestr,?pass = ?numRestr) AS ?test)
+#FILTER(?test = true)
+FILTER((?opr = "Intersection" && ?pass = ?numRestr)||
+(?opr = "Union" && ?pass<= ?numRestr))}
+}
+
+#BIND(CONCAT(xsd:string(afn:namespace(?con)),xsd:string(afn:localname(?con))) AS ?uri)
+#?con rdfs:label ?ConceptName.
+?cl rdfs:label ?context.
+BIND(CONCAT(xsd:string(afn:namespace(?cl)),xsd:string(afn:localname(?cl))) AS ?uri2)
+BIND(?restr AS ?con2)
+#FILTER(?uri2 = "http://mindparabole.com/finance/Context#CECLEstimation")
+}
+
+

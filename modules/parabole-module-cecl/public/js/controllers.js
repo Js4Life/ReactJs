@@ -131,6 +131,16 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.goFileUploader = function () {
 		$state.go('landing.documentUploader');
 	}
+	
+	$scope.loadConceptVsContextMap = function () {
+		SharedService.saveConceptVsContextMap().then(function (data) {
+			if(data.status){
+				toastr.success('Loading successful..', '', {"positionClass" : "toast-top-right"});
+			} else {
+				toastr.error('Loading failed..', '', {"positionClass" : "toast-top-right"});
+			}
+		});
+	}
 
 	function activeCurrentNav(e) {
 		$(e.currentTarget).parent().parent().children().removeClass('active');
@@ -943,13 +953,58 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		});
 	}
 
-	$scope.getRelatedParagraphs = function (para) {
+	$scope.getRelatedContexts = function (para) {
 		$scope.baseParagraph = para;
-		SharedService.getRelatedParagraphsById(para.elementID, para.fromFileName).then(function (tempData) {
-			if(tempData.status) {
-				$scope.relateParagraphs = angular.fromJson(tempData.data);
+		var defaultContext = {
+			context_name : "Default",
+			context_uri : "default"
+		};
+		SharedService.getRelatedContextsByParaId(para.elementID).then(function (data) {
+			if(data.status){
+				$scope.currentContexts = angular.fromJson(data.data);
+				$scope.currentContexts.push(defaultContext);
+				$('#checklistModal').modal('hide');
+				$('#paraFilterModal').modal('show');
+			} else {
+				toastr.error('Error in finding contexts..', '', {"positionClass" : "toast-top-right"});
 			}
 		});
+	}
+
+	$scope.getRelatedParagraphsByContext = function () {
+		var selContexts = [];
+		var isDefaultSelected = false;
+		angular.forEach($scope.currentContexts, function (obj) {
+			if(obj.isChecked){
+				selContexts.push(obj.context_uri);
+				if(obj.context_uri === 'default')
+					isDefaultSelected = true;
+			}
+		});
+		if(selContexts.length < 1){
+			toastr.warning('Select a context..', '', {"positionClass" : "toast-top-right"});
+			return;
+		}
+		if(!isDefaultSelected) {
+			SharedService.getRelatedParagraphsByContexts(selContexts).then(function (data) {
+				if (data.status) {
+					$scope.relateParagraphs = angular.fromJson(data.data);
+					$scope.getChecklistModal();
+				}
+			});
+		} else {
+			SharedService.getRelatedParagraphsById($scope.baseParagraph.elementID, $scope.baseParagraph.fromFileName).then(function (data) {
+				if(data.status) {
+					$scope.relateParagraphs = angular.fromJson(data.data);
+					$scope.getChecklistModal();
+				}
+			});
+		}
+	}
+
+	$scope.getChecklistModal = function () {
+		$('#checklistModal').modal('show');
+		$('#paraFilterModal').modal('hide');
 	}
 	
 	$scope.saveChecklist = function () {

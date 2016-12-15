@@ -136,7 +136,7 @@
                   <div class="well">
                     <div ng-class="{'text-danger': para.willIgnore === 'true'}" read-more="" content="{{para.bodyText}}"></div>
                     <span ng-if="paraTags[para.elementID]" ng-class="getParaTagClass(paraTags[para.elementID])" class="paragraph-tag" tooltip='"title":"{{paraTags[para.elementID]}}","placement":"right"'>{{paraTags[para.elementID].charAt(0)}}</span>
-                    <div class="para-bottom-tile text-danger pointer" ng-click="getRelatedParagraphs(para)">Related Paragraphs</div>
+                    <div class="para-bottom-tile text-danger pointer" ng-click="getRelatedContexts(para)">Related Paragraphs</div>
                   </div>
                 </div>
 
@@ -244,6 +244,31 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" ng-click="onCommentViewerClose()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div id="paraFilterModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Filter</h4>
+      </div>
+      <div class="modal-body">
+        @*<div class="col-xs-6 panel-body">
+
+        </div>*@
+        <ul class="list-group">
+          <li class="list-group-item" ng-repeat="c in currentContexts">
+            <input type="checkbox" ng-model="c.isChecked" style="position: relative;top: 2px;"/>&nbsp;{{c.context_name}}
+          </li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="getChecklistModal()">Close</button>
+        <button type="button" class="btn btn-default" ng-click="getRelatedParagraphsByContext()">Get Paragraphs</button>
       </div>
     </div>
   </div>

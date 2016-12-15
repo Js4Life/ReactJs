@@ -299,7 +299,7 @@
 	"relatedConcepts" : {
 		"outputFormat":"hierarchy",
 		"source":"229",
-		"groupByField" : "concept",
+		"groupByField" : "con2",
 		"columns" :  [{
 			"name" : "ConceptName",
 			"label" : "ConceptName"
@@ -309,6 +309,21 @@
 		},{
 			"name" : "con2",
 			"label" : "con2"
+		}]
+	},
+	"conceptVsContext" : {
+		"outputFormat":"table",
+		"source":"230",
+		"groupByField" : "con2",
+		"columns" :  [{
+			"name" : "uri2",
+			"label" : "contextUri"
+		},{
+			"name" : "con2",
+			"label" : "conceptUri"
+		},{
+			"name" : "context",
+			"label" : "contextName"
 		}]
 	}
 }
