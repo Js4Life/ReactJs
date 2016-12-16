@@ -1031,8 +1031,8 @@ public class TaggingUtilitiesServices {
         return "{status: Saved}";
     }
 
-    public List<Map<String, String>> getListofContextsAgainstParagraph(String paragraphId){
-        List<Map<String, String>> resultData = new ArrayList<>();
+    public Set<Map<String, String>> getListOfContextsAgainstParagraph(String paragraphId){
+        Set<Map<String, String>> resultData = new HashSet<>();
         List<String> listOfConceptUris = lightHouseService.getConceptListsFromParagraphs(paragraphId);
         try {
             for (String conceptUri : listOfConceptUris) {

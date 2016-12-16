@@ -11,10 +11,7 @@ import org.apache.commons.lang3.Validate;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Singleton
 public class CoralConfigurationService {
@@ -127,7 +124,7 @@ public class CoralConfigurationService {
         return coral.getConceptsAgainstContextUri(contextUri);
     }
 
-    public List<Map<String, String>> getContextsAgainstConceptUri(String conceptUri) throws AppException {
+    public Set<Map<String, String>> getContextsAgainstConceptUri(String conceptUri) throws AppException {
         Validate.notNull(conceptUri, "'contextUri' cannot be null");
         return coral.getContextsAgainstConceptUri(conceptUri);
     }
