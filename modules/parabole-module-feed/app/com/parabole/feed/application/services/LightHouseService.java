@@ -626,18 +626,16 @@ public class LightHouseService {
         }
     }
 
-    private Map<String, Set<String>> addRelatedConcept(String elementIDofAParagraph, String concept, Map<String, Set<String>> relatedConcept) {
-        Map<String, Set<String>> resultData = new HashMap<>();
+    private void addRelatedConcept(String elementIDofAParagraph, String concept, Map<String, Set<String>> relatedConcept) {
         if(relatedConcept.get(elementIDofAParagraph) != null){
             Set<String> relatedConcepts  = relatedConcept.get(elementIDofAParagraph);
             relatedConcepts.add(concept);
-            resultData.put(elementIDofAParagraph, relatedConcepts);
+            relatedConcept.put(elementIDofAParagraph, relatedConcepts);
         }else{
             Set<String> relatedConcepts  = new HashSet<>();
             relatedConcepts.add(concept);
-            resultData.put(elementIDofAParagraph, relatedConcepts);
+            relatedConcept.put(elementIDofAParagraph, relatedConcepts);
         }
-        return resultData;
     }
 
 
