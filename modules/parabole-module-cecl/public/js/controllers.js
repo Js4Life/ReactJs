@@ -798,9 +798,10 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	function configureGridOption() {
 		$scope.gridOptions = {
 			columnDefs: [
-				{ field: 'isBase', name: 'Base Paragraph', width: "*", cellTemplate: '<div class="text-center"><i ng-if="row.entity.isBase" class="fa fa-check text-success" aria-hidden="Yes"></i><i ng-if="!row.entity.isBase" class="fa fa-times text-danger" aria-hidden="No"></i></div>' },
-				{ field: 'regulation', name: 'Knowledge Repository', width: "*" },
-				{ field: 'file', name: 'File', width: "*" },
+				{ field: 'isBase', name: 'Base Paragraph', width: "150", cellTemplate: '<div class="text-center"><i ng-if="row.entity.isBase" class="fa fa-check text-success" aria-hidden="Yes"></i><i ng-if="!row.entity.isBase" class="fa fa-times text-danger" aria-hidden="No"></i></div>' },
+				{ field: 'regulation', name: 'Knowledge Repository', width: "200" },
+				{ field: 'file', name: 'File', width: "200" },
+				{ field: 'concepts', name: 'Related Concepts', width: "200" },
 				{ field: 'bodyText', name: 'Paragraph', width: "*"}
 			],
 			enableSelectAll: false,
@@ -834,7 +835,8 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			isBase: true,
 			regulation: getRegulationByParaType($scope.baseParagraph.type),
 			file: $scope.baseParagraph.fromFileName || "FASB",
-			bodyText: $scope.baseParagraph.bodyText
+			bodyText: $scope.baseParagraph.bodyText,
+			concepts: ""
 		}
 		$scope.exportableParagraphs.push(basePara);
 
@@ -843,7 +845,8 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				isBase: false,
 				regulation: getRegulationByParaType(para.type),
 				file: para.fromFileName || "FASB",
-				bodyText: para.bodyText
+				bodyText: para.bodyText,
+				concepts: getConceptsByParaId(para.elementID)
 			}
 			$scope.exportableParagraphs.push(aPara);
 		});
@@ -859,6 +862,19 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$scope.gridApi.exporter.csvExport( "all", "all", gridElement );
 	};
 
+	function getConceptsByParaId(paraId) {
+		var conceptStr = "";
+		var concepts = $scope.relatedParaConcepts[paraId];
+		if(concepts != null){
+			angular.forEach(concepts, function (con) {
+				if(conceptStr == "")
+					conceptStr = con;
+				else
+					conceptStr = conceptStr + "," + con;
+			});
+		}
+		return conceptStr;
+	}
 	function getRegulationByParaType(type) {
 		switch (type){
 			case "PARAGRAPH": return "FASB";
@@ -1014,6 +1030,8 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}
 
 	$scope.addChecklist = function (checklistItem) {
+		$scope.relateParagraphs = [];
+		$scope.relatedParaConcepts = {};
 		$scope.checklistItem = checklistItem || {isMandatory : true};
 		if(!checklistItem)
 			$scope.currentComponentTypes = {};
@@ -1077,6 +1095,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			SharedService.getRelatedParagraphsByContexts(selContexts, selRegulations).then(function (data) {
 				if (data.status) {
 					$scope.relateParagraphs = angular.fromJson(data.data);
+					$scope.relatedParaConcepts = angular.fromJson(data.concepts);
 					$scope.getChecklistModal();
 				}
 			});
