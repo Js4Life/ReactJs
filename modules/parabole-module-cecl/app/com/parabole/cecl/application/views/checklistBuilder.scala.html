@@ -122,6 +122,7 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="gridSystemModalLabel">Checklist Item</h4>
+
       </div>
       <div class="modal-body zero-padding">
         <ul class="nav nav-tabs">
@@ -141,7 +142,7 @@
                 </div>
 
                 <div class="bs-docs-section" ng-if="relateParagraphs.length > 0">
-                  <h4 class="page-header">Related Paragraphs for para: {{baseParagraph.name}} ({{relateParagraphs.length}})</h4>
+                  <h4 class="page-header">Related Paragraphs for para: {{baseParagraph.name}} ({{relateParagraphs.length}} paragraphs found) &nbsp; <i class="fa fa-table" aria-hidden="true" ng-click="viewCsvExporter()" tooltip='"title":"Grid view"'></i></h4>
                   <div ng-repeat="para in relateParagraphs" style="position: relative;">
                     <div class="well">
                       <div ng-class="{'text-danger': para.willIgnore === 'true'}" read-more="" content="{{para.bodyText}}"></div>
@@ -291,6 +292,24 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default" ng-click="getChecklistModal()">Close</button>
         <button type="button" class="btn btn-default" ng-click="getRelatedParagraphsByContext()">Get Paragraphs</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="csvExporterModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" style="width:92%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Related Paragraphs</h4>
+      </div>
+      <div class="modal-body zero-padding-bottom">
+        <div ui-grid="gridOptions" ui-grid-exporter ui-grid-resize-columns ui-grid-move-columns style="height:65vh;"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-default" ng-click="exportCsv()">CSV</button>
       </div>
     </div>
   </div>

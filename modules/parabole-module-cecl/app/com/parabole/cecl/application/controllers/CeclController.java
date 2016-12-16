@@ -1110,18 +1110,21 @@ public class CeclController extends Controller{
         JSONObject finalJson = new JSONObject();
         Boolean status = true;
         String data = null;
+        String concepts = null;
         try {
             List<String> contextUris = new Gson().fromJson(contexts.toString(), new TypeToken<List<String>>() {}.getType());
             List<String> regulationNames = new Gson().fromJson(regulations.toString(), new TypeToken<List<String>>() {}.getType());
             RelatedParagraphsAndMappedConcepts totalResponse = taggingUtilitiesServices.getRelatedParagraphsAgainstListOfContextUris(contextUris, regulationNames);
-            ArrayList<HashMap<String, String>> res = totalResponse.getParagraphs();
+            ArrayList<HashMap<String, String>> rParas = totalResponse.getParagraphs();
+            Map<String, Set<String>> rConcepts = totalResponse.getrConcept();
             ObjectMapper mapper = new ObjectMapper();
-            data = mapper.writeValueAsString(res);
+            data = mapper.writeValueAsString(rParas);
+            concepts = mapper.writeValueAsString(rConcepts);
         } catch (Exception e){
             status = false;
             e.printStackTrace();
         }
-        finalJson.put("status", status).put("data", data);
+        finalJson.put("status", status).put("data", data).put("concepts", concepts);
         return ok(finalJson.toString());
     }
 
