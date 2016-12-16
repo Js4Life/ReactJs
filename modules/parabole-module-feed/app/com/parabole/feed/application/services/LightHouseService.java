@@ -583,10 +583,10 @@ public class LightHouseService {
                 //}
 
                 System.out.println("elementIDofAParagraph = " + elementIDofAParagraph);
-                if (/*!elementIDofAParagraph.equals(paragraphID) &&*/ !elementIDofAParagraph.isEmpty() && null != elementIDofAParagraph)
+                if (/*!elementIDofAParagraph.equals(paragraphID) &&*/ !elementIDofAParagraph.equalsIgnoreCase("") &&
+                        !elementIDofAParagraph.isEmpty() && null != elementIDofAParagraph) {
 
-                    rConcept = addRelatedConcept(elementIDofAParagraph, relatedConcept, rConcept);
-
+                    addRelatedConcept(elementIDofAParagraph, relatedConcept, rConcept);
                     if (sortableParagraphExistanceCounts.containsKey(elementIDofAParagraph)) {
                         Integer eachCount = sortableParagraphExistanceCounts.get(elementIDofAParagraph);
                         System.out.println("eachCount = " + eachCount);
@@ -596,6 +596,7 @@ public class LightHouseService {
                         sortableParagraphExistanceCounts.put(elementIDofAParagraph, 1);
                         System.out.println("LightHouseService.getRelatedParagraphsByMaxConceptsMatch");
                     }
+                }
             }
         }
         Predicate<Integer> thresholdFilter = new Predicate<Integer>() {
