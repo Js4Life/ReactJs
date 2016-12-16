@@ -293,9 +293,9 @@ public class Coral extends GraphDb {
         }
     }
 
-    public List<Map<String, String>> getContextsAgainstConceptUri(final String conceptUri) throws AppException {
+    public Set<Map<String, String>> getContextsAgainstConceptUri(final String conceptUri) throws AppException {
         Validate.notNull(conceptUri, "'conceptName' cannot be empty!");
-        final List<Map<String, String>> outputList = new ArrayList<Map<String, String>>();
+        final Set<Map<String, String>> outputList = new HashSet<>();
         final ODatabaseDocumentTx dbNoTx = getDocDBConnectionNoTx();
         try {
             final OSQLSynchQuery<ODocument> query = new OSQLSynchQuery<ODocument>("SELECT CONTEXT_URI, CONTEXT_NAME FROM " + CCAppConstants.APP_CONTEXT_CONCEPT_MAPPING + " WHERE CONCEPT_URI ='" + conceptUri+"'");
@@ -309,7 +309,7 @@ public class Coral extends GraphDb {
                 outputMap.put("context_name", contextName);
                 outputList.add(outputMap);
             });
-            return Collections.unmodifiableList(outputList);
+            return outputList;
         } catch (final Exception ex) {
             Logger.error("Could not retrieve configuration", ex);
             throw new AppException(AppErrorCode.GRAPH_DB_OPERATION_EXCEPTION);

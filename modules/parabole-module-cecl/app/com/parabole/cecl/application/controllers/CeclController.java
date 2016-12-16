@@ -1089,7 +1089,7 @@ public class CeclController extends Controller{
         Boolean status = true;
         String data = null;
         try {
-            List<Map<String, String>> res = taggingUtilitiesServices.getListofContextsAgainstParagraph(paraId);
+            Set<Map<String, String>> res = taggingUtilitiesServices.getListOfContextsAgainstParagraph(paraId);
             ObjectMapper mapper = new ObjectMapper();
             data = mapper.writeValueAsString(res);
         } catch (Exception e){
