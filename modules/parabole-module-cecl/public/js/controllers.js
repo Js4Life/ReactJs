@@ -770,7 +770,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	$scope.initialize();
 })
 
-.controller('checklistBuilderCtrl', function($scope, $state, $stateParams, Upload, SharedService, MockService) {
+.controller('checklistBuilderCtrl', function($scope, $state, $stateParams, $timeout, Upload, SharedService, MockService) {
 	$scope.initialize = function () {
 		$scope.heading = {title: "Checklist Builder"};
 		$scope.question = {components: [], isMandatory: true};
@@ -792,6 +792,79 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				$scope.regulations = data.data;
 			}
 		});
+		configureGridOption();
+	}
+
+	function configureGridOption() {
+		$scope.gridOptions = {
+			columnDefs: [
+				{ field: 'isBase', name: 'Base Paragraph', width: "*", cellTemplate: '<div class="text-center"><i ng-if="row.entity.isBase" class="fa fa-check text-success" aria-hidden="Yes"></i><i ng-if="!row.entity.isBase" class="fa fa-times text-danger" aria-hidden="No"></i></div>' },
+				{ field: 'regulation', name: 'Knowledge Repository', width: "*" },
+				{ field: 'file', name: 'File', width: "*" },
+				{ field: 'bodyText', name: 'Paragraph', width: "*"}
+			],
+			enableSelectAll: false,
+			exporterCsvFilename: 'download.csv',
+			exporterPdfDefaultStyle: {fontSize: 9},
+			exporterPdfTableStyle: {margin: [30, 30, 30, 30]},
+			exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, color: 'blue'},
+			exporterPdfHeader: { text: "My Header", style: 'headerStyle' },
+			exporterPdfFooter: function ( currentPage, pageCount ) {
+				return { text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle' };
+			},
+			exporterPdfCustomFormatter: function ( docDefinition ) {
+				docDefinition.styles.headerStyle = { fontSize: 16, bold: true, margin: [30, 30, 0, 10] };
+				docDefinition.styles.footerStyle = { fontSize: 10, bold: false, margin: [30, 10, 0, 30] };
+				return docDefinition;
+			},
+			exporterPdfOrientation: 'landscape',
+			exporterPdfPageSize: 'A4',
+			exporterPdfMaxGridWidth: 680,
+			exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")),
+			onRegisterApi: function(gridApi){
+				$scope.gridApi = gridApi;
+
+			}
+		};
+	}
+
+	$scope.viewCsvExporter = function () {
+		$scope.exportableParagraphs = [];
+		var basePara = {
+			isBase: true,
+			regulation: getRegulationByParaType($scope.baseParagraph.type),
+			file: $scope.baseParagraph.fromFileName || "FASB",
+			bodyText: $scope.baseParagraph.bodyText
+		}
+		$scope.exportableParagraphs.push(basePara);
+
+		angular.forEach($scope.relateParagraphs, function (para) {
+			var aPara = {
+				isBase: false,
+				regulation: getRegulationByParaType(para.type),
+				file: para.fromFileName || "FASB",
+				bodyText: para.bodyText
+			}
+			$scope.exportableParagraphs.push(aPara);
+		});
+		$scope.gridOptions.data = $scope.exportableParagraphs;
+		$('#checklistModal').modal('hide');
+		$('#csvExporterModal').modal('show');
+		$timeout( function() {
+			$scope.gridApi.core.handleWindowResize();
+		}, 500, 10);
+	}
+	$scope.exportCsv = function(){
+		var gridElement = angular.element(document.querySelectorAll(".custom-csv-link-location"));
+		$scope.gridApi.exporter.csvExport( "all", "all", gridElement );
+	};
+
+	function getRegulationByParaType(type) {
+		switch (type){
+			case "PARAGRAPH": return "FASB";
+			case "BASELPARAGRAPH": return "BASEL";
+			case "CFRPARAGRAPH": return "FEDERAL REGISTER";
+		}
 	}
 
 	function setParagraphTags() {
