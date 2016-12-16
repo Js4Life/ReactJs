@@ -631,6 +631,10 @@ public class LightHouseService {
             Set<String> relatedConcepts  = relatedConcept.get(elementIDofAParagraph);
             relatedConcepts.add(concept);
             resultData.put(elementIDofAParagraph, relatedConcepts);
+        }else{
+            Set<String> relatedConcepts  = new HashSet<>();
+            relatedConcepts.add(concept);
+            resultData.put(elementIDofAParagraph, relatedConcepts);
         }
         return resultData;
     }

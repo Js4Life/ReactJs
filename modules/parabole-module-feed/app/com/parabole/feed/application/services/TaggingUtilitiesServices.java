@@ -1049,10 +1049,13 @@ public class TaggingUtilitiesServices {
         Validate.notNull(contextUris, "contextUris can not be null");
         Set<String> conceptUris = new HashSet<>();
         Map<String, Set<String>> conceptToContextOnSelections = new HashMap<>();
+        Map<String, Set<String>> ContextsAgainstconcept = new HashMap<>();
         for (String contextUri : contextUris) {
             List<String> coceptsURI = coralConfigurationService.getConceptsAgainstContextUri(contextUri);
             conceptUris.addAll(coceptsURI);
-            //addConceptToContextOnSelections();
+            for (String concept : coceptsURI) {
+                ContextsAgainstconcept = addConceptToContextOnSelections(concept, contextUri, ContextsAgainstconcept);
+            }
         }
 
         Set<String> dbFilterType = new HashSet<>();
@@ -1071,6 +1074,21 @@ public class TaggingUtilitiesServices {
 
         RelatedParagraphsAndMappedConcepts dataToReturn = lightHouseService.getRelatedParagraphAgainstConceptUris(conceptUris, dbFilterType);
         return dataToReturn;
+    }
+
+    private Map<String, Set<String>> addConceptToContextOnSelections(String concept, String contextUri, Map<String, Set<String>> contextsAgainstconcept) {
+
+        if(contextsAgainstconcept.get(concept) != null){
+            Set<String> listOfConcept = contextsAgainstconcept.get(concept);
+            listOfConcept.add(contextUri);
+            contextsAgainstconcept.put(concept, listOfConcept);
+        }else{
+            Set<String> listOfConcept = new HashSet<>();
+            listOfConcept.add(contextUri);
+            contextsAgainstconcept.put(concept, listOfConcept);
+        }
+        return contextsAgainstconcept;
+
     }
 
 }

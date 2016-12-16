@@ -12,6 +12,7 @@ public class RelatedParagraphsAndMappedConcepts {
 
     private ArrayList<HashMap<String, String>> paragraphs;
     private Map<String, Set<String>> rConcept;
+    private Map<String, Set<String>> contexts;
 
     public ArrayList<HashMap<String, String>> getParagraphs() {
         return paragraphs;
@@ -27,5 +28,13 @@ public class RelatedParagraphsAndMappedConcepts {
 
     public void setrConcept(Map<String, Set<String>> rConcept) {
         this.rConcept = rConcept;
+    }
+
+    public Map<String, Set<String>> getContexts() {
+        return contexts;
+    }
+
+    public void setContexts(Map<String, Set<String>> contexts) {
+        this.contexts = contexts;
     }
 }
