@@ -10,6 +10,7 @@ import com.parabole.cecl.application.global.CCAppConstants;
 import com.parabole.cecl.application.services.JenaTdbService;
 import com.parabole.cecl.application.utils.BodyParserMaxLength;
 import com.parabole.feed.application.services.*;
+import com.parabole.feed.application.utils.RelatedParagraphsAndMappedConcepts;
 import play.libs.ws.WSClient;
 import play.libs.ws.WSRequest;
 import play.libs.ws.WSResponse;
@@ -1112,7 +1113,8 @@ public class CeclController extends Controller{
         try {
             List<String> contextUris = new Gson().fromJson(contexts.toString(), new TypeToken<List<String>>() {}.getType());
             List<String> regulationNames = new Gson().fromJson(regulations.toString(), new TypeToken<List<String>>() {}.getType());
-            ArrayList<HashMap<String, String>> res = taggingUtilitiesServices.getRelatedParagraphsAgainstListOfContextUris(contextUris, regulationNames);
+            RelatedParagraphsAndMappedConcepts totalResponse = taggingUtilitiesServices.getRelatedParagraphsAgainstListOfContextUris(contextUris, regulationNames);
+            ArrayList<HashMap<String, String>> res = totalResponse.getParagraphs();
             ObjectMapper mapper = new ObjectMapper();
             data = mapper.writeValueAsString(res);
         } catch (Exception e){

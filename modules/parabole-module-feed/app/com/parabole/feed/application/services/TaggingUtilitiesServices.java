@@ -5,6 +5,7 @@ import com.google.inject.Inject;
 import com.parabole.feed.application.exceptions.AppException;
 import com.parabole.feed.application.global.CCAppConstants;
 import com.parabole.feed.application.utils.AppUtils;
+import com.parabole.feed.application.utils.RelatedParagraphsAndMappedConcepts;
 import com.parabole.feed.contentparser.EntryPoint;
 import com.parabole.feed.contentparser.TaggerTest;
 import com.parabole.feed.contentparser.models.fasb.DocumentData;
@@ -1044,11 +1045,14 @@ public class TaggingUtilitiesServices {
         return resultData;
     }
 
-    public ArrayList<HashMap<String, String>> getRelatedParagraphsAgainstListOfContextUris(List<String> contextUris, List<String> typeFilter) throws com.parabole.feed.platform.exceptions.AppException {
+    public RelatedParagraphsAndMappedConcepts getRelatedParagraphsAgainstListOfContextUris(List<String> contextUris, List<String> typeFilter) throws com.parabole.feed.platform.exceptions.AppException {
         Validate.notNull(contextUris, "contextUris can not be null");
-        List<String> conceptUris = new ArrayList<>();
+        Set<String> conceptUris = new HashSet<>();
+        Map<String, Set<String>> conceptToContextOnSelections = new HashMap<>();
         for (String contextUri : contextUris) {
-            conceptUris.addAll(coralConfigurationService.getConceptsAgainstContextUri(contextUri));
+            List<String> coceptsURI = coralConfigurationService.getConceptsAgainstContextUri(contextUri);
+            conceptUris.addAll(coceptsURI);
+            //addConceptToContextOnSelections();
         }
 
         Set<String> dbFilterType = new HashSet<>();
@@ -1065,7 +1069,8 @@ public class TaggingUtilitiesServices {
         }
 
 
-        ArrayList<HashMap<String, String>> dataToReturn = lightHouseService.getRelatedParagraphAgainstConceptUris(conceptUris, dbFilterType);
+        RelatedParagraphsAndMappedConcepts dataToReturn = lightHouseService.getRelatedParagraphAgainstConceptUris(conceptUris, dbFilterType);
         return dataToReturn;
     }
+
 }
