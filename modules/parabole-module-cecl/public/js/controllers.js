@@ -857,6 +857,10 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			$scope.gridApi.core.handleWindowResize();
 		}, 500, 10);
 	}
+	$scope.closeCsvExporter = function () {
+		$('#csvExporterModal').modal('hide');
+		$('#checklistModal').modal('show');
+	}
 	$scope.exportCsv = function(){
 		var gridElement = angular.element(document.querySelectorAll(".custom-csv-link-location"));
 		$scope.gridApi.exporter.csvExport( "all", "all", gridElement );
