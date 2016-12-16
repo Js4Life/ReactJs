@@ -17,6 +17,7 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Maps;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.parabole.feed.application.utils.RelatedParagraphsAndMappedConcepts;
 import com.parabole.feed.platform.exceptions.AppException;
 import com.parabole.feed.platform.graphdb.LightHouse;
 import com.parabole.feed.platform.utils.AppUtils;
@@ -558,7 +559,7 @@ public class LightHouseService {
         }
     }
 
-    public ArrayList<HashMap<String, String>> getRelatedParagraphAgainstConceptUris(List<String> relatedConcepts, Set<String> typeFilter, String context) {
+    public RelatedParagraphsAndMappedConcepts getRelatedParagraphAgainstConceptUris(Set<String> relatedConcepts, Set<String> typeFilter) {
 
         Integer paragraphCountsThresHold = Integer.valueOf(AppUtils.getApplicationProperty("paragraphCountsThresHold"));
         Integer minConceptMatchingThreshold = Integer.valueOf(AppUtils.getApplicationProperty("minConceptMatchingThreshold"));
@@ -615,7 +616,10 @@ public class LightHouseService {
                 }
                 paragraphIDs.add(para);
             }
-            return lightHouse.getParagraphsByParagraphIds(paragraphIDs);
+            RelatedParagraphsAndMappedConcepts relatedParagraphsAndMappedConcepts = new RelatedParagraphsAndMappedConcepts();
+            relatedParagraphsAndMappedConcepts.setParagraphs(lightHouse.getParagraphsByParagraphIds(paragraphIDs));
+            relatedParagraphsAndMappedConcepts.setrConcept(rConcept);
+            return relatedParagraphsAndMappedConcepts;
         }else{
             return null;
         }
