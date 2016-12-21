@@ -13,6 +13,7 @@ import com.parabole.feed.contentparser.models.fasb.DocumentElement;
 import com.parabole.feed.contentparser.postprocessors.CfrProcessor;
 import com.parabole.feed.platform.graphdb.Anchor;
 import com.parabole.feed.platform.graphdb.LightHouse;
+import com.tinkerpop.blueprints.Vertex;
 import edu.stanford.nlp.ling.HasWord;
 import edu.stanford.nlp.ling.TaggedWord;
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
@@ -134,15 +135,35 @@ public class TaggingUtilitiesServices {
                nodeData.put("elementID", mapofNameURI.get(key).get("uri"));
                lightHouse.createNewVertex(nodeData);
                Set<String> listOfParagraphVertexIDs = dataToProcess.get(key);
-               for (String listOfParagraphVertexID : listOfParagraphVertexIDs) {
-                   lightHouse.establishEdgeByVertexIDs(mapofNameURI.get(key).get("uri"), listOfParagraphVertexID, "conceptToParagraph", "conceptToParagraph");
-                   System.out.println( " || CONNECTION || --- || " +mapofNameURI.get(key) +" + "+ listOfParagraphVertexID);
+               for (String paragraphVertexID : listOfParagraphVertexIDs) {
+                   String conceptUri = mapofNameURI.get(key).get("uri");
+                   lightHouse.establishEdgeByVertexIDs(conceptUri, paragraphVertexID, "conceptToParagraph", "conceptToParagraph");
+                   String typeReq = "COMPONENTTYPE";
+                   findAndAttachDynamicConnections(conceptUri, paragraphVertexID, typeReq);
+                   System.out.println( " || CONNECTION || --- || " +mapofNameURI.get(key) +" + "+ paragraphVertexID);
                }
            }
         }
 
         return "{status: Saved}";
 
+    }
+
+    private void findAndAttachDynamicConnections(String conceptUri, String paragraphVertexID, String typeReq) {
+        Set<Vertex> relatedNodes = lightHouse.getAllRelatedVerticesByProperty("elementID", conceptUri);
+        for (Vertex relatedNode : relatedNodes) {
+            if(relatedNode.getProperty("type").equals(typeReq)){
+                String componentType = relatedNode.getProperty("elementID");
+                System.out.println("componentType =================================================> " + "componentType + ================>type" + typeReq);
+                lightHouse.establishEdgeByVertexIDs(componentType, paragraphVertexID, "dynamicNodeToParagraph", "dynamicNodeToParagraph");
+                if(typeReq.equalsIgnoreCase("COMPONENTTYPE"))
+                    findAndAttachDynamicConnections(componentType, paragraphVertexID, "COMPONENT");
+                if(typeReq.equalsIgnoreCase("COMPONENT"))
+                    findAndAttachDynamicConnections(componentType, paragraphVertexID, "BUSINESSSEGMENT");
+                if(typeReq.equalsIgnoreCase("BUSINESSSEGMENT"))
+                    findAndAttachDynamicConnections(componentType, paragraphVertexID, "PRODUCT");
+            }
+        }
     }
 
     public String saveBaselTopicToSubtopic(String file) throws IOException {
@@ -758,7 +779,7 @@ public class TaggingUtilitiesServices {
         }else{
             writeFile(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedJson\\"+fileType+".txt", storage.toString());
         }
-        return "ok";
+        return (environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedJson\\"+fileType+".txt");
     }
 
 

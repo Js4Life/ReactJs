@@ -29,6 +29,10 @@ public class ParagraphOperationsController extends BaseController{
     @Inject
     private StarfishServices starfishServices;
 
+    public Result getParagraphByProduct() {
+
+            return ok(lightHouseService.getParagraphsByProduct("http://www.mindparabole.com/ontology/finance/Parabole-Model#Repurchaseagreement").toString());
+    }
 
 
     public Result deleteAFIleAndItsAssociations() {

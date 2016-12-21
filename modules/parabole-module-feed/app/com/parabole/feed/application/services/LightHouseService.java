@@ -371,6 +371,19 @@ public class LightHouseService {
         return finalResult;
     }
 
+    public ArrayList<HashMap<String, String>> getParagraphByProduct(ArrayList<String> ids) {
+        ArrayList<String> listOFBusinessSegments = new ArrayList<>();
+        for (String id : ids) {
+            ArrayList<HashMap<String, String>> checklistIDs = lightHouse.getRootVerticesByChildVertexId(id);
+            for (HashMap<String, String> checklistID : checklistIDs) {
+                if(checklistID.get("type").equalsIgnoreCase("BUSINESSSEGMENT"))
+                    listOFBusinessSegments.add(checklistID.get("elementID"));
+            }
+        }
+        ArrayList<HashMap<String, String>> finalResult = getChecklistByBusinessSegment(listOFBusinessSegments);
+        return finalResult;
+    }
+
     ArrayList<String> getListOfChildComponentVerticesByRootVertices(ArrayList<String> listOfOfRootVertices){
 
         ArrayList<String> listOfChildVertices = new ArrayList<>();
@@ -727,5 +740,33 @@ public class LightHouseService {
         } catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    public Set<Vertex> getParagraphsByProduct(String s) {
+        Set<Vertex> vertices = lightHouse.getAllRelatedVerticesByProperty("elementID", s);
+        String filterType = "paragraph";
+        Set<Vertex> allVtoFilter = lightHouse.getAllRelatedVerticesByVertexes(vertices);
+        Set<Vertex> allVtoFilter1 = lightHouse.getAllRelatedVerticesByVertexes(allVtoFilter);
+        Set<Vertex> allVtoFilter2 = lightHouse.getAllRelatedVerticesByVertexes(allVtoFilter1);
+        //Set<Vertex> finalVertices = getAllRelatedVerticesByVertexesRecursively(vertices, filterType);
+        return lightHouse.getAllRelatedVerticesByVertexes(allVtoFilter2);
+    }
+
+    private Set<Vertex> getAllRelatedVerticesByVertexesRecursively(Set<Vertex> vertices, String filterType) {
+        Set<Vertex> returnData = new HashSet<>();
+        int terminate = 0;
+        Set<Vertex> allVtoFilter = lightHouse.getAllRelatedVerticesByVertexes(vertices);
+        if(allVtoFilter.size()==0){
+            terminate = 1;
+        }
+        for (Vertex vertex : allVtoFilter) {
+            if(vertex.getProperty("type").toString().contains(filterType)){
+                terminate = 1;
+            }
+        }
+        if(terminate ==0){
+            allVtoFilter = getAllRelatedVerticesByVertexesRecursively(allVtoFilter, filterType);
+        }
+        return allVtoFilter;
     }
 }

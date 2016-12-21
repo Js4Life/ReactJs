@@ -128,6 +128,10 @@ GET /saveContextConceptMap                              com.parabole.feed.applic
 GET /getConceptsAgainstContextUri                       com.parabole.feed.application.controllers.ParagraphOperationsController.getConceptsAgainstContextUri()
 GET /getContextsAgainstConceptUri                       com.parabole.feed.application.controllers.ParagraphOperationsController.getContextsAgainstConceptUri()
 
+#----------------------------------------
+## POC
+#----------------------------------------
+GET /getParagraphByProduct                              com.parabole.feed.application.controllers.ParagraphOperationsController.getParagraphByProduct()
 
 
 GET /tinkerPopTest                                      com.parabole.feed.application.controllers.ParagraphOperationsController.tinkerPopTest()
