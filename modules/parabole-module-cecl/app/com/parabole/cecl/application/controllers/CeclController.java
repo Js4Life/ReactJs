@@ -1234,12 +1234,12 @@ public class CeclController extends Controller{
         final JSONObject request = new JSONObject(json);
         final String fileName = request.getString("name");
         final String regulation = request.getString("type");
-        final String genre = request.getString("genre");
         JSONObject finalJson = new JSONObject();
         Boolean status = true;
         try {
             if(regulation.equals("BASEL")) {
                 final JSONObject toc = request.getJSONObject("toc");
+                final String genre = request.getString("genre");
                 toc.put("genre", genre);
                 final JSONObject body = request.getJSONObject("body");
                 taggingUtilitiesServices.saveBaselTopicToSubtopic(fileName, toc, "FILE", "basel");
@@ -1247,6 +1247,7 @@ public class CeclController extends Controller{
                 taggingUtilitiesServices.saveBaselConcepts(fileName, toc, body, "basel");
             } else if(regulation.equals("BANKDOCUMENT")) {
                 final JSONObject toc = request.getJSONObject("toc");
+                final String genre = request.getString("genre");
                 toc.put("genre", genre);
                 final JSONObject body = request.getJSONObject("body");
                 taggingUtilitiesServices.saveBaselTopicToSubtopic(fileName, toc, "BANKFILE", "bank");
@@ -1256,8 +1257,19 @@ public class CeclController extends Controller{
                 final String levelIdPrefix = request.getString("levelIdPrefix");
                 JSONObject glossaryMetaData = new JSONObject();
                 glossaryMetaData.put("levelIdPrefix", levelIdPrefix);
+                final String genre = request.getString("genre");
                 glossaryMetaData.put("genre", genre);
                 taggingUtilitiesServices.saveCfrContents(fileName, glossaryMetaData, "CFRFILE");
+            } else if(regulation.equals("FASB")){
+                final String parsingArea = request.getString("parsingArea");
+                if(parsingArea.equalsIgnoreCase("toc")){
+                    final JSONObject toc = request.getJSONObject("toc");
+                    taggingUtilitiesServices.getAllTopicsSubTopics(fileName, toc, "fasb");
+                } else {
+                    final JSONObject body = request.getJSONObject("body");
+                    taggingUtilitiesServices.saveSectionsFromParagraphJSon(fileName, body, "fasb");
+                    taggingUtilitiesServices.createConceptNodesFromParagraph(fileName, body, "fasb");
+                }
             }
         } catch (Exception e){
             status = false;

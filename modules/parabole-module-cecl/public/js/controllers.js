@@ -128,6 +128,11 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$state.go('landing.complianceDashboard');
 	}
 
+    $scope.goParagraphRepo = function (e) {
+        activeCurrentNav(e);
+        $state.go('landing.paragraphRepository');
+    }
+
 	$scope.goFileUploader = function () {
 		$state.go('landing.documentUploader');
 	}
@@ -1803,7 +1808,9 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			/*SharedService.getAllCfrDocuments().then(function (data) {
 			 	$scope.cfrFiles = data;
 			});*/
-		}
+		} else if(reg.key === 'FASB'){
+            getAllFeedFiles(reg.key);
+        }
 	}
 
 	function getAllFeedFiles(regulation){
@@ -1898,5 +1905,370 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$scope.currentRegulation = null;
 	}
 	
+	$scope.initialize();
+})
+
+.controller('paragraphRepositoryCtrl', function($scope, $rootScope, $state, $timeout, $stateParams, SharedService, MockService) {
+    $scope.initialize = function () {
+        $scope.heading = {"title": "Paragraph Repository"};
+        $scope.isGridView = true;
+        $scope.options = {
+            handlerData : {columnClick: "onColumnClick", scope: $scope},
+            colors : ['#04de72', '#00bfff', '#ffb935', '#d2d2d2'],
+            dataLabels : {enabled: true},
+            legend : {enabled: false}
+        }
+        $scope.goBusinessSegmentView();
+    }
+
+    function convertToChartData(data) {
+        var obj = {};
+        obj.categories = [];
+        obj.series = [{colorByPoint: true, data: []}];
+        angular.forEach(data, function (v, k) {
+            obj.categories.push(k);
+            obj.series[0].data.push({y : parseInt(v)});
+        });
+        return obj;
+    }
+
+    function initChecklistComplianceChart() {
+        SharedService.getCompliedAndNotCompliedChecklistCounts().then(function (data) {
+            if(data.status){
+                var rawData = angular.fromJson(data.data);
+                var chartData = convertToChartData(rawData);
+                chartData.title = "Checklist Item Compliance";
+                $scope.checklistComplianceOptions = initChartOptions({"title": chartData.title});
+                $scope.checklistComplianceData = chartData;
+            }
+        });
+    }
+    function initComponentComplianceChart(data) {
+        $scope.componentComplianceOptions = initChartOptions({"title": data.title});
+        $scope.componentComplianceData = data;
+    }
+    function initPeriodicComplianceChart(data) {
+        $scope.periodicComplianceOptions = initChartOptions({"title": data.title, "graphType": 'line'});
+        $scope.periodicComplianceData = data;
+    }
+
+    function initChartOptions(op) {
+        var option = {
+            Title : op.title || " ",
+            GraphType : op.graphType || 'column',
+            handlerData : op.handlerData || {columnClick: "onColumnClick", scope: $scope},
+            colors : op.colors || ['#04de72', '#00bfff', '#ffb935', '#d2d2d2'],
+            dataLabels : op.dataLabels || {enabled: true},
+            legend :  op.legend || {enabled: false}
+        }
+        return option;
+    }
+
+    $scope.onColumnClick = function (obj) {
+        var tagType = obj.currentTarget.category;
+        var value = obj.currentTarget.y;
+
+        switch (tagType){
+            case 'Not Complied' :
+                getParagraphs();
+                break;
+            case('Complied') :
+                toastr.info('Feature coming soon..', '', {"positionClass" : "toast-top-right"});
+                break;
+        }
+    }
+
+    $('a[data-target="#summaryTab"]').on('shown.bs.tab', function (e) {      //On summary tab click
+        $scope.currentView = 'SUMMARY';
+        initChecklistComplianceChart();
+        initComponentComplianceChart(MockService.ComponentComplianceChartData);
+        initPeriodicComplianceChart(MockService.PeriodicComplianceChartData);
+    })
+
+    $scope.goDocumentView = function () {
+        $scope.currentView = 'DOCUMENT';
+        $state.go('landing.paragraphRepository.documentViewer');
+    }
+
+    $scope.goConceptView = function () {
+        $scope.currentView = SharedService.currentView = 'ALL_CONCEPT';
+        $state.go('landing.paragraphRepository.paragraphViewer', {currentView: $scope.currentView});
+    }
+
+    $scope.goComponetView = function () {
+        $scope.currentView = SharedService.currentView = 'ALL_COMPONENT';
+        $state.go('landing.paragraphRepository.paragraphViewer', {currentView: $scope.currentView});
+    }
+
+    $scope.goProductView = function () {
+        $scope.currentView = SharedService.currentView = 'ALL_PRODUCT';
+        $state.go('landing.paragraphRepository.paragraphViewer', {currentView: $scope.currentView});
+    }
+
+    $scope.goBusinessSegmentView = function () {
+        $scope.currentView = SharedService.currentView = 'ALL_BUSINESS_SEGMENT';
+        $state.go('landing.paragraphRepository.paragraphViewer', {currentView: $scope.currentView});
+    }
+
+    $scope.goIndustryImpact = function () {
+        $scope.currentView = 'INDUSTRY_IMPACT';
+        var compName = "industryImpact";
+        SharedService.getFilteredDataByCompName(compName).then(function (data) {
+            $scope.tableData = data.data;
+        });
+    }
+
+    $scope.$watch('parentSearchText',function(newVal){
+        $rootScope.$emit('PARENTSEARCHTEXT', newVal);
+    });
+
+    $scope.toggleView = function () {
+        $scope.isGridView = !$scope.isGridView;
+        $rootScope.$emit('PARENTISGRIDVIEW', $scope.isGridView);
+    }
+
+    $scope.indutryPredicate = function (val) {
+        return val['FASB Industry'];
+    }
+
+    $scope.initialize();
+})
+
+.controller('paragraphViewerCtrl', function($scope, $rootScope, $state, $stateParams, $timeout, $http, SharedService, MockService, OntologyParserService){
+	$scope.initialize = function () {
+		$scope.isGridView = true;
+		$scope.showGraph = false;
+		$scope.breads = [" "];
+		$scope.visOptions = {
+			labelField:'name',
+			handlerData: { click : $scope.clickNode, scope : $scope },
+			nodeShape: 'image',
+			nodeImageMap: SharedService.graphImageMap,
+			nodeImageField: "type",
+			hier: false
+		};
+		$scope.exploreNode(SharedService.currentView);
+		//configureGridOption();
+	}
+
+	/*function configureGridOption() {
+		$scope.gridOptions = {
+			columnDefs: [
+				{ field: 'BODY_TEXT', name: 'Checklist Item' },
+				{ field: 'IS_CHECKED', name: 'Checked', cellTemplate: '<div class="text-center"><i ng-if="row.entity.IS_CHECKED" class="fa fa-check text-success" aria-hidden="true"></i><i ng-if="!row.entity.IS_CHECKED" class="fa fa-times text-danger" aria-hidden="true"></i></div>' },
+				{ field: 'CREATED_BY', name: 'User' },
+				{ field: 'UPDATED_BY', name: 'Updated By' },
+				{ field: 'ATTACHMENTINFO', name: 'Has Evidence' },
+				{ field: 'paragraphs', name: 'Paragraphs' },
+				{ field: 'components', name: 'Component' },
+				{ field: 'IS_MANDATORY', name: 'Mandatory', cellTemplate: '<div class="text-center"><i ng-if="row.entity.IS_MANDATORY" class="fa fa-check text-success" aria-hidden="true"></i><i ng-if="!row.entity.IS_MANDATORY" class="fa fa-times text-danger" aria-hidden="true"></i></div>' },
+				{ field: 'STATE', name: 'Current State' }
+			],
+			enableSelectAll: false,
+			exporterCsvFilename: 'download.csv',
+			exporterPdfDefaultStyle: {fontSize: 9},
+			exporterPdfTableStyle: {margin: [30, 30, 30, 30]},
+			exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, color: 'blue'},
+			exporterPdfHeader: { text: "My Header", style: 'headerStyle' },
+			exporterPdfFooter: function ( currentPage, pageCount ) {
+				return { text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle' };
+			},
+			exporterPdfCustomFormatter: function ( docDefinition ) {
+				docDefinition.styles.headerStyle = { fontSize: 16, bold: true, margin: [30, 30, 0, 10] };
+				docDefinition.styles.footerStyle = { fontSize: 10, bold: false, margin: [30, 10, 0, 30] };
+				return docDefinition;
+			},
+			exporterPdfOrientation: 'landscape',
+			exporterPdfPageSize: 'A4',
+			exporterPdfMaxGridWidth: 680,
+			exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")),
+			onRegisterApi: function(gridApi){
+				$scope.gridApi = gridApi;
+
+			}
+		};
+	}
+
+	$scope.viewChecklistDetails = function () {
+		var checklistIds = _.pluck($scope.checkList, 'id');
+		SharedService.checklistDetailsByIds(checklistIds, $scope.currentNode.elementID, $scope.currentNode.type).then(function (data) {
+			if(data.status){
+				$scope.gridOptions.data = angular.fromJson(data.data);
+				$('#checklistModal').modal('hide');
+				$('#checklistDetailsModal').modal('show');
+				$timeout( function() {
+					$scope.gridApi.core.handleWindowResize();
+				}, 500, 10);
+			}
+		});
+	}
+	$scope.exportCsv = function(){
+		var gridElement = angular.element(document.querySelectorAll(".custom-csv-link-location"));
+		$scope.gridApi.exporter.csvExport( "all", "all", gridElement );
+	};
+	$scope.exportPdf = function(){
+		$scope.gridApi.exporter.pdfExport( "all", "all" );
+	};*/
+
+	$rootScope.$on('PARENTSEARCHTEXT', function (event, data) {
+		$scope.searchText = data;
+	});
+
+	$rootScope.$on('PARENTISGRIDVIEW', function (event, data) {
+		$scope.isGridView = data;
+	});
+
+	$scope.exploreNode = function (nodeType, nodeId) {
+		$scope.searchText = "";
+		$scope.showGraph = false;
+		switch (nodeType) {
+			case "ALL_CONCEPT":
+				SharedService.getAllConcepts().then(function (data) {
+					if(data.status) {
+						$scope.childNodes = angular.fromJson(data.data);
+					}
+				});
+				break;
+			case "CONCEPT" :
+				/*SharedService.getParagraphsByConceptId(nodeId).then(function (data) {
+				 if(data.status) {
+				 $scope.childNodes = angular.fromJson(data.data);
+				 }
+				 });*/
+				$scope.currentNode = _.findWhere($scope.childNodes, {"elementID": nodeId});
+				var compName = "ceclComponentsByConcept";
+				SharedService.getFilteredDataByCompName(compName, nodeId).then(function (data) {
+					$scope.nodeDetails = OntologyParserService.parseData(data.data);
+					console.log($scope.nodeDetails);
+					getGraphByConceptUri();
+					SharedService.getDescriptionByUri($scope.currentNode.elementID).then(function (description) {
+						$scope.currentNode.description = description;
+						$('#dsViewer').modal('show');
+					});
+				});
+				break;
+			case "ALL_COMPONENT" :
+				SharedService.getAllComponents().then(function (data) {
+					if(data.status) {
+						$scope.childNodes = angular.fromJson(data.data);
+					}
+				});
+				break;
+			case "COMPONENT" :
+				/*$scope.currentNode = _.findWhere($scope.childNodes, {"elementID": nodeId});
+				 SharedService.getRelatedComponentsByComponent(nodeId).then(function (data) {
+				 prepareNodeDetails(angular.fromJson(data.data));
+				 });*/
+				$scope.currentNode = _.findWhere($scope.childNodes, {"elementID": nodeId});
+				var compName = "ceclComponentsByComponent";
+				SharedService.getFilteredDataByCompName(compName, nodeId).then(function (data) {
+					$scope.nodeDetails = OntologyParserService.parseData(data.data);
+					console.log($scope.nodeDetails);
+					getGraphByConceptUri();
+					SharedService.getDescriptionByUri($scope.currentNode.elementID).then(function (description) {
+						$scope.currentNode.description = description;
+						$('#dsViewer').modal('show');
+					});
+				});
+				break;
+			case "ALL_BUSINESS_SEGMENT" :
+				SharedService.getAllBusinessSegments().then(function (data) {
+					$scope.childNodes = angular.fromJson(data.data);
+				});
+				break;
+			case "BUSINESSSEGMENT" :
+				/*$scope.currentNode = _.findWhere($scope.childNodes, {"elementID": nodeId});
+				 SharedService.getRelatedBusinessSegentsByBusinessSegment(nodeId).then(function (data) {
+				 prepareNodeDetails(angular.fromJson(data.data));
+				 });*/
+				$scope.currentNode = _.findWhere($scope.childNodes, {"elementID": nodeId});
+				var compName = "ceclComponentsBySegment";
+				SharedService.getFilteredDataByCompName(compName, nodeId).then(function (data) {
+					$scope.nodeDetails = OntologyParserService.parseData(data.data);
+					console.log($scope.nodeDetails);
+					getGraphByConceptUri();
+					SharedService.getDescriptionByUri($scope.currentNode.elementID).then(function (description) {
+						$scope.currentNode.description = description;
+						$('#dsViewer').modal('show');
+					});
+				});
+				break;
+			case "ALL_PRODUCT" :
+				SharedService.getAllProducts().then(function (data) {
+					$scope.childNodes = angular.fromJson(data.data);
+				});
+				break;
+			case "PRODUCT" :
+				$scope.currentNode = _.findWhere($scope.childNodes, {"elementID": nodeId});
+				var compName = "ceclComponentsByProduct";
+				SharedService.getFilteredDataByCompName(compName, nodeId).then(function (data) {
+					$scope.nodeDetails = OntologyParserService.parseData(data.data);
+					console.log($scope.nodeDetails);
+					getGraphByConceptUri();
+					SharedService.getDescriptionByUri($scope.currentNode.elementID).then(function (description) {
+						$scope.currentNode.description = description;
+						$('#dsViewer').modal('show');
+					});
+				});
+				break;
+		}
+	}
+
+	function prepareNodeDetails(nodes, groupByField){
+		var groupByField = groupByField || "type";
+		nodes = _.reject(nodes, function (n) { return n.elementID === $scope.currentNode.elementID; });
+		$scope.nodeDetails = _.groupBy(nodes, groupByField);
+		getGraphByConceptUri();
+		SharedService.getDescriptionByUri($scope.currentNode.elementID).then(function (description) {
+			$scope.currentNode.description = description;
+			$('#dsViewer').modal('show');
+		});
+	}
+
+	function getGraphByConceptUri() {
+		var rootNode = {name: $scope.currentNode.name, id: $scope.currentNode.elementID, type: $scope.currentNode.type.toLowerCase()};
+		$scope.graphData = {nodes: [rootNode], edges: []};
+		angular.forEach($scope.nodeDetails, function (val, key) {
+			angular.forEach(val, function (aNode, idx) {
+				var node = {name: aNode.name, id: aNode.id || aNode.name, type: aNode.type.toLowerCase()};
+				var edge = {from: rootNode.id, to: node.id};
+				$scope.graphData.nodes.push(node);
+				$scope.graphData.edges.push(edge);
+			});
+		});
+	}
+
+	$scope.getGraph = function () {
+		$scope.showGraph = !$scope.showGraph;
+	}
+
+	$scope.clickNode = function (nodeId) {
+		if( !nodeId ) return;
+		$scope.currentGraphNode = $scope.viz.findNodeById( nodeId );
+		SharedService.getDescriptionByUri(nodeId).then(function (description) {
+			$scope.currentGraphNode.desc = description;
+			if($scope.currentGraphNode.desc.definition){
+				$('#dsViewer').modal('hide');
+				$('#definitionViewer').modal('show');
+			} else {
+				toastr.warning('No Description available..', '', {"positionClass" : "toast-top-right"});
+			}
+		});
+	}
+
+	$scope.viewDefinitionLink = function(){
+		window.open($scope.currentGraphNode.desc.definitionlink);
+	}
+
+	$scope.closeDsViewer = function(){
+		$scope.currentGraphNodeDesc = null;
+		$('#definitionViewer').modal('hide');
+		$('#dsViewer').modal('show');
+	}
+
+	$scope.getParagraphByNode = function (node) {
+		$('#paraModal').modal("show");
+	}
+
 	$scope.initialize();
 });

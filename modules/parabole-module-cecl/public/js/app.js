@@ -62,6 +62,11 @@ angular
               controller : 'complianceDashboardCtrl'*/
           })
 
+          .state('landing.paragraphRepository', {
+              url : '/paragraph-repository',
+              templateUrl : 'paragraphRepository'
+          })
+
           .state('landing.complianceDashboard.documentViewer', {
               templateUrl : 'checklistViewer',
               controller : 'homeCtrl'
@@ -71,6 +76,17 @@ angular
               url: '/:currentView',
               templateUrl : 'checklistViewer',
               controller : 'checklistViewerCtrl'
+          })
+
+          .state('landing.paragraphRepository.documentViewer', {
+              templateUrl : 'checklistViewer',
+              controller : 'homeCtrl'
+          })
+
+          .state('landing.paragraphRepository.paragraphViewer', {
+              url: '/:currentView',
+              templateUrl : 'paragraphViewer',
+              controller : 'paragraphViewerCtrl'
           })
 
           .state('landing.documentUploader', {

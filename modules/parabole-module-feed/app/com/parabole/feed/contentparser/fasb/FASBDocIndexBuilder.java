@@ -23,18 +23,22 @@ import java.util.*;
  */
 public class FASBDocIndexBuilder extends AbstractDocBuilder implements IDocIndexBuilder {
 
-    private JSONObject nFASBDocMetaFromJSON = new JSONObject();
+    //private JSONObject nFASBDocMetaFromJSON = new JSONObject();
 
-    public FASBDocIndexBuilder(String path , List<String> con, JSONObject fasbMETA) throws IOException {
+    public FASBDocIndexBuilder(String path , List<String> con, JSONObject glossaryMetaData) throws IOException {
         super(path);
         concepts = con;
-        this.nFASBDocMetaFromJSON = fasbMETA;
+        //this.nFASBDocMetaFromJSON = glossaryMetaData;
+        if(glossaryMetaData != null){
+            this.docMeta = getFASBMetadata(glossaryMetaData);
+        } else {
+            this.docMeta = getFASBMetadata();
+        }
     }
 
     //Build the Document
     public FASBIndexedDocument buildFASBIndex() throws IOException {
         indexedDocument = new FASBIndexedDocument();
-        docMeta = getFASBMetadata();
         initializeParagraphBuilder((FASBDocMeta)docMeta);
         PDFTextStripper stripper = new PDFContentTagger(this);
         stripper.setStartPage( docMeta.getStartPage() );
@@ -111,6 +115,15 @@ public class FASBDocIndexBuilder extends AbstractDocBuilder implements IDocIndex
             fasbDocMeta.setParaIgnore("superseded");
         /*}*/
 
+        return fasbDocMeta;
+    }
+
+    private FASBDocMeta getFASBMetadata(JSONObject glossaryMetaData) {
+        FASBDocMeta fasbDocMeta = new FASBDocMeta();
+        fasbDocMeta.setStartPage(glossaryMetaData.getInt("fromPage"));
+        fasbDocMeta.setEndPage(glossaryMetaData.getInt("toPage"));
+        fasbDocMeta.setParaStartRegEx(glossaryMetaData.getString("paraStartRegex"));
+        fasbDocMeta.setParaIgnore(glossaryMetaData.getString("paraIgnoreText"));
         return fasbDocMeta;
     }
 

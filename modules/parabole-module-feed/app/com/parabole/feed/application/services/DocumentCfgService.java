@@ -29,6 +29,8 @@ public class DocumentCfgService {
             path = Play.current().path().getAbsolutePath().concat(subPath).concat("/basel");
         else if(regulation.equalsIgnoreCase("BANKDOCUMENT"))
             path = Play.current().path().getAbsolutePath().concat(subPath).concat("/bank");
+        else if(regulation.equalsIgnoreCase("FASB"))
+            path = Play.current().path().getAbsolutePath().concat(subPath).concat("/fasb");
         File folder = new File(path);
         File[] allFiles = folder.listFiles();
         for (File file: allFiles) {
@@ -53,6 +55,8 @@ public class DocumentCfgService {
             path = Play.current().path().getAbsolutePath().concat(subPath).concat("/basel/").concat(fileName);
         else if(regulation.equalsIgnoreCase("BANKDOCUMENT"))
             path = Play.current().path().getAbsolutePath().concat(subPath).concat("/bank/").concat(fileName);
+        else if(regulation.equalsIgnoreCase("FASB"))
+            path = Play.current().path().getAbsolutePath().concat(subPath).concat("/fasb/").concat(fileName);
         try {
             String temp = fileData.substring(fileData.indexOf(',') + 1);
             byte[] bytes = Base64.getDecoder().decode(temp);

@@ -147,7 +147,7 @@
           </div>
         </div>
       </div>
-      <div ng-if="currentRegulation.key === 'CFR'">
+      <div ng-show="currentRegulation.key === 'CFR'">
         @*<div class="col-xs-4 padding-15 max-height" style="border-right: 1px solid #e5e5e5;">
           <div class="panel panel-default">
             <div class="panel-heading">
@@ -193,6 +193,123 @@
             <input type="button" class="btn btn-success pull-right margin-right-10" value="Run" ng-click="runConfig()">
             @*<input type="button" class="btn btn-danger pull-right margin-right-10" value="Remove Data" ng-click="confirmRemoveParsing()">*@
           </form>
+        </div>
+      </div>
+      <div ng-show="currentRegulation.key === 'FASB'">
+        <div class="col-xs-4 padding-15 max-height" style="border-right: 1px solid #e5e5e5;">
+          <div class="row-fluid" style="padding-bottom: 2vh;">
+            <div ngf-drop ngf-select ng-model="file" class="drop-box" ngf-drag-over-class="'dragover'" ngf-multiple="false" ngf-allow-dir="false" accept="image/*,application/*,text/plain" ngf-pattern="'image/*,application/*,text/plain'" style="height:29vh;">Drop file or here or click to upload</div>
+            <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+          </div>
+          <div class="row-fluid">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <b>Uploaded Documents</b>
+              </div>
+              <div class="panel-body zero-padding" style="height: 40vh;overflow: auto;">
+                <table class="table table-condensed table-hover">
+                  <tr class="pointer" ng-repeat="file in uploadedFiles" ng-click="getConfig(file.id)">
+                    <td>{{$index+1}}.</td><td>{{file.name}}</td><td><i class="fa fa-chevron-right pull-right" aria-hidden="true"></i></td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-8 padding-15" style="max-height: 82vh;overflow: auto;">
+          <form class="form-horizontal">
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Regulation</label>
+              <div class="col-sm-9">
+                <select class="form-control" ng-model="fileConfig.type" ng-options="r.key as r.name for r in regulations" disabled></select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Name</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" placeholder="Document name (without space)" ng-model="fileConfig.name" disabled>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Parsing Area</label>
+              <div class="col-sm-9">
+                <div class="radio col-sm-6">
+                  <label>
+                    <input type="radio" name="chickenEgg" value="toc" ng-model="fileConfig.parsingArea">
+                    Table of Content
+                  </label>
+                </div>
+                <div class="radio col-sm-6">
+                  <label>
+                    <input type="radio" name="chickenEgg" value="body" ng-model="fileConfig.parsingArea">
+                    Body of Content
+                  </label>
+                </div>
+              </div>
+            </div>
+          </form>
+          <div class="bs-docs-section" ng-show="fileConfig.parsingArea === 'toc'">
+            <h4 class="page-header">Table of Content</h4>
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Page Limit</label>
+                <div class="col-sm-9 zero-padding">
+                  <div class="col-sm-6">
+                    <input type="number" class="form-control" placeholder="From" ng-model="fileConfig.toc.fromPage">
+                  </div>
+                  <div class="col-sm-6">
+                    <input type="number" class="form-control" placeholder="To" ng-model="fileConfig.toc.toPage">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Topic Regex</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" placeholder="Topic regex" ng-model="fileConfig.toc.topicRegex">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Subtopic Regex</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" placeholder="Subtopic regex" ng-model="fileConfig.toc.subtopicRegex">
+                </div>
+              </div>
+              <input type="button" class="btn btn-primary pull-right" value="Save" ng-click="saveConfig()">
+              <input type="button" class="btn btn-success pull-right margin-right-10" value="Run" ng-click="runConfig()">
+              <input type="button" class="btn btn-danger pull-right margin-right-10" value="Remove Data" ng-click="confirmRemoveParsing()">
+            </form>
+          </div>
+          <div class="bs-docs-section" ng-show="fileConfig.parsingArea === 'body'">
+            <h4 class="page-header">Body of Content</h4>
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Page Limit</label>
+                <div class="col-sm-9 zero-padding">
+                  <div class="col-sm-6">
+                    <input type="number" class="form-control" placeholder="From" ng-model="fileConfig.body.fromPage">
+                  </div>
+                  <div class="col-sm-6">
+                    <input type="number" class="form-control" placeholder="To" ng-model="fileConfig.body.toPage">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Para Start regex</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" placeholder="Regex for paragraph start" ng-model="fileConfig.body.paraStartRegex">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Para Ignore Text</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" placeholder="Para ignore text" ng-model="fileConfig.body.paraIgnoreText">
+                </div>
+              </div>
+              <input type="button" class="btn btn-primary pull-right" value="Save" ng-click="saveConfig()">
+              <input type="button" class="btn btn-success pull-right margin-right-10" value="Run" ng-click="runConfig()">
+              <input type="button" class="btn btn-danger pull-right margin-right-10" value="Remove Data" ng-click="confirmRemoveParsing()">
+            </form>
+          </div>
         </div>
       </div>
     </div>

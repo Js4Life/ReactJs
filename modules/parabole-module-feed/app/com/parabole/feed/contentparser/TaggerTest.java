@@ -40,7 +40,7 @@ public class TaggerTest {
         extractor.startExtraction(fPath);
     }*/
 
-    public DocumentData getAllTopicsSubTopics(String fPath) throws IOException {
+    public DocumentData getAllTopicsSubTopics(String fPath, JSONObject glossaryMetaData) throws IOException {
 
         /*PDDocument document = null;
         int startPage = 1;
@@ -67,18 +67,16 @@ public class TaggerTest {
         conceptList.add("Contingent Items");
         FASBDocIndexBuilder builder = new FASBDocIndexBuilder(fPath,conceptList);*/
         com.parabole.feed.contentparser.IDocIndexBuilder indexBuilder = new com.parabole.feed.contentparser.GeneralParaBuilder(fPath, false);
-        FASBAccoutingGlossaryBuilder builder = new FASBAccoutingGlossaryBuilder(indexBuilder);
+        FASBAccoutingGlossaryBuilder builder = new FASBAccoutingGlossaryBuilder(indexBuilder, glossaryMetaData);
         DocumentData data = builder.buildItemTree();
         ObjectMapper objectMapper = new ObjectMapper();
         return data;
 
     }
 
-    public String startExtraction(String fPath) throws IOException {
+    public String startExtraction(String fPath, JSONObject specificToFileTypeMetaData) throws IOException {
         JSONObject jsonObject = jenaTdbService.getFilteredDataByCompName("ceclBaseNodeDetails","FASB Concept");
         JSONArray jsonArray = jsonObject.getJSONArray("data");
-        // TODO
-        JSONObject specificToFileTypeMetaData = new JSONObject();
         List<String> conceptList = new ArrayList<>();
         for (int i=0; i< jsonArray.length(); i++){
             String str = jsonArray.getJSONObject(i).getString("name");
