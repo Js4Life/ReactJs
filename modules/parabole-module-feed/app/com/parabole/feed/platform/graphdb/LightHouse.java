@@ -8,6 +8,8 @@ import com.parabole.feed.application.global.CCAppConstants;
 import com.parabole.feed.platform.utils.AppUtils;
 import com.tinkerpop.blueprints.*;
 import com.tinkerpop.blueprints.impls.orient.*;
+import com.tinkerpop.blueprints.impls.tg.TinkerGraph;
+import com.tinkerpop.blueprints.impls.tg.TinkerGraphFactory;
 import com.tinkerpop.gremlin.java.GremlinPipeline;
 import org.apache.commons.collections.CollectionUtils;
 
@@ -717,6 +719,43 @@ public class LightHouse extends GraphDb {
                 System.out.println("listOfVertex = " + listOfVertex);
             }
         }
+        return listOfVertex;
+    }
+
+    public Set<Vertex> getAllRelatedVerticesByProperty(String KeyName, String keyValue){
+        GremlinPipeline pipe = new GremlinPipeline();
+        ArrayList<String> dataToReturn = new ArrayList<>();
+        Set<Vertex> listOfVertex = new HashSet<>();
+        Vertex temVert;
+        Graph g = getGraphConnectionNoTx();
+        Iterable vertices = g.getVertices(KeyName, keyValue);
+        if(vertices.iterator().hasNext())
+        {
+            temVert = (Vertex) vertices.iterator().next();
+            // g.v(1).out.loop(1){it.object.outE.hasNext()}
+            GremlinPipeline PathO = pipe.start(temVert).bothE().bothV();
+            List<Vertex> pathList = PathO.toList();
+            for (Vertex vertex : pathList) {
+                listOfVertex.add(vertex);
+            }
+        }
+
+        return listOfVertex;
+    }
+
+    public Set<Vertex> getAllRelatedVerticesByVertexes(Set<Vertex> vertices){
+        GremlinPipeline pipe = new GremlinPipeline();
+        ArrayList<String> dataToReturn = new ArrayList<>();
+        Set<Vertex> listOfVertex = new HashSet<>();
+        Graph g = getGraphConnectionNoTx();
+        for (Vertex vertexV : vertices) {
+            GremlinPipeline PathO = pipe.start(vertexV).bothE().bothV();
+            List<Vertex> pathList = PathO.toList();
+            for (Vertex vertex : pathList) {
+                listOfVertex.add(vertex);
+            }
+        }
+
         return listOfVertex;
     }
 
