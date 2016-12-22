@@ -235,10 +235,12 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 		$scope.collapseClasses = {left: "col-xs-2 menu-back slide-container", center: "col-xs-10"};
 		if($scope.currentRegulation === 'FASB'){
 			$scope.nodes = MockService.FasbBaseNodes;
-		} else if($scope.currentRegulation === 'BASEL' || $scope.currentRegulation === 'BANKDOCUMENT'){
+		} else if($scope.currentRegulation === 'BASEL'){
 			$scope.nodes = MockService.BaselBaseNodes;
 		} else if($scope.currentRegulation === 'CFR'){
 			$scope.nodes = MockService.CfrBaseNodes;
+		} else if($scope.currentRegulation === 'BANKDOCUMENT'){
+			$scope.nodes = MockService.BankBaseNodes;
 		}
 
 		$scope.breads = SharedService.homeBreads || [];
@@ -363,7 +365,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 					});
 					break;
 			}
-		} else if($scope.currentRegulation === 'BASEL' || $scope.currentRegulation === 'BANKDOCUMENT') {
+		} else if($scope.currentRegulation === 'BASEL') {
 			switch (nodeType) {
 				case "BASELTOPIC" :
 					SharedService.getBaselSubtopicsByTopicId(nodeId).then(function (data) {
@@ -394,6 +396,43 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 					break;
 				default :
 					SharedService.getAllBaselTopics($scope.currentRegulationFile).then(function (data) {
+						if (data.status) {
+							$scope.childNodes = angular.fromJson(data.data);
+						}
+					});
+					break;
+			}
+		} else if($scope.currentRegulation === 'BANKDOCUMENT') {
+			switch (nodeType) {
+				case "BANKTOPIC" :
+					SharedService.getBankSubtopicsByTopicId(nodeId).then(function (data) {
+						if (data.status) {
+							$scope.childNodes = angular.fromJson(data.data);
+						}
+					});
+					break;
+				case "BANKSUBTOPIC" :
+					SharedService.getBankSectionsBySubtopicId(nodeId).then(function (data) {
+						if (data.status) {
+							$scope.childNodes = angular.fromJson(data.data);
+						}
+					});
+					break;
+				case "BANKSECTION" :
+					SharedService.getBankParagraphsBySectionId(nodeId).then(function (data) {
+						if (data.status) {
+							$scope.childNodes = angular.fromJson(data.data);
+						}
+					});
+					break;
+				case "BANKPARAGRAPH" :
+					SharedService.hideAllToolTips();
+					SharedService.paragraphs = _.where($scope.childNodes, {type: "BANKPARAGRAPH"});
+					SharedService.homeBreads = $scope.breads;
+					$state.go('landing.checklistBuilder');
+					break;
+				default :
+					SharedService.getAllBankTopics($scope.currentRegulationFile).then(function (data) {
 						if (data.status) {
 							$scope.childNodes = angular.fromJson(data.data);
 						}
@@ -438,7 +477,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			aBread.data = {type: "", id: ""};
 			$scope.breads.push(aBread);
 			return;
-		} else if (nodeType === 'PARAGRAPH' || nodeType === 'BASELPARAGRAPH' || nodeType === 'CFRPARAGRAPH'){
+		} else if (nodeType === 'PARAGRAPH' || nodeType === 'BASELPARAGRAPH' || nodeType === 'CFRPARAGRAPH' || nodeType === 'BANKPARAGRAPH'){
 			return;
 		}
 		var idx = _.findIndex($scope.nodes, function (n) {return n.id === nodeType});
@@ -889,6 +928,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 			case "PARAGRAPH": return "FASB";
 			case "BASELPARAGRAPH": return "BASEL";
 			case "CFRPARAGRAPH": return "FEDERAL REGISTER";
+			case "BANKPARAGRAPH": return "BANK DOCUMENT";
 		}
 	}
 
@@ -2267,7 +2307,25 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}
 
 	$scope.getParagraphByNode = function (node) {
-		$('#paraModal').modal("show");
+		SharedService.getParagraphsByRootNodeId(node.elementID).then(function (data) {
+			if(data.status){
+				$scope.currentNode = node;
+				$scope.paragraphs = angular.fromJson(data.data);
+				if($scope.paragraphs.length > 0)
+					$('#paraModal').modal("show");
+				else
+					toastr.warning('No Paragraph found..', '', {"positionClass" : "toast-top-right"});
+			}
+		});
+	}
+
+	$scope.getRegulationByParaType = function (paraType) {
+		switch (paraType){
+			case "PARAGRAPH": return "FASB";
+			case "BASELPARAGRAPH": return "BASEL";
+			case "CFRPARAGRAPH": return "FEDERAL REGISTER";
+			case "BANKPARAGRAPH": return "BANK DOCUMENT";
+		}
 	}
 
 	$scope.initialize();

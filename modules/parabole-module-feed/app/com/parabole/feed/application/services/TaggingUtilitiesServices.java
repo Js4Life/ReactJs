@@ -783,7 +783,7 @@ public class TaggingUtilitiesServices {
     }
 
     //Basel related api methods called from cecl
-    public String saveBaselTopicToSubtopic(String file, JSONObject glossaryMetaData, String fileNodeType, String folderName) throws IOException {
+    public String saveBaselTopicToSubtopic(String file, JSONObject glossaryMetaData, String fileNodeType, String folderName, String nodeTypePrefix) throws IOException {
         List<com.parabole.feed.contentparser.models.basel.DocumentElement> result= null;
         try {
             result = taggerTest.getBaselTopicsSubTopics(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\"+ folderName + "\\" +file+".pdf", glossaryMetaData);
@@ -802,20 +802,20 @@ public class TaggingUtilitiesServices {
         // set root next
         System.out.println(" Setting Sub Root Node .............");
         Map<String, String> subRoot = new HashMap<>();
-        subRoot.put("name", "BASELGLOBAL");
-        subRoot.put("type", "BASELGLOBAL");
-        subRoot.put("elementID", "BASELGLOBAL");
+        subRoot.put("name", nodeTypePrefix + "GLOBAL");
+        subRoot.put("type", nodeTypePrefix + "GLOBAL");
+        subRoot.put("elementID", nodeTypePrefix + "GLOBAL");
         lightHouse.createNewVertex(subRoot);
-        lightHouse.establishEdgeByVertexIDs("ROOT", "BASELGLOBAL", "ROOTTOBASELGLOBAL", "ROOTTOBASELGLOBAL");
+        lightHouse.establishEdgeByVertexIDs("ROOT", nodeTypePrefix + "GLOBAL", "ROOTTO" + nodeTypePrefix + "GLOBAL", "ROOTTO" + nodeTypePrefix + "GLOBAL");
 
         // set sub root next
         System.out.println(" Setting Sub Sub Root Node .............");
         Map<String, String> subSubRoot = new HashMap<>();
-        subSubRoot.put("name", "BASELCFR");
-        subSubRoot.put("type", "BASELCFR");
-        subSubRoot.put("elementID", "BASELCFR");
+        subSubRoot.put("name", nodeTypePrefix + "CFR");
+        subSubRoot.put("type", nodeTypePrefix + "CFR");
+        subSubRoot.put("elementID", nodeTypePrefix + "CFR");
         lightHouse.createNewVertex(subSubRoot);
-        lightHouse.establishEdgeByVertexIDs("BASELGLOBAL", "BASELCFR", "BASELGLOBALTOBASELCFR", "BASELGLOBALTOBASELCFR");
+        lightHouse.establishEdgeByVertexIDs(nodeTypePrefix + "GLOBAL", nodeTypePrefix + "CFR", nodeTypePrefix + "GLOBALTO" + nodeTypePrefix + "CFR", nodeTypePrefix + "GLOBALTO" + nodeTypePrefix + "CFR");
 
         // set file
         System.out.println(" Setting File Node .............");
@@ -825,7 +825,7 @@ public class TaggingUtilitiesServices {
         fileTypeNode.put("elementID", file);
         fileTypeNode.put("genre", glossaryMetaData.getString("genre"));
         lightHouse.createNewVertex(fileTypeNode);
-        lightHouse.establishEdgeByVertexIDs("BASELCFR", file, "BASELCFRTOFILE", "BASELCFRTOFILE");
+        lightHouse.establishEdgeByVertexIDs(nodeTypePrefix + "CFR", file, nodeTypePrefix + "CFRTOFILE", nodeTypePrefix + "CFRTOFILE");
 
         for (com.parabole.feed.contentparser.models.basel.DocumentElement documentElement : result) {
             String topicID =  documentElement.getLevelId();
@@ -833,7 +833,7 @@ public class TaggingUtilitiesServices {
             Map<String, String> topicTypeNode = new HashMap<>();
             topicTypeNode.put("name", documentElement.getContent());
             topicTypeNode.put("fromFileName", file);
-            topicTypeNode.put("type", "BASELTOPIC");
+            topicTypeNode.put("type", nodeTypePrefix + "TOPIC");
             topicTypeNode.put("elementID", topicID);
             lightHouse.createNewVertex(topicTypeNode);
             lightHouse.establishEdgeByVertexIDs(file, topicID, "FILETOTOPIC", "FILETOTOPIC");
@@ -847,7 +847,7 @@ public class TaggingUtilitiesServices {
                     Map<String, String> subTopicTypeNode = new HashMap<>();
                     subTopicTypeNode.put("name", subtopicElement.getContent());
                     subTopicTypeNode.put("fromFileName", file);
-                    subTopicTypeNode.put("type", "BASELSUBTOPIC");
+                    subTopicTypeNode.put("type", nodeTypePrefix + "SUBTOPIC");
                     subTopicTypeNode.put("elementID", subTopicID);
                     lightHouse.createNewVertex(subTopicTypeNode);
                     lightHouse.establishEdgeByVertexIDs(topicID, subTopicID, "TOPICTOSUBTOPIC", "TOPICTOSUBTOPIC");
@@ -861,13 +861,12 @@ public class TaggingUtilitiesServices {
                             String sectionID = sectionElement.getLevelId();
                             Map<String, String> sectionTypeNode = new HashMap<>();
                             sectionTypeNode.put("name", sectionElement.getContent());
-                            sectionTypeNode.put("type", "BASELSECTION");
+                            sectionTypeNode.put("type", nodeTypePrefix + "SECTION");
                             sectionTypeNode.put("fromFileName", file);
                             sectionTypeNode.put("elementID", sectionID);
                             lightHouse.createNewVertex(sectionTypeNode);
                             lightHouse.establishEdgeByVertexIDs(subTopicID, sectionID, "SUBTOPICTOSECTION", "SUBTOPICTOSECTION");
                         }
-
                     }
                 }
             }
@@ -876,7 +875,7 @@ public class TaggingUtilitiesServices {
         return "ok";
     }
 
-    public String saveParagraphsAndAssociateItWithBaselSubTopic(String file, JSONObject tocGlossaryMetaData, JSONObject bodyGlossaryMetaData, String folderName) throws Exception {
+    public String saveParagraphsAndAssociateItWithBaselSubTopic(String file, JSONObject tocGlossaryMetaData, JSONObject bodyGlossaryMetaData, String folderName, String nodeTypePrefix) throws Exception {
 
         Map<String, List<com.parabole.feed.contentparser.models.basel.DocumentElement>> jsonFileContent= null;
         String filePath = environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\" + folderName + "\\" + file;
@@ -890,7 +889,7 @@ public class TaggingUtilitiesServices {
                 // create paragraph node
                 Map<String, String> nodeDataTwo = new HashMap<>();
                 nodeDataTwo.put("name", documentElement.getName());
-                nodeDataTwo.put("type", "BASELPARAGRAPH");
+                nodeDataTwo.put("type", nodeTypePrefix + "PARAGRAPH");
                 nodeDataTwo.put("fromFileName", file);
                 nodeDataTwo.put("bodyText", documentElement.getContent());
                 nodeDataTwo.put("elementID", documentElement.getLevelId());

@@ -366,14 +366,14 @@ public class LightHouse extends GraphDb {
         return listOfFinalData;
     }
 
-    public ArrayList<HashMap<String, String>> getAllBaselTopic(String key, String fromFileName) throws  IOException{
+    public ArrayList<HashMap<String, String>> getAllBaselTopic(String key, String fromFileName, String nodeTypePrefix) throws  IOException{
 
         Iterable<Vertex> verticesData = null;
         ArrayList<HashMap<String, String>> listOfFinalData = new ArrayList<HashMap<String, String>>();
 
         OrientGraph graph = this.orientGraphFactory.getTx();
         try {
-            verticesData = graph.getVertices("type", "BASELTOPIC");
+            verticesData = graph.getVertices("type",  nodeTypePrefix + "TOPIC");
             for (Vertex v : verticesData) {
                 if(null != fromFileName || null != key) {
                     if (v.getProperty(key).equals(fromFileName)) {
@@ -467,7 +467,7 @@ public class LightHouse extends GraphDb {
         return finalData;
     }
 
-    public ArrayList<HashMap<String, String>> getConnectedNodesByNodeIdAndType(String topicid, String filterType) throws  IOException{
+    public ArrayList<HashMap<String, String>> getConnectedNodesByNodeIdAndType(String topicid, String filterType, String nodeTypePrefix) throws  IOException{
         Iterable<Vertex> verticesData = null;
         ArrayList<HashMap<String, String>> listOfFinalData = new ArrayList<HashMap<String, String>>();
         OrientGraph graph = this.orientGraphFactory.getTx();
@@ -490,9 +490,9 @@ public class LightHouse extends GraphDb {
                                 listOfFinalData.add(finalData);
                             }
                         }else{
-                            if(edge.getVertex(Direction.IN).getProperty("type").toString().contains("BASELSECTION") ||
-                                    edge.getVertex(Direction.IN).getProperty("type").toString().contains("BASELPARAGRAPH") ||
-                                        edge.getVertex(Direction.IN).getProperty("type").toString().contains("BASELSUBTOPIC")){
+                            if(edge.getVertex(Direction.IN).getProperty("type").toString().contains(nodeTypePrefix + "SECTION") ||
+                                    edge.getVertex(Direction.IN).getProperty("type").toString().contains(nodeTypePrefix + "PARAGRAPH") ||
+                                        edge.getVertex(Direction.IN).getProperty("type").toString().contains(nodeTypePrefix + "SUBTOPIC")){
 
 
                                 System.out.println("I am in all type of element field consideration !");
@@ -500,7 +500,7 @@ public class LightHouse extends GraphDb {
                                 anotherFinalData.put("elementID", edge.getVertex(Direction.IN).getProperty("elementID"));
                                 anotherFinalData.put("name", edge.getVertex(Direction.IN).getProperty("name"));
                                 anotherFinalData.put("type", edge.getVertex(Direction.IN).getProperty("type"));
-                                if(edge.getVertex(Direction.IN).getProperty("type").toString().contains("BASELPARAGRAPH")) {
+                                if(edge.getVertex(Direction.IN).getProperty("type").toString().contains(nodeTypePrefix + "PARAGRAPH")) {
                                     anotherFinalData.put("bodyText", edge.getVertex(Direction.IN).getProperty("bodyText"));
                                     anotherFinalData.put("fromFileName", edge.getVertex(Direction.IN).getProperty("fromFileName"));
                                     anotherFinalData.put("tag", edge.getVertex(Direction.IN).getProperty("tag"));

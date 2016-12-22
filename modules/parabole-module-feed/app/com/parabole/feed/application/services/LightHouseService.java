@@ -112,12 +112,12 @@ public class LightHouseService {
         return result;
     }
 
-    public ArrayList<HashMap<String, String>> getAllBaselTopic(String filterValue){
+    public ArrayList<HashMap<String, String>> getAllBaselTopic(String filterValue, String nodeTypePrefix){
 
         String filterName = "fromFileName";
         ArrayList<HashMap<String, String>> result=null;
         try {
-            result = lightHouse.getAllBaselTopic(filterName, filterValue);
+            result = lightHouse.getAllBaselTopic(filterName, filterValue, nodeTypePrefix);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -174,20 +174,20 @@ public class LightHouseService {
         return result;
     }
 
-    public ArrayList<HashMap<String, String>> getSubtopicsByTopicId(String topicId, String filterType){
+    public ArrayList<HashMap<String, String>> getSubtopicsByTopicId(String topicId, String filterType, String nodeTypePrefix){
         ArrayList<HashMap<String, String>> result=null;
         try {
-            result = lightHouse.getConnectedNodesByNodeIdAndType(topicId, filterType);
+            result = lightHouse.getConnectedNodesByNodeIdAndType(topicId, filterType, nodeTypePrefix);
         } catch (IOException e) {
             e.printStackTrace();
         }
         return result;
     }
 
-    public ArrayList<HashMap<String, String>> getBaselSubtopicsByTopicId(String topicId, String filterType){
+    public ArrayList<HashMap<String, String>> getBaselSubtopicsByTopicId(String topicId, String filterType, String nodeTypePrefix){
         ArrayList<HashMap<String, String>> result=null;
         try {
-            result = lightHouse.getConnectedNodesByNodeIdAndType(topicId, filterType);
+            result = lightHouse.getConnectedNodesByNodeIdAndType(topicId, filterType, nodeTypePrefix);
         } catch (IOException e) {
             e.printStackTrace();
         }

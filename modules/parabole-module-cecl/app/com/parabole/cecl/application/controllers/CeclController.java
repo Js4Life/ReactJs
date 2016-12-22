@@ -349,7 +349,7 @@ public class CeclController extends Controller{
     }
 
 
-    //DOCUMENT RELATED OPERATIONS
+    //FASB related api
     public Result getAllTopics() {
         JSONObject finalJson = new JSONObject();
         Boolean status = true;
@@ -375,7 +375,7 @@ public class CeclController extends Controller{
         Boolean status = true;
         String data = null;
         try {
-            ArrayList<HashMap<String, String>> res = lightHouseService.getSubtopicsByTopicId(id, "SUBTOPIC");
+            ArrayList<HashMap<String, String>> res = lightHouseService.getSubtopicsByTopicId(id, "SUBTOPIC", "");
             ObjectMapper mapper = new ObjectMapper();
             data = mapper.writeValueAsString(res);
         } catch(Exception e) {
@@ -395,7 +395,7 @@ public class CeclController extends Controller{
         Boolean status = true;
         String data = null;
         try {
-            ArrayList<HashMap<String, String>> res = lightHouseService.getSubtopicsByTopicId(id, "SECTION");
+            ArrayList<HashMap<String, String>> res = lightHouseService.getSubtopicsByTopicId(id, "SECTION", "");
             ObjectMapper mapper = new ObjectMapper();
             data = mapper.writeValueAsString(res);
         } catch(Exception e) {
@@ -985,7 +985,7 @@ public class CeclController extends Controller{
         Boolean status = true;
         String data = null;
         try {
-            ArrayList<HashMap<String, String>> res = lightHouseService.getAllBaselTopic(fileName);           //Change Here
+            ArrayList<HashMap<String, String>> res = lightHouseService.getAllBaselTopic(fileName, "BASEL");           //Change Here
             ObjectMapper mapper = new ObjectMapper();
             data = mapper.writeValueAsString(res);
         } catch(Exception e) {
@@ -1025,7 +1025,7 @@ public class CeclController extends Controller{
         Boolean status = true;
         String data = null;
         try {
-            ArrayList<HashMap<String, String>> res = lightHouseService.getBaselSubtopicsByTopicId(id, null);
+            ArrayList<HashMap<String, String>> res = lightHouseService.getBaselSubtopicsByTopicId(id, null, "BASEL");
             ObjectMapper mapper = new ObjectMapper();
             data = mapper.writeValueAsString(res);
         } catch(Exception e) {
@@ -1045,7 +1045,88 @@ public class CeclController extends Controller{
         Boolean status = true;
         String data = null;
         try {
-            ArrayList<HashMap<String, String>> res = lightHouseService.getBaselSubtopicsByTopicId(id, null);
+            ArrayList<HashMap<String, String>> res = lightHouseService.getBaselSubtopicsByTopicId(id, null, "BASEL");
+            ObjectMapper mapper = new ObjectMapper();
+            data = mapper.writeValueAsString(res);
+        } catch(Exception e) {
+            status = false;
+            e.printStackTrace();
+        }
+        finalJson.put("status", status).put("data", data);
+        return ok(finalJson.toString());
+    }
+
+    //Bank related api
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result getAllBankTopicsByFile() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final String fileName = request.getString("fileName");
+        JSONObject finalJson = new JSONObject();
+        Boolean status = true;
+        String data = null;
+        try {
+            ArrayList<HashMap<String, String>> res = lightHouseService.getAllBaselTopic(fileName, "BANK");
+            ObjectMapper mapper = new ObjectMapper();
+            data = mapper.writeValueAsString(res);
+        } catch(Exception e) {
+            status = false;
+            e.printStackTrace();
+        }
+        finalJson.put("status", status).put("data", data);
+        return ok(finalJson.toString());
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result getBankParagraphsBySectionId() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final String id = request.getString("id");
+        JSONObject finalJson = new JSONObject();
+        Boolean status = true;
+        String data = null;
+        try {
+            ArrayList<HashMap<String, String>> res = lightHouseService.getParagraphBySectionId(id);
+            ObjectMapper mapper = new ObjectMapper();
+            data = mapper.writeValueAsString(res);
+        } catch(Exception e) {
+            status = false;
+            e.printStackTrace();
+        }
+        finalJson.put("status", status).put("data", data);
+        return ok(finalJson.toString());
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result getBankSectionsBySubtopicId() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final String id = request.getString("id");
+        JSONObject finalJson = new JSONObject();
+        Boolean status = true;
+        String data = null;
+        try {
+            ArrayList<HashMap<String, String>> res = lightHouseService.getBaselSubtopicsByTopicId(id, null, "BANK");
+            ObjectMapper mapper = new ObjectMapper();
+            data = mapper.writeValueAsString(res);
+        } catch(Exception e) {
+            status = false;
+            e.printStackTrace();
+        }
+        finalJson.put("status", status).put("data", data);
+        return ok(finalJson.toString());
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result getBankSubtopicsByTopicId() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final String id = request.getString("id");
+        JSONObject finalJson = new JSONObject();
+        Boolean status = true;
+        String data = null;
+        try {
+            ArrayList<HashMap<String, String>> res = lightHouseService.getBaselSubtopicsByTopicId(id, null, "BANK");
             ObjectMapper mapper = new ObjectMapper();
             data = mapper.writeValueAsString(res);
         } catch(Exception e) {
@@ -1242,16 +1323,16 @@ public class CeclController extends Controller{
                 final String genre = request.getString("genre");
                 toc.put("genre", genre);
                 final JSONObject body = request.getJSONObject("body");
-                taggingUtilitiesServices.saveBaselTopicToSubtopic(fileName, toc, "FILE", "basel");
-                taggingUtilitiesServices.saveParagraphsAndAssociateItWithBaselSubTopic(fileName, toc, body, "basel");
+                taggingUtilitiesServices.saveBaselTopicToSubtopic(fileName, toc, "FILE", "basel", "BASEL");
+                taggingUtilitiesServices.saveParagraphsAndAssociateItWithBaselSubTopic(fileName, toc, body, "basel", "BASEL");
                 taggingUtilitiesServices.saveBaselConcepts(fileName, toc, body, "basel");
             } else if(regulation.equals("BANKDOCUMENT")) {
                 final JSONObject toc = request.getJSONObject("toc");
                 final String genre = request.getString("genre");
                 toc.put("genre", genre);
                 final JSONObject body = request.getJSONObject("body");
-                taggingUtilitiesServices.saveBaselTopicToSubtopic(fileName, toc, "BANKFILE", "bank");
-                taggingUtilitiesServices.saveParagraphsAndAssociateItWithBaselSubTopic(fileName, toc, body, "bank");
+                taggingUtilitiesServices.saveBaselTopicToSubtopic(fileName, toc, "BANKFILE", "bank", "BANK");
+                taggingUtilitiesServices.saveParagraphsAndAssociateItWithBaselSubTopic(fileName, toc, body, "bank", "BANK");
                 taggingUtilitiesServices.saveBaselConcepts(fileName, toc, body, "bank");
             } else if(regulation.equals("CFR")){
                 final String levelIdPrefix = request.getString("levelIdPrefix");
@@ -1368,5 +1449,25 @@ public class CeclController extends Controller{
 
         }
         return null;
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result getParagraphsByRootNodeId() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final String nodeId = request.getString("nodeId");
+        JSONObject finalJson = new JSONObject();
+        Boolean status = true;
+        String data = null;
+        try {
+            ArrayList<HashMap<String, String>> res = lightHouseService.getParagraphsByRootNodeId(nodeId);
+            ObjectMapper mapper = new ObjectMapper();
+            data = mapper.writeValueAsString(res);
+        } catch (Exception e){
+            status = false;
+            e.printStackTrace();
+        }
+        finalJson.put("status", status).put("data", data);
+        return ok(finalJson.toString());
     }
 }

@@ -288,7 +288,7 @@ public class ParagraphOperationsController extends BaseController{
 
     public Result getAllBaselTopic() {
 
-        return ok(lightHouseService.getAllBaselTopic(null).toString());
+        return ok(lightHouseService.getAllBaselTopic(null, "BASEL").toString());
     }
 
     public Result getAllComponents() {
@@ -310,11 +310,11 @@ public class ParagraphOperationsController extends BaseController{
 
     public Result getSubtopicsByTopicId(String topicId) {
 
-        return ok(lightHouseService.getSubtopicsByTopicId(topicId, "SECTION").toString());
+        return ok(lightHouseService.getSubtopicsByTopicId(topicId, "SECTION", "").toString());
     }
 
     public Result getBaselSubtopicsByTopicId(String topicId) {
-        return ok(lightHouseService.getBaselSubtopicsByTopicId(topicId, "BASELSUBTOPIC").toString());
+        return ok(lightHouseService.getBaselSubtopicsByTopicId(topicId, "BASELSUBTOPIC", "BASEL").toString());
     }
 
     public Result getParagraphBySectionId(String nodeId) {

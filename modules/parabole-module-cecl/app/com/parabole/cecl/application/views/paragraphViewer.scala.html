@@ -112,12 +112,13 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">Paragraphs</h4>
+        <h4 class="modal-title" id="myModalLabel">Paragraphs related to <i>{{currentNode.name}}</i></h4>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" style="max-height: 65vh;overflow: auto;">
         <div ng-repeat="para in paragraphs" style="position: relative;">
           <div class="well">
             <div ng-class="{'text-danger': para.willIgnore === 'true'}" read-more="" content="{{para.bodyText}}"></div>
+            <div class="para-bottom-tile text-info">File: {{para.fromFileName}} ({{getRegulationByParaType(para.type)}})</div>
           </div>
         </div>
       </div>
