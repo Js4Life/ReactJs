@@ -757,7 +757,6 @@ public class TaggingUtilitiesServices {
         return jsonArray.toString();
     }
 
-
     public String getAllParagraphInTextFile(String fileType) throws IOException {
 
         StringBuilder storage = new StringBuilder();
@@ -781,7 +780,6 @@ public class TaggingUtilitiesServices {
         }
         return (environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedJson\\"+fileType+".txt");
     }
-
 
     //Basel related api methods called from cecl
     public String saveBaselTopicToSubtopic(String file, JSONObject glossaryMetaData, String fileNodeType, String folderName) throws IOException {
@@ -921,7 +919,10 @@ public class TaggingUtilitiesServices {
                 lightHouse.createNewVertex(nodeData);
                 Set<String> listOfParagraphVertexIDs = dataToProcess.get(key);
                 for (String listOfParagraphVertexID : listOfParagraphVertexIDs) {
-                    lightHouse.establishEdgeByVertexIDs(mapofNameURI.get(key), listOfParagraphVertexID, "conceptToParagraph", "conceptToParagraph");
+                    String conceptUri = mapofNameURI.get(key);
+                    lightHouse.establishEdgeByVertexIDs(conceptUri, listOfParagraphVertexID, "conceptToParagraph", "conceptToParagraph");
+                    String typeReq = "COMPONENTTYPE";
+                    findAndAttachDynamicConnections(conceptUri, listOfParagraphVertexID, typeReq);
                     System.out.println( " || CONNECTION || --- || " +mapofNameURI.get(key) +" + "+ listOfParagraphVertexID);
                 }
             }
@@ -939,7 +940,6 @@ public class TaggingUtilitiesServices {
             List<com.parabole.feed.contentparser.models.cfr.DocumentElement> toc = cfr.getToc();
             Map<String, List<com.parabole.feed.contentparser.models.cfr.DocumentElement>> body = cfr.getBody();
             HashMap<String, Set<String>> conceptParaMap = cfr.getConceptParaMap();
-
             // TODO: save to graph db here
             String fileName = glossaryMetaData.getString("levelIdPrefix");
             String genre = glossaryMetaData.getString("genre");
@@ -950,7 +950,6 @@ public class TaggingUtilitiesServices {
             e.printStackTrace();
         }
     }
-
 
     public String saveCFRTopicToSubtopic(List<com.parabole.feed.contentparser.models.cfr.DocumentElement> result, String fileName, String genre, String fileNodeType) throws IOException {
 
@@ -1007,7 +1006,6 @@ public class TaggingUtilitiesServices {
 
     }
 
-
     public String saveCFRParagraphsAndAssociateItToNode(Map<String, List<com.parabole.feed.contentparser.models.cfr.DocumentElement>> jsonFileContent, String fileName) throws Exception {
 
         for (String s : jsonFileContent.keySet()) {
@@ -1026,7 +1024,6 @@ public class TaggingUtilitiesServices {
         }
         return "Ok";
     }
-
 
     public String saveCFRConcepts(HashMap<String, Set<String>> conceptParaMap) throws IOException {
         JSONObject allConceptNodesDetails = jenaTdbService.getFilteredDataByCompName("ceclBaseNodeDetails","FASB Concept");

@@ -132,6 +132,7 @@ GET /getContextsAgainstConceptUri                       com.parabole.feed.applic
 ## POC
 #----------------------------------------
 GET /getParagraphByProduct                              com.parabole.feed.application.controllers.ParagraphOperationsController.getParagraphByProduct()
+GET /getParagraphsByRootNodeId                              com.parabole.feed.application.controllers.ParagraphOperationsController.getParagraphsByRootNodeId()
 
 
 GET /tinkerPopTest                                      com.parabole.feed.application.controllers.ParagraphOperationsController.tinkerPopTest()

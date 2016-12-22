@@ -244,6 +244,18 @@ public class LightHouseService {
         return getChecklistsByComponentTypes(listOfOfChecklist);
     }
 
+    public ArrayList<HashMap<String, String>> getParagraphsByRootNodeId(String rootNodeID) {
+
+        ArrayList<HashMap<String, String>> listOfOfparagraphs = new ArrayList<>();
+        ArrayList<HashMap<String, String>> paragraphs = lightHouse.getChildVerticesByRootVertexId(rootNodeID);
+        for (HashMap<String, String> paragraph : paragraphs) {
+            if(paragraph.get("type").contains("PARAGRAPH")) {
+                listOfOfparagraphs.add(paragraph);
+            }
+        }
+        return listOfOfparagraphs;
+    }
+
     public ArrayList<HashMap<String, String>> getChecklistBySection(ArrayList<String> sectionIDs) {
         ArrayList<String> listOfOfChecklist = new ArrayList<>();
         for (String sectionID : sectionIDs) {
