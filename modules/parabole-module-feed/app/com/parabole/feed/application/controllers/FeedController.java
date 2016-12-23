@@ -13,6 +13,9 @@ import java.io.IOException;
 public class FeedController extends BaseController{
 
 
+    public Result saveAllConcepts() {
+        return ok(taggingUtilitiesServices.saveAllConcepts());
+    }
 
     public Result getRawBindingDataValues(String fileName) throws AppException {
 
