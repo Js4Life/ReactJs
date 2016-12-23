@@ -1251,6 +1251,8 @@ public class TaggingUtilitiesServices {
                 JSONArray listOfParagraphVertexIDs = conceptIndex.getJSONArray(key);
                 for (int i = 0; i < listOfParagraphVertexIDs.length(); i++) {
                     lightHouse.establishEdgeByVertexIDs(mapofNameURI.get(key), listOfParagraphVertexIDs.getString(i), "conceptToParagraph", "conceptToParagraph");
+                    String typeReq = "COMPONENTTYPE";
+                    findAndAttachDynamicConnections(mapofNameURI.get(key), listOfParagraphVertexIDs.getString(i), typeReq);
                     System.out.println("Created : " + mapofNameURI.get(key) + " ------>" + listOfParagraphVertexIDs.getString(i));
                 }
             }
