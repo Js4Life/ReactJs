@@ -141,6 +141,8 @@ angular.module('RDAApp.services', [])
         'RunConfig' : 'runConfig',
         'RemoveParsing' : 'removeParsing',
 
+        'GetDocImage' : 'getDocImage',
+
         'GetAllChildrenByRootId' : 'getAllChildrenByRootId',
 
         'GetParagraphsByRootNodeId' : 'getParagraphsByRootNodeId',
@@ -998,6 +1000,11 @@ angular.module('RDAApp.services', [])
     SharedService.getParagraphsByRootNodeId = function (nodeId) {
         var sendObj = {"nodeId": nodeId};
         return SharedService.invokeService('GetParagraphsByRootNodeId', sendObj, 'post');
+    }
+
+    SharedService.getDocImage = function(regulation, fileName, fromPage, toPage){
+        var sendObj = {"regulation": regulation, "fileName": fileName, "fromPage": fromPage, "toPage": toPage};
+        return SharedService.invokeService('GetDocImage', sendObj, 'post');
     }
 
     return SharedService;
