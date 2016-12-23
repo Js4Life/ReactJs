@@ -67,5 +67,6 @@ libraryDependencies ++=  Seq(
   "edu.washington.cs.knowitall.stanford-corenlp" % "stanford-parse-models" % "1.3.5",
   "edu.stanford.nlp" % "stanford-parser" % "2.0.2",
   "org.apache.pdfbox" % "fontbox" % "2.0.1",
-  "org.apache.pdfbox" % "pdfbox" % "2.0.1"
+  "org.apache.pdfbox" % "pdfbox" % "2.0.1",
+  "com.tinkerpop" % "gremlin-core" % "3.0.0.M7"
 )

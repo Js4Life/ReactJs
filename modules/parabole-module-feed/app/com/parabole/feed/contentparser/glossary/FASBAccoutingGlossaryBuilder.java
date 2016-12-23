@@ -10,6 +10,7 @@ import com.parabole.feed.contentparser.models.fasb.DocumentElement;
 import com.parabole.feed.contentparser.models.glossary.FASBAccountingGlossaryMetadata;
 import com.parabole.feed.contentparser.models.glossary.Glossary;
 import com.parabole.feed.contentparser.models.glossary.GlossaryDocMeta;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.List;
@@ -21,9 +22,13 @@ import java.util.regex.Pattern;
  */
 public class FASBAccoutingGlossaryBuilder {
 
-    public FASBAccoutingGlossaryBuilder(IDocIndexBuilder indexBuilder){
+    public FASBAccoutingGlossaryBuilder(IDocIndexBuilder indexBuilder, JSONObject glossaryMetaData){
         docIndexBuilder = indexBuilder;
-        docMeta = getGlossaryMetadata();
+        if(glossaryMetaData != null){
+            this.docMeta = getGlossaryMetadata(glossaryMetaData);
+        } else {
+            this.docMeta = getGlossaryMetadata();
+        }
     }
 
     public DocumentData buildItemTree() throws IOException {
@@ -112,6 +117,15 @@ public class FASBAccoutingGlossaryBuilder {
         glossaryDocMeta.setSubtopicRegEx("\\w{2,3}[—]");
         return glossaryDocMeta;
     }
+    private DocMetaInfo getGlossaryMetadata(JSONObject glossaryMetaData) {
+        FASBAccountingGlossaryMetadata glossaryDocMeta = new FASBAccountingGlossaryMetadata();
+        glossaryDocMeta.setStartPage(glossaryMetaData.getInt("fromPage"));
+        glossaryDocMeta.setEndPage(glossaryMetaData.getInt("toPage"));
+        glossaryDocMeta.setTopicStartRegEx(glossaryMetaData.getString("topicRegex"));
+        glossaryDocMeta.setSubtopicRegEx(glossaryMetaData.getString("subtopicRegex"));
+        return glossaryDocMeta;
+    }
+
     IDocIndexBuilder docIndexBuilder;
     DocMetaInfo docMeta;
 }

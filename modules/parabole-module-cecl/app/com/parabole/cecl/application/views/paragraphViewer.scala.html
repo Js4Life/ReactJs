@@ -1,0 +1,130 @@
+<div ng-class="collapseClasses.center" style="cursor:hand;height:76vh;overflow: auto;padding-top: 15px;">
+  <div ng-if="isGridView">
+    <div class="col-md-2" ng-repeat="child in childNodes | orderBy : 'name' | filter: searchText" index="{{$index}}">
+      <div class="panel panel-default" style="box-shadow: 1px 2px 7px #d8d8d8;">
+        <div class="panel-body text-center zero-padding" ng-class="getComplianceColorcode(child)">
+          <div ng-if="child.type === 'CONCEPT'" ng-class="{'fasb-ribbon': child.subtype === 'FASB', 'basel-ribbon': child.subtype === 'BASEL'}"></div>
+          <div style="font-weight: bold;font-size: 2.5em;opacity:0.4;">{{child.name.charAt(0)}}</div>
+          <div class="pointer" style="position:absolute;right:20px;top:5px;font-weight: bold;" ng-click="getParagraphByNode(child)"><i class="fa fa-list-alt" aria-hidden="true"></i></div>
+        </div>
+        <div ng-click="exploreNode(child.type, child.elementID)" class="panel-footer ellipsis-text pointer" tooltip='"title":"{{child.name}}"'>{{child.name}}</div>
+      </div>
+    </div>
+  </div>
+  <table ng-if="!isGridView" class="table table-condensed">
+    <thead>
+      <th>Status</th><th>{{breads[breads.length-1].name}}</th><th ng-show="!showLimited">Compliance</th><th></th>
+    </thead>
+    <tbody>
+      <tr ng-if="currentColorCode === child.colorCode || currentColorCode === 'all'" ng-repeat="child in childNodes | orderBy : 'name' | filter: searchText" index="{{$index}}">
+        <td><i class="fa fa-circle" aria-hidden="true" ng-class="getComplianceColorcode(child)"></i></td>
+        <td>{{child.name}}</td>
+        <td ng-show="!showLimited" class="pointer" ng-click="getParagraphByNode(child)"><i class="fa fa-list-alt" aria-hidden="true"></i></td>
+        <td><i class="fa fa-eye" aria-hidden="true" ng-click="exploreNode(child.type, child.elementID)"></i></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="dsViewer" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" style="width:92%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">{{currentNode.name}}&nbsp({{currentNode.type}})</h4>
+        <i ng-click="getGraph()" class="fa pull-right" ng-class="{'fa-th-large':showGraph, 'fa-sitemap':!showGraph}" aria-hidden="true" style="margin: -22px 30px;"></i>
+        @*<i class="fa fa-paragraph pull-right" aria-hidden="true" ng-click="goChecklistBuilder()" style="margin: -22px 60px;"></i>*@
+      </div>
+      <div class="modal-body" style="height: 66vh; overflow: auto;padding-bottom: 0;">
+        <div ng-if="!showGraph">
+          <div class="row zero-padding">
+            <div class="col-md-12">
+              <textarea ng-if="currentNode.description.definition" ng-disabled="true" ng-model="currentNode.description.definition" rows="4" cols="40" style="border:none;width:100%;padding:10px;">
+
+              </textarea>
+            </div>
+          </div>
+          <br />
+          <div class="row zero-padding">
+            <div class="col-md-2" ng-repeat="(k, v) in nodeDetails">
+            <div class="panel panel-default">
+              <div class="panel-heading">{{k}}</div>
+              <ul class="list-group" style="max-height: 38vh; overflow: auto;">
+                <li class="list-group-item" ng-repeat="o in v">
+                  <span tooltip='"title":"View Checklist", "placement":"right"' class="fa fa-eye pull-right" ng-click="getParagraphByNode(o)"></span>
+                  {{o.name}}
+                </li>
+              </ul>
+            </div>
+            </div>
+          </div>
+        </div>
+        <vis-graph ng-if="showGraph" data="graphData" options="visOptions"></vis-graph>
+      </div>
+      <div style="height:5vh;position:absolute;right:10px;bottom:70px;" ng-if="showGraph">
+        <div class="legend">
+          <div class="arrow concept"></div>
+          <div class="bubble-title">Concept</div>
+          <div class="arrow product"></div>
+          <div class="bubble-title">Product</div>
+          <div class="arrow businessSegment"></div>
+          <div class="bubble-title">Business Segment</div>
+          <div class="arrow report"></div>
+          <div class="bubble-title">Report</div>
+          <div class="arrow policy"></div>
+          <div class="bubble-title">Policy</div>
+          <div class="arrow model"></div>
+          <div class="bubble-title">Model</div>
+          <div class="arrow data"></div>
+          <div class="bubble-title">Data Element</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="definitionViewer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">{{currentGraphNode.name}}</h4>
+      </div>
+      <div class="modal-body">
+        <textarea ng-disabled="true" ng-model="currentGraphNode.desc.definition" rows="10" cols="40" style="border:none;width:100%;">
+
+        </textarea>
+        <br />
+        <a class="pointer" ng-if="currentGraphNode.desc.definitionlink" ng-click="viewDefinitionLink()">Read More...</a>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="closeDsViewer()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="paraModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" style="width:92%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Paragraphs related to <i>{{currentNode.name}}</i></h4>
+      </div>
+      <div class="modal-body" style="max-height: 65vh;overflow: auto;">
+        <div ng-repeat="para in paragraphs" style="position: relative;">
+          <div class="well">
+            <div ng-class="{'text-danger': para.willIgnore === 'true'}" read-more="" content="{{para.bodyText}}"></div>
+            <div class="para-bottom-tile text-info">File: {{para.fromFileName}} ({{getRegulationByParaType(para.type)}})</div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

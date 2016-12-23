@@ -112,12 +112,12 @@ public class LightHouseService {
         return result;
     }
 
-    public ArrayList<HashMap<String, String>> getAllBaselTopic(String filterValue){
+    public ArrayList<HashMap<String, String>> getAllBaselTopic(String filterValue, String nodeTypePrefix){
 
         String filterName = "fromFileName";
         ArrayList<HashMap<String, String>> result=null;
         try {
-            result = lightHouse.getAllBaselTopic(filterName, filterValue);
+            result = lightHouse.getAllBaselTopic(filterName, filterValue, nodeTypePrefix);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -174,20 +174,20 @@ public class LightHouseService {
         return result;
     }
 
-    public ArrayList<HashMap<String, String>> getSubtopicsByTopicId(String topicId, String filterType){
+    public ArrayList<HashMap<String, String>> getSubtopicsByTopicId(String topicId, String filterType, String nodeTypePrefix){
         ArrayList<HashMap<String, String>> result=null;
         try {
-            result = lightHouse.getConnectedNodesByNodeIdAndType(topicId, filterType);
+            result = lightHouse.getConnectedNodesByNodeIdAndType(topicId, filterType, nodeTypePrefix);
         } catch (IOException e) {
             e.printStackTrace();
         }
         return result;
     }
 
-    public ArrayList<HashMap<String, String>> getBaselSubtopicsByTopicId(String topicId, String filterType){
+    public ArrayList<HashMap<String, String>> getBaselSubtopicsByTopicId(String topicId, String filterType, String nodeTypePrefix){
         ArrayList<HashMap<String, String>> result=null;
         try {
-            result = lightHouse.getConnectedNodesByNodeIdAndType(topicId, filterType);
+            result = lightHouse.getConnectedNodesByNodeIdAndType(topicId, filterType, nodeTypePrefix);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -242,6 +242,18 @@ public class LightHouseService {
         }
         //getListOfChildComponentTypeVerticesByRootVertices(getListOfChildComponentVerticesByRootVertices(listOfOfChecklist));
         return getChecklistsByComponentTypes(listOfOfChecklist);
+    }
+
+    public ArrayList<HashMap<String, String>> getParagraphsByRootNodeId(String rootNodeID) {
+
+        ArrayList<HashMap<String, String>> listOfOfparagraphs = new ArrayList<>();
+        ArrayList<HashMap<String, String>> paragraphs = lightHouse.getChildVerticesByRootVertexId(rootNodeID);
+        for (HashMap<String, String> paragraph : paragraphs) {
+            if(paragraph.get("type").contains("PARAGRAPH")) {
+                listOfOfparagraphs.add(paragraph);
+            }
+        }
+        return listOfOfparagraphs;
     }
 
     public ArrayList<HashMap<String, String>> getChecklistBySection(ArrayList<String> sectionIDs) {
@@ -359,6 +371,19 @@ public class LightHouseService {
     }
 
     public ArrayList<HashMap<String, String>> getChecklistByProducts(ArrayList<String> ids) {
+        ArrayList<String> listOFBusinessSegments = new ArrayList<>();
+        for (String id : ids) {
+            ArrayList<HashMap<String, String>> checklistIDs = lightHouse.getRootVerticesByChildVertexId(id);
+            for (HashMap<String, String> checklistID : checklistIDs) {
+                if(checklistID.get("type").equalsIgnoreCase("BUSINESSSEGMENT"))
+                    listOFBusinessSegments.add(checklistID.get("elementID"));
+            }
+        }
+        ArrayList<HashMap<String, String>> finalResult = getChecklistByBusinessSegment(listOFBusinessSegments);
+        return finalResult;
+    }
+
+    public ArrayList<HashMap<String, String>> getParagraphByProduct(ArrayList<String> ids) {
         ArrayList<String> listOFBusinessSegments = new ArrayList<>();
         for (String id : ids) {
             ArrayList<HashMap<String, String>> checklistIDs = lightHouse.getRootVerticesByChildVertexId(id);
@@ -727,5 +752,33 @@ public class LightHouseService {
         } catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    public Set<Vertex> getParagraphsByProduct(String s) {
+        Set<Vertex> vertices = lightHouse.getAllRelatedVerticesByProperty("elementID", s);
+        String filterType = "paragraph";
+        Set<Vertex> allVtoFilter = lightHouse.getAllRelatedVerticesByVertexes(vertices);
+        Set<Vertex> allVtoFilter1 = lightHouse.getAllRelatedVerticesByVertexes(allVtoFilter);
+        Set<Vertex> allVtoFilter2 = lightHouse.getAllRelatedVerticesByVertexes(allVtoFilter1);
+        //Set<Vertex> finalVertices = getAllRelatedVerticesByVertexesRecursively(vertices, filterType);
+        return lightHouse.getAllRelatedVerticesByVertexes(allVtoFilter2);
+    }
+
+    private Set<Vertex> getAllRelatedVerticesByVertexesRecursively(Set<Vertex> vertices, String filterType) {
+        Set<Vertex> returnData = new HashSet<>();
+        int terminate = 0;
+        Set<Vertex> allVtoFilter = lightHouse.getAllRelatedVerticesByVertexes(vertices);
+        if(allVtoFilter.size()==0){
+            terminate = 1;
+        }
+        for (Vertex vertex : allVtoFilter) {
+            if(vertex.getProperty("type").toString().contains(filterType)){
+                terminate = 1;
+            }
+        }
+        if(terminate ==0){
+            allVtoFilter = getAllRelatedVerticesByVertexesRecursively(allVtoFilter, filterType);
+        }
+        return allVtoFilter;
     }
 }

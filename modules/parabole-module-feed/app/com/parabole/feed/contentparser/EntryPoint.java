@@ -21,18 +21,15 @@ public class EntryPoint {
     @Inject
     JenaTdbService jenaTdbService;
 
-    public String entrance(String fPath, JSONObject metaDaTA, String fileTYPE){
+    public String entrance(String fPath, JSONObject metaDaTA){
         String result = new String();
-        if(fileTYPE.equals("FASB")) {
-            JSONObject specificToFileTypeMetaData = metaDaTA.getJSONObject(fileTYPE);
-            try {
-                result = extractFASB(fPath, specificToFileTypeMetaData);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }else{
-            result = "Yet to dev";
+        //JSONObject specificToFileTypeMetaData = metaDaTA.getJSONObject(fileTYPE);
+        try {
+            result = extractFASB(fPath, metaDaTA);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
         return result;
     }
 

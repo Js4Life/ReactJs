@@ -24,7 +24,9 @@ GET         /checklistBuilder                                                   
 GET         /homeContainer                                                             com.parabole.cecl.application.controllers.DispatcherAction.homeContainer()
 GET         /summary                                                                   com.parabole.cecl.application.controllers.DispatcherAction.summary()
 GET         /complianceDashboard                                                       com.parabole.cecl.application.controllers.DispatcherAction.complianceDashboard()
+GET         /paragraphRepository                                                       com.parabole.cecl.application.controllers.DispatcherAction.paragraphRepository()
 GET         /checklistViewer                                                           com.parabole.cecl.application.controllers.DispatcherAction.checklistViewer()
+GET         /paragraphViewer                                                           com.parabole.cecl.application.controllers.DispatcherAction.paragraphViewer()
 GET         /documentUploader                                                          com.parabole.cecl.application.controllers.DispatcherAction.documentUploader()
 
 # ---------------------------------------------------------------------------------
@@ -140,6 +142,10 @@ POST /getRelatedParagraphsById                      com.parabole.cecl.applicatio
 POST /getRelatedContextsByParaId                    com.parabole.cecl.application.controllers.CeclController.getRelatedContextsByParaId()
 POST /getRelatedParagraphsByContexts                com.parabole.cecl.application.controllers.CeclController.getRelatedParagraphsByContexts()
 
+# ---------------------------------------------------------------------------------
+# PARAGRAPH RELATED OPERATIONS
+# ---------------------------------------------------------------------------------
+POST /getParagraphsByRootNodeId                     com.parabole.cecl.application.controllers.CeclController.getParagraphsByRootNodeId()
 
 # ---------------------------------------------------------------------------------
 # BASEL RELATED OPERATIONS
@@ -149,6 +155,14 @@ POST /getBaselParagraphsBySectionId                 com.parabole.cecl.applicatio
 POST /getBaselSectionsBySubtopicId                  com.parabole.cecl.application.controllers.CeclController.getBaselSectionsBySubtopicId()
 POST /getBaselSubtopicsByTopicId                    com.parabole.cecl.application.controllers.CeclController.getBaselSubtopicsByTopicId()
 POST /getAllDocFileNamesByType                      com.parabole.cecl.application.controllers.CeclController.getAllDocFileNamesByType()
+
+# ---------------------------------------------------------------------------------
+# BANK RELATED OPERATIONS
+# ---------------------------------------------------------------------------------
+POST /getAllBankTopics                             com.parabole.cecl.application.controllers.CeclController.getAllBankTopicsByFile()
+POST /getBankParagraphsBySectionId                 com.parabole.cecl.application.controllers.CeclController.getBankParagraphsBySectionId()
+POST /getBankSectionsBySubtopicId                  com.parabole.cecl.application.controllers.CeclController.getBankSectionsBySubtopicId()
+POST /getBankSubtopicsByTopicId                    com.parabole.cecl.application.controllers.CeclController.getBankSubtopicsByTopicId()
 
 # ---------------------------------------------------------------------------------
 # CFR RELATED OPERATIONS
@@ -167,3 +181,4 @@ GET /saveConceptVsContextMap                        com.parabole.cecl.applicatio
 POST /runConfig                                     com.parabole.cecl.application.controllers.CeclController.runConfig()
 POST /removeParsing                                 com.parabole.cecl.application.controllers.CeclController.removeParsing()
 GET /getAllCfrFileDetails                           com.parabole.cecl.application.controllers.CeclController.getAllCfrFileDetails()
+POST /getDocImage                                    com.parabole.cecl.application.controllers.CeclController.getDocImage()

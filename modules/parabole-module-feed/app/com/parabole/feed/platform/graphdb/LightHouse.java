@@ -8,6 +8,8 @@ import com.parabole.feed.application.global.CCAppConstants;
 import com.parabole.feed.platform.utils.AppUtils;
 import com.tinkerpop.blueprints.*;
 import com.tinkerpop.blueprints.impls.orient.*;
+import com.tinkerpop.blueprints.impls.tg.TinkerGraph;
+import com.tinkerpop.blueprints.impls.tg.TinkerGraphFactory;
 import com.tinkerpop.gremlin.java.GremlinPipeline;
 import org.apache.commons.collections.CollectionUtils;
 
@@ -364,14 +366,14 @@ public class LightHouse extends GraphDb {
         return listOfFinalData;
     }
 
-    public ArrayList<HashMap<String, String>> getAllBaselTopic(String key, String fromFileName) throws  IOException{
+    public ArrayList<HashMap<String, String>> getAllBaselTopic(String key, String fromFileName, String nodeTypePrefix) throws  IOException{
 
         Iterable<Vertex> verticesData = null;
         ArrayList<HashMap<String, String>> listOfFinalData = new ArrayList<HashMap<String, String>>();
 
         OrientGraph graph = this.orientGraphFactory.getTx();
         try {
-            verticesData = graph.getVertices("type", "BASELTOPIC");
+            verticesData = graph.getVertices("type",  nodeTypePrefix + "TOPIC");
             for (Vertex v : verticesData) {
                 if(null != fromFileName || null != key) {
                     if (v.getProperty(key).equals(fromFileName)) {
@@ -465,7 +467,7 @@ public class LightHouse extends GraphDb {
         return finalData;
     }
 
-    public ArrayList<HashMap<String, String>> getConnectedNodesByNodeIdAndType(String topicid, String filterType) throws  IOException{
+    public ArrayList<HashMap<String, String>> getConnectedNodesByNodeIdAndType(String topicid, String filterType, String nodeTypePrefix) throws  IOException{
         Iterable<Vertex> verticesData = null;
         ArrayList<HashMap<String, String>> listOfFinalData = new ArrayList<HashMap<String, String>>();
         OrientGraph graph = this.orientGraphFactory.getTx();
@@ -488,9 +490,9 @@ public class LightHouse extends GraphDb {
                                 listOfFinalData.add(finalData);
                             }
                         }else{
-                            if(edge.getVertex(Direction.IN).getProperty("type").toString().contains("BASELSECTION") ||
-                                    edge.getVertex(Direction.IN).getProperty("type").toString().contains("BASELPARAGRAPH") ||
-                                        edge.getVertex(Direction.IN).getProperty("type").toString().contains("BASELSUBTOPIC")){
+                            if(edge.getVertex(Direction.IN).getProperty("type").toString().contains(nodeTypePrefix + "SECTION") ||
+                                    edge.getVertex(Direction.IN).getProperty("type").toString().contains(nodeTypePrefix + "PARAGRAPH") ||
+                                        edge.getVertex(Direction.IN).getProperty("type").toString().contains(nodeTypePrefix + "SUBTOPIC")){
 
 
                                 System.out.println("I am in all type of element field consideration !");
@@ -498,7 +500,7 @@ public class LightHouse extends GraphDb {
                                 anotherFinalData.put("elementID", edge.getVertex(Direction.IN).getProperty("elementID"));
                                 anotherFinalData.put("name", edge.getVertex(Direction.IN).getProperty("name"));
                                 anotherFinalData.put("type", edge.getVertex(Direction.IN).getProperty("type"));
-                                if(edge.getVertex(Direction.IN).getProperty("type").toString().contains("BASELPARAGRAPH")) {
+                                if(edge.getVertex(Direction.IN).getProperty("type").toString().contains(nodeTypePrefix + "PARAGRAPH")) {
                                     anotherFinalData.put("bodyText", edge.getVertex(Direction.IN).getProperty("bodyText"));
                                     anotherFinalData.put("fromFileName", edge.getVertex(Direction.IN).getProperty("fromFileName"));
                                     anotherFinalData.put("tag", edge.getVertex(Direction.IN).getProperty("tag"));
@@ -717,6 +719,43 @@ public class LightHouse extends GraphDb {
                 System.out.println("listOfVertex = " + listOfVertex);
             }
         }
+        return listOfVertex;
+    }
+
+    public Set<Vertex> getAllRelatedVerticesByProperty(String KeyName, String keyValue){
+        GremlinPipeline pipe = new GremlinPipeline();
+        ArrayList<String> dataToReturn = new ArrayList<>();
+        Set<Vertex> listOfVertex = new HashSet<>();
+        Vertex temVert;
+        Graph g = getGraphConnectionNoTx();
+        Iterable vertices = g.getVertices(KeyName, keyValue);
+        if(vertices.iterator().hasNext())
+        {
+            temVert = (Vertex) vertices.iterator().next();
+            // g.v(1).out.loop(1){it.object.outE.hasNext()}
+            GremlinPipeline PathO = pipe.start(temVert).bothE().bothV();
+            List<Vertex> pathList = PathO.toList();
+            for (Vertex vertex : pathList) {
+                listOfVertex.add(vertex);
+            }
+        }
+
+        return listOfVertex;
+    }
+
+    public Set<Vertex> getAllRelatedVerticesByVertexes(Set<Vertex> vertices){
+        GremlinPipeline pipe = new GremlinPipeline();
+        ArrayList<String> dataToReturn = new ArrayList<>();
+        Set<Vertex> listOfVertex = new HashSet<>();
+        Graph g = getGraphConnectionNoTx();
+        for (Vertex vertexV : vertices) {
+            GremlinPipeline PathO = pipe.start(vertexV).bothE().bothV();
+            List<Vertex> pathList = PathO.toList();
+            for (Vertex vertex : pathList) {
+                listOfVertex.add(vertex);
+            }
+        }
+
         return listOfVertex;
     }
 

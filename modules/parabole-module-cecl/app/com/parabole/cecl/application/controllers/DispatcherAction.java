@@ -64,8 +64,16 @@ public class DispatcherAction extends BaseAction {
         return ok(com.parabole.cecl.application.views.html.complianceDashboard.render());
     }
 
+    public Result paragraphRepository() {
+        return ok(com.parabole.cecl.application.views.html.paragraphRepository.render());
+    }
+
     public Result checklistViewer() {
         return ok(com.parabole.cecl.application.views.html.checklistViewer.render());
+    }
+
+    public Result paragraphViewer() {
+        return ok(com.parabole.cecl.application.views.html.paragraphViewer.render());
     }
 
     public Result documentUploader() {

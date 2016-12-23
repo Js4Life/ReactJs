@@ -29,6 +29,15 @@ public class ParagraphOperationsController extends BaseController{
     @Inject
     private StarfishServices starfishServices;
 
+    public Result getParagraphsByRootNodeId() {
+        String nodeID = "http://www.mindparabole.com/ontology/finance/Parabole-Model#BuildingLease";
+        return ok(lightHouseService.getParagraphsByRootNodeId(nodeID).toString());
+    }
+
+    public Result getParagraphByProduct() {
+
+            return ok(lightHouseService.getParagraphsByProduct("http://www.mindparabole.com/ontology/finance/Parabole-Model#Repurchaseagreement").toString());
+    }
 
 
     public Result deleteAFIleAndItsAssociations() {
@@ -279,7 +288,7 @@ public class ParagraphOperationsController extends BaseController{
 
     public Result getAllBaselTopic() {
 
-        return ok(lightHouseService.getAllBaselTopic(null).toString());
+        return ok(lightHouseService.getAllBaselTopic(null, "BASEL").toString());
     }
 
     public Result getAllComponents() {
@@ -301,11 +310,11 @@ public class ParagraphOperationsController extends BaseController{
 
     public Result getSubtopicsByTopicId(String topicId) {
 
-        return ok(lightHouseService.getSubtopicsByTopicId(topicId, "SECTION").toString());
+        return ok(lightHouseService.getSubtopicsByTopicId(topicId, "SECTION", "").toString());
     }
 
     public Result getBaselSubtopicsByTopicId(String topicId) {
-        return ok(lightHouseService.getBaselSubtopicsByTopicId(topicId, "BASELSUBTOPIC").toString());
+        return ok(lightHouseService.getBaselSubtopicsByTopicId(topicId, "BASELSUBTOPIC", "BASEL").toString());
     }
 
     public Result getParagraphBySectionId(String nodeId) {

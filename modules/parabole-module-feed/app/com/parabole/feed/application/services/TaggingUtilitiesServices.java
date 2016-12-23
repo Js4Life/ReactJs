@@ -13,6 +13,7 @@ import com.parabole.feed.contentparser.models.fasb.DocumentElement;
 import com.parabole.feed.contentparser.postprocessors.CfrProcessor;
 import com.parabole.feed.platform.graphdb.Anchor;
 import com.parabole.feed.platform.graphdb.LightHouse;
+import com.tinkerpop.blueprints.Vertex;
 import edu.stanford.nlp.ling.HasWord;
 import edu.stanford.nlp.ling.TaggedWord;
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
@@ -58,7 +59,7 @@ public class TaggingUtilitiesServices {
     public String startContentParser(String file) throws IOException {
         String result= null;
         try {
-            result = taggerTest.startExtraction(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\" + file);
+            result = taggerTest.startExtraction(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\fasb\\" + file, null);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -73,7 +74,7 @@ public class TaggingUtilitiesServices {
     public String getAllTopicsSubTopics(String file) throws IOException {
         DocumentData result= null;
         try {
-            result = taggerTest.getAllTopicsSubTopics(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\" + file);
+            result = taggerTest.getAllTopicsSubTopics(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\fasb\\" + file, null);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -82,7 +83,7 @@ public class TaggingUtilitiesServices {
         topics.forEach((t)->{
 
             try {
-                createNodeFromJSONObject(t);
+                createNodeFromJSONObject(t, file);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -134,15 +135,35 @@ public class TaggingUtilitiesServices {
                nodeData.put("elementID", mapofNameURI.get(key).get("uri"));
                lightHouse.createNewVertex(nodeData);
                Set<String> listOfParagraphVertexIDs = dataToProcess.get(key);
-               for (String listOfParagraphVertexID : listOfParagraphVertexIDs) {
-                   lightHouse.establishEdgeByVertexIDs(mapofNameURI.get(key).get("uri"), listOfParagraphVertexID, "conceptToParagraph", "conceptToParagraph");
-                   System.out.println( " || CONNECTION || --- || " +mapofNameURI.get(key) +" + "+ listOfParagraphVertexID);
+               for (String paragraphVertexID : listOfParagraphVertexIDs) {
+                   String conceptUri = mapofNameURI.get(key).get("uri");
+                   lightHouse.establishEdgeByVertexIDs(conceptUri, paragraphVertexID, "conceptToParagraph", "conceptToParagraph");
+                   String typeReq = "COMPONENTTYPE";
+                   findAndAttachDynamicConnections(conceptUri, paragraphVertexID, typeReq);
+                   System.out.println( " || CONNECTION || --- || " +mapofNameURI.get(key) +" + "+ paragraphVertexID);
                }
            }
         }
 
         return "{status: Saved}";
 
+    }
+
+    private void findAndAttachDynamicConnections(String conceptUri, String paragraphVertexID, String typeReq) {
+        Set<Vertex> relatedNodes = lightHouse.getAllRelatedVerticesByProperty("elementID", conceptUri);
+        for (Vertex relatedNode : relatedNodes) {
+            if(relatedNode.getProperty("type").equals(typeReq)){
+                String componentType = relatedNode.getProperty("elementID");
+                System.out.println("componentType =================================================> " + "componentType + ================>type" + typeReq);
+                lightHouse.establishEdgeByVertexIDs(componentType, paragraphVertexID, "dynamicNodeToParagraph", "dynamicNodeToParagraph");
+                if(typeReq.equalsIgnoreCase("COMPONENTTYPE"))
+                    findAndAttachDynamicConnections(componentType, paragraphVertexID, "COMPONENT");
+                if(typeReq.equalsIgnoreCase("COMPONENT"))
+                    findAndAttachDynamicConnections(componentType, paragraphVertexID, "BUSINESSSEGMENT");
+                if(typeReq.equalsIgnoreCase("BUSINESSSEGMENT"))
+                    findAndAttachDynamicConnections(componentType, paragraphVertexID, "PRODUCT");
+            }
+        }
     }
 
     public String saveBaselTopicToSubtopic(String file) throws IOException {
@@ -242,12 +263,13 @@ public class TaggingUtilitiesServices {
         return true;
     }
 
-    public Boolean createNodeFromJSONObject(DocumentElement documentElement) throws IOException {
+    public Boolean createNodeFromJSONObject(DocumentElement documentElement, String file) throws IOException {
 
         Map<String, String> nodeData = new HashMap<>();
         nodeData.put("name", documentElement.getName());
         nodeData.put("type", documentElement.getElementType().name());
         nodeData.put("elementID", documentElement.getId());
+        nodeData.put("fromFileName", file);
             lightHouse.createNewVertex(nodeData);
         return true;
     }
@@ -503,11 +525,9 @@ public class TaggingUtilitiesServices {
     public String saveSectionsFromParagraphJSon(String file, String fileType) throws Exception {
 
         String jsonFileContent= null;
-        String filePath = environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\" + file;
-        String  contentParserMetaDataString = AppUtils.getFileContent("feedJson/contentParserMetaData.json");
-        JSONObject contentParserMetaDataJSON = new JSONObject(contentParserMetaDataString);
+        String filePath = environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\fasb\\" + file;
         //jsonFileContent = taggerTest.startExtraction(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\" + file);
-        jsonFileContent = entryPoint.entrance(filePath, contentParserMetaDataJSON, fileType);
+        jsonFileContent = entryPoint.entrance(filePath, null);
 
         jsonFileContent.replace("�", "'");
 
@@ -536,6 +556,7 @@ public class TaggingUtilitiesServices {
                 nodeData.put("name", getSectionNameBySectionId(secIdForFindingName));
                 nodeData.put("type", "SECTION");
                 nodeData.put("elementID", sectionID);
+                nodeData.put("fromFileName", file);
                 lightHouse.createNewVertex(nodeData);
 
                 lightHouse.establishEdgeByVertexIDs(subTopicID, sectionID, "subTopicSection", "subTopicSection");
@@ -550,6 +571,7 @@ public class TaggingUtilitiesServices {
                 nodeDataTwo.put("willIgnore", String.valueOf(paragraphJSON.getJSONObject(key).getBoolean("willIgnore")));
                 nodeDataTwo.put("endPage", paragraphJSON.getJSONObject(key).getBigInteger("endPage").toString());
                 nodeDataTwo.put("elementID", paragraphId);
+                nodeDataTwo.put("fromFileName", file);
                 lightHouse.createNewVertex(nodeDataTwo);
 
                 lightHouse.establishEdgeByVertexIDs(sectionID, paragraphId, "sectionParagraph", "sectionParagraph");
@@ -593,7 +615,7 @@ public class TaggingUtilitiesServices {
 
         String jsonFileContent= null;
         try {
-            jsonFileContent = taggerTest.startExtraction(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\" + file);
+            jsonFileContent = taggerTest.startExtraction(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\fasb\\" + file, null);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -736,7 +758,6 @@ public class TaggingUtilitiesServices {
         return jsonArray.toString();
     }
 
-
     public String getAllParagraphInTextFile(String fileType) throws IOException {
 
         StringBuilder storage = new StringBuilder();
@@ -758,12 +779,11 @@ public class TaggingUtilitiesServices {
         }else{
             writeFile(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedJson\\"+fileType+".txt", storage.toString());
         }
-        return "ok";
+        return (environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedJson\\"+fileType+".txt");
     }
 
-
     //Basel related api methods called from cecl
-    public String saveBaselTopicToSubtopic(String file, JSONObject glossaryMetaData, String fileNodeType, String folderName) throws IOException {
+    public String saveBaselTopicToSubtopic(String file, JSONObject glossaryMetaData, String fileNodeType, String folderName, String nodeTypePrefix) throws IOException {
         List<com.parabole.feed.contentparser.models.basel.DocumentElement> result= null;
         try {
             result = taggerTest.getBaselTopicsSubTopics(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\"+ folderName + "\\" +file+".pdf", glossaryMetaData);
@@ -782,20 +802,20 @@ public class TaggingUtilitiesServices {
         // set root next
         System.out.println(" Setting Sub Root Node .............");
         Map<String, String> subRoot = new HashMap<>();
-        subRoot.put("name", "BASELGLOBAL");
-        subRoot.put("type", "BASELGLOBAL");
-        subRoot.put("elementID", "BASELGLOBAL");
+        subRoot.put("name", nodeTypePrefix + "GLOBAL");
+        subRoot.put("type", nodeTypePrefix + "GLOBAL");
+        subRoot.put("elementID", nodeTypePrefix + "GLOBAL");
         lightHouse.createNewVertex(subRoot);
-        lightHouse.establishEdgeByVertexIDs("ROOT", "BASELGLOBAL", "ROOTTOBASELGLOBAL", "ROOTTOBASELGLOBAL");
+        lightHouse.establishEdgeByVertexIDs("ROOT", nodeTypePrefix + "GLOBAL", "ROOTTO" + nodeTypePrefix + "GLOBAL", "ROOTTO" + nodeTypePrefix + "GLOBAL");
 
         // set sub root next
         System.out.println(" Setting Sub Sub Root Node .............");
         Map<String, String> subSubRoot = new HashMap<>();
-        subSubRoot.put("name", "BASELCFR");
-        subSubRoot.put("type", "BASELCFR");
-        subSubRoot.put("elementID", "BASELCFR");
+        subSubRoot.put("name", nodeTypePrefix + "CFR");
+        subSubRoot.put("type", nodeTypePrefix + "CFR");
+        subSubRoot.put("elementID", nodeTypePrefix + "CFR");
         lightHouse.createNewVertex(subSubRoot);
-        lightHouse.establishEdgeByVertexIDs("BASELGLOBAL", "BASELCFR", "BASELGLOBALTOBASELCFR", "BASELGLOBALTOBASELCFR");
+        lightHouse.establishEdgeByVertexIDs(nodeTypePrefix + "GLOBAL", nodeTypePrefix + "CFR", nodeTypePrefix + "GLOBALTO" + nodeTypePrefix + "CFR", nodeTypePrefix + "GLOBALTO" + nodeTypePrefix + "CFR");
 
         // set file
         System.out.println(" Setting File Node .............");
@@ -805,7 +825,7 @@ public class TaggingUtilitiesServices {
         fileTypeNode.put("elementID", file);
         fileTypeNode.put("genre", glossaryMetaData.getString("genre"));
         lightHouse.createNewVertex(fileTypeNode);
-        lightHouse.establishEdgeByVertexIDs("BASELCFR", file, "BASELCFRTOFILE", "BASELCFRTOFILE");
+        lightHouse.establishEdgeByVertexIDs(nodeTypePrefix + "CFR", file, nodeTypePrefix + "CFRTOFILE", nodeTypePrefix + "CFRTOFILE");
 
         for (com.parabole.feed.contentparser.models.basel.DocumentElement documentElement : result) {
             String topicID =  documentElement.getLevelId();
@@ -813,7 +833,7 @@ public class TaggingUtilitiesServices {
             Map<String, String> topicTypeNode = new HashMap<>();
             topicTypeNode.put("name", documentElement.getContent());
             topicTypeNode.put("fromFileName", file);
-            topicTypeNode.put("type", "BASELTOPIC");
+            topicTypeNode.put("type", nodeTypePrefix + "TOPIC");
             topicTypeNode.put("elementID", topicID);
             lightHouse.createNewVertex(topicTypeNode);
             lightHouse.establishEdgeByVertexIDs(file, topicID, "FILETOTOPIC", "FILETOTOPIC");
@@ -827,7 +847,7 @@ public class TaggingUtilitiesServices {
                     Map<String, String> subTopicTypeNode = new HashMap<>();
                     subTopicTypeNode.put("name", subtopicElement.getContent());
                     subTopicTypeNode.put("fromFileName", file);
-                    subTopicTypeNode.put("type", "BASELSUBTOPIC");
+                    subTopicTypeNode.put("type", nodeTypePrefix + "SUBTOPIC");
                     subTopicTypeNode.put("elementID", subTopicID);
                     lightHouse.createNewVertex(subTopicTypeNode);
                     lightHouse.establishEdgeByVertexIDs(topicID, subTopicID, "TOPICTOSUBTOPIC", "TOPICTOSUBTOPIC");
@@ -841,13 +861,12 @@ public class TaggingUtilitiesServices {
                             String sectionID = sectionElement.getLevelId();
                             Map<String, String> sectionTypeNode = new HashMap<>();
                             sectionTypeNode.put("name", sectionElement.getContent());
-                            sectionTypeNode.put("type", "BASELSECTION");
+                            sectionTypeNode.put("type", nodeTypePrefix + "SECTION");
                             sectionTypeNode.put("fromFileName", file);
                             sectionTypeNode.put("elementID", sectionID);
                             lightHouse.createNewVertex(sectionTypeNode);
                             lightHouse.establishEdgeByVertexIDs(subTopicID, sectionID, "SUBTOPICTOSECTION", "SUBTOPICTOSECTION");
                         }
-
                     }
                 }
             }
@@ -856,7 +875,7 @@ public class TaggingUtilitiesServices {
         return "ok";
     }
 
-    public String saveParagraphsAndAssociateItWithBaselSubTopic(String file, JSONObject tocGlossaryMetaData, JSONObject bodyGlossaryMetaData, String folderName) throws Exception {
+    public String saveParagraphsAndAssociateItWithBaselSubTopic(String file, JSONObject tocGlossaryMetaData, JSONObject bodyGlossaryMetaData, String folderName, String nodeTypePrefix) throws Exception {
 
         Map<String, List<com.parabole.feed.contentparser.models.basel.DocumentElement>> jsonFileContent= null;
         String filePath = environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\" + folderName + "\\" + file;
@@ -870,7 +889,7 @@ public class TaggingUtilitiesServices {
                 // create paragraph node
                 Map<String, String> nodeDataTwo = new HashMap<>();
                 nodeDataTwo.put("name", documentElement.getName());
-                nodeDataTwo.put("type", "BASELPARAGRAPH");
+                nodeDataTwo.put("type", nodeTypePrefix + "PARAGRAPH");
                 nodeDataTwo.put("fromFileName", file);
                 nodeDataTwo.put("bodyText", documentElement.getContent());
                 nodeDataTwo.put("elementID", documentElement.getLevelId());
@@ -900,7 +919,10 @@ public class TaggingUtilitiesServices {
                 lightHouse.createNewVertex(nodeData);
                 Set<String> listOfParagraphVertexIDs = dataToProcess.get(key);
                 for (String listOfParagraphVertexID : listOfParagraphVertexIDs) {
-                    lightHouse.establishEdgeByVertexIDs(mapofNameURI.get(key), listOfParagraphVertexID, "conceptToParagraph", "conceptToParagraph");
+                    String conceptUri = mapofNameURI.get(key);
+                    lightHouse.establishEdgeByVertexIDs(conceptUri, listOfParagraphVertexID, "conceptToParagraph", "conceptToParagraph");
+                    String typeReq = "COMPONENTTYPE";
+                    findAndAttachDynamicConnections(conceptUri, listOfParagraphVertexID, typeReq);
                     System.out.println( " || CONNECTION || --- || " +mapofNameURI.get(key) +" + "+ listOfParagraphVertexID);
                 }
             }
@@ -911,14 +933,12 @@ public class TaggingUtilitiesServices {
     }
 
     //CFR related api methods called from cecl
-
     public void saveCfrContents(String fPath, JSONObject glossaryMetaData, String fileNodeType){
         try {
             CfrProcessor cfr = taggerTest.startCfrExtraction(fPath, glossaryMetaData);
             List<com.parabole.feed.contentparser.models.cfr.DocumentElement> toc = cfr.getToc();
             Map<String, List<com.parabole.feed.contentparser.models.cfr.DocumentElement>> body = cfr.getBody();
             HashMap<String, Set<String>> conceptParaMap = cfr.getConceptParaMap();
-
             // TODO: save to graph db here
             String fileName = glossaryMetaData.getString("levelIdPrefix");
             String genre = glossaryMetaData.getString("genre");
@@ -929,7 +949,6 @@ public class TaggingUtilitiesServices {
             e.printStackTrace();
         }
     }
-
 
     public String saveCFRTopicToSubtopic(List<com.parabole.feed.contentparser.models.cfr.DocumentElement> result, String fileName, String genre, String fileNodeType) throws IOException {
 
@@ -986,7 +1005,6 @@ public class TaggingUtilitiesServices {
 
     }
 
-
     public String saveCFRParagraphsAndAssociateItToNode(Map<String, List<com.parabole.feed.contentparser.models.cfr.DocumentElement>> jsonFileContent, String fileName) throws Exception {
 
         for (String s : jsonFileContent.keySet()) {
@@ -1006,6 +1024,28 @@ public class TaggingUtilitiesServices {
         return "Ok";
     }
 
+    public String saveAllConcepts(){
+        String res = "{status: Saved}";
+
+        try{
+            JSONObject allConceptNodesDetails = jenaTdbService.getFilteredDataByCompName("ceclBaseNodeDetails","FASB Concept");
+            JSONArray jsonArray = allConceptNodesDetails.getJSONArray("data");
+            Map<String, String> mapofNameURI = new HashMap<String, String>();
+            for (int i=0; i< jsonArray.length(); i++) {
+                Map<String, String> nodeData = new HashMap<>();
+                nodeData.put("name", jsonArray.getJSONObject(i).getString("name"));
+                nodeData.put("type", "CONCEPT");
+                nodeData.put("subtype", jsonArray.getJSONObject(i).getString("type"));
+                nodeData.put("elementID", jsonArray.getJSONObject(i).getString("link"));
+                lightHouse.createNewVertex(nodeData);
+            }
+        }catch (Exception e){
+            res = "{status: "+ e.toString() +"}";
+        }
+
+
+        return res;
+    }
 
     public String saveCFRConcepts(HashMap<String, Set<String>> conceptParaMap) throws IOException {
         JSONObject allConceptNodesDetails = jenaTdbService.getFilteredDataByCompName("ceclBaseNodeDetails","FASB Concept");
@@ -1025,6 +1065,8 @@ public class TaggingUtilitiesServices {
                 Set<String> listOfParagraphVertexIDs = conceptParaMap.get(key);
                 for (String listOfParagraphVertexID : listOfParagraphVertexIDs) {
                     lightHouse.establishEdgeByVertexIDs(mapofNameURI.get(key), listOfParagraphVertexID, "conceptToParagraph", "conceptToParagraph");
+                    String typeReq = "COMPONENTTYPE";
+                    findAndAttachDynamicConnections(mapofNameURI.get(key), listOfParagraphVertexID, typeReq);
                     System.out.println( " || CONNECTION || --- || " +mapofNameURI.get(key) +" + "+ listOfParagraphVertexID);
                 }
             }
@@ -1091,4 +1133,156 @@ public class TaggingUtilitiesServices {
 
     }
 
+    //FASB related api methods called from cecl
+    public String getAllTopicsSubTopics(String file, JSONObject glossaryMetaData, String folderName) throws IOException {
+        DocumentData result= null;
+        try {
+            result = taggerTest.getAllTopicsSubTopics(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\" + folderName + "\\" +file+".pdf", glossaryMetaData);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Set<DocumentElement> topics = result.getTopics();
+
+        topics.forEach((t)->{
+
+            try {
+                createNodeFromJSONObject(t, file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            // Creating sub Topics
+            t.getChildren().forEach((st)->{
+                String subtopicId =  t.getId()+"-"+st.getId();
+                String subtopicName =  st.getName();
+                try {
+                    Map<String, String> nodeData = new HashMap<>();
+                    nodeData.put("name", subtopicName);
+                    nodeData.put("type", st.getElementType().name());
+                    nodeData.put("elementID", subtopicId);
+                    nodeData.put("fromFileName", file);
+                    lightHouse.createNewVertex(nodeData);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    System.out.println("t.getId() + subtopicId = " + t.getId() + subtopicId);
+                    lightHouse.establishEdgeByVertexIDs(t.getId(), subtopicId, "topicToSubTopic", "topic-subTopic");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+        });
+
+        return "ok";
+    }
+
+    public String saveSectionsFromParagraphJSon(String file, JSONObject glossaryMetaData, String folderName) throws Exception {
+        String jsonFileContent= null;
+        String filePath = environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\" + folderName + "\\" +file+".pdf";
+        //jsonFileContent = taggerTest.startExtraction(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\" + file);
+        jsonFileContent = entryPoint.entrance(filePath, glossaryMetaData);
+
+        jsonFileContent.replace("�", "'");
+
+        //String jsonFileContent = AppUtils.getFileContent("feedJson/paragraphs.json");
+        JSONObject jsonObject = new JSONObject(jsonFileContent);
+        JSONObject finalObj = new JSONObject();
+        JSONObject paragraphJSON = jsonObject.getJSONObject("paragraphs");
+        //JSONObject topicToSubTopic = new JSONObject();
+        List<String> arrayOfTopics = new ArrayList<>();
+        Iterator<?> keys = paragraphJSON.keys();
+
+        HashMap<String, String> topicToSubTopic = new HashMap<String, String>();
+
+        while( keys.hasNext() ) {
+            String key = (String)keys.next();
+
+            if ( paragraphJSON.get(key) instanceof JSONObject ) {
+                List<String> elephantList = Arrays.asList(key.split("-"));
+                String topicID = elephantList.get(0);
+                String subTopicID = elephantList.get(0)+"-"+elephantList.get(1);
+                String sectionID = subTopicID+"-"+elephantList.get(2);
+                String secIdForFindingName = elephantList.get(2);
+                String paragraphId = key;
+
+                Map<String, String> nodeData = new HashMap<>();
+                nodeData.put("name", getSectionNameBySectionId(secIdForFindingName));
+                nodeData.put("type", "SECTION");
+                nodeData.put("elementID", sectionID);
+                nodeData.put("fromFileName", file);
+                lightHouse.createNewVertex(nodeData);
+
+                lightHouse.establishEdgeByVertexIDs(subTopicID, sectionID, "subTopicSection", "subTopicSection");
+
+                Map<String, String> nodeDataTwo = new HashMap<>();
+                nodeDataTwo.put("name", paragraphId);
+                nodeDataTwo.put("type", "PARAGRAPH");
+                nodeDataTwo.put("bodyText", paragraphJSON.getJSONObject(key).getString("bodyText"));
+                System.out.println("paragraphJSON.getJSONObject(key).getString(\"bodyText\") = " + paragraphJSON.getJSONObject(key).getString("bodyText"));
+                nodeDataTwo.put("firstLine", paragraphJSON.getJSONObject(key).getString("firstLine"));
+                nodeDataTwo.put("startPage", paragraphJSON.getJSONObject(key).getBigInteger("startPage").toString());
+                nodeDataTwo.put("willIgnore", String.valueOf(paragraphJSON.getJSONObject(key).getBoolean("willIgnore")));
+                nodeDataTwo.put("endPage", paragraphJSON.getJSONObject(key).getBigInteger("endPage").toString());
+                nodeDataTwo.put("elementID", paragraphId);
+                nodeDataTwo.put("fromFileName", file);
+                lightHouse.createNewVertex(nodeDataTwo);
+
+                lightHouse.establishEdgeByVertexIDs(sectionID, paragraphId, "sectionParagraph", "sectionParagraph");
+            }
+        }
+
+        return "Ok";
+    }
+
+    public String createConceptNodesFromParagraph(String file, JSONObject glossaryMetaData, String folderName) throws Exception {
+
+        String jsonFileContent= null;
+        try {
+            jsonFileContent = taggerTest.startExtraction(environment.rootPath() + "\\modules\\parabole-module-feed\\conf\\feedFiles\\" + folderName + "\\" +file+".pdf", glossaryMetaData);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        jsonFileContent.replace("�", "'");
+
+        //String jsonFileContent = AppUtils.getFileContent("feedJson/paragraphs.json");
+        JSONObject jsonObject = new JSONObject(jsonFileContent);
+        JSONObject finalObj = new JSONObject();
+        JSONObject conceptIndex = jsonObject.getJSONObject("conceptIndex");
+        JSONObject allConceptNodesDetails = jenaTdbService.getFilteredDataByCompName("ceclBaseNodeDetails","FASB Concept");
+        JSONArray jsonArray = allConceptNodesDetails.getJSONArray("data");
+        Map<String, String> mapofNameURI = new HashMap<String, String>();
+        for (int i=0; i< jsonArray.length(); i++){
+            mapofNameURI.put(jsonArray.getJSONObject(i).getString("name"), jsonArray.getJSONObject(i).getString("link"));
+        }
+
+        List<String> conceptList = new ArrayList<>();
+        JSONObject testJSON = new JSONObject();
+        testJSON.put("JSONForURI", allConceptNodesDetails);
+
+        Iterator<?> keys = conceptIndex.keys();
+        while( keys.hasNext() ) {
+            String key = (String)keys.next();
+            if(mapofNameURI.get(key) != null) {
+                Map<String, String> nodeData = new HashMap<>();
+                nodeData.put("name", key);
+                nodeData.put("type", "CONCEPT");
+                nodeData.put("subtype", "FASB");
+                nodeData.put("elementID", mapofNameURI.get(key));
+
+                System.out.println("Created : " + mapofNameURI.get(key));
+
+                lightHouse.createNewVertex(nodeData);
+                JSONArray listOfParagraphVertexIDs = conceptIndex.getJSONArray(key);
+                for (int i = 0; i < listOfParagraphVertexIDs.length(); i++) {
+                    lightHouse.establishEdgeByVertexIDs(mapofNameURI.get(key), listOfParagraphVertexIDs.getString(i), "conceptToParagraph", "conceptToParagraph");
+                    String typeReq = "COMPONENTTYPE";
+                    findAndAttachDynamicConnections(mapofNameURI.get(key), listOfParagraphVertexIDs.getString(i), typeReq);
+                    System.out.println("Created : " + mapofNameURI.get(key) + " ------>" + listOfParagraphVertexIDs.getString(i));
+                }
+            }
+        }
+
+        return "{status: Saved}";
+    }
 }
