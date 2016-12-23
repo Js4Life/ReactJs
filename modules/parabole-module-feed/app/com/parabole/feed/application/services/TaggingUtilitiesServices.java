@@ -1024,6 +1024,29 @@ public class TaggingUtilitiesServices {
         return "Ok";
     }
 
+    public String saveAllConcepts(){
+        String res = "{status: Saved}";
+
+        try{
+            JSONObject allConceptNodesDetails = jenaTdbService.getFilteredDataByCompName("ceclBaseNodeDetails","FASB Concept");
+            JSONArray jsonArray = allConceptNodesDetails.getJSONArray("data");
+            Map<String, String> mapofNameURI = new HashMap<String, String>();
+            for (int i=0; i< jsonArray.length(); i++) {
+                Map<String, String> nodeData = new HashMap<>();
+                nodeData.put("name", jsonArray.getJSONObject(i).getString("name"));
+                nodeData.put("type", "CONCEPT");
+                nodeData.put("subtype", jsonArray.getJSONObject(i).getString("type"));
+                nodeData.put("elementID", jsonArray.getJSONObject(i).getString("link"));
+                lightHouse.createNewVertex(nodeData);
+            }
+        }catch (Exception e){
+            res = "{status: "+ e.toString() +"}";
+        }
+
+
+        return res;
+    }
+
     public String saveCFRConcepts(HashMap<String, Set<String>> conceptParaMap) throws IOException {
         JSONObject allConceptNodesDetails = jenaTdbService.getFilteredDataByCompName("ceclBaseNodeDetails","FASB Concept");
         JSONArray jsonArray = allConceptNodesDetails.getJSONArray("data");
@@ -1042,6 +1065,8 @@ public class TaggingUtilitiesServices {
                 Set<String> listOfParagraphVertexIDs = conceptParaMap.get(key);
                 for (String listOfParagraphVertexID : listOfParagraphVertexIDs) {
                     lightHouse.establishEdgeByVertexIDs(mapofNameURI.get(key), listOfParagraphVertexID, "conceptToParagraph", "conceptToParagraph");
+                    String typeReq = "COMPONENTTYPE";
+                    findAndAttachDynamicConnections(mapofNameURI.get(key), listOfParagraphVertexID, typeReq);
                     System.out.println( " || CONNECTION || --- || " +mapofNameURI.get(key) +" + "+ listOfParagraphVertexID);
                 }
             }
@@ -1251,6 +1276,8 @@ public class TaggingUtilitiesServices {
                 JSONArray listOfParagraphVertexIDs = conceptIndex.getJSONArray(key);
                 for (int i = 0; i < listOfParagraphVertexIDs.length(); i++) {
                     lightHouse.establishEdgeByVertexIDs(mapofNameURI.get(key), listOfParagraphVertexIDs.getString(i), "conceptToParagraph", "conceptToParagraph");
+                    String typeReq = "COMPONENTTYPE";
+                    findAndAttachDynamicConnections(mapofNameURI.get(key), listOfParagraphVertexIDs.getString(i), typeReq);
                     System.out.println("Created : " + mapofNameURI.get(key) + " ------>" + listOfParagraphVertexIDs.getString(i));
                 }
             }
