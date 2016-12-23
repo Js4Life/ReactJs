@@ -1042,6 +1042,8 @@ public class TaggingUtilitiesServices {
                 Set<String> listOfParagraphVertexIDs = conceptParaMap.get(key);
                 for (String listOfParagraphVertexID : listOfParagraphVertexIDs) {
                     lightHouse.establishEdgeByVertexIDs(mapofNameURI.get(key), listOfParagraphVertexID, "conceptToParagraph", "conceptToParagraph");
+                    String typeReq = "COMPONENTTYPE";
+                    findAndAttachDynamicConnections(mapofNameURI.get(key), listOfParagraphVertexID, typeReq);
                     System.out.println( " || CONNECTION || --- || " +mapofNameURI.get(key) +" + "+ listOfParagraphVertexID);
                 }
             }
