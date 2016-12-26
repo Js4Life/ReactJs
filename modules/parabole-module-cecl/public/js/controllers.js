@@ -836,6 +836,7 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 				$scope.regulations = data.data;
 			}
 		});
+		$scope.currentRegulation = SharedService.curentRegulation
 		configureGridOption();
 	}
 
@@ -1276,6 +1277,16 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	
 	$scope.goPreviousScreen = function () {
 		$state.go('landing.home');
+	}
+
+	$scope.getDocImage = function (para) {
+		var threshold = 1;
+		SharedService.getDocImage($scope.currentRegulation, para.fromFileName, parseInt(para.startPage), parseInt(para.startPage) + threshold).then(function (data) {
+			if(data.status){
+				$scope.images = angular.fromJson(data.data);
+				$('#imageModal').modal('show');
+			}
+		});
 	}
 
 	$scope.initialize();

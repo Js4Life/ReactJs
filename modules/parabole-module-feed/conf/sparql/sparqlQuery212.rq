@@ -7,52 +7,16 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX bas: <http://mindparabole.com/finance/basel_glossary#>
 
-select  ?concept ?Area ?Type ?Typename ?id
-where {
-{select *
-where {
-{?concept rdf:type ?conclass .
-?conclass rdfs:subClassOf ?sub .
-
-FILTER(?sub IN(bas:BaselGlossary,cst:FASBConcept))
-?concept pb:hasModel ?mprp .
-?mprp rdf:type ?Type.
-BIND(xsd:string("Model Type") as ?Area)}
-union
-{?concept rdf:type ?conclass .
-?conclass rdfs:subClassOf ?sub .
-
-FILTER(?sub IN(bas:BaselGlossary,cst:FASBConcept))
-?concept pb:hasReport ?mprp .
-?mprp rdf:type ?Type.
-BIND(xsd:string("Report Type") AS ?Area)
-}
-union
-{?concept rdf:type ?conclass .
-?conclass rdfs:subClassOf ?sub .
-FILTER(?sub IN(bas:BaselGlossary,cst:FASBConcept))
-?concept pb:hasProcedure ?mprp .
-?mprp rdf:type ?Type.
-bind(xsd:string ("Procedure Type") as ?Area)}
-union
-{?concept rdf:type ?conclass .
-?conclass rdfs:subClassOf ?sub .
-FILTER(?sub IN(bas:BaselGlossary,cst:FASBConcept))
-?concept pb:hasPolicy ?mprp .
-?mprp rdf:type ?Type.
-bind(xsd:string ("Policy Type") as ?Area)}
-UNION
-{?concept rdf:type ?conclass .
-?conclass rdfs:subClassOf ?sub.
-FILTER(?sub IN(bas:BaselGlossary,cst:FASBConcept))
-?concept pb:hasProduct ?mprp.
-?mprp rdf:type ?Type.
-bind(xsd:string ("Product") as ?Area)}
-}}
-?concept rdfs:label ?conceptName .
-?mprp rdfs:label ?connections .
-?Type rdfs:label ?Typename.
-
-bind(rand() AS ?id).
-
+SELECT ?val ?concept ?Area ?Type ?Typename ?id
+WHERE {
+?Type owl:equivalentClass ?class ;rdfs:label ?Typename.
+#FILTER(EXISTS{?Type rdfs:subClassOf pb:Model .})
+FILTER(EXISTS{?Type rdfs:subClassOf pb:Model . } || EXISTS{?Type rdfs:subClassOf pb:Policy . })
+?class owl:allValuesFrom|owl:someValuesFrom ?val; owl:onProperty ?prop.
+FILTER(!bound(?val) = false)
+OPTIONAL{?val owl:oneOf/rdf:rest*/rdf:first  ?concept}
+?Type rdfs:subClassOf ?Area 
+FILTER ( ?Area IN (pb:Model, pb:Policy))
+#BIND(xsd:string("Model Type") AS ?Area)
+bind(rand() AS ?id)
 }

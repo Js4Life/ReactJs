@@ -181,3 +181,4 @@ GET /saveConceptVsContextMap                        com.parabole.cecl.applicatio
 POST /runConfig                                     com.parabole.cecl.application.controllers.CeclController.runConfig()
 POST /removeParsing                                 com.parabole.cecl.application.controllers.CeclController.removeParsing()
 GET /getAllCfrFileDetails                           com.parabole.cecl.application.controllers.CeclController.getAllCfrFileDetails()
+POST /getDocImage                                    com.parabole.cecl.application.controllers.CeclController.getDocImage()

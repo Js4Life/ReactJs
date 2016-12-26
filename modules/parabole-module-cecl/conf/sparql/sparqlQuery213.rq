@@ -12,4 +12,5 @@ WHERE{
 ?Type rdfs:subClassOf ?c.
 ?comp rdfs:label ?component.
 FILTER(?c IN(pb:Policy,pb:Report,pb:Model)).
-bind(rand() AS ?id)}
+bind(rand() AS ?id)
+FILTER(?Type = pb:LGDModel)}

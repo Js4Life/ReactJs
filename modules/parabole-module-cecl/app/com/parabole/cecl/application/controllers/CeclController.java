@@ -1470,4 +1470,27 @@ public class CeclController extends Controller{
         finalJson.put("status", status).put("data", data);
         return ok(finalJson.toString());
     }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result getDocImage() {
+        final String json = request().body().asJson().toString();
+        final JSONObject request = new JSONObject(json);
+        final String regulation = request.getString("regulation");
+        final String fileName = request.getString("fileName");
+        final int fromPage = request.getInt("fromPage");
+        final int toPage = request.getInt("toPage");
+        JSONObject finalJson = new JSONObject();
+        Boolean status = true;
+        String data = null;
+        try {
+            List<String> res = documentCfgService.getDocInImage(regulation, fileName, fromPage, toPage);
+            ObjectMapper mapper = new ObjectMapper();
+            data = mapper.writeValueAsString(res);
+        } catch (Exception e){
+            status = false;
+            e.printStackTrace();
+        }
+        finalJson.put("status", status).put("data", data);
+        return ok(finalJson.toString());
+    }
 }

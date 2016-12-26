@@ -2,6 +2,7 @@ package com.parabole.feed.application.services;
 
 
 
+import com.parabole.feed.pdfconverter.models.DocConverter;
 import play.Configuration;
 import play.api.Play;
 
@@ -67,5 +68,19 @@ public class DocumentCfgService {
             return false;
         }
         return true;
+    }
+
+    public List<String> getDocInImage(String regulation, String fileName, int fromPage, int toPage){
+        String subPath = configuration.getString("application.feedFilePath");
+        String path = "";
+        if(regulation.equalsIgnoreCase("BASEL"))
+            path = Play.current().path().getAbsolutePath().concat(subPath).concat("/basel/").concat(fileName).concat(".pdf");
+        else if(regulation.equalsIgnoreCase("BANKDOCUMENT"))
+            path = Play.current().path().getAbsolutePath().concat(subPath).concat("/bank/").concat(fileName).concat(".pdf");
+        else if(regulation.equalsIgnoreCase("FASB"))
+            path = Play.current().path().getAbsolutePath().concat(subPath).concat("/fasb/").concat(fileName).concat(".pdf");
+        DocConverter dc = new DocConverter(path);
+        List<String> images = dc.genarateImage(fromPage-1, toPage-1, "png");
+        return images;
     }
 }
