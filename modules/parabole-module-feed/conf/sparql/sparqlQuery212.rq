@@ -7,15 +7,16 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX bas: <http://mindparabole.com/finance/basel_glossary#>
 
-SELECT ?concept ?Area ?Type ?Typename ?id
+SELECT ?val ?concept ?Area ?Type ?Typename ?id
 WHERE {
 ?Type owl:equivalentClass ?class ;rdfs:label ?Typename.
-FILTER(EXISTS{?Type rdfs:subClassOf pb:Model .
-})
+#FILTER(EXISTS{?Type rdfs:subClassOf pb:Model .})
+FILTER(EXISTS{?Type rdfs:subClassOf pb:Model . } || EXISTS{?Type rdfs:subClassOf pb:Policy . })
 ?class owl:allValuesFrom|owl:someValuesFrom ?val; owl:onProperty ?prop.
 FILTER(!bound(?val) = false)
 OPTIONAL{?val owl:oneOf/rdf:rest*/rdf:first  ?concept}
-BIND(xsd:string("Model Type") AS ?Area)
+?Type rdfs:subClassOf ?Area 
+FILTER ( ?Area IN (pb:Model, pb:Policy))
+#BIND(xsd:string("Model Type") AS ?Area)
 bind(rand() AS ?id)
-
 }
