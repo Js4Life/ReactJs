@@ -726,6 +726,7 @@ public class LightHouseService {
     public Boolean deleteAFIleAndItsAssociations(String fileName) {
         String queryForDeletion = "delete vertex from V where elementID = '" + fileName + "' or fromFileName = '" + fileName + "'";
         Boolean status = true;
+
         try {
             //lightHouse.deleteAFIleAndItsAssociations(fileName);
             int res = lightHouse.executeDelete(queryForDeletion);
