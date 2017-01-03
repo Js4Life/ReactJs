@@ -90,4 +90,6 @@ CALL tdbloader --loc=tdb   %ONTOLOGY_LOC%/Rbot.rdf
 ECHO =====================================================
 CALL tdbloader --loc=tdb   %ONTOLOGY_LOC%/Context.rdf
 ECHO =====================================================
+CALL tdbloader --loc=tdb   %ONTOLOGY_LOC%/parabole.rdf
+ECHO =====================================================
  
