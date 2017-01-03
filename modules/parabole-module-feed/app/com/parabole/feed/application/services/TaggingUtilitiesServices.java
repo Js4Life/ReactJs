@@ -685,6 +685,8 @@ public class TaggingUtilitiesServices {
                 nodeData.put("name", oneElement.getString("Typename"));
                 nodeData.put("type", "COMPONENTTYPE");
                 nodeData.put("elementID", oneElement.getString("Type"));
+                System.out.println("rajib ----oneElement.getString-----> " + oneElement.getString("concept"));
+
                 lightHouse.createNewVertex(nodeData);
                 // created
 

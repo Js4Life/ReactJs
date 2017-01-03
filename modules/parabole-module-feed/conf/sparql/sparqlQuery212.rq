@@ -5,18 +5,43 @@ PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX hp: <http://mindparabole.com/finance/parabole#>
+PREFIX afn: <http://jena.apache.org/ARQ/function#>
 PREFIX bas: <http://mindparabole.com/finance/basel_glossary#>
+PREFIX hp: <http://mindparabole.com/finance/parabole#>
 
-SELECT ?val ?concept ?Area ?Type ?Typename ?id
+SELECT DISTINCT ?val ?concept ?Area ?Type ?Typename ?id
+WHERE{
+
+{SELECT DISTINCT ?Type  ?seg ?Segment ?pro ?Product ?concept ?conceptName
 WHERE {
-?Type owl:equivalentClass ?class ;rdfs:label ?Typename.
-#FILTER(EXISTS{?Type rdfs:subClassOf pb:Model .})
-FILTER(EXISTS{?Type rdfs:subClassOf pb:Model . } || EXISTS{?Type rdfs:subClassOf pb:Policy . })
-?class owl:allValuesFrom|owl:someValuesFrom ?val; owl:onProperty ?prop.
-FILTER(!bound(?val) = false)
-OPTIONAL{?val owl:oneOf/rdf:rest*/rdf:first  ?concept}
-?Type rdfs:subClassOf ?Area 
-FILTER ( ?Area IN (pb:Model, pb:Policy))
-#BIND(xsd:string("Model Type") AS ?Area)
+?Type rdfs:subClassOf ?class;rdfs:label ?Typename.
+?class owl:allValuesFrom|owl:someValuesFrom ?val; owl:onProperty hp:hasSegment .
+?val owl:oneOf/rdf:rest*/rdf:first  ?seg2.
+?seg rdf:type ?seg2.
+?seg rdfs:label ?Segment.
+#FILTER(?prop = hp:hasProduct)
+?mprp2 rdfs:subClassOf ?class2.
+?class2 owl:allValuesFrom|owl:someValuesFrom ?val2; owl:onProperty hp:hasProduct .
+?val2 owl:oneOf/rdf:rest*/rdf:first  ?pro2.
+?pro rdf:type ?pro2.
+?pro rdfs:label ?Product.
+?mprp3 rdfs:subClassOf ?class3.
+?class3 owl:allValuesFrom|owl:someValuesFrom ?val3; owl:onProperty hp:hasConcept .
+?val3 owl:oneOf/rdf:rest*/rdf:first  ?concept.
+#?concept rdf:type ?con.
+?concept rdfs:label ?conceptName.
+FILTER((?Type=?mprp2)&&(?mprp2 = ?mprp3))
+}}
+
+?Type rdfs:subClassOf+ ?Area.
+?mprp rdf:type ?Type.
+?mprp rdfs:label ?Typename.
+?Area rdfs:label ?ComponentType.
+FILTER(?Area IN(hp:Model,hp:Policy,hp:Report))
+BIND(xsd:string(CONCAT(afn:namespace(?seg),afn:localname(?seg))) as ?uri)
 bind(rand() AS ?id)
+#FILTER(?mprp2 = hp:LGDModel)
+#FILTER(?uri ="http://www.mindparabole.com/ontology/finance/Parabole-Model#ABCAutoLoanBusiness")
+#FILTER(?uri = $$FILTERS$$)
 }
