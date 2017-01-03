@@ -6,43 +6,25 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX hp: <http://mindparabole.com/finance/parabole#>
-PREFIX afn: <http://jena.apache.org/ARQ/function#>
-PREFIX bas: <http://mindparabole.com/finance/basel_glossary#>
-PREFIX hp: <http://mindparabole.com/finance/parabole#>
 
 
-SELECT ?Pro ?Product ?Segment ?Seg
+SELECT DISTINCT  ?Pro ?Product ?Segment ?Seg
 WHERE{
 
-{SELECT DISTINCT ?mprp4  ?seg ?Segment ?pro ?Product ?concept ?conceptName
+{SELECT ?mprp ?Pro ?Product
 WHERE {
-?mprp4 rdfs:subClassOf ?class;rdfs:label ?Component.
-?class owl:allValuesFrom|owl:someValuesFrom ?val; owl:onProperty hp:hasSegment .
-?val owl:oneOf/rdf:rest*/rdf:first  ?seg2.
-?seg rdf:type ?seg2.
-?seg rdfs:label ?Segment.
-#FILTER(?prop = hp:hasProduct)
-?mprp2 rdfs:subClassOf ?class2.
-?class2 owl:allValuesFrom|owl:someValuesFrom ?val2; owl:onProperty hp:hasProduct .
-?val2 owl:oneOf/rdf:rest*/rdf:first  ?pro2.
-?Pro rdf:type ?pro2.
-?Pro rdfs:label ?Product.
-?mprp3 rdfs:subClassOf ?class3.
-?class3 owl:allValuesFrom|owl:someValuesFrom ?val3; owl:onProperty hp:hasConcept .
-?val3 owl:oneOf/rdf:rest*/rdf:first  ?concept.
-#?concept rdf:type ?con.
-?concept rdfs:label ?conceptName.
-FILTER((?mprp4=?mprp2)&&(?mprp2 = ?mprp3))
+?mprp rdfs:subClassOf ?class.
+?class owl:allValuesFrom|owl:someValuesFrom ?val; owl:onProperty hp:hasProduct .
+?val owl:oneOf/rdf:rest*/rdf:first  ?pro2.
+?Pro rdf:type ?pro2; rdfs:label ?Product.
 }}
-
-?mprp4 rdfs:subClassOf+ ?Type.
-?mprp rdf:type ?mprp4.
-?mprp rdfs:label ?Component.
-?Type rdfs:label ?ComponentType.
-FILTER(?Type IN(hp:Model,hp:Policy,hp:Report))
-BIND(xsd:string(CONCAT(afn:namespace(?seg),afn:localname(?seg))) as ?uri)
-bind(rand() AS ?id)
-#FILTER(?mprp2 = hp:LGDModel)
-FILTER(?uri ="http://www.mindparabole.com/ontology/finance/Parabole-Model#ABCAutoLoanBusiness")
-#FILTER(?uri = $$FILTERS$$)
+{SELECT ?mprp2 ?Seg ?Segment
+WHERE {
+?mprp2 rdfs:subClassOf ?class2.
+?class2 owl:allValuesFrom|owl:someValuesFrom ?val2; owl:onProperty hp:hasSegment .
+?val2 owl:oneOf/rdf:rest*/rdf:first  ?seg.
+?Seg rdf:type ?seg; rdfs:label ?Segment.
+}}
+FILTER(?mprp=?mprp2)
+FILTER(?Seg IN( pb:CommercialIndustrial,pb:CreditCardDivision ,pb:ABCAssetManagementGroup ,pb:RetailBanking,pb:ABCAutoLoanBusiness,pb:CommercialRealEstate))
 }
