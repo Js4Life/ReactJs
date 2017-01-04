@@ -23,8 +23,8 @@ WHERE {
 ?seg rdf:type ?seg2.
 ?seg rdfs:label ?Segment.
 #FILTER(?prop = hp:hasProduct)
-?mprp2 rdfs:subClassOf ?class2.
-?class2 owl:allValuesFrom|owl:someValuesFrom ?val2; owl:onProperty hp:hasProduct .
+?seg2 rdfs:subClassOf ?class2.
+?class2 owl:allValuesFrom|owl:someValuesFrom ?val2; owl:onProperty hp:segmentHasProduct .
 ?val2 owl:oneOf/rdf:rest*/rdf:first  ?pro2.
 ?pro rdf:type ?pro2.
 ?pro rdfs:label ?Product.
@@ -33,7 +33,7 @@ WHERE {
 ?val3 owl:oneOf/rdf:rest*/rdf:first  ?con.
 #?concept rdf:type ?con.
 ?con rdfs:label ?concept.
-FILTER((?mprp4=?mprp2)&&(?mprp2 = ?mprp3))
+FILTER(?mprp4=?mprp3)
 }}
 
 ?mprp4 rdfs:subClassOf+ ?Type.
@@ -44,7 +44,7 @@ FILTER(?Type IN(hp:Model,hp:Policy,hp:Report))
 BIND(xsd:string(CONCAT(afn:namespace(?con),afn:localname(?con))) as ?uri)
 bind(rand() AS ?id)
 #FILTER(?mprp2 = hp:LGDModel)
-#FILTER(?uri ="http://www.mindparabole.com/ontology/finance/Parabole-Model#ABCAutoLoanBusiness")
+#FILTER(?uri ="http://mindparabole.com/finance/parabole#ACBMinusFV")
 FILTER(?uri = $$FILTERS$$)
 }
 

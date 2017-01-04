@@ -8,23 +8,12 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX hp: <http://mindparabole.com/finance/parabole#>
 
 
-SELECT DISTINCT  ?Pro ?Product ?Segment ?Seg
-WHERE{
+select  DISTINCT  ?Pro ?Product ?Segment ?Seg
+where {
+?seg rdfs:subClassOf ?class;^rdf:type ?Seg.
+?Seg rdfs:label ?Segment.
+?class owl:allValuesFrom|owl:someValuesFrom ?val; owl:onProperty hp:segmentHasProduct .
+?val owl:oneOf/rdf:rest*/rdf:first  ?pro.
+?Pro rdf:type ?pro;rdfs:label ?Product.
 
-{SELECT ?mprp ?Pro ?Product
-WHERE {
-?mprp rdfs:subClassOf ?class.
-?class owl:allValuesFrom|owl:someValuesFrom ?val; owl:onProperty hp:hasProduct .
-?val owl:oneOf/rdf:rest*/rdf:first  ?pro2.
-?Pro rdf:type ?pro2; rdfs:label ?Product.
-}}
-{SELECT ?mprp2 ?Seg ?Segment
-WHERE {
-?mprp2 rdfs:subClassOf ?class2.
-?class2 owl:allValuesFrom|owl:someValuesFrom ?val2; owl:onProperty hp:hasSegment .
-?val2 owl:oneOf/rdf:rest*/rdf:first  ?seg.
-?Seg rdf:type ?seg; rdfs:label ?Segment.
-}}
-FILTER(?mprp=?mprp2)
-FILTER(?Seg IN( pb:CommercialIndustrial,pb:CreditCardDivision ,pb:ABCAssetManagementGroup ,pb:RetailBanking,pb:ABCAutoLoanBusiness,pb:CommercialRealEstate))
 }

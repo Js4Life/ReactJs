@@ -20,8 +20,8 @@ WHERE {
 ?seg rdf:type ?seg2.
 ?seg rdfs:label ?Segment.
 #FILTER(?prop = hp:hasProduct)
-?mprp2 rdfs:subClassOf ?class2.
-?class2 owl:allValuesFrom|owl:someValuesFrom ?val2; owl:onProperty hp:hasProduct .
+?seg2 rdfs:subClassOf ?class2.
+?class2 owl:allValuesFrom|owl:someValuesFrom ?val2; owl:onProperty hp:segmentHasProduct .
 ?val2 owl:oneOf/rdf:rest*/rdf:first  ?pro2.
 ?pro rdf:type ?pro2.
 ?pro rdfs:label ?Product.
@@ -30,7 +30,7 @@ WHERE {
 ?val3 owl:oneOf/rdf:rest*/rdf:first  ?con.
 #?concept rdf:type ?con.
 ?con rdfs:label ?concept.
-FILTER((?mprp4=?mprp2)&&(?mprp2 = ?mprp3))
+FILTER(?mprp4=?mprp3)
 }}
 
 ?mprp4 rdfs:subClassOf+ ?Type.
