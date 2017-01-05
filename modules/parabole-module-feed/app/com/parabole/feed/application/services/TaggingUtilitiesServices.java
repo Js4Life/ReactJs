@@ -764,11 +764,11 @@ public class TaggingUtilitiesServices {
         ArrayList<HashMap<String, String>> paragraphVariable = lightHouse.getParagraphsByParagraphType(fileType);
 
         for (HashMap<String, String> stringStringHashMap : paragraphVariable) {
-            if(stringStringHashMap.containsKey("name")) {
-                String dataToConcat = stringStringHashMap.get("name");
+            if(stringStringHashMap.containsKey("bodyText")) {
+                String dataToConcat = stringStringHashMap.get("bodyText");
                 System.out.println("dataToConcat = " + dataToConcat);
                 storage.append(dataToConcat);
-                storage.append(" \n");
+                storage.append(" \n \n");
                 /*result.concat(dataToConcat);
                 result.concat("\n");*/
             }
