@@ -100,6 +100,11 @@ public class AppUtils {
         return byteSource;
     }
 
+    public static URL getFileUrl(final String fileName) throws AppException, IOException {
+        final URL url = Resources.getResource(fileName);
+        return url;
+    }
+
     public static Set<String> createSetFromApplicationProperty(final String key, final String delimiter) {
         final String inputString = CFG.getString(key);
         final StringTokenizer st = new StringTokenizer(inputString, "|");

@@ -303,6 +303,20 @@ public class LightHouse extends GraphDb {
 
     }
 
+    public void updateVertexBykeyValueFromMap(Map<String, String> mapOfParagraph, String key1, String key2update) throws IOException {
+        OrientGraph graph = this.orientGraphFactory.getTx();
+
+            for (String s : mapOfParagraph.keySet()) {
+                Iterable<Vertex> v = graph.getVertices(key1, s);
+                for (Vertex vertex : v) {
+                    vertex.setProperty(key2update, mapOfParagraph.get(s));
+                }
+
+            }
+        graph.commit();
+
+    }
+
     /*******************************************************************
      // Generic Method to save a graph component
      /*******************************************************************

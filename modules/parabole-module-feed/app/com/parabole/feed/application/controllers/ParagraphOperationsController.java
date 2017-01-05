@@ -3,6 +3,7 @@ package com.parabole.feed.application.controllers;
 import com.google.inject.Inject;
 import com.parabole.feed.application.exceptions.AppException;
 import com.parabole.feed.application.services.CheckListServices;
+import com.parabole.feed.application.services.CommonService;
 import com.parabole.feed.application.services.LightHouseService;
 import com.parabole.feed.application.services.StarfishServices;
 import org.json.JSONObject;
@@ -28,6 +29,9 @@ public class ParagraphOperationsController extends BaseController{
 
     @Inject
     private StarfishServices starfishServices;
+
+    @Inject
+    private CommonService commonService;
 
     public Result getParagraphsByRootNodeId() {
         String nodeID = "http://www.mindparabole.com/ontology/finance/Parabole-Model#BuildingLease";
@@ -480,6 +484,11 @@ public class ParagraphOperationsController extends BaseController{
         final String conceptUri= "test_concept_uri4";
         return ok(coralConfigurationService.getContextsAgainstConceptUri(conceptUri).toString());
 
+    }
+
+    public Result updateParagraphContentsFromExcel(String fileType) throws IOException, AppException {
+
+        return ok(commonService.updateParagraphContentsFromExcel(fileType));
     }
 
 }

@@ -1,0 +1,2468 @@
+Hedging 
+Mortgage-Backed Security 
+Effective Notional 
+Basel II 
+Variable Rate Deposits 
+Multilateral Development Bank 
+Gamma Risk 
+Financial Stability Board 
+Asset Backed Security 
+SA-CVA 
+Supervisory Validation 
+Synthetic Securitization 
+Small Business 
+basis transactions 
+hedging set 
+supervisory factor 
+classes of commodities 
+short position 
+long position 
+netting set 
+set of transactions 
+operational complexity 
+Market-Based Approach 
+Variance-Covariance Approach 
+Market-implied 
+Time Horizon 
+Short-term Self-liquidating 
+Delta Equity 
+Liquidity Risk Monitoring 
+Margined PFE 
+Secured Exposure 
+The Standardised Approach 
+High-yield 
+International Bank for Reconstruction and Development  
+Past Forecast 
+Tranched Protection 
+Mezzanine Tranche 
+Underlying Instrument 
+Beta 
+Issue-specific External Rating 
+Run-Off Balance Sheet 
+Num_50pc CCF 
+Loss Given Default 
+AssetClass 
+Intragroup Expense 
+Strategic Planning 
+Financial Lease 
+Capital Charge using the IRB 
+Risk-Free Rate 
+Annual Gross Income 
+Capital Charge 
+Risk-Weighted Asset Amount 
+Intermediation Activity 
+High Correlations 
+Capital Instrument 
+Net Collateral Held 
+Curvature FX 
+Model Risk 
+Securitization 
+Over-the-counter 
+Corporate Exposure 
+Transactional Account 
+Risk-Taking Function 
+IRB Capital Requirement 
+Medium-Term Rate 
+Derivative Netting 
+Scenario-Consistent Impact 
+standardised capital requirement 
+revised standardised approach 
+full offset of the risk position 
+Residual Risk Add-on 
+capital treatment 
+standardised Default Risk Charge 
+credit risk treatment 
+Sensitivities based Method 
+Sensitivities 
+Equity Risk 
+Credit spread risk_ non-securitisation 
+Credit spread risk_ securitisation correlation trading portfolio 
+General Interest Rate Risk 
+Foreign Exchange Risk 
+Commodity Risk 
+Credit spread risk_ securitisation 
+revised standards for minimum capital requirements for Market Risk 
+Early Amortization 
+Collateralization 
+Global Bank Standards 
+Internationally Active Banks 
+Confidence in Regulatory Capital Ratios 
+Global Banking System Resilience 
+Underlying Price 
+Stressed 
+Gross Income 
+Counterparty Credit Risk Framework 
+Target Redemption Forward 
+Gross Loss Amount 
+CpartyCreditRiskCapitalRequirement 
+Repricing Maturity 
+Num_100pc CCF 
+hedging sets 
+foreign exchange derivatives 
+same currency pair 
+maturity categories 
+interest rate derivatives 
+Margined 
+Credit Risk 
+Effective Interest Rate 
+Parent 
+Latest Date 
+Short Protection 
+Collateral Evaluation 
+Net Present Value 
+CEM 
+asset class 
+partial offset 
+different entity derivatives 
+FRTB-CVA Framework 
+Collateral Management 
+Interest Rate 
+Comprehensive Approach with Supervisory Haircut 
+Hybrid Instrument 
+Unconditionally Cancellable 
+Mesaurement Function 
+Underlying Risk 
+Securitization Internal Ratings-Based Approach 
+Non-Remunerated Deposit 
+Contractual Exercise Date 
+add-on variations 
+correlation differences within asset classes 
+basis risk 
+Income Statement Items 
+Eligible Credit Risk Mitigant 
+matched currency risk position 
+consolidated subsidiaries denominated in foreign currencies 
+affiliated entities denominated in foreign currencies 
+hedging 
+loss 
+Credit-related Economic Loss 
+Correlation Risk 
+Business Indicator 
+Risk Management 
+Coupon Cash Flow 
+Grouped Loss 
+Prevailing Rate 
+International Finance Corporation 
+Higher-risk Grade 
+Line Unit 
+Embedded Option 
+Correlations of Market Data 
+Supervisory Threshold 
+Risk Tolerance 
+retail and SME credit 
+banking book instrument 
+Debt Service Coverage Ratio 
+Credit Risk Characteristics 
+Num_150pc Risk Weight 
+Num_100pc Risk Weight 
+De Minimis Gross Loss Threshold 
+Exchange Difference 
+External Auditor 
+Value-at-risk 
+Holdings of capital instruments 
+Market Risk Framework 
+Sensitivities-based Method 
+Binding Regulatory Standard 
+Linear Regression 
+trading-related repo-style transaction 
+trading book instrument 
+underwriting commitments 
+net short equity position 
+net short credit position 
+managed on a trading desk 
+correlation trading portfolio 
+profit and loss 
+fair-value 
+Supervisory Volatility 
+Short-Maturity Liabilities 
+Allowance 
+Fee Expense 
+Number of Security Issues 
+Implied Volatility 
+Regulatory CVA 
+Currency Mismatch 
+Budgeting Activity 
+Subordinated Tranche 
+Value At Risk 
+Equity Indices 
+Non-retail Commitment 
+External Expense 
+Basel Committee Analysis 
+Reduce Model Complexity 
+Promote Comparability of Risk-Based Capital Measures 
+Escalation Procedure 
+Mark-To-Market Risk 
+Sensitivity Analysis 
+Cliff Effect 
+Net Interest Margin 
+Standardised Threshold 
+Outcomes Analysis 
+Write-Down 
+Non-internal Models Approach 
+Behavioral Option Risk 
+add-ons 
+number of hedging sets 
+Internally-modelled Capital Charge 
+Long-Maturity Assets 
+Nordic Investment Bank 
+volatility transaction 
+reference asset 
+Traded Instrument 
+Commission Income 
+Counterparty 
+Core Deposit 
+Derivative Transaction 
+Net Loss 
+Leveraged Swap 
+transactions 
+capital requirements 
+Credit Risk Capital Requirement 
+Multiple Margin Agreement 
+Capital Conservation Buffer 
+Period of Estimation 
+Gap Analyses 
+Standardised Credit Risk Assessment Approach 
+Swaption 
+Central Counterparty 
+Publicly-traded Equity 
+Short Rate 
+Funding Channel 
+Internal Rating-based 
+Settlement Risk 
+International Monetary Fund 
+Bank Policy 
+Stress Period 
+Illiquid Counterparty 
+Cap 
+Residential Mortgage Exposure 
+SA-Simplified Supervisory Formula Approach 
+Num_1250pc Risk Weight 
+Capital Base 
+Low Margin 
+Operational Loss Impact 
+Acquisition Development and Construction 
+Short-term Interbank Exposure 
+Notional Amount 
+Long Position 
+Non-Maturity Deposit 
+Risk of Default 
+Due Diligence 
+Tranche Thickness 
+Rate Mismatch 
+Alternative Measures for Risk Assessment 
+Fiscal Policy 
+Leverage Ratio 
+Cash-settled 
+Full Offsetting 
+Systematic 
+Linear Normalization Ratio 
+cash flow 
+risk factors 
+Government Agency Debt 
+Global Systemically Important Bank 
+market risk capital charge 
+Credit Spread Risk 
+Interest Rate Risk 
+Default Risk 
+Profit and Loss Item 
+Interbank Market 
+Remianing Maturity 
+Internal Loss Experience 
+Disclosure 
+Risk Management Procedure 
+Standard Margin Agreement 
+Organization for Economic Co-operation and Development 
+Mechanistic Reliance 
+Single-factor Model 
+Present Value 
+External Party 
+Operating Lease 
+Risk-based 
+Loss Data 
+One-size-fits-all Approach 
+Internal Model Method 
+Third Party 
+listed equities 
+Common Equity Tier 1 
+Foreign Exchange Derivative 
+floating interest rate 
+interest rate basis swaps 
+Cleared 
+Num_20pc CCF 
+Loan-to-valuation 
+Model Input 
+Commercial Real Estate Exposure 
+Risk Weight Calibration 
+Exposure at Default 
+Minimum Transfer Amount 
+VariationMarginExposure 
+Margined Replacement Cost 
+VariationMargin 
+Unsegregated 
+Asset-Backed Security 
+Commodity 
+Impairment 
+Margined Basis 
+Specialized Lending Exposure 
+Product Criterion 
+Forward Rate Agreement 
+Single Netting 
+Depreciation 
+Hedging Strategy 
+Credit Risk Mitigation Framework 
+Floating Rate Position 
+Date of Occurrence 
+CVA Book 
+Effective Expected Positive Exposure 
+Maturity Factor 
+Mortgage Loan 
+Three-category Classification 
+Risk Management Framework 
+Market Liquidity 
+options including bifurcated embedded derivatives 
+Officially Supported Export Credit 
+Latest Contractual Exercise Date 
+Economic Value 
+Global Minimum Standard 
+Base Risk Weight 
+Risk Exposure 
+Small and Medium Enterprise 
+Asset Backed Commercial Paper 
+Trade Notional Amount 
+Credit Spread Risk in The Banking Book 
+Economic Value-At-Risk 
+Embedded Loss 
+National Supervisor 
+Mortgage Commitment 
+volatility transactions 
+Libor 
+Other Retail 
+Accounting Treatment 
+Investment Property 
+Non-Current Asset 
+Default Risk Charge 
+securitisation correlation trading portfolio 
+securitisation 
+non-securitisation 
+Risk Appetite 
+Mark-to-market 
+Write-off 
+Subconsolidated Bank 
+International Organization of Securities Commissions 
+Commercial Mortgage-Backed Security 
+Non-accrued 
+Compounded Discount Factor 
+Market-implied Recovery Rate 
+Security Issue 
+Debt Valuation Adjustment 
+Earnings Volatility 
+Jump-to-default Risk 
+Regulatory Arbitrage 
+Eligible Purchased Corporate Receivable 
+Risk-free 
+At-the-money 
+European Financial Stability Facility 
+related commodities 
+commodity spread trades 
+instrument designated for securitisation warehousing 
+Maturity-independent 
+Dividend Income 
+Interest Rate Derivative 
+Expected Loss Given Default 
+Loss Definition 
+Trade Date 
+Overlapping Exposure 
+Financial Hedge 
+Delinquent Underlying Exposure 
+Floating Rate Loan 
+Capital Adequacy 
+Net Interest Income 
+Option Risk 
+Capital Arbitrage 
+Floating Rate Instrument 
+Advanced Measurement Approach 
+Long-Term Rate 
+Num_0.2pc Numerical Limit 
+Behavioural Risk 
+Income-producing Real Estate 
+Future Business 
+OECD-agreed Methodology 
+Liquidity Risk Monitoring Tool 
+Pricing Model 
+Non-performing Asset 
+Earnings-Adjusted EV 
+Illiquid Position 
+Financial Reporting 
+Gap Risk 
+Risk Assessment Initiative 
+Standardized Approach 
+primary financial instruments 
+financial instruments 
+Instruments 
+Capital arbitrage 
+Standard Margined Agreement 
+Reference Rate 
+Num_75pc Risk Weight 
+Non-linear Transaction 
+Market Condition 
+Asset Liability Management 
+Collateral Recognition 
+International Finance Facility for Immunization 
+capital framework 
+risk sensitivity 
+Standardized Approach For Counterparty Credit Risk 
+In Default 
+Financial Condition 
+Adjusted Notional Amount 
+Real Estate Exposure 
+Market Duration Spread 
+Transitory Account 
+Fundamental Review of the Trading Book 
+Early Withdrawal Rate 
+Capital Treatment 
+Cross-currency Swap 
+Economic Value Risk 
+Reference Date 
+Excess Collateral 
+AggregateAdd-on 
+Detachment Point 
+Non-performing Asset Ratio 
+Equity Capital 
+Debt Security 
+Offsetting Benefit 
+Basel Committee on Banking Supervision 
+Standardised Approach for Counterparty Credit Risk 
+Start Date 
+Probability of Default 
+Off Balance Sheet Netting 
+Earnings-Based Measure 
+Market Risk Capital Requirement 
+Advanced Internal Ratings-Based Approach 
+Non-Insurance Recovery 
+Vega Commodity 
+Average Loss 
+Preferential Regulatory Capital Requirement 
+Simple Risk Weight Method 
+Tax Environment 
+Stress Scenario Capital Charge 
+Governance Process 
+Num_20pc Risk Weight 
+Hedging Set 
+unlisted equities 
+Capital charge for Curvature Risk 
+Export Credit Agency 
+dealer exception 
+Market Makers 
+holdings 
+Derivative Transactions 
+Multiplier 
+PFE Add-On 
+Asset Classes 
+Long Settment Transaction 
+Holding Period 
+Eligible Purchased Receivable 
+Simple Transparent and Comparable 
+Intragroup Income 
+PositiveThreshold 
+Regulatory Retail Exposure 
+Unmargined Basis 
+The SMA Impact 
+Bank to Bank 
+Cash Flow Bucketing 
+Fiduciary Transaction 
+Real Estate Holding 
+Dividend Risk 
+Current exposure 
+Standardised Method 
+internal methods 
+delta-equivalents 
+non-linear transactions 
+non-internal model alternative 
+volatility level 
+margined transactions 
+unmargined transactions 
+risk-sensitive 
+Internal Modelling Practices 
+Num_60 Day 
+Qualifying Revolving Retail Exposure 
+Notional Value 
+Convexity Risk 
+Affiliated Company 
+Expected Positive Exposure 
+Proposed SMA 
+BI Marginal Coefficients 
+Bank-Specific Operational Loss Data 
+The Business Indicator 
+BI 
+BI Bucket Threshold 
+Treatment of Financial and Operating Leases 
+Business Models 
+High Interest Margins 
+Products Bought From Third Parties 
+Simple Financial Statement Proxy for Operational Risk 
+Overall Capital Requirement 
+Not Increase Capital Requirement 
+Estimation of Regulatory Capital 
+Risk Weighted Asset 
+Rental Income 
+Financial Accounting Period 
+PFE 
+multiplier 
+asset class add-on 
+aggregate add-on 
+partial recognition of excess collateral 
+Original Maturity 
+Data Mapping 
+Capital charge for Delta 
+Credit Risk Spread 
+Cash Collateral 
+Commodity Spread Trade 
+Liquidity Horizon 
+Bilateral CVA 
+Brokered Deposit 
+Hedge-benefit Ratio 
+Non-Defaulted Exposure 
+Supervisory Parameter 
+Counterparty Default 
+Capital Allocation 
+Equity Derivative 
+Derivative Maturity 
+Business Unit 
+Repo-style Transaction 
+Maturity Mismatch 
+Council of Europe Development Bank  
+Insurance Premium 
+Purchased Receivable 
+Cancellable Commitment 
+Internal Auditor 
+Financial Collateral 
+Partial Offsetting 
+Credit Risk Mitigation 
+Supervisory Delta Adjustment 
+Internal Capital Adequacy Assessment Process 
+Delta-equivalent 
+Interest Rate Cap 
+full offset 
+same entity derivatives 
+Total Underlying Exposure 
+Num_90 Day 
+Counterparty Default Capital Charge 
+Credit Derivative 
+Junior Tranche 
+Repricing Behaviour 
+Foreign Transaction 
+Correlation Trading Portfolio 
+External Credit Risk Assessment Approach 
+Quantitative Impact Study 
+Num_250pc Risk Weight 
+World Bank Group 
+Pari Passu Charge 
+Irrbb Management Framework 
+Incremental Risk Capital 
+Alternative Capital Treatment 
+The Second Pillar 
+Automatic Option Risk 
+Credit Risk Mitigation Purpose 
+Comparable Asset 
+Cross-bucket Correlation 
+Jurisdiction 
+Standardized Method 
+Short-term Wholesale Funding 
+Market-observed Spread 
+Control Function 
+Risk-based Capital Measures 
+Overnight Index Swap 
+Loan Contract 
+Insurance Recovery 
+Risk Factor 
+EAD  
+Senior Securitization Exposure 
+Internal Parameter 
+volatility 
+implied 
+historical 
+Maturing Item 
+Structures of Compliance 
+Threshold Deduction 
+Underlying Value 
+Trade Date Accounting 
+Genetic Formulation 
+Potential Future Exposure 
+Long Protection 
+Economic Value of Equity 
+Tranche of Principal 
+Basel II Framework 
+Delta FX 
+Long Rate Shock 
+Pending Loss 
+Direct Charge 
+Public Sector Entity 
+Banking Activity 
+Credit Protection Amount 
+Inflow of Economic Benefit 
+Single-Name Credit Default Swap 
+Tranche Exposure 
+Regulatory Reporting 
+Partial Write-off 
+Capital Charge using the BIA 
+Commercial Real Estate 
+Regulatory Capital 
+Margin of Safety 
+Discount Rate 
+Net Current Value of Security Issue 
+Automatic Interest Rate Option 
+Defaulted Exposure 
+Securitization External Ratings-Based Approach 
+Unconditionally Cancellable Commitment 
+Risk Weight Floor 
+Fixed Rate Loans 
+IMM-based CVA 
+Risk Weight for Short-term Exposure 
+Digital Option 
+Time Bucket Midpoint 
+Maintenance Margin Agreement 
+Prudent Risk Management 
+Inter-American Development Bank 
+Basel Framework 
+Strike Price 
+Ratings-based Approach 
+Caribbean Development Bank 
+Historical Interest Rate Volatility 
+Risk Position 
+Other MDB 
+Effective Hedge 
+Credit-Enhancing Interest-Only Strip 
+Attachment Point 
+Margin Agreement 
+ReplacementCost 
+Netting Set 
+NettingSet 
+Out-of-the-money Trade 
+Threshold 
+IMA capital requirement 
+stressed capital add-on 
+default risk charge 
+Expected Shortfall 
+revised internal models-approach 
+Global Conglomerate 
+Banking Book Instrument 
+short-term resale 
+European Stability Mechanism 
+Diversification 
+offset 
+currency pairs 
+Consolidated Basis 
+Residential Mortgage-Backed Security 
+Num_20pc Outstanding Amount 
+Blended Internal Cost 
+Marginal Coefficient 
+Multilateral Investment Guarantee Agency 
+Cash Flow Slotting 
+Relevant Risk Indicator 
+Special Purpose Vehicle 
+Unmargined 
+Rotation Shock 
+National Discretion 
+Project Finance 
+High Interest Margin 
+OECD Country Rating 
+Systematic Component 
+Haircut 
+Non Cash Collateral 
+Over-collateralization 
+Variation Margin Call 
+Counterparty Risk Weighting 
+alpha 
+Basel Committee 
+Standardised Measurement Approach 
+The Risk Sensitivity of Advance Approach 
+Comparability 
+Simplicity 
+Single Non-Model-Based Method 
+val_1.4 
+Endowment Return 
+One-way Margining Agreement 
+Business Planning 
+Interest Rate Shock 
+Standard Industry Documentation 
+Non-Internationally Active Institutions 
+Defaulted Loan 
+Base Horizon 
+Indicative Risk Weight 
+Risk Score 
+Available For Sale 
+Conditional Prepayment Rate 
+Valuation Adjustment 
+Foreign Exchange 
+Volume Transaction 
+Alpha Risk 
+derivative financial instruments 
+Credit Instrument 
+Floating Exchange Rate 
+Finished Property 
+Risk Estimate 
+Economic Loss 
+Initial Margin 
+Land Acquisition Development and Construction 
+Market Liquidity Spread 
+Capital Requirement 
+Hybrid Derivative 
+Specialised Lending 
+document 
+Basel Committee formulation 
+Loan-to-value 
+Overcapitalization 
+Dilution Risk 
+Trading Book 
+Vega Risk 
+Uncompensated Prepayment 
+Foundation IRB 
+Num_10-business-day Floor 
+Banking Book 
+Independent Price Verification 
+Credit Default Swap 
+Loss Adjustment 
+Model Complexity 
+Lowe Asset Value Correlation 
+Operational Risk Capital 
+Vega Risk Sensitivity 
+Term Structure 
+Maturity-Adjusted Cash Flow 
+Shock Situation 
+General Commitment 
+Short Position 
+accounting trading liabilities 
+Call Option 
+Retail Commitment 
+basis transaction 
+non-foreign-exchange transaction 
+Currency Aggregation 
+Tail Risk 
+Interest Rate Risk in The Banking Book 
+Default-risk Securitization 
+Preacquisition Review 
+Retail Account 
+Supervisory Authority 
+Payment-versus-Payment 
+IndependentAmount 
+IndependentCollateralAmount 
+Net Independent Collateral Amount 
+Default Fund Contribution 
+Stressed Capital Add-on 
+Traditional Securitization 
+PFE Add-on 
+potential conservative increase 
+Exposure-Weighted Average LGD 
+Stress Scenario 
+Step-Up Clause 
+Non-Transactional Account 
+Collateralized OTC 
+Time Bucket 
+Management Information System 
+Preferential Treatment 
+Capital Standards 
+Caliberation of Volatilities 
+Future Earnings 
+Num_0pc CCF 
+Mitigation Action 
+Orientation Criterion 
+Reputational Risk 
+Run-Off View 
+DerivativeContracts 
+Unmargined Replacement Cost 
+Risk Appetite Framework 
+Risk-insensitive 
+Asset And Liability Management Committee 
+Pari Passu Claim 
+Risk-Weighted Securitization Exposure 
+Bilateral 
+First-Loss Protection 
+Equity 
+Num_30 Day 
+Capital charge for Vega 
+Unhedged Exposure 
+Basis Transaction 
+Hedging Disallowance Parameter 
+Clean-Up Call 
+Internal Rating-Based Approach 
+Supervisory Correlation Parameter 
+Debt Servicing Coverage 
+Proposed Revision 
+Sovereign-related Risk 
+Off Balance Sheet Item 
+Special Purpose Entity 
+Redemption Risk 
+Curvature CSR Securitization 
+Level-playing-field 
+Market Risk 
+Regulatory Capital Ratio 
+Materiality Test 
+Islamic Development Bank 
+Sticky Delta 
+Subsidiary 
+Exposure Amount 
+Index Credit Default Swap 
+hedging risks that arise from instruments meeting criteria 
+Market-implied Probability of Default 
+real estate holdings 
+Inherent Risk 
+Asian Development Bank 
+Countercyclical Capital 
+Average Total Annual Loss 
+Basel III 
+Market Information 
+Bankruptcy Remote Account 
+Idiosyncratic Credit Spread 
+High Fee Component 
+Measures of Capital Adequacy 
+Publicly-traded Equity Holding 
+Risk Bucket 
+Explicit Automatic Interest Rate Option 
+Term Deposit Redemption Ratio 
+End Date 
+Stress Situation 
+European Investment Fund 
+Reference Securitization Exposure 
+Risk Sensitivity 
+Aggregate Risk Limit 
+Option Delta 
+Interbank Exposure 
+Unmargined Netting Set 
+Subsidiary Bank 
+Replicating Portfolio 
+Loss Account 
+Largest Exposure 
+Credit Risk Mitigant 
+Pari Passu 
+Effective Notional Amount 
+Bank Holding Company 
+On-Balance Sheet Netting 
+Credit-linked 
+Lower-risk Grade 
+Vega FX 
+Delivery-versus-Payment 
+Num_35pc Risk Weight 
+Income Producing Real Estate 
+Current Exposure 
+Loan-To-Value Ratio 
+full offsetting 
+PFE add-on 
+General Market Credit Spread 
+Operational Risk Event 
+Drawdown 
+Interest Rate Floor 
+Fall-Back Approach 
+Interest Rate-Sensitive Income 
+Unsecured Exposure 
+Common Banking Product 
+Federal Funds Rate 
+Empirical Correlation 
+Currency Swap 
+BI Buckets 
+Internal Assessment Approach 
+Simplicity-Transparency-Compatibility Criteria 
+IMA-CVA 
+Standard Risk-weighting Methodology 
+Capital Framework 
+Standardised Eve Risk Measure 
+Bank Capital 
+Bank 
+Lower Operational Risk Capital Charge 
+Lower Operational Risk Losses 
+Effective Risk Management 
+Derivative Position 
+Weighted Sensitivities 
+NoncashCollateral 
+Asset-Backed Commercial Paper Programme 
+Administrative Expense 
+Eurodollar Future 
+Weighted Net Position 
+Credit Valuation Adjustment 
+Authorised Instrument 
+Non-Amortised Principal 
+Primary Risk Class 
+Risk-free Yield Curve 
+Non-Refundable Purchase Price Discount 
+Optional Element 
+Assessment Horizon 
+Volatility-adjusted Collateral 
+Suspense Account 
+Supervisory Review Process 
+Comprehensive Risk Measure 
+Credit Indices 
+Undertakings for Collective Investments in Transferable Securities 
+Counter-Guarantee 
+Capital Requirement per unit of Securitization Exposure 
+Bilateral Netting 
+Cash-funded 
+Loss Distribution 
+Repricing Cash Flow 
+Monetary Policy 
+Qualifying Central Counterparty 
+Risk Management Initiative 
+Note Issuance Facility 
+Subordinated Debt 
+Internal Loss Multiplier 
+Non-centrally-cleared 
+Interest Rate-Sensitive Asset 
+Interest Rate Swap 
+Explicit Option 
+Basic Indicator Approach 
+European Bank for Reconstruction and Development 
+Haircut Value of Net Collateral Held 
+Foundation Internal Ratings-Based Approach 
+Central Clearing Relationships 
+Fixed Rate Position 
+Vega Equity 
+Loss Component Of The SMA 
+Curvature Equity 
+Credit Derivative Add-on 
+Primary Risk Driver 
+Exposure Limit 
+Risk Profile 
+Equity Derivative Add-on 
+Time Risk Horizon 
+Auditing Function 
+Policy Limit 
+High-Volatility Commercial Real Estate 
+Num_75pc CCF 
+Internal Review 
+Operational Loss Exposure 
+Historical Loss Experience 
+Business Volume 
+Operational Risk 
+Leased Asset 
+Non-Parallel Curve 
+Margined Trade 
+Settlement Date Accounting 
+Profit and Loss 
+Automatic Option 
+Domestic Bank 
+Independent Review 
+Commodity Derivative Add-on 
+Operational Risk Capital Requirement 
+Other Retail Exposure 
+Yield Curve 
+Exceeded Limit 
+Idiosyncratic 
+Credit Protection 
+Correlation Factor 
+Low Correlation 
+Underlying Maturity 
+Second-to-default 
+Preferential Risk Weight 
+Cash Flows 
+Credit 
+Simplified Supervisory Formula Approach 
+Investment Grade 
+Weighted-to-short Ratio 
+Revolving Underwriting Facility 
+Contractual Maturity 
+Cross-Product Netting 
+Aggregate Add-On 
+Securities Financing Transaction 
+Exchange-traded 
+Embedded Optionality Effect 
+Operational Loss Data 
+Collateral 
+Cross-Border Bank 
+Liquidity Coverage Ratio 
+Implicit Volatility 
+Protection Provider 
+Resecuritization Exposure 
+DerivativeValue 
+Expected Exposure 
+Income-producing 
+Cross-cutting Risk Factor 
+Operational Procedure 
+Smile Risk 
+Interest Rate Basis Swap 
+Version Control 
+Num_10pc CCF 
+Senior Tranche 
+Delta Risk 
+Potential Future Credit Deterioration 
+Interest Rate Stress 
+Deduction Threshold 
+trading book 
+commodities 
+classes 
+foreign exchange 
+Internal Risk Transfer 
+Interest Rate Cycle 
+Collateralized Debt Obligation 
+Medium Correlation 
+Unmargined Trade 
+Netting Contract 
+Beta Risk 
+Emerging Risk 
+First-to-default 
+Funding Rate 
+Outcome Measure 
+Bank for International Settlements 
+Risk-Weighted Asset 
+Two-risk Driver Approach 
+Gross Loss Computation 
+Surcharge 
+Risk Weight Method 
+Defaulted 
+Num_15pc Outstanding Amount 
+Component Risk Factor 
+Liability Management 
+Country Risk Score 
+SA-TB 
+Securitization Standardized Approach 
+Prepayment Risk 
+Dynamic Balance Sheet 
+partial offsetting 
+Credit Enhancement 
+European Investment Bank 
+Delta CSR Securitization 
+Volatility Transaction 
+Put Option 
+Off-Balance Sheet Netting 
+Model Transition 
+Capital Consolidation Group 
+Num_99pc Level of Confidence 
+Risk Reducing Property 
+Loan Commitment 
+Supervisory Formula Approach 
+Margined Netting Set 
+Interest-earning Asset 
+Credit Conversion Factor 
+Floor 
+Direct Deposit 
+accounting trading assets 
+Volatility-adjusted Exposure 
+Supervisory Factor 
+Inherent Risk Mitigation 
+Index Bucket Calibration 
+Geographical Location 
+Interest Rate Derivative Add-on 
+Commodity Finance 
+Alternative Standardised Approach 
+RWA Density 
+Settlement Date 
+Commercial Margin 
+Commodity Derivative 
+Date of Discovery 
+Duration 
+African Development Bank 
+Regulatory Retail 
+Capital Ratio 
+Basic CVA Framework 
+Periodic Review 
+Commodity Type 
+Best-efforts Basis 
+European Union 
+Securitization Exposure 
+Look-Through Approach 
+Credit-Risky Instrument 
+Risk-weight Treatment 
+Capital Charge using the SA 
+Relavant Jurisdiction 
+Collateralized OTC derivatives transaction 
+Mark-to-model 
+locking in arbitrage profits 
+Portfolio Risk 
+Capital Planning 
+Consultative Paper 
+Unrecognized Collateral 
+High-margin Bank 
+Reverse Stress Test 
+AMA 
+Lesser Confidence in Risk-Weighted Capital Ratios 
+Variability in Risk-Weighted Asset Calculations 
+Inherert Complexity 
+Bilateral Transactions 
+Centrally-cleared 
+Historical Volatility 
+Num_0pc Risk Weight 
+Capital Buffer 
+Credit-Linked Note 
+Risk-based Capital Ratio 
+Eligible MDB 
+Settlement 
+Margin Period of Risk 
+Intra-Bucket Mismatch Risk 
+External Credit Assessment Institution 
+Unleveraged Swap 
+equity investments in a fund 
+Information Management Srystem 
+Risk-neutral Drift 
+Object Finance 
+Countercyclical Capital Buffer 
+Callable Bond 
+Risk-Free Zero Coupon Rate 
+Capital Conservation 
+Term Deposit 
+Prospective Risk 
+Non-rated 
+Window-dress 
+Off-balance-sheet Exposure 
+Spread Component 
+In-the-money 
+Foreign Exchange Derivative Add-on 
+Loss Component 
+Identification Function 
+Securitization Warehousing 
+Mandate-Based Approach 
+Backtesting Framework 
+Corrective Action 
+Unmargined PFE 
+Fair Value 
+Counterparty Credit Risk 
+Standardised Approach 
+exposure at default 
+Netting Arrangement 
+Data Integrity 
+Gross Loss 
+Accounting-based CVA 
+Pillar 1 capital charge 
+internal risk transfers 
+Net Sensitivities 
+Libor swaps 
+basis hedging set 
+European Swaption 
+GSIB Surcharge 
+Non-securitization 
+Supervisory Duration 
+Funding Margin 
+Risk Control System 
+Single-name Bucket 
+Trading Desk 
+Fixed Rate Loan Commitment 
+Sole Proprietorship 
+Higher-risk Weight 
+SA-CCR 
+derivative transactions 
+non-internal model approaches 
+Current Exposure Method 
+long settlement transactions 
+exchange-traded derivatives 
+bank discretion 
+OTC derivatives 
+exposures 
+potential future exposure 
+Segregated 
+Final Legal Maturity 
+Interest Rate Indicies 
+Risk Weight 
+Minimum Regulatory Requirement 
+Credit Quality 
+Creditworthiness 
+Physically-settled 
+Maturity Date 
+Vega Risk Weights 
+Hedge Accounting 
+Sovereign Debt 
+IMA-TB 
+Net Haircut Collateral 
+Tranche Maturity 
+Delta Commodity 
+Supervisory Delta 
+Num_97.5pc Level of Confidence 
+The Comprehensive Approach 
+Current Risk 
+Banking Book - Trading Book Boundary 
+Residential Real Estate Exposure 
+Delta GIRR 
+Credit Exposure Amount 
+Haircut Value 
+Financial Instrument 
+Revision 
+Vega Risk Correlation 
+Credit Finance 
+Validation Activity 
+Historical Loss Experience Inclusion 
+Nth-to-default 
+Expected Loss 
+Parallel Shock 
+Curvature Commodity 
+Add-on 
+Short-Term Rate 
+Governing Body 
+Effective Number of Exposures 
+Haircut for Currency Risk 
+Gross Carrying Value 
+Grade B 
+Credit Risk Premium 
+Lower 
+Low 
+Short Rate Shock 
+Monitoring Function 
+UnmarginedFormulation 
+Market Capitalization 
+Prudent Valuation 
+Parallel Curve 
+Corporate SME Exposure 
+Vega CSR Securitization 
+Grade C 
+profiting from short-term price movements 
+Outlier Test 
+Sovereign 
+European Central Bank 
+Correlation 
+Discounted EE 
+Basis Risk 
+Retail Deposit 
+Curvature Risk 
+Operational Risk Measurement 
+Internal Control 
+Current exposure method 
+supervisory add-on factor 
+Residential Real Estate 
+Idiosyncratic Component 
+Grade A 
+Credit Risk Capital 
+Risk Capital 
+Internal Risk Ratings 
+Fixed rate instruments 
+Unused Committed Credit Line 
+Calculation of minimum capital requirements 
+Formal Evaluation 
+single net figure 
+Re-ageing 
+Explicit Maturity Adjustment 
+Unsolicited Rating 
+capital assessment measurement system 
+Credit concentration risk 
+delta-equivalent value 
+rated investment-grade 
+Internal fraud 
+Specific Wrong-Way Risk 
+CRE Exposure 
+Overall Default Experience 
+loan-loss reserves 
+Tax-adjusted 
+Intra-day trading 
+Internal control review 
+net spot position 
+Disclosed reserves 
+Bank Covenant 
+secondary market 
+non-consolidated subsidiaries 
+non-convertible preference share 
+direct sanction 
+Corporate Finance 
+Government debt security 
+Categorisation of Exposure 
+Distribution of Exposures 
+International Capital Standard 
+Mortgage-Lending-Value 
+Thickness of Exposure 
+repo-style transactions 
+Surplus Capital 
+Unpaid Interest 
+Corporate Exposures 
+Double Gearing 
+delta-based equivalent 
+Non-DvP Transactions 
+Issuer Ratings 
+green zone 
+Core Capital Element 
+External fraud 
+Call provisions 
+International Accounting Standards 
+Unexpected loss 
+Maximum Capital Requirement 
+spot transactions 
+net replacement cost 
+Long Settlement Transactions 
+Conservative financial policies 
+liquidator 
+Percentage Points 
+External data 
+Bilateral Netting Agreement 
+Exchange-traded future 
+goodness-of-fit 
+Countries' Banking System 
+cyclical sector 
+Regulatory Constraint 
+Operational Criteria 
+static pool 
+construction risk 
+Economic Downturn 
+Asset revaluation reserves 
+Arrangement on Officially Supported Export Credits 
+Revolving Retail Exposure 
+Double Default Effects 
+liquidity lines 
+Excess Spread 
+Internal Borrower Grade 
+specific risk 
+Outstanding Loans 
+model validation 
+Prime Brokerage 
+discretionary element 
+external credit assessment institutions’ ratings 
+spread rate 
+price shocks 
+Deduction of Investments 
+internal analysis 
+Variation of the underlying of the option 
+National Regulatory Practices 
+scenario matrix analysis 
+Majority-owned 
+default charge 
+shorthand method 
+multiplication factor 
+vertical disallowance 
+Future Potential Losses 
+Maturity ladder approach 
+Standard method 
+foreign exchange position 
+subsidiary operations 
+Deduction Approach 
+External validation 
+pre-settlement credit risk 
+Proportional Cover 
+time-band 
+Granularity Criterion 
+Tier I Capital 
+Qualifying revolving retail exposures 
+capital deficiencies 
+Instruments eligible for inclusion in Tier 1 capital 
+Perpetual Debt Instrument 
+Corporate debt security 
+index designating collateral 
+Supplementary Measures 
+significant minority- and majority-owned and -controlled 
+risk transformation 
+corporate bond index 
+Alternative Group-wide Approach 
+Lines of Credit 
+public data 
+Cross Holdings 
+home supervisor 
+Banking Book Exposure 
+swap provider 
+OECD Agreed Methodology 
+forward foreign exchange position 
+Undrawn Purchase Commitment 
+Total Return Swap 
+One-tailed Confidence Interval 
+proprietary options pricing model 
+business unit management, 
+unearned credit spreads 
+nternal validation process 
+event risk 
+Double-gearing 
+marked-to-mode 
+collateral valuation 
+alternative duration method 
+total currency 
+Non-Discretionary Fund Management 
+Firm-size Adjustment 
+Publicly Traded Equity Holding 
+legal structure 
+Mandatory Convertible Debt Instrument 
+Significant investments in commercial entities 
+published accounts 
+Capital Shortfall 
+Peak Exposure 
+Materiality Level 
+Unassessed Claim 
+Non-Compliance Issue 
+Retail Brokerage 
+Extraordinary Item 
+Other Capital Market Transaction 
+Commercial Banking 
+rate-adjustment frequency 
+Availability Criteria 
+residual currencies 
+synthetic securitisation 
+IRB advanced approach 
+revolving retail 
+Cash Advance Facility 
+Self-liquidating Nature 
+G10 Countries 
+Undisclosed Reserves 
+Early amortisation 
+Liquidation of Collateral 
+Percentile 
+Recognised Clearing Organization 
+matched position 
+Cross-holdings of Capital 
+Residential Mortgages 
+Current Market Value 
+Private Equity Investment 
+deduction treatment 
+Short-term 
+Fixed Percentage 
+Risk-weight Function 
+The Application of Basel II to Trading Activities and the Treatment of Double Default Effects 
+weighted long 
+Minimum Holding Period 
+Strict statutory lending requirements 
+Continued Capital Contribution 
+Acquisition, development and construction 
+Interest-only strip 
+The Constituents of Capital 
+Collective Investments in Transferable Securities 
+emerging markets 
+market turnover 
+Eligible Collateral 
+Master Netting Agreement 
+payout provision 
+Rollover Risk 
+Capital Accord 
+Trade Letter of Credit 
+accounting disclosure 
+matched principal broking 
+Double Default Treatment 
+valuation policies 
+Event of Default 
+Purchased Retail Receivables 
+Internal ratings-based 
+Minimum Regulatory Capital Levels 
+Other Equity Holding 
+Second Pillar 
+Revolving Purchase Facility 
+Corporate Trust 
+beta-equivalent 
+Off-take risk 
+Agency Services 
+correlation assumption 
+The standardised approach â”€ credit risk mitigation 
+host supervisor 
+Setoff of Collateral 
+restrictive covenants 
+collateral thresholds 
+External credit assessment 
+Convertible Debt Instrument 
+Unsecured Equivalent Amount 
+technology risk 
+Securitisation Framework 
+Individual Significant Investment 
+Eligible Regulatory Capital 
+Ownership Interest 
+Trading Activities 
+Hybrid Debt Capital Instruments 
+Goodwill 
+Supplementary Capital 
+cash collections 
+Current Value 
+Deposit-taking Institutions 
+internal audit 
+Account churning 
+Irregular Item 
+Own-estimate Haircut 
+impaired loans 
+Supervisory scaling parameter 
+Prompt Liquidation 
+yellow zone 
+Collateralised Portion 
+Wholesale Exposure 
+synthetic exposures 
+horizontal disallowance 
+second-to-default products 
+Retail Banking 
+Sufficiently Diversified 
+Venture Capital 
+general loan-loss reserves 
+general market risk 
+deep-discount bonds 
+adjustable-rate item 
+Allocation Mechanism 
+margin lending 
+Not Consolidated 
+Cross-Product Netting Arrangement 
+Business Lines 
+Tier I Capital Requirement 
+Margin Lending Transactions 
+Commodities finance 
+Zero-coupon bond 
+weighting scheme 
+Acceptance 
+cross-border communication 
+Early Amortization Trigger 
+Predominant Banking Group 
+net open position 
+Third Pillar 
+average gross exposure 
+execution risks 
+bankruptcy rates 
+Explicit Approval 
+foreign subsidiary 
+Prudential Floors 
+Tax-adjusted Separate Component of Equity 
+interest rate differential 
+Check kiting 
+Leverage Requirement 
+factor shocks 
+stochastic dependency 
+Scaling Factor 
+Deduction of Goodwill 
+OTC forward 
+money market rate 
+European-style options 
+Cumulative default rate 
+Risk mitigation 
+Supervisory Approval 
+guarantor 
+periodic basis 
+Educational Loan 
+Revolving Credit 
+Control Exists 
+Internationally Active Bank 
+residual term 
+legal reserves 
+Purchase Price Discount 
+One-Sided Credit Valuation Adjustment 
+Equity portfolio 
+red zone 
+Double-leveraging 
+Parallel Calculation 
+Regulated Pension Funds 
+Remargining 
+Current market value 
+backtesting 
+Credit Assessment 
+Net Credit Exposure 
+documentation risk 
+loss experience 
+national accounting standards and practices 
+identical instruments 
+Convertible bonds 
+Risk Aggregation 
+risk control unit 
+gross position figure 
+index arbitrage 
+repricing date 
+index designating transaction 
+Restrictions on Transferability 
+Internationally Agreed Minimum Standard 
+Short Term Maturity Adjustment 
+Gross charge-offs 
+Significant Minority Investment 
+Long-term 
+first-to-default products 
+Total Capital Requirement 
+investors’ certificates 
+horizontal offsetting 
+arbitrage profit 
+rho 
+after-tax surplus 
+Foundation IRB Treatment 
+Direct Credit Substitute 
+Deductions of Bank's holdings of Capital 
+senior management 
+Preferred Shares 
+retained profit 
+Minority Investment 
+Unhedged Facility 
+Risk-Neutral Distribution 
+Minimum Operational Requirement 
+supervisory haircuts 
+Daily Revaluation 
+Monitoring Level 
+maturity ladders 
+Effective Expected Exposure 
+Deduction of investments pursuant to this part 
+reporting date 
+spread accounts 
+weighted short 
+Failed Trades 
+industry data 
+Legal Transferability 
+Forward gap risk 
+Eligible Financial Collateral 
+commodity position 
+Investment in Subsidiaries 
+The First Pillar – Minimum Capital Requirements 
+Adjusted Exposure Amount 
+three-zone approach 
+gamma risk 
+latent revaluation 
+Supply risk 
+credit risk-weighted assets 
+External Loss 
+CRM Technique 
+Preference Shares 
+internal validation processes 
+Material Positive Correlation 
+Protection buyer 
+general reserves 
+subordinated notes 
+risk analysis 
+notional underlying portfolio 
+Deductions From Capital 
+Securities Financing Transactions 
+charged-off loans 
+Directional risk 
+capital assessment 
+Entrepreneurial Risk 
+Interchange income 
+Actual Distribution 
+Trading Book Regime 
+bond future 
+position data 
+Mapping Process 
+equity instrument 
+accrued interest 
+letters of credit 
+Credit Risk Control 
+Individual Person 
+Counterparty-by-counterparty Basis 
+reference obligation 
+non-consolidated basis 
+government bond yield 
+Parent Bank's Capital 
+Partial Collateralisation 
+Internal Credit Risk Model 
+delivery-versus-payment system 
+domestic currency 
+early termination 
+price transparency 
+scenario analysis 
+Innovative Tier 1 Instrument 
+Credit Risk – The Standardised Approach 
+control factors 
+Asset Management 
+Tier I Eligibility 
+initial monitoring 
+Tax Implication 
+Capital-market-driven Transaction 
+Originating Bank 
+Residential Mortgage Loans 
+Transitional arrangements 
+client servicing 
+floating-rate debt securities 
+Aggressive sales 
+credit cycle 
+close-out costs 
+International Solvency Standards 
+First Pillar 
+credit environment 
+design risk 
+valuation process 
+non-cyclical sector 
+Documentary Credit 
+Pro Rata 
+Double Counting 
+exchange prices 
+Non-eligible Instrument 
+Internal assessment approach 
+management reporting 
+Joint Venture 
+netting benefits 
+over-the-counter derivatives 
+operational experience 
+Protection seller 
+Control does not Exist 
+credit linked note 
+foreign jurisdiction 
+Firm-Level Policy 
+Future margin income 
+stock index 
+High-volatility commercial real estate 
+Asset-backed commercial paper 
+Trigger level 
+Minimum Levels of Capital 
+untested documentation 
+Supervisory formula 
+innovative instruments 
+Insurance Entity 
+Higher-risk Categories 
+Tier I 
+Cross-acceleration 
+Wrong-way risk 
+General Wrong-Way Risk 
+Implicit Support 
+Revaluation Reserves 
+Volatility-adjusted Collateral Amount 
+Longest-dated Potential Receivable 
+tail loss events 
+Tier 2 capital 
+Bank-by-bank Floors 
+CCR control unit 
+initial issuance 
+screen prices 
+punitive damages 
+internal capital allocation 
+Cumulative Fixed Charge 
+Securitisation Exposure 
+live testing 
+contractual recourse obligations 
+two-way market 
+Historical Observation Period 
+non-main index equities 
+Low Quality Assessment 
+Subordinated Term Debt 
+Unrated securities 
+theta 
+aggregate transaction 
+share premiums 
+underlying exposure 
+management oversight 
+Fiduciary breaches 
+close out price 
+unemployment rates 
+index contract 
+linear risk profile 
+standardised methodology 
+Lender liability 
+credit derivative hedge 
+Internal Process 
+undiversified portfolio 
+Banking Subsidiary 
+Legal Risk 
+originator 
+Small- and medium-sized entity 
+Simplified approach 
+Cross-default 
+ECA risk scores 
+Claims on Sovereign 
+liquidity provider 
+Installment Loan 
+Impact Study 
+gold options 
+accounting offset 
+risk reporting 
+depository receipt 
+Effective maturity 
+Auto Loan 
+Failed Transaction 
+risk mitigants 
+Object Finance Exposures 
+market making 
+Past Due Loan 
+Unsettled Securities 
+Competitive Equality 
+adverse environment 
+PIT ProbabilityofDeafult 
+TTC ProbabilityofDeafult 
+Employee Benefit Plans 
+Employment-Related Agreements 
+Credit Loss Allowance 
+Accumulated Other Comprehensive Income Balances 
+Accounting Adjustment 
+Contract Asset 
+Revenue 
+Credit Loss 
+Patent Usage 
+Usage-based Royalty 
+Patent 
+Agreed-upon Period 
+Customers Ability to Pay 
+Credit Quality Indicator 
+Credit-Rating_Agency Ratings 
+Valuation Allowance 
+Hedged Item 
+Hedge 
+Net Investment in Foreign Entity 
+Uncertain Cash Flows 
+Net Amount Expected to be Collected 
+Net Carrying Amount 
+Allowance for Credit Losses 
+Amortized Cost Basis 
+Discount 
+Cash Collection Amount 
+Acquisition Amount 
+Fair Value Hedge Accounting Adjustment 
+Net Deferred Fee 
+Foreign Exchange Adjustment 
+Net Deferred Cost 
+Origination Amount 
+Premium 
+Write-Offs 
+Financial Liability 
+Contractual Interest Rate 
+Holding Gain or Loss 
+Share-based Payment Awards 
+Rental Rates 
+Variable Interest Rate 
+Election Dates 
+Government-Guaranteed Collateral 
+Periodic Accretion 
+Common Risk Characteristics 
+Incremental Guidance 
+Undiscounted Cash Flows 
+Internal Metrics 
+Expected Credit-Loss-Rate Calculation 
+Revolving Priviledges 
+Contract with Customer 
+Negative Yield Adjustment 
+Market Interest Rate 
+Change in PV 
+Changes in Estimates 
+Cash Flow Timing 
+Cash Flow Amount 
+Passage of Time 
+Finance Charge Income 
+Market Participants 
+Indemnified Item 
+Indemnification Asset 
+Collective Assessment 
+Consumer Credit Risk Scores 
+Current Period 
+Financial Institution 
+Policy Loan Receivables 
+Embedded Derivative 
+Collection Risk 
+Trading Securities 
+Investments 
+Unrealized gains losses in Earnings 
+Fair Value in SoFP 
+Management Practices 
+Public Business Entity 
+Investment Portfolio 
+Financing Transaction 
+Aging Schedule Methods 
+Collateral Value 
+Contractual Cash Flows 
+Expected Cash Flows 
+Inception Date 
+Lessor 
+Guarantee-Contingent Aspect 
+Line of Credit Arrangement 
+Actual Losses 
+Net Investment in Lease NIIL 
+Individual Assessment 
+Cumulative-Effect Adjustment 
+Credit Card Receivables 
+Discount Rate Adjustment Technique 
+Off-Balance-Sheet Financial Instrument 
+Extension of Financing Receivable 
+Unemployment Rates 
+Stated Terms 
+Reinsurance Contracts 
+Debt Securities 
+Recording Period 
+Nonaccretable Difference 
+Change in Accumulated Comprehensive Income 
+Income Recognition 
+Principal-Only Strip 
+Other Comprehensive Income 
+Modification Extension 
+Off-Balance-Sheet Loan Commitments 
+Dividends Received 
+Inventory 
+Transaction Gain-or-Loss 
+Unrealized Gain-or-Loss 
+CECL Reporting 
+Interest Income 
+Foreclosed Property 
+Accretion 
+Repayment 
+Delinquincy Status 
+Past-Due Status 
+Adjustment to Allowance 
+Principal Payments 
+Redeemable Preferred Stock 
+Equity Method Investments 
+Equity Method Amount 
+Asset for Product to be Returned 
+Insurance Separate Contracts 
+Employee Benefits 
+Disclosure Requirement 
+Unusual Occuring Items 
+Significant Financing Component 
+Unamortized Net Fees 
+Profit-And-Loss Charge 
+Financial Services 
+Collective Evaluation 
+Insurance Financial Services 
+Discount Amortization 
+Purchased Credit-Default Swap 
+Uncollectible Amounts 
+Receivable 
+Intra Entity 
+Collateralized Mortgage Obligation 
+Securitized Debt Instrument 
+Financial Institutions 
+Economic Environment 
+Off-Balance-Sheet Risk 
+Management Method 
+Foreign-Currency-Denominated Debt Security 
+Credit Score 
+Asset Quality 
+Probability-Of-Default Method 
+Overdue Principal 
+Credit Loss Measurement 
+DCF Model 
+Present Value Calculation 
+Early Application 
+Estimated Cost-to-Sell 
+Employment Related Costs 
+Recorded Losses 
+Hybrid Beneficial Interst 
+Trading Debt Security 
+Prepayment 
+Noncredit Discount 
+Sufficiently Collaterized Securities 
+Valuation Account 
+Individual Evaluation 
+Deferred Tax Account 
+Value of Collateral 
+Debt Instrument 
+Orderly Transaction 
+Trade Accounts 
+Lender Bill 
+Consumer Loan Borrowers 
+Cost of Sales 
+Held For Sale 
+Real Estate Property 
+GAAP 
+Unearned Premium Revenue 
+Related Party Borrowers 
+Income Recognized 
+Reinsurance Receivable 
+Off Balance Sheet Exposure 
+Financial Guarantee 
+Standby Letter of Credit 
+Credit Exposure 
+Transfer Completion 
+Loan Receivable 
+Sales-Type Lease 
+Foreign Currency Transcations 
+Provision for IncomeTax 
+Option 
+Estimation Techniques 
+Net Assets 
+Year of Origination 
+Remeasurement Event 
+Vacancy Rates 
+Speculation 
+Initial Allowance for Credit Losses 
+International Distribution 
+Year Of Origination 
+Premium Amortization 
+Investment Income 
+Portfolio 
+Operating Income 
+Deferred Compensation Contracts 
+Creditor 
+Agreed-Upon Date 
+Hedged Risk 
+Fair Value of Collateral 
+Troubled Debt Restructuring 
+Restructuring Agreement 
+Par Value Structured Note 
+Measurement Date 
+Held-for-sale Criteria 
+Speculative Basis 
+Federal Home Loan Mortgage Corporation 
+Current-Period Originations 
+Leverage 
+Financial Guarantee Insurance Contracts 
+Cash Basis Method 
+Held To Maturity 
+Net Deferred Fees 
+Cash Flows Expected at Acquisition 
+Receipt of Cash Flows 
+Credit Losses on Beneficial Interests 
+Maturity Grouping 
+Amortization of Premium 
+Net Deferred Costs 
+Current Direction 
+Direct Financing Lease 
+Commercial Property 
+Insurance Receivables 
+Date Of Transfer 
+Risk 
+Credit Card Loans 
+Original Cost 
+Credit Review System 
+Commercial Paper 
+Municipal Security 
+Firm Commitment 
+Short-Term Financing 
+Purchased Option 
+Host Contract 
+Interim Financial Data 
+Current Period Provision 
+AFS Debt Securities 
+Unrealized gains losses in Comprehensive Income 
+Allowance for Expected Credit Loss 
+Option Premium 
+Default 
+Guarantee-Non-Contingent Aspect 
+Likelihood Of Loss 
+Financing Receivables 
+Collectibility Of Receivables 
+Market Price 
+Lending Financial Services 
+Derivative Instrument 
+Standby Commitment 
+Mortgage-backed Security 
+Lower-of-cost-or-market 
+Comprehensive Income 
+Historical Credit Loss Information 
+Nonrefundable Fees 
+Acquisition 
+Practical Expedient 
+Outstanding Balance 
+Face Value of Financial Asset 
+Interest Rate Changes 
+Zero Percent Effective Yield 
+Total Combined Investment 
+Expected Credit Loss Estimation 
+Subjective Judgments 
+Risk Characterisctics Assessment 
+Prepayment Effect 
+Loss Statistics for Recoveries Adjustment 
+Historical Loss Information Adjustment 
+Volume of Financial Asset 
+Volume of Adversely Classified Financial Asset 
+Remaining Time to Maturity 
+Current Conditions 
+Borrower's Creditworthiness 
+Borrower's Ability to Make Scheduled Payments 
+Borrower's Business Prospect 
+Borrower's Asset Quality 
+Borrower's Credit Score 
+Borrower's Credit Rating 
+Borrower's Financial Condition 
+Entity's Lending Policies 
+Timing of Prepayments 
+Historical Loss Information 
+Severity of Past-Due Financial Asset 
+Environmental Factors 
+Historical Loss Periods 
+Management Competence 
+Extent of Prepayments 
+Nature of Financial Asset 
+Entity's Credit Review System 
+Severity of Adversely Classified Financial Asset 
+Remaining Payment Terms 
+FV of the Collateral 
+Changes in Value 
+Supporting Forecasts 
+Volume of Past-Due Financial Asset 
+Historical Loss Period Determination 
+Measurement Approach 
+Definition of Default 
+Selling Price 
+Historical Cost Basis 
+Security Type 
+Standby Letter Of Credit 
+Gross Unrecognized Holding Gains 
+Reverse Repurchase Agreement 
+Line-Of-Credit Arrangement 
+Non Accrual 
+Immediate Asset Disposition 
+Lease Modifications 
+Deteriorated Credit Quality 
+Interest Cash Flows 
+Subordinated Interests 
+Repayment from Other Loans 
+Regular Debt Restructuring 
+Contingent Items 
+Forecasted Direction 
+Hedging Instrument 
+Noncash Income 
+Past Due 
+Implicit Interest Rate 
+Hsitorical Lifetime Credit Loss Rate 
+Aging Analysis 
+Derivative Asset 
+Derivative 
+Swap Contract 
+Forward Contract 
+Financial Future Contract 
+Option Contract 
+Fair Value Option 
+Off-Balance-Sheet Exposures 
+Reacquired Rights 
+Off-Balance-Sheet Credit Exposure 
+Cash Collections 
+Restructured Loan 
+Guaranteed Lease Residuals 
+Discounting Factor 
+Liquidity Needs 
+Negative Effective Yield 
+Satisfaction of a Receivable 
+Unrealized Loss 
+Leases 
+Assessment of Expected Credit Losses 
+Domestic Distribution 
+External Information 
+Creditor Relationship 
+Future Premiums Receivable 
+Equity Interest 
+Transfer Date 
+Investor 
+Amortized Cost 
+Present Value Technique 
+Credit Worthiness 
+Unrealized Holding Gains 
+Affiliated Entity 
+Current Assets 
+Inverse Floater 
+Credit Card 
+Life Of Loan 
+Equity Method 
+Equity Method Income 
+Adjusted Basis 
+Cost Basis 
+Unrealized Holding Gains Losses 
+Credit Recoveries 
+Trading Accounts 
+Macroeconomic Conditions 
+US Treasury Bill Weekly Average 
+Depository Financial Services 
+Unamortized Net Costs 
+Mortgage Loans 
+Monte Carlo Simulation 
+Fx Spot And Forward Transactions 
+Vanilla American And European Currency Options 
+Vanilla European Interest Rate Options 
+Credit Default Swaps 
+Vanilla Equity Options 
+Vanilla European Swaptions 
+Interest Rate Swaps 
+Overnight Index Swaps 
+Single-Barrier Currency Options 
+Arrears Caps-Floors 
+Forward Rate Agreements 
+In Arrears Swaptions 
+Notional Resetting Swaps 
+Currency Swaps 
+Digital Caps And Floors 
+Arrears Digital Caps-Floors 
+Double-Barrier Currency Options 
+Recorded Investment 
+NonRecognized Subsequent Events 
+Shareholders Equity 
+Lower-of-AmortizedCost-or-FairValue 
+Beneficial Interest 
+Pension Plans 
+Credit Loss Expense 
+Commitment Fee 
+Impairment of Long-Lived Assets 
+Point in Cycle 
+Government-assited Acquisition 
+LIBOR Swap Rate 
+Credit-quality Information 
+Lending Strategies 
+Renewal of Financing Receivable 
+Lease Term 
+Foreclosed Real Estate 
+Insurance Entity Accounting 
+Subsequent Event 
+Preferred Stock 
+PV of Future Cash Flows 
+Purchase Price 
+Real Estate Values 
+Carrying Amount 
+Employees Stock Issue 
+Residential Property 
+Aggregate Financial Assets 
+Assets Held For Sale 
+Liability 
+Inherent Credit Risk 
+Transaction Gain 
+Gain on Sale of Security 
+Convertible Debt 
+Related Party 
+Lease Contract 
+Bookkeeping Method 
+Investee 
+The Investor 
+Accretable Yield 
+Favorable Adverse Change in Cash Flow 
+Foreclosure 
+Future Cash Flows 
+Government-assisted Acquisition 
+HTM Securities 
+Amortized Cost in SoFP 
+Debt-Equity Swap 
+Contingent Assets 
+Resale Market 
+Real Estate Mortgage Investment Conduit 
+Credit Card Securitization 
+Employee Contribution 
+Loss-Rate Method 
+Held-To-Maturity Security 
+Seed Money 
+Basis for Allocation 
+Purchased Financial Asset With Credit Deterioration 
+Beneficial Interests in Securitized Financial Assets 
+Purchased Beneficial Interest 
+Accounting 
+Sold Beneficial Interest 
+Accretable Yield Amortization as Income 
+Fair Value at the Date of Transfer 
+Plain-Vanilla Variable-Rate Beneficial Interest 
+Freestanding Contract 
+Unpaid Principal Balance 
+Intra-Entity Interest 
+Change in Accounting Principles 
+Ending Amortized Cost 
+Unrealized Gain 
+Disposal of Long-Lived Assets 
+Uncollateralized Financing Receivables 
+Forward Contract Price 
+Internal Credit Risk Grades 
+Collection Experience 
+Other Internal Metrics 
+Debt-to-Value Ratios 
+Credit Ratings 
+Credit Scores 
+Concurrent Documentation 
+Acquirer 
+Allowance Ending Balance 
+Government-Assisted Acquisition 
+Right of Return 
+Contingent Liabilities 
+Net Investment in Leases 
+Nontroubled Debtors 
+Federal National Mortgage Association 
+Interest-Only Strip 
+Operating Results 
+Acquisition-Date Fair Value 
+AFS Debt Securities-Hedged 
+Acquired Financial Assets 
+Pension 
+Guarantor 
+Sales Proceeds 
+Variable Lease Payments 
+Consumer Loan 
+Lease Receivable 
+Purchased Beneficial Interests 
+Initial Investment 
+Portfolio Diversification Objective 
+Real Estate Loan 
+Contractually Required Payments Receivable 
+Credit Deterioration 
+Credit Rating 
+Operating Loss 
+Cost Recovery Method 
+Credit Extension 
+Borrowers Default Event 
+Noncredit Premium 
+Likelyhood of Loss 
+Transition Requirements 
+Inception of Guarantee 
+Reporting Date 
+Indemnification Assets 
+Quantitative Method 
+Mortgage Banking Receivables 
+US Treasury Security 
+Financial Reporting Date 
+Interest Income Recognition 
+Business Combination 
+Internal Information 
+Activity Schedule of Allowance for Credit Losses 
+Activity Schedule 
+Ending Balance 
+Write-Off Recoveries 
+CECL Expense Reduction 
+Income Credit 
+Initial Allowance 
+Current-period Provision 
+Beginning Balance 
+Leveraged Lease 
+Not-for-profit Entity 
+Hedged Liability 
+Write-Downs 
+Fair Value Hedge 
+Residual Asset 
+Income Taxes 
+Deferred Fees 
+Interest Rate Reset Formulas 
+Financial Entity 
+Loan Restructuring 
+Commercial Loan Borrowers 
+Modification of Financing Receivable 
+Investment Companies 
+Lease Termination 
+Customer Usage Royalty 
+Cumulative Loss 
+Guarantee 
+Off-Balance Sheet Risk 
+Change in Financial Position 
+Portfolio Mix 
+Internal Reporting 
+Effective Yield 
+Interest-Only Loans 
+Translation Adjustment 
+Transfer of Securities 
+Prepayment Factor 
+Risk Characteristics 
+Financial Guarantees 
+Credit-Default Swap 
+Expected Credit Loss 
+Loss-rate method 
+CECL Model 
+Quantitative and qualitative information 
+Current conditions of the borrower 
+Past events 
+Internal external information 
+Assessment of cash flow realization 
+PD method 
+Impact of Subordinated Interests 
+Guarantors Financial Condition 
+Guarantors Willingness 
+Credit Enhancement Mitigation 
+Aging schedules 
+Remaining Lives of Funded Credit Card Loans 
+Roll-rate method 
+Discounted cash flow method 
+Government National Mortgage Association 
+US Government Agency Security 
+Acquisition Date 
+Marketable Debt 
+Basis Point 
+Derivative Liability 
+Underlying Asset 
+Scheduled Paymnets 
+LIBOR 
+Collateral Dependent Loans 
+Overdue Interest 
+Entity 
+Cancel Credit Lines 
+Expected Credit Losses at FV of the Collateral 
+Purchased Financial Assets with Credit Deterioration 
+Originated Assets 
+More-than-Insignificant Deterioration in Credit Quality 
+Insignificant Deterioration in Credit Quality 
+Portfolio Segment 
+Risk Ratings 
+Industry of Borrower 
+Type of Financial Receivable 
+Liability for Credit Losses 
+Delay until Actual Foreclosure 
+Different Future Economic Condition 
+Reconciliation Schedule 
+Par Value 
+Change in Estimation Methodologies 
+Quantitative Effect 
+Estimation Methodologies 
+Expected Change in FV Of Collateral 
+Change in Estimation Factors 
+Latest Significant Events 
+Underwriting Practices 
+Portfolio Composition 
+On Individual Basis 
+Purchases of Financial Assets 
+Extend Credit 
+FV of the Collateral for Allowance for Credit Losses 
+Funded Credit Card Loans 
+Unfunded Commitments 
+Credit Loss Expense in Net Income 
+CECL 
+CECL Liability 
+Financial Asset and Freestanding Contract 
+Loss Estimation Process 
+CECL based on Outstanding Balance 
+Contractual Obligation 
+Collateral Quality 
+Accounting Policies 
+Policy for Recognizing Write-offs 
+Policy for determining Delinquincy Status 
+Nonaccrual Policies 
+Loss Coverage 
+Nonaccrual Status 
+Sales of Financial Assets 
+Credit Loss Measurement of Asset 
+Credit Losses for Write-offs 
+Adjustments in Net Income 
+Off-Balance-Sheet Credit Exposures 
+Historical Information 
+Credit Quality Information 
+Credit Quality Monitoring Method 
+Information Updates 
+Credit Quality Indicators 
+Risk Characterisctics 
+Financial Assets 
+Change in Write-offs 
+Asset Class Type 
+The Difference between FV and ACB 
+Interest Income Recognized 
+Credit Loss Measurement of the Pool 
+Net Carrying Amount at FV of the Collateral 
+ACB Minus FV 
+Differences In Current Setting 
+Unfunded Credit Card Loans 
+CECL Based on FV of the Collateral 
+Collateral-Dependent Financial Asset 
+Financial Asset 
+Purchased Financial Assets 
+Available-For-Sale 
+Through Operation or Sale of the Collateral 
+Borrower Experiencing Financial Difficulty 
+Expected Credit Losses 
+Estimated Cost to Sell 
+Current Estimates with Previously Reported 
+Its Own Lending Strategies 
+Historical Credit Loss Experience 
+On Collective Basis 
+Change in Accounting Policies 
+Nature Of Collateral 
+Financial Asset at FV of the Collateral 
+The Difference between Estimates 
+Direction of the Business Enviroment 
+Its Own Underwriting Practices 
+Estimation Factors 
+Class of Financing Receivable 
+Credit Risk Monitoring and Assessment Method 
+Collateral Type 
+Categorization of Borrower 
+Geographical Distribution 
+CECL Gross of Discounts 
+Unrealized Holding Losses 
+Initial Transaction Date 
+Accrued Interest 
+Dividends Receivable 
+Concessions 
+Loan Refinancing 
+Variable-Rate 
+Original Contractual Rate 
+Loan Origination 
+Retained Earnings 
+Loan Origination Fee 
+Contingent Liability 
+Cash Selling Price 
+Gross Unrecognized Holding Losses 
+Debtor 
+Interim-Period Disclosures 
+Equity Method Loss 
+Estimated Future Principal 
+SEC Filer 
+Corporate Bond 
+Measurement Of Receivable 
+Finance Leases 
+Transaction Loss 
+Annual Reporting Period 
+Seasonal Revenue 
+Similar Risk Characteristics 
+Term 
+Expected Credit Loss Pattern 
+External Credit Score 
+Size 
+Vintage 
+Financial Asset Type 
+Historical Credit Loss Pattern 
+Internal Credit Score 
+Nominal Interest Rate 
+Trade Receivable 
+Postretirement Benefits 
+Collateral Maintenance Provisions 
+Net Income 
+Earnings 
+Industry of the Borrower 
+Loan-To-Collateral Value Ratios 
+Continuous Basis 
+AFS Forward Contract 
+Foreign Currency 
+Hedged Asset 
+New Marketable Debt 
+Trade Date Receivable 
+Financial Statement Period 
+Securitized Transactions 
+Transaction Date 
+Tax Consideration 
+Aggregate Fair Value 
+Modification of Receivables 
+Common Stock 
+Level-Yield Basis 
+Ceding Entity 
+Counterparty Risk Methodology 
+Collateral Settlement 
+Lag Adjustment 
+Netted Exposure 
+Close-out Netting 
+Break-Clauses 

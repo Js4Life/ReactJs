@@ -740,19 +740,7 @@ public class LightHouseService {
     }
 
     public void saveContextVsConceptMap() {
-        try{
-            JSONObject conceptVsContextObj = jenaTdbService.getFilteredDataByCompName("conceptVsContext", null);
-            JSONArray conceptVsContextArr = conceptVsContextObj.getJSONArray("data");
-            for (int i = 0; i < conceptVsContextArr.length(); i++) {
-                JSONObject conceptObj = conceptVsContextArr.getJSONObject(i);
-                String context_url = conceptObj.getString("contextUri");
-                String context_name = conceptObj.getString("contextName");
-                String concept_url = conceptObj.getString("conceptUri");
-                coralConfigurationService.saveContextConceptMap(context_url, context_name, concept_url);
-            }
-        } catch (Exception e){
-            e.printStackTrace();
-        }
+
     }
 
     public Set<Vertex> getParagraphsByProduct(String s) {
@@ -781,5 +769,13 @@ public class LightHouseService {
             allVtoFilter = getAllRelatedVerticesByVertexesRecursively(allVtoFilter, filterType);
         }
         return allVtoFilter;
+    }
+
+    public void updateParagraphsByIDs(Map<String, String> mapOfParagraphsAgainstParagraphID) {
+        try {
+            lightHouse.updateVertexBykeyValueFromMap(mapOfParagraphsAgainstParagraphID, "elementID", "bodyText");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
