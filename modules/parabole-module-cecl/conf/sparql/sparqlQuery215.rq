@@ -15,8 +15,8 @@ FILTER(!bound(?val) = false)
 OPTIONAL{?val owl:oneOf/rdf:rest*/rdf:first  ?seg.}
 ?seg rdfs:label ?Segment;^rdf:type ?Seg.
 FILTER(?prop = hp:hasSegment)
-FILTER((?Type =hp:CommercialBusinessPolicy)||(?Type = hp:IntegratedRiskManagementPolicy)||(?Type=hp:CreditCardLoanLGDModel)||(?Type=hp:CashFlowModel))
-FILTER(?Component IN(pb:CCLGDModel,pb:DCFModel,pb:AutoLoanCashflowModel,pb:CreditCardDivisionCashflowModel,pb:ABCIntegratedRiskManagementPolicy,pb:ABCCommercialBusinessPolicy))
-FILTER(?Seg IN( pb:CommercialIndustrial,pb:CreditCardDivision ,pb:ABCAssetManagementGroup ,pb:RetailBanking,pb:ABCAutoLoanBusiness,pb:CommercialRealEstate))
+#FILTER((?Type =hp:CommercialBusinessPolicy)||(?Type = hp:IntegratedRiskManagementPolicy)||(?Type=hp:CreditCardLoanLGDModel)||(?Type=hp:CashFlowModel))
+#FILTER(?Component IN(pb:CCLGDModel,pb:DCFModel,pb:AutoLoanCashflowModel,pb:CreditCardDivisionCashflowModel,pb:ABCIntegratedRiskManagementPolicy,pb:ABCCommercialBusinessPolicy))
+#FILTER(?Seg IN( pb:CommercialIndustrial,pb:CreditCardDivision ,pb:ABCAssetManagementGroup ,pb:RetailBanking,pb:ABCAutoLoanBusiness,pb:CommercialRealEstate))
 bind(rand() AS ?id).
 }

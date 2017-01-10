@@ -31,12 +31,12 @@ SELECT  DISTINCT ?name ?itemname ?item
 WHERE{
 ?class rdfs:subClassOf/rdfs:subClassOf ?Type .
 ?class rdfs:label ?name.
-FILTER((?Type = hp:Glossary)&&(?class = hp:FinanceConcepts))
+FILTER((?Type = hp:Glossary)&&
+(?class IN(hp:FinanceConcepts,hp:Basel-III-Concepts,hp:Basel-IV-Concepts)))
 ?item rdf:type ?class.
 ?item rdfs:label ?itemname.
 #FILTER(?name =$$FILTERS$$)
 }
-
 
 
  

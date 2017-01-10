@@ -15,6 +15,6 @@ WHERE{
 FILTER(?c IN(hp:Policy,hp:Report,hp:Model)).
 bind(rand() AS ?id)
 
-FILTER((?Type =hp:CommercialBusinessPolicy)||(?Type = hp:IntegratedRiskManagementPolicy)||(?Type=hp:CreditCardLoanLGDModel)||(?Type=hp:CashFlowModel))
-FILTER(?comp IN(pb:CCLGDModel,pb:DCFModel,pb:AutoLoanCashflowModel,pb:CreditCardDivisionCashflowModel,pb:ABCIntegratedRiskManagementPolicy,pb:ABCCommercialBusinessPolicy))
+#FILTER((?Type =hp:CommercialBusinessPolicy)||(?Type = hp:IntegratedRiskManagementPolicy)||(?Type=hp:CreditCardLoanLGDModel)||(?Type=hp:CashFlowModel))
+#FILTER(?comp IN(pb:CCLGDModel,pb:DCFModel,pb:AutoLoanCashflowModel,pb:CreditCardDivisionCashflowModel,pb:ABCIntegratedRiskManagementPolicy,pb:ABCCommercialBusinessPolicy))
 }

@@ -22,5 +22,5 @@ BIND(IF(!bound(?Type3)=true,?Type2,?Type3) AS ?Type)
 FILTER(?Super IN(hp:Policy,hp:Report,hp:Model))
 BIND(IF(?Super = hp:Report,xsd:string("Report Type"),IF(?Super = hp:Model,xsd:string("Model Type"),xsd:string("Policy Type"))) AS ?Area)
 bind(rand() AS ?id)
-FILTER((?Type =hp:CommercialBusinessPolicy)||(?Type = hp:IntegratedRiskManagementPolicy)||(?Type=hp:CreditCardLoanLGDModel)||(?Type=hp:CashFlowModel))
+#FILTER((?Type =hp:CommercialBusinessPolicy)||(?Type = hp:IntegratedRiskManagementPolicy)||(?Type=hp:CreditCardLoanLGDModel)||(?Type=hp:CashFlowModel))
 }
