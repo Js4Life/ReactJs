@@ -311,7 +311,6 @@ public class LightHouse extends GraphDb {
                 for (Vertex vertex : v) {
                     vertex.setProperty(key2update, mapOfParagraph.get(s));
                 }
-
             }
         graph.commit();
 

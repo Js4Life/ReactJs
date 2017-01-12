@@ -11,8 +11,7 @@ PREFIX bas: <http://mindparabole.com/finance/basel_glossary#>
 PREFIX context: <http://mindparabole.com/finance/Context#>
 
 
-
-SELECT distinct *
+SELECT *
 WHERE{
 
 {SELECT  ?con ?prop ?restr ?cl
@@ -34,8 +33,7 @@ BIND(IF(!bound(?val2) = true,?val ,?val2)  AS ?restr)
  where {
 ?class  (owl:intersectionOf|owl:unionOf)/rdf:rest*/rdf:first  ?i .
 ?cl owl:equivalentClass ?class.
-FILTER(EXISTS{?cl rdfs:subClassOf ?cl2.
-?cl2 rdfs:subClassOf pb:Context . })
+FILTER(EXISTS{?cl rdfs:subClassOf pb:Context .})
 OPTIONAL{?i owl:allValuesFrom ?val; owl:onProperty ?prop.}
 FILTER(!bound(?val) = false)
 ?class ?prop2 ?test.
@@ -58,7 +56,5 @@ FILTER((?opr = "Intersection" && ?pass = ?numRestr)||
 ?cl rdfs:label ?context.
 BIND(CONCAT(xsd:string(afn:namespace(?cl)),xsd:string(afn:localname(?cl))) AS ?uri2)
 BIND(?restr AS ?con2)
-#FILTER(?uri2 = "http://mindparabole.com/finance/Context#CECLEstimation")
+FILTER(?uri2 = "http://mindparabole.com/finance/Context#CECLEstimation")
 }
-
-

@@ -739,6 +739,18 @@ public class LightHouseService {
         return status;
     }
 
+    public List<Map<String, Object>> getAllFileExcept(String exceptionFileName) {
+        String queryForDeletion = "select * from V where type like \"%FILE\" and (type <> \"+exceptionFile+\")";
+        Boolean status = true;
+        List<Map<String, Object>> data = new ArrayList<>();
+        try {
+            data = lightHouse.executeQuery(queryForDeletion);
+        } catch (AppException e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
+
     public void saveContextVsConceptMap() {
 
     }

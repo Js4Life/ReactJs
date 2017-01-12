@@ -1,7 +1,7 @@
 package com.parabole.feed.platform.lineage.paraboleHyperGraph;
 
 import com.parabole.feed.platform.lineage.GlossarytoDBMapper.glossarytodb_map;
-import com.parabole.feed.platform.lineage.bankInfoReader.BankInfoReader.bankglossary_element_map;
+import com.parabole.feed.platform.lineage.bankInfoReader.BankGlossaryElementMap;
 import com.parabole.feed.platform.lineage.businessRuleReader.RuleDef;
 import com.parabole.feed.platform.lineage.paraboleGraph.DGraph;
 
@@ -88,7 +88,7 @@ public class HyperGraph {
 			EquiRelation_list[relation_id].add(pRelationElement);
 		}
 		
-		public void AddGlossarySetInHG(List<bankglossary_element_map> glossary_list){
+		public void AddGlossarySetInHG(List<BankGlossaryElementMap> glossary_list){
 			//Scan through the glossary_list and add layers as needed
 			//Read the glossary list within the loop
 			for(int i = 0; i < glossary_list.size() ; i++){

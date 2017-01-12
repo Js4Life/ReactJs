@@ -141,6 +141,13 @@ GET /saveAVertex                                        com.parabole.feed.applic
 GET /establishEdgeByVertexIDs                           com.parabole.feed.application.controllers.ParagraphOperationsController.establishEdgeByVertexIDs()
 
 
+#-----------------------------------------
+# new operation
+#-----------------------------------------
+GET /getAllFileExcept                                 com.parabole.feed.application.controllers.FeedController.getAllFileExcept()
+
+
+
 # Map static resources from the /public folder to the /assets URL path
 GET      /feedassets/*file                              controllers.Assets.at(path="/public/lib/parabole-module-feed", file)
 
