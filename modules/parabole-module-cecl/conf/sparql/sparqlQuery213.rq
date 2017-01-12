@@ -5,12 +5,16 @@ PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX hp: <http://mindparabole.com/finance/parabole#>
 
-SELECT ?Type ?component ?comp ?id
+SELECT DISTINCT ?Type ?component ?comp ?id
 WHERE{
 ?comp rdf:type ?Type.
-?Type rdfs:subClassOf ?c.
+?Type rdfs:subClassOf+ ?c.
 ?comp rdfs:label ?component.
-FILTER(?c IN(pb:Policy,pb:Report,pb:Model)).
+FILTER(?c IN(hp:Policy,hp:Report,hp:Model)).
 bind(rand() AS ?id)
-FILTER(?Type = pb:LGDModel)}
+
+#FILTER((?Type =hp:CommercialBusinessPolicy)||(?Type = hp:IntegratedRiskManagementPolicy)||(?Type=hp:CreditCardLoanLGDModel)||(?Type=hp:CashFlowModel))
+#FILTER(?comp IN(pb:CCLGDModel,pb:DCFModel,pb:AutoLoanCashflowModel,pb:CreditCardDivisionCashflowModel,pb:ABCIntegratedRiskManagementPolicy,pb:ABCCommercialBusinessPolicy))
+}

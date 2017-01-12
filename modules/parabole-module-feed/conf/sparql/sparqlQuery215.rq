@@ -5,13 +5,18 @@ PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX hp: <http://mindparabole.com/finance/parabole#>
 
 SELECT ?Segment ?Seg ?Component ?id
 WHERE {
-?Seg rdf:type pb:BankASegments .
-    ?Component pb:hasSegment ?Seg.
-?Seg rdfs:label ?Segment.
-?Component rdf:type ?Type.
-FILTER((?Type !=pb:BaselModel) &&(?Type != pb:BaselPolicy))
+?Type rdfs:subClassOf ?class;rdfs:label ?Typename;^rdf:type ?Component.
+?class owl:allValuesFrom|owl:someValuesFrom ?val; owl:onProperty ?prop.
+FILTER(!bound(?val) = false)
+OPTIONAL{?val owl:oneOf/rdf:rest*/rdf:first  ?seg.}
+?seg rdfs:label ?Segment;^rdf:type ?Seg.
+FILTER(?prop = hp:hasSegment)
+#FILTER((?Type =hp:CommercialBusinessPolicy)||(?Type = hp:IntegratedRiskManagementPolicy)||(?Type=hp:CreditCardLoanLGDModel)||(?Type=hp:CashFlowModel))
+#FILTER(?Component IN(pb:CCLGDModel,pb:DCFModel,pb:AutoLoanCashflowModel,pb:CreditCardDivisionCashflowModel,pb:ABCIntegratedRiskManagementPolicy,pb:ABCCommercialBusinessPolicy))
+#FILTER(?Seg IN( pb:CommercialIndustrial,pb:CreditCardDivision ,pb:ABCAssetManagementGroup ,pb:RetailBanking,pb:ABCAutoLoanBusiness,pb:CommercialRealEstate))
 bind(rand() AS ?id).
 }

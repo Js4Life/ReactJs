@@ -165,7 +165,7 @@ public class LightHouse extends GraphDb {
     }
 
     public Boolean establishEdgeByVertexIDs(String vertexIDOne, String vertexIDTwo, String edgeName, String edgeType) {
-
+        System.out.println("rajib ----establishEdgeByVertexIDs-----> " + vertexIDOne);
         Graph g = getGraphConnectionNoTx();
         Iterable<Vertex> vs = g.getVertices("elementID", vertexIDOne);
         Vertex one = null;
@@ -174,6 +174,7 @@ public class LightHouse extends GraphDb {
         try {
             for (Vertex v : g.getVertices("elementID", vertexIDOne)) {
                 one = v;
+                System.out.println("rajib ----getVertices-----> " + v);
             }
 
             for (Vertex v : g.getVertices("elementID", vertexIDTwo)) {
@@ -186,6 +187,14 @@ public class LightHouse extends GraphDb {
                 Iterable<Edge> result = g.getEdges("elementID", vertexIDOne + "_" + vertexIDTwo);
                 int size = Iterables.size(result);
                 if (size < 1) {
+                    System.out.println("rajib ----g-----> " + g);
+                    System.out.println("rajib ----one----> " + one);
+                    System.out.println("rajib ----two-----> " + two);
+                    System.out.println("rajib ----edgeName-----> " + edgeName);
+                    System.out.println("rajib ----edgeProperty-----> " + edgeProperty);
+
+
+
                     res = saveGraphInstanceUsingTinkerpop(g, one, two, edgeName, edgeProperty);
                 } else {
                     for (Edge e : result) {

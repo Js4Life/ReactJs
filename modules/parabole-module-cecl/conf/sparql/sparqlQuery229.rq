@@ -1,0 +1,43 @@
+PREFIX pb:<http://www.mindparabole.com/ontology/finance/Parabole-Model#>
+PREFIX pnc:<http://mindparabole.com/finance/pnc_cecl#>
+PREFIX cst:<http://mindparabole.com/finance/cecl_structure#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX con:<http://mindparabole.com/finance/fasb_concepts#>
+PREFIX afn: <http://jena.apache.org/ARQ/function#>
+PREFIX bas: <http://mindparabole.com/finance/basel_glossary#>
+
+SELECT DISTINCT * 
+WHERE 
+{
+?con (pb:hasModel/pb:hasInput/ ^pb:ConcepthasDataElement)|
+
+(pb:hasModel/pb:hasOutput/ ^pb:ConcepthasDataElement)|
+(bas:usedinCalculation)|
+
+(bas:usedinCalculation/bas:methodToCalculate)|
+
+(bas:usedinCalculation/bas:methodToCalculate/bas:isAPartOf)|
+
+(bas:isAPartOf/bas:usedinCalculation/bas:methodToCalculate/bas:isAPartOf )|
+
+(bas:isAPartOf/bas:usedinCalculation/bas:methodToCalculate)|
+
+(bas:isAPartOf/bas:usedinCalculation) 
+|
+(bas:isAPartOf) ?con2 ;rdfs:label ?ConceptName.
+
+#?concept pb:hasModel/pb:hasOutput/ ^pb:ConcepthasDataElement ?con2.
+
+BIND(CONCAT(xsd:string(afn:namespace(?con)),xsd:string(afn:localname(?con))) AS ?uri)
+
+#FILTER(?ConceptName = "Credit Loss")
+
+#FILTER(?uri="http://mindparabole.com/finance/basel_glossary#MarginedNettingSet")
+
+FILTER(?uri=$$FILTERS$$)
+
+}
+

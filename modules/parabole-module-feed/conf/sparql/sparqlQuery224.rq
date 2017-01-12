@@ -5,11 +5,15 @@ PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX hp: <http://mindparabole.com/finance/parabole#>
 
 
-SELECT ?Pro ?Product ?Segment ?Seg
-WHERE{
-?comp pb:hasSegment ?Seg ;rdfs:label ?Component.
-?Seg pb:hasProduct ?Pro;rdfs:label ?Segment.
-?Pro rdfs:label ?Product.
+select  DISTINCT  ?Pro ?Product ?Segment ?Seg
+where {
+?seg rdfs:subClassOf ?class;^rdf:type ?Seg.
+?Seg rdfs:label ?Segment.
+?class owl:allValuesFrom|owl:someValuesFrom ?val; owl:onProperty hp:segmentHasProduct .
+?val owl:oneOf/rdf:rest*/rdf:first  ?pro.
+?Pro rdf:type ?pro;rdfs:label ?Product.
+
 }
