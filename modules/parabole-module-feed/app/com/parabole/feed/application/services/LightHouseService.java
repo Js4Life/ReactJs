@@ -726,6 +726,7 @@ public class LightHouseService {
     public Boolean deleteAFIleAndItsAssociations(String fileName) {
         String queryForDeletion = "delete vertex from V where elementID = '" + fileName + "' or fromFileName = '" + fileName + "'";
         Boolean status = true;
+
         try {
             //lightHouse.deleteAFIleAndItsAssociations(fileName);
             int res = lightHouse.executeDelete(queryForDeletion);
@@ -738,20 +739,20 @@ public class LightHouseService {
         return status;
     }
 
-    public void saveContextVsConceptMap() {
-        try{
-            JSONObject conceptVsContextObj = jenaTdbService.getFilteredDataByCompName("conceptVsContext", null);
-            JSONArray conceptVsContextArr = conceptVsContextObj.getJSONArray("data");
-            for (int i = 0; i < conceptVsContextArr.length(); i++) {
-                JSONObject conceptObj = conceptVsContextArr.getJSONObject(i);
-                String context_url = conceptObj.getString("contextUri");
-                String context_name = conceptObj.getString("contextName");
-                String concept_url = conceptObj.getString("conceptUri");
-                coralConfigurationService.saveContextConceptMap(context_url, context_name, concept_url);
-            }
-        } catch (Exception e){
+    public List<Map<String, Object>> getAllFileExcept(String exceptionFileName) {
+        String queryForDeletion = "select * from V where type like \"%FILE\" and (type <> \"+exceptionFile+\")";
+        Boolean status = true;
+        List<Map<String, Object>> data = new ArrayList<>();
+        try {
+            data = lightHouse.executeQuery(queryForDeletion);
+        } catch (AppException e) {
             e.printStackTrace();
         }
+        return data;
+    }
+
+    public void saveContextVsConceptMap() {
+
     }
 
     public Set<Vertex> getParagraphsByProduct(String s) {
@@ -780,5 +781,13 @@ public class LightHouseService {
             allVtoFilter = getAllRelatedVerticesByVertexesRecursively(allVtoFilter, filterType);
         }
         return allVtoFilter;
+    }
+
+    public void updateParagraphsByIDs(Map<String, String> mapOfParagraphsAgainstParagraphID) {
+        try {
+            lightHouse.updateVertexBykeyValueFromMap(mapOfParagraphsAgainstParagraphID, "elementID", "bodyText");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

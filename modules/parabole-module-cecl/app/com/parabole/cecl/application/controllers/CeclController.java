@@ -203,7 +203,7 @@ public class CeclController extends Controller{
         return ok(finalJson.toString());
     }
 
-    /*@BodyParser.Of(BodyParser.Json.class)
+    @BodyParser.Of(BodyParser.Json.class)
     public Result getChecklistByParagraphId() {
         final String json = request().body().asJson().toString();
         final JSONObject request = new JSONObject(json);
@@ -272,7 +272,7 @@ public class CeclController extends Controller{
 
         finalJson.put("data", data);
         return ok(finalJson.toString());
-    }*/
+    }
 
     @BodyParser.Of(BodyParser.Json.class)
     public Result addAnswer() {

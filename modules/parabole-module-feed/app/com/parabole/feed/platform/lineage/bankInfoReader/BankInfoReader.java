@@ -18,8 +18,8 @@ public class BankInfoReader {
 	
 	public BankInfoReader() {}
 
-    public List<bankglossary_element_map> getGlossaryListFromExcel(String FILE_PATH) {
-        List<bankglossary_element_map> bank_element_list = new ArrayList<bankglossary_element_map>();
+    public List<BankGlossaryElementMap> getGlossaryListFromExcel(String FILE_PATH) {
+        List<BankGlossaryElementMap> bank_element_list = new ArrayList<BankGlossaryElementMap>();
         FileInputStream fis = null;
         try {
             fis = new FileInputStream(FILE_PATH);
@@ -40,7 +40,7 @@ public class BankInfoReader {
                 while (rowIterator.hasNext()) {
                 	//System.out.println("iteration");
                 	
-                	bankglossary_element_map pGlossary_elem = new bankglossary_element_map();
+                	BankGlossaryElementMap pGlossary_elem = new BankGlossaryElementMap();
                     Row row = (Row) rowIterator.next();
 					
 					//System.out.println("Row " + row);
@@ -83,9 +83,9 @@ public class BankInfoReader {
         return bank_element_list;
     }
 	
-    public void PrintGlossary (List<bankglossary_element_map> glossary_list){
+    public void PrintGlossary (List<BankGlossaryElementMap> glossary_list){
     
-    	bankglossary_element_map pGlossary_elem;
+    	BankGlossaryElementMap pGlossary_elem;
     	
     	for(int i = 0; i < glossary_list.size() ; i++){
     		//System.out.println("printing Row = "+ i);
@@ -100,61 +100,5 @@ public class BankInfoReader {
     }
 	
 	//Bank Glossary Element & its map to Concept
-	public class bankglossary_element_map {
-		public int getGlossary_Set() {
-			return Glossary_Set;
-		}
 
-		public void setGlossary_Set(int glossary_Set) {
-			Glossary_Set = glossary_Set;
-		}
-
-		public int getGlossary_ID() {
-			return Glossary_ID;
-		}
-
-		public void setGlossary_ID(int glossary_ID) {
-			Glossary_ID = glossary_ID;
-		}
-
-		public String getGlossary_Name() {
-			return Glossary_Name;
-		}
-
-		public void setGlossary_Name(String glossary_Name) {
-			Glossary_Name = glossary_Name;
-		}
-
-		public String getGlossary_Des() {
-			return Glossary_Description;
-		}
-
-		public void setGlossary_Des(String glossary_Description) {
-			Glossary_Description = glossary_Description;
-		}
-
-		public int getConcept_ID() {
-			return concept_ID;
-		}
-
-		public void setConcept_ID(int concept_ID) {
-			this.concept_ID = concept_ID;
-		}
-
-		private int			Glossary_Set;
-		private int			Glossary_ID;
-		private String		Glossary_Name;
-		private	String		Glossary_Description;
-		private	int			concept_ID;
-		
-		public 	bankglossary_element_map(){}
-		
-		public 	bankglossary_element_map (int Glossary_Set, int Glossary_ID, String Glossary_Name, String Glossary_Description, int concept_ID){
-			this.Glossary_Set = Glossary_Set;
-			this.Glossary_ID = Glossary_ID;
-			this.Glossary_Name = Glossary_Name;
-			this.Glossary_Description = Glossary_Description;
-			this.concept_ID = concept_ID;
-		}
-	}
 }

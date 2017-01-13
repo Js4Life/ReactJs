@@ -27,7 +27,6 @@ import java.io.*;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
-
 import static play.mvc.Controller.response;
 
 public class TaggingUtilitiesServices {
@@ -685,6 +684,8 @@ public class TaggingUtilitiesServices {
                 nodeData.put("name", oneElement.getString("Typename"));
                 nodeData.put("type", "COMPONENTTYPE");
                 nodeData.put("elementID", oneElement.getString("Type"));
+                System.out.println("rajib ----oneElement.getString-----> " + oneElement.getString("concept"));
+
                 lightHouse.createNewVertex(nodeData);
                 // created
 

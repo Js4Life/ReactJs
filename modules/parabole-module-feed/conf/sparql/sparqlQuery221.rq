@@ -8,14 +8,12 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX afn: <http://jena.apache.org/ARQ/function#>
 PREFIX bas: <http://mindparabole.com/finance/basel_glossary#>
 PREFIX hp: <http://mindparabole.com/finance/parabole#>
+PREFIX rbot: <http://mindparabole.com/finance/RBot#>
 
-
-
-SELECT DISTINCT  ?uri ?con ?concept ?Area ?connections ?mprp ?id
-?pro  ?Product  ?seg ?Segment
+SELECT DISTINCT ?uri ?seg ?concept ?conceptName ?pro ?Product ?mprp ?Component ?ComponentType ?id
 WHERE{
 
-{SELECT DISTINCT ?mprp4  ?seg ?Segment ?pro ?Product ?concept ?con
+{SELECT DISTINCT ?mprp4  ?seg ?Segment ?pro ?Product ?concept ?conceptName
 WHERE {
 ?mprp4 rdfs:subClassOf ?class;rdfs:label ?Component.
 ?class owl:allValuesFrom|owl:someValuesFrom ?val; owl:onProperty hp:hasSegment .
@@ -23,29 +21,27 @@ WHERE {
 ?seg rdf:type ?seg2.
 ?seg rdfs:label ?Segment.
 #FILTER(?prop = hp:hasProduct)
-?seg2 rdfs:subClassOf ?class2.
-?class2 owl:allValuesFrom|owl:someValuesFrom ?val2; owl:onProperty hp:segmentHasProduct .
+?mprp2 rdfs:subClassOf ?class2.
+?class2 owl:allValuesFrom|owl:someValuesFrom ?val2; owl:onProperty hp:hasProduct .
 ?val2 owl:oneOf/rdf:rest*/rdf:first  ?pro2.
 ?pro rdf:type ?pro2.
 ?pro rdfs:label ?Product.
 ?mprp3 rdfs:subClassOf ?class3.
 ?class3 owl:allValuesFrom|owl:someValuesFrom ?val3; owl:onProperty hp:hasConcept .
-?val3 owl:oneOf/rdf:rest*/rdf:first  ?con.
+?val3 owl:oneOf/rdf:rest*/rdf:first  ?concept.
 #?concept rdf:type ?con.
-?con rdfs:label ?concept.
-FILTER(?mprp4=?mprp3)
+?concept rdfs:label ?conceptName.
+FILTER((?mprp4=?mprp2)&&(?mprp2 = ?mprp3))
 }}
 
 ?mprp4 rdfs:subClassOf+ ?Type.
 ?mprp rdf:type ?mprp4.
-?mprp rdfs:label ?connections.
-?Type rdfs:label ?Area.
+?mprp rdfs:label ?Component.
+?Type rdfs:label ?ComponentType.
 FILTER(?Type IN(hp:Model,hp:Policy,hp:Report))
-BIND(xsd:string(CONCAT(afn:namespace(?con),afn:localname(?con))) as ?uri)
+BIND(xsd:string(CONCAT(afn:namespace(?seg),afn:localname(?seg))) as ?uri)
 bind(rand() AS ?id)
 #FILTER(?mprp2 = hp:LGDModel)
-#FILTER(?uri ="http://mindparabole.com/finance/parabole#ACBMinusFV")
+#FILTER(?uri ="http://www.mindparabole.com/ontology/finance/Parabole-Model#ABCAutoLoanBusiness")
 FILTER(?uri = $$FILTERS$$)
 }
-
-

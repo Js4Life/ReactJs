@@ -63,7 +63,8 @@
                       <div class="panel-body text-center zero-padding" ng-class="getComplianceColorcode(child)">
                           <div ng-if="child.type === 'PARAGRAPH' || child.type === 'BASELPARAGRAPH' || child.type === 'BANKPARAGRAPH' || child.type === 'CFRPARAGRAPH'" class="para-ribbon"></div>
                           <div style="font-weight: bold;font-size: 2.5em;opacity:0.4;">{{child.name.charAt(0)}}</div>
-                          <div class="pointer" style="position:absolute;right:20px;top:5px;font-weight: bold;" ng-click="getChecklistByNode(child)">{{child.compliance || 0}}%</div>
+                          <div class="pointer" style="position:absolute;right:20px;top:5px;font-weight: bold;" ng-click="getChecklist
+                          ByNode(child)">{{child.compliance || 0}}%</div>
                       </div>
                       <div ng-click="exploreNode(child.type, child.elementID)" class="panel-footer ellipsis-text pointer" tooltip='"title":"{{child.name}}"'>{{child.name}}</div>
                     </div>

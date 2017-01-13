@@ -108,7 +108,7 @@ GET /cfrDocumentHirarchyLoading/:fileName               com.parabole.feed.applic
 # EXTRA Operations
 #-------------------------------------------
 GET /getAllParagraphInTextFile/:fileType                com.parabole.feed.application.controllers.FeedController.getAllParagraphInTextFile(fileType: String)
-
+GET /updateParagraphContentsFromExcel/:fileName         com.parabole.feed.application.controllers.ParagraphOperationsController.updateParagraphContentsFromExcel(fileName: String)
 #---------------------------------------
 ## Check List Operation Test
 #---------------------------------------
@@ -133,12 +133,20 @@ GET /getContextsAgainstConceptUri                       com.parabole.feed.applic
 ## POC
 #----------------------------------------
 GET /getParagraphByProduct                              com.parabole.feed.application.controllers.ParagraphOperationsController.getParagraphByProduct()
-GET /getParagraphsByRootNodeId                              com.parabole.feed.application.controllers.ParagraphOperationsController.getParagraphsByRootNodeId()
+GET /getParagraphsByRootNodeId                          com.parabole.feed.application.controllers.ParagraphOperationsController.getParagraphsByRootNodeId()
 
 
 GET /tinkerPopTest                                      com.parabole.feed.application.controllers.ParagraphOperationsController.tinkerPopTest()
 GET /saveAVertex                                        com.parabole.feed.application.controllers.ParagraphOperationsController.saveAVertex()
 GET /establishEdgeByVertexIDs                           com.parabole.feed.application.controllers.ParagraphOperationsController.establishEdgeByVertexIDs()
+
+
+#-----------------------------------------
+# new operation
+#-----------------------------------------
+GET /getAllFileExcept                                 com.parabole.feed.application.controllers.FeedController.getAllFileExcept()
+
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET      /feedassets/*file                              controllers.Assets.at(path="/public/lib/parabole-module-feed", file)

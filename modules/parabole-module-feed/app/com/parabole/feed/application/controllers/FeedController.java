@@ -1,9 +1,14 @@
 package com.parabole.feed.application.controllers;
 
+import com.google.inject.Inject;
 import com.parabole.feed.application.exceptions.AppException;
+import com.parabole.feed.application.services.LightHouseService;
+import com.parabole.feed.platform.graphdb.LightHouse;
 import play.mvc.Result;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -11,6 +16,9 @@ import java.io.IOException;
  */
 
 public class FeedController extends BaseController{
+
+    @Inject
+    LightHouseService lightHouseService;
 
 
     public Result saveAllConcepts() {
@@ -121,6 +129,11 @@ public class FeedController extends BaseController{
     public Result getAllParagraphInTextFile(String fileType) throws Exception {
         final String resultData = taggingUtilitiesServices.getAllParagraphInTextFile(fileType);
         return ok(resultData);
+    }
+
+    public Result getAllFileExcept() throws Exception {
+        List<Map<String, Object>> resultData = lightHouseService.getAllFileExcept("BANKFILE");
+        return ok(resultData.toString());
     }
 
     public Result getFeedFileNames() throws Exception {
