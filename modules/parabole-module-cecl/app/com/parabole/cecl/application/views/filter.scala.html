@@ -1,0 +1,42 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <b>{{heading.title}}</b>
+    <i class="fa fa-play pull-right" aria-hidden="true" ng-click="goNext()" tooltip='"title":"Next"'></i>
+  </div>
+  <div class="panel-body" style="height:81vh;overflow: auto;">
+    <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <b>Internal Document</b>
+        </div>
+        <div class="panel-body zero-padding" style="height:70vh;overflow: auto;">
+          <table class="table">
+            <tr ng-repeat="f in internalFiles">
+              <td><input type="checkbox" class="checkbox"></td><td>{{f.name}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <b>External Document</b>
+        </div>
+        <div class="panel-body zero-padding" style="height:70vh;overflow: auto;">
+
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <b>Contexts</b>
+        </div>
+        <div class="panel-body zero-padding" style="height:70vh;overflow: auto;">
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

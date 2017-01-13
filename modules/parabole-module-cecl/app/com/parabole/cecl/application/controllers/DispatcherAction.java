@@ -79,4 +79,8 @@ public class DispatcherAction extends BaseAction {
     public Result documentUploader() {
         return ok(com.parabole.cecl.application.views.html.documentUploader.render());
     }
+
+    public Result filter() {
+        return ok(com.parabole.cecl.application.views.html.filter.render());
+    }
 }

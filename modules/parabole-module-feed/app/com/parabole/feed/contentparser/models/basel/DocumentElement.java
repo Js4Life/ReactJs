@@ -14,6 +14,8 @@ public class DocumentElement {
     private String name;
     private int level;
     private int index;
+    private int startPage;
+    private int endPage;
     private String levelId;
     private String content;
     private float startX;
@@ -109,5 +111,21 @@ public class DocumentElement {
 
     public void setLevelId(String levelId) {
         this.levelId = levelId;
+    }
+
+    public int getStartPage() {
+        return startPage;
+    }
+
+    public void setStartPage(int startPage) {
+        this.startPage = startPage;
+    }
+
+    public int getEndPage() {
+        return endPage;
+    }
+
+    public void setEndPage(int endPage) {
+        this.endPage = endPage;
     }
 }

@@ -68,5 +68,8 @@ libraryDependencies ++=  Seq(
   "edu.stanford.nlp" % "stanford-parser" % "2.0.2",
   "org.apache.pdfbox" % "fontbox" % "2.0.1",
   "org.apache.pdfbox" % "pdfbox" % "2.0.1",
-  "com.tinkerpop" % "gremlin-core" % "3.0.0.M7"
+  "com.tinkerpop" % "gremlin-core" % "3.0.0.M7",
+  "org.apache.opennlp" % "opennlp-maxent" % "3.0.3",
+  "org.apache.opennlp" % "opennlp-tools" % "1.6.0",
+  "org.apache.opennlp" % "opennlp-uima" % "1.6.0"
 )

@@ -11,6 +11,6 @@ import javax.inject.Inject;
 public final class BodyParserMaxLength extends BodyParser.Json {
     @Inject
     public BodyParserMaxLength(HttpErrorHandler errorHandler) {
-        super(2048 * 2048, errorHandler);
+        super(4096 * 4096, errorHandler);
     }
 }

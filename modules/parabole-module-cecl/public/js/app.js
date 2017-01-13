@@ -93,7 +93,14 @@ angular
               url: '/documentUploader',
               templateUrl : 'documentUploader',
               controller : 'documentUploaderCtrl'
+          })
+
+          .state('landing.filter', {
+              url: '/filter',
+              templateUrl : 'filter',
+              controller : 'filterCtrl'
           });
 
+          //$urlRouterProvider.otherwise('/landing/filter');
           $urlRouterProvider.otherwise('/landing/regulation');
   });

@@ -12,24 +12,26 @@ PREFIX context: <http://mindparabole.com/finance/Context#>
 
 
 
-SELECT distinct *
+SELECT distinct ?subject ?predicate ?object ?context ?cl
 WHERE{
 
-{SELECT  ?con ?prop ?restr ?cl
+{SELECT  ?con ?prop ?restr ?cl ?subject ?predicate ?object
 WHERE{
 
-{SELECT ( COUNT(?con) AS ?pass) ?con ?class ?numRestr ?opr ?cl ?prop ?restr
+{SELECT ( COUNT(?con) AS ?pass) ?con ?class ?numRestr ?opr ?cl ?prop ?restr ?predicate ?object
 
 WHERE{
 
-{SELECT DISTINCT ?prop ?restr ?numRestr ?class ?opr ?cl
+{SELECT DISTINCT ?prop ?restr ?numRestr ?class ?opr ?cl ?predicate ?object
 
 WHERE
 {
 ?class  (owl:intersectionOf|owl:unionOf)/rdf:rest*/rdf:first  ?i .
 ?i owl:allValuesFrom|owl:someValuesFrom ?val; owl:onProperty ?prop.
+?prop rdfs:label ?predicate .
 OPTIONAL{?val owl:oneOf/rdf:rest*/rdf:first  ?val2}
 BIND(IF(!bound(?val2) = true,?val ,?val2)  AS ?restr)
+?restr rdfs:label ?object.
 {select  (COUNT(?i) AS ?numRestr) ?class ?opr ?cl
  where {
 ?class  (owl:intersectionOf|owl:unionOf)/rdf:rest*/rdf:first  ?i .
@@ -46,11 +48,13 @@ GROUP BY ?class ?opr ?cl}
 }}
 
 ?con ?prop ?restr}
-GROUP BY ?con ?class ?numRestr ?opr ?cl ?prop ?restr}
+GROUP BY ?con ?class ?numRestr ?opr ?cl ?prop ?restr ?predicate ?object}
 #BIND(IF(?opr = "Union",?pass<=?numRestr,?pass = ?numRestr) AS ?test)
 #FILTER(?test = true)
 FILTER((?opr = "Intersection" && ?pass = ?numRestr)||
-(?opr = "Union" && ?pass<= ?numRestr))}
+(?opr = "Union" && ?pass<= ?numRestr))
+?con rdfs:label ?subject .
+}
 }
 
 #BIND(CONCAT(xsd:string(afn:namespace(?con)),xsd:string(afn:localname(?con))) AS ?uri)

@@ -85,6 +85,11 @@ public class CCAppConstants extends AppConstants {
     public static final String FASB = "CECLConcept";
     public static final String BASEL = "Basel IV Glossary";
 
+    public static final String SENT = "OpenNlpModels\\en-sent.bin";
+    public static final String TOKEN = "OpenNlpModels\\en-token.bin";
+    public static final String POS_MAXENT = "OpenNlpModels\\en-pos-maxent.bin";
+    public static final String LEMMATIZER = "OpenNlpModels\\en-lemmatizer.dict";
+
 
     public static enum ExcelFormat {
         XLS, XLSX, CSV

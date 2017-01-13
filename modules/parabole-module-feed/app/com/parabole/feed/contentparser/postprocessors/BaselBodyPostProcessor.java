@@ -154,6 +154,8 @@ public class BaselBodyPostProcessor implements IPostProcessor {
         DocumentElement documentElement = new DocumentElement();
         documentElement.setContent(sb.toString());
         documentElement.setElementType(DocumentElement.ElementTypes.PARAGRAPH);
+        documentElement.setStartPage(aPara.getStartPage());
+        documentElement.setEndPage(aPara.getEndPage());
         paraId = paraId + "-P" + levelIndex;
         if(docMeta.getHasParaIdentifier()) {
             int index = documentElement.getContent().indexOf('.');

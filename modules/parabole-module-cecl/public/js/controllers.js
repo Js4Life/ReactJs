@@ -2340,4 +2340,26 @@ angular.module('RDAApp.controllers', ['RDAApp.services', 'RDAApp.directives', 't
 	}
 
 	$scope.initialize();
+})
+
+.controller('filterCtrl', function($scope, $state, SharedService){
+	$scope.initialize = function () {
+		$scope.heading = {title : "Filters"};
+		getInternalFile();
+	}
+
+	function getInternalFile() {
+		SharedService.getAllDocFileNamesByType('BANKFILE').then(function(data){
+			if(data.status){
+				$scope.internalFiles = angular.fromJson(data.data);
+			}
+		});
+	}
+	
+	$scope.goNext = function () {
+		SharedService.hideAllToolTips();
+		$state.go('landing.regulation');
+	}
+
+	$scope.initialize();
 });

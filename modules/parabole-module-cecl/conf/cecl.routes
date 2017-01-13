@@ -28,6 +28,7 @@ GET         /paragraphRepository                                                
 GET         /checklistViewer                                                           com.parabole.cecl.application.controllers.DispatcherAction.checklistViewer()
 GET         /paragraphViewer                                                           com.parabole.cecl.application.controllers.DispatcherAction.paragraphViewer()
 GET         /documentUploader                                                          com.parabole.cecl.application.controllers.DispatcherAction.documentUploader()
+GET         /filter                                                                    com.parabole.cecl.application.controllers.DispatcherAction.filter()
 
 # ---------------------------------------------------------------------------------
 # Server Side Calls (All Authenticated)

@@ -32,6 +32,7 @@ public class GeneralParaBuilder extends AbstractDocBuilder implements IDocIndexB
 
     @Override
     public void addChunk(String text, TextFormatInfo format, boolean isNewPara) {
+        int pageNum = format.getPageNum();
         if( text.trim().length() == 0 )
             return;
         List<LineElement> lineList = sentenceProcessor.processTextSentencesByYCOrd(text, format);
@@ -47,15 +48,20 @@ public class GeneralParaBuilder extends AbstractDocBuilder implements IDocIndexB
 
                 if(isTableOfContent){
                     currentPara = new ParagraphElement();
+                    currentPara.setStartPage(pageNum);
+                    currentPara.setEndPage(pageNum);
                     paragraphElementList.add(currentPara);
                     currentPara.addSentence(aLine);
                 } else {
                     if (curStart != paraStart || (currentWordHeight != lastWordHeight)) { //This is not a new Para Start
                         currentPara = new ParagraphElement();
+                        currentPara.setStartPage(pageNum);
                         paragraphElementList.add(currentPara);
                     }
-                    if (currentPara != null)
+                    if (currentPara != null) {
                         currentPara.addSentence(aLine);
+                        currentPara.setEndPage(pageNum);
+                    }
                 }
             }
             if(paraStart == 0 && lineList.size() > 0) {

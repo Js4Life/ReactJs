@@ -893,6 +893,9 @@ public class TaggingUtilitiesServices {
                 nodeDataTwo.put("fromFileName", file);
                 nodeDataTwo.put("bodyText", documentElement.getContent());
                 nodeDataTwo.put("elementID", documentElement.getLevelId());
+                nodeDataTwo.put("startPage", String.valueOf(documentElement.getStartPage()));
+                nodeDataTwo.put("endPage", String.valueOf(documentElement.getEndPage()));
+                nodeDataTwo.put("elementID", documentElement.getLevelId());
                 lightHouse.createNewVertex(nodeDataTwo);
                 lightHouse.establishEdgeByVertexIDs(s,  documentElement.getLevelId(), "dynamicNodeToParagraph", "dynamicNodeToParagraph");
             }
