@@ -1,0 +1,469 @@
+/***********************new styles**************************/
+/***********************new styles**************************/
+/***********************new styles**************************/
+
+.highlighted{
+    background:#8990bc;
+}
+.pageHeading > p{
+    font-family: Lato;
+    font-size: 10px;
+    text-align: left;
+    color: #8389a4;
+    text-transform: uppercase;
+}
+.pageHeading > p > span{
+    width: 40px;
+    font-family: Lato;
+    font-size: 10px;
+    text-align: left;
+    color: #475283;
+}
+.pageHeading > h5 {
+    width: 240px;
+  height: 28px;
+  font-family: Faustina;
+  font-size: 22px;
+  font-weight: bold;
+  text-align: left;
+  color: #21294d;
+
+  padding-bottom:0px;
+}
+.innerColHeight{
+    height:82vh;
+}
+.paraHeadingContainer{
+    margin: 20px 0px 17px 0px;
+}
+.paraContainer{
+    height: 68.5vh;
+    /*width: 440px;*/
+    overflow: hidden;
+}
+.paraContainer:hover{
+    overflow:overlay;
+}
+.paraContainer > p{
+    font-family: Faustina;
+    font-size: 18px;
+    line-height: 1.83;
+    text-align: left;
+    color: #21294d;
+}
+.padding25{
+    font-size: 14px;
+    line-height: 1.4;
+    padding:25px;
+}
+.paraContainer > h4{
+    width: 240px;
+    font-family: Faustina;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: left;
+    color: #21294d;
+    padding-bottom: 0px;
+}
+
+
+
+.listContainer{
+    padding: 0px 0px 0px 46px;
+    margin:46px 0px 0px;
+    height: 65vh;
+    overflow: hidden;
+}
+.listContainer:hover{
+    overflow:overlay;
+}
+.contextDetails{
+    display:inline-block;
+    width:100%;
+}
+.contextDetails > p {
+    margin-bottom:2px;
+}
+.contextDetails > p > label {
+    max-width:75%;
+    vertical-align: bottom;
+    margin:0px;
+}
+.contextDetails > p > span {
+    font-family: Lato;
+    font-size: 12px;
+    color: #8389a4;
+}
+.items{
+    font-family: Lato;
+    font-size: 14px;
+    font-weight: 900;
+    text-align: left;
+    color: #475283;
+    
+    width: 100%;
+    padding: 0px;
+    min-height:50px;
+    cursor:pointer;
+}
+.itemActive{
+    opacity:1;
+}
+.itemInactive{
+    opacity:0.5;
+}
+
+.detailsDiv{
+    padding: 10px 10px 0px 30px;
+    width: 400px;
+    min-height: 128px; 
+    /*bottom: 50%;*/
+    border-radius: 4px;
+    background-color: white;
+    box-shadow: 0 2px 6px 0 rgba(71, 82, 131, 0.23);
+    border: solid 1px #e2e4f5;
+    z-index:1000;
+}
+.innerDiv{
+    width: 100%;
+    /* height: 128px; */
+}
+.innerDiv > p {
+    padding: 0px 5px 0px 0px;  
+    font-family: Lato;
+    font-size: 12px;
+    font-weight: 900;
+    text-align: left;
+    color: #475283;  
+}
+.WordNameStl{
+    font-family: Lato;
+    font-size: 20px;
+    font-weight: 900;
+    text-align: left;
+    color: #475283;
+}
+.MarginBelow{
+    margin-bottom: 5px;
+}
+.padding-above{
+    padding: 10px 0px 0px 0px;
+}
+.padding-above-right{
+    padding: 10px 10px 10px 0px;
+    margin: 0px 0px 0px 0px;
+}
+.paddingOnRight{
+    padding-right: 15px;
+}
+.cursorIcon{
+    cursor: pointer;
+}
+.backButton{
+    padding-right: 5px;
+    cursor: pointer;
+    color: #475283;
+}
+.RelatedTermsContainer{
+    overflow:hidden;
+    height: 70px;
+    width:100%;
+    white-space: normal;
+    margin: 10px 0px 10px 0px;
+}
+.RelatedTermsContainer:hover{
+    overflow:overlay;
+}
+.badge {
+    height: 25px;
+    border-radius: 100px;
+    border: solid 1px #cacfde;
+    margin: 4px;
+    font-family: Lato;
+    font-size: 12px;
+    color: #475283;
+    background: transparent;
+    cursor: pointer;
+    text-align: center;
+    padding: 5px 10px;
+    font-weight: normal;
+}
+.coloring{
+    font-family: Lato;
+    font-size: 15px;
+    font-weight: 900;
+    color: #475283;
+}
+
+
+
+.addNoteBtn{
+    padding:2px 5px;
+    color:#8990bc;
+    font-size: 12px;
+    cursor:pointer;
+    margin:0px 15px;
+}
+.showNoteBtn{
+    padding:2px 5px;
+    color:white;
+    font-size: 10px;
+    border-radius: 3px;
+    background-color: #cacfde;
+    cursor:pointer;
+}
+.addNoteBtn:hover{
+    color:#475283;
+}
+.showNoteBtn:hover{
+    background:#8990bc;
+}
+.notepad{
+    width:400px;
+    background:white;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.14);
+    border: solid 1px #cacfde;
+    right: 0px;
+    top: 52px;
+}
+.note_edit{
+    padding:20px 40px 10px 40px;
+    margin:0px;
+    min-height: 25vh;
+    max-height:35vh;
+    font-family: Lato;
+    font-size: 14px;
+    line-height: 1.43;
+    text-align: left;
+    color: #475283;
+    overflow:hidden;
+}
+.note_edit:hover{
+    overflow:overlay;
+}
+.note_edit:focus{
+    outline:none;
+}
+#notePadId::before {
+    left: calc(100% - 70px)
+}
+#notePadId::after {
+    left: calc(100% - 69px)
+}
+
+
+.note_content{
+    padding:15px 0px 10px 0px;
+    margin:0px;
+    min-height: 25vh;
+    max-height:35vh;
+
+    color: #475283;
+    overflow:hidden;
+}
+.note > p{
+    margin: 0px 20px;
+    font-family: Lato;
+    font-size: 14px;
+    line-height: 1.43;
+    text-align: left;
+    padding: 10px 0px;
+}
+.note_content:hover{
+    overflow:overlay;
+}
+.private{
+    padding-right:5px;
+    color:darkred;
+}
+.border_bottom{
+    border-bottom: 1px solid #8990bc;
+}
+#showNoteId::before {
+    left: calc(100% - 19px)
+}
+#showNoteId::after {
+    left: calc(100% - 18px)
+}
+
+.closeBtnWrapper{
+    padding: 11px 40px;
+    width: 100%;
+    border-top: solid 1px #e2e4f5;
+}
+.Cancel{
+    font-family: Lato;
+    font-size: 12px;
+    text-align: center;
+    color: #72778f;
+
+    width: 112.2px;
+    height: 25px;
+    outline:none;
+    border:none;
+    background-color: transparent;
+    padding: 3px 12px;
+    cursor: pointer;
+}
+.addnoteBtn:focus, .Cancel:focus{
+    outline:none;
+}
+.addnoteBtn{
+    width: 112.2px;
+    height: 25px;
+    border-radius: 100px;
+    outline:none;
+    border:none;
+    background-color: #5ace3d;
+    box-shadow: 0 2px 11px 0 rgba(0, 0, 0, 0.12);
+    font-family: Lato;
+    font-size: 12px;
+    color: #ffffff;
+
+    padding: 3px 12px;
+}
+[contentEditable=true]:empty:not(:focus):before{
+    content:attr(data-text);
+    opacity: 0.5;
+}
+
+
+
+.items1{
+    font-family: Lato;
+    font-size: 14px;
+    font-weight: 900;
+    text-align: left;
+    color: #475283;
+    
+    width: 100%;
+    padding: 12px 40px;
+    cursor:pointer;
+}
+.items1:hover {
+    opacity:1;
+}
+.items1:hover .deselectedCheckbox{
+    background:url(../../assets/zeplin/hover.png) no-repeat;
+}
+.itemActive1{
+    opacity:1;
+}
+.itemInactive1{
+    opacity:0.5;
+}
+.contextDetails1{
+    display:inline-block;
+    width:90%;
+}
+.contextDetails1 > p {
+    margin-bottom:5px;
+}
+
+
+
+
+
+
+.itemsFeed{
+    font-family: Lato;
+    font-size: 14px;
+    font-weight: 900;
+    text-align: left;
+    color: #475283;
+    
+    width: 100%;
+    padding: 12px 0px;
+    cursor:pointer;
+}
+.itemsFeed:hover {
+    opacity:1;
+}
+.itemsFeed:hover .deselectedCheckbox{
+    background:url(../../assets/zeplin/hover.png) no-repeat;
+}
+.contextDetails1{
+    display:inline-block;
+    width:90%;
+}
+.contextDetails1 > p {
+    margin-bottom:5px;
+}
+.activeCheckBtns{
+    background:#8389a4 !important;
+    color:white !important;
+}
+.checkBtns{
+    background:transparent;
+    margin-left: 5px;
+    border: none;
+    height: 22px;
+}
+.checkBtns:hover{
+    color:#21294d;
+}
+.checkBtnGroup{
+    right: 0px;
+    background: linear-gradient(to right,transparent, white);
+    width: 130px;
+    text-align: right;
+}
+/* //////////// */
+.inaccurateReason{
+    padding:10px;
+    visibility: hidden;
+    background: white;
+    z-index: 10;
+    right:0px;
+    box-shadow: -2px -2px 4px 0 rgba(0, 0, 0, 0.08);
+    border: solid 1px #cacfde;
+}
+.inaccurateReason > p{
+        font-family: Lato;
+    font-size: 12px;
+    color: #a3a6b5;
+}
+.reasonBtn{
+    font-size: 11px;
+    background: white;
+    border:solid 1px #cacfde;
+    color:#a3a6b5;
+}
+.inaccurateReason::before{
+    right:2px;
+}
+.inaccurateReason::after{
+    right:3px;
+}
+.activeReason{
+    background: #242d54 !important;
+    color:white !important;
+}
+/*////////////  */
+
+.feedbackContextOfSelectedWord{
+    border-radius: 5px;
+    border: 1px solid #eee;
+    height: 35px;
+    padding: 2px 16px;
+    margin: 14px 0px;
+
+    font-family: Lato;
+    font-size: 20px;
+    font-weight: 900;
+    color: #475283;
+    /* z-index:10; */
+}
+.feedbackcheckBtnGroup{
+    right: 21px;
+    /* background: linear-gradient(to right,transparent, white); */
+    /* width: 130px; */
+    text-align: right;
+}
+.feedbackSuggestAContext{
+    font-family: Lato;
+    font-size: 15px;
+    text-align: left;
+    color: #8389a4;
+    cursor:pointer;
+}

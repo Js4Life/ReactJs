@@ -1,0 +1,18 @@
+
+<div class="listPanel">
+  <li *ngFor="let obj of data.folderList" id="{{obj.id}}" class="listStyle" (click)="onClick(obj,$event)">
+    <p class="noMargin">
+      <img class="folderOrFileImgStl" src="../../assets/images/folder.png">
+      &nbsp;&nbsp;
+      <label class="ellipsis">{{obj.name}}</label>
+
+    </p>
+  </li>
+  <li *ngFor="let obj of data.documentList" id="{{obj.id}}" class="listStyle" (click)="onClick(obj,$event)">
+    <p class="noMargin" style="width:100%">
+      <img class="folderOrFileImgStl" src="../../assets/images/document.png">  
+      &nbsp;&nbsp;
+      <label class="ellipsis">{{obj.name}}</label>
+    </p>
+  </li>
+</div>

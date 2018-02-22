@@ -1,0 +1,241 @@
+.parent-container{
+    background: #f8f8fa;
+}
+.upperRow{
+    padding:30px 40px 20px 40px;
+    /* background-color: #ccceee; */
+}
+.graphBtn{
+    padding:10px;
+    margin-left:20px;
+    cursor:pointer;
+    background: #5ace3d;
+    box-shadow: 0 2px 11px 0 rgba(0, 0, 0, 0.12);
+    border-radius: 50px;
+    color: white;
+}
+
+.upperRow > label{
+    font-family: Lato;
+    font-size: 20px;
+    font-weight: 900;
+    color: #475283;
+}
+.upperRow > label > p{
+    font-family: Lato;
+    font-size: 12px;
+    font-weight: 100;
+    color: #475283;
+}
+.upperRow > label > p > span{
+    font-weight: 900;
+}
+.ctxtFilter{
+    margin:0px 20px;
+    font-family: Lato;
+    font-size: 14px;
+    font-weight: 900;
+    color: #475283;
+    cursor:pointer;
+    padding:10px 0px;
+}
+.secondUpperRow{
+    margin: 20px 40px 0px 40px;
+    border-bottom: solid 1px #505f8b;
+    color: #505f8b;
+    font-size: 14px;
+    font-weight: 700;
+}
+.thirdRow{
+    padding:0px;
+    height:83vh;
+    overflow:hidden;
+}
+.thirdRow:hover{
+    overflow: overlay;
+}
+
+
+.addChecklistBtn{
+    height: 25px;
+    border-radius: 100px;
+    background-color: #5ace3d;
+    box-shadow: 0 2px 11px 0 rgba(0, 0, 0, 0.12);
+    color:white;
+    padding:3px 20px 5px;
+    margin-top:4px;
+}
+
+
+
+
+.searchChecklistBtn{
+    height: 35px;
+    border-radius: 100px;
+    border: solid 1px #cacfde;
+    width:300px;
+    margin:0px;
+}
+.searchChecklistBtn .searchInputStyle{
+    font-size: 12px;
+    text-align: left;
+    color: #72778f;
+    width:100%;
+
+    border:none;
+    background: transparent;
+    position:relative;
+    padding: 6px 15px 6px 0px;
+    box-shadow:none;
+}
+.searchChecklistBtn .searchInputStyle:focus{
+    box-shadow:none;
+}
+.searchChecklistBtn .addonStyle{
+    background: transparent;
+    border:none;
+    padding-left:47px;
+}
+
+
+.searchChecklistFocus{
+    height: 35px;
+    border-radius: 100px;
+    border: solid 1px #72778f;
+    width:300px;
+    margin:0px;
+}
+.searchChecklistFocus .searchInputStyle{
+    font-size: 12px;
+    text-align: left;
+    color: #475283;
+    width:100%;
+
+    border:none;
+    background: transparent;
+    position:relative;
+    padding: 6px 15px 6px 0px;
+    box-shadow:none;
+}
+.searchChecklistFocus .searchInputStyle:focus{
+    box-shadow:none;
+}
+.searchChecklistFocus .addonStyle{
+    background: transparent;
+    border:none;
+    padding-left:15px;
+}
+
+
+
+.noChecklists{
+    padding:20px 40px;
+    font-family: Lato;
+    font-size: 16px;
+    text-align: left;
+    color: #d1d1e0;
+}
+.border_bottom{
+    border-bottom:solid 0.5px #d1d1e0;
+    position: relative;
+}
+.rowStyling{
+    padding: 16px 40px 0px 40px;
+    position: relative;
+    /* border-bottom:solid 0.5px #d1d1e0; */
+}
+.rowStyling:hover{
+    border-bottom: none;
+    background-color: rgba(225, 228, 245, 0.5);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+}
+.rowStyling .checklistName{
+    font-family: Lato;
+    font-size: 16px;
+    text-align: left;
+    color: #21294d;
+    margin: 0px;
+}
+.rowStyling .contextNames, .rowStyling .regulations, .rowStyling .collaborators {
+    font-family: Lato;
+    font-size: 12px;
+    text-align: left;
+    color: #72778f;
+    margin:5px 0px;
+    width: 90%;
+}
+.below-padding{
+    padding: 0px 0px 10px 0px;
+}
+
+.createdStyle > p, .modifiedStyle > p{
+    font-family: Lato;
+    font-size: 12px;
+    text-align: left;
+    color: #72778f;
+    margin:5px 0px;
+}
+.badge{
+    vertical-align: top;
+    margin-top:10px;
+    font-family: Lato;
+    font-size: 12px;
+    text-align: left;
+    color:white;
+    font-weight: 100;
+    padding: 3px 10px;
+}
+.impl_ready{
+    background: #0eaed2;
+}
+.impl_progress{
+    background: #eaaa34;
+}
+.impl_complete{
+    background: #8bd418;
+}
+
+.bold{
+    font-weight:900;
+}
+
+.welcomeTab{
+    display: table;
+    width: 100%;
+    margin-top: 200px;
+}
+.welcomeContainer{
+  text-align: center;
+  /* margin-left: 0 auto;
+  margin-right: 0 auto; */
+}
+.Welcome{
+    /* padding: 177px 0px 0px 515px;
+    width: 95px;
+    height: 24px; */
+    font-family: Lato;
+    font-size: 20px;
+    font-weight: 900;
+    /* text-align: left; */
+    color: #21294d;
+  }
+  .Get-started-by-selec{
+    /* padding: 15px 0px 0px 336px;
+    width: 454px; */
+    /* height: 19px; */
+    font-family: Lato;
+    font-size: 16px;
+    /* text-align: left; */
+    color: #21294d;
+  }
+.downloadImageStl{
+    height: 25px;
+    width: 25px;
+    cursor: pointer;
+}
+.DeleteImageStl{
+    /* height: 25px; */
+    width: 25px;
+    cursor: pointer;
+    padding-right: 10px;
+}

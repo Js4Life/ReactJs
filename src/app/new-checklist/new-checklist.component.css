@@ -1,0 +1,365 @@
+.parent{
+    margin: 15px 50px 0px 50px;
+    position:relative;
+}
+.customHeight {
+    height: 60%;
+    padding: 25px;
+}
+.middlepanel, .rightPanel{
+    overflow:auto;
+}
+.leftpanel{
+    background: #eee;
+}
+.middlepanel{
+    padding-right:0px;
+}
+
+
+.requirementsPanel{
+    margin-bottom:10px;
+}
+[contentEditable=true]:empty:not(:focus):before{
+    content:attr(data-text);
+    opacity: 0.5;
+}
+.reference{
+    background:transparent;
+    font-family: Lato;
+    font-size: 12px;
+    font-weight: 900;
+    color: #475283;
+    margin:0px 0px 10px 20px;
+}
+.referenceHeading{
+    margin-bottom: 15px;
+}
+.editableTitle:focus, .editableContent:focus{
+    border:none;
+    outline:none;
+    background:white;
+}
+.editableContent{
+    padding:5px 2px;
+    background:transparent;
+    min-height:30px;
+    width:100%;
+    font-family: Lato;
+    line-height: 1.58;
+    font-size: 12px;
+    font-weight: 900;
+    color: #21294d;
+}
+.contentDivider{
+    border: solid 1px #e2e4f5;
+    margin-top: 10px;
+}
+.contentPanel{
+    padding:0px 45px 0px 0px;
+}
+.stepspanel > h6, .stepspanel > span{
+    padding-left:15px;
+    font-size:12px;
+}
+.spanStyle{
+    width:7px;
+    vertical-align: top;
+    padding-top:4px;
+    color:darkgrey;
+}
+.pStyle{
+    width:96%;
+}
+
+.uploadBtn{
+    height: 15px;
+    font-family: Lato;
+    font-size: 12px;
+    text-align: right;
+    color: #72778f;
+    background:transparent;
+    border:none;
+        padding: 0px;
+    margin-left: 13px;
+}
+.uploadBtn:focus{
+    outline:none;
+}
+.referenceFile{
+    /*width: 200px;*/
+    font-family: Lato;
+    font-size: 10px;
+    font-weight: 900;
+    line-height: 1.4;
+    text-align: left;
+    color: #cacfde;
+}
+.referenceText{
+    width:100%;
+    height: 19px;
+    font-family: Lato;
+    font-size: 12px;
+    line-height: 1.58;
+    text-align: left;
+    color: #21294d;
+}
+
+
+
+
+
+
+
+
+.previewBtn{
+    height: 25px;
+    border-radius: 100px;
+    background-color: #5ace3d;
+    box-shadow: 0 2px 11px 0 rgba(0, 0, 0, 0.12);
+    color: white;
+    font-family: Lato;
+    font-size: 12px;
+    padding: 3px 0px;
+    width: 70px;
+}
+.previewBtn:focus{
+    outline:none;
+}
+.tabbedBtns{
+     background:transparent; 
+    outline:none;
+    box-shadow: none;
+    border:none;
+    width: 25px;
+     margin-right:10px;
+    padding: 6px;
+}
+.tabbedBtns:focus{
+    outline:none;
+}
+.checkListNumber{
+    font-family: Lato;
+    font-size: 20px;
+    font-weight: 900;
+    text-align: left;
+    color: #475283;
+    margin:0px;
+}
+.subheadings{
+    font-family: Lato;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: left;
+    color: #475283;
+    margin:5px 0px;
+}
+
+.inactiveTab{
+    color: #72778f;
+    border-bottom:solid 4px transparent;
+}
+.activeTab{
+    color: #475283;
+    border-bottom:solid 4px #475283;
+    border-radius: 0px;
+}
+.addBtn{
+    font-size: 12px;
+    padding: 6px 12px;
+}
+.tabBar{
+    padding-top: 15px;
+}
+.tabContainer{
+    border: solid 1px #e2e4f5;
+    padding-top: 16px;
+}
+.bar{
+    margin-bottom:10px;
+}
+.selectedBar{
+    width: 25px;
+    border: solid 2px #475283; 
+    border-radius: 5px;
+}
+.deselectedBar{
+    width: 15px; 
+    border: solid 2px #cacfde; 
+    border-radius: 3px;
+}
+.barContainer{
+    padding-top: 9px; float: left
+}
+.plusBtn{
+    background:transparent; 
+    outline:none;
+    box-shadow: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 12.5px;
+    border: solid 1px #cacfde;
+    font-family: Lato;
+    font-size: 12px;
+    text-align: center;
+    color: #72778f;
+
+    padding:0px 7.5px 3px 8px;
+    margin:5px 0px 0px 0px;
+}
+.plusBtn:focus{
+    outline:none;
+}
+.plus {
+  width: 8.6px;
+  height: 8.9px;
+}
+
+
+
+
+
+
+
+.editableChecklistName{
+    font-family: Lato;
+    font-size: 20px;
+    font-weight: 700;
+    text-align: left;
+    color: #475283;
+    padding:2px;
+}
+.editableChecklistName:focus{
+    border:none;
+    outline:none;
+    background:white;
+}
+.assignPanel{
+    padding:0px 0px 0px 10px;
+    height:20vh;
+    overflow:hidden;
+    /* overflow-y: scroll; */
+
+}
+.assignPanel:hover{
+    overflow:overlay;
+}
+.descPanel{
+    padding:0px 20px 0px 0px;
+    height:25vh;
+    overflow:hidden;
+    border-right: 2px solid #e2e4f5;
+}
+.descPanel:hover{
+    overflow:overlay;
+}
+.items{
+    font-family: Lato;
+    font-size: 14px;
+    font-weight: 900;
+    text-align: left;
+    color: #475283;
+    /* width: 100%; */
+    padding-left: 12px;
+    /* min-height:50px; */
+    cursor:pointer;
+}
+.items:hover {
+    opacity:1;
+}
+.items:hover .deselectedCheckbox{
+    background:url(../../assets/zeplin/hover.png) no-repeat;
+}
+.checkbox{
+    vertical-align: middle;
+    margin-bottom: 20px;
+}
+.checkbox > label{
+    margin: 4px;
+}
+.itemActive{
+    opacity:1;
+}
+.itemInactive{
+    opacity:0.5;
+}
+.userDetails{
+    display:inline-block; 
+    width:85%;
+}
+.userDetails > p {
+    margin-bottom:2px;
+}
+.userDetails > p > label {
+    /* max-width:75%; */
+    vertical-align: bottom;
+    margin:0px;
+}
+
+.bgWhite{
+    padding: 30px 0px;
+    background: #fff;
+    margin: 0px;
+}
+
+.message{
+    color: #246613;
+}
+
+.texth6{
+    text-align: center;
+    color: #5ace3d;
+    /*box-shadow: 0 2px 11px 0 rgba(0, 0, 0, 0.12);*/
+    /*margin-right: 0px 40px 10px 0;*/
+}
+.ErrorMessage{
+    text-align: center;
+    color: orangered;
+    /*box-shadow: 0 2px 11px 0 rgba(0, 0, 0, 0.12);*/
+    /* margin-right: 23px 40px 10px 0; */
+}
+
+.clist{
+    height:25px;
+    border-radius: 100px;
+    background-color: #5ace3d;
+    box-shadow: 0 2px 11px 0 rgba(0, 0, 0, 0.12);
+    color:white;
+    margin-right: 23px 40px 0 0;
+    padding: 3px 15px 5px 15px;
+}
+
+.ChecklistCreatedMsg{
+    height:25px;
+    border-radius: 100px;
+    background-color: #80ff80;
+    box-shadow: 0 2px 11px 0 rgba(0, 0, 0, 0.12);
+    color:white;
+    /* margin-right: 20px;  */
+    /* margin: 100px;*/
+    padding: 2px 15px 5px 15px; 
+}
+
+.ImageStyle{
+    /* padding: 0px; */
+    height: 15px;
+    width: 15px;
+    margin-top: 15px;
+}
+
+.footBorderTop {
+  border-top:1px solid #c7cad8;
+}
+
+.ImageStyle2{
+    /* padding: 0px; */
+    height: 25px;
+    width: 25px;
+    margin-top: 15px;
+}
+
+.ImageStyle3 {
+    margin: 0px 15px 0px 10px;
+    height: 20px;
+    width: 20px;
+}

@@ -1,0 +1,16 @@
+<div class="listPanel">
+  <div  *ngFor="let obj of data">
+    <li class="listStyle list">
+      <p class="noMargin">
+        <span class="fa" [ngClass]="{'fa-folder':category=='folder','fa-file':category=='file'}"></span>
+        &nbsp;&nbsp;{{obj.name}}
+        <span *ngIf="obj.children.length>0" class="fa fa-chevron-down pull-right" (click)="onParentClick(obj.id)"></span>
+      </p>
+    </li>
+    <div id="{{obj.id}}" class="collapse">
+      <li class="innerListStyle list" id="{{o.id}}" *ngFor="let o of obj.children" (click)="onClick(o.id)">
+        <p class="noMargin"><span class="fa fa-file"></span>&nbsp;&nbsp;{{o.name}}</p>
+      </li>
+    </div>
+  </div>
+</div>

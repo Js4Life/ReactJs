@@ -1,0 +1,45 @@
+
+<div class="row noMargin" [ngClass]="{'contextHeader':isOverlay,'contextHeader1':!isOverlay}">
+  <div class="inline btnContainer">
+    <li class="">Select:</li>
+    <li id="all" class="grey active" (click)="select('all')">All</li>
+    <li id="none" class="grey" (click)="select('none')">None</li>
+  </div>
+</div>
+
+
+<div class="row input-group" [ngClass]="{'searchBtn':isOverlay,'searchBtn1':!isOverlay}" >
+    <span class="input-group-addon addonStyle">
+      <img src="../../assets/images/search.png" class="search"/>
+    </span>
+    <input type="text" class="form-control searchInputStyle" placeholder="Search context" [ngModel]="searchText" (keyup)="search(searchText=$event.target.value)">
+    <span *ngIf="searchText" class="fa fa-times clear" (click)="clear()"></span>
+</div>
+
+
+<div *ngIf="isOverlay" class="listContainer">
+  <div class="items" [ngClass]="{'itemActive':list.isSelected,'itemInactive':!list.isSelected}"  *ngFor="let list of tempList" (click)="selectContext(list)">
+        <div class="checkbox"  [ngClass]="{'selectedCheckbox selected':list.isSelected,'deselectedCheckbox default':!list.isSelected}" ></div>
+        <div class="contextDetails">
+          <p ><label class="ellipsis">{{list.contextName}}</label>  <span>{{list.value}}</span></p>
+          <div class="progress">
+            <div class="progress-bar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{ 'width':list.value,'background-color':list.color }">
+            </div>
+          </div>
+        </div>
+  </div>
+</div>
+
+<div *ngIf="!isOverlay" class="listContainer">
+  <div class="items1" [ngClass]="{'itemActive1':list.isSelected,'itemInactive1':!list.isSelected}"  *ngFor="let list of tempList" (click)="selectContext(list)">
+        <div class="checkbox"  [ngClass]="{'selectedCheckbox selected':list.isSelected,'deselectedCheckbox default':!list.isSelected}" ></div>
+        <div class="contextDetails1">
+          <p ><label class="ellipsis">{{list.contextName}}</label>  <span>{{list.value}}</span></p>
+          <div class="progress">
+            <div class="progress-bar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{ 'width':list.value,'background-color':list.color }">
+            </div>
+          </div>
+        </div>
+  </div>
+</div>
+

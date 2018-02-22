@@ -1,0 +1,72 @@
+.customheight{
+    height:100vh;
+}
+
+
+.active{
+    font-family: Lato;
+    font-size: 12px;
+    font-weight: 900;
+    text-align: left;
+    color: #475283;
+    border-bottom:solid 4px #475283;
+}
+
+.inActive{
+    font-family: Lato;
+    font-size: 12px;
+    text-align: left;
+    color: #72778f;
+}
+
+.underline{
+    margin:0px 50px 20px 50px;
+}
+
+.checklistBtns{
+    padding: 0px 0px 3px 0px;
+    margin-bottom: 0px;
+    margin-right: 24px;
+}
+
+.listRow{
+    padding:15px 45px;
+}
+
+.firstP{
+    font-family: Lato;
+    font-size: 14px;
+    text-align: left;
+    color: #21294d;
+}
+
+.secondP{
+    font-family: Lato;
+    font-size: 12px;
+    text-align: left;
+    color: #72778f;
+}
+
+.labelStyle{
+    padding:23px 0px 0px 45px;
+}
+
+
+
+
+#l2{
+padding:25px 0px 0px 45px;
+/*font-size:20px;
+ font-weight:bold;
+ color:grey; */
+ width: 94px;
+ height: 24px;
+ font-family: Lato;
+ font-size: 20px;
+ font-weight: 900;
+ text-align: left;
+ color: #475283;
+}
+
+
+    

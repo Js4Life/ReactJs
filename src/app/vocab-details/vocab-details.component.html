@@ -1,0 +1,48 @@
+<div class="row noMargin rowMaxHeight">
+  <nav class="navbar navbarStyle">
+      <ul class="nav navbar-nav">
+        <li  class="navChildBtn" (click)="back()">
+          <img src="../../assets/images/back-arrow-white.svg" class="back-arrow-white"/>
+        </li>
+        <li class="navHeading">{{vocab.name}}</li>
+      </ul>
+      
+      <ul class="nav navbar-nav navbar-right">
+        <li class="userInfo inline" ><img class="userImage" src="../../assets/images/user-selected.png"> {{currUser.name}}</li>
+        <li class="signoutLink inline" (click)="signOut()">Sign out</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right margin_right">
+        <li class="navChildBtn" *ngFor="let opt of optionList;let first = first" [ngClass]="{'active':first}" (click)="onOptClick(opt.id,$event)">{{opt.name}}</li>
+      </ul>
+  </nav>
+  <div class="row noMargin rowBody">
+    <iframe id="frame" frameborder="0" class="maxHeight iframeStyle" [src]="vocabSource"></iframe>
+    
+    <!-- <div id="datastorage">
+        <p class="heading">"{{vocab.name}}"</p>
+        <p class="subheading">Present in 5 tables</p>
+        <div class="row noMargin">
+          <div class="col-md-2 noPadding"></div>
+          <div class="col-md-8">
+            <div class="tableStyle">
+              <div class="row noMargin headerRow">
+                <div class="col-md-3 ">Schema</div>
+                <div class="col-md-3 ">Database</div>
+                <div class="col-md-3">Table</div>
+                <div class="col-md-3">Column</div>
+              </div>
+              <div class="row noMargin contentRows">
+                <div class="rowstyle"  *ngFor="let row of listData">
+                  <div class="col-md-3">{{row.schema}}</div>
+                  <div class="col-md-3">{{row.database}}</div>
+                  <div class="col-md-3">{{row.table}}</div>
+                  <div class="col-md-3">{{row.column}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2 noPadding"></div>
+        </div>
+    </div> -->
+  </div>
+</div>

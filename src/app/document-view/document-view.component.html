@@ -1,0 +1,16 @@
+
+<div class="pdfContainer">
+    <h5>
+        <b>{{documents.length}} FILES SELECTED</b>
+        <span class="pull-right">
+            <i class="fa fa-caret-left fa-lg" (click)="navigateToAddedFiles('prev')"></i>
+            &nbsp;&nbsp; File {{selectedFileIdx+1}}/{{documents.length}} &nbsp;&nbsp;
+            <i class="fa fa-caret-right fa-lg" (click)="navigateToAddedFiles('next')"></i>
+        </span>
+    </h5>
+
+    <h4><b>{{documents[selectedFileIdx].name}}</b></h4>
+    <h6>details about the file</h6>
+
+    <iframe class="iframeStyle" src="\..\..\assets\files\20160930-Retail-LGD-Methodology-Document-vF.pdf"></iframe>
+</div>

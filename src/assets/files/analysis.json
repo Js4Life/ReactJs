@@ -1,0 +1,59 @@
+[{
+		"id": "0",
+		"fileNames": "BankRiskComplaince.pdf",
+		"date": "Jul 7",
+		"context": "CECL Effective Date.Segementation.",
+		"mark":false
+			
+	},
+	{
+		"id": "1",
+		"fileNames": "Citi-BankRiskComplaince.pdf",
+		"date": "Jul 7",
+		"context": "SQW Effective Date.Segementation.",
+		"mark":false
+			
+	}, {
+		"id": "2",
+		"fileNames": "Amex-BankRiskComplaince.pdf",
+		"date": "Jul 7",
+		"context": "Amex Effective Date.Segementation.",
+		"mark":false
+	}, {
+		"id": "3",
+		"fileNames": "SBI-BankRiskComplaince.pdf",
+		"date": "Jul 7",
+		"context": "SBI Effective Date.Segementation.",
+		"mark":true
+		
+	}, {
+		"id": "4",
+		"fileNames": "HDFC-BankRiskComplaince.pdf",
+		"date": "Jul 7",
+		"context": "HDFC Effective Date.Segementation.",
+		"mark":true
+			
+	},
+	{
+		"id": "0",
+		"fileNames": "BankRiskComplaince.pdf",
+		"date": "Jul 7",
+		"context": "CECL Effective Date.Segementation.",
+		"mark":false
+			
+	},
+	{
+		"id": "1",
+		"fileNames": "Citi-BankRiskComplaince.pdf",
+		"date": "Jul 7",
+		"context": "SQW Effective Date.Segementation.",
+		"mark":false
+			
+	}, {
+		"id": "2",
+		"fileNames": "Amex-BankRiskComplaince.pdf",
+		"date": "Jul 7",
+		"context": "Amex Effective Date.Segementation.",
+		"mark":false
+	}
+]

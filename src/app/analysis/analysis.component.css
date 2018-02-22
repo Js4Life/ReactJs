@@ -1,0 +1,195 @@
+.page {
+    font-family: arial, sans-serif;
+     border-collapse: collapse;
+     /* border: ridge; */
+     /* width:90%; */
+     background-color: #f8f8fa;
+     border-right: solid 1px #e2e4f5;
+}
+
+.fileNamesStyling{
+    /* width: 379px; */
+    height: 19px;
+    font-family: Lato;
+    font-size: 16px;
+    text-align: left;
+    color: #21294d;
+    margin: 0px;
+}
+
+.fileContextStyling{
+    /* width: 333px; */
+    height: 15px;
+    font-family: Lato;
+    font-size: 12px;
+    text-align: left;
+    color: #72778f;
+    margin-top: 8px;
+    width: 65%;
+}
+
+
+.fileDateStyling{
+    height: 15px;
+    font-family: Lato;
+    font-size: 12px;
+    text-align: right;
+    color: #475283;
+    padding-right:40px;
+}
+
+
+
+.customHeight{
+    height:89vh;
+    overflow:hidden;
+}
+.customHeight:hover{
+    overflow:overlay;
+}
+.rowStyling{
+    padding: 16px 0px 15px 40px;
+    position: relative;
+}
+.rowStyling:hover{
+    background-color: rgba(225, 228, 245, 0.5);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+}
+.rowStyling:hover .hoverBtns{
+    visibility: visible;
+}
+
+.upperRowStyling{
+    padding-top:30px;
+    padding-bottom: 28px;
+}
+
+
+
+
+.hoverBtns{
+    position: absolute;
+    right: 0%;
+    height: 100%;
+    width: 300px;
+    background: transparent;
+    z-index: 20;
+    top: 0;
+    visibility: hidden;
+    padding-right:40px;
+}
+.hoverBtns > label{
+    width: 36px;
+    height: 15px;
+    font-family: Lato;
+    font-size: 12px;
+    text-align: left;
+    color: #475283;
+    margin:16px 40px 0px 0px;
+}
+
+.hoverBtns > label > span{
+    cursor: pointer;
+}
+
+
+.Recent-Analyses {
+    width: 151px;
+    height: 24px;
+    font-family: Lato;
+    font-size: 20px;
+    font-weight: 900;
+    text-align: left;
+    color: #475283;
+    margin-left: 40px;
+  }
+
+  .All {
+    width: 16px;
+    height: 15px;
+    font-family: Lato;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: left;
+    color: #475283;
+    padding-top: 9px;
+    padding-right: 10px
+    /* margin-left: 150px; */
+  }
+
+  .Marked {
+    width: 42px;
+    height: 15px;
+    font-family: Lato;
+    font-size: 12px;
+    text-align: left;
+    color: #72778f;
+     /* margin-left: 10px;  */
+    padding-top: 9px;
+    padding-right: 10px
+}
+
+.innerRowHeight{
+    padding-top: 8px;
+}
+
+b{
+    padding: 10px;
+}
+
+a {
+    text-decoration: none;
+    color:black;
+    cursor: pointer;
+    
+}
+
+ul {
+    list-style-type: none;
+}
+
+li:nth-child(odd) {
+     color:grey;  
+ }
+    
+li:nth-child(even) {
+    font-weight:bold;
+     color:grey;  
+}
+.mark:hover{
+background-color: lightgrey;
+}
+.head {
+    text-align: auto;
+}
+
+
+.searchBtn{
+    height: 35px;
+    border-radius: 100px;
+    border: solid 1px #cacfde;
+    width: 207.1px;
+    margin:0px 46px;
+    padding-right: 40px;
+}
+.searchInputStyle{
+    
+    font-size: 12px;
+    text-align: left;
+    color: #72778f;
+    width:180px;
+
+    border:none;
+    background: transparent;
+    position:relative;
+    padding: 6px 15px 6px 0px;
+    box-shadow:none;
+}
+.searchInputStyle:focus{
+    box-shadow:none;
+}
+.addonStyle{
+    background: transparent;
+    border:none;
+    padding-left:22px;
+}

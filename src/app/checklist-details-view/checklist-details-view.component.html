@@ -1,0 +1,181 @@
+<div class="my-container">
+  <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '0px' }">
+  </ngx-loading>
+</div>
+<div *ngIf="checklist" class="row noMargin maxRowHeight">
+  <div class="row noMargin headerRow">
+    <div class="col-md-7 noPadding inline">
+      <img src="../../assets/images/back-arrow-white.svg" class="back-arrow-white inline" (click)="gotoPrevious()"/>
+      <span class="ellipsis checkListName inline">{{checklist.name}}</span>
+      <span *ngIf="checklist.itemStatus=='NEW'" class="badge inline">New</span>
+      <span *ngIf="checklist.status==1" class="badge impl_ready inline">Ready to implement</span>
+      <span *ngIf="checklist.itemStatus=='INPROGRESS'" class="badge impl_progress inline">Implementation in progress</span>
+      <span *ngIf="checklist.itemStatus=='COMPLETE'" class="badge impl_complete inline">Implementation complete</span>
+      <div *ngIf="unsavedmsg" class="btn UnSavedMsgStl pull-right">{{unsavedmsg}}</div>
+      <div *ngIf="savedmsg" class="btn SavedMsgStl pull-right">{{savedmsg}}</div>
+    </div>
+    <div class="col-md-5 noPadding">
+      <div class="pull-right inline">
+        <li class="userInfo inline" ><img class="userImage" src="../../assets/images/user-selected.png"> {{currUser.name}}</li>
+        <li class="signoutLink inline" (click)="signOut()">Sign out</li>
+      </div>
+      <div *ngFor="let user of checklist.assignedUsers" class="userThumbnails" class="userThumbnails inline pull-right">
+        {{getInitial(user.name)}}
+        <!--{{user.name.charAt(0)}}-->
+      </div>
+      <!--<button id="preview" type="button" class="btn previewBtn pull-right">Preview</button>-->
+    </div>
+  </div>
+
+  <div class="row noMargin bodyContainer">
+
+      <div class="row noMargin tabBar">
+        <div class="col-md-10 noPadding">
+             <!--<div *ngFor="let step of checklistItemList;let i=index;let first=first" type="button" class="btn tabbedBtns inline" [ngClass]="{'activeTab':first}" (click)="onTabClick(i,$event,step)"> -->
+            <div *ngFor="let step of checklistItemList;let i=index;let first=first; let last=last" type="button" class="btn tabbedBtns inline" [ngClass]="{'activeTab':(i == currentReqIdx) || (!step.creator && last)}" (click)="onTabClick(i,$event,step)">
+              <span>Requirement {{i+1}}</span><br/>
+              <label *ngIf="!step.creator">You <span>+Assign</span></label>
+              <label *ngIf="step.creator && step.creator.name">{{step.creator.name}}</label>
+            </div>
+        </div>
+        <div  class="col-md-2 noPadding">
+          <span class="addBtn pull-right" (click)="addRequirement(checklistItemList.length)"> + Add</span>
+        </div>
+      </div>
+      <div class="row noMargin tabContainer"  *ngIf="currentRequirement">
+
+          <div class="col-md-9 contentPanel" >
+            <div class="requirementsPanel">
+              <div class="row noMargin">
+                  <div class="col-md-6 noPadding">
+                    <p *ngIf="currUser.role.roleId!=3 && showOrHide=='show'" class="inline editableTitle" contentEditable=true [textContent]="currentRequirement.name" (input)="currentRequirement.name=$event.target.textContent" data-text="Enter a title "></p>
+                    <p *ngIf="(currentRequirement.currentAssigneeId==undefined && currUser.role.roleId==3 ||  currUser.role.roleId==3 && currentRequirement.currentAssigneeId!=undefined && currentRequirement.currentAssigneeId.replace('#','')==currUser.id)  && showOrHide=='show'" class="inline editableTitle" contentEditable=true [textContent]="currentRequirement.name" (input)="currentRequirement.name=$event.target.textContent" data-text="Enter a title "></p>
+                    <p *ngIf="(currUser.role.roleId==3 && currentRequirement.currentAssigneeId!=undefined && currentRequirement.currentAssigneeId.replace('#','')!=currUser.id) || showOrHide!='show'" class="inline editableTitle" contentEditable=false [textContent]="currentRequirement.name" (input)="currentRequirement.name=$event.target.textContent" data-text="Enter a title "></p>
+                  </div>
+                  <div class="col-md-6 noPadding">
+                        <li class="dropdownPanelZone relative inline pull-right" [ngClass]="{'ready_border':currentRequirement.itemStatus=='PENDING', 'complete_border':currentRequirement.itemStatus=='APPROVED', 'progress_border':currentRequirement.itemStatus=='INPROGRESS'}">
+                          <div class="selectStyle" (click)="showStatusList(currentRequirement)">
+                            <p *ngIf="currentRequirement.itemStatus!=''" class="ellipsis inline">{{currentRequirement.itemStatus}}</p>
+                            <span class="pull-right inline">
+                              <img src="../../assets/images/down-arrow-black.png" class="down-arrow-white"/>
+                            </span>
+                          </div>
+                          <div  *ngIf="statusListOpen" id="droplist" class="topArrowHead statusDropPanel absolute">
+                            <p class="crossBtn" (click)="statusListOpen=false"><img src="../../assets/images/cross-checklist.png" class="cross-checklist"/></p>
+                            <div *ngFor="let status of statusList;let i=index" class="list-item" [ngClass]="{'activedropdown':currentRequirement.itemStatus == status}" (click)="changeStatus(i,status)">
+                              <label class="ellipsis">{{status}}</label>
+                            </div>
+                          </div>
+                        </li>
+                        <li *ngIf="currentRequirement.id" class="dropdownPanel relative inline pull-right">
+                          <div class="selectStyle" (click)="showUserList(currentRequirement)">
+                            <p *ngIf="currentRequirement.currentAssigneeName" class="ellipsis inline">{{currentRequirement.currentAssigneeName}}</p>
+                            <p *ngIf="!currentRequirement.currentAssigneeName" class="ellipsis inline">No users assigned</p>
+                            <span class="pull-right inline">
+                              <img src="../../assets/images/down-arrow-black.png" class="down-arrow-white"/>
+                            </span>
+                          </div>
+                          <div *ngIf="userListOpen" id="droplist" class="topArrowHead userDropPanel absolute">
+                            <p class="crossBtn" (click)="userListOpen=false"><img src="../../assets/images/cross-checklist.png" class="cross-checklist"/></p>
+                            <div *ngFor="let user of userList;let i=index" class="list-item" [ngClass]="{'activedropdown':currentRequirement.currentAssigneeName == user.name}"  (click)="changeUserAssignment(i,user)">
+                              <label class="ellipsis">{{user.name}}</label>
+                            </div>
+                          </div>
+                        </li>
+                  </div>
+              </div>
+              <div *ngIf="currUser.role.roleId!=3 && showOrHide=='show'">
+                  <editor name='reqDetails'  [data]="currentRequirement.requirementDetails" [type]="'requirement'" (change)="saveEmitter($event)"></editor>
+              </div>
+              <div *ngIf="(currentRequirement.currentAssigneeId==undefined && currUser.role.roleId==3 ||  currUser.role.roleId==3 && currentRequirement.currentAssigneeId!=undefined && currentRequirement.currentAssigneeId.replace('#','')==currUser.id) && showOrHide=='show'">
+                <editor name='reqDetails'  [data]="currentRequirement.requirementDetails" [type]="'requirement'" (change)="saveEmitter($event)"></editor>
+              </div>
+              <p *ngIf="(currUser.role.roleId==3 && currentRequirement.currentAssigneeId!=undefined && currentRequirement.currentAssigneeId.replace('#','')!=currUser.id) || showOrHide!='show'" class="innerhtmlStyle" [innerHTML]="currentRequirement.requirementDetails"></p>
+
+            </div>
+
+            <div class="implementation">
+              <p class="implementationSteps">Implementation steps</p>
+              <div *ngIf="currUser.role.roleId!=3 && showOrHide=='show'">
+                <editor [data]="currentRequirement.implementationSteps" [type]="'implementation'" (change)="saveEmitter($event)"></editor>
+              </div>
+              <div *ngIf="(currentRequirement.currentAssigneeId==undefined && currUser.role.roleId==3 || currUser.role.roleId==3 &&  currentRequirement.currentAssigneeId!=undefined && currentRequirement.currentAssigneeId.replace('#','')==currUser.id) && showOrHide=='show'">
+                <editor [data]="currentRequirement.implementationSteps" [type]="'implementation'" (change)="saveEmitter($event)"></editor>
+              </div>
+              <p *ngIf="(currUser.role.roleId==3 && currentRequirement.currentAssigneeId!=undefined && currentRequirement.currentAssigneeId.replace('#','')!=currUser.id) || showOrHide!='show'" class="innerhtmlStyle" [innerHTML]="currentRequirement.implementationSteps"></p>
+            </div>
+          </div>
+
+          <div class="col-md-3 contentPanel relative" >
+              <p class="detailheading taggedParaBtn" (click)="onTaggedParaClick()">Tagged paragraphs
+                <img src="../../assets/images/down-arrow-black.png" class="down-arrow-white"/>
+              </p>
+              <p class="detailContent ellipsis" >
+                  {{currentTaggedParaList.length}} paragraph(s) tagged
+              </p>
+
+              <p class="detailheading">Documents</p>
+              <p class="detailContent ellipsis-new" *ngFor="let item of associatedContexts_doc_details.contributingDocuments;let last=lst" [ngClass]="{'lastItemPadding':last}">
+                  {{item.name}}
+              </p>
+
+              <div class="relative">
+                <p class="detailheading topContextBtn" (click)="onTopContextClick()">Top contexts
+                  <img src="../../assets/images/down-arrow-black.png" class="down-arrow-white"/>
+                </p>
+                <div id="topContextPane" *ngIf="showTopContext" class="topContextPane absolute topArrowHead">
+                  <div class="contextContent">
+                    <span class="contextBadge" *ngFor="let item of associatedContexts_doc_details.contributingContexts;let last= last; let i=index;">
+                      <!-- <div class="btn contextBadge"><span>{{item.name}}</span><span class="contextDel crossBtn" (click)="deleteTopContext(i, $event)"><img src="../../assets/images/cross-checklist.png" class="cross-checklist"/></span></div> -->
+                      {{item.name}}
+                      <label class="contextDel" (click)="deleteTopContext(i, $event)"> x
+                        <!-- <img src="../../assets/images/cross-checklist.png" class="cross-checklist"/> -->
+                      </label>
+                    </span>
+                  </div>
+                  <div class="closeBtnWrapper inline">
+                    <label (click)="cancelTopContextPane()">Close</label>       
+                  </div>
+                </div>
+              </div>
+              
+              <p class="detailContent ellipsis">
+                <!-- <span *ngFor="let item of associatedContexts_doc_details.contributingContexts;let last= last">
+                  {{item.name}}
+                  <span *ngIf="!last">, </span>
+                </span> -->
+                {{associatedContexts_doc_details.contributingContexts.length}} contexts
+              </p>
+
+              <p class="detailheading">Component types</p>
+              <p class="detailContent">
+                <span *ngFor="let item of componentList;let last= last">
+                  {{item.name}}
+                  <span *ngIf="!last">, </span>
+                </span>
+              </p>
+
+
+              <div id="taggedparaPane" *ngIf="showTaggedPara" class="taggedparaPane absolute topArrowHead">
+                <div class="paraContent">
+                  <div class="pararow" *ngFor="let para of currentTaggedParaList">
+                    <label>{{para.name}}</label>
+                    <!--<span>{{para.documentName}}</span>-->
+                    <p>{{para.paraContent}}</p>
+                    <p class="paraNote">Notes :</p>
+                    <p class="paraNoteContent" *ngFor="let n of para.notes"><span *ngIf="n.isPrivate" class="fa fa-lock private"></span>{{n.name}}</p>
+                  </div>
+                </div>
+                <div class="closeBtnWrapper inline">
+                  <label (click)="cancelTaggedPane()">Close</label>
+                </div>
+              </div>
+
+          </div>
+      </div>
+      <div class="implcontainer">
+        <div class="btn saveBtn" (click)="saveChecklistItem(currentRequirement)">Save this item</div>
+        <div class="btn openAsAnalysisBtn" (click)="openInAnalysis(currentRequirement)">Open in analysis view</div>
+      </div>
+  </div>
+</div>

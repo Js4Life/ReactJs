@@ -1,0 +1,103 @@
+<!--<div class="parent maxHeight">
+  <div class="row">
+    <div class="col-md-9 ">
+      <span class="ellipsis checkListNumber">ChecklistNumber- <span>{{checkListNumber}}</span></span>
+    </div>
+    <div class="col-md-3 ">
+      <button id="preview" type="button" class="btn previewBtn pull-right">Preview</button>
+    </div>
+  </div>
+  <div class="row tabBar">
+    <div class="col-md-10 ">
+        <button id="{{step.idx}}" *ngFor="let step of checklistSteps;let i=index;let first=first" type="button" class="btn tabbedBtns inline" [ngClass]="{'activeTab':first, 'inactiveTab':!first}" (click)="onTabClick(step.idx,$event)"><span>{{step.idx}}</span></button>
+    </div>
+    <div  class="col-md-2 ">
+      <span class="grey link addBtn pull-right" (click)="addAnotherChecklist(checklistSteps.length)"> + Add</span>
+    </div>
+  </div>
+  <div class="maxHeight tabContainer">
+      <div class="col-md-1" >
+        <div class="barContainer">
+          <div class="bar selectedBar"></div>
+          <div class="bar deselectedBar"></div>
+        </div>
+      </div>
+      <div class="col-md-11 contentPanel" >
+        <div class="requirementsPanel" *ngFor="let req of requirementsList;let i=index;let last=last">
+          <div class="row noMargin">
+            <p class="inline editableTitle" contentEditable=true [textContent]="req.title" (input)="req.title=$event.target.textContent" data-text="Enter a title "></p>
+            <button type="button" class="btn plusBtn  pull-right inline" (click)="addRequirement(requirementsList.length)">
+              <img src="../../assets/images/plus.png" class="plus">
+            </button>
+          </div>
+          <p class="inline editableContent" contentEditable=true [textContent]="req.text" (input)="req.text=$event.target.textContent" data-text="Start typing the requirement here"></p>
+          <hr *ngIf="last" class="contentDivider"/>
+        </div>
+
+        <div class="referencePanel">
+          <div class="row noMargin referenceHeading">
+            <p class="inline reference">References</p>
+            <button class="btn uploadBtn inline" >Upload</button>
+          </div>
+          <div class="row noMargin" *ngFor="let ref of referenceList;let i=index;let last=last">
+            <p class="referenceFile">AmexAnnualFinancial…2017.pdf</p>
+            <p class="referenceText ellipsis">Leverage agile frameworks to provide for compleverage agile frameworks to provide </p>
+            <hr *ngIf="last" class="contentDivider"/>
+          </div>
+        </div>
+        
+      </div>
+  </div>
+</div>-->
+
+
+
+
+
+
+<div class="parent">
+    <div class="row noMargin">
+        <div class="col-md-6 noPadding"> 
+           <h3 class="checkListNumber">Create Checklist</h3>
+        </div>
+        <div class="col-md-6 noPadding"> 
+            <div class="btn clist pull-right" (click)="createChecklist()">Create checklist</div>                      
+            <!--<div class="row">
+                    <h5 *ngIf="msg" class="texth6 pull-right">{{msg}}</h5>
+                    <h5 *ngIf="errorMsg" class="ErrorMessage pull-right">{{errorMsg}}</h5>
+            </div>-->
+        </div>
+    </div>
+  <div class="row bgWhite">
+    <div class="col-md-8 noPadding descPanel"> 
+        <div class="row noMargin">
+            <h5 class="subheadings">Title</h5>
+        </div>
+        <div class="row noMargin">
+            <p class="inline ellipsis editableChecklistName" contentEditable=true [textContent]="checklist.name" (input)="checklist.name=$event.target.textContent" data-text="Enter checklist name "></p>
+        </div>
+        <div class="row noMargin">
+            <h5 class="subheadings">Description</h5>
+            <!-- <img class="ImageStyle2" src="../../assets/images/Text.png"> -->
+
+        </div>
+        <div class="row noMargin">
+            <p class="inline ellipsis editableChecklistName" contentEditable=true [textContent]="checklist.description" (input)="checklist.description=$event.target.textContent" data-text="Enter description"></p>
+        </div>
+       
+    </div>
+    <div class="col-md-4 noPadding ">
+        <p class="reference">Assign to</p>
+        <div class="row noMargin assignPanel">
+          <div class="row noMargin items" [ngClass]="{'itemActive':list.isSelected,'itemInactive':!list.isSelected}"  *ngFor="let list of updatedUserList" (click)="selectUser(list)">
+          <div class="checkbox inline"  [ngClass]="{'selectedCheckbox selected':list.isSelected,'deselectedCheckbox default':!list.isSelected}" ></div>
+            <label class="ellipsis inline"><img src="../../assets/images/user-selected.png" class="ImageStyle3 inline">{{list.name}}</label>
+          </div>
+        </div>
+    </div>
+  </div>
+  <div class="row noMargin">
+      <h5 *ngIf="msg" class="texth6 pull-right">{{msg}}</h5>
+      <h5 *ngIf="errorMsg" class="ErrorMessage pull-right">{{errorMsg}}</h5>
+  </div>
+</div>

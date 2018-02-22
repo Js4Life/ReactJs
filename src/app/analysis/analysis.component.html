@@ -1,0 +1,32 @@
+<div class="page rowMaxHeight">
+  <div class="row noMargin" class="upperRowStyling">
+    <a class="Recent-Analyses">Recent Analyses</a> 
+    <div class="pull-right input-group searchBtn">
+        <span class="input-group-addon addonStyle">
+          <img src="../../assets/images/search.png" class="search"/>
+        </span>
+        <input type="text" class="form-control searchInputStyle" placeholder="Search by Name or Contexts" (keyup)="onsearch($event.target.value)">
+    </div>
+    <div class="noMargin pull-right innerRowHeight">
+        <a class="All" (click)="all('all',$event)">All</a>
+      <a class="Marked" (click)="all('marked',$event)">Marked</a>
+    </div> 
+  </div>
+  <div class="customHeight">
+    <div class="row noMargin rowStyling" *ngFor="let analysis of recentAnalysis;let i = index" (click)="goToSavedAnalysis(analysis)">
+      <p class="fileNamesStyling">{{analysis.name}}<img class="pull-right" src="../../assets/images/star.png" *ngIf='analysis.mark' style="padding-right:40px"></p>
+      <p class="fileContextStyling ellipsis" > {{analysis.contextNames}} <span class="pull-right fileDateStyling"> {{analysis.date}}</span></p>
+      <div class="hoverBtns pull-right">
+        <!-- <label *ngFor="let btn of hoverBtns" class="Inline pull-right">
+          <span (click)="onClickBtn(analysis.id,btn.name)">{{btn.name}}</span>
+        </label> -->
+        <label class="Inline pull-right"><span (click)="onClickBtn(analysis.id,'Delete',$event,i)">Delete</span></label>
+        <label class="Inline pull-right" *ngIf="!analysis.mark"><span (click)="onClickBtn(analysis.id,'Mark',$event)">Mark</span></label>
+        <label class="Inline pull-right" *ngIf="analysis.mark"><span (click)="onClickBtn(analysis.id,'Unmark',$event)">Unmark</span></label>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+  

@@ -1,0 +1,21 @@
+
+
+<div class="row noMargin searchBar">
+  <div class="col-md-10 noPadding">
+    <div class="input-group searchBtn" >
+      <span class="input-group-addon addonStyle">
+        <img src="../../assets/images/search.png" class="search"/>
+      </span>
+      <input type="text" class="form-control searchInputStyle" placeholder="Search in glossary" [ngModel]="searchText" (keyup)="search(searchText=$event.target.value)">
+      <span *ngIf="searchText" class="fa fa-times clear" (click)="clear()"></span>
+    </div>
+  </div>
+  <div class="col-md-2 noPadding">
+    <div class="syncToDB pull-right" (click)="syncToDB()"><span class="fa fa-refresh"></span></div>
+  </div>
+</div>
+
+
+<div class="row noMargin glossaryContainer" >
+  <span class="badge" *ngFor="let li of tempList" [ngClass]="{'abstractWord':li.isAbstract, 'globalVector':li.isGlobalIdReady}" (click)="toVectorDetails(li,$event,'details')"><label *ngIf="li.isGlobalIdReady" class="AddVector" (click)="toVectorDetails(li,$event,'add')">+</label>{{li.name}}</span>
+</div>

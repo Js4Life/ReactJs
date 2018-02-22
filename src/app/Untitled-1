@@ -1,0 +1,14 @@
+<form (ngSubmit)="onSubmit()"  #loginForm="ngForm">
+<div class="form-group">
+<label for="name">Name</label>
+<input type="text" class="form-control"  id="name" required [(ngModel)]="loginForm.name" name="name" #name="ngModel" placeholder="Enter the username">
+<div [hidden]="name.valid" class="alert alert-danger">Username is required</div>  
+</div>
+<div class="form-group">
+<label for="password">Password</label>
+<input type="password" class="form-control"  id="password"  [(ngModel)]="loginForm.password" name="password">
+<label style="color:red;">{{errorMessage.title}} {{errorMessage.message}}</label>
+</div> 
+<button type="submit" class="btn btn-success" [disabled]="!loginForm.form.valid" (click)="login()">Login</button>
+<button type="button" class="btn btn-defualt" (click)="resetUser(); loginForm.reset()">Cancel</button>
+</form>

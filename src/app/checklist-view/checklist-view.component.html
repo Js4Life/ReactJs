@@ -1,0 +1,91 @@
+<div class="my-container">
+  <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '0px' }">
+  </ngx-loading>
+</div>
+<div class="maxHeight welcomeTab" *ngIf="checklists && checklists.length==0">
+  <div class="welcomeContainer maxHeight"> 
+      <p class="Welcome">Welcome!</p>
+      <p class="Get-started-by-selec">Get Started by devoloping analysis for checklist you would like to build</p>
+      <img class="imagePadding" src="../../assets/images/home-new-user-illustration.png"/>
+      <div class="prettyprint">
+          <!-- <div class="centeredText">text here</div> -->
+      </div>
+  </div> 
+</div>
+<div class="parent-container rowMaxHeight" *ngIf="checklists && checklists.length>0">
+  <div class="row noMargin upperRow">
+    <label class="col-md-7 noPadding">
+      Checklists
+      <p *ngIf="ctxtFilter">filtered by {{itemtypeFilter}} <span>"{{ctxtFilter}}"</span></p>
+    </label>
+    <div class="col-md-5 noPadding">
+        <span *ngIf="currUser.role.roleId==1" class="pull-right fa graphBtn" [ngClass]="{'fa-bar-chart':!graphView, 'fa-list':graphView}" (click)="showGraphView()"></span>
+        <div class="input-group searchChecklistBtn pull-right">
+            <span class="input-group-addon addonStyle">
+              <img src="../../assets/images/search.png" class="search"/>
+            </span>
+            <input type="text" class="form-control searchInputStyle" placeholder="Search by Checklist name" (focus)="searchFocusIn()" (blur)="searchFocusOut()" (keyup)="onSearch($event.target.value)">
+        </div>
+        <span *ngIf="ctxtFilter" class="ctxtFilter pull-right" (click)="showAllChecklist()">Show all</span>
+    </div>
+  </div>
+  <div *ngIf="!graphView">
+      <div class="row noMargin secondUpperRow">
+          <div class="col-md-6 noPadding">
+            <p>Title</p>    
+          </div>
+          <div class="col-md-2 noPadding">
+            <p>Status</p>    
+          </div>
+          <div class="col-md-2 noPadding">
+            <p>Initiated by</p>    
+            </div>
+          <div class="col-md-2 noPadding">
+            <p>Last modified by</p>    
+          </div>
+      </div>
+      <div class="row noMargin thirdRow">
+        <div *ngIf="checklistsTemp.length==0" class="row noMargin noChecklists">
+          No checklists found!
+        </div>
+        <div  *ngIf="checklistsTemp.length!=0">
+            <div class="row noMargin rowStyling" *ngFor="let chk of checklistsTemp;let i = index" (click)="gotodetails(chk)">
+                <div class="row noMargin border_bottom">
+                  <div class="col-md-6 below-padding">
+                    <p class="checklistName inline ellipsis" [ngClass]="{'bold':currUser.id.replace('#','')==chk.creator.id.replace('#','')}">{{chk.name}}</p>
+                    <p *ngIf="chk.primaryAnalysis" class="contextNames ellipsis"><b>Contexts:</b> <span > {{chk.primaryAnalysis.contextNames}}</span></p>
+                    <p class="regulations ellipsis"><b>Documents:</b> <span> {{chk.primaryAnalysis.documentNames}}</span></p>
+                    <p class="collaborators ellipsis"><b>Collaborators:</b> <span *ngFor="let cn of chk.assignedUsers;let last=last"> {{cn.name}}<span *ngIf="!last">, </span></span></p>
+                  </div>
+                  <div class="col-md-2 noPadding">
+                    <span *ngIf="chk.itemStatus=='NEW'" class="badge inline">New</span>
+                    <!--<span *ngIf="chk.itemStatus==0" class="badge inline">Draft</span>-->
+                    <!--<span *ngIf="chk.itemStatus=='PENDING'" class="badge impl_ready inline">Pending</span>-->
+                    <span *ngIf="chk.itemStatus=='INPROGRESS'" class="badge impl_progress inline">In progress</span>
+                    <span *ngIf="chk.itemStatus=='COMPLETED'" class="badge impl_complete inline">Complete</span>    
+                  </div>
+                  <div class="col-md-2 noPadding createdStyle">
+                    <!-- <p><b>Created</b></p> -->
+                    <p>{{chk.createdDate}}</p>
+                    <p>{{chk.creator.name}}</p>
+                    
+                  </div>
+                  <div class="col-md-2 noPadding modifiedStyle">
+                    <!-- <p><b>Modified</b></p> -->
+                    <p>{{chk.modifiedDate}}</p>
+                    <p>{{chk.modifiedBy}}</p>
+                    <div class="pull-right">
+                      <img class="inline DeleteImageStl" src="../../assets/images/delete.png" (click)="deleteChecklist(chk,$event,i)">
+                      <img class="inline downloadImageStl" src="../../assets/images/Dtafalonso-Android-Lollipop-Downloads.ico" (click)="downloadChecklistFile(chk,$event)">
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+      </div>
+  </div>
+  <div *ngIf="graphView">
+    <graph [data]="checklistDataForGraph"  (change)="pieClick($event)"></graph>
+    <!--<graph [items]="graphData" [groups]="groups" (change)="graphClick($event)"></graph>-->
+  </div>
+</div>

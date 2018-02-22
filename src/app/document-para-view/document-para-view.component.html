@@ -1,0 +1,23 @@
+<div class="row noMargin noPadding innerColHeight">
+  <div class="row noMargin paraHeadingContainer">
+    <div class="pageHeading">
+      <h5>{{currentDoc.name}}</h5>
+      <p>{{currentDoc.docType}} DOCUMENT </p>
+    </div>
+  </div>
+  <div class="row noMargin paraContainer">
+    <div id="para{{para.name}}" class="row noMargin para unselectedPara" *ngFor="let para of currentDoc.paragraphs" >
+      <div class="col-md-1 noMargin contextBar inline">
+         <div class="progress vertical_progress">
+            <div  *ngFor="let prog of para.contextDistribution" class="progress-bar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{ 'width':prog.value,'background-color':prog.color }">
+            </div>
+         </div>
+      </div>
+      <div class="col-md-11 noMargin paraContent inline">
+        <label>{{para.name}}</label>
+        <p>{{para.paraContent}}</p>
+      </div>
+    </div>
+  </div>
+
+</div>

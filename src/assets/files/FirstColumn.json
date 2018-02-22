@@ -1,0 +1,6 @@
+[
+    {"id":"1","name":"Accounting","type":"Folder","parent":"parent" },
+    {"id":"2","name":"Bank Compliance Policies 2001-2017","type":"Folder","parent":"parent" },
+    {"id":"3","name":"Financial Forecasts","type":"Folder","parent":"parent" },
+    {"id":"4","name":"Complaince02","type":"Folder","parent":"parent" }
+  ]

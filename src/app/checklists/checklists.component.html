@@ -1,0 +1,23 @@
+<div class="customheight">
+
+  <label id="l2">Checklists</label>
+  <div class="labelStyle">
+    <label class="active checklistBtns" (click)="onMeShow('pending',$event)">Pending on Me()</label>
+    <label class="inActive checklistBtns" (click)="onMeShow('all',$event)">All active({{size}})</label>
+  </div>
+  <hr class="underline">
+
+
+  <!-- <div class="row noMargin listRow" *ngFor="let file of filedata">
+    <div>
+      <p class="firstP">{{file.name}}</p>
+      <p class="secondP">{{file.status}} | {{file.createdBy}} | {{file.createdAt}}</p>
+    </div>
+  </div> -->
+
+
+
+<!-- <a id="a1" class="grey active" [class.borderbottom]='all' (click)="allShow()" style="cursor:default;">SEE ALL</a> -->
+
+
+</div>

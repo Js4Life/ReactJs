@@ -1,0 +1,371 @@
+.logInDiv{
+    width: 345px;
+    min-height: 408px;
+    border-radius: 14px;
+    background-color: #475283;
+    box-shadow: 0 1px 12px 0 rgba(0, 255, 189, 0.14);
+}
+
+.bgcl{
+    height: 100%;
+    width: 100%;
+    background-color: #21294d;
+}
+.height-26vh{
+    height: 26vh;
+}
+
+.height-34vh{
+    height: 34vh;
+}
+
+.height-40vh{
+    height: 40vh;
+}
+.left-mar{
+    margin-left: 7vh;
+}
+
+.parabolelogo{
+    /*width: 134.3px;*/
+    height: 24px;
+    padding: 50px 0px 0px 135px;
+    color: white;
+    font-weight: bold;
+    font-family: Lato;
+    font-size: 20px;    
+}
+.UserNameStl{
+    margin: 50px 0px 0px 52px;
+    padding: 9px 0px 11px 25px;
+    width: 240px;
+    height: 35px;
+    border-radius: 100px;
+    background-color: #384168;
+    border: solid 1px #475283;
+     font-family: Lato;
+    font-size: 12px;
+    text-align: left;
+    color: #cacfde;
+}
+.passwordStl{
+    margin: 25px 0px 0px 52px;
+    padding: 9px 0px 11px 25px;
+    width: 240px;
+    height: 35px;
+    border-radius: 100px;
+    background-color: #384168;
+    border: solid 1px #475283;
+    font-family: Lato;
+    font-size: 12px;
+    text-align: left;
+    color: #cacfde;
+}
+.UserNameStl:focus, .passwordStl:focus, .registerInput:focus{
+    outline:none;
+}
+.registerInput{
+        margin: 25px 0px 0px 52px;
+    padding: 9px 0px 11px 25px;
+    width: 240px;
+    height: 35px;
+    border-radius: 100px;
+    background-color: #384168;
+    border: solid 1px #475283;
+    font-family: Lato;
+    font-size: 12px;
+    text-align: left;
+    color: #cacfde;
+}
+.logInButton{
+    margin: 25px 0px 0px 52px;
+    width: 240px;
+    height: 35px;
+    border-radius: 100px;
+    font-family: Lato;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    color: #ffffff;
+    background-color: #5ace3d;
+    padding:8px 0px;
+    cursor:pointer;
+}
+.Forgot-your-password{
+    padding: 40px 0px 0px 52px;
+    /* width: 120px;
+    height: 15px; */
+    font-family: Lato;
+    font-size: 12px;
+    text-align: left;
+    color: #f8f8fa;
+  }
+.Forgot-your-password:hover{
+    cursor:pointer;  
+}
+.errorMsg{
+    padding:0px 52px;
+    color:red;
+    height:20px;
+    font-size: 13px;
+    text-align: center;
+}
+.registerLink{
+    padding: 40px 52px 0px 0px;
+    /*margin-left:30px;*/
+    /* width: 120px;
+    height: 15px; */
+    font-family: Lato;
+    font-size: 12px;
+    text-align: right;
+    color: #f8f8fa;
+}
+.registerLink:hover{
+    cursor:pointer;  
+}
+
+.Reset-password{
+    padding: 50px 0px 0px 7px;
+    /* width: 144px; */
+    /*height: 27px;*/
+    font-family: Faustina;
+    font-size: 21px;
+    font-weight: bold;
+    text-align: center;
+    color: #ffffff;
+  }
+  .Enter-the-email-addr{
+    padding: 28px 0px 0px 68px;
+    /* width: 228px; */
+    height: 45px;
+    font-family: Lato;
+    font-size: 12px;
+    text-align: center;
+    color: #cacfde;
+  }
+  .Send-reset-password{
+    width: 133px;
+    height: 15px;
+    font-family: Lato;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    color: #ffffff;
+  }
+  .Back-to-Log-In{
+    /* width: 74px;
+    height: 15px; */
+    padding: 79px 0px 0px 0px;
+    font-family: Lato;
+    font-size: 12px;
+    text-align: center;
+    color: #f8f8fa;
+    cursor:pointer;
+  }
+.register-Back-to-Log-In{
+        cursor:pointer;
+    padding: 0px 0px 30px 0px;
+    font-family: Lato;
+    font-size: 12px;
+    text-align: center;
+    color: #f8f8fa;
+  }
+  .Set-a-new-password{
+    padding: 30px 0px 10px 120px;    
+    width: 228px;
+    height: 15px;
+    font-family: Lato;
+    font-size: 12px;
+    text-align: center;
+    color: #cacfde;
+  }
+/* .loginForm{
+    margin-top:200px;
+}
+
+
+.loginForm{
+    margin-top:200px;
+
+}
+
+.form-control {
+    border-radius: 0;
+    width:280px;
+    height: 34px;
+    padding:6px 12px;
+    font-size:14px;
+    line-height: 1.42;
+} */
+img {
+    height:65px;
+    width:190px;
+    margin-bottom: 3px;
+    margin-left: 1px;
+    padding: 1px;
+}
+.btnStyle{
+    border-radius: 4px;
+    border: 1px solid lightgrey;
+    color: black;
+    width:14%;
+    float:right;
+    background-color:blue;
+    padding:7px;
+
+}
+
+.well{
+    padding: 28px;
+    border:none;
+     background-color: transparent;
+
+}
+
+.col-md-9 {
+    position: relative;
+    margin-top: 1%;
+    width: 42%;
+}
+
+
+fieldset{
+    color:white;
+    font-size: 15px;
+    tab-size: 3;
+}
+
+
+
+.bg-image{
+    /* background-image: url("../../assets/images/main.jpg"); */
+       background-repeat: no-repeat;
+       -webkit-background-size: cover;
+          -moz-background-size: cover;
+          -o-background-size: cover;
+
+       font: 400 15px/1.8 Lato, sans-serif;
+background-size:cover;
+       	height:100%;
+       	width:100%;
+           background-color: #21294d;
+
+}
+
+#sticky {
+    width:100%;
+    padding:20px;
+    padding-bottom:16px;
+    background:black;
+    color:white;
+    font-size:13px;
+    text-align:left;
+    position:fixed;    /*Here's what sticks it*/
+    bottom:0;          /*to the bottom of the body*/
+    left:0;            /*and to the left of the body.*/
+}
+
+.ng-valid[required], .ng-valid.required  {
+    border-left: 5px solid #42A948; /* green */
+  }
+  
+  .ng-invalid:not(form)  {
+    border-left: 5px solid #a94442; /* red */
+  }
+
+  .bg-dark{
+      background-color: #000;
+  }
+
+
+
+
+
+
+
+
+.dropdownPanel{
+    margin: 25px 0px 0px 52px;
+    padding: 9px 0px 11px 25px;
+    width: 240px;
+    height: 35px;
+    border-radius: 100px;
+    background-color: #384168;
+    border: solid 1px #475283;
+    font-family: Lato;
+    font-size: 12px;
+    text-align: left;
+    color: #cacfde;
+}
+.selectStyle{
+    font-family: Lato;
+    font-size: 12px;
+    text-align: left;
+    background:transparent;
+    border:none;
+    padding:0px;
+    cursor:pointer;
+}
+.selectStyle > p {
+    width:85%;
+    padding:0px;
+    /*color:#475283*/
+}
+.selectStyle > span{
+    padding:0px;
+}
+.userDropPanel{
+    z-index: 20;
+    padding:5px 0px 10px 0px;
+    top:4vh;
+    left:10px;
+    background:white;
+    box-shadow: -2px -2px 4px 0 rgba(0, 0, 0, 0.08);
+    border: solid 1px #cacfde;
+    text-align:center;
+}
+.userDropPanel > .crossBtn{
+    text-align: right !important;
+    padding-right:10px;
+    margin:0px;
+    cursor:pointer;
+    color: #475283;
+}
+.userDropPanel > .crossBtn > img{
+    width:12px;
+    height:12px;
+}
+#droplist::before {
+    left: calc(50% - 11px);
+}
+#droplist::after {
+    left: calc(50% - 10px);
+}
+.list-item{
+    padding: 13px 20px 13px 20px;
+    height:42px;
+    text-align: left;
+    cursor:pointer;
+}
+.list-item:hover {
+    background: #f0f2fa;
+}
+.list-item > label{
+    width: 175px;
+    font-family: Lato;
+    font-size: 12px;
+    color: #475283;
+    cursor:pointer;
+}
+.list-item-error{
+    padding: 13px 20px 13px 20px;
+    width: 175px;
+    height:42px;
+    text-align: center;
+}
+
+.down-arrow-white {
+    width: 12.7px;
+    height: 6.4px;
+    margin-right: 15px;
+}

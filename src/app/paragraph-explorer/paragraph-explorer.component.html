@@ -1,0 +1,238 @@
+<div class="my-container">
+  <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '0px' }">
+  </ngx-loading>
+</div>
+<nav class="navbar navbarStyle">
+      <ul class="nav navbar-nav">
+        <li  class="navChildBtn" (click)="back()">
+          <img src="../../assets/images/back-arrow-white.svg" class="back-arrow-white"/>
+        </li>
+        
+        <li class="dropdownPanelZone relative">
+          <div class="selectStyle" (click)="showfilesDroplist=true">
+            <p *ngIf="filesForAnalysis.length>0" class="ellipsis inline">{{filesForAnalysis.length}} of {{files.length}} documents selected({{firstSelectedFile.name}})</p>
+            <p *ngIf="filesForAnalysis.length==0" class="ellipsis inline">No file selected</p>
+            <span class="pull-right inline">
+              <img src="../../assets/images/down-arrow-white@2x.png" class="down-arrow-white"/>
+            </span>
+          </div>
+          <div  *ngIf="showfilesDroplist" id="droplist" class="topArrowHead dropPanel absolute">
+            <p class="crossBtn" (click)="showfilesDroplist=false"><img src="../../assets/images/cross-checklist.png" class="cross-checklist"/></p>
+            <p>{{filesForAnalysis.length}} document(s) selected for analysis</p>
+            <div *ngFor="let file of files;let i=index" class="list-item" [ngClass]="{'activedropdown':file.isSelected}"  (click)="changeFileSelection(i,file)">
+              <div class="checkbox inline"  [ngClass]="{'selectedCheckbox selected':file.isSelected,'deselectedCheckbox default':!file.isSelected}" ></div>
+              <label class="ellipsis">{{file.name}}</label>
+            </div>
+          </div>
+        </li>
+
+      </ul>
+      
+      <ul class="nav navbar-nav navbar-right">
+        <li class="userInfo inline" ><img class="userImage" src="../../assets/images/user-selected.png"> {{currUser.name}}</li>
+        <li class="signoutLink inline" (click)="signOut()">Sign out</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li *ngIf="!stateSaved" class="navChildBtn" (click)="stateSaved=!stateSaved"><div  class="star"></div></li>
+        <li *ngIf="stateSaved" class="navChildBtn" (click)="stateSaved=!stateSaved"><div  class="clicked"></div></li>
+      </ul>
+      <button type="button" *ngIf="tempAnalysisId" class="btn tabbedBtns nav navbar-nav navbar-right SaveNewAnalysis" (click)="saveUpdatedAnalysis()">Save new analysis</button>
+      <button type="button" *ngIf="tempAnalysisId" class="btn tabbedBtns nav navbar-nav navbar-right DiscardAnalysis" (click)="discardUpdatedAnalysis()">Discard new analysis</button>
+      <div *ngIf="discardedAnalysisMsg" class="btn nav navbar-nav navbar-right UnSavedMsgStl pull-right">{{discardedAnalysisMsg}}</div>
+      <div *ngIf="savedAnalysisMsg" class="btn nav navbar-nav navbar-right SavedMsgStl pull-right">{{savedAnalysisMsg}}</div>
+</nav>
+
+
+<div class="row noPadding noMargin rowMaxHeight">
+
+
+  <div class="col-md-2 maxHeight leftCol">
+    <div class="leftInnerPane relative" [ngClass]="{'enableOverlay':isFeedBackOn}">
+        <div class="row noMargin">
+          <div class="activeDetails" (click)="showHoverContext=true">{{unselectedContextsLength}} more contexts
+            <img src="../../assets/images/down-arrow-dropdown@2x.png" class="down-arrow-dropdown pull-right"/>
+          </div>
+        </div>
+        <div class="row noMargin contextPane">
+            <div class="items" *ngFor="let list of selectedContexts;let idx=index">
+              <div class="contextDetails">
+                <p><label class="ellipsis">{{list.name}}</label><!-- &nbsp;<span>{{list.value}}</span>--></p>
+                <div class="progress">
+                  <div class="progress-bar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{ 'width':list.value,'background-color':list.color }">
+                  </div>
+                </div>
+              </div>
+              <div class="selectionDeleteBtn cross pull-right" (click)='deleteReference(list,idx)'></div>
+            </div>
+        </div>
+        <div *ngIf="showHoverContext" id="allContextHoverId" class="allContextHoverPanel topArrowHead absolute">
+          <div class="contextContainer">
+            <contexts [lists]="allContextsByDoc" [isOverlay]="true"  (change)="contextChange($event)"></contexts>
+            <div class="closeBtnWrapper inline">
+              <button type="button" class="btn tabbedBtns addToChecklist" (click)="onFinishAdding()">On finish adding</button>
+              <label class="Cancel" (click)="cancelContextChanges()">Cancel</label>       
+            </div>
+          </div>
+        </div>
+    </div>
+    
+
+  </div>
+
+
+  <div class="col-md-10 maxHeight noPadding relative">
+
+
+      <div class="col-md-4 noPadding maxHeight paraDetailsPane" [ngClass]="{'enableOverlay':isFeedBackOn}">
+
+
+              <div class="row input-group searchBtn">
+                  <span class="input-group-addon addonStyle">
+                    <img src="../../assets/images/search.png" class="search"/>
+                  </span>
+                  <input type="text" class="form-control searchInputStyle" placeholder="Search in matched paragraphs" [ngModel]="searchText" (focus)="searchFocusIn()" (focusout)="searchFocusOut()" (keyup)="search(searchText=$event.target.value, paragraphTempArray)">
+              </div>
+
+              <div *ngIf="linkedCheckListId && tag" class="row metadata">
+                <p>
+                    <label>{{taggedParagraphList.length}} tagged Paragraph(s)</label>
+                    <span *ngIf="!allParaShowBtn" class="pull-right" (click)="showTaggedParas()">Show Tagged</span>
+                    <span *ngIf="allParaShowBtn" class="pull-right" (click)="showAllParas()">Show all</span>
+                </p>
+              </div>
+
+              <div class="row noMargin paraGroupPanel">
+
+                <div id="para{{para.id.replace(':','')}}" class="paraPanel inactivePara" *ngFor="let para of paragraphTempArray" (click)="clickOnPara(para,$event)" (mouseenter)="hoverOnPara($event)">
+                    
+                    
+                    <div class="relative">
+                        <p class="paraStyle" [innerHTML]="para.paraContent"></p>
+                        <i *ngIf="para.isTagged" class="tagIcon fa fa-bookmark"></i>
+                    </div>  
+                    <p>
+                      <label class="ellipsis inline"><p class="ellipsis inline">{{para.contextDistribution[0].contextName}}</p> <span class="inline">{{para.contextDistribution[0].value}}</span></label>
+                      <label class="inline pull-right"><p class="ellipsis">{{para.documentName}}</p></label>
+                    </p>
+
+                    <div class="progressPane hide">
+                        <div class="progress">
+                          <div  *ngFor="let prog of para.contextDistribution" class="progress-bar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{ 'width':prog.value,'background-color':prog.color }">
+                          </div>
+                        </div>
+                        <br/>
+
+                        <span *ngIf="para.relatedParagraphs" class="relatedBtn" (click)="showRelatedParas(para,$event)">{{para.showHide}} {{para.relatedParagraphs.length}} RELATED
+                          <img src="" class="down-arrow-black" [ngClass]="{'expanded': para.relatedParaOpen, 'collapsed': !para.relatedParaOpen}" />
+                          <span class="pull-right" (click)="onPrimaryFileClick(para,$event)">{{showPrimaryFile}} primary file</span>
+                        </span>
+                        
+                        <div *ngIf="para.relatedParagraphs" data-toggle="collapse" class="row noMargin relatedParaGroupPanel collapse">
+                          <div class="relatedParaPanel inactivePara" *ngFor="let relP of para.relatedParagraphs" (click)="clickOnRelatedPara(relP,$event)">
+                            <p class="paraStyle">{{relP.paraContent}}</p>
+                            <p>
+                              <span>{{relP.contextDistribution[0].contextName}} : {{relP.contextDistribution[0].value}}</span>
+                              <label class=" pull-right"><p class="ellipsis">{{relP.documentName}}</p></label>
+                            </p>
+                            <div class="progress">
+                              <div  *ngFor="let prog of relP.contextDistribution" class="progress-bar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{ 'width':prog.value,'background-color':prog.color }">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                    
+                    
+
+                    <div id="paraOnHover" class="floatingPara absolute leftArrowHead">
+                      <p class="hoverParaStyle">{{para.paraContent}}</p>
+                      <p>
+                        <span>{{para.contextDistribution[0].contextName}}: {{para.contextDistribution[0].value}}</span>
+                      </p>
+                      <div class="progress">
+                        <div  *ngFor="let prog of para.contextDistribution" class="progress-bar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{ 'width':prog.value,'background-color':prog.color }">
+                        </div>
+                      </div>
+                    </div>
+
+                </div>
+              </div>
+
+      </div>
+
+
+      <div class="col-md-8 noPadding maxHeight paraDetailedDescContainer">
+        <div *ngIf="selectedParadetails" class="paraDetailedDesc maxheight">
+          <div class="btnGroup inline"  [ngClass]="{'enableOverlay':isFeedBackOn}">
+            <button id="paragraph" type="button" class="btn tabbedBtns activeTab" (click)="onTabClick('paragraph')"><span>Paragraph</span></button>
+            <button id="document" type="button" class="btn tabbedBtns inactiveTab pull-right" (click)="onTabClick('document')"><span>Document</span></button>
+          </div>
+
+          <button *ngIf="linkedCheckListId" id="addToChecklist" type="button" class="btn tabbedBtns addToChecklist pull-right" (click)="onBtnClick('openChecklist')" [ngClass]="{'enableOverlay':isFeedBackOn}">Open Checklist</button>
+          <button id="annotations" type="button" class="btn tabbedBtns annotations pull-right" [ngClass]="{'showAnnotation':!annotations,'hideAnnotation':annotations, 'enableOverlay':isFeedBackOn}" (click)="onBtnClick('annotations')"></button>
+          <div  *ngIf="linkedCheckListId && tag && paraView" class="pull-right inline">
+              <button *ngIf="!selectedParadetails.isTagged" type="button" class="btn tabbedBtns tagOff" (click)="tagParagraph()">
+                <i class="fa fa-bookmark-o"></i>&nbsp; Tag paragraph
+              </button>
+              <button *ngIf="selectedParadetails.isTagged" type="button" class="btn tabbedBtns tagOn" (click)="removeTag()">
+                <i class="fa fa-bookmark"></i>&nbsp; Remove tag
+              </button>
+          </div>
+
+          <div class="descPanel">
+              <div *ngIf="paraView">
+                <paragraph-view [docType]="filesForAnalysis[0].docType" [para]="tmp_selectedParadetails" [notes]="notes" [relPara]="selectedRelatedPara" (change)="paraContextClick($event)"></paragraph-view>
+              </div>
+              <div *ngIf="!paraView">
+                <div *ngIf="filesForAnalysis.length>0">
+                  <document-para-view [documents]="filesForAnalysis" [selectedPara]="tmp_selectedParadetails"></document-para-view>
+                </div>
+                <div *ngIf="filesForAnalysis.length==0" class="emptyBoxMsg">
+                  <h3>No files selected</h3>
+                </div>
+              </div>
+          </div>
+
+
+          <div *ngIf="currUser.role.roleId==1 || currUser.role.roleId==2">
+              <div *ngIf="!open" class="btn createChecklistBtn" (click)="newChecklist()" [ngClass]="{'enableOverlay':isFeedBackOn}">
+                <img src="../../assets/images/checklist.svg" class="checklist">&nbsp;&nbsp;
+                <span>Start Checklist</span> &nbsp;&nbsp;
+                <img src="../../assets/images/up-arrow-white-small.svg" class="up-arrow-white-small">
+                <div *ngIf="!open && tempAnalysisId && showDiscardOrSaveMsg" class="showDiscardOrSaveMsgStyle">
+                    <span>{{showDiscardOrSaveMsg}}</span>
+                </div>
+              </div>
+               
+              <div *ngIf="open" class="btn createChecklistBtn" (click)="rightbtnClick('full')">
+                <span>Editing Checklist</span> &nbsp;&nbsp;
+                <img src="../../assets/images/up-arrow-white-small.svg" class="up-arrow-white-small">
+              </div>
+
+              <div  id="checklistId" class="checklistPanel checklistSlider close">
+                <div class="panel-heading panelHead">
+                  <!-- <span class="ellipsis" contentEditable=true [textContent]="checklistName" (input)="checklistName=$event.target.textContent" data-text="Add checklist name"></span> -->
+                  <div class="rightbtns pull-right">
+                    <img  *ngIf="!open" src="../../assets/images/down-arrow-black.png" (click)="rightbtnClick('minimise')">
+                    <img src="../../assets/images/cross-checklist.png" (click)="rightbtnClick('close')">
+                  </div>
+                </div>
+                <div class="panel-body noPadding noPaddingTop">
+                  <new-checklist *ngIf="startChecklist"></new-checklist>
+                </div>
+              </div>
+          </div>
+
+        </div>
+      </div>
+
+
+  </div>
+  
+
+</div>
+<!--  -->
+<div class="paragraphExplorerFeedbackBtn" [ngClass]="{'enableBtn':isFeedBackOn}" (click)="feedbackClick()">Feedback mode
+    <span class="fa fa-toggle-on fa-lg" [ngClass]="{'activeFeedback':isFeedBackOn, '':!isFeedBackOn}"></span>
+</div>   
+<!--  -->

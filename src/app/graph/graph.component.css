@@ -1,0 +1,65 @@
+.btnGroup{
+    padding:0px 40px;
+}
+.typeBtns{
+    height: 25px;
+    min-width:50px;
+    border-radius: 100px;
+    border: solid 1px #cacfde;
+    font-family: Lato;
+    font-size: 12px;
+    color:#72778f;
+    padding:3px 10px 5px 10px;
+    margin-right:15px;
+    cursor:pointer;
+}
+.typeActive{
+    background-color: #5ace3d;
+    box-shadow: 0 2px 11px 0 rgba(0, 0, 0, 0.12);
+    color:white;
+}
+
+
+.graph{
+    display:block;
+    margin:30px 40px 10px 40px;
+    height: 82vh;
+    overflow: hidden;
+}
+.graph:hover{
+    overflow:overlay;
+}
+
+
+.bargraphStyle{
+    height:600px !important;
+}
+.piePane{
+    margin:5px; 
+    border:1px solid #cacfde;
+    padding:15px;
+}
+.piePane > p{
+    margin:10px 0px 0px 0px;
+    text-align:center;
+    font-family: Lato;
+    font-size: 14px;
+    font-weight: 100;
+    color: #475283;
+}
+
+.legend{
+    margin:0px 10px;
+}
+.legendbox{
+    height: 12px;
+    width: 35px;
+    margin: 0px;
+    vertical-align: middle;
+    border:1px solid lightgrey;
+}
+.legendText{
+    font-family: Lato;
+    font-size: 12px;
+    color:#475283;
+}

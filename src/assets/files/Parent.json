@@ -1,0 +1,4 @@
+[
+    {"id":"101","name":"Internal","type":"Regulation","parent":null},
+    {"id":"102","name":"External","type":"Regulation","parent":null}
+  ]

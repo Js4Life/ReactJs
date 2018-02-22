@@ -1,0 +1,89 @@
+<div class="my-container">
+    <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '0px' }"></ngx-loading>
+</div>
+
+<div class="container-fluid bgcl">
+    <div class="row height-26vh">
+        
+    </div>
+    <div class="row height-40vh">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+
+             <div class="logInDiv left-mar" *ngIf="showLogInDiv">
+                <p class="parabolelogo">Parabole</p>
+                <form #logInForm = "ngForm">
+                    <input type="text" placeholder = "Username" [(ngModel)]="loginForm.userId" class="UserNameStl" id="userName" name="userName">
+                    <input type="password" placeholder="Password" [(ngModel)]="loginForm.password" class="passwordStl" id="password" name="password">
+                    <div class="logInButton" (click)="login()">Log In</div>
+                </form>
+                <br/>
+                <p class="errorMsg">{{errorMessage}} </p>
+                <p class="Forgot-your-password inline" (click)="forgetPassword()">Forgot your password?</p>
+                <p class="registerLink inline pull-right" (click)="showRegister()">Register</p>
+            </div>
+
+            <div class="logInDiv left-mar" *ngIf="showForgetPasswordDiv">
+                <p class="Reset-password">Reset password</p>
+                <label class="Enter-the-email-addr">Enter the email address associated with<br>
+                     your account. We will email you a link to<br>
+                      reset your password</label>
+                <input type="text" placeholder="Enter email address" class="passwordStl">
+                <!-- <button class="logInButton" (click)="sendResetPasswordLink()"><label class="Send-reset-password">Send reset password link</label></button> -->
+                <div class="logInButton" (click)="sendResetPasswordLink()">Send reset password link</div>
+                <p class="Back-to-Log-In" (click)="backToLogIn()">Back to Log In</p>
+            </div>
+
+            <div class="logInDiv left-mar" *ngIf="showResetLinkDiv">
+                <p class="Reset-password">Reset password</p>
+                <label class="Enter-the-email-addr">We have emailed you a link to reset your<br>
+                    password. Please use it to create a new<br>
+                     password</label>
+                <!-- <button class="logInButton" (click)="returnToLogIn()"><label class="Send-reset-password">Return to Log In</label></button> -->
+                <div class="logInButton" (click)="returnToLogIn()">Return to Log In</div>
+            </div> 
+
+            <div class="logInDiv left-mar" *ngIf="showResetPasswordDiv">
+                <p class="Reset-password">Reset password</p>
+                <p class="Set-a-new-password">Set a new password</p>
+                <input type="password" placeholder="New Password" class="passwordStl">
+                <input type="password" placeholder="re-enter new Password" class="passwordStl">
+                <!-- <button class="logInButton" (click)="UpdatePassword()"><label class="Send-reset-password">Update password</label></button> -->
+                <div class="logInButton" (click)="UpdatePassword()">Update password</div>
+            </div> 
+
+            <div class="logInDiv left-mar" *ngIf="registerDiv">
+                <p class="Reset-password">Register</p>
+                <form #regForm = "ngForm">
+                    <input type="text" placeholder = "Name" [(ngModel)]="registerForm.name" class="registerInput" id="reg_Name" name="reg_Name" ngModel>
+                    <input type="text" placeholder = "Username" [(ngModel)]="registerForm.userId" class="registerInput" id="reg_userName" name="reg_userName" ngModel>
+                    <input type="password" placeholder="Password" [(ngModel)]="registerForm.password" class="registerInput" id="reg_password" name="reg_password" ngModel>
+                    <div class="dropdownPanel relative">
+                        <div class="selectStyle" (click)="roleListOpen=true">
+                            <p *ngIf="roleName" class="ellipsis inline">{{roleName}}</p>
+                            <p *ngIf="!roleName" class="ellipsis inline">Role</p>
+                            <span class="pull-right inline">
+                                <img src="../../assets/images/down-arrow-white@2x.png" class="down-arrow-white"/>
+                            </span>
+                        </div>
+                        <div *ngIf="roleListOpen" id="droplist" class="topArrowHead userDropPanel absolute">
+                            <p class="crossBtn" (click)="roleListOpen=false"><img src="../../assets/images/cross-checklist.png"/></p>
+                            <div *ngIf="!roleList || roleList.length==0" class="list-item-error">No Roles found</div>
+                            <div *ngFor="let role of roleList;let i=index" class="list-item" (click)="assignRole(i,role)">
+                                <label class="ellipsis">{{role.name}}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="errorMsg">{{errorMessage}} </p>
+                    <div class="logInButton" (click)="register()">Register</div>
+                </form>
+                <br/>
+                <p class="register-Back-to-Log-In" (click)="backToLogIn()">Back to Log In</p>
+            </div>  
+
+        </div>
+        <div class="col-md-4"></div>
+      </div>
+      <div class="row height-34vh">
+      </div>
+  </div>

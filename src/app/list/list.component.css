@@ -1,0 +1,42 @@
+.listPanel{
+    list-style: none;
+    text-align: left;
+    height: 74vh;
+    overflow: hidden;
+}
+.listPanel:hover{
+    overflow:overlay;
+}
+.listStyle {
+    margin:0px 0px 0px 20px;
+    padding: 11px 20px;
+    cursor:pointer;
+    font-family: Lato;
+    font-size: 14px;
+    text-align: left;
+    color: #475283;
+
+    height: 40px;
+    border-radius: 100px;
+    background-color: transparent;
+}
+.listStyle:hover{
+    /*background-color: #e2e4f5;*/
+    color:#21294d;
+}
+.listStyle > p > label{
+    width:90%;
+    margin:0px;
+    vertical-align: sub;
+}
+.active{
+    background-color: #e2e4f5;
+    font-weight: bold;
+    color: #21294d;
+}
+.addBtn{
+    margin-top:3px;
+}
+.folderOrFileImgStl{
+    padding: 0px 3px 5px 3px;
+}

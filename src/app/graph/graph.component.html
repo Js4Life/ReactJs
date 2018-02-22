@@ -1,0 +1,50 @@
+<div class="row noMargin">
+  <div class="btnGroup">
+
+    <div class="typeBtns inline" *ngFor="let type of typeBtns;let first=first" [ngClass]="{'typeActive':first}" (click)="typeClick(type.id,$event)">{{type.name}}</div>
+    <div class="pull-right">
+      <div *ngFor="let legend of labels" class="legend inline">
+        <label class="legendbox inline" [ngStyle]="{'background-color':legend.color}"></label>
+        <span *ngIf="legend.name=='newCount'" class="inline legendText">New</span>
+        <span *ngIf="legend.name=='inProgressCount'" class="inline legendText">In Progress</span>
+        <span *ngIf="legend.name=='pendingCount'" class="inline legendText">Pending</span>
+        <span *ngIf="legend.name=='completedCount'" class="inline legendText">Completed</span>        
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<div class="row noMargin graph" >
+
+    <div id="bargraph" *ngIf="graphType=='checklist'">
+        <canvas baseChart class="bargraphStyle"
+                [datasets]="items"
+                [labels]="groups"
+                [options]="barChartOptions"
+                [colors]="barColors"
+                [legend]="false"
+                [chartType]="'bar'"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)"></canvas>
+    </div>
+
+    <div  *ngIf="graphType=='context' || graphType=='componentType' || graphType=='businessSegment' || graphType=='product'">
+      <div class="col-md-4 noPadding"  *ngFor="let item of pieChartDataList">
+        <div class="piePane">
+          <canvas baseChart
+                  [data]="item.data.labelData"
+                  [labels]="item.data.labels"
+                  [chartType]="'doughnut'"
+                  [colors]="doughnutChartColors"
+                  [legend]="false"
+                  (chartHover)="piechartHovered($event)"
+                  (chartClick)="piechartClicked($event,item.checkListIds,item)"></canvas>
+          <p>{{item.name}}</p>
+                  
+        </div>
+      </div>
+    </div>
+
+</div>

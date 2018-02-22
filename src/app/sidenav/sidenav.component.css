@@ -1,0 +1,26 @@
+/*.sidenav{
+    background-color: lightgrey;
+    width:100%;
+    text-align: center;
+    height:100%;
+}
+.listgroup{
+    margin: 10px 0px;
+}
+.searchBtn{
+    padding:5px;
+}
+.searchInputStyle{
+    height:36px;
+        border-radius:0px;
+    border:1px solid lightgrey;
+}
+.uploadBtn{
+    margin:20px;
+    background: darkgrey;
+    color:white;
+    border-radius:0pc;
+    padding:10px 20px;
+    border:none;
+    width:80%;
+}*/

@@ -1,0 +1,13 @@
+<!--<div>
+<ckeditor [(ngModel)]="ckeditorContent"
+ [config]="{uiColor: '#000080 '}" 
+ [readonly]="false" debounce="500"></ckeditor>
+<div [innerHTML]="ckeditorContent"></div>
+</div>-->
+
+<div class="editorStyle" >
+    <ckeditor   [(ngModel)]="ckeditorContent"
+            [config]="config" 
+            [readonly]="false" debounce="500"></ckeditor>
+</div>
+<!--<div [innerHTML]="ckeditorContent"></div>-->

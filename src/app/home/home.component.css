@@ -1,0 +1,30 @@
+.welcomeTab{
+    display: table;
+    width: 100%;
+    margin-top: 200px;
+}
+.welcomeContainer{
+  text-align: center;
+  /* margin-left: 0 auto;
+  margin-right: 0 auto; */
+}
+.Welcome{
+    /* padding: 177px 0px 0px 515px;
+    width: 95px;
+    height: 24px; */
+    font-family: Lato;
+    font-size: 20px;
+    font-weight: 900;
+    /* text-align: left; */
+    color: #21294d;
+  }
+  .Get-started-by-selec{
+    /* padding: 15px 0px 0px 336px;
+    width: 454px; */
+    /* height: 19px; */
+    font-family: Lato;
+    font-size: 16px;
+    /* text-align: left; */
+    color: #21294d;
+  }
+

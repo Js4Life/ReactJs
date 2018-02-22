@@ -1,0 +1,210 @@
+.paraDetailsPane{
+    background-color: #f8f8fa;
+    /*background-color: #eee;*/
+    padding-top:35px;
+}
+.searchBtn{
+    height: 35px;
+    border-radius: 100px;
+    border: solid 1px #cacfde;
+    /*width:100%;*/
+    margin:0px 25px 20px 25px;
+}
+.search {
+  width: 12px;
+  height: 12px;
+}
+.searchInputStyle{
+    font-size: 12px;
+    text-align: left;
+    color: #72778f;
+    width:180px;
+
+    border:none;
+    background: transparent;
+    position:relative;
+    padding: 6px 15px 6px 0px;
+    box-shadow:none;
+}
+.searchInputStyle:focus{
+    box-shadow:none;
+}
+.addonStyle{
+    background: transparent;
+    border:none;
+    padding-left:30px;
+}
+.clear{
+    color: lightgrey;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    z-index: 10;
+    cursor:pointer;
+}
+
+
+
+.contextHeader{
+    padding:0px 25px;
+    /*padding:0px 25px;*/
+}
+.contextHeader > p{
+    font-weight: 900;
+    color: #475283;
+    margin: 15px 0px;
+    text-align: left;
+}
+.contextHeader > p > label{
+    color: #72778f;
+}
+
+
+
+
+
+.btnContainer{
+    list-style:none;
+    text-align: left;
+    margin:13px 0px 10px 0px;
+
+    font-family: Lato;
+    font-size: 12px;
+    color: #475283;
+}
+.btnContainer > li{
+    font-size: 11px;
+    display:inline-block;
+    padding:0px 10px 5px 0px;
+    cursor:pointer;
+}
+/*.grey{
+    color:#475283;
+}*/
+/*.active{
+    color:#636363;
+}*/
+
+
+.listContainer{
+    height:77%;
+    overflow:hidden;
+}
+.listContainer:hover{
+    overflow:overlay;
+}
+
+
+
+.items{
+    font-family: Lato;
+    font-size: 14px;
+    font-weight: 900;
+    text-align: left;
+    color: #475283;
+    
+    width: 100%;
+    padding: 12px 25px;
+    min-height:50px;
+    cursor:pointer;
+}
+.items:hover {
+    opacity:1;
+}
+.items:hover .deselectedCheckbox{
+    background:url(../../assets/zeplin/hover.png) no-repeat;
+}
+/*.items:hover .checkbox{
+    border: solid 2px #5ace3d;
+}*/
+.itemActive{
+    opacity:1;
+    background-color: #f0f2fa;
+}
+.itemInactive{
+    opacity:0.5;
+}
+.contextDetails{
+    display:inline-block;
+    width:85%;
+}
+.contextDetails > p {
+    margin-bottom:2px;
+}
+.contextDetails > p > label {
+    max-width:75%;
+    vertical-align: bottom;
+    margin:0px;
+}
+.contextDetails > p > span {
+    font-family: Lato;
+    font-size: 12px;
+    color: #8389a4;
+}
+.progress{
+    height:5px;
+    margin-bottom:0px;
+    box-shadow: none;
+}
+
+
+
+
+
+
+
+.searchBtn1{
+    height: 35px;
+    border-radius: 100px;
+    border: solid 1px #cacfde;
+    /*width:100%;*/
+    margin:0px 0px 20px 0px;
+}
+.contextHeader1{
+    padding:0px;
+    /*padding:0px 25px;*/
+}
+.items1{
+    font-family: Lato;
+    font-size: 14px;
+    font-weight: 900;
+    text-align: left;
+    color: #475283;
+    
+    width: 100%;
+    padding: 12px 0px;
+    min-height:50px;
+    cursor:pointer;
+}
+.items1:hover {
+    opacity:1;
+}
+.items1:hover .deselectedCheckbox{
+    background:url(../../assets/zeplin/hover.png) no-repeat;
+}
+/*.items:hover .checkbox{
+    border: solid 2px #5ace3d;
+}*/
+.itemActive1{
+    opacity:1;
+}
+.itemInactive1{
+    opacity:0.5;
+}
+.contextDetails1{
+    display:inline-block;
+    width:90%;
+}
+.contextDetails1 > p {
+    margin-bottom:2px;
+}
+.contextDetails1 > p > label {
+    max-width:85%;
+    vertical-align: bottom;
+    margin:0px;
+}
+.contextDetails1 > p > span {
+    font-family: Lato;
+    font-size: 12px;
+    color: #8389a4;
+}

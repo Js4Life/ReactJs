@@ -1,0 +1,315 @@
+/* You can add global styles to this file, and also import other style files */
+
+/*************************new styles********************************/
+.highlight{
+    color:black;
+}
+.search {
+    width: 12px;
+    height: 12px;
+}
+.down-arrow-dropdown{
+    width: 8.6px;
+    height: 4.3px;
+}
+.cross-checklist{
+    width: 10px;
+    height: 11px;
+}
+.cross{
+    width: 10px;
+    height: 11px;
+}
+.star{
+    width: 20px;
+  height: 20px;
+}
+.Hover {
+  width: 15px;
+  height: 14px;
+}
+.clicked{
+    width:20px;
+    height:20px;
+}
+/*checkbox*/
+.checkbox{
+    display:inline-block;
+        vertical-align: super;
+    margin: 0px 10px 0px 0px;
+    cursor:pointer;
+}
+.default{   
+    width: 16px;
+    height: 15px;
+    object-fit: contain;
+    border-radius: 2px;
+    border: solid 1px #cacfde;
+}
+.selected {
+  width: 16px;
+  height: 15px;
+  object-fit: contain;
+}
+.selectedCheckbox{
+    background:url(./assets/zeplin/selected.png) no-repeat;
+}
+.deselectedCheckbox{
+    background:url(./assets/zeplin/default.png) no-repeat;
+}
+
+
+.enableOverlay{
+    opacity:0.3;
+    pointer-events: none;
+}
+.activeFeedback{
+    color:#5ace3d !important;
+    /*-webkit-transform-origin: 0 100%;*/
+    -webkit-transform: rotate(180deg);
+    /*-moz-transform-origin: 0 100%;*/
+    -moz-transform: rotate(180deg);
+    /*-ms-transform-origin: 0 100%;*/
+    -ms-transform: rotate(180deg);
+    /*transform-origin: 0 100%;*/
+    transform: rotate(180deg);   
+}
+
+
+
+
+/***************************old styles*****************************/
+body{
+    overflow:auto;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+ 
+::-webkit-scrollbar-track {
+    background-color: transparent;
+    box-shadow: none;
+}
+ 
+::-webkit-scrollbar-thumb {
+    background-color: #eee; 
+}
+
+.opacity{
+    opacity:0.5;
+}
+
+
+
+/******when checkbox element used ***********/
+/*.checkbox{
+    -webkit-appearance: none;
+    background: transparent;
+    width: 14px;
+    height: 14px;
+    border-radius: 2px;
+    border: solid 2px #cacfde;
+}
+.checkbox:hover{
+    border: solid 2px #5ace3d;
+}
+.checkbox:active, .checkbox:checked:active {
+}
+
+.checkbox:checked {
+	background-color: #5ace3d;
+	border: 2px solid #5ace3d;
+	color: white;
+}
+.checkbox:focus{
+    outline:none;
+    box-shadow:none;
+}*/
+.ellipsis{
+    text-overflow: ellipsis;
+    overflow:hidden;
+    white-space:nowrap;
+}
+.navbar-right{
+    margin-right:0px;
+}
+.progress{
+    height:5px;
+    margin-bottom:0px;
+    box-shadow: none;
+}
+.disabled{
+    opacity:0.4;
+}
+
+.navbarStyle{
+    background:#636363;
+    border-radius:0px;
+    margin:0px;
+    height:50px;
+    border:none;
+}
+
+.noPadding{
+    padding-left:0px !important;
+    padding-right:0px !important;
+}
+.noPaddingTop{
+    padding-top:0px !important;
+}
+.noMargin{
+    margin:0px;
+}
+.noRightMargin{
+    margin-right:0px;
+}
+.inline{
+    display:inline-block;
+}
+.halfWidth{
+    width:50%;
+}
+.maxHeight{
+        height:100%;
+}
+.full-width{
+    width: 100%;
+}
+.rowMaxHeight{
+    height:100vh;
+}
+
+.colheight{
+    height:49em;
+}
+.horizontal{
+    overflow-x: hidden;
+    overflow-y:hidden;
+    white-space: nowrap;
+}
+
+
+.btnStyle{
+    border-radius:0px;
+    border:1px solid lightgrey;
+    color:lightgray;
+    width:100%;
+}
+.inputStyle{
+    border-radius:0px;
+    border:1px solid #cecbcb;
+}
+.grey{
+    color:grey;
+}
+.baseColor{
+    color:lightgray;
+}
+.dimColor{
+    color:darkgrey;
+}
+.relative{
+    position:relative;
+}
+.absolute{
+    position: absolute;
+}
+.fixed{
+    position: fixed;
+}
+.form-control:focus {
+    border-color: none;
+     box-shadow: none; 
+}
+.link{
+    cursor:pointer;
+}
+.link:hover{
+    color:black;
+}
+.hide{
+    display:none;
+}
+.emptyBoxMsg{
+    text-align:center;
+    margin-top:20%;
+    color:lightgrey;
+}
+.turnVisible{
+    visibility: visible !important;
+}
+
+
+
+
+.topArrowHead::before{
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    background: #cacfde;
+    width: 20px;
+    height: 11px;
+    clip-path: polygon(50% 0%, 100% 100%, 0% 100%, 0% 100%);
+}
+.topArrowHead::after {
+    content: '';
+    position: absolute;
+    top: -9px;
+    background: white;
+    width: 18px;
+    height: 10px;
+    clip-path: polygon(50% 0%, 100% 100%, 0% 100%, 0% 100%);
+}
+
+
+.downArrowHead::before{
+        content: '';
+    position: absolute;
+    top: 100%;
+    background: #cacfde;
+    width: 20px;
+    height: 11px;
+    clip-path: polygon(50% 100%, 50% 100%, 0% 0%, 100% 0%);
+}
+.downArrowHead::after {
+        content: '';
+    position: absolute;
+    top: 99%;
+    background: white;
+    width: 18px;
+    height: 10px;
+    clip-path: polygon(50% 100%, 50% 100%, 0% 0%, 100% 0%);
+}
+
+
+.leftArrowHead::before{
+        content: '';
+    position: absolute;
+    right: 100%;
+    background: #cacfde;
+    width: 10px;
+    height: 20px;
+    clip-path: polygon(100% 100%, 0% 50%, 100% 0%);
+    /*top:108px;*/
+}
+.leftArrowHead::after {
+        content: '';
+    position: absolute;
+    right: 99%;
+    background: white;
+    width: 12px;
+    height: 18px;
+    clip-path: polygon(100% 100%, 0% 50%, 100% 0%);
+    /*top:109px;*/
+}
+
+
+
+.highlight{
+    background-color:indianred;
+}
+.innerhtmlStyle{
+    padding: 10px 20px;
+    background-color: rgba(225, 228, 245, 0.5);
+}

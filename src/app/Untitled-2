@@ -1,0 +1,92 @@
+
+
+<div class = "bg-image">
+<nav class="navbar navbar-default navbar-fixed-top">
+<div class="container-fluid">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="#"><img src="../../assets/images/paraboleLogo.png"></a>
+</div>
+
+</div>
+</nav>
+
+<div class="container">
+<div class="row">
+<div class="col-md-3"></div>
+<div class="col-md-9">
+<div class="row loginForm centerAlign">
+
+<div class="modal-body">
+<div class="well">
+<ul class="nav nav-tabs" id="tabs">
+<li class="active"><a href="#login" data-toggle="tab"><b>Sign In</b></a></li>
+<!-- <li><a href="#create" data-toggle="tab"><b>Create Account</b></a></li>-->
+</ul>
+<div id="myTabContent" class="tab-content">
+<div class="tab-pane active in" id="login">
+<form #logInForm = "ngForm" class="admin-login-form"><br/>
+<fieldset>
+
+<div class="control-group">
+<!-- Username -->
+<div class="controls">
+    <label class="control-label">Username:
+    <input type="text" placeholder = "Username" [(ngModel)]="loginForm.name" class="form-control inputStyle" id="userName" name="userName" required ngModel>
+    </label>
+</div>
+</div>
+<br>
+<div class="control-group">
+<!-- Password-->
+<div class="controls">
+
+    <label class="control-label">Password:
+    <input type="password" placeholder="Password" [(ngModel)]="loginForm.password" class="form-control inputStyle" id="password" name="password" required ngModel>
+    </label>
+</div>
+
+
+</div>
+<br>
+<!--
+<div class="control-group">
+<div class="controls">
+    <label class="control-label">
+    <select class="form-control" [(ngModel)] = "loginForm.option" id="option" name="option" required ngModel>
+        <option *ngFor="let obj of options" [value]="obj.id" >{{obj.name}}</option>
+    </select>
+    </label>
+</div>
+
+</div>-->
+
+<br/>
+<div class="btn btnStyle" (click)="login()">Login</div>
+
+</fieldset>
+</form>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<!--<div class="col-md-2"></div>-->
+</div>
+
+
+</div>
+</div>
+<div id="sticky">
+<footer>Copyright &copy; 2017  Parabole LLC. All rights reserved.
+
+</footer>
+</div>
+

@@ -1,0 +1,198 @@
+
+.sidenav{
+    background-color: #21294d;
+    text-align: left; 
+}
+.brandName{
+    padding:22px 0px 23px 40px;
+    height:59px;
+    color:#f8f8fa;
+    font-weight:700;
+    border-bottom: solid 1px #505f8b;
+}
+.searchBox{
+    height:4vh;
+    border-bottom:1px solid lightgrey;
+    background:#eee;
+}
+.browse-documents {
+  font-family: Lato;
+  font-size: 10px;
+  font-weight: bold;
+  text-align: left;
+  color: #8990bc;
+
+  padding:0px 40px;
+
+}
+.fileExplorerFeedbackBtn{
+    border-radius: 100px;
+    border: solid 1px transparent;
+    height: 35px;
+    background:transparent;
+    position:absolute;
+    bottom:85px;
+    left:40px;
+    color:#8990bc;
+    text-align: left;
+    padding: 7px 31px;
+    font-size: 14px;
+    font-family: Lato;
+    cursor: pointer;
+    z-index:10;
+}
+.fileExplorerFeedbackBtn > span{
+    margin-left:20px;
+    color:#8990bc;
+}
+.enableBtn{
+    background:#21294d !important;
+}
+.signoutBtn{
+    border-radius: 100px;
+    border: solid 1px #505f8b;
+    height: 35px;
+    position:absolute;
+    bottom:40px;
+    left:40px;
+    right:40px;
+    color:#8990bc;
+    text-align: center;
+    padding: 8px;
+    font-size: 12px;
+    font-family: Lato;
+    cursor: pointer;
+}
+.signoutBtn:hover{
+    border: solid 1px #8990bc;
+    color:white;
+}
+.searchBtn{
+    height: 35px;
+    border-radius: 100px;
+    border: solid 1px #505f8b;
+
+    margin:20px 40px;
+}
+.searchInputStyle{
+    font-size: 12px;
+    text-align: left;
+    color: #8990bc;
+    /*width:180px;*/
+
+    border:none;
+    background: transparent;
+    position:relative;
+    padding: 6px 15px 6px 0px;
+    box-shadow:none;
+}
+.searchInputStyle:focus{
+    box-shadow:none;
+}
+.addonStyle{
+    background: transparent;
+    border:none;
+    padding-left:20px;
+}
+.item_user{
+    padding: 15px 31px 0px 31px;
+    font-family: Lato;
+    font-size: 14px;
+    text-align: left;
+    color: #8990bc;
+    border-left:9px solid transparent;
+}
+.listGroup{
+    padding:40px 0px;
+}
+.item{
+    padding: 15px 31px;
+    cursor:pointer;
+    font-family: Lato;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: left;
+    color: #e2e4f5;
+    border-left:9px solid transparent;
+}
+.item > label{
+    margin-bottom:0px;
+}
+.active{
+    background:#313d73;
+    color:#ffffff;
+    border-left:9px solid #5ace3d;
+}
+.border-right{
+    border-right:1px solid lightgrey;
+}
+
+.homeAndChecklistImgStl, .userImage{
+    padding:0px 11px 4px 0px;
+}
+.userImage{
+        height: 32px;
+    width: 40px;
+}
+
+.folderImgStl{
+    padding:0px 14px 6px 0px;
+}
+.listHeight{
+    height:86vh;
+}
+.hoverDiv{
+    width: 305.2px;
+    height: 139px;
+    background-color: #f6e365;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.23);
+    visibility: hidden;    
+    left:65%;
+    /* top:0; */
+    bottom: 37%;
+    z-index:20;
+    /* bottom: 100px; */
+
+    /* right: 50px;     */
+}
+.hoverDiv > label{
+    padding: 20px 0px 0px 35px;
+    /* width: 170px;
+    height: 19px; */
+    font-family: Lato;
+    font-size: 14px;
+    font-weight: 900;
+    line-height: 1.36;
+    text-align: left;
+    color: #21294d;
+}
+.hoverDiv > p{
+    padding: 0px 0px 5px 35px;
+     width: 260px;
+    /* height: 38px;  */
+    font-family: Lato;
+    font-size: 14px;
+    line-height: 1.36;
+    text-align: left;
+    color: #21294d;
+}
+.hoverDiv > span{
+    margin: 15px 0px 15px 35px;
+    padding: 5px;
+    width: 55px;
+    height: 25px;
+    font-size: 12px;
+    border-radius: 100px;
+    border: solid 1px #72778f;
+}
+#regulations:hover .hoverDiv{
+    visibility: visible;
+}
+#divOnHover::before {
+    top: 20px;
+    background-color: #f6e365;
+}
+#divOnHover::after {
+    top: 21px;
+    background-color: #f6e365;
+}

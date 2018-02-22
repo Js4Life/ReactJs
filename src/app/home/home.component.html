@@ -1,0 +1,22 @@
+<div class="my-container">
+    <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }">
+    </ngx-loading>
+</div>
+<div class="maxHeight welcomeTab" *ngIf="recentAnalysis && recentAnalysis.length==0">
+    <div class="welcomeContainer maxHeight"> 
+        <p class="Welcome">Welcome!</p>
+        <p class="Get-started-by-selec">Get Started by selecting the documents you would like to analyze.</p>
+        <img class="imagePadding" src="../../assets/images/home-new-user-illustration.png"/>
+        <div class="prettyprint">
+            <!-- <div class="centeredText">text here</div> -->
+        </div>
+    </div> 
+</div>
+<div *ngIf="recentAnalysis && recentAnalysis.length>0">
+      <div class="col-md-8 noPadding">
+        <app-analysis [recentAnalysis] = "recentAnalysis"></app-analysis>
+      </div>
+      <div class="col-md-4 noPadding">
+        <app-checklists></app-checklists>
+      </div>
+</div>

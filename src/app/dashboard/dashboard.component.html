@@ -1,0 +1,66 @@
+
+
+<div class="row noPadding noMargin rowMaxHeight relative">
+
+      <div class="sidenav col-md-2 maxHeight noPadding relative" [ngClass]="{'enableOverlay':isFeedBackOn}">
+            <div class="row noMargin">
+                  <div class="brandName">
+                  Parabole
+                  </div>
+            </div>
+            <div class="row noMargin">
+                  <div class="item_user">
+                        <label>
+                              <img class="userImage" src="../../assets/images/user-selected.png">
+                              {{user.name}}
+                        </label>
+                  </div>
+            </div>
+            <div class="row noMargin">
+                  <div class="listGroup">
+                        <div id="generalOptions" class="row noMargin">
+                              <div class="item" id="{{item.id}}" *ngFor="let item of navOptions;let first=first" (click)="onNavClick(item,$event)">
+                                    <img class="homeAndChecklistImgStl" src="../../assets/images/default.png" *ngIf="item.name=='Home'">
+                                    <img class="homeAndChecklistImgStl" src="../../assets/images/default.svg" *ngIf="item.name=='Checklists'">
+                                    {{item.name}}
+                              </div>
+                        </div>
+                        <hr style="border-top:1px solid #505f8b;margin:20px 40px;">
+                        <p class="browse-documents">BROWSE DOCUMENTS:</p>
+                        <div class="row noMargin">
+                              <div class="input-group searchBtn">
+                                    <span class="input-group-addon addonStyle">
+                                    <img src="../../assets/images/search.png" class="search"/>
+                                    </span>
+                                    <input type="text" class="form-control searchInputStyle" placeholder="Search by file name" [ngModel]="searchText" (keyup)="search(searchText=$event.target.value)">
+                              </div>
+                        </div>
+                        <div id="regulations" class="row noMargin">
+                              <!-- <span class="hint--right hint--medium full-width" aria-label="select the file(s) you want to analyze"> -->
+                                    <div class="item" *ngFor="let item of parentFiles" (click)="selectRegulation(item,$event)">
+                                    <!-- <span class="fa fa-folder"></span>&nbsp;&nbsp; -->
+                                    <img class="folderImgStl" src="../../assets/images/folder.png">
+                                    {{item.name}}
+                        
+                                    </div>
+                              <!-- </span> -->
+                               <div id="divOnHover" class="hoverDiv absolute leftArrowHead">
+                                    <label>Find documents to analyze</label>
+                                    <p>Use the file directry to browse and select the file(s) you want to analyze</p>
+                                    <span>Okay</span>
+                              </div> 
+                        </div>
+                        
+                  </div>
+            </div>   
+            <div class="signoutBtn" (click)="signOut()">Sign out</div>      
+      </div>
+
+      <div class="fileExplorerFeedbackBtn" [ngClass]="{'enableBtn':isFeedBackOn}" (click)="explorerFeedbackClick()">Feedback mode
+            <span class="fa fa-toggle-on fa-lg" [ngClass]="{'activeFeedback':isFeedBackOn, '':!isFeedBackOn}"></span>
+      </div>   
+      
+      <div class="col-md-10 noPadding horizontal maxHeight">
+            <router-outlet ></router-outlet>
+      </div>
+</div>

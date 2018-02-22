@@ -1,0 +1,263 @@
+<div class="my-container">
+    <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '0px' }"></ngx-loading>
+</div>
+<div class="homeBackground relative">
+    
+        <div class="row noMargin" [ngClass]="{'enableOverlay':isFeedBackOn}">
+            <div class="hierarchyPanel grey">
+                <div *ngFor="let data of hierarchy;let last=last;let idx=index" class="hierarchyItem inline">
+                    <img class="folderOrFileImgStl" src="../../assets/images/folder-small.png" *ngIf="!data.folderID">
+                    <img src="../../assets/images/group-12.png" *ngIf="data.folderID">    
+                    <label class="data_nameStl" (click)="navigateHierarchy(data.id,data)">{{data.name}} </label>
+                    <img *ngIf="!last" src="../../assets/images/down-arrow-black.png" class="right_arrow">
+                </div>
+                <div class="pull-right inline folderOptions" (click)="onNewFolderClick()">
+                    <img class="uploadAndNewFolder_fileImgStl" src="../../assets/images/new_folder.png">    
+                    <label class="uploadAndNewFolder_labelStl">New Folder</label>
+                </div>
+                <div class=" pull-right inline">
+                    <div class="folderOptions" (click)="onUploadFilesClick()">
+                        <img class="uploadAndNewFolder_fileImgStl" src="../../assets/images/upload_files.png">    
+                        <label class="uploadAndNewFolder_labelStl">Upload Files</label>
+
+                    </div>
+                    <!-- <input type="file" multiple (change)="updateUploadUrl($event)"/> -->
+
+                </div>
+
+                <div id="uploadFileId" *ngIf="isUploadFilesClicked" class="absolute uploadFileDiv topArrowHead">
+                    <p class="Upload-files-from">upload files from</p>
+                    <div class="noMargin localDiv" (click)="fileSelectionTabClick('local',$event)">
+                        <img class="inline" src="../../assets/images/upload-computer.png">
+                        <label class="noMargin inline">Your computer local</label>
+                    </div>
+                    <div class="noMargin sharepointDiv" (click)="fileSelectionTabClick('share',$event)">
+                        <img class="inline" src="../../assets/images/upload-sharepoint.png">
+                        <label class="noMargin">Sharepoint</label>
+                    </div>
+                    <div class="noMargin networkDiv" (click)="fileSelectionTabClick('network',$event)">
+                        <img class="inline" src="../../assets/images/upload-network.png">
+                        <label class="noMargin">Network</label>
+                    </div>
+                </div>
+
+                <div *ngIf="filesUploadController=='local'" class="noMargin absolute localFileUploadDiv">
+                    <div class="upload-btn-wrapper">
+                        <div class="regular-fileDiv">
+                            <img class="inline" src="../../assets/images/document-regular.png">
+                            <label class="noMargin inline">Upload regular files</label>    
+                        </div>
+                        <input type="file" multiple (change)="updateUploadUrl($event,'local')"/>
+                    </div>
+                    
+                    <div class="upload-btn-wrapper">
+                        <div class="scanned-fileDiv">
+                            <img class="inline" src="../../assets/images/document-scanned.png">
+                            <label class="noMargin inline">Upload scanned files</label>    
+                        </div>
+                        <input type="file" multiple (change)="updateUploadUrl($event,'scanned')"/>
+                    </div>     
+                </div>
+
+                <div *ngIf="selectAnalysisMsg" class="btn pull-right selectAnalysisMsgStl">{{selectAnalysisMsg}}</div>
+            </div>
+        </div>
+
+        <div class="row noMargin middleRow" (click)="onClickOutside($event)">
+
+
+            <div class="col-md-3 fileList noPadding maxHeight"  [ngClass]="{'enableOverlay':isFeedBackOn}">
+                <p class="domainName ellipsis">
+                    <img src="../../assets/images/folder-small@2x.png" style="padding-bottom:7px;" (click)="navigateHierarchy(lastDomain.parentFolderId)">
+                    <label style="padding-left:10px;">{{lastDomain.name}}</label>
+                </p>
+
+                <div *ngIf="newFolder" class="input-group newFolderInput">
+                    <span class="input-addon"><img src="../../assets/images/folder.png"></span>
+                    <input type="text" placeholder="Enter folder name" [(ngModel)]="newFolderName" (blur)="addNewFolder()">
+                </div>
+                
+                
+                <list [data]="drilldownData" (change)="fileChangeDetector($event)"></list>
+
+                
+                <div *ngIf="selectedFilesForAnalysis.length>0" class="selectedfilesDetails Relative" (click)="selectAddedFiles($event)" >
+                    <span class="inline">{{selectedFilesForAnalysis.length}} File(s)</span>
+                    <span class="inline ellipsis"><span *ngFor="let con of selectedContexts;let last=last">{{con.contextName}}<span *ngIf="!last">, </span></span></span>
+                    <img *ngIf="!last" src="../../assets/images/down-arrow-white.png" class="right_arrow_white inline pull-right">
+                    
+                    <div class="fileHoverDiv">
+                        <p>{{selectedFilesForAnalysis.length}} File(s):Ready To Analyze</p>
+                        <div *ngFor="let files of selectedFilesForAnalysis">
+                            <label class="comparedFileNames ellipsis">{{files.name}}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="!drilldownData.folderList && !drilldownData.documentList"  [ngClass]="{'enableOverlay':isFeedBackOn}" class="col-md-9  maxHeight">
+                <div class="emptyFolderMsg">
+                    <img class="NoFileUploaded" src="../../assets/images/empty-folder.png"/><br/>
+                    <label class="folderEmpty">This folder is empty.</label>
+                    <!--<div class="upload-btn-wrapper">
+                        <div class="uploadFromComputer">
+                            <img class="uploadAndNewFolder_fileImgStl" src="../../assets/images/upload_files.png">    
+                            <label class="uploadAndNewFolder_labelStl">Upload from computer</label>
+                        </div>
+                        <input type="file" name="files" (change)="updateUploadUrl($event)"/>
+                    </div>-->
+                </div>
+            </div>
+
+            <div *ngIf="!showDocumentDetails" class="col-md-9 emptyMsg maxHeight relative" [ngClass]="{'enableOverlay':isFeedBackOn}">
+                <img class="NoFileSelected" src="../../assets/images/no-file-selected.png"/>
+                <p class="Welcome">Select a document to preview</p>
+
+            </div>
+
+
+            <div *ngIf="showDocumentDetails" class="col-md-5 documentPanel maxHeight" [ngClass]="{'enableOverlay':isFeedBackOn}">
+                <div class="pdfContainer maxHeight">
+                    <div class="modal fade modalStyle" id="myModal" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-body" style="text-align:left">
+                                    <p class="delete_fileStyle">Delete this file?</p>
+                                    <p class="delNoteStyle">deleted files cannot be recovered</p>
+                                    <label class="delBtnStyle">Delete</label>
+                                    <label data-dismiss="modal" class="cancelbutton" (click)="showMoveDelChildDiv()">cancel</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <div class="iframeStyle1">
+                        <img class="iframeImg1" src="{{pageImg}}"/>
+                    </div>
+                    <div class="navigationBtns">
+                        <i [ngClass]="{'disabled':pageNo==1}" class="fa fa-caret-left fa-lg" (click)="pdfPageNavigate('prev')"></i>
+                        <label>Page {{pageNumber}} of {{currentFile.numPages}}</label>
+                        <i [ngClass]="{'disabled':pageNo==currentFile.numPages}" class="fa fa-caret-right fa-lg" (click)="pdfPageNavigate('next')"></i>
+                    </div>  
+                </div>
+
+                <div class="documentName">
+                    <span *ngIf="currentFile.name" class="ellipsis inline">{{currentFile.name}}</span>
+                    <div *ngIf="!currentFileAdded" class="inline Relative pull-right"> <img class="move_deleteParent" src="../../assets/images/hover.png" (click)="ismovedeldivclicked=!ismovedeldivclicked"> 
+                        <div *ngIf="ismovedeldivclicked" class="movedelchild downArrowHead">
+                             <div><img class="moveImgStyle" src="../../assets/images/m-ove.png">Move</div>
+                             <div data-toggle="modal" data-target="#myModal"><img class="moveImgStyle" src="../../assets/images/delete.png">Delete</div>
+                        </div>
+                    </div>
+                </div>     
+                
+                <p class="documentMeta">{{currentFile.numPages}} PAGES</p>
+                <p *ngIf="fromAddedFiles" class="selectedFilesMeta">
+                    <img src="../../assets/HomeImages/down-arrow-black.png" (click)="navigateToAddedFiles('prev')" class="pageNavigateBackBtn"> &nbsp;&nbsp;&nbsp;&nbsp;
+                    File {{selectedFileIdx+1}}/{{selectedFilesForAnalysis.length}}&nbsp;&nbsp;&nbsp;&nbsp;
+                    <img src="../../assets/images/down-arrow-black.png" (click)="navigateToAddedFiles('next')" class="pageNavigateNextBtn"> 
+                </p>
+
+                <div *ngIf="!fromAddedFiles" class="footerBtnWrapper">
+                    <div *ngIf="currentFileAdded" class="btn WhiteFooterBtn" (click)="removeFile(currentFile)">Remove</div>
+                    <div  *ngIf="!currentFileAdded">
+                        <div class="btn WhiteFooterBtn" (click)="addFile(currentFile)">Add to compare</div>
+                        <div class="btn footerBtn" (click)="doneSelection()">Start analysis</div>
+                    </div>
+                </div>
+                <div *ngIf="fromAddedFiles" class="footerBtnWrapper">
+                    <div class="btn footerBtn" (click)="doneSelection()">Start analysis</div>
+                    <div class="btn WhiteFooterBtn" (click)="removeFile(currentFile)">Remove this file</div>
+                    <div class="btn WhiteFooterBtn" (click)="removeAllFile()">Remove all files</div>
+                </div>
+            </div>
+
+
+            <div  *ngIf="showDocumentDetails" class="col-md-4 noPadding maxHeight">
+                    <div class="contextContainer maxHeight">
+
+                        <div *ngIf="!isFeedBackOn" class="maxHeight">
+                            <div class="labelStyle">
+                                <label class="rightPanelBtnActive contextsBtns" (click)="onRightOptClick('contexts',$event)">Contexts</label>
+                                <label class="rightPanelBtnInactive contextsBtns" (click)="onRightOptClick('glossary',$event)">Glossary</label>
+                                <label *ngIf="selectedVocabList.length>0" class="rightPanelBtnInactive contextsBtns" (click)="onRightOptClick('cde',$event)">CDE</label>
+                            </div>
+                            <hr class="noMargin">
+                            <div *ngIf="showContexts && !showVocabDetails" class="innerContextCont maxHeight">
+                                <contexts [lists]="allContextsByDoc" [isOverlay]="false" (change)="contextChange($event)"></contexts>
+                            </div>
+                            <div *ngIf="!showContexts && !showVocabDetails" class="glossaryCont maxHeight">
+                                <glossary [lists]="currentFile.glossaryList" [fileId]="currentFile.id" ></glossary>
+                            </div>
+                            <div *ngIf="(showContexts || !showContexts) && showVocabDetails" class="maxHeight">
+                                    <div class="VocabNameStyle">
+                                        <div *ngFor="let voc of selectedVocabList;let first=first" class="rightPanelBtnInactive contextsBtns inline" [ngClass]="{'rightPanelBtnActive':(first)}" (click)="onVocabTabClick(voc,$event)">
+                                            <label>{{voc.name}}</label>
+                                        </div>
+                                    </div>
+                                    <hr class="noMargin">
+                                    <br>
+                                    <div class="glossaryCont maxHeight">
+                                        <div *ngIf="oneHopAdjacency" class="row noMargin">
+                                            <label class="VocabTopics">one Hop Adjacency</label>
+                                            <div class="row noMargin VocabDetailsStl">
+                                                <p *ngFor="let one of oneHopAdjacency">{{one}}</p>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="twoHopAdjacency" class="row noMargin">
+                                            <label class="VocabTopics">Two Hop Adjacency</label>
+                                            <div class="row noMargin VocabDetailsStl">
+                                                <p *ngFor="let two of twoHopAdjacency">{{two}}</p>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="semanticRelevance" class="row noMargin">
+                                            <label class="VocabTopics">Semantic Relevance</label>
+                                            <div class="row noMargin VocabDetailsStl">
+                                                <p *ngFor="let sem of semanticRelevance">{{sem}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+
+                        <div class="feedbackContextPanel maxHeight" *ngIf="isFeedBackOn">
+                            <p>Context Accuracy</p>
+                            <p>Is the context analysis for this document accurate?</p>
+                            <div class="listContainer">
+                                <div id="{{i}}Pane" class="feedbackRowItems items1 relative" *ngFor="let list of feedbackContextsList;let i = index">
+                                    <div class="contextDetails1">
+                                        <p ><label class="ellipsis">{{list.contextName}}</label>
+                                            <span>{{list.value}}</span>
+                                            <span class="checkBtns badge pull-right" [ngClass]="{'activeCheckBtns':list.isAccurate=='no'}" (click)="feedbackCheck(list,'no',i)"><i class="fa fa-times"></i></span>
+                                            <span class="checkBtns badge pull-right" [ngClass]="{'activeCheckBtns':list.isAccurate=='yes'}" (click)="feedbackCheck(list,'yes',i)"><i class="fa fa-check"></i></span>
+                                        </p>
+                                        <div class="progress">
+                                            <div class="progress-bar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{ 'width':list.value,'background-color':list.color }">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="inaccurateReason absolute topArrowHead">
+                                        <p>Why is this context inaccurate?<span class="pull-right fa fa-times" (click)="cancelFeedback(i)"></span></p>
+                                        <div class="btn-group" >
+                                            <button type="button" *ngFor="let li of inaccuracyReasonsList" class="btn reasonBtn" (click)="reasonClick(li.name,$event,list,i)">{{li}}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="extraInfoPanel relative">
+                                <p>Missing contexts <span class="fa fa-question-circle-o fa-lg">
+                                    <div class="infoHoverPanel absolute">
+                                        <p>{{feedbackInfoText}}</p>
+                                    </div>
+                                </span></p>
+                                <p>Are there any contexts this document addresses, that we missed?</p>
+                                <textarea class="feedbackTextArea"></textarea><br/>
+                                <div class="btn WhiteFooterBtn">Done</div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+            </div>
+        </div>
+</div>
