@@ -1,0 +1,303 @@
+
+
+<div class="wrapper">
+    <div class="main-panel device-details" >
+        <app-navbar></app-navbar>
+
+        <div class="main-content">
+                <div class="container-fluid">
+                    <div class="row" *ngIf="deviceData">
+
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="card card-stats">
+                                <div class="card-header" data-background-color="orange">
+                                    <i class="material-icons">content_copy</i>
+                                </div>
+                                <div class="card-content">
+                                    <p class="category">{{deviceData.name}}</p>
+                                    <h3 class="title">
+                                        <small>{{deviceData.status}}</small>
+                                    </h3>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons text-danger">warning</i>
+                                        <a href="#pablo">Get More Space...</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="card card-stats">
+                                <div class="card-header" data-background-color="blue">
+                                    <!-- <i class="material-icons">opacity</i> -->
+                                    <i class="fa fa-tint"></i>
+                                </div>
+                                <div class="card-content">
+                                    <p class="category">Humidity</p>
+                                    <h3 class="title">{{deviceData.humidity}} %</h3>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons">update</i> Just Updated
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="card card-stats">
+                                <div class="card-header" data-background-color="green">
+                                    <i class="fa fa-bolt"></i>
+                                </div>
+                                <div class="card-content">
+                                    <p class="category">Current</p>
+                                    <h3 class="title">{{deviceData.current}} </h3>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons">update</i> Just Updated
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="card card-stats">
+                                <div class="card-header" data-background-color="green">
+                                    <i class="material-icons">line_weight</i>
+                                </div>
+                                <div class="card-content">
+                                    <p class="category">load</p>
+                                    <h3 class="title">{{deviceData.load}} </h3>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons">update</i> Just Updated
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="card card-stats">
+                                <div class="card-header" data-background-color="green">
+                                    <i class="material-icons">settings_power</i>
+                                </div>
+                                <div class="card-content">
+                                    <p class="category">power</p>
+                                    <h3 class="title">{{deviceData.power}} </h3>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons">update</i> Just Updated
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="card card-stats">
+                                <div class="card-header" data-background-color="yellow">
+                                    <i class="material-icons">sync</i>
+                                </div>
+                                <div class="card-content">
+                                    <p class="category">Speed RPM</p>
+                                    <h3 class="title">{{deviceData.speed_rpm}} </h3>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons">update</i> Just Updated
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="card card-stats">
+                                <div class="card-header" data-background-color="orange">
+                                    <!-- <i class="material-icons">store</i> -->
+                                    <i class="fa fa-thermometer-three-quarters"></i>
+                                </div>
+                                <div class="card-content">
+                                    <p class="category">Temperature</p>
+                                    <h3 class="title">{{deviceData.temperature}} </h3>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons">update</i> Just Updated
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="card card-stats">
+                                <div class="card-header" data-background-color="green">
+                                    <i class="material-icons">code</i>
+                                </div>
+                                <div class="card-content">
+                                    <p class="category">voltage</p>
+                                    <h3 class="title">{{deviceData.voltage}} </h3>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons">update</i> Just Updated
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            <!--
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header card-chart" >
+                            </div>
+                            <div class="card-content">
+                                <div class="ct-chart" id="dailySalesChart" data-background-color="green"></div>
+                                <h4 class="title">Daily Efficiency</h4>
+                                <p class="category">
+                                    <span class="text-success">
+                                        <i class="fa fa-long-arrow-up"></i> 5% </span> increase in today's efficiency.</p>
+                            </div>
+                            <div class="card-footer">
+                                <div class="stats">
+                                    <i class="material-icons">access_time</i> updated 4 minutes ago
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                           <div class="card-content">
+                                <div echarts [options]="chartOption" class="demo-chart"></div>
+                                <h4 class="title">Daily Efficiency</h4>
+                                <p class="category">
+                                    <span class="text-success">
+                                        <i class="fa fa-long-arrow-up"></i> 5% </span> increase in today's efficiency.</p>
+                            </div>
+                            <div class="card-footer">
+                                <div class="stats">
+                                    <i class="material-icons">access_time</i> updated 4 minutes ago
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <div class="col-md-6">
+                        <div class="card">
+                            <!-- <div class="card-header card-chart" >
+                    </div> -->
+                            <div class="card-content">
+                                <div echarts [options]="newChartOption" class="demo-chart" *ngIf="newChartOption"></div>
+                                <h4 class="title">Sensors data</h4>
+                                <p class="category">
+                                    <span class="text-success">
+                                        <i class="fa fa-long-arrow-up"></i>
+                                    </span> Place holder -- Sensor data.</p>
+                            </div>
+                            <div class="card-footer">
+                                <div class="stats">
+                                    <i class="material-icons">access_time</i> updated 4 minutes ago
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-12">
+                        <div class="card">
+                            <div class="card-header" data-background-color="orange">
+                                <h4 class="title">Inspection Chart</h4>
+                                <p class="category">status on 15th September, 2016</p>
+                            </div>
+                            <div class="card-content table-responsive">
+                                <table class="table table-hover">
+                                    <thead class="text-warning">
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Name</th>
+                                            <th>Time</th>
+                                            <th>Comment</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Dakota Rice</td>
+                                            <td>Today Noon</td>
+                                            <td>To start the investigation of the mass–spring–damper assume the damping is negligible and
+                                                that there is no external force applied to the mass (i.e. free vibration). The force
+                                                applied to the mass by the spring is proportional to the amount the spring is stretched
+                                                "x" (assuming the spring is already compressed due to the weight of the mass). The proportionality
+                                                constant, k, is the stiffness of the spring and has units of force/distance (e.g. lbf/in
+                                                or N/m). The negative sign indicates that the force is always opposing the motion of
+                                                the mass attached to it: displaystyle F_s=-kx.! F_s=- k x. !
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>Minerva Hooper</td>
+                                            <td>Today Morning</td>
+                                            <td>The force generated by the mass is proportional to the acceleration of the mass as given
+                                                by Newton’s second law of motion: displaystyle Sigma F=ma=mddot x=mfrac d^2xdt^2. Sigma
+                                                F = ma = m ddotx = m fracd^2xdt^2. The sum of the forces on the mass then generates this
+                                                ordinary differential equation: displaystyle mdot x+kx=0. m dotx + k x = 0.
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Sage Rodriguez</td>
+                                            <td>Yesterday Noon</td>
+                                            <td>Assuming that the initiation of vibration begins by stretching the spring by the distance
+                                                of A and releasing, the solution to the above equation that describes the motion of mass
+                                                is: displaystyle x(t)=Acos(2pi f_nt)! x(t) = A cos (2 pi f_n t). !
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>Philip Chaney</td>
+                                            <td>Yesterday Morning</td>
+                                            <td>This solution says that it will oscillate with simple harmonic motion that has an amplitude
+                                                of A and a frequency of fn. The number fn is called the undamped natural frequency. For
+                                                the simple mass–spring system, fn is defined as: displaystyle f_n=1 over 2pi sqrt k over
+                                                m! f_n = 1over 2 pi sqrtk over m!
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                            <div class="card">
+                                <div class="card-header" data-background-color="orange">
+                                    <h4 class="title">Location Maps</h4>
+                                    <p class="category">location pin Google Maps</p>
+                                </div>
+                                <div class="card-content table-responsive">
+
+                                    <agm-map [latitude]="lat" [longitude]="lng" *ngIf="lat && lng">
+                                        <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+                                      </agm-map>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+
+
+
+    </div>
+</div>

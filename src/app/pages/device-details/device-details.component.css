@@ -1,0 +1,11 @@
+.demo-chart {
+    height: 400px;
+  }
+
+agm-map {
+    height: 300px;
+}
+
+.device-details{
+    width: calc(100%);
+}
